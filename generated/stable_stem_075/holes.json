@@ -1,0 +1,12 @@
+{
+  "id": "stable_stem_075",
+  "module": "HomotopyGroups.StableStems",
+  "holes": [
+    {
+      "name": "HomotopyGroups.StableStems.stable_stem_075",
+      "basename": "stable_stem_075",
+      "kind": "theorem",
+      "body": "/--\nStable stem 75, represented by pi_152(S^77).\nThe equality q = 2n - 2 places this representative in the Freudenthal stable range.\nPublished integral group: Z/6 x Z/72.\nSources: iwx2023 Table 1, stem 75: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)\n-/\ntheorem stable_stem_075 :\n    Nonempty\n      (\u03c0_ 152 (StableSphere 77) (stableSphereBasepoint 77) \u2243*\n        Multiplicative (ZMod 6 \u00d7 (ZMod 72))) := by\n  sorry"
+    }
+  ]
+}

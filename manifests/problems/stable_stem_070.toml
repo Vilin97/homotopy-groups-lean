@@ -1,0 +1,8 @@
+id = "stable_stem_070"
+title = "Stable stem 70: pi_142(S^72)"
+test = false
+module = "HomotopyGroups.StableStems"
+holes = ["stable_stem_070"]
+submitter = "homotopy-groups-lean research registry"
+source = "bix2025 Section 1.2: https://link.springer.com/article/10.1007/s42543-025-00098-y (DOI https://doi.org/10.1007/s42543-025-00098-y); iwx2023 Table 1, stem 70: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)"
+notes = "knowledge_status=known_result/exact Stable representative pi_142(S^72) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/4. Generated from research/stable-stems.json registry 2026-08-07.1. Applies the published 2025 correction to the erroneous IWX 2023 2-primary v1-torsion entry."

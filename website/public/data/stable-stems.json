@@ -1,0 +1,3416 @@
+{
+  "caveats": [
+    "This registry records abstract additive groups, not named generators, products, Toda brackets, Adams filtrations, or spectral-sequence representatives.",
+    "Rows 84, 85, 86, and 90 are not exact. Each alternative is a complete integral group, including all known odd-primary and v1-periodic summands.",
+    "Do not reconstruct rows 70, 71, 82, or 83 from IWX 2023 alone; the 2025 source corrects or completes them.",
+    "Primary decompositions are canonical for finite abelian groups. Integral invariant factors are derived mechanically from them and are included for comparator-friendly equality."
+  ],
+  "coverage": {
+    "exact_stems": "0-83 and 87-89",
+    "first_stem": 0,
+    "last_stem": 90,
+    "non_exact_stems": [
+      84,
+      85,
+      86,
+      90
+    ],
+    "row_count": 91
+  },
+  "definition": "pi_k^S = colim_n pi_{n+k}(S^n), using the homotopy-group grading convention.",
+  "registry_version": "2026-08-07.1",
+  "representation": {
+    "empty_group": "free_rank 0 with no primary summands and no torsion invariant factors is the trivial group.",
+    "integral_decomposition": "Z^free_rank direct-sum C_d1 direct-sum ... direct-sum C_dr, where torsion_invariant_factors=[d1,...,dr] and d_i divides d_(i+1).",
+    "primary_decomposition": "A map from a prime p to the sorted cyclic orders of the p-primary summands. Example: {\"2\":[2,8],\"3\":[3]} means C2 direct-sum C8 direct-sum C3.",
+    "torsion_order": "A decimal string, avoiding JSON integer-width ambiguity. It is the order of the torsion subgroup; it is 1 for a torsion-free or trivial group."
+  },
+  "schema_version": "1.0.0",
+  "sources": [
+    {
+      "citation": "Daniel C. Isaksen, Guozhen Wang, and Zhouli Xu, Stable homotopy groups of spheres: from dimension 0 to 90, Publications mathematiques de l'IHES 137 (2023), 107-243.",
+      "doi": "10.1007/s10240-023-00139-1",
+      "pdf_url": "https://www.numdam.org/item/10.1007/s10240-023-00139-1.pdf",
+      "peer_reviewed": true,
+      "registry_use": "Table 1 is the base registry. Its notation n^j means j copies of C_n. It explicitly lists alternatives beginning in stem 84.",
+      "source_id": "iwx2023",
+      "url": "https://www.numdam.org/articles/10.1007/s10240-023-00139-1/",
+      "version": "version of record; Online First 2023-05-04; volume publication 2023-06-28"
+    },
+    {
+      "citation": "Robert Burklund, Daniel C. Isaksen, and Zhouli Xu, Classical Stable Homotopy Groups of Spheres via F_2-Synthetic Methods, Peking Mathematical Journal (2025).",
+      "doi": "10.1007/s42543-025-00098-y",
+      "peer_reviewed": true,
+      "registry_use": "Section 1.2 corrects the 2-primary v1-torsion in stems 70 and 71. Theorem 1.1 completes the 2-primary components in stems 82 and 83.",
+      "source_id": "bix2025",
+      "url": "https://link.springer.com/article/10.1007/s42543-025-00098-y",
+      "version": "version of record, published 2025-04-11"
+    }
+  ],
+  "stems": [
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 1,
+          "torsion_invariant_factors": []
+        },
+        "primary_decomposition": {},
+        "torsion_order": "1"
+      },
+      "is_exact": true,
+      "note": "The stable degree group: pi_0^S is infinite cyclic.",
+      "source_refs": [
+        {
+          "locator": "Introduction and definition of stable stems",
+          "scope": "The degree identification gives pi_0^S = Z.",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 0
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2
+          ]
+        },
+        "torsion_order": "2"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 1",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 1
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2
+          ]
+        },
+        "torsion_order": "2"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 2",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 2
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            24
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            8
+          ],
+          "3": [
+            3
+          ]
+        },
+        "torsion_order": "24"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 3",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 3
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": []
+        },
+        "primary_decomposition": {},
+        "torsion_order": "1"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 4",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 4
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": []
+        },
+        "primary_decomposition": {},
+        "torsion_order": "1"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 5",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 5
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2
+          ]
+        },
+        "torsion_order": "2"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 6",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 6
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            240
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            16
+          ],
+          "3": [
+            3
+          ],
+          "5": [
+            5
+          ]
+        },
+        "torsion_order": "240"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 7",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 7
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2
+          ]
+        },
+        "torsion_order": "4"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 8",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 8
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            2
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            2
+          ]
+        },
+        "torsion_order": "8"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 9",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 9
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            6
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2
+          ],
+          "3": [
+            3
+          ]
+        },
+        "torsion_order": "6"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 10",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 10
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            504
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            8
+          ],
+          "3": [
+            9
+          ],
+          "7": [
+            7
+          ]
+        },
+        "torsion_order": "504"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 11",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 11
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": []
+        },
+        "primary_decomposition": {},
+        "torsion_order": "1"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 12",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 12
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            3
+          ]
+        },
+        "primary_decomposition": {
+          "3": [
+            3
+          ]
+        },
+        "torsion_order": "3"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 13",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 13
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2
+          ]
+        },
+        "torsion_order": "4"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 14",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 14
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            480
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            32
+          ],
+          "3": [
+            3
+          ],
+          "5": [
+            5
+          ]
+        },
+        "torsion_order": "960"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 15",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 15
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2
+          ]
+        },
+        "torsion_order": "4"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 16",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 16
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        "torsion_order": "16"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 17",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 17
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            8
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            8
+          ]
+        },
+        "torsion_order": "16"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 18",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 18
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            264
+          ]
+        },
+        "primary_decomposition": {
+          "11": [
+            11
+          ],
+          "2": [
+            2,
+            8
+          ],
+          "3": [
+            3
+          ]
+        },
+        "torsion_order": "528"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 19",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 19
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            24
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            8
+          ],
+          "3": [
+            3
+          ]
+        },
+        "torsion_order": "24"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 20",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 20
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2
+          ]
+        },
+        "torsion_order": "4"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 21",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 21
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2
+          ]
+        },
+        "torsion_order": "4"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 22",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 22
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            24,
+            65520
+          ]
+        },
+        "primary_decomposition": {
+          "13": [
+            13
+          ],
+          "2": [
+            2,
+            8,
+            16
+          ],
+          "3": [
+            3,
+            9
+          ],
+          "5": [
+            5
+          ],
+          "7": [
+            7
+          ]
+        },
+        "torsion_order": "3144960"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 23",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 23
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2
+          ]
+        },
+        "torsion_order": "4"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 24",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 24
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2
+          ]
+        },
+        "torsion_order": "4"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 25",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 25
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            6
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2
+          ],
+          "3": [
+            3
+          ]
+        },
+        "torsion_order": "12"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 26",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 26
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            24
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            8
+          ],
+          "3": [
+            3
+          ]
+        },
+        "torsion_order": "24"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 27",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 27
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2
+          ]
+        },
+        "torsion_order": "2"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 28",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 28
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            3
+          ]
+        },
+        "primary_decomposition": {
+          "3": [
+            3
+          ]
+        },
+        "torsion_order": "3"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 29",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 29
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            6
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2
+          ],
+          "3": [
+            3
+          ]
+        },
+        "torsion_order": "6"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 30",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 30
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            16320
+          ]
+        },
+        "primary_decomposition": {
+          "17": [
+            17
+          ],
+          "2": [
+            2,
+            2,
+            64
+          ],
+          "3": [
+            3
+          ],
+          "5": [
+            5
+          ]
+        },
+        "torsion_order": "65280"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 31",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 31
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        "torsion_order": "16"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 32",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 32
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        "torsion_order": "32"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 33",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 33
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            2,
+            4
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            2,
+            4
+          ]
+        },
+        "torsion_order": "32"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 34",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 34
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            28728
+          ]
+        },
+        "primary_decomposition": {
+          "19": [
+            19
+          ],
+          "2": [
+            2,
+            2,
+            8
+          ],
+          "3": [
+            27
+          ],
+          "7": [
+            7
+          ]
+        },
+        "torsion_order": "114912"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 35",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 35
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            6
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2
+          ],
+          "3": [
+            3
+          ]
+        },
+        "torsion_order": "6"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 36",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 36
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            6
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2
+          ],
+          "3": [
+            3
+          ]
+        },
+        "torsion_order": "12"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 37",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 37
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            60
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            4
+          ],
+          "3": [
+            3
+          ],
+          "5": [
+            5
+          ]
+        },
+        "torsion_order": "120"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 38",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 38
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            2,
+            2,
+            6,
+            13200
+          ]
+        },
+        "primary_decomposition": {
+          "11": [
+            11
+          ],
+          "2": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            16
+          ],
+          "3": [
+            3,
+            3
+          ],
+          "5": [
+            25
+          ]
+        },
+        "torsion_order": "1267200"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 39",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 39
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            12
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            4
+          ],
+          "3": [
+            3
+          ]
+        },
+        "torsion_order": "384"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 40",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 40
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        "torsion_order": "32"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 41",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 41
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            24
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            8
+          ],
+          "3": [
+            3
+          ]
+        },
+        "torsion_order": "96"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 42",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 42
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            552
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            8
+          ],
+          "23": [
+            23
+          ],
+          "3": [
+            3
+          ]
+        },
+        "torsion_order": "552"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 43",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 43
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            8
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            8
+          ]
+        },
+        "torsion_order": "8"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 44",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 44
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            2,
+            720
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            2,
+            16
+          ],
+          "3": [
+            9
+          ],
+          "5": [
+            5
+          ]
+        },
+        "torsion_order": "5760"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 45",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 45
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            2,
+            6
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "3": [
+            3
+          ]
+        },
+        "torsion_order": "48"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 46",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 46
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            2,
+            12,
+            131040
+          ]
+        },
+        "primary_decomposition": {
+          "13": [
+            13
+          ],
+          "2": [
+            2,
+            2,
+            2,
+            4,
+            32
+          ],
+          "3": [
+            3,
+            9
+          ],
+          "5": [
+            5
+          ],
+          "7": [
+            7
+          ]
+        },
+        "torsion_order": "12579840"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 47",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 47
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            2,
+            2,
+            4
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            2,
+            2,
+            4
+          ]
+        },
+        "torsion_order": "64"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 48",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 48
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            6
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2
+          ],
+          "3": [
+            3
+          ]
+        },
+        "torsion_order": "12"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 49",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 49
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            6
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            2
+          ],
+          "3": [
+            3
+          ]
+        },
+        "torsion_order": "24"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 50",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 50
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            8,
+            24
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            8,
+            8
+          ],
+          "3": [
+            3
+          ]
+        },
+        "torsion_order": "384"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 51",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 51
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            6
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            2
+          ],
+          "3": [
+            3
+          ]
+        },
+        "torsion_order": "24"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 52",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 52
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        "torsion_order": "16"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 53",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 53
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            4
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            4
+          ]
+        },
+        "torsion_order": "8"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 54",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 54
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            3,
+            6960
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            16
+          ],
+          "29": [
+            29
+          ],
+          "3": [
+            3,
+            3
+          ],
+          "5": [
+            5
+          ]
+        },
+        "torsion_order": "20880"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 55",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 55
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2
+          ]
+        },
+        "torsion_order": "2"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 56",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 56
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            2
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            2
+          ]
+        },
+        "torsion_order": "8"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 57",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 57
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2
+          ]
+        },
+        "torsion_order": "4"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 58",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 58
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            171864
+          ]
+        },
+        "primary_decomposition": {
+          "11": [
+            11
+          ],
+          "2": [
+            2,
+            2,
+            8
+          ],
+          "3": [
+            9
+          ],
+          "31": [
+            31
+          ],
+          "7": [
+            7
+          ]
+        },
+        "torsion_order": "687456"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 59",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 59
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            4
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            4
+          ]
+        },
+        "torsion_order": "4"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 60",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 60
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": []
+        },
+        "primary_decomposition": {},
+        "torsion_order": "1"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 61",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 61
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            2,
+            6
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "3": [
+            3
+          ]
+        },
+        "torsion_order": "48"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 62",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 62
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            4,
+            32640
+          ]
+        },
+        "primary_decomposition": {
+          "17": [
+            17
+          ],
+          "2": [
+            2,
+            2,
+            4,
+            128
+          ],
+          "3": [
+            3
+          ],
+          "5": [
+            5
+          ]
+        },
+        "torsion_order": "522240"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 63",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 63
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            4
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            4
+          ]
+        },
+        "torsion_order": "256"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 64",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 64
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            12
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            4
+          ],
+          "3": [
+            3
+          ]
+        },
+        "torsion_order": "6144"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 65",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 65
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            8
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            8
+          ]
+        },
+        "torsion_order": "512"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 66",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 66
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            2,
+            4,
+            24
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            2,
+            4,
+            8
+          ],
+          "3": [
+            3
+          ]
+        },
+        "torsion_order": "768"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 67",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 67
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            6
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            2
+          ],
+          "3": [
+            3
+          ]
+        },
+        "torsion_order": "24"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 68",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 68
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        "torsion_order": "16"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 69",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 69
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            4
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            4
+          ]
+        },
+        "torsion_order": "256"
+      },
+      "is_exact": true,
+      "note": "Applies the published 2025 correction to the erroneous IWX 2023 2-primary v1-torsion entry.",
+      "source_refs": [
+        {
+          "locator": "Section 1.2",
+          "scope": "corrected 2-primary v1-torsion; all nonzero summands in this row",
+          "source_id": "bix2025"
+        },
+        {
+          "locator": "Table 1, stem 70",
+          "scope": "base row superseded in its 2-primary entry",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 70
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            4,
+            8,
+            138181680
+          ]
+        },
+        "primary_decomposition": {
+          "13": [
+            13
+          ],
+          "19": [
+            19
+          ],
+          "2": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            4,
+            8,
+            16
+          ],
+          "3": [
+            27
+          ],
+          "37": [
+            37
+          ],
+          "5": [
+            5
+          ],
+          "7": [
+            7
+          ]
+        },
+        "torsion_order": "141498040320"
+      },
+      "is_exact": true,
+      "note": "Applies the published 2025 correction to the erroneous IWX 2023 2-primary v1-torsion entry and retains the unchanged v1-periodic summands.",
+      "source_refs": [
+        {
+          "locator": "Section 1.2",
+          "scope": "corrected 2-primary v1-torsion",
+          "source_id": "bix2025"
+        },
+        {
+          "locator": "Table 1, stem 71",
+          "scope": "unchanged v1-periodic summands",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 71
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            6
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "3": [
+            3
+          ]
+        },
+        "torsion_order": "768"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 72",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 72
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        "torsion_order": "128"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 73",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 73
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            4,
+            4,
+            12
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            4,
+            4,
+            4
+          ],
+          "3": [
+            3
+          ]
+        },
+        "torsion_order": "384"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 74",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 74
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            6,
+            72
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            8
+          ],
+          "3": [
+            3,
+            9
+          ]
+        },
+        "torsion_order": "432"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 75",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 75
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            20
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            4
+          ],
+          "5": [
+            5
+          ]
+        },
+        "torsion_order": "80"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 76",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 76
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            4
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            4
+          ]
+        },
+        "torsion_order": "128"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 77",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 77
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            2,
+            4,
+            12
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            2,
+            4,
+            4
+          ],
+          "3": [
+            3
+          ]
+        },
+        "torsion_order": "384"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 78",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 78
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            4,
+            1082400
+          ]
+        },
+        "primary_decomposition": {
+          "11": [
+            11
+          ],
+          "2": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            4,
+            32
+          ],
+          "3": [
+            3
+          ],
+          "41": [
+            41
+          ],
+          "5": [
+            25
+          ]
+        },
+        "torsion_order": "277094400"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 79",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 79
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        "torsion_order": "512"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 80",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 80
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            12,
+            24
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            4,
+            8
+          ],
+          "3": [
+            3,
+            3
+          ]
+        },
+        "torsion_order": "9216"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 81",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 81
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            168
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            8
+          ],
+          "3": [
+            3
+          ],
+          "7": [
+            7
+          ]
+        },
+        "torsion_order": "10752"
+      },
+      "is_exact": true,
+      "note": "Uses BIX 2025 Theorem 1.1 for the now-complete 2-primary component; odd-primary summands remain from IWX 2023.",
+      "source_refs": [
+        {
+          "locator": "Theorem 1.1(1)",
+          "scope": "complete 2-primary component",
+          "source_id": "bix2025"
+        },
+        {
+          "locator": "Table 1, stem 82",
+          "scope": "odd-primary components",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 82
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            2,
+            8,
+            758520
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            2,
+            8,
+            8
+          ],
+          "3": [
+            9
+          ],
+          "43": [
+            43
+          ],
+          "5": [
+            5
+          ],
+          "7": [
+            49
+          ]
+        },
+        "torsion_order": "48545280"
+      },
+      "is_exact": true,
+      "note": "Uses BIX 2025 Theorem 1.1 for the now-complete 2-primary component; odd-primary summands remain from IWX 2023.",
+      "source_refs": [
+        {
+          "locator": "Theorem 1.1(2)",
+          "scope": "complete 2-primary component",
+          "source_id": "bix2025"
+        },
+        {
+          "locator": "Table 1, stem 83",
+          "scope": "odd-primary components",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 83
+    },
+    {
+      "alternatives": [
+        {
+          "alternative_id": "iwx2023-84-a",
+          "group": {
+            "integral_decomposition": {
+              "free_rank": 0,
+              "torsion_invariant_factors": [
+                2,
+                2,
+                2,
+                2,
+                6,
+                6
+              ]
+            },
+            "primary_decomposition": {
+              "2": [
+                2,
+                2,
+                2,
+                2,
+                2,
+                2
+              ],
+              "3": [
+                3,
+                3
+              ]
+            },
+            "torsion_order": "576"
+          }
+        },
+        {
+          "alternative_id": "iwx2023-84-b",
+          "group": {
+            "integral_decomposition": {
+              "free_rank": 0,
+              "torsion_invariant_factors": [
+                2,
+                2,
+                2,
+                6,
+                6
+              ]
+            },
+            "primary_decomposition": {
+              "2": [
+                2,
+                2,
+                2,
+                2,
+                2
+              ],
+              "3": [
+                3,
+                3
+              ]
+            },
+            "torsion_order": "288"
+          }
+        }
+      ],
+      "is_exact": false,
+      "note": "Not exact: IWX 2023 leaves a factor-of-2 ambiguity in the 2-primary v1-torsion component.",
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 84",
+          "scope": "full list of published alternatives",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "published_alternatives",
+      "stem": 84,
+      "uncertainty": {
+        "alternatives_are_full_integral_groups": true,
+        "known_common_primary_decomposition": {
+          "3": [
+            3,
+            3
+          ]
+        },
+        "scope": "2-primary v1-torsion"
+      }
+    },
+    {
+      "alternatives": [
+        {
+          "alternative_id": "iwx2023-85-a",
+          "group": {
+            "integral_decomposition": {
+              "free_rank": 0,
+              "torsion_invariant_factors": [
+                2,
+                2,
+                2,
+                2,
+                2,
+                2,
+                12,
+                12
+              ]
+            },
+            "primary_decomposition": {
+              "2": [
+                2,
+                2,
+                2,
+                2,
+                2,
+                2,
+                4,
+                4
+              ],
+              "3": [
+                3,
+                3
+              ]
+            },
+            "torsion_order": "9216"
+          }
+        },
+        {
+          "alternative_id": "iwx2023-85-b",
+          "group": {
+            "integral_decomposition": {
+              "free_rank": 0,
+              "torsion_invariant_factors": [
+                2,
+                2,
+                2,
+                2,
+                2,
+                12,
+                12
+              ]
+            },
+            "primary_decomposition": {
+              "2": [
+                2,
+                2,
+                2,
+                2,
+                2,
+                4,
+                4
+              ],
+              "3": [
+                3,
+                3
+              ]
+            },
+            "torsion_order": "4608"
+          }
+        },
+        {
+          "alternative_id": "iwx2023-85-c",
+          "group": {
+            "integral_decomposition": {
+              "free_rank": 0,
+              "torsion_invariant_factors": [
+                2,
+                2,
+                2,
+                2,
+                4,
+                12,
+                12
+              ]
+            },
+            "primary_decomposition": {
+              "2": [
+                2,
+                2,
+                2,
+                2,
+                4,
+                4,
+                4
+              ],
+              "3": [
+                3,
+                3
+              ]
+            },
+            "torsion_order": "9216"
+          }
+        },
+        {
+          "alternative_id": "iwx2023-85-d",
+          "group": {
+            "integral_decomposition": {
+              "free_rank": 0,
+              "torsion_invariant_factors": [
+                2,
+                2,
+                2,
+                2,
+                2,
+                2,
+                6,
+                12
+              ]
+            },
+            "primary_decomposition": {
+              "2": [
+                2,
+                2,
+                2,
+                2,
+                2,
+                2,
+                2,
+                4
+              ],
+              "3": [
+                3,
+                3
+              ]
+            },
+            "torsion_order": "4608"
+          }
+        }
+      ],
+      "is_exact": false,
+      "note": "Not exact: IWX 2023 lists four possible 2-primary additive structures.",
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 85",
+          "scope": "full list of published alternatives",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "published_alternatives",
+      "stem": 85,
+      "uncertainty": {
+        "alternatives_are_full_integral_groups": true,
+        "known_common_primary_decomposition": {
+          "3": [
+            3,
+            3
+          ]
+        },
+        "scope": "2-primary v1-torsion"
+      }
+    },
+    {
+      "alternatives": [
+        {
+          "alternative_id": "iwx2023-86-a",
+          "group": {
+            "integral_decomposition": {
+              "free_rank": 0,
+              "torsion_invariant_factors": [
+                2,
+                2,
+                2,
+                2,
+                8,
+                120
+              ]
+            },
+            "primary_decomposition": {
+              "2": [
+                2,
+                2,
+                2,
+                2,
+                8,
+                8
+              ],
+              "3": [
+                3
+              ],
+              "5": [
+                5
+              ]
+            },
+            "torsion_order": "15360"
+          }
+        },
+        {
+          "alternative_id": "iwx2023-86-b",
+          "group": {
+            "integral_decomposition": {
+              "free_rank": 0,
+              "torsion_invariant_factors": [
+                2,
+                2,
+                4,
+                8,
+                120
+              ]
+            },
+            "primary_decomposition": {
+              "2": [
+                2,
+                2,
+                4,
+                8,
+                8
+              ],
+              "3": [
+                3
+              ],
+              "5": [
+                5
+              ]
+            },
+            "torsion_order": "15360"
+          }
+        }
+      ],
+      "is_exact": false,
+      "note": "Not exact: IWX 2023 lists two possible 2-primary additive structures.",
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 86",
+          "scope": "full list of published alternatives",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "published_alternatives",
+      "stem": 86,
+      "uncertainty": {
+        "alternatives_are_full_integral_groups": true,
+        "known_common_primary_decomposition": {
+          "3": [
+            3
+          ],
+          "5": [
+            5
+          ]
+        },
+        "scope": "2-primary v1-torsion"
+      }
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            4,
+            5520
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            4,
+            16
+          ],
+          "23": [
+            23
+          ],
+          "3": [
+            3
+          ],
+          "5": [
+            5
+          ]
+        },
+        "torsion_order": "706560"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 87",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 87
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            4
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            4
+          ]
+        },
+        "torsion_order": "128"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 88",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 88
+    },
+    {
+      "group": {
+        "integral_decomposition": {
+          "free_rank": 0,
+          "torsion_invariant_factors": [
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        "primary_decomposition": {
+          "2": [
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        "torsion_order": "32"
+      },
+      "is_exact": true,
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 89",
+          "scope": "full integral row",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "exact",
+      "stem": 89
+    },
+    {
+      "alternatives": [
+        {
+          "alternative_id": "iwx2023-90-a",
+          "group": {
+            "integral_decomposition": {
+              "free_rank": 0,
+              "torsion_invariant_factors": [
+                2,
+                2,
+                2,
+                2,
+                24
+              ]
+            },
+            "primary_decomposition": {
+              "2": [
+                2,
+                2,
+                2,
+                2,
+                8
+              ],
+              "3": [
+                3
+              ]
+            },
+            "torsion_order": "384"
+          }
+        },
+        {
+          "alternative_id": "iwx2023-90-b",
+          "group": {
+            "integral_decomposition": {
+              "free_rank": 0,
+              "torsion_invariant_factors": [
+                2,
+                2,
+                2,
+                24
+              ]
+            },
+            "primary_decomposition": {
+              "2": [
+                2,
+                2,
+                2,
+                8
+              ],
+              "3": [
+                3
+              ]
+            },
+            "torsion_order": "192"
+          }
+        }
+      ],
+      "is_exact": false,
+      "note": "Not exact: IWX 2023 leaves a factor-of-2 ambiguity; the known v1-periodic C2 and odd-primary C3 summands are included in each full-group alternative.",
+      "source_refs": [
+        {
+          "locator": "Table 1, stem 90",
+          "scope": "full list of published alternatives",
+          "source_id": "iwx2023"
+        }
+      ],
+      "status": "published_alternatives",
+      "stem": 90,
+      "uncertainty": {
+        "alternatives_are_full_integral_groups": true,
+        "known_common_primary_decomposition": {
+          "2": [
+            2
+          ],
+          "3": [
+            3
+          ]
+        },
+        "scope": "2-primary v1-torsion, hence the full 2-primary component"
+      }
+    }
+  ],
+  "supersession_rules": [
+    {
+      "newer_source_id": "bix2025",
+      "older_source_id": "iwx2023",
+      "stems": [
+        70,
+        71
+      ],
+      "superseded_scope": "2-primary v1-torsion entries"
+    },
+    {
+      "newer_source_id": "bix2025",
+      "older_source_id": "iwx2023",
+      "stems": [
+        82,
+        83
+      ],
+      "superseded_scope": "previously incomplete 2-primary components"
+    }
+  ],
+  "title": "Classical integral stable homotopy groups of spheres, stems 0 through 90"
+}

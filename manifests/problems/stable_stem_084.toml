@@ -1,0 +1,8 @@
+id = "stable_stem_084"
+title = "Stable stem 84: pi_170(S^86)"
+test = false
+module = "HomotopyGroups.StableStems"
+holes = ["stable_stem_084"]
+submitter = "homotopy-groups-lean research registry"
+source = "iwx2023 Table 1, stem 84: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)"
+notes = "knowledge_status=open_computation/published_alternatives Stable representative pi_170(S^86) lies at the Freudenthal isomorphism bound q=2n-2. The theorem states the complete alternatives published by the source; unresolved computation remains. Alternatives: iwx2023-84-a=Z/2 x Z/2 x Z/2 x Z/2 x Z/6 x Z/6, iwx2023-84-b=Z/2 x Z/2 x Z/2 x Z/6 x Z/6. Generated from research/stable-stems.json registry 2026-08-07.1. Not exact: IWX 2023 leaves a factor-of-2 ambiguity in the 2-primary v1-torsion component."

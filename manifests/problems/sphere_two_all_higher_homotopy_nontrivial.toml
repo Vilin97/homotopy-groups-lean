@@ -1,0 +1,8 @@
+id = "sphere_two_all_higher_homotopy_nontrivial"
+title = "Every homotopy group of the two-sphere in degree at least two is nontrivial"
+test = false
+module = "HomotopyGroups.Advanced"
+holes = ["sphere_two_all_higher_homotopy_nontrivial"]
+submitter = "OpenAI Codex"
+source = "https://doi.org/10.4310/HHA.2016.v18.n2.a18"
+notes = "knowledge_status=published_theorem_statement_only; this is Theorem 1.1 of Ivanov-Mikhailov-Wu in a concrete sphere model."

@@ -1,0 +1,8 @@
+id = "sphere_lower_homotopy_subsingleton"
+title = "Homotopy groups below the dimension of a sphere vanish"
+test = false
+module = "HomotopyGroups.Spaces"
+holes = ["sphere_lower_homotopy_subsingleton"]
+submitter = "OpenAI Codex"
+source = "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
+notes = "knowledge_status=foundation_blocked; the concrete metric sphere exists, but sphere connectivity and cellular approximation are absent."

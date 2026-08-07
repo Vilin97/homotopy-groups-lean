@@ -1,0 +1,12 @@
+{
+  "id": "serre_finiteness_odd_sphere",
+  "module": "HomotopyGroups.Advanced",
+  "holes": [
+    {
+      "name": "HomotopyGroups.serre_finiteness_odd_sphere",
+      "basename": "serre_finiteness_odd_sphere",
+      "kind": "theorem",
+      "body": "theorem serre_finiteness_odd_sphere\n    (n k : \u2115) (hk : 2 * n + 3 < k) :\n    Finite\n      (HomotopyGroup.Pi k (SphereSpace (2 * n + 3))\n        (sphereBasepoint (2 * n + 3))) := by\n  sorry"
+    }
+  ]
+}

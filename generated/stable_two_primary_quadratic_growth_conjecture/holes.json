@@ -1,0 +1,12 @@
+{
+  "id": "stable_two_primary_quadratic_growth_conjecture",
+  "module": "HomotopyGroups.Conjectures",
+  "holes": [
+    {
+      "name": "HomotopyGroups.stable_two_primary_quadratic_growth_conjecture",
+      "basename": "stable_two_primary_quadratic_growth_conjecture",
+      "kind": "theorem",
+      "body": "/-- Isaksen--Wang--Xu Conjecture 1.4: cumulative two-primary order has\nquadratic logarithmic growth with a nonzero limiting constant. -/\ntheorem stable_two_primary_quadratic_growth_conjecture :\n    \u2203 C : \u211d, C \u2260 0 \u2227\n      Filter.Tendsto\n        (fun k : \u2115 =>\n          Real.logb 2 ((cumulativeTwoPrimaryStableOrder k : \u2115) : \u211d) /\n            (k : \u211d) ^ 2)\n        Filter.atTop (nhds C) := by\n  sorry"
+    }
+  ]
+}

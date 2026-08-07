@@ -1,0 +1,8 @@
+id = "homotopyGroup_homotopy_invariance"
+title = "Higher homotopy groups are invariant under homotopy equivalence"
+test = false
+module = "HomotopyGroups.Foundations"
+holes = ["homotopyGroup_homotopy_invariance"]
+submitter = "OpenAI Codex"
+source = "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
+notes = "knowledge_status=foundation_blocked; HomotopyEquiv exists, but native higher induced maps and their multiplicativity are absent."

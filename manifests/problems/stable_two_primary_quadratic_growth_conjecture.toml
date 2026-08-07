@@ -1,0 +1,8 @@
+id = "stable_two_primary_quadratic_growth_conjecture"
+title = "Quadratic logarithmic growth of cumulative two-primary stable stems"
+test = false
+module = "HomotopyGroups.Conjectures"
+holes = ["stable_two_primary_quadratic_growth_conjecture"]
+submitter = "OpenAI Codex"
+source = "https://doi.org/10.1007/s10240-023-00139-1"
+notes = "knowledge_status=open_conjecture_in_cited_source; Conjecture 1.4. The two-primary order is the cardinality of elements killed by a power of two in the stable representative pi_(2k+2)(S^(k+2)); its cumulative product from stem 1 through k has log base two divided by k squared tending to a nonzero real constant."

@@ -1,0 +1,15 @@
+import Mathlib
+import Submission
+
+open scoped ContinuousMap Topology Topology.Homotopy
+
+universe u v
+
+theorem homotopyGroup_product (n : ℕ) (X : Type u) (Y : Type v)
+    [TopologicalSpace X] [TopologicalSpace Y]
+    (x : X) (y : Y) :
+    Nonempty
+      (HomotopyGroup.Pi (n + 1) (X × Y) (x, y) ≃*
+        HomotopyGroup.Pi (n + 1) X x ×
+          HomotopyGroup.Pi (n + 1) Y y) := by
+  exact Submission.homotopyGroup_product n X Y x y

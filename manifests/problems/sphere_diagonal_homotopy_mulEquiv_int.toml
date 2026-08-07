@@ -1,0 +1,8 @@
+id = "sphere_diagonal_homotopy_mulEquiv_int"
+title = "The diagonal homotopy group of a positive-dimensional sphere is the integers"
+test = false
+module = "HomotopyGroups.Spaces"
+holes = ["sphere_diagonal_homotopy_mulEquiv_int"]
+submitter = "OpenAI Codex"
+source = "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
+notes = "knowledge_status=foundation_blocked; this is pi_n(S^n)=Z for n>=1, with positivity encoded by the successor parameter; no Hurewicz bridge exists."

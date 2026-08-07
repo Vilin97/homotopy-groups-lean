@@ -1,0 +1,12 @@
+{
+  "id": "serre_finiteness_even_sphere",
+  "module": "HomotopyGroups.Advanced",
+  "holes": [
+    {
+      "name": "HomotopyGroups.serre_finiteness_even_sphere",
+      "basename": "serre_finiteness_even_sphere",
+      "kind": "theorem",
+      "body": "theorem serre_finiteness_even_sphere\n    (n k : \u2115)\n    (hk : 2 * (n + 1) < k) (hExceptional : k \u2260 4 * n + 3) :\n    Finite\n      (HomotopyGroup.Pi k (SphereSpace (2 * (n + 1)))\n        (sphereBasepoint (2 * (n + 1)))) := by\n  sorry"
+    }
+  ]
+}

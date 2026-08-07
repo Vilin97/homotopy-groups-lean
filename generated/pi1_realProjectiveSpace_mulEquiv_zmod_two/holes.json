@@ -1,0 +1,12 @@
+{
+  "id": "pi1_realProjectiveSpace_mulEquiv_zmod_two",
+  "module": "HomotopyGroups.Spaces",
+  "holes": [
+    {
+      "name": "HomotopyGroups.pi1_realProjectiveSpace_mulEquiv_zmod_two",
+      "basename": "pi1_realProjectiveSpace_mulEquiv_zmod_two",
+      "kind": "theorem",
+      "body": "theorem pi1_realProjectiveSpace_mulEquiv_zmod_two\n    (n : \u2115) (hn : 2 \u2264 n) :\n    Nonempty\n      (HomotopyGroup.Pi 1 (RealProjectiveSpace n)\n          (realProjectiveBasepoint n) \u2243*\n        Multiplicative (ZMod 2)) := by\n  sorry"
+    }
+  ]
+}

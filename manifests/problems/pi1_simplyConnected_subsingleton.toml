@@ -1,0 +1,8 @@
+id = "pi1_simplyConnected_subsingleton"
+title = "A simply connected space has trivial fundamental homotopy group"
+test = false
+module = "HomotopyGroups.Foundations"
+holes = ["pi1_simplyConnected_subsingleton"]
+submitter = "OpenAI Codex"
+source = "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
+notes = "knowledge_status=native_consequence; uses the native comparison between pi_1 and FundamentalGroup together with SimplyConnectedSpace."

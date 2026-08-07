@@ -1,0 +1,8 @@
+id = "pi1_complexProjectiveSpace_subsingleton"
+title = "Positive-dimensional complex projective space is simply connected"
+test = false
+module = "HomotopyGroups.Spaces"
+holes = ["pi1_complexProjectiveSpace_subsingleton"]
+submitter = "OpenAI Codex"
+source = "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
+notes = "knowledge_status=statement_only; ComplexProjectiveSpace is the genuine quotient-topology Projectivization model; its Hopf-fibration connectivity proof is absent."

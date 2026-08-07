@@ -1,0 +1,1300 @@
+[
+  {
+    "id": "complexProjectiveSpace_higher_homotopy_mulEquiv_sphere",
+    "title": "Higher homotopy groups of complex projective space agree with an odd sphere",
+    "test": false,
+    "submitter": "OpenAI Codex",
+    "module": "HomotopyGroups.Spaces",
+    "holes": [
+      "complexProjectiveSpace_higher_homotopy_mulEquiv_sphere"
+    ],
+    "generated_path": "generated/complexProjectiveSpace_higher_homotopy_mulEquiv_sphere"
+  },
+  {
+    "id": "higher_homotopy_mul_comm",
+    "title": "Higher homotopy groups are commutative",
+    "test": false,
+    "submitter": "OpenAI Codex",
+    "module": "HomotopyGroups.Foundations",
+    "holes": [
+      "higher_homotopy_mul_comm"
+    ],
+    "generated_path": "generated/higher_homotopy_mul_comm"
+  },
+  {
+    "id": "homotopyGroup_change_basepoint",
+    "title": "A path induces change of basepoint on higher homotopy groups",
+    "test": false,
+    "submitter": "OpenAI Codex",
+    "module": "HomotopyGroups.Foundations",
+    "holes": [
+      "homotopyGroup_change_basepoint"
+    ],
+    "generated_path": "generated/homotopyGroup_change_basepoint"
+  },
+  {
+    "id": "homotopyGroup_homotopy_invariance",
+    "title": "Higher homotopy groups are invariant under homotopy equivalence",
+    "test": false,
+    "submitter": "OpenAI Codex",
+    "module": "HomotopyGroups.Foundations",
+    "holes": [
+      "homotopyGroup_homotopy_invariance"
+    ],
+    "generated_path": "generated/homotopyGroup_homotopy_invariance"
+  },
+  {
+    "id": "homotopyGroup_loop_shift",
+    "title": "Loop-space shifting of homotopy groups",
+    "test": false,
+    "submitter": "OpenAI Codex",
+    "module": "HomotopyGroups.Foundations",
+    "holes": [
+      "homotopyGroup_loop_shift"
+    ],
+    "generated_path": "generated/homotopyGroup_loop_shift"
+  },
+  {
+    "id": "homotopyGroup_product",
+    "title": "Homotopy groups preserve binary products",
+    "test": false,
+    "submitter": "OpenAI Codex",
+    "module": "HomotopyGroups.Foundations",
+    "holes": [
+      "homotopyGroup_product"
+    ],
+    "generated_path": "generated/homotopyGroup_product"
+  },
+  {
+    "id": "pi0_equiv_zerothHomotopy",
+    "title": "Zeroth homotopy groups agree with path components",
+    "test": false,
+    "submitter": "OpenAI Codex",
+    "module": "HomotopyGroups.Foundations",
+    "holes": [
+      "pi0_equiv_zerothHomotopy"
+    ],
+    "generated_path": "generated/pi0_equiv_zerothHomotopy"
+  },
+  {
+    "id": "pi0_pathConnected_subsingleton",
+    "title": "A path-connected space has trivial zeroth homotopy group",
+    "test": false,
+    "submitter": "OpenAI Codex",
+    "module": "HomotopyGroups.Foundations",
+    "holes": [
+      "pi0_pathConnected_subsingleton"
+    ],
+    "generated_path": "generated/pi0_pathConnected_subsingleton"
+  },
+  {
+    "id": "pi1_circle_mulEquiv_int",
+    "title": "The fundamental group of the circle is the integers",
+    "test": false,
+    "submitter": "OpenAI Codex",
+    "module": "HomotopyGroups.Spaces",
+    "holes": [
+      "pi1_circle_mulEquiv_int"
+    ],
+    "generated_path": "generated/pi1_circle_mulEquiv_int"
+  },
+  {
+    "id": "pi1_complexProjectiveSpace_subsingleton",
+    "title": "Positive-dimensional complex projective space is simply connected",
+    "test": false,
+    "submitter": "OpenAI Codex",
+    "module": "HomotopyGroups.Spaces",
+    "holes": [
+      "pi1_complexProjectiveSpace_subsingleton"
+    ],
+    "generated_path": "generated/pi1_complexProjectiveSpace_subsingleton"
+  },
+  {
+    "id": "pi1_hSpace_mul_comm",
+    "title": "The fundamental group of an H-space is commutative",
+    "test": false,
+    "submitter": "OpenAI Codex",
+    "module": "HomotopyGroups.Foundations",
+    "holes": [
+      "pi1_hSpace_mul_comm"
+    ],
+    "generated_path": "generated/pi1_hSpace_mul_comm"
+  },
+  {
+    "id": "pi1_mulEquiv_fundamentalGroup",
+    "title": "The first homotopy group agrees with the fundamental group",
+    "test": false,
+    "submitter": "OpenAI Codex",
+    "module": "HomotopyGroups.Foundations",
+    "holes": [
+      "pi1_mulEquiv_fundamentalGroup"
+    ],
+    "generated_path": "generated/pi1_mulEquiv_fundamentalGroup"
+  },
+  {
+    "id": "pi1_realProjectiveSpace_mulEquiv_zmod_two",
+    "title": "The fundamental group of real projective n-space is cyclic of order two",
+    "test": false,
+    "submitter": "OpenAI Codex",
+    "module": "HomotopyGroups.Spaces",
+    "holes": [
+      "pi1_realProjectiveSpace_mulEquiv_zmod_two"
+    ],
+    "generated_path": "generated/pi1_realProjectiveSpace_mulEquiv_zmod_two"
+  },
+  {
+    "id": "pi1_simplyConnected_subsingleton",
+    "title": "A simply connected space has trivial fundamental homotopy group",
+    "test": false,
+    "submitter": "OpenAI Codex",
+    "module": "HomotopyGroups.Foundations",
+    "holes": [
+      "pi1_simplyConnected_subsingleton"
+    ],
+    "generated_path": "generated/pi1_simplyConnected_subsingleton"
+  },
+  {
+    "id": "pi2_complexProjectiveSpace_mulEquiv_int",
+    "title": "The second homotopy group of complex projective space is the integers",
+    "test": false,
+    "submitter": "OpenAI Codex",
+    "module": "HomotopyGroups.Spaces",
+    "holes": [
+      "pi2_complexProjectiveSpace_mulEquiv_int"
+    ],
+    "generated_path": "generated/pi2_complexProjectiveSpace_mulEquiv_int"
+  },
+  {
+    "id": "pi3_sphere_two_mulEquiv_int",
+    "title": "The third homotopy group of the two-sphere is the integers",
+    "test": false,
+    "submitter": "OpenAI Codex",
+    "module": "HomotopyGroups.Spaces",
+    "holes": [
+      "pi3_sphere_two_mulEquiv_int"
+    ],
+    "generated_path": "generated/pi3_sphere_two_mulEquiv_int"
+  },
+  {
+    "id": "realProjectiveSpace_higher_homotopy_mulEquiv_sphere",
+    "title": "Higher homotopy groups of real projective space agree with those of its sphere cover",
+    "test": false,
+    "submitter": "OpenAI Codex",
+    "module": "HomotopyGroups.Spaces",
+    "holes": [
+      "realProjectiveSpace_higher_homotopy_mulEquiv_sphere"
+    ],
+    "generated_path": "generated/realProjectiveSpace_higher_homotopy_mulEquiv_sphere"
+  },
+  {
+    "id": "serre_even_sphere_exceptional_rank_one",
+    "title": "The exceptional homotopy group of an even sphere has rank one",
+    "test": false,
+    "submitter": "OpenAI Codex",
+    "module": "HomotopyGroups.Advanced",
+    "holes": [
+      "serre_even_sphere_exceptional_rank_one"
+    ],
+    "generated_path": "generated/serre_even_sphere_exceptional_rank_one"
+  },
+  {
+    "id": "serre_finiteness_even_sphere",
+    "title": "Serre finiteness away from the exceptional degree of an even sphere",
+    "test": false,
+    "submitter": "OpenAI Codex",
+    "module": "HomotopyGroups.Advanced",
+    "holes": [
+      "serre_finiteness_even_sphere"
+    ],
+    "generated_path": "generated/serre_finiteness_even_sphere"
+  },
+  {
+    "id": "serre_finiteness_odd_sphere",
+    "title": "Serre finiteness for higher homotopy groups of odd spheres",
+    "test": false,
+    "submitter": "OpenAI Codex",
+    "module": "HomotopyGroups.Advanced",
+    "holes": [
+      "serre_finiteness_odd_sphere"
+    ],
+    "generated_path": "generated/serre_finiteness_odd_sphere"
+  },
+  {
+    "id": "sphere_diagonal_homotopy_mulEquiv_int",
+    "title": "The diagonal homotopy group of a positive-dimensional sphere is the integers",
+    "test": false,
+    "submitter": "OpenAI Codex",
+    "module": "HomotopyGroups.Spaces",
+    "holes": [
+      "sphere_diagonal_homotopy_mulEquiv_int"
+    ],
+    "generated_path": "generated/sphere_diagonal_homotopy_mulEquiv_int"
+  },
+  {
+    "id": "sphere_first_stable_homotopy_mulEquiv_zmod_two",
+    "title": "The first stable-offset homotopy group of a sphere is cyclic of order two",
+    "test": false,
+    "submitter": "OpenAI Codex",
+    "module": "HomotopyGroups.Spaces",
+    "holes": [
+      "sphere_first_stable_homotopy_mulEquiv_zmod_two"
+    ],
+    "generated_path": "generated/sphere_first_stable_homotopy_mulEquiv_zmod_two"
+  },
+  {
+    "id": "sphere_lower_homotopy_subsingleton",
+    "title": "Homotopy groups below the dimension of a sphere vanish",
+    "test": false,
+    "submitter": "OpenAI Codex",
+    "module": "HomotopyGroups.Spaces",
+    "holes": [
+      "sphere_lower_homotopy_subsingleton"
+    ],
+    "generated_path": "generated/sphere_lower_homotopy_subsingleton"
+  },
+  {
+    "id": "sphere_three_all_higher_homotopy_nontrivial",
+    "title": "Every homotopy group of the three-sphere in degree at least three is nontrivial",
+    "test": false,
+    "submitter": "OpenAI Codex",
+    "module": "HomotopyGroups.Advanced",
+    "holes": [
+      "sphere_three_all_higher_homotopy_nontrivial"
+    ],
+    "generated_path": "generated/sphere_three_all_higher_homotopy_nontrivial"
+  },
+  {
+    "id": "sphere_three_two_primary_nontrivial_conjecture",
+    "title": "Nonvanishing of the two-primary component of higher homotopy groups of the three-sphere",
+    "test": false,
+    "submitter": "OpenAI Codex",
+    "module": "HomotopyGroups.Conjectures",
+    "holes": [
+      "sphere_three_two_primary_nontrivial_conjecture"
+    ],
+    "generated_path": "generated/sphere_three_two_primary_nontrivial_conjecture"
+  },
+  {
+    "id": "sphere_two_all_higher_homotopy_nontrivial",
+    "title": "Every homotopy group of the two-sphere in degree at least two is nontrivial",
+    "test": false,
+    "submitter": "OpenAI Codex",
+    "module": "HomotopyGroups.Advanced",
+    "holes": [
+      "sphere_two_all_higher_homotopy_nontrivial"
+    ],
+    "generated_path": "generated/sphere_two_all_higher_homotopy_nontrivial"
+  },
+  {
+    "id": "stable_stem_000",
+    "title": "Stable stem 0: pi_2(S^2)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_000"
+    ],
+    "generated_path": "generated/stable_stem_000"
+  },
+  {
+    "id": "stable_stem_001",
+    "title": "Stable stem 1: pi_4(S^3)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_001"
+    ],
+    "generated_path": "generated/stable_stem_001"
+  },
+  {
+    "id": "stable_stem_002",
+    "title": "Stable stem 2: pi_6(S^4)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_002"
+    ],
+    "generated_path": "generated/stable_stem_002"
+  },
+  {
+    "id": "stable_stem_003",
+    "title": "Stable stem 3: pi_8(S^5)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_003"
+    ],
+    "generated_path": "generated/stable_stem_003"
+  },
+  {
+    "id": "stable_stem_004",
+    "title": "Stable stem 4: pi_10(S^6)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_004"
+    ],
+    "generated_path": "generated/stable_stem_004"
+  },
+  {
+    "id": "stable_stem_005",
+    "title": "Stable stem 5: pi_12(S^7)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_005"
+    ],
+    "generated_path": "generated/stable_stem_005"
+  },
+  {
+    "id": "stable_stem_006",
+    "title": "Stable stem 6: pi_14(S^8)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_006"
+    ],
+    "generated_path": "generated/stable_stem_006"
+  },
+  {
+    "id": "stable_stem_007",
+    "title": "Stable stem 7: pi_16(S^9)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_007"
+    ],
+    "generated_path": "generated/stable_stem_007"
+  },
+  {
+    "id": "stable_stem_008",
+    "title": "Stable stem 8: pi_18(S^10)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_008"
+    ],
+    "generated_path": "generated/stable_stem_008"
+  },
+  {
+    "id": "stable_stem_009",
+    "title": "Stable stem 9: pi_20(S^11)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_009"
+    ],
+    "generated_path": "generated/stable_stem_009"
+  },
+  {
+    "id": "stable_stem_010",
+    "title": "Stable stem 10: pi_22(S^12)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_010"
+    ],
+    "generated_path": "generated/stable_stem_010"
+  },
+  {
+    "id": "stable_stem_011",
+    "title": "Stable stem 11: pi_24(S^13)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_011"
+    ],
+    "generated_path": "generated/stable_stem_011"
+  },
+  {
+    "id": "stable_stem_012",
+    "title": "Stable stem 12: pi_26(S^14)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_012"
+    ],
+    "generated_path": "generated/stable_stem_012"
+  },
+  {
+    "id": "stable_stem_013",
+    "title": "Stable stem 13: pi_28(S^15)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_013"
+    ],
+    "generated_path": "generated/stable_stem_013"
+  },
+  {
+    "id": "stable_stem_014",
+    "title": "Stable stem 14: pi_30(S^16)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_014"
+    ],
+    "generated_path": "generated/stable_stem_014"
+  },
+  {
+    "id": "stable_stem_015",
+    "title": "Stable stem 15: pi_32(S^17)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_015"
+    ],
+    "generated_path": "generated/stable_stem_015"
+  },
+  {
+    "id": "stable_stem_016",
+    "title": "Stable stem 16: pi_34(S^18)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_016"
+    ],
+    "generated_path": "generated/stable_stem_016"
+  },
+  {
+    "id": "stable_stem_017",
+    "title": "Stable stem 17: pi_36(S^19)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_017"
+    ],
+    "generated_path": "generated/stable_stem_017"
+  },
+  {
+    "id": "stable_stem_018",
+    "title": "Stable stem 18: pi_38(S^20)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_018"
+    ],
+    "generated_path": "generated/stable_stem_018"
+  },
+  {
+    "id": "stable_stem_019",
+    "title": "Stable stem 19: pi_40(S^21)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_019"
+    ],
+    "generated_path": "generated/stable_stem_019"
+  },
+  {
+    "id": "stable_stem_020",
+    "title": "Stable stem 20: pi_42(S^22)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_020"
+    ],
+    "generated_path": "generated/stable_stem_020"
+  },
+  {
+    "id": "stable_stem_021",
+    "title": "Stable stem 21: pi_44(S^23)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_021"
+    ],
+    "generated_path": "generated/stable_stem_021"
+  },
+  {
+    "id": "stable_stem_022",
+    "title": "Stable stem 22: pi_46(S^24)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_022"
+    ],
+    "generated_path": "generated/stable_stem_022"
+  },
+  {
+    "id": "stable_stem_023",
+    "title": "Stable stem 23: pi_48(S^25)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_023"
+    ],
+    "generated_path": "generated/stable_stem_023"
+  },
+  {
+    "id": "stable_stem_024",
+    "title": "Stable stem 24: pi_50(S^26)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_024"
+    ],
+    "generated_path": "generated/stable_stem_024"
+  },
+  {
+    "id": "stable_stem_025",
+    "title": "Stable stem 25: pi_52(S^27)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_025"
+    ],
+    "generated_path": "generated/stable_stem_025"
+  },
+  {
+    "id": "stable_stem_026",
+    "title": "Stable stem 26: pi_54(S^28)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_026"
+    ],
+    "generated_path": "generated/stable_stem_026"
+  },
+  {
+    "id": "stable_stem_027",
+    "title": "Stable stem 27: pi_56(S^29)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_027"
+    ],
+    "generated_path": "generated/stable_stem_027"
+  },
+  {
+    "id": "stable_stem_028",
+    "title": "Stable stem 28: pi_58(S^30)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_028"
+    ],
+    "generated_path": "generated/stable_stem_028"
+  },
+  {
+    "id": "stable_stem_029",
+    "title": "Stable stem 29: pi_60(S^31)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_029"
+    ],
+    "generated_path": "generated/stable_stem_029"
+  },
+  {
+    "id": "stable_stem_030",
+    "title": "Stable stem 30: pi_62(S^32)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_030"
+    ],
+    "generated_path": "generated/stable_stem_030"
+  },
+  {
+    "id": "stable_stem_031",
+    "title": "Stable stem 31: pi_64(S^33)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_031"
+    ],
+    "generated_path": "generated/stable_stem_031"
+  },
+  {
+    "id": "stable_stem_032",
+    "title": "Stable stem 32: pi_66(S^34)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_032"
+    ],
+    "generated_path": "generated/stable_stem_032"
+  },
+  {
+    "id": "stable_stem_033",
+    "title": "Stable stem 33: pi_68(S^35)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_033"
+    ],
+    "generated_path": "generated/stable_stem_033"
+  },
+  {
+    "id": "stable_stem_034",
+    "title": "Stable stem 34: pi_70(S^36)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_034"
+    ],
+    "generated_path": "generated/stable_stem_034"
+  },
+  {
+    "id": "stable_stem_035",
+    "title": "Stable stem 35: pi_72(S^37)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_035"
+    ],
+    "generated_path": "generated/stable_stem_035"
+  },
+  {
+    "id": "stable_stem_036",
+    "title": "Stable stem 36: pi_74(S^38)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_036"
+    ],
+    "generated_path": "generated/stable_stem_036"
+  },
+  {
+    "id": "stable_stem_037",
+    "title": "Stable stem 37: pi_76(S^39)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_037"
+    ],
+    "generated_path": "generated/stable_stem_037"
+  },
+  {
+    "id": "stable_stem_038",
+    "title": "Stable stem 38: pi_78(S^40)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_038"
+    ],
+    "generated_path": "generated/stable_stem_038"
+  },
+  {
+    "id": "stable_stem_039",
+    "title": "Stable stem 39: pi_80(S^41)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_039"
+    ],
+    "generated_path": "generated/stable_stem_039"
+  },
+  {
+    "id": "stable_stem_040",
+    "title": "Stable stem 40: pi_82(S^42)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_040"
+    ],
+    "generated_path": "generated/stable_stem_040"
+  },
+  {
+    "id": "stable_stem_041",
+    "title": "Stable stem 41: pi_84(S^43)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_041"
+    ],
+    "generated_path": "generated/stable_stem_041"
+  },
+  {
+    "id": "stable_stem_042",
+    "title": "Stable stem 42: pi_86(S^44)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_042"
+    ],
+    "generated_path": "generated/stable_stem_042"
+  },
+  {
+    "id": "stable_stem_043",
+    "title": "Stable stem 43: pi_88(S^45)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_043"
+    ],
+    "generated_path": "generated/stable_stem_043"
+  },
+  {
+    "id": "stable_stem_044",
+    "title": "Stable stem 44: pi_90(S^46)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_044"
+    ],
+    "generated_path": "generated/stable_stem_044"
+  },
+  {
+    "id": "stable_stem_045",
+    "title": "Stable stem 45: pi_92(S^47)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_045"
+    ],
+    "generated_path": "generated/stable_stem_045"
+  },
+  {
+    "id": "stable_stem_046",
+    "title": "Stable stem 46: pi_94(S^48)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_046"
+    ],
+    "generated_path": "generated/stable_stem_046"
+  },
+  {
+    "id": "stable_stem_047",
+    "title": "Stable stem 47: pi_96(S^49)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_047"
+    ],
+    "generated_path": "generated/stable_stem_047"
+  },
+  {
+    "id": "stable_stem_048",
+    "title": "Stable stem 48: pi_98(S^50)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_048"
+    ],
+    "generated_path": "generated/stable_stem_048"
+  },
+  {
+    "id": "stable_stem_049",
+    "title": "Stable stem 49: pi_100(S^51)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_049"
+    ],
+    "generated_path": "generated/stable_stem_049"
+  },
+  {
+    "id": "stable_stem_050",
+    "title": "Stable stem 50: pi_102(S^52)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_050"
+    ],
+    "generated_path": "generated/stable_stem_050"
+  },
+  {
+    "id": "stable_stem_051",
+    "title": "Stable stem 51: pi_104(S^53)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_051"
+    ],
+    "generated_path": "generated/stable_stem_051"
+  },
+  {
+    "id": "stable_stem_052",
+    "title": "Stable stem 52: pi_106(S^54)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_052"
+    ],
+    "generated_path": "generated/stable_stem_052"
+  },
+  {
+    "id": "stable_stem_053",
+    "title": "Stable stem 53: pi_108(S^55)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_053"
+    ],
+    "generated_path": "generated/stable_stem_053"
+  },
+  {
+    "id": "stable_stem_054",
+    "title": "Stable stem 54: pi_110(S^56)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_054"
+    ],
+    "generated_path": "generated/stable_stem_054"
+  },
+  {
+    "id": "stable_stem_055",
+    "title": "Stable stem 55: pi_112(S^57)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_055"
+    ],
+    "generated_path": "generated/stable_stem_055"
+  },
+  {
+    "id": "stable_stem_056",
+    "title": "Stable stem 56: pi_114(S^58)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_056"
+    ],
+    "generated_path": "generated/stable_stem_056"
+  },
+  {
+    "id": "stable_stem_057",
+    "title": "Stable stem 57: pi_116(S^59)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_057"
+    ],
+    "generated_path": "generated/stable_stem_057"
+  },
+  {
+    "id": "stable_stem_058",
+    "title": "Stable stem 58: pi_118(S^60)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_058"
+    ],
+    "generated_path": "generated/stable_stem_058"
+  },
+  {
+    "id": "stable_stem_059",
+    "title": "Stable stem 59: pi_120(S^61)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_059"
+    ],
+    "generated_path": "generated/stable_stem_059"
+  },
+  {
+    "id": "stable_stem_060",
+    "title": "Stable stem 60: pi_122(S^62)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_060"
+    ],
+    "generated_path": "generated/stable_stem_060"
+  },
+  {
+    "id": "stable_stem_061",
+    "title": "Stable stem 61: pi_124(S^63)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_061"
+    ],
+    "generated_path": "generated/stable_stem_061"
+  },
+  {
+    "id": "stable_stem_062",
+    "title": "Stable stem 62: pi_126(S^64)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_062"
+    ],
+    "generated_path": "generated/stable_stem_062"
+  },
+  {
+    "id": "stable_stem_063",
+    "title": "Stable stem 63: pi_128(S^65)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_063"
+    ],
+    "generated_path": "generated/stable_stem_063"
+  },
+  {
+    "id": "stable_stem_064",
+    "title": "Stable stem 64: pi_130(S^66)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_064"
+    ],
+    "generated_path": "generated/stable_stem_064"
+  },
+  {
+    "id": "stable_stem_065",
+    "title": "Stable stem 65: pi_132(S^67)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_065"
+    ],
+    "generated_path": "generated/stable_stem_065"
+  },
+  {
+    "id": "stable_stem_066",
+    "title": "Stable stem 66: pi_134(S^68)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_066"
+    ],
+    "generated_path": "generated/stable_stem_066"
+  },
+  {
+    "id": "stable_stem_067",
+    "title": "Stable stem 67: pi_136(S^69)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_067"
+    ],
+    "generated_path": "generated/stable_stem_067"
+  },
+  {
+    "id": "stable_stem_068",
+    "title": "Stable stem 68: pi_138(S^70)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_068"
+    ],
+    "generated_path": "generated/stable_stem_068"
+  },
+  {
+    "id": "stable_stem_069",
+    "title": "Stable stem 69: pi_140(S^71)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_069"
+    ],
+    "generated_path": "generated/stable_stem_069"
+  },
+  {
+    "id": "stable_stem_070",
+    "title": "Stable stem 70: pi_142(S^72)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_070"
+    ],
+    "generated_path": "generated/stable_stem_070"
+  },
+  {
+    "id": "stable_stem_071",
+    "title": "Stable stem 71: pi_144(S^73)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_071"
+    ],
+    "generated_path": "generated/stable_stem_071"
+  },
+  {
+    "id": "stable_stem_072",
+    "title": "Stable stem 72: pi_146(S^74)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_072"
+    ],
+    "generated_path": "generated/stable_stem_072"
+  },
+  {
+    "id": "stable_stem_073",
+    "title": "Stable stem 73: pi_148(S^75)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_073"
+    ],
+    "generated_path": "generated/stable_stem_073"
+  },
+  {
+    "id": "stable_stem_074",
+    "title": "Stable stem 74: pi_150(S^76)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_074"
+    ],
+    "generated_path": "generated/stable_stem_074"
+  },
+  {
+    "id": "stable_stem_075",
+    "title": "Stable stem 75: pi_152(S^77)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_075"
+    ],
+    "generated_path": "generated/stable_stem_075"
+  },
+  {
+    "id": "stable_stem_076",
+    "title": "Stable stem 76: pi_154(S^78)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_076"
+    ],
+    "generated_path": "generated/stable_stem_076"
+  },
+  {
+    "id": "stable_stem_077",
+    "title": "Stable stem 77: pi_156(S^79)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_077"
+    ],
+    "generated_path": "generated/stable_stem_077"
+  },
+  {
+    "id": "stable_stem_078",
+    "title": "Stable stem 78: pi_158(S^80)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_078"
+    ],
+    "generated_path": "generated/stable_stem_078"
+  },
+  {
+    "id": "stable_stem_079",
+    "title": "Stable stem 79: pi_160(S^81)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_079"
+    ],
+    "generated_path": "generated/stable_stem_079"
+  },
+  {
+    "id": "stable_stem_080",
+    "title": "Stable stem 80: pi_162(S^82)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_080"
+    ],
+    "generated_path": "generated/stable_stem_080"
+  },
+  {
+    "id": "stable_stem_081",
+    "title": "Stable stem 81: pi_164(S^83)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_081"
+    ],
+    "generated_path": "generated/stable_stem_081"
+  },
+  {
+    "id": "stable_stem_082",
+    "title": "Stable stem 82: pi_166(S^84)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_082"
+    ],
+    "generated_path": "generated/stable_stem_082"
+  },
+  {
+    "id": "stable_stem_083",
+    "title": "Stable stem 83: pi_168(S^85)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_083"
+    ],
+    "generated_path": "generated/stable_stem_083"
+  },
+  {
+    "id": "stable_stem_084",
+    "title": "Stable stem 84: pi_170(S^86)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_084"
+    ],
+    "generated_path": "generated/stable_stem_084"
+  },
+  {
+    "id": "stable_stem_085",
+    "title": "Stable stem 85: pi_172(S^87)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_085"
+    ],
+    "generated_path": "generated/stable_stem_085"
+  },
+  {
+    "id": "stable_stem_086",
+    "title": "Stable stem 86: pi_174(S^88)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_086"
+    ],
+    "generated_path": "generated/stable_stem_086"
+  },
+  {
+    "id": "stable_stem_087",
+    "title": "Stable stem 87: pi_176(S^89)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_087"
+    ],
+    "generated_path": "generated/stable_stem_087"
+  },
+  {
+    "id": "stable_stem_088",
+    "title": "Stable stem 88: pi_178(S^90)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_088"
+    ],
+    "generated_path": "generated/stable_stem_088"
+  },
+  {
+    "id": "stable_stem_089",
+    "title": "Stable stem 89: pi_180(S^91)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_089"
+    ],
+    "generated_path": "generated/stable_stem_089"
+  },
+  {
+    "id": "stable_stem_090",
+    "title": "Stable stem 90: pi_182(S^92)",
+    "test": false,
+    "submitter": "homotopy-groups-lean research registry",
+    "module": "HomotopyGroups.StableStems",
+    "holes": [
+      "stable_stem_090"
+    ],
+    "generated_path": "generated/stable_stem_090"
+  },
+  {
+    "id": "stable_two_primary_quadratic_growth_conjecture",
+    "title": "Quadratic logarithmic growth of cumulative two-primary stable stems",
+    "test": false,
+    "submitter": "OpenAI Codex",
+    "module": "HomotopyGroups.Conjectures",
+    "holes": [
+      "stable_two_primary_quadratic_growth_conjecture"
+    ],
+    "generated_path": "generated/stable_two_primary_quadratic_growth_conjecture"
+  }
+]

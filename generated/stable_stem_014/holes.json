@@ -1,0 +1,12 @@
+{
+  "id": "stable_stem_014",
+  "module": "HomotopyGroups.StableStems",
+  "holes": [
+    {
+      "name": "HomotopyGroups.StableStems.stable_stem_014",
+      "basename": "stable_stem_014",
+      "kind": "theorem",
+      "body": "/--\nStable stem 14, represented by pi_30(S^16).\nThe equality q = 2n - 2 places this representative in the Freudenthal stable range.\nPublished integral group: Z/2 x Z/2.\nSources: iwx2023 Table 1, stem 14: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)\n-/\ntheorem stable_stem_014 :\n    Nonempty\n      (\u03c0_ 30 (StableSphere 16) (stableSphereBasepoint 16) \u2243*\n        Multiplicative (ZMod 2 \u00d7 (ZMod 2))) := by\n  sorry"
+    }
+  ]
+}

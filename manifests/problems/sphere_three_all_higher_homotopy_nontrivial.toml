@@ -1,0 +1,8 @@
+id = "sphere_three_all_higher_homotopy_nontrivial"
+title = "Every homotopy group of the three-sphere in degree at least three is nontrivial"
+test = false
+module = "HomotopyGroups.Advanced"
+holes = ["sphere_three_all_higher_homotopy_nontrivial"]
+submitter = "OpenAI Codex"
+source = "https://doi.org/10.4310/HHA.2016.v18.n2.a18"
+notes = "knowledge_status=published_theorem_statement_only; follows classically from the S1-to-S3-to-S2 Hopf fibration and the nonvanishing theorem for S2."

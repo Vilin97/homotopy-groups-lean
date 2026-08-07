@@ -1,0 +1,12 @@
+{
+  "id": "sphere_diagonal_homotopy_mulEquiv_int",
+  "module": "HomotopyGroups.Spaces",
+  "holes": [
+    {
+      "name": "HomotopyGroups.sphere_diagonal_homotopy_mulEquiv_int",
+      "basename": "sphere_diagonal_homotopy_mulEquiv_int",
+      "kind": "theorem",
+      "body": "theorem sphere_diagonal_homotopy_mulEquiv_int (n : \u2115) :\n    Nonempty\n      (HomotopyGroup.Pi (n + 1) (SphereSpace (n + 1))\n          (sphereBasepoint (n + 1)) \u2243*\n        Multiplicative \u2124) := by\n  sorry"
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+{
+  "conjectures": [
+    {
+      "id": "iwx-two-primary-growth",
+      "lean": {
+        "declaration": "HomotopyGroups.stable_two_primary_quadratic_growth_conjecture",
+        "status": "statement_available"
+      },
+      "source": {
+        "doi": "10.1007/s10240-023-00139-1",
+        "locator": "Conjecture 1.4",
+        "url": "https://www.numdam.org/articles/10.1007/s10240-023-00139-1/"
+      },
+      "statement": "If f(k) is the product of the orders of the two-primary stable homotopy groups in stems 1 through k, then log_2(f(k))/k^2 tends to a nonzero constant.",
+      "status": "open_conjecture",
+      "title": "Quadratic logarithmic growth of cumulative two-primary stable stems"
+    },
+    {
+      "id": "imw-s3-two-primary-nonvanishing",
+      "lean": {
+        "declaration": "HomotopyGroups.sphere_three_two_primary_nontrivial_conjecture",
+        "status": "statement_available"
+      },
+      "source": {
+        "doi": "10.4310/HHA.2016.v18.n2.a18",
+        "locator": "Conjecture 1",
+        "url": "https://intlpress.com/site/pub/files/_fulltext/journals/hha/2016/0018/0002/HHA-2016-0018-0002-a018.pdf"
+      },
+      "statement": "The two-primary component of pi_m(S^3) is nontrivial for every m greater than 10.",
+      "status": "open_conjecture",
+      "title": "Eventual nonvanishing of the two-primary component of pi_m(S^3)"
+    },
+    {
+      "id": "freyd-generating-hypothesis",
+      "lean": {
+        "missing": [
+          "stable homotopy category",
+          "finite spectra",
+          "stable homotopy functor"
+        ],
+        "status": "blocked_on_foundations"
+      },
+      "source": {
+        "locator": "Conjecture 1.1",
+        "url": "https://msp.org/agt/2010/10-2/agt-v10-n2-p16-p.pdf"
+      },
+      "statement": "A map between finite spectra that induces zero on every stable homotopy group is nullhomotopic; equivalently, stable homotopy groups are faithful on finite spectra.",
+      "status": "open_conjecture",
+      "title": "Freyd generating hypothesis"
+    },
+    {
+      "id": "curtis-spherical-classes",
+      "lean": {
+        "missing": [
+          "spectra",
+          "stable Hurewicz map",
+          "named Hopf and Kervaire classes"
+        ],
+        "status": "blocked_on_foundations"
+      },
+      "source": {
+        "url": "https://arxiv.org/abs/1609.03143"
+      },
+      "statement": "In positive degrees, the image of the stable mod-two Hurewicz map is generated only by Hopf-invariant-one and Kervaire-invariant-one classes.",
+      "status": "open_conjecture",
+      "title": "Curtis spherical-classes conjecture at two"
+    },
+    {
+      "id": "moore-exponent",
+      "lean": {
+        "missing": [
+          "finite CW complexes",
+          "primary torsion",
+          "rational homotopy",
+          "uniform exponent API"
+        ],
+        "status": "blocked_on_foundations"
+      },
+      "source": {
+        "url": "https://www.cambridge.org/core/services/aop-cambridge-core/content/view/7AADB930A50A377D384B7E5E23152482/S0305004100060916a.pdf/on_conjectures_of_moore_and_serre_in_the_case_of_torsionfree_suspensions.pdf"
+      },
+      "statement": "For a finite simply connected CW complex X and prime p, the p-primary torsion in all homotopy groups of X has a uniform finite exponent if and only if the direct sum of its rational homotopy groups is finite-dimensional.",
+      "status": "open_conjecture",
+      "title": "Moore exponent conjecture"
+    },
+    {
+      "id": "unique-smooth-spheres",
+      "lean": {
+        "missing": [
+          "smooth manifolds",
+          "homotopy spheres",
+          "oriented diffeomorphism classes",
+          "Pontryagin-Thom bridge"
+        ],
+        "status": "blocked_on_foundations"
+      },
+      "source": {
+        "locator": "Conjecture 2.2",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7547228/"
+      },
+      "statement": "In dimensions greater than four, the only spheres with unique smooth structure are S^5, S^6, S^12, S^56, and S^61.",
+      "status": "open_conjecture",
+      "title": "Unique smooth structures on high-dimensional spheres"
+    }
+  ],
+  "no_longer_open": [
+    {
+      "id": "ravenel-telescope",
+      "note": "Counterexamples show telescopic and chromatic localizations differ at every prime and every height at least two.",
+      "source": "https://arxiv.org/abs/2310.17459",
+      "status": "disproved",
+      "title": "Ravenel telescope conjecture"
+    }
+  ],
+  "provisional_results": [
+    {
+      "id": "kervaire-dimension-126",
+      "note": "Do not list this as an open conjecture; retain the preprint qualifier until publication status is updated.",
+      "source": "https://arxiv.org/abs/2412.10879",
+      "statement": "A smooth framed manifold of Kervaire invariant one exists in dimension 126, completing the dimensions 2, 6, 14, 30, 62, and 126.",
+      "status": "provisional_preprint_result",
+      "title": "Kervaire invariant one in dimension 126"
+    }
+  ],
+  "reviewed_on": "2026-08-07",
+  "schema_version": "1.0.0"
+}

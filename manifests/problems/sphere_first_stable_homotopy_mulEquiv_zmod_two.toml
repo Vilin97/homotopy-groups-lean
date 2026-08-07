@@ -1,0 +1,8 @@
+id = "sphere_first_stable_homotopy_mulEquiv_zmod_two"
+title = "The first stable-offset homotopy group of a sphere is cyclic of order two"
+test = false
+module = "HomotopyGroups.Spaces"
+holes = ["sphere_first_stable_homotopy_mulEquiv_zmod_two"]
+submitter = "OpenAI Codex"
+source = "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
+notes = "knowledge_status=foundation_blocked; states pi_(n+1)(S^n)=C2 for n>=3; suspension and Freudenthal machinery are absent."

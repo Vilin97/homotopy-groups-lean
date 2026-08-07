@@ -1,0 +1,8 @@
+id = "stable_stem_028"
+title = "Stable stem 28: pi_58(S^30)"
+test = false
+module = "HomotopyGroups.StableStems"
+holes = ["stable_stem_028"]
+submitter = "homotopy-groups-lean research registry"
+source = "iwx2023 Table 1, stem 28: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)"
+notes = "knowledge_status=known_result/exact Stable representative pi_58(S^30) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2. Generated from research/stable-stems.json registry 2026-08-07.1."

@@ -1,0 +1,139 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      # actions/checkout v7.0.1, pinned 2026-07-30.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Audit immutable workflow dependencies
+        run: python3 scripts/action_pin_audit.py
+
+      # jlumbroso/free-disk-space v1.3.1, pinned 2026-05-04.
+      - uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
+        with:
+          tool-cache: false
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: true
+          swap-storage: true
+
+      # leanprover/lean-action v1.5.0, pinned 2026-05-04.
+      - uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9
+        with:
+          use-mathlib-cache: true
+
+      # actions/setup-python v7.0.0, pinned 2026-07-30.
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.11.10'
+
+      # actions/setup-node v6.1.0, pinned 2026-08-07.
+      - uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f
+        with:
+          node-version: '22.19.0'
+          cache: npm
+          cache-dependency-path: website/package-lock.json
+
+      # actions/setup-go v7.0.0, pinned 2026-07-30.
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+        with:
+          go-version: '1.25.12'
+          cache: false
+
+      - name: Install landrun
+        run: |
+          go install github.com/zouuup/landrun/cmd/landrun@5ed4a3db3a4ad930d577215c6b9abaa19df7f99f
+          echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
+
+      - name: Build lean4export
+        run: |
+          set -euo pipefail
+          git clone https://github.com/leanprover/lean4export.git .ci/lean4export
+          git -C .ci/lean4export checkout 4e7915201d3f9f04470d9eae002fa695f7cdc589
+          cp lean-toolchain .ci/lean4export/lean-toolchain
+          (cd .ci/lean4export && lake build lean4export)
+          echo "$PWD/.ci/lean4export/.lake/build/bin" >> "$GITHUB_PATH"
+
+      - name: Build comparator
+        run: |
+          set -euo pipefail
+          git clone https://github.com/leanprover/comparator.git .ci/comparator
+          git -C .ci/comparator checkout 07bc4ea40f2266dcb861820a2ec1fa3244ed307f
+          cp lean-toolchain .ci/comparator/lean-toolchain
+          test "$(sha256sum patches/comparator-landrun-terminator.patch | cut -d' ' -f1)" = "a421770633877895de509d185a07bf04169a5c9becd73e595315ec95d40f326c"
+          git -C .ci/comparator apply --check "$GITHUB_WORKSPACE/patches/comparator-landrun-terminator.patch"
+          git -C .ci/comparator apply "$GITHUB_WORKSPACE/patches/comparator-landrun-terminator.patch"
+          test "$(sha256sum patches/comparator-absolute-tools.patch | cut -d' ' -f1)" = "c9796ebf468991d07acc31f2f8e95cef53f61164f03a1ad2302c14f725e2000e"
+          git -C .ci/comparator apply --check "$GITHUB_WORKSPACE/patches/comparator-absolute-tools.patch"
+          git -C .ci/comparator apply "$GITHUB_WORKSPACE/patches/comparator-absolute-tools.patch"
+          test "$(sha256sum patches/comparator-stage-status.patch | cut -d' ' -f1)" = "23a7fa6e34ebc79f2b71576db10f012a32bca85400ca7bf246a7337a3dab9ca2"
+          git -C .ci/comparator apply --check "$GITHUB_WORKSPACE/patches/comparator-stage-status.patch"
+          git -C .ci/comparator apply "$GITHUB_WORKSPACE/patches/comparator-stage-status.patch"
+          (cd .ci/comparator && lake build comparator)
+          echo "$PWD/.ci/comparator/.lake/build/bin" >> "$GITHUB_PATH"
+
+      - name: Build nanoda
+        run: |
+          set -euo pipefail
+          git clone https://github.com/robsimmons/nanoda_lib.git .ci/nanoda
+          git -C .ci/nanoda checkout 68d5ca9db226849b41a6fff59d796ff19d0a8840
+          (cd .ci/nanoda && cargo build --release)
+          echo "$PWD/.ci/nanoda/target/release" >> "$GITHUB_PATH"
+
+      - name: Supply-chain and Python checks
+        run: |
+          python -m py_compile scripts/*.py scripts/security_probes/*.py
+          python -m unittest discover -s tests/python -v
+          python scripts/generate_stable_stems.py --check
+          python scripts/generate_site_data.py --check
+
+      - name: Validate and build the corpus
+        run: |
+          lake exe homotopy-groups-lean validate-manifest
+          lake exe homotopy-groups-lean check-problem-build
+          lake exe homotopy-groups-lean generate
+          lake exe homotopy-groups-lean generate --check
+          lake exe homotopy-groups-lean check-generated-builds
+
+      - name: Tooling regression tests
+        run: |
+          lake exe test_validate_submission
+          lake exe test_generate
+          lake exe test_check_comparator_installation
+
+      - name: Comparator and sandbox smoke test
+        run: |
+          python scripts/systemd_sandbox_probe.py
+          python scripts/sandbox_engaged_probe.py --require-tools
+          python scripts/security_probes/env_dump_probe.py --require-tools
+          python scripts/security_probes/path_shadow_probe.py --require-tools
+          lake exe homotopy-groups-lean check-comparator-installation
+          lake exe homotopy-groups-lean check-eval-workflow
+
+      - name: Build the website
+        working-directory: website
+        run: |
+          npm ci
+          npm run lint
+          npm test

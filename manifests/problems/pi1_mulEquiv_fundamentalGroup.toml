@@ -1,0 +1,8 @@
+id = "pi1_mulEquiv_fundamentalGroup"
+title = "The first homotopy group agrees with the fundamental group"
+test = false
+module = "HomotopyGroups.Foundations"
+holes = ["pi1_mulEquiv_fundamentalGroup"]
+submitter = "OpenAI Codex"
+source = "https://leanprover-community.github.io/mathlib4_docs/Mathlib/Topology/Homotopy/HomotopyGroup.html"
+notes = "knowledge_status=formalized_upstream; this is the native pi1MulEquivFundamentalGroup comparison, exposed as a benchmark theorem."

@@ -1,0 +1,12 @@
+{
+  "id": "stable_stem_001",
+  "module": "HomotopyGroups.StableStems",
+  "holes": [
+    {
+      "name": "HomotopyGroups.StableStems.stable_stem_001",
+      "basename": "stable_stem_001",
+      "kind": "theorem",
+      "body": "/--\nStable stem 1, represented by pi_4(S^3).\nThe equality q = 2n - 2 places this representative in the Freudenthal stable range.\nPublished integral group: Z/2.\nSources: iwx2023 Table 1, stem 1: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)\n-/\ntheorem stable_stem_001 :\n    Nonempty\n      (\u03c0_ 4 (StableSphere 3) (stableSphereBasepoint 3) \u2243*\n        Multiplicative (ZMod 2)) := by\n  sorry"
+    }
+  ]
+}

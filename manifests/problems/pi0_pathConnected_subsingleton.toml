@@ -1,0 +1,8 @@
+id = "pi0_pathConnected_subsingleton"
+title = "A path-connected space has trivial zeroth homotopy group"
+test = false
+module = "HomotopyGroups.Foundations"
+holes = ["pi0_pathConnected_subsingleton"]
+submitter = "OpenAI Codex"
+source = "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
+notes = "knowledge_status=native_consequence; follows from mathlib's pi0EquivZerothHomotopy and the path-connected ZerothHomotopy instance."

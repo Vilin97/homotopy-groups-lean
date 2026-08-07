@@ -1,0 +1,12 @@
+{
+  "id": "sphere_two_all_higher_homotopy_nontrivial",
+  "module": "HomotopyGroups.Advanced",
+  "holes": [
+    {
+      "name": "HomotopyGroups.sphere_two_all_higher_homotopy_nontrivial",
+      "basename": "sphere_two_all_higher_homotopy_nontrivial",
+      "kind": "theorem",
+      "body": "theorem sphere_two_all_higher_homotopy_nontrivial (k : \u2115) :\n    Nontrivial\n      (HomotopyGroup.Pi (k + 2) (SphereSpace 2) (sphereBasepoint 2)) := by\n  sorry"
+    }
+  ]
+}

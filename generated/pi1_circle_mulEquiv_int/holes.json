@@ -1,0 +1,12 @@
+{
+  "id": "pi1_circle_mulEquiv_int",
+  "module": "HomotopyGroups.Spaces",
+  "holes": [
+    {
+      "name": "HomotopyGroups.pi1_circle_mulEquiv_int",
+      "basename": "pi1_circle_mulEquiv_int",
+      "kind": "theorem",
+      "body": "theorem pi1_circle_mulEquiv_int :\n    Nonempty\n      (HomotopyGroup.Pi 1 Circle (1 : Circle) \u2243*\n        Multiplicative \u2124) := by\n  sorry"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+id = "stable_stem_063"
+title = "Stable stem 63: pi_128(S^65)"
+test = false
+module = "HomotopyGroups.StableStems"
+holes = ["stable_stem_063"]
+submitter = "homotopy-groups-lean research registry"
+source = "iwx2023 Table 1, stem 63: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)"
+notes = "knowledge_status=known_result/exact Stable representative pi_128(S^65) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/4 x Z/32640. Generated from research/stable-stems.json registry 2026-08-07.1."

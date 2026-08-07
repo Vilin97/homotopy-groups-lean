@@ -1,0 +1,12 @@
+{
+  "id": "stable_stem_080",
+  "module": "HomotopyGroups.StableStems",
+  "holes": [
+    {
+      "name": "HomotopyGroups.StableStems.stable_stem_080",
+      "basename": "stable_stem_080",
+      "kind": "theorem",
+      "body": "/--\nStable stem 80, represented by pi_162(S^82).\nThe equality q = 2n - 2 places this representative in the Freudenthal stable range.\nPublished integral group: Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/2.\nSources: iwx2023 Table 1, stem 80: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)\n-/\ntheorem stable_stem_080 :\n    Nonempty\n      (\u03c0_ 162 (StableSphere 82) (stableSphereBasepoint 82) \u2243*\n        Multiplicative (ZMod 2 \u00d7 (ZMod 2 \u00d7 (ZMod 2 \u00d7 (ZMod 2 \u00d7 (ZMod 2 \u00d7 (ZMod 2 \u00d7 (ZMod 2 \u00d7 (ZMod 2 \u00d7 (ZMod 2)))))))))) := by\n  sorry"
+    }
+  ]
+}

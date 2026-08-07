@@ -1,0 +1,8 @@
+id = "pi1_realProjectiveSpace_mulEquiv_zmod_two"
+title = "The fundamental group of real projective n-space is cyclic of order two"
+test = false
+module = "HomotopyGroups.Spaces"
+holes = ["pi1_realProjectiveSpace_mulEquiv_zmod_two"]
+submitter = "OpenAI Codex"
+source = "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
+notes = "knowledge_status=statement_only; RealProjectiveSpace is the genuine quotient-topology Projectivization model; covering-space identification with the sphere is not formalized."

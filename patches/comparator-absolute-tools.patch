@@ -1,0 +1,40 @@
+diff --git a/Main.lean b/Main.lean
+--- a/Main.lean
++++ b/Main.lean
+@@ -63,16 +63,12 @@ def getGitLocation : M System.FilePath := do return (← read).gitLocation
+ def getNanodaEnabled : M Bool := do return (← read).enableNanoda
+
+ def queryGitLocation : IO System.FilePath := do
+-  let out ← IO.Process.run {
+-    cmd := "which",
+-    args := #["git"],
+-    stdout := .piped,
+-  }
+-  return out.trimAscii.toString
++  return (← IO.getEnv "COMPARATOR_GIT").getD "git"
+
+ def queryLeanPrefix (projectDir : System.FilePath) : IO System.FilePath := do
++  let leanBin := (← IO.getEnv "COMPARATOR_LEAN").getD "lean"
+   let out ← IO.Process.run {
+-    cmd := "lean",
++    cmd := leanBin,
+     args := #["--print-prefix"],
+     stdout := .piped,
+     cwd := projectDir
+@@ -115,6 +111,7 @@ def runSandBoxed (spawnArgs : LandrunArgs) : M Unit := do
+
+ def safeLakeBuild (target : Lean.Name) : M Unit := do
+   IO.println s!"Building {target}"
++  let lakeBin := (← IO.getEnv "COMPARATOR_LAKE").getD "lake"
+   let leanPrefix ← getLeanPrefix
+   let projectDir ← getProjectDir
+   let dotLakeDir := projectDir / ".lake"
+@@ -124,7 +121,7 @@ def safeLakeBuild (target : Lean.Name) : M Unit := do
+     IO.FS.createDir dotLakeDir
+
+   runSandBoxed {
+-    cmd := "lake",
++    cmd := lakeBin,
+     args := #["build", target.toString],
+     envPass := #["PATH", "HOME", "LEAN_ABORT_ON_PANIC"]
+     envOverride := #[("LEAN_ABORT_ON_PANIC", some "1")]

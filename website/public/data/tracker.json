@@ -1,0 +1,1422 @@
+{
+  "entries": [
+    {
+      "family": "Spaces",
+      "formalization_status": "open",
+      "holes": [
+        "complexProjectiveSpace_higher_homotopy_mulEquiv_sphere"
+      ],
+      "id": "complexProjectiveSpace_higher_homotopy_mulEquiv_sphere",
+      "knowledge_status": "foundation_blocked",
+      "notes": "knowledge_status=foundation_blocked; states pi_k(CP^n)=pi_k(S^(2n+1)) for k>=3 and n>=1 via the Hopf fibration.",
+      "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
+      "title": "Higher homotopy groups of complex projective space agree with an odd sphere"
+    },
+    {
+      "family": "Foundations",
+      "formalization_status": "open",
+      "holes": [
+        "higher_homotopy_mul_comm"
+      ],
+      "id": "higher_homotopy_mul_comm",
+      "knowledge_status": "native_consequence",
+      "notes": "knowledge_status=native_consequence; the pinned mathlib already supplies a CommGroup instance for generalized loop dimensions with at least two coordinates.",
+      "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
+      "title": "Higher homotopy groups are commutative"
+    },
+    {
+      "family": "Foundations",
+      "formalization_status": "open",
+      "holes": [
+        "homotopyGroup_change_basepoint"
+      ],
+      "id": "homotopyGroup_change_basepoint",
+      "knowledge_status": "foundation_blocked",
+      "notes": "knowledge_status=foundation_blocked; the fundamental-group API has basepoint change, but HomotopyGroup has no higher counterpart.",
+      "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
+      "title": "A path induces change of basepoint on higher homotopy groups"
+    },
+    {
+      "family": "Foundations",
+      "formalization_status": "open",
+      "holes": [
+        "homotopyGroup_homotopy_invariance"
+      ],
+      "id": "homotopyGroup_homotopy_invariance",
+      "knowledge_status": "foundation_blocked",
+      "notes": "knowledge_status=foundation_blocked; HomotopyEquiv exists, but native higher induced maps and their multiplicativity are absent.",
+      "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
+      "title": "Higher homotopy groups are invariant under homotopy equivalence"
+    },
+    {
+      "family": "Foundations",
+      "formalization_status": "open",
+      "holes": [
+        "homotopyGroup_loop_shift"
+      ],
+      "id": "homotopyGroup_loop_shift",
+      "knowledge_status": "foundation_blocked",
+      "notes": "knowledge_status=foundation_blocked; GenLoop.genLoopGenLoopEquiv exists, but descent to quotient homotopy groups and Fin reindexing are not packaged.",
+      "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
+      "title": "Loop-space shifting of homotopy groups"
+    },
+    {
+      "family": "Foundations",
+      "formalization_status": "open",
+      "holes": [
+        "homotopyGroup_product"
+      ],
+      "id": "homotopyGroup_product",
+      "knowledge_status": "foundation_blocked",
+      "notes": "knowledge_status=foundation_blocked; coordinatewise loop maps are available to construct, but no quotient-level product MulEquiv is packaged.",
+      "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
+      "title": "Homotopy groups preserve binary products"
+    },
+    {
+      "family": "Foundations",
+      "formalization_status": "open",
+      "holes": [
+        "pi0_equiv_zerothHomotopy"
+      ],
+      "id": "pi0_equiv_zerothHomotopy",
+      "knowledge_status": "formalized_upstream",
+      "notes": "knowledge_status=formalized_upstream; this is the native pi0EquivZerothHomotopy comparison, exposed as a benchmark theorem.",
+      "source": "https://leanprover-community.github.io/mathlib4_docs/Mathlib/Topology/Homotopy/HomotopyGroup.html",
+      "title": "Zeroth homotopy groups agree with path components"
+    },
+    {
+      "family": "Foundations",
+      "formalization_status": "open",
+      "holes": [
+        "pi0_pathConnected_subsingleton"
+      ],
+      "id": "pi0_pathConnected_subsingleton",
+      "knowledge_status": "native_consequence",
+      "notes": "knowledge_status=native_consequence; follows from mathlib's pi0EquivZerothHomotopy and the path-connected ZerothHomotopy instance.",
+      "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
+      "title": "A path-connected space has trivial zeroth homotopy group"
+    },
+    {
+      "family": "Spaces",
+      "formalization_status": "open",
+      "holes": [
+        "pi1_circle_mulEquiv_int"
+      ],
+      "id": "pi1_circle_mulEquiv_int",
+      "knowledge_status": "derivable_from_pinned_mathlib",
+      "notes": "knowledge_status=derivable_from_pinned_mathlib; a comparator-safe proof uses Circle.exp, its additive quotient covering, and pi1MulEquivFundamentalGroup.",
+      "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
+      "title": "The fundamental group of the circle is the integers"
+    },
+    {
+      "family": "Spaces",
+      "formalization_status": "open",
+      "holes": [
+        "pi1_complexProjectiveSpace_subsingleton"
+      ],
+      "id": "pi1_complexProjectiveSpace_subsingleton",
+      "knowledge_status": "statement_only",
+      "notes": "knowledge_status=statement_only; ComplexProjectiveSpace is the genuine quotient-topology Projectivization model; its Hopf-fibration connectivity proof is absent.",
+      "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
+      "title": "Positive-dimensional complex projective space is simply connected"
+    },
+    {
+      "family": "Foundations",
+      "formalization_status": "open",
+      "holes": [
+        "pi1_hSpace_mul_comm"
+      ],
+      "id": "pi1_hSpace_mul_comm",
+      "knowledge_status": "statement_only",
+      "notes": "knowledge_status=statement_only; mathlib defines HSpace but does not connect that structure to FundamentalGroup or HomotopyGroup.Pi 1.",
+      "source": "https://doi.org/10.2307/1969485",
+      "title": "The fundamental group of an H-space is commutative"
+    },
+    {
+      "family": "Foundations",
+      "formalization_status": "open",
+      "holes": [
+        "pi1_mulEquiv_fundamentalGroup"
+      ],
+      "id": "pi1_mulEquiv_fundamentalGroup",
+      "knowledge_status": "formalized_upstream",
+      "notes": "knowledge_status=formalized_upstream; this is the native pi1MulEquivFundamentalGroup comparison, exposed as a benchmark theorem.",
+      "source": "https://leanprover-community.github.io/mathlib4_docs/Mathlib/Topology/Homotopy/HomotopyGroup.html",
+      "title": "The first homotopy group agrees with the fundamental group"
+    },
+    {
+      "family": "Spaces",
+      "formalization_status": "open",
+      "holes": [
+        "pi1_realProjectiveSpace_mulEquiv_zmod_two"
+      ],
+      "id": "pi1_realProjectiveSpace_mulEquiv_zmod_two",
+      "knowledge_status": "statement_only",
+      "notes": "knowledge_status=statement_only; RealProjectiveSpace is the genuine quotient-topology Projectivization model; covering-space identification with the sphere is not formalized.",
+      "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
+      "title": "The fundamental group of real projective n-space is cyclic of order two"
+    },
+    {
+      "family": "Foundations",
+      "formalization_status": "open",
+      "holes": [
+        "pi1_simplyConnected_subsingleton"
+      ],
+      "id": "pi1_simplyConnected_subsingleton",
+      "knowledge_status": "native_consequence",
+      "notes": "knowledge_status=native_consequence; uses the native comparison between pi_1 and FundamentalGroup together with SimplyConnectedSpace.",
+      "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
+      "title": "A simply connected space has trivial fundamental homotopy group"
+    },
+    {
+      "family": "Spaces",
+      "formalization_status": "open",
+      "holes": [
+        "pi2_complexProjectiveSpace_mulEquiv_int"
+      ],
+      "id": "pi2_complexProjectiveSpace_mulEquiv_int",
+      "knowledge_status": "foundation_blocked",
+      "notes": "knowledge_status=foundation_blocked; valid for complex dimension at least one; requires the Hopf-fibration long exact sequence or Hurewicz.",
+      "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
+      "title": "The second homotopy group of complex projective space is the integers"
+    },
+    {
+      "family": "Spaces",
+      "formalization_status": "open",
+      "holes": [
+        "pi3_sphere_two_mulEquiv_int"
+      ],
+      "id": "pi3_sphere_two_mulEquiv_int",
+      "knowledge_status": "foundation_blocked",
+      "notes": "knowledge_status=foundation_blocked; the Hopf-fibration computation is meaningful on the concrete sphere, but no fibration long exact sequence exists in the native API.",
+      "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
+      "title": "The third homotopy group of the two-sphere is the integers"
+    },
+    {
+      "family": "Spaces",
+      "formalization_status": "open",
+      "holes": [
+        "realProjectiveSpace_higher_homotopy_mulEquiv_sphere"
+      ],
+      "id": "realProjectiveSpace_higher_homotopy_mulEquiv_sphere",
+      "knowledge_status": "foundation_blocked",
+      "notes": "knowledge_status=foundation_blocked; covers all degrees >=2 and dimensions >=2; the required higher covering-space lifting theorem is absent.",
+      "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
+      "title": "Higher homotopy groups of real projective space agree with those of its sphere cover"
+    },
+    {
+      "family": "Advanced",
+      "formalization_status": "open",
+      "holes": [
+        "serre_even_sphere_exceptional_rank_one"
+      ],
+      "id": "serre_even_sphere_exceptional_rank_one",
+      "knowledge_status": "foundation_blocked",
+      "notes": "knowledge_status=foundation_blocked; rational rank one is expressed concretely as Z times some finite bundled commutative group, avoiding a nonexistent rationalization API.",
+      "source": "https://doi.org/10.2307/1969485",
+      "title": "The exceptional homotopy group of an even sphere has rank one"
+    },
+    {
+      "family": "Advanced",
+      "formalization_status": "open",
+      "holes": [
+        "serre_finiteness_even_sphere"
+      ],
+      "id": "serre_finiteness_even_sphere",
+      "knowledge_status": "foundation_blocked",
+      "notes": "knowledge_status=foundation_blocked; the hypotheses explicitly exclude the rank-one degree 2d-1 for sphere dimension d=2(n+1).",
+      "source": "https://doi.org/10.2307/1969485",
+      "title": "Serre finiteness away from the exceptional degree of an even sphere"
+    },
+    {
+      "family": "Advanced",
+      "formalization_status": "open",
+      "holes": [
+        "serre_finiteness_odd_sphere"
+      ],
+      "id": "serre_finiteness_odd_sphere",
+      "knowledge_status": "foundation_blocked",
+      "notes": "knowledge_status=foundation_blocked; parametrizes every odd sphere of dimension at least three and every strictly higher homotopy degree.",
+      "source": "https://doi.org/10.2307/1969485",
+      "title": "Serre finiteness for higher homotopy groups of odd spheres"
+    },
+    {
+      "family": "Spaces",
+      "formalization_status": "open",
+      "holes": [
+        "sphere_diagonal_homotopy_mulEquiv_int"
+      ],
+      "id": "sphere_diagonal_homotopy_mulEquiv_int",
+      "knowledge_status": "foundation_blocked",
+      "notes": "knowledge_status=foundation_blocked; this is pi_n(S^n)=Z for n>=1, with positivity encoded by the successor parameter; no Hurewicz bridge exists.",
+      "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
+      "title": "The diagonal homotopy group of a positive-dimensional sphere is the integers"
+    },
+    {
+      "family": "Spaces",
+      "formalization_status": "open",
+      "holes": [
+        "sphere_first_stable_homotopy_mulEquiv_zmod_two"
+      ],
+      "id": "sphere_first_stable_homotopy_mulEquiv_zmod_two",
+      "knowledge_status": "foundation_blocked",
+      "notes": "knowledge_status=foundation_blocked; states pi_(n+1)(S^n)=C2 for n>=3; suspension and Freudenthal machinery are absent.",
+      "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
+      "title": "The first stable-offset homotopy group of a sphere is cyclic of order two"
+    },
+    {
+      "family": "Spaces",
+      "formalization_status": "open",
+      "holes": [
+        "sphere_lower_homotopy_subsingleton"
+      ],
+      "id": "sphere_lower_homotopy_subsingleton",
+      "knowledge_status": "foundation_blocked",
+      "notes": "knowledge_status=foundation_blocked; the concrete metric sphere exists, but sphere connectivity and cellular approximation are absent.",
+      "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
+      "title": "Homotopy groups below the dimension of a sphere vanish"
+    },
+    {
+      "family": "Advanced",
+      "formalization_status": "open",
+      "holes": [
+        "sphere_three_all_higher_homotopy_nontrivial"
+      ],
+      "id": "sphere_three_all_higher_homotopy_nontrivial",
+      "knowledge_status": "published_theorem_statement_only",
+      "notes": "knowledge_status=published_theorem_statement_only; follows classically from the S1-to-S3-to-S2 Hopf fibration and the nonvanishing theorem for S2.",
+      "source": "https://doi.org/10.4310/HHA.2016.v18.n2.a18",
+      "title": "Every homotopy group of the three-sphere in degree at least three is nontrivial"
+    },
+    {
+      "family": "Conjectures",
+      "formalization_status": "open",
+      "holes": [
+        "sphere_three_two_primary_nontrivial_conjecture"
+      ],
+      "id": "sphere_three_two_primary_nontrivial_conjecture",
+      "knowledge_status": "open_conjecture_in_cited_source",
+      "notes": "knowledge_status=open_conjecture_in_cited_source; Conjecture 1 asserts nonzero 2-primary component for every degree above 10; the Lean conclusion asks for a nonidentity element killed by a positive power of two.",
+      "source": "https://doi.org/10.4310/HHA.2016.v18.n2.a18",
+      "title": "Nonvanishing of the two-primary component of higher homotopy groups of the three-sphere"
+    },
+    {
+      "family": "Advanced",
+      "formalization_status": "open",
+      "holes": [
+        "sphere_two_all_higher_homotopy_nontrivial"
+      ],
+      "id": "sphere_two_all_higher_homotopy_nontrivial",
+      "knowledge_status": "published_theorem_statement_only",
+      "notes": "knowledge_status=published_theorem_statement_only; this is Theorem 1.1 of Ivanov-Mikhailov-Wu in a concrete sphere model.",
+      "source": "https://doi.org/10.4310/HHA.2016.v18.n2.a18",
+      "title": "Every homotopy group of the two-sphere in degree at least two is nontrivial"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_000"
+      ],
+      "id": "stable_stem_000",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_2(S^2) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z. Generated from research/stable-stems.json registry 2026-08-07.1. The stable degree group: pi_0^S is infinite cyclic.",
+      "source": "iwx2023 Introduction and definition of stable stems: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 0: pi_2(S^2)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_001"
+      ],
+      "id": "stable_stem_001",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_4(S^3) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 1: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 1: pi_4(S^3)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_002"
+      ],
+      "id": "stable_stem_002",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_6(S^4) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 2: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 2: pi_6(S^4)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_003"
+      ],
+      "id": "stable_stem_003",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_8(S^5) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/24. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 3: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 3: pi_8(S^5)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_004"
+      ],
+      "id": "stable_stem_004",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_10(S^6) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: 0. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 4: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 4: pi_10(S^6)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_005"
+      ],
+      "id": "stable_stem_005",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_12(S^7) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: 0. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 5: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 5: pi_12(S^7)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_006"
+      ],
+      "id": "stable_stem_006",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_14(S^8) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 6: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 6: pi_14(S^8)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_007"
+      ],
+      "id": "stable_stem_007",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_16(S^9) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/240. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 7: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 7: pi_16(S^9)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_008"
+      ],
+      "id": "stable_stem_008",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_18(S^10) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 8: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 8: pi_18(S^10)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_009"
+      ],
+      "id": "stable_stem_009",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_20(S^11) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 9: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 9: pi_20(S^11)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_010"
+      ],
+      "id": "stable_stem_010",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_22(S^12) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/6. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 10: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 10: pi_22(S^12)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_011"
+      ],
+      "id": "stable_stem_011",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_24(S^13) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/504. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 11: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 11: pi_24(S^13)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_012"
+      ],
+      "id": "stable_stem_012",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_26(S^14) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: 0. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 12: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 12: pi_26(S^14)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_013"
+      ],
+      "id": "stable_stem_013",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_28(S^15) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/3. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 13: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 13: pi_28(S^15)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_014"
+      ],
+      "id": "stable_stem_014",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_30(S^16) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 14: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 14: pi_30(S^16)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_015"
+      ],
+      "id": "stable_stem_015",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_32(S^17) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/480. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 15: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 15: pi_32(S^17)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_016"
+      ],
+      "id": "stable_stem_016",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_34(S^18) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 16: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 16: pi_34(S^18)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_017"
+      ],
+      "id": "stable_stem_017",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_36(S^19) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2 x Z/2. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 17: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 17: pi_36(S^19)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_018"
+      ],
+      "id": "stable_stem_018",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_38(S^20) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/8. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 18: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 18: pi_38(S^20)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_019"
+      ],
+      "id": "stable_stem_019",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_40(S^21) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/264. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 19: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 19: pi_40(S^21)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_020"
+      ],
+      "id": "stable_stem_020",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_42(S^22) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/24. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 20: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 20: pi_42(S^22)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_021"
+      ],
+      "id": "stable_stem_021",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_44(S^23) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 21: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 21: pi_44(S^23)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_022"
+      ],
+      "id": "stable_stem_022",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_46(S^24) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 22: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 22: pi_46(S^24)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_023"
+      ],
+      "id": "stable_stem_023",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_48(S^25) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/24 x Z/65520. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 23: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 23: pi_48(S^25)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_024"
+      ],
+      "id": "stable_stem_024",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_50(S^26) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 24: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 24: pi_50(S^26)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_025"
+      ],
+      "id": "stable_stem_025",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_52(S^27) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 25: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 25: pi_52(S^27)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_026"
+      ],
+      "id": "stable_stem_026",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_54(S^28) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/6. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 26: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 26: pi_54(S^28)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_027"
+      ],
+      "id": "stable_stem_027",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_56(S^29) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/24. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 27: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 27: pi_56(S^29)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_028"
+      ],
+      "id": "stable_stem_028",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_58(S^30) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 28: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 28: pi_58(S^30)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_029"
+      ],
+      "id": "stable_stem_029",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_60(S^31) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/3. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 29: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 29: pi_60(S^31)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_030"
+      ],
+      "id": "stable_stem_030",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_62(S^32) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/6. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 30: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 30: pi_62(S^32)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_031"
+      ],
+      "id": "stable_stem_031",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_64(S^33) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/16320. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 31: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 31: pi_64(S^33)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_032"
+      ],
+      "id": "stable_stem_032",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_66(S^34) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2 x Z/2. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 32: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 32: pi_66(S^34)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_033"
+      ],
+      "id": "stable_stem_033",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_68(S^35) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2 x Z/2 x Z/2. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 33: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 33: pi_68(S^35)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_034"
+      ],
+      "id": "stable_stem_034",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_70(S^36) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2 x Z/4. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 34: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 34: pi_70(S^36)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_035"
+      ],
+      "id": "stable_stem_035",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_72(S^37) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/28728. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 35: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 35: pi_72(S^37)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_036"
+      ],
+      "id": "stable_stem_036",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_74(S^38) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/6. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 36: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 36: pi_74(S^38)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_037"
+      ],
+      "id": "stable_stem_037",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_76(S^39) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/6. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 37: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 37: pi_76(S^39)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_038"
+      ],
+      "id": "stable_stem_038",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_78(S^40) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/60. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 38: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 38: pi_78(S^40)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_039"
+      ],
+      "id": "stable_stem_039",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_80(S^41) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2 x Z/2 x Z/6 x Z/13200. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 39: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 39: pi_80(S^41)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_040"
+      ],
+      "id": "stable_stem_040",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_82(S^42) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/12. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 40: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 40: pi_82(S^42)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_041"
+      ],
+      "id": "stable_stem_041",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_84(S^43) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2 x Z/2 x Z/2. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 41: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 41: pi_84(S^43)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_042"
+      ],
+      "id": "stable_stem_042",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_86(S^44) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/24. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 42: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 42: pi_86(S^44)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_043"
+      ],
+      "id": "stable_stem_043",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_88(S^45) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/552. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 43: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 43: pi_88(S^45)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_044"
+      ],
+      "id": "stable_stem_044",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_90(S^46) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/8. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 44: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 44: pi_90(S^46)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_045"
+      ],
+      "id": "stable_stem_045",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_92(S^47) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2 x Z/720. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 45: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 45: pi_92(S^47)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_046"
+      ],
+      "id": "stable_stem_046",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_94(S^48) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2 x Z/6. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 46: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 46: pi_94(S^48)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_047"
+      ],
+      "id": "stable_stem_047",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_96(S^49) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2 x Z/12 x Z/131040. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 47: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 47: pi_96(S^49)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_048"
+      ],
+      "id": "stable_stem_048",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_98(S^50) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2 x Z/2 x Z/4. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 48: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 48: pi_98(S^50)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_049"
+      ],
+      "id": "stable_stem_049",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_100(S^51) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/6. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 49: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 49: pi_100(S^51)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_050"
+      ],
+      "id": "stable_stem_050",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_102(S^52) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/6. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 50: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 50: pi_102(S^52)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_051"
+      ],
+      "id": "stable_stem_051",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_104(S^53) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/8 x Z/24. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 51: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 51: pi_104(S^53)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_052"
+      ],
+      "id": "stable_stem_052",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_106(S^54) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/6. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 52: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 52: pi_106(S^54)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_053"
+      ],
+      "id": "stable_stem_053",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_108(S^55) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2 x Z/2. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 53: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 53: pi_108(S^55)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_054"
+      ],
+      "id": "stable_stem_054",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_110(S^56) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/4. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 54: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 54: pi_110(S^56)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_055"
+      ],
+      "id": "stable_stem_055",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_112(S^57) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/3 x Z/6960. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 55: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 55: pi_112(S^57)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_056"
+      ],
+      "id": "stable_stem_056",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_114(S^58) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 56: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 56: pi_114(S^58)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_057"
+      ],
+      "id": "stable_stem_057",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_116(S^59) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 57: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 57: pi_116(S^59)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_058"
+      ],
+      "id": "stable_stem_058",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_118(S^60) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 58: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 58: pi_118(S^60)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_059"
+      ],
+      "id": "stable_stem_059",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_120(S^61) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/171864. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 59: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 59: pi_120(S^61)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_060"
+      ],
+      "id": "stable_stem_060",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_122(S^62) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/4. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 60: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 60: pi_122(S^62)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_061"
+      ],
+      "id": "stable_stem_061",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_124(S^63) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: 0. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 61: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 61: pi_124(S^63)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_062"
+      ],
+      "id": "stable_stem_062",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_126(S^64) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2 x Z/6. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 62: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 62: pi_126(S^64)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_063"
+      ],
+      "id": "stable_stem_063",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_128(S^65) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/4 x Z/32640. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 63: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 63: pi_128(S^65)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_064"
+      ],
+      "id": "stable_stem_064",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_130(S^66) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/4. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 64: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 64: pi_130(S^66)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_065"
+      ],
+      "id": "stable_stem_065",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_132(S^67) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/12. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 65: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 65: pi_132(S^67)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_066"
+      ],
+      "id": "stable_stem_066",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_134(S^68) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/8. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 66: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 66: pi_134(S^68)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_067"
+      ],
+      "id": "stable_stem_067",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_136(S^69) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2 x Z/4 x Z/24. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 67: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 67: pi_136(S^69)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_068"
+      ],
+      "id": "stable_stem_068",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_138(S^70) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/6. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 68: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 68: pi_138(S^70)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_069"
+      ],
+      "id": "stable_stem_069",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_140(S^71) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2 x Z/2. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 69: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 69: pi_140(S^71)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_070"
+      ],
+      "id": "stable_stem_070",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_142(S^72) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/4. Generated from research/stable-stems.json registry 2026-08-07.1. Applies the published 2025 correction to the erroneous IWX 2023 2-primary v1-torsion entry.",
+      "source": "bix2025 Section 1.2: https://link.springer.com/article/10.1007/s42543-025-00098-y (DOI https://doi.org/10.1007/s42543-025-00098-y); iwx2023 Table 1, stem 70: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 70: pi_142(S^72)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_071"
+      ],
+      "id": "stable_stem_071",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_144(S^73) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/4 x Z/8 x Z/138181680. Generated from research/stable-stems.json registry 2026-08-07.1. Applies the published 2025 correction to the erroneous IWX 2023 2-primary v1-torsion entry and retains the unchanged v1-periodic summands.",
+      "source": "bix2025 Section 1.2: https://link.springer.com/article/10.1007/s42543-025-00098-y (DOI https://doi.org/10.1007/s42543-025-00098-y); iwx2023 Table 1, stem 71: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 71: pi_144(S^73)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_072"
+      ],
+      "id": "stable_stem_072",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_146(S^74) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/6. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 72: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 72: pi_146(S^74)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_073"
+      ],
+      "id": "stable_stem_073",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_148(S^75) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/2. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 73: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 73: pi_148(S^75)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_074"
+      ],
+      "id": "stable_stem_074",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_150(S^76) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/4 x Z/4 x Z/12. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 74: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 74: pi_150(S^76)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_075"
+      ],
+      "id": "stable_stem_075",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_152(S^77) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/6 x Z/72. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 75: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 75: pi_152(S^77)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_076"
+      ],
+      "id": "stable_stem_076",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_154(S^78) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/20. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 76: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 76: pi_154(S^78)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_077"
+      ],
+      "id": "stable_stem_077",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_156(S^79) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/4. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 77: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 77: pi_156(S^79)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_078"
+      ],
+      "id": "stable_stem_078",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_158(S^80) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2 x Z/4 x Z/12. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 78: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 78: pi_158(S^80)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_079"
+      ],
+      "id": "stable_stem_079",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_160(S^81) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/4 x Z/1082400. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 79: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 79: pi_160(S^81)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_080"
+      ],
+      "id": "stable_stem_080",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_162(S^82) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/2. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 80: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 80: pi_162(S^82)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_081"
+      ],
+      "id": "stable_stem_081",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_164(S^83) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/12 x Z/24. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 81: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 81: pi_164(S^83)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_082"
+      ],
+      "id": "stable_stem_082",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_166(S^84) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/168. Generated from research/stable-stems.json registry 2026-08-07.1. Uses BIX 2025 Theorem 1.1 for the now-complete 2-primary component; odd-primary summands remain from IWX 2023.",
+      "source": "bix2025 Theorem 1.1(1): https://link.springer.com/article/10.1007/s42543-025-00098-y (DOI https://doi.org/10.1007/s42543-025-00098-y); iwx2023 Table 1, stem 82: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 82: pi_166(S^84)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_083"
+      ],
+      "id": "stable_stem_083",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_168(S^85) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2 x Z/8 x Z/758520. Generated from research/stable-stems.json registry 2026-08-07.1. Uses BIX 2025 Theorem 1.1 for the now-complete 2-primary component; odd-primary summands remain from IWX 2023.",
+      "source": "bix2025 Theorem 1.1(2): https://link.springer.com/article/10.1007/s42543-025-00098-y (DOI https://doi.org/10.1007/s42543-025-00098-y); iwx2023 Table 1, stem 83: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 83: pi_168(S^85)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_084"
+      ],
+      "id": "stable_stem_084",
+      "knowledge_status": "open_computation/published_alternatives",
+      "notes": "knowledge_status=open_computation/published_alternatives Stable representative pi_170(S^86) lies at the Freudenthal isomorphism bound q=2n-2. The theorem states the complete alternatives published by the source; unresolved computation remains. Alternatives: iwx2023-84-a=Z/2 x Z/2 x Z/2 x Z/2 x Z/6 x Z/6, iwx2023-84-b=Z/2 x Z/2 x Z/2 x Z/6 x Z/6. Generated from research/stable-stems.json registry 2026-08-07.1. Not exact: IWX 2023 leaves a factor-of-2 ambiguity in the 2-primary v1-torsion component.",
+      "source": "iwx2023 Table 1, stem 84: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 84: pi_170(S^86)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_085"
+      ],
+      "id": "stable_stem_085",
+      "knowledge_status": "open_computation/published_alternatives",
+      "notes": "knowledge_status=open_computation/published_alternatives Stable representative pi_172(S^87) lies at the Freudenthal isomorphism bound q=2n-2. The theorem states the complete alternatives published by the source; unresolved computation remains. Alternatives: iwx2023-85-a=Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/12 x Z/12, iwx2023-85-b=Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/12 x Z/12, iwx2023-85-c=Z/2 x Z/2 x Z/2 x Z/2 x Z/4 x Z/12 x Z/12, iwx2023-85-d=Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/6 x Z/12. Generated from research/stable-stems.json registry 2026-08-07.1. Not exact: IWX 2023 lists four possible 2-primary additive structures.",
+      "source": "iwx2023 Table 1, stem 85: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 85: pi_172(S^87)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_086"
+      ],
+      "id": "stable_stem_086",
+      "knowledge_status": "open_computation/published_alternatives",
+      "notes": "knowledge_status=open_computation/published_alternatives Stable representative pi_174(S^88) lies at the Freudenthal isomorphism bound q=2n-2. The theorem states the complete alternatives published by the source; unresolved computation remains. Alternatives: iwx2023-86-a=Z/2 x Z/2 x Z/2 x Z/2 x Z/8 x Z/120, iwx2023-86-b=Z/2 x Z/2 x Z/4 x Z/8 x Z/120. Generated from research/stable-stems.json registry 2026-08-07.1. Not exact: IWX 2023 lists two possible 2-primary additive structures.",
+      "source": "iwx2023 Table 1, stem 86: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 86: pi_174(S^88)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_087"
+      ],
+      "id": "stable_stem_087",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_176(S^89) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/4 x Z/5520. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 87: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 87: pi_176(S^89)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_088"
+      ],
+      "id": "stable_stem_088",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_178(S^90) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/4. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 88: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 88: pi_178(S^90)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_089"
+      ],
+      "id": "stable_stem_089",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact Stable representative pi_180(S^91) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z/2 x Z/2 x Z/2 x Z/2 x Z/2. Generated from research/stable-stems.json registry 2026-08-07.1.",
+      "source": "iwx2023 Table 1, stem 89: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 89: pi_180(S^91)"
+    },
+    {
+      "family": "StableStems",
+      "formalization_status": "open",
+      "holes": [
+        "stable_stem_090"
+      ],
+      "id": "stable_stem_090",
+      "knowledge_status": "open_computation/published_alternatives",
+      "notes": "knowledge_status=open_computation/published_alternatives Stable representative pi_182(S^92) lies at the Freudenthal isomorphism bound q=2n-2. The theorem states the complete alternatives published by the source; unresolved computation remains. Alternatives: iwx2023-90-a=Z/2 x Z/2 x Z/2 x Z/2 x Z/24, iwx2023-90-b=Z/2 x Z/2 x Z/2 x Z/24. Generated from research/stable-stems.json registry 2026-08-07.1. Not exact: IWX 2023 leaves a factor-of-2 ambiguity; the known v1-periodic C2 and odd-primary C3 summands are included in each full-group alternative.",
+      "source": "iwx2023 Table 1, stem 90: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)",
+      "title": "Stable stem 90: pi_182(S^92)"
+    },
+    {
+      "family": "Conjectures",
+      "formalization_status": "open",
+      "holes": [
+        "stable_two_primary_quadratic_growth_conjecture"
+      ],
+      "id": "stable_two_primary_quadratic_growth_conjecture",
+      "knowledge_status": "open_conjecture_in_cited_source",
+      "notes": "knowledge_status=open_conjecture_in_cited_source; Conjecture 1.4. The two-primary order is the cardinality of elements killed by a power of two in the stable representative pi_(2k+2)(S^(k+2)); its cumulative product from stem 1 through k has log base two divided by k squared tending to a nonzero real constant.",
+      "source": "https://doi.org/10.1007/s10240-023-00139-1",
+      "title": "Quadratic logarithmic growth of cumulative two-primary stable stems"
+    }
+  ],
+  "problem_count": 118,
+  "schema_version": 2
+}

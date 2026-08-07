@@ -1,0 +1,392 @@
+name: Evaluate submission
+
+on:
+  issues:
+    types: [opened]
+  workflow_dispatch:
+    inputs:
+      problem_id:
+        description: Benchmark problem id
+        required: true
+        type: string
+      repository_url:
+        description: Public GitHub repository root URL
+        required: true
+        type: string
+      commit_sha:
+        description: Exact 40-character commit SHA
+        required: true
+        type: string
+      submission_path:
+        description: Directory containing Submission.lean
+        required: true
+        default: examples/submissions/pi1_circle
+        type: string
+      model:
+        description: Public model/prover attribution
+        required: true
+        default: maintained-reference-smoke
+        type: string
+
+concurrency:
+  # Public issues can request evaluation, so admit at most one expensive run at
+  # a time while retaining GitHub's bounded FIFO queue (up to 100 waiting runs).
+  group: hosted-evaluation
+  queue: max
+  cancel-in-progress: false
+
+jobs:
+  evaluate:
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.event.issue.title, '[submission]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    permissions:
+      contents: read
+    outputs:
+      artifact_ready: ${{ steps.ready.outputs.ready }}
+      benchmark_commit: ${{ steps.benchmark.outputs.sha }}
+      outcome: ${{ steps.result.outputs.outcome }}
+    steps:
+      # actions/checkout v7.0.1, pinned 2026-07-30. No credential remains for untrusted Lean.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+
+      - name: Resolve benchmark commit
+        id: benchmark
+        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Audit immutable workflow dependencies
+        run: python3 scripts/action_pin_audit.py
+
+      - name: Validate request before provisioning evaluator tools
+        env:
+          # Step-scoped for authenticated GitHub metadata/object validation;
+          # never present when untrusted Lean is elaborated below.
+          GITHUB_TOKEN: ${{ github.token }}
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_PROBLEM_ID: ${{ inputs.problem_id }}
+          INPUT_REPOSITORY_URL: ${{ inputs.repository_url }}
+          INPUT_COMMIT_SHA: ${{ inputs.commit_sha }}
+          INPUT_SUBMISSION_PATH: ${{ inputs.submission_path }}
+          INPUT_MODEL: ${{ inputs.model }}
+        run: |
+          set -euo pipefail
+          if [ "$EVENT_NAME" = "issues" ]; then
+            python3 scripts/hosted_submission.py \
+              --event-path "$GITHUB_EVENT_PATH" \
+              --benchmark-root "$GITHUB_WORKSPACE" \
+              --validate-only
+          else
+            python3 scripts/hosted_submission.py \
+              --problem-id "$INPUT_PROBLEM_ID" \
+              --repository-url "$INPUT_REPOSITORY_URL" \
+              --commit-sha "$INPUT_COMMIT_SHA" \
+              --submission-path "$INPUT_SUBMISSION_PATH" \
+              --model "$INPUT_MODEL" \
+              --benchmark-root "$GITHUB_WORKSPACE" \
+              --validate-only
+          fi
+
+      # Free disk before unpacking Mathlib and building four pinned checkers.
+      - uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
+        with:
+          tool-cache: false
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: true
+          swap-storage: true
+
+      - uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9
+        with:
+          use-mathlib-cache: true
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.11.10'
+
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+        with:
+          go-version: '1.25.12'
+          cache: false
+
+      - name: Install landrun
+        run: |
+          go install github.com/zouuup/landrun/cmd/landrun@5ed4a3db3a4ad930d577215c6b9abaa19df7f99f
+          echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
+
+      - name: Build lean4export
+        run: |
+          set -euo pipefail
+          git clone https://github.com/leanprover/lean4export.git .ci/lean4export
+          git -C .ci/lean4export checkout 4e7915201d3f9f04470d9eae002fa695f7cdc589
+          cp lean-toolchain .ci/lean4export/lean-toolchain
+          (cd .ci/lean4export && lake build lean4export)
+          echo "$PWD/.ci/lean4export/.lake/build/bin" >> "$GITHUB_PATH"
+
+      - name: Build comparator
+        run: |
+          set -euo pipefail
+          git clone https://github.com/leanprover/comparator.git .ci/comparator
+          git -C .ci/comparator checkout 07bc4ea40f2266dcb861820a2ec1fa3244ed307f
+          cp lean-toolchain .ci/comparator/lean-toolchain
+          test "$(sha256sum patches/comparator-landrun-terminator.patch | cut -d' ' -f1)" = "a421770633877895de509d185a07bf04169a5c9becd73e595315ec95d40f326c"
+          git -C .ci/comparator apply --check "$GITHUB_WORKSPACE/patches/comparator-landrun-terminator.patch"
+          git -C .ci/comparator apply "$GITHUB_WORKSPACE/patches/comparator-landrun-terminator.patch"
+          test "$(sha256sum patches/comparator-absolute-tools.patch | cut -d' ' -f1)" = "c9796ebf468991d07acc31f2f8e95cef53f61164f03a1ad2302c14f725e2000e"
+          git -C .ci/comparator apply --check "$GITHUB_WORKSPACE/patches/comparator-absolute-tools.patch"
+          git -C .ci/comparator apply "$GITHUB_WORKSPACE/patches/comparator-absolute-tools.patch"
+          test "$(sha256sum patches/comparator-stage-status.patch | cut -d' ' -f1)" = "23a7fa6e34ebc79f2b71576db10f012a32bca85400ca7bf246a7337a3dab9ca2"
+          git -C .ci/comparator apply --check "$GITHUB_WORKSPACE/patches/comparator-stage-status.patch"
+          git -C .ci/comparator apply "$GITHUB_WORKSPACE/patches/comparator-stage-status.patch"
+          (cd .ci/comparator && lake build comparator)
+          echo "$PWD/.ci/comparator/.lake/build/bin" >> "$GITHUB_PATH"
+
+      - name: Build nanoda
+        run: |
+          set -euo pipefail
+          git clone https://github.com/robsimmons/nanoda_lib.git .ci/nanoda
+          git -C .ci/nanoda checkout 68d5ca9db226849b41a6fff59d796ff19d0a8840
+          (cd .ci/nanoda && cargo build --release)
+          echo "$PWD/.ci/nanoda/target/release" >> "$GITHUB_PATH"
+
+      - name: Validate benchmark and generate pristine workspaces
+        run: |
+          lake exe homotopy-groups-lean validate-manifest
+          lake exe homotopy-groups-lean generate
+
+      - name: Preflight hardened evaluator with maintained proof
+        run: |
+          python scripts/systemd_sandbox_probe.py
+          python scripts/sandbox_engaged_probe.py --require-tools
+          python scripts/security_probes/env_dump_probe.py --require-tools
+          python scripts/security_probes/path_shadow_probe.py --require-tools
+          lake exe homotopy-groups-lean check-comparator-installation
+
+      - name: Fetch and overlay allowlisted proof files
+        id: fetch
+        env:
+          # Step-scoped for the repeated commit-pinned fetch/metadata check.
+          GITHUB_TOKEN: ${{ github.token }}
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_PROBLEM_ID: ${{ inputs.problem_id }}
+          INPUT_REPOSITORY_URL: ${{ inputs.repository_url }}
+          INPUT_COMMIT_SHA: ${{ inputs.commit_sha }}
+          INPUT_SUBMISSION_PATH: ${{ inputs.submission_path }}
+          INPUT_MODEL: ${{ inputs.model }}
+        run: |
+          set -euo pipefail
+          if [ "$EVENT_NAME" = "issues" ]; then
+            python scripts/hosted_submission.py \
+              --event-path "$GITHUB_EVENT_PATH" \
+              --benchmark-root "$GITHUB_WORKSPACE" \
+              --workspaces-root /tmp/homotopy-workspaces \
+              --metadata-out /tmp/hosted-result/intake.json
+          else
+            python scripts/hosted_submission.py \
+              --problem-id "$INPUT_PROBLEM_ID" \
+              --repository-url "$INPUT_REPOSITORY_URL" \
+              --commit-sha "$INPUT_COMMIT_SHA" \
+              --submission-path "$INPUT_SUBMISSION_PATH" \
+              --model "$INPUT_MODEL" \
+              --benchmark-root "$GITHUB_WORKSPACE" \
+              --workspaces-root /tmp/homotopy-workspaces \
+              --metadata-out /tmp/hosted-result/intake.json
+          fi
+
+      - name: Prime trusted dependencies without elaborating submission code
+        run: |
+          set -euo pipefail
+          problem_id=$(jq -r .problem_id /tmp/hosted-result/intake.json)
+          workspace="/tmp/homotopy-workspaces/$problem_id"
+          # Challenge is benchmark-owned and does not import Submission. This
+          # creates Lake 4.32 replay metadata before dependency trees become
+          # read-only inside landrun; no submitted module is elaborated here.
+          (cd "$workspace" && lake update && lake exe cache get && lake build Challenge)
+
+      - name: Strip benchmark Git credentials before untrusted elaboration
+        run: |
+          problem_id=$(jq -r .problem_id /tmp/hosted-result/intake.json)
+          workspace="/tmp/homotopy-workspaces/$problem_id"
+          rm -rf .git
+          find .lake/packages -mindepth 2 -maxdepth 2 -type d -name .git -prune -exec rm -rf '{}' '+' 2>/dev/null || true
+          find -H "$workspace/.lake/packages" -mindepth 2 -maxdepth 2 -type d -name .git -prune -exec rm -rf '{}' '+' 2>/dev/null || true
+
+      - name: Evaluate with comparator, Lean kernel, and nanoda
+        id: comparator
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          problem_id=$(jq -r .problem_id /tmp/hosted-result/intake.json)
+          stop_token="resume-workflow-commands-$(cat /proc/sys/kernel/random/uuid)"
+          printf '::stop-commands::%s\n' "$stop_token"
+          resume_workflow_commands() {
+            printf '::%s::\n' "$stop_token"
+          }
+          trap resume_workflow_commands EXIT
+          lake exe homotopy-groups-lean run-eval --json \
+            --problem "$problem_id" \
+            --workspaces-root /tmp/homotopy-workspaces \
+            > /tmp/hosted-result/evaluator.json
+          resume_workflow_commands
+          trap - EXIT
+
+      - name: Build bounded result artifact
+        id: result
+        if: always() && steps.fetch.outcome == 'success'
+        env:
+          BENCHMARK_COMMIT: ${{ steps.benchmark.outputs.sha }}
+          PROCESS_OUTCOME: ${{ steps.comparator.outcome }}
+          EVENT_NAME: ${{ github.event_name }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ACTOR: ${{ github.actor }}
+          RUN_ID: ${{ github.run_id }}
+          RUN_ATTEMPT: ${{ github.run_attempt }}
+        run: |
+          set -euo pipefail
+          if [ "$EVENT_NAME" = "issues" ]; then
+            issue_args=(--issue-number "$ISSUE_NUMBER" --score-eligible true)
+          else
+            issue_args=(--score-eligible false)
+          fi
+          outcome=$(python scripts/build_hosted_result.py \
+            --metadata /tmp/hosted-result/intake.json \
+            --evaluator-json /tmp/hosted-result/evaluator.json \
+            --process-outcome "$PROCESS_OUTCOME" \
+            --benchmark-commit "$BENCHMARK_COMMIT" \
+            --actor "$ACTOR" \
+            --run-id "$RUN_ID" \
+            --run-attempt "$RUN_ATTEMPT" \
+            "${issue_args[@]}" \
+            --output /tmp/hosted-result/result.json \
+            --digest-output /tmp/hosted-result/result.sha256)
+          echo "outcome=$outcome" >> "$GITHUB_OUTPUT"
+
+      # Upload happens only after comparator has stopped. The artifact contains no source code.
+      - name: Upload verdict
+        id: upload
+        if: always() && steps.result.outcome == 'success'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: hosted-verdict
+          path: |
+            /tmp/hosted-result/result.json
+            /tmp/hosted-result/result.sha256
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Expose artifact state
+        id: ready
+        if: always()
+        run: |
+          if [ "${{ steps.upload.outcome }}" = "success" ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  record:
+    needs: evaluate
+    if: always() && needs.evaluate.outputs.artifact_ready == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    concurrency:
+      group: hosted-results-main
+      queue: max
+      cancel-in-progress: false
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        with:
+          name: hosted-verdict
+          path: /tmp/hosted-verdict
+
+      - name: Validate and append result
+        env:
+          RUN_ID: ${{ github.run_id }}
+          BENCHMARK_COMMIT: ${{ needs.evaluate.outputs.benchmark_commit }}
+        run: |
+          set -euo pipefail
+          git config user.name homotopy-groups-lean-bot
+          git config user.email homotopy-groups-lean-bot@users.noreply.github.com
+          for attempt in 1 2 3 4 5; do
+            echo "recording attempt $attempt of 5 from fresh origin/main"
+            git fetch --no-tags origin '+refs/heads/main:refs/remotes/origin/main'
+            attempt_root=$(mktemp -d "$RUNNER_TEMP/hosted-record.XXXXXX")
+            attempt_tree="$attempt_root/worktree"
+            git worktree add --detach "$attempt_tree" origin/main
+            if (
+              cd "$attempt_tree" &&
+              result_path=$(python3 scripts/record_result.py \
+                --artifact /tmp/hosted-verdict/result.json \
+                --digest /tmp/hosted-verdict/result.sha256 \
+                --output-dir results \
+                --expected-run-id "$RUN_ID" \
+                --expected-benchmark-commit "$BENCHMARK_COMMIT") &&
+              python3 scripts/generate_site_data.py &&
+              git add -- "$result_path" results/index.json website/public/data/leaderboard.json website/public/data/tracker.json &&
+              git commit -m "results: record hosted evaluation $RUN_ID" &&
+              git push origin HEAD:main
+            ); then
+              git worktree remove --force "$attempt_tree" || true
+              rmdir "$attempt_root" || true
+              exit 0
+            fi
+            git worktree remove --force "$attempt_tree" || true
+            rmdir "$attempt_root" || true
+          done
+          echo "failed to append result after five push attempts" >&2
+          exit 1
+
+  notify:
+    needs: [evaluate, record]
+    if: always() && github.event_name == 'issues' && startsWith(github.event.issue.title, '[submission]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - name: Download verdict
+        id: verdict_download
+        if: needs.evaluate.outputs.artifact_ready == 'true'
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        with:
+          name: hosted-verdict
+          path: /tmp/hosted-verdict
+
+      - name: Comment final status
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          REPOSITORY: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          ARTIFACT_READY: ${{ needs.evaluate.outputs.artifact_ready }}
+          RECORD_STATUS: ${{ needs.record.result }}
+          DOWNLOAD_STATUS: ${{ steps.verdict_download.outcome }}
+        run: |
+          set -euo pipefail
+          if [ "$ARTIFACT_READY" != "true" ] || [ "$RECORD_STATUS" != "success" ] || [ "$DOWNLOAD_STATUS" != "success" ]; then
+            body="⚠️ Evaluation infrastructure failed before recording a validated verdict. See $RUN_URL."
+          else
+            outcome=$(jq -r .outcome /tmp/hosted-verdict/result.json)
+            problem=$(jq -r .problem_id /tmp/hosted-verdict/result.json)
+            commit=$(jq -r .submission_commit /tmp/hosted-verdict/result.json)
+            if [ "$outcome" = "accepted" ]; then
+              body="✅ **Accepted** for \`$problem\`. Comparator, Lean's kernel, and nanoda all passed at submission commit \`$commit\`."
+            elif [ "$outcome" = "rejected" ]; then
+              body="❌ **Rejected** for \`$problem\`. The comparator-gated proof did not pass. See $RUN_URL."
+            else
+              body="⚠️ Evaluation hit an infrastructure error for \`$problem\`. See $RUN_URL."
+            fi
+          fi
+          gh issue comment "$ISSUE_NUMBER" --repo "$REPOSITORY" --body "$body"

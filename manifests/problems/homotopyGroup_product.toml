@@ -1,0 +1,8 @@
+id = "homotopyGroup_product"
+title = "Homotopy groups preserve binary products"
+test = false
+module = "HomotopyGroups.Foundations"
+holes = ["homotopyGroup_product"]
+submitter = "OpenAI Codex"
+source = "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
+notes = "knowledge_status=foundation_blocked; coordinatewise loop maps are available to construct, but no quotient-level product MulEquiv is packaged."

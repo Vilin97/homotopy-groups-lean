@@ -1,0 +1,12 @@
+{
+  "id": "stable_stem_086",
+  "module": "HomotopyGroups.StableStems",
+  "holes": [
+    {
+      "name": "HomotopyGroups.StableStems.stable_stem_086",
+      "basename": "stable_stem_086",
+      "kind": "theorem",
+      "body": "/--\nStable stem 86, represented by pi_174(S^88).\nThe equality q = 2n - 2 places this representative in the Freudenthal stable range.\nPublished complete integral-group alternatives:\n* iwx2023-86-a: Z/2 x Z/2 x Z/2 x Z/2 x Z/8 x Z/120.\n* iwx2023-86-b: Z/2 x Z/2 x Z/4 x Z/8 x Z/120.\nKnowledge status: open computation with published alternatives.\nNot exact: IWX 2023 lists two possible 2-primary additive structures.\nSources: iwx2023 Table 1, stem 86: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)\n-/\ntheorem stable_stem_086 :\n    (Nonempty\n      (\u03c0_ 174 (StableSphere 88) (stableSphereBasepoint 88) \u2243*\n        Multiplicative (ZMod 2 \u00d7 (ZMod 2 \u00d7 (ZMod 2 \u00d7 (ZMod 2 \u00d7 (ZMod 8 \u00d7 (ZMod 120)))))))) \u2228\n    (Nonempty\n      (\u03c0_ 174 (StableSphere 88) (stableSphereBasepoint 88) \u2243*\n        Multiplicative (ZMod 2 \u00d7 (ZMod 2 \u00d7 (ZMod 4 \u00d7 (ZMod 8 \u00d7 (ZMod 120))))))) := by\n  sorry"
+    }
+  ]
+}

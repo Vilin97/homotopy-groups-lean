@@ -1,0 +1,8 @@
+id = "higher_homotopy_mul_comm"
+title = "Higher homotopy groups are commutative"
+test = false
+module = "HomotopyGroups.Foundations"
+holes = ["higher_homotopy_mul_comm"]
+submitter = "OpenAI Codex"
+source = "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
+notes = "knowledge_status=native_consequence; the pinned mathlib already supplies a CommGroup instance for generalized loop dimensions with at least two coordinates."

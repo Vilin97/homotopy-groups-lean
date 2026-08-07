@@ -1,0 +1,8 @@
+id = "sphere_three_two_primary_nontrivial_conjecture"
+title = "Nonvanishing of the two-primary component of higher homotopy groups of the three-sphere"
+test = false
+module = "HomotopyGroups.Conjectures"
+holes = ["sphere_three_two_primary_nontrivial_conjecture"]
+submitter = "OpenAI Codex"
+source = "https://doi.org/10.4310/HHA.2016.v18.n2.a18"
+notes = "knowledge_status=open_conjecture_in_cited_source; Conjecture 1 asserts nonzero 2-primary component for every degree above 10; the Lean conclusion asks for a nonidentity element killed by a positive power of two."

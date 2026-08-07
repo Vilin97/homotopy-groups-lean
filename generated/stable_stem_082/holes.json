@@ -1,0 +1,12 @@
+{
+  "id": "stable_stem_082",
+  "module": "HomotopyGroups.StableStems",
+  "holes": [
+    {
+      "name": "HomotopyGroups.StableStems.stable_stem_082",
+      "basename": "stable_stem_082",
+      "kind": "theorem",
+      "body": "/--\nStable stem 82, represented by pi_166(S^84).\nThe equality q = 2n - 2 places this representative in the Freudenthal stable range.\nPublished integral group: Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/168.\nUses BIX 2025 Theorem 1.1 for the now-complete 2-primary component; odd-primary summands remain from IWX 2023.\nSources: bix2025 Theorem 1.1(1): https://link.springer.com/article/10.1007/s42543-025-00098-y (DOI https://doi.org/10.1007/s42543-025-00098-y); iwx2023 Table 1, stem 82: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)\n-/\ntheorem stable_stem_082 :\n    Nonempty\n      (\u03c0_ 166 (StableSphere 84) (stableSphereBasepoint 84) \u2243*\n        Multiplicative (ZMod 2 \u00d7 (ZMod 2 \u00d7 (ZMod 2 \u00d7 (ZMod 2 \u00d7 (ZMod 2 \u00d7 (ZMod 2 \u00d7 (ZMod 168)))))))) := by\n  sorry"
+    }
+  ]
+}

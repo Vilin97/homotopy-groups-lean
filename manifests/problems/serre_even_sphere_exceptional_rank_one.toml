@@ -1,0 +1,8 @@
+id = "serre_even_sphere_exceptional_rank_one"
+title = "The exceptional homotopy group of an even sphere has rank one"
+test = false
+module = "HomotopyGroups.Advanced"
+holes = ["serre_even_sphere_exceptional_rank_one"]
+submitter = "OpenAI Codex"
+source = "https://doi.org/10.2307/1969485"
+notes = "knowledge_status=foundation_blocked; rational rank one is expressed concretely as Z times some finite bundled commutative group, avoiding a nonexistent rationalization API."

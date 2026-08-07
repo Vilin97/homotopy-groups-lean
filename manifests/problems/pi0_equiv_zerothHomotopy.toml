@@ -1,0 +1,8 @@
+id = "pi0_equiv_zerothHomotopy"
+title = "Zeroth homotopy groups agree with path components"
+test = false
+module = "HomotopyGroups.Foundations"
+holes = ["pi0_equiv_zerothHomotopy"]
+submitter = "OpenAI Codex"
+source = "https://leanprover-community.github.io/mathlib4_docs/Mathlib/Topology/Homotopy/HomotopyGroup.html"
+notes = "knowledge_status=formalized_upstream; this is the native pi0EquivZerothHomotopy comparison, exposed as a benchmark theorem."

@@ -1,0 +1,12 @@
+{
+  "id": "stable_stem_027",
+  "module": "HomotopyGroups.StableStems",
+  "holes": [
+    {
+      "name": "HomotopyGroups.StableStems.stable_stem_027",
+      "basename": "stable_stem_027",
+      "kind": "theorem",
+      "body": "/--\nStable stem 27, represented by pi_56(S^29).\nThe equality q = 2n - 2 places this representative in the Freudenthal stable range.\nPublished integral group: Z/24.\nSources: iwx2023 Table 1, stem 27: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)\n-/\ntheorem stable_stem_027 :\n    Nonempty\n      (\u03c0_ 56 (StableSphere 29) (stableSphereBasepoint 29) \u2243*\n        Multiplicative (ZMod 24)) := by\n  sorry"
+    }
+  ]
+}

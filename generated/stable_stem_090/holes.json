@@ -1,0 +1,12 @@
+{
+  "id": "stable_stem_090",
+  "module": "HomotopyGroups.StableStems",
+  "holes": [
+    {
+      "name": "HomotopyGroups.StableStems.stable_stem_090",
+      "basename": "stable_stem_090",
+      "kind": "theorem",
+      "body": "/--\nStable stem 90, represented by pi_182(S^92).\nThe equality q = 2n - 2 places this representative in the Freudenthal stable range.\nPublished complete integral-group alternatives:\n* iwx2023-90-a: Z/2 x Z/2 x Z/2 x Z/2 x Z/24.\n* iwx2023-90-b: Z/2 x Z/2 x Z/2 x Z/24.\nKnowledge status: open computation with published alternatives.\nNot exact: IWX 2023 leaves a factor-of-2 ambiguity; the known v1-periodic C2 and odd-primary C3 summands are included in each full-group alternative.\nSources: iwx2023 Table 1, stem 90: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)\n-/\ntheorem stable_stem_090 :\n    (Nonempty\n      (\u03c0_ 182 (StableSphere 92) (stableSphereBasepoint 92) \u2243*\n        Multiplicative (ZMod 2 \u00d7 (ZMod 2 \u00d7 (ZMod 2 \u00d7 (ZMod 2 \u00d7 (ZMod 24))))))) \u2228\n    (Nonempty\n      (\u03c0_ 182 (StableSphere 92) (stableSphereBasepoint 92) \u2243*\n        Multiplicative (ZMod 2 \u00d7 (ZMod 2 \u00d7 (ZMod 2 \u00d7 (ZMod 24)))))) := by\n  sorry"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+id = "realProjectiveSpace_higher_homotopy_mulEquiv_sphere"
+title = "Higher homotopy groups of real projective space agree with those of its sphere cover"
+test = false
+module = "HomotopyGroups.Spaces"
+holes = ["realProjectiveSpace_higher_homotopy_mulEquiv_sphere"]
+submitter = "OpenAI Codex"
+source = "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
+notes = "knowledge_status=foundation_blocked; covers all degrees >=2 and dimensions >=2; the required higher covering-space lifting theorem is absent."

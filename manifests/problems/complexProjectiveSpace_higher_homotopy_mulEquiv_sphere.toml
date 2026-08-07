@@ -1,0 +1,8 @@
+id = "complexProjectiveSpace_higher_homotopy_mulEquiv_sphere"
+title = "Higher homotopy groups of complex projective space agree with an odd sphere"
+test = false
+module = "HomotopyGroups.Spaces"
+holes = ["complexProjectiveSpace_higher_homotopy_mulEquiv_sphere"]
+submitter = "OpenAI Codex"
+source = "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
+notes = "knowledge_status=foundation_blocked; states pi_k(CP^n)=pi_k(S^(2n+1)) for k>=3 and n>=1 via the Hopf fibration."

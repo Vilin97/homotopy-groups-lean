@@ -1,0 +1,12 @@
+{
+  "id": "pi2_complexProjectiveSpace_mulEquiv_int",
+  "module": "HomotopyGroups.Spaces",
+  "holes": [
+    {
+      "name": "HomotopyGroups.pi2_complexProjectiveSpace_mulEquiv_int",
+      "basename": "pi2_complexProjectiveSpace_mulEquiv_int",
+      "kind": "theorem",
+      "body": "theorem pi2_complexProjectiveSpace_mulEquiv_int\n    (n : \u2115) (hn : 1 \u2264 n) :\n    Nonempty\n      (HomotopyGroup.Pi 2 (ComplexProjectiveSpace n)\n          (complexProjectiveBasepoint n) \u2243*\n        Multiplicative \u2124) := by\n  sorry"
+    }
+  ]
+}

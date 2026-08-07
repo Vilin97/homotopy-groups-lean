@@ -1,0 +1,8 @@
+id = "stable_stem_000"
+title = "Stable stem 0: pi_2(S^2)"
+test = false
+module = "HomotopyGroups.StableStems"
+holes = ["stable_stem_000"]
+submitter = "homotopy-groups-lean research registry"
+source = "iwx2023 Introduction and definition of stable stems: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)"
+notes = "knowledge_status=known_result/exact Stable representative pi_2(S^2) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z. Generated from research/stable-stems.json registry 2026-08-07.1. The stable degree group: pi_0^S is infinite cyclic."

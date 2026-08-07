@@ -1,0 +1,8 @@
+id = "stable_stem_085"
+title = "Stable stem 85: pi_172(S^87)"
+test = false
+module = "HomotopyGroups.StableStems"
+holes = ["stable_stem_085"]
+submitter = "homotopy-groups-lean research registry"
+source = "iwx2023 Table 1, stem 85: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)"
+notes = "knowledge_status=open_computation/published_alternatives Stable representative pi_172(S^87) lies at the Freudenthal isomorphism bound q=2n-2. The theorem states the complete alternatives published by the source; unresolved computation remains. Alternatives: iwx2023-85-a=Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/12 x Z/12, iwx2023-85-b=Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/12 x Z/12, iwx2023-85-c=Z/2 x Z/2 x Z/2 x Z/2 x Z/4 x Z/12 x Z/12, iwx2023-85-d=Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/2 x Z/6 x Z/12. Generated from research/stable-stems.json registry 2026-08-07.1. Not exact: IWX 2023 lists four possible 2-primary additive structures."

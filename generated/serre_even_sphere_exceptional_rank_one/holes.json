@@ -1,0 +1,12 @@
+{
+  "id": "serre_even_sphere_exceptional_rank_one",
+  "module": "HomotopyGroups.Advanced",
+  "holes": [
+    {
+      "name": "HomotopyGroups.serre_even_sphere_exceptional_rank_one",
+      "basename": "serre_even_sphere_exceptional_rank_one",
+      "kind": "theorem",
+      "body": "theorem serre_even_sphere_exceptional_rank_one (n : \u2115) :\n    \u2203 T : CommGrpCat, Finite T \u2227\n      Nonempty\n        (HomotopyGroup.Pi (4 * n + 3) (SphereSpace (2 * (n + 1)))\n            (sphereBasepoint (2 * (n + 1))) \u2243*\n          Multiplicative \u2124 \u00d7 T) := by\n  sorry"
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+name: Submit a benchmark proof
+description: Evaluate a commit-pinned Lean proof with comparator, Lean, and nanoda.
+title: "[submission] "
+labels: [submission]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Submit one proof from a public GitHub repository. The evaluator resolves
+        the exact commit below, copies only `Submission.lean` and Lean files
+        below `Submission/`, and discards every submitted toolchain, lakefile,
+        challenge, solution bridge, and comparator configuration.
+
+        Start locally with `lake exe homotopy-groups-lean start-problem <id>`.
+        Commit the resulting workspace (or just its proof files) to a public
+        repository, then paste its immutable 40-character commit SHA here.
+  - type: input
+    id: problem_id
+    attributes:
+      label: Problem ID
+      placeholder: pi1_circle_mulEquiv_int
+      description: Exact id from manifests/problems or the theorem tracker.
+    validations:
+      required: true
+  - type: input
+    id: repository_url
+    attributes:
+      label: Public repository URL
+      placeholder: https://github.com/owner/repository
+      description: Repository root only; private repositories and gists are not accepted.
+    validations:
+      required: true
+  - type: input
+    id: commit_sha
+    attributes:
+      label: Commit SHA
+      placeholder: 0000000000000000000000000000000000000000
+      description: Full 40-character commit SHA. Branches and tags are intentionally rejected.
+    validations:
+      required: true
+  - type: input
+    id: submission_directory
+    attributes:
+      label: Submission directory
+      value: .
+      description: Relative directory containing Submission.lean; use `.` for repository root.
+    validations:
+      required: true
+  - type: input
+    id: model
+    attributes:
+      label: Model or prover
+      placeholder: Human, model name, or prover system
+      description: Short public attribution shown on the leaderboard.
+    validations:
+      required: true
+  - type: checkboxes
+    id: acknowledgement
+    attributes:
+      label: Acknowledgements
+      options:
+        - label: I understand that only proof files are imported and that comparator, Lean's kernel, and nanoda must all accept the result.
+          required: true
+        - label: I confirm that this public source and its license permit the benchmark to fetch and evaluate it.
+          required: true

@@ -1,0 +1,8 @@
+id = "serre_finiteness_odd_sphere"
+title = "Serre finiteness for higher homotopy groups of odd spheres"
+test = false
+module = "HomotopyGroups.Advanced"
+holes = ["serre_finiteness_odd_sphere"]
+submitter = "OpenAI Codex"
+source = "https://doi.org/10.2307/1969485"
+notes = "knowledge_status=foundation_blocked; parametrizes every odd sphere of dimension at least three and every strictly higher homotopy degree."

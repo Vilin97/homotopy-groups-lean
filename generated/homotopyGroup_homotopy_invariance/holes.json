@@ -1,0 +1,12 @@
+{
+  "id": "homotopyGroup_homotopy_invariance",
+  "module": "HomotopyGroups.Foundations",
+  "holes": [
+    {
+      "name": "HomotopyGroups.homotopyGroup_homotopy_invariance",
+      "basename": "homotopyGroup_homotopy_invariance",
+      "kind": "theorem",
+      "body": "theorem homotopyGroup_homotopy_invariance\n    (n : \u2115) (X : Type u) (Y : Type v)\n    [TopologicalSpace X] [TopologicalSpace Y]\n    (x : X) (e : X \u2243\u2095 Y) :\n    Nonempty\n      (HomotopyGroup.Pi (n + 1) X x \u2243*\n        HomotopyGroup.Pi (n + 1) Y (e x)) := by\n  sorry"
+    }
+  ]
+}

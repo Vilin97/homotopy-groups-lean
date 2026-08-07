@@ -1,0 +1,8 @@
+id = "homotopyGroup_loop_shift"
+title = "Loop-space shifting of homotopy groups"
+test = false
+module = "HomotopyGroups.Foundations"
+holes = ["homotopyGroup_loop_shift"]
+submitter = "OpenAI Codex"
+source = "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
+notes = "knowledge_status=foundation_blocked; GenLoop.genLoopGenLoopEquiv exists, but descent to quotient homotopy groups and Fin reindexing are not packaged."

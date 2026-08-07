@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Benchmark documentation
+    url: https://github.com/Vilin97/homotopy-groups-lean#readme
+    about: Read the local and hosted submission instructions before filing.

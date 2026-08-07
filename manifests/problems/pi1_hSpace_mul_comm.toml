@@ -1,0 +1,8 @@
+id = "pi1_hSpace_mul_comm"
+title = "The fundamental group of an H-space is commutative"
+test = false
+module = "HomotopyGroups.Foundations"
+holes = ["pi1_hSpace_mul_comm"]
+submitter = "OpenAI Codex"
+source = "https://doi.org/10.2307/1969485"
+notes = "knowledge_status=statement_only; mathlib defines HSpace but does not connect that structure to FundamentalGroup or HomotopyGroup.Pi 1."

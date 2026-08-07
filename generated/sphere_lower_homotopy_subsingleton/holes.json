@@ -1,0 +1,12 @@
+{
+  "id": "sphere_lower_homotopy_subsingleton",
+  "module": "HomotopyGroups.Spaces",
+  "holes": [
+    {
+      "name": "HomotopyGroups.sphere_lower_homotopy_subsingleton",
+      "basename": "sphere_lower_homotopy_subsingleton",
+      "kind": "theorem",
+      "body": "theorem sphere_lower_homotopy_subsingleton\n    (n k : \u2115) (hk : k < n) :\n    Subsingleton\n      (HomotopyGroup.Pi k (SphereSpace n) (sphereBasepoint n)) := by\n  sorry"
+    }
+  ]
+}

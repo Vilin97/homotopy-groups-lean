@@ -1,0 +1,8 @@
+id = "serre_finiteness_even_sphere"
+title = "Serre finiteness away from the exceptional degree of an even sphere"
+test = false
+module = "HomotopyGroups.Advanced"
+holes = ["serre_finiteness_even_sphere"]
+submitter = "OpenAI Codex"
+source = "https://doi.org/10.2307/1969485"
+notes = "knowledge_status=foundation_blocked; the hypotheses explicitly exclude the rank-one degree 2d-1 for sphere dimension d=2(n+1)."

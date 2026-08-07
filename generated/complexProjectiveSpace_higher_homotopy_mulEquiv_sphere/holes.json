@@ -1,0 +1,12 @@
+{
+  "id": "complexProjectiveSpace_higher_homotopy_mulEquiv_sphere",
+  "module": "HomotopyGroups.Spaces",
+  "holes": [
+    {
+      "name": "HomotopyGroups.complexProjectiveSpace_higher_homotopy_mulEquiv_sphere",
+      "basename": "complexProjectiveSpace_higher_homotopy_mulEquiv_sphere",
+      "kind": "theorem",
+      "body": "theorem complexProjectiveSpace_higher_homotopy_mulEquiv_sphere\n    (n k : \u2115) (hn : 1 \u2264 n) :\n    Nonempty\n      (HomotopyGroup.Pi (k + 3) (ComplexProjectiveSpace n)\n          (complexProjectiveBasepoint n) \u2243*\n        HomotopyGroup.Pi (k + 3) (SphereSpace (2 * n + 1))\n          (sphereBasepoint (2 * n + 1))) := by\n  sorry"
+    }
+  ]
+}

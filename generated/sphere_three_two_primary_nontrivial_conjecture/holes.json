@@ -1,0 +1,12 @@
+{
+  "id": "sphere_three_two_primary_nontrivial_conjecture",
+  "module": "HomotopyGroups.Conjectures",
+  "holes": [
+    {
+      "name": "HomotopyGroups.sphere_three_two_primary_nontrivial_conjecture",
+      "basename": "sphere_three_two_primary_nontrivial_conjecture",
+      "kind": "theorem",
+      "body": "theorem sphere_three_two_primary_nontrivial_conjecture (k : \u2115) :\n    \u2203 \u03b1 : HomotopyGroup.Pi (k + 10 + 1) (SphereSpace 3) (sphereBasepoint 3),\n      \u03b1 \u2260 1 \u2227 \u2203 r : \u2115, \u03b1 ^ (2 ^ (r + 1)) = 1 := by\n  sorry"
+    }
+  ]
+}

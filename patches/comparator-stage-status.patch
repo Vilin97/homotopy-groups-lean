@@ -1,0 +1,142 @@
+diff --git a/Main.lean b/Main.lean
+index b30b5fc..9daef53 100644
+--- a/Main.lean
++++ b/Main.lean
+@@ -26,6 +26,13 @@ structure Context where
+
+ abbrev M := ReaderT Context IO
+
++/-- Write a trusted progress/verdict marker for the outer evaluator. The
++submission sandbox does not inherit `COMPARATOR_STATUS_FILE`. -/
++def writeStatus (status : String) : M Unit := do
++  match ← IO.getEnv "COMPARATOR_STATUS_FILE" with
++  | none => pure ()
++  | some path => IO.FS.writeFile path status
++
+ structure LandrunArgs where
+   cmd : String
+   args : Array String
+@@ -97,7 +104,7 @@ def runSandBoxedWithStdout (spawnArgs : LandrunArgs) : M String := do
+   return stdout
+
+
+-def runSandBoxed (spawnArgs : LandrunArgs) : M Unit := do
++def runSandBoxed (spawnArgs : LandrunArgs) : M UInt32 := do
+   let args := buildLandrunArgs spawnArgs
+   let proc ← IO.Process.spawn {
+     cmd := (← read).whichLandrun,
+@@ -106,10 +113,9 @@ def runSandBoxed (spawnArgs : LandrunArgs) : M Unit := do
+     cwd := (← getProjectDir)
+   }
+   let ret ← proc.wait
+-  if ret != 0 then
+-    throw <| .userError s!"Child exited with {ret}"
++  return ret
+
+-def safeLakeBuild (target : Lean.Name) : M Unit := do
++def safeLakeBuild (target : Lean.Name) : M UInt32 := do
+   IO.println s!"Building {target}"
+   let lakeBin := (← IO.getEnv "COMPARATOR_LAKE").getD "lake"
+   let leanPrefix ← getLeanPrefix
+@@ -123,8 +129,10 @@ def safeLakeBuild (target : Lean.Name) : M Unit := do
+   runSandBoxed {
+     cmd := lakeBin,
+     args := #["build", target.toString],
+-    envPass := #["PATH", "HOME", "LEAN_ABORT_ON_PANIC"]
+-    envOverride := #[("LEAN_ABORT_ON_PANIC", some "1")]
++    envPass := #["PATH", "HOME", "LEAN_ABORT_ON_PANIC", "UV_USE_IO_URING"]
++    envOverride := #[
++      ("LEAN_ABORT_ON_PANIC", some "1"),
++      ("UV_USE_IO_URING", some "0")]
+     readablePaths := #[projectDir]
+     writablePaths := #[dotLakeDir]
+     executablePaths := #[leanPrefix, gitLocation]
+@@ -141,8 +149,10 @@ def safeExport (module : Lean.Name) (decls : Array Lean.Name) : M String := do
+   runSandBoxedWithStdout {
+     cmd := (← read).whichLean4Export
+     args := args,
+-    envPass := #["PATH", "HOME", "LEAN_PATH", "LEAN_ABORT_ON_PANIC"]
+-    envOverride := #[("LEAN_ABORT_ON_PANIC", some "1")]
++    envPass := #["PATH", "HOME", "LEAN_PATH", "LEAN_ABORT_ON_PANIC", "UV_USE_IO_URING"]
++    envOverride := #[
++      ("LEAN_ABORT_ON_PANIC", some "1"),
++      ("UV_USE_IO_URING", some "0")]
+     readablePaths := #[projectDir, dotLakeDir]
+     writablePaths := #[]
+     executablePaths := #[leanPrefix]
+@@ -239,33 +249,59 @@ def stringStream (s : String) : BaseIO IO.FS.Stream := do
+   return IO.FS.Stream.ofBuffer ref
+
+ def verifyMatch (challengeExport : String) (solutionExport : String) :
+-    M Unit := do
++    M Bool := do
+   let challenge ← Export.parseStream (← stringStream challengeExport)
+   let solution ← Export.parseStream (← stringStream solutionExport)
+   let theoremNames ← getTheoremNames
+   let definitionNames ← getDefinitionNames
+   let targets := (← getTheoremNames) ++ (← getLegalAxioms)
+-  IO.ofExcept <| Comparator.compareAt challenge solution targets definitionNames (← primitiveTargets)
+-  IO.ofExcept <| Comparator.checkAxioms solution theoremNames definitionNames (← getLegalAxioms)
++  match Comparator.compareAt challenge solution targets definitionNames (← primitiveTargets) with
++  | .error err =>
++    IO.eprintln s!"Candidate declarations do not match the challenge: {err}"
++    return false
++  | .ok _ => pure ()
++  match Comparator.checkAxioms solution theoremNames definitionNames (← getLegalAxioms) with
++  | .error err =>
++    IO.eprintln s!"Candidate uses an unpermitted axiom: {err}"
++    return false
++  | .ok _ => pure ()
+   if ← getNanodaEnabled then
+     runNanoda solutionExport
+   runKernel solution
++  return true
+
+-def compareIt : M Unit := do
++def compareIt : M UInt32 := do
+   let exportTargets := (← builtinTargets) ++ (← getTheoremNames) ++ (← getLegalAxioms)
+     ++ (← primitiveTargets) ++ (← getDefinitionNames)
+
+   let challengeModule ← getChallengeModule
+-  safeLakeBuild challengeModule
++  writeStatus "challenge_build"
++  let challengeBuild ← safeLakeBuild challengeModule
++  if challengeBuild != 0 then
++    throw <| .userError s!"Challenge build child exited with {challengeBuild}"
++  writeStatus "challenge_export"
+   let challengeExport ← safeExport challengeModule exportTargets
+
+   let solutionModule ← getSolutionModule
+-  safeLakeBuild solutionModule
++  writeStatus "solution_build"
++  let solutionBuild ← safeLakeBuild solutionModule
++  if solutionBuild != 0 then
++    if solutionBuild == 1 then
++      writeStatus "candidate_rejected"
++      IO.eprintln "Candidate solution did not compile."
++      return 2
++    throw <| .userError s!"Solution build child exited with {solutionBuild}"
++  writeStatus "solution_export"
+   let solutionExport ← safeExport solutionModule exportTargets
+
+-  verifyMatch challengeExport solutionExport
++  writeStatus "verification"
++  unless ← verifyMatch challengeExport solutionExport do
++    writeStatus "candidate_rejected"
++    return 2
+
++  writeStatus "accepted"
+   IO.println "Your solution is okay!"
++  return 0
+
+ structure Config where
+   challenge_module : String
+@@ -300,7 +336,7 @@ def M.run (x : M α) (cfg : Config) : IO α := do
+
+ end Comparator
+
+-def main (args : List String) : IO Unit := do
++def main (args : List String) : IO UInt32 := do
+   let some (configPath : String) := args[0]?
+     | throw <| .userError "Expected config file path as first argument."
+   let content ← IO.FS.readFile configPath

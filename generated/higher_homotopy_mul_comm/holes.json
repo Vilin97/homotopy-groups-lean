@@ -1,0 +1,12 @@
+{
+  "id": "higher_homotopy_mul_comm",
+  "module": "HomotopyGroups.Foundations",
+  "holes": [
+    {
+      "name": "HomotopyGroups.higher_homotopy_mul_comm",
+      "basename": "higher_homotopy_mul_comm",
+      "kind": "theorem",
+      "body": "theorem higher_homotopy_mul_comm\n    (n : \u2115) (X : Type u) [TopologicalSpace X] (x : X)\n    (a b : HomotopyGroup.Pi (n + 2) X x) :\n    a * b = b * a := by\n  sorry"
+    }
+  ]
+}

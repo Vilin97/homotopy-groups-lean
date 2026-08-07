@@ -1,0 +1,8 @@
+id = "homotopyGroup_change_basepoint"
+title = "A path induces change of basepoint on higher homotopy groups"
+test = false
+module = "HomotopyGroups.Foundations"
+holes = ["homotopyGroup_change_basepoint"]
+submitter = "OpenAI Codex"
+source = "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
+notes = "knowledge_status=foundation_blocked; the fundamental-group API has basepoint change, but HomotopyGroup has no higher counterpart."

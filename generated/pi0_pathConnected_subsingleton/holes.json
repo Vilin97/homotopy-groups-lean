@@ -1,0 +1,12 @@
+{
+  "id": "pi0_pathConnected_subsingleton",
+  "module": "HomotopyGroups.Foundations",
+  "holes": [
+    {
+      "name": "HomotopyGroups.pi0_pathConnected_subsingleton",
+      "basename": "pi0_pathConnected_subsingleton",
+      "kind": "theorem",
+      "body": "theorem pi0_pathConnected_subsingleton\n    (X : Type u) [TopologicalSpace X] [PathConnectedSpace X] (x : X) :\n    Subsingleton (HomotopyGroup.Pi 0 X x) := by\n  sorry"
+    }
+  ]
+}

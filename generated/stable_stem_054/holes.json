@@ -1,0 +1,12 @@
+{
+  "id": "stable_stem_054",
+  "module": "HomotopyGroups.StableStems",
+  "holes": [
+    {
+      "name": "HomotopyGroups.StableStems.stable_stem_054",
+      "basename": "stable_stem_054",
+      "kind": "theorem",
+      "body": "/--\nStable stem 54, represented by pi_110(S^56).\nThe equality q = 2n - 2 places this representative in the Freudenthal stable range.\nPublished integral group: Z/2 x Z/4.\nSources: iwx2023 Table 1, stem 54: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)\n-/\ntheorem stable_stem_054 :\n    Nonempty\n      (\u03c0_ 110 (StableSphere 56) (stableSphereBasepoint 56) \u2243*\n        Multiplicative (ZMod 2 \u00d7 (ZMod 4))) := by\n  sorry"
+    }
+  ]
+}
