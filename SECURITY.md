@@ -34,8 +34,9 @@ detached descendants when comparator exits. `systemd_sandbox_probe.py` tests
 TCP, UDP, UNIX sockets, host `/proc`, environment isolation, and descendant
 cleanup before any hosted submission is fetched. Hosted evaluation is allowed
 only on a disposable runner that carries no unrelated credentials. The service
-also caps memory, processes, open files, individual file size, and wall time;
-RunEval forwards at most 2 MiB from each child output stream. The evaluator
+caps memory at 12 GiB, processes at 512, open files at 4,096, individual file
+size at 1 GiB, and wall time at 45 minutes; RunEval forwards at most 2 MiB from
+each child output stream. The evaluator
 sets `UV_USE_IO_URING=0` before denying `@aio`, so Lean's libuv runtime does not
 attempt the intentionally blocked io_uring syscalls.
 
@@ -71,22 +72,24 @@ plus all security probes.
 
 Mathlib build artifacts are the deliberate exception to fetch-time byte
 identity. Evaluation disables Mathlib's automatic post-update cache hook,
-clears custom cache URL/source/repository-scope overrides, and explicitly reads only the
-`leanprover-community/mathlib4` `master` container. Its keys are
-derived from pinned source contents, imports, Lean toolchain, and build
-configuration, while its server-side policy admits uploads from trusted
-mathlib4 `master`/`staging` CI writers. The benchmark therefore trusts those
-maintainers, GitHub CI identity and credentials, and the Azure cache tenant and
-container controls. Compromise of those actors or services, upstream Lean
-releases, or the CI/storage platform remains out of scope. Fork, nightly,
-PR-toolchain, legacy, custom-URL, scoped, and unsafe cache sources are not read.
-This matches the trust boundary documented by the pinned Mathlib cache client;
-cache keys identify build inputs rather than the downloaded bytes.
+clears custom cache URL/source/repository-scope overrides, and explicitly reads
+only the `leanprover-community/mathlib4` `master,legacy` chain. `master` admits
+uploads from trusted mathlib4 `master`/`staging` CI writers; `legacy` is a
+read-only mirror of master-built artifacts retained for older stable commits.
+Its keys are derived from pinned source contents, imports, Lean toolchain, and
+build configuration. The benchmark therefore trusts those maintainers, GitHub
+CI identity and credentials, and the Azure cache tenant and container controls.
+Compromise of those actors or services, upstream Lean releases, or the
+CI/storage platform remains out of scope. Fork, nightly, PR-toolchain,
+custom-URL, scoped, and unsafe cache sources are not read. This matches the
+trust boundary documented by the pinned Mathlib cache client; cache keys
+identify build inputs rather than the downloaded bytes.
 
 Every hosted verdict records the evaluator-relevant values above in its exact
 `toolchain` identity: runner label, Lean and Go versions and archive digests,
-and the Mathlib cache repository and source container. Node is omitted because
-it is used only by CI's website build, not by submission evaluation.
+the Mathlib cache repository and source container, and the 45-minute isolated
+service deadline. Node is omitted because it is used only by CI's website
+build, not by submission evaluation.
 
 ## Operational rules
 

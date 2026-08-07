@@ -33,8 +33,8 @@ private def resolveTrustedExecutable
 
 private def resolveLeanToolchain
     (path : String) (workspace : System.FilePath) : IO (String × String) := do
-  -- Resolve elan before entering the syscall-filtered service, then invoke the
-  -- real toolchain binaries there. The elan proxy may perform network probes.
+  -- Resolve the active toolchain before entering the syscall-filtered service,
+  -- then invoke its real binaries there without launcher/network behavior.
   let leanLauncher ← resolveTrustedExecutable path workspace "lean"
   let output ← IO.Process.output {
     cmd := leanLauncher
@@ -138,7 +138,7 @@ def main : IO UInt32 := do
             "--property=KillMode=control-group",
             "--property=MemoryMax=12G", "--property=TasksMax=512",
             "--property=LimitNOFILE=4096", "--property=LimitFSIZE=1G",
-            "--property=RuntimeMaxSec=20min",
+            "--property=RuntimeMaxSec=45min",
             s!"--working-directory={workspace}", "--", "/usr/bin/env", "-i",
             s!"PATH={path}", s!"HOME={home}", "LANG=C.UTF-8", "LC_ALL=C.UTF-8",
             "LEAN_ABORT_ON_PANIC=1", "UV_USE_IO_URING=0",

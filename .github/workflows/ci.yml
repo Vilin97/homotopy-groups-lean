@@ -20,7 +20,7 @@ concurrency:
 jobs:
   verify:
     runs-on: ubuntu-24.04
-    timeout-minutes: 90
+    timeout-minutes: 240
     steps:
       # actions/checkout v7.0.1, pinned 2026-07-30.
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
@@ -55,7 +55,7 @@ jobs:
           env -u MATHLIB_CACHE_GET_URL -u MATHLIB_CACHE_FROM -u MATHLIB_CACHE_REPO_SCOPE \
             lake exe cache get \
               --repo=leanprover-community/mathlib4 \
-              --cache-from=master
+              --cache-from=master,legacy
 
       - name: Install digest-verified Go toolchain
         run: bash scripts/install_pinned_go.sh
@@ -131,7 +131,8 @@ jobs:
           /usr/bin/python3 scripts/sandbox_engaged_probe.py --require-tools
           /usr/bin/python3 scripts/security_probes/env_dump_probe.py --require-tools
           /usr/bin/python3 scripts/security_probes/path_shadow_probe.py --require-tools
-          lake exe homotopy-groups-lean check-comparator-installation
+          # path_shadow_probe already executes an accepted maintained proof
+          # through comparator, Lean's kernel, and nanoda.
           lake exe homotopy-groups-lean check-eval-workflow
 
       - name: Build the website

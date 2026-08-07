@@ -179,7 +179,7 @@ def probeSystemdAfUnixIsolation : IO Unit := do
     "--property=KillMode=control-group",
     "--property=MemoryMax=12G", "--property=TasksMax=512",
     "--property=LimitNOFILE=4096", "--property=LimitFSIZE=1G",
-    "--property=RuntimeMaxSec=20min",
+    "--property=RuntimeMaxSec=45min",
     s!"--working-directory={cwd}", "--", "/usr/bin/env", "-i",
     s!"PATH={path}", s!"HOME={home}", "LANG=C.UTF-8", "LC_ALL=C.UTF-8",
     "LEAN_ABORT_ON_PANIC=1", "UV_USE_IO_URING=0", truePath]

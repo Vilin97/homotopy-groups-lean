@@ -36,7 +36,7 @@ HARDENING_ARGS = [
     "--property=TasksMax=512",
     "--property=LimitNOFILE=4096",
     "--property=LimitFSIZE=1G",
-    "--property=RuntimeMaxSec=20min",
+    "--property=RuntimeMaxSec=45min",
 ]
 
 

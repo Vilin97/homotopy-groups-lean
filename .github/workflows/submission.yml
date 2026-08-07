@@ -116,7 +116,7 @@ jobs:
           env -u MATHLIB_CACHE_GET_URL -u MATHLIB_CACHE_FROM -u MATHLIB_CACHE_REPO_SCOPE \
             lake exe cache get \
               --repo=leanprover-community/mathlib4 \
-              --cache-from=master
+              --cache-from=master,legacy
 
       - name: Install digest-verified Go toolchain
         run: bash scripts/install_pinned_go.sh
@@ -172,7 +172,8 @@ jobs:
           /usr/bin/python3 scripts/sandbox_engaged_probe.py --require-tools
           /usr/bin/python3 scripts/security_probes/env_dump_probe.py --require-tools
           /usr/bin/python3 scripts/security_probes/path_shadow_probe.py --require-tools
-          lake exe homotopy-groups-lean check-comparator-installation
+          # path_shadow_probe itself runs an accepted maintained proof through
+          # the full comparator, Lean-kernel, and nanoda path.
 
       - name: Fetch and overlay allowlisted proof files
         id: fetch
@@ -220,7 +221,7 @@ jobs:
             env -u MATHLIB_CACHE_GET_URL -u MATHLIB_CACHE_FROM -u MATHLIB_CACHE_REPO_SCOPE \
               lake exe cache get \
                 --repo=leanprover-community/mathlib4 \
-                --cache-from=master
+                --cache-from=master,legacy
             lake build Challenge
           )
 

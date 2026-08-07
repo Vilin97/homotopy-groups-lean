@@ -36,7 +36,8 @@ lake exe homotopy-groups-lean --help
 
 The bare cache command above is a local-development convenience. Hosted
 evaluation clears cache URL overrides and forces Mathlib's high-trust `master`
-container; see [SECURITY.md](SECURITY.md#immutable-dependency-pins).
+container followed only by its read-only legacy mirror; see
+[SECURITY.md](SECURITY.md#immutable-dependency-pins).
 
 ## How the benchmark is gated
 

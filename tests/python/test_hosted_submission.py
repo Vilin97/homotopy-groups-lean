@@ -392,6 +392,7 @@ class ResultBuilderTests(unittest.TestCase):
                 "go_archive_sha256",
                 "mathlib_cache_repo",
                 "mathlib_cache_from",
+                "runtime_max_sec",
             )},
             {
                 "runner": "ubuntu-24.04",
@@ -404,7 +405,8 @@ class ResultBuilderTests(unittest.TestCase):
                     "234828b7a89e0e303d2556310ee549fbcf253d28de937bac3da13d6294262ac1"
                 ),
                 "mathlib_cache_repo": "leanprover-community/mathlib4",
-                "mathlib_cache_from": "master",
+                "mathlib_cache_from": "master,legacy",
+                "runtime_max_sec": "2700",
             },
         )
         self.assertNotIn("node", toolchain)
@@ -420,6 +422,10 @@ class ResultBuilderTests(unittest.TestCase):
         self.assertIn(toolchain["go_archive_sha256"], go_installer)
         self.assertIn(f"--repo={toolchain['mathlib_cache_repo']}", workflow)
         self.assertIn(f"--cache-from={toolchain['mathlib_cache_from']}", workflow)
+        template = (ROOT / "templates" / "WorkspaceTest.lean").read_text(encoding="utf-8")
+        runtime_seconds = int(toolchain["runtime_max_sec"])
+        self.assertEqual(runtime_seconds % 60, 0)
+        self.assertIn(f"RuntimeMaxSec={runtime_seconds // 60}min", template)
 
 
 class RecordTests(unittest.TestCase):

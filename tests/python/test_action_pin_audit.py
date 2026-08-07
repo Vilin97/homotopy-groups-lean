@@ -54,7 +54,7 @@ class ActionPinAuditTests(unittest.TestCase):
             [],
         )
 
-    def test_accepts_sanitized_master_only_mathlib_cache(self) -> None:
+    def test_accepts_sanitized_high_trust_mathlib_cache(self) -> None:
         workflow = """jobs:
   build:
     runs-on: ubuntu-24.04
@@ -63,7 +63,7 @@ class ActionPinAuditTests(unittest.TestCase):
           env -u MATHLIB_CACHE_GET_URL -u MATHLIB_CACHE_FROM -u MATHLIB_CACHE_REPO_SCOPE \\
             lake exe cache get \\
               --repo=leanprover-community/mathlib4 \\
-              --cache-from=master
+              --cache-from=master,legacy
 """
         self.assertEqual(self.audit_workflow(workflow), [])
 
@@ -83,7 +83,7 @@ class ActionPinAuditTests(unittest.TestCase):
           env -u MATHLIB_CACHE_GET_URL -u MATHLIB_CACHE_FROM \\
             lake exe cache get \\
               --repo=leanprover-community/mathlib4 \\
-              --cache-from=master
+              --cache-from=master,legacy
 """
         messages = self.audit_workflow(workflow)
         self.assertTrue(any("MATHLIB_CACHE_REPO_SCOPE" in message for message in messages))
@@ -97,7 +97,20 @@ class ActionPinAuditTests(unittest.TestCase):
           env -u MATHLIB_CACHE_GET_URL -u MATHLIB_CACHE_FROM -u MATHLIB_CACHE_REPO_SCOPE \\
             lake exe cache get \\
               --repo=leanprover-community/mathlib4 \\
-              --cache-from=master,forks
+              --cache-from=master,legacy,forks
+"""
+        self.assertTrue(self.audit_workflow(workflow))
+
+    def test_rejects_cache_read_without_legacy_mirror(self) -> None:
+        workflow = """jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: |
+          env -u MATHLIB_CACHE_GET_URL -u MATHLIB_CACHE_FROM -u MATHLIB_CACHE_REPO_SCOPE \\
+            lake exe cache get \\
+              --repo=leanprover-community/mathlib4 \\
+              --cache-from=master
 """
         self.assertTrue(self.audit_workflow(workflow))
 

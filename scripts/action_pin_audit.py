@@ -19,7 +19,7 @@ Hard-fails on:
   - setup actions whose pinned implementations still fetch mutable tool
     manifests or installers at runtime
   - Mathlib cache reads that do not explicitly clear custom URL overrides and
-    force the trusted `leanprover-community/mathlib4` `master` container
+    force the trusted `leanprover-community/mathlib4` `master,legacy` chain
   - Lake updates that can trigger Mathlib's implicit, unconstrained cache hook
   - folded/quoted run scalars and dynamic shell forms that obscure those
     security-sensitive command tokens
@@ -204,7 +204,7 @@ SANITIZED_ENV_PREFIX = [
 SAFE_CACHE_GET_TOKENS = SANITIZED_ENV_PREFIX + [
     "lake", "exe", "cache", "get",
     "--repo=leanprover-community/mathlib4",
-    "--cache-from=master",
+    "--cache-from=master,legacy",
 ]
 SAFE_LAKE_UPDATE_TOKENS = SANITIZED_ENV_PREFIX + [
     "MATHLIB_NO_CACHE_ON_UPDATE=1",
@@ -309,7 +309,7 @@ def _audit_obscured_shell_policy(path: pathlib.Path, lines: list[str]) -> list[V
 
 
 def _audit_cache_get_policy(path: pathlib.Path, lines: list[str]) -> list[Violation]:
-    """Require every workflow cache read to select Mathlib's trusted master container."""
+    """Require the canonical master plus read-only legacy-mirror cache chain."""
 
     violations: list[Violation] = []
     for start, end, tokens in _logical_commands(lines):
@@ -324,7 +324,7 @@ def _audit_cache_get_policy(path: pathlib.Path, lines: list[str]) -> list[Violat
                 lines[start],
                 "Mathlib cache reads must exactly clear `MATHLIB_CACHE_GET_URL`, "
                 "`MATHLIB_CACHE_FROM`, and `MATHLIB_CACHE_REPO_SCOPE`, then select only "
-                "the canonical repository's master container.",
+                "the canonical repository's master/legacy chain.",
             ))
     return violations
 
