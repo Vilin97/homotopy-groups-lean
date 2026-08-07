@@ -60,8 +60,14 @@ RESULT_FIELDS = (
 # This is the complete evaluator identity written into every hosted result.
 # Keeping it in one module prevents the producer and recorder from drifting.
 EXPECTED_TOOLCHAIN: dict[str, str] = {
+    "runner": "ubuntu-24.04",
     "lean": "v4.32.2",
+    "lean_archive_sha256": "5f2069e6f5db73780f374ccb49ce8ea649aa20a0cebf0116816744c999ce72aa",
     "mathlib": "905b95818eb32af7874a58b427f50c1711a5e96c",
+    "mathlib_cache_repo": "leanprover-community/mathlib4",
+    "mathlib_cache_from": "master",
+    "go": "1.25.12",
+    "go_archive_sha256": "234828b7a89e0e303d2556310ee549fbcf253d28de937bac3da13d6294262ac1",
     "landrun": "5ed4a3db3a4ad930d577215c6b9abaa19df7f99f",
     "lean4export": "4e7915201d3f9f04470d9eae002fa695f7cdc589",
     "comparator": "07bc4ea40f2266dcb861820a2ec1fa3244ed307f",

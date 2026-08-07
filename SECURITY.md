@@ -44,6 +44,7 @@ attempt the intentionally blocked io_uring syscalls.
 | Component | Pin |
 | --- | --- |
 | Lean | `leanprover/lean4:v4.32.2` |
+| Lean Linux archive | SHA-256 `5f2069e6f5db73780f374ccb49ce8ea649aa20a0cebf0116816744c999ce72aa` |
 | Mathlib | `905b95818eb32af7874a58b427f50c1711a5e96c` |
 | lean4-cli | `88679d088c9720c27ebdf2ba4dafe17341747f94` |
 | landrun | `5ed4a3db3a4ad930d577215c6b9abaa19df7f99f` |
@@ -53,12 +54,39 @@ attempt the intentionally blocked io_uring syscalls.
 | comparator absolute-tools patch | local SHA-256 `c9796ebf468991d07acc31f2f8e95cef53f61164f03a1ad2302c14f725e2000e` |
 | comparator stage-status patch | local SHA-256 `23a7fa6e34ebc79f2b71576db10f012a32bca85400ca7bf246a7337a3dab9ca2` |
 | nanoda_lib | `68d5ca9db226849b41a6fff59d796ff19d0a8840` |
+| Go Linux archive | `1.25.12`; SHA-256 `234828b7a89e0e303d2556310ee549fbcf253d28de937bac3da13d6294262ac1` |
+| Node Linux archive | `22.19.0`; SHA-256 `c0649af18e6a24f6fe5535a3e86b341dd49a8e71117c8b68bde973ef834f16f2` |
 
-GitHub Actions and downloaded build inputs must likewise use immutable commit
-SHAs. `scripts/action_pin_audit.py` rejects mutable action selectors. A pin bump
-requires reviewing the upstream diff, updating every workflow and this table in
-one change, rebuilding from a clean cache, and rerunning the comparator smoke
-test plus all security probes.
+Hosted jobs use the fixed `ubuntu-24.04` label. `/usr/bin/python3`, Cargo, Rust,
+and the operating-system utilities used to install verified archives are part
+of the trusted GitHub runner image; its patch revision is a CI-platform trust
+dependency, not a repository-pinned byte image. Lean, Go, and Node are fetched
+from fixed official URLs and verified against the SHA-256 values above before
+extraction. GitHub Actions must use immutable commit SHAs. The audit rejects
+moving runner aliases and setup actions whose pinned implementations still
+fetch mutable manifests or unverified installers at runtime. A pin bump requires
+reviewing the upstream diff, updating every workflow and this table in one
+change, rebuilding from a clean cache, and rerunning the comparator smoke test
+plus all security probes.
+
+Mathlib build artifacts are the deliberate exception to fetch-time byte
+identity. Evaluation disables Mathlib's automatic post-update cache hook,
+clears custom cache URL/source/repository-scope overrides, and explicitly reads only the
+`leanprover-community/mathlib4` `master` container. Its keys are
+derived from pinned source contents, imports, Lean toolchain, and build
+configuration, while its server-side policy admits uploads from trusted
+mathlib4 `master`/`staging` CI writers. The benchmark therefore trusts those
+maintainers, GitHub CI identity and credentials, and the Azure cache tenant and
+container controls. Compromise of those actors or services, upstream Lean
+releases, or the CI/storage platform remains out of scope. Fork, nightly,
+PR-toolchain, legacy, custom-URL, scoped, and unsafe cache sources are not read.
+This matches the trust boundary documented by the pinned Mathlib cache client;
+cache keys identify build inputs rather than the downloaded bytes.
+
+Every hosted verdict records the evaluator-relevant values above in its exact
+`toolchain` identity: runner label, Lean and Go versions and archive digests,
+and the Mathlib cache repository and source container. Node is omitted because
+it is used only by CI's website build, not by submission evaluation.
 
 ## Operational rules
 
@@ -74,9 +102,9 @@ test plus all security probes.
 - Fail closed when landrun, comparator, lean4export, or nanoda is absent or when
   a security probe detects unexpected access.
 - Resolve Lake, Lean, Git, landrun, lean4export, nanoda, comparator, and
-  `systemd-run` before untrusted elaboration. Resolve the active toolchain with
-  the trusted elan launcher outside the syscall-filtered service, then invoke
-  the real `<prefix>/bin/lake` and `<prefix>/bin/lean` binaries inside it. The
+  `systemd-run` before untrusted elaboration. Install the digest-verified Lean
+  release outside the syscall-filtered service, then invoke its real
+  `<prefix>/bin/lake` and `<prefix>/bin/lean` binaries inside it. The
   pinned comparator patch makes its internal build commands use those absolute
   paths, even though `lake env` necessarily adds workspace build directories to
   the child environment.
@@ -137,9 +165,12 @@ crashes, signals, resource kills, timeouts, stale markers, and malformed output
 cannot be inferred to be a rejection. Only exit code 0 paired with the explicit
 `accepted` marker can become `accepted`.
 
-Report vulnerabilities privately to the repository maintainers before opening a
-public issue. Include the affected commit, threat scenario, reproduction steps,
-and whether credentials or leaderboard integrity may have been exposed.
+Report vulnerabilities through GitHub's private **Report a vulnerability**
+channel at
+<https://github.com/Vilin97/homotopy-groups-lean/security/advisories/new>
+before opening a public issue. Include the affected commit, threat scenario,
+reproduction steps, and whether credentials or leaderboard integrity may have
+been exposed.
 
 This design and its probes are adapted from the Apache-2.0 `lean-eval` security
 model; see `NOTICE` for attribution.

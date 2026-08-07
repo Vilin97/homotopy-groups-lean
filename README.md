@@ -34,6 +34,10 @@ lake build
 lake exe homotopy-groups-lean --help
 ```
 
+The bare cache command above is a local-development convenience. Hosted
+evaluation clears cache URL overrides and forces Mathlib's high-trust `master`
+container; see [SECURITY.md](SECURITY.md#immutable-dependency-pins).
+
 ## How the benchmark is gated
 
 1. A trusted declaration under `HomotopyGroups/` is marked

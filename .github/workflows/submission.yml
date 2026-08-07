@@ -28,6 +28,10 @@ on:
         default: maintained-reference-smoke
         type: string
 
+env:
+  # Prevent Mathlib's post-update hook from performing an implicit cache read.
+  MATHLIB_NO_CACHE_ON_UPDATE: '1'
+
 concurrency:
   # Public issues can request evaluation, so admit at most one expensive run at
   # a time while retaining GitHub's bounded FIFO queue (up to 100 waiting runs).
@@ -38,7 +42,7 @@ concurrency:
 jobs:
   evaluate:
     if: github.event_name == 'workflow_dispatch' || startsWith(github.event.issue.title, '[submission]')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 180
     permissions:
       contents: read
@@ -52,12 +56,15 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Verify trusted runner Python
+        run: /usr/bin/python3 -c 'import sys; assert sys.version_info >= (3, 11), sys.version'
+
       - name: Resolve benchmark commit
         id: benchmark
         run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
       - name: Audit immutable workflow dependencies
-        run: python3 scripts/action_pin_audit.py
+        run: /usr/bin/python3 scripts/action_pin_audit.py
 
       - name: Validate request before provisioning evaluator tools
         env:
@@ -73,12 +80,12 @@ jobs:
         run: |
           set -euo pipefail
           if [ "$EVENT_NAME" = "issues" ]; then
-            python3 scripts/hosted_submission.py \
+            /usr/bin/python3 scripts/hosted_submission.py \
               --event-path "$GITHUB_EVENT_PATH" \
               --benchmark-root "$GITHUB_WORKSPACE" \
               --validate-only
           else
-            python3 scripts/hosted_submission.py \
+            /usr/bin/python3 scripts/hosted_submission.py \
               --problem-id "$INPUT_PROBLEM_ID" \
               --repository-url "$INPUT_REPOSITORY_URL" \
               --commit-sha "$INPUT_COMMIT_SHA" \
@@ -99,18 +106,20 @@ jobs:
           docker-images: true
           swap-storage: true
 
-      - uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9
-        with:
-          use-mathlib-cache: true
+      - name: Install digest-verified Lean toolchain
+        run: bash scripts/install_pinned_lean.sh
 
-      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
-        with:
-          python-version: '3.11.10'
+      - name: Prime pinned Lean dependencies and Mathlib cache
+        run: |
+          env -u MATHLIB_CACHE_GET_URL -u MATHLIB_CACHE_FROM -u MATHLIB_CACHE_REPO_SCOPE \
+            MATHLIB_NO_CACHE_ON_UPDATE=1 lake update
+          env -u MATHLIB_CACHE_GET_URL -u MATHLIB_CACHE_FROM -u MATHLIB_CACHE_REPO_SCOPE \
+            lake exe cache get \
+              --repo=leanprover-community/mathlib4 \
+              --cache-from=master
 
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
-        with:
-          go-version: '1.25.12'
-          cache: false
+      - name: Install digest-verified Go toolchain
+        run: bash scripts/install_pinned_go.sh
 
       - name: Install landrun
         run: |
@@ -120,7 +129,7 @@ jobs:
       - name: Build lean4export
         run: |
           set -euo pipefail
-          git clone https://github.com/leanprover/lean4export.git .ci/lean4export
+          git clone --no-checkout https://github.com/leanprover/lean4export.git .ci/lean4export
           git -C .ci/lean4export checkout 4e7915201d3f9f04470d9eae002fa695f7cdc589
           cp lean-toolchain .ci/lean4export/lean-toolchain
           (cd .ci/lean4export && lake build lean4export)
@@ -129,7 +138,7 @@ jobs:
       - name: Build comparator
         run: |
           set -euo pipefail
-          git clone https://github.com/leanprover/comparator.git .ci/comparator
+          git clone --no-checkout https://github.com/leanprover/comparator.git .ci/comparator
           git -C .ci/comparator checkout 07bc4ea40f2266dcb861820a2ec1fa3244ed307f
           cp lean-toolchain .ci/comparator/lean-toolchain
           test "$(sha256sum patches/comparator-landrun-terminator.patch | cut -d' ' -f1)" = "a421770633877895de509d185a07bf04169a5c9becd73e595315ec95d40f326c"
@@ -147,9 +156,9 @@ jobs:
       - name: Build nanoda
         run: |
           set -euo pipefail
-          git clone https://github.com/robsimmons/nanoda_lib.git .ci/nanoda
+          git clone --no-checkout https://github.com/robsimmons/nanoda_lib.git .ci/nanoda
           git -C .ci/nanoda checkout 68d5ca9db226849b41a6fff59d796ff19d0a8840
-          (cd .ci/nanoda && cargo build --release)
+          (cd .ci/nanoda && cargo build --locked --release)
           echo "$PWD/.ci/nanoda/target/release" >> "$GITHUB_PATH"
 
       - name: Validate benchmark and generate pristine workspaces
@@ -159,10 +168,10 @@ jobs:
 
       - name: Preflight hardened evaluator with maintained proof
         run: |
-          python scripts/systemd_sandbox_probe.py
-          python scripts/sandbox_engaged_probe.py --require-tools
-          python scripts/security_probes/env_dump_probe.py --require-tools
-          python scripts/security_probes/path_shadow_probe.py --require-tools
+          /usr/bin/python3 scripts/systemd_sandbox_probe.py
+          /usr/bin/python3 scripts/sandbox_engaged_probe.py --require-tools
+          /usr/bin/python3 scripts/security_probes/env_dump_probe.py --require-tools
+          /usr/bin/python3 scripts/security_probes/path_shadow_probe.py --require-tools
           lake exe homotopy-groups-lean check-comparator-installation
 
       - name: Fetch and overlay allowlisted proof files
@@ -179,13 +188,13 @@ jobs:
         run: |
           set -euo pipefail
           if [ "$EVENT_NAME" = "issues" ]; then
-            python scripts/hosted_submission.py \
+            /usr/bin/python3 scripts/hosted_submission.py \
               --event-path "$GITHUB_EVENT_PATH" \
               --benchmark-root "$GITHUB_WORKSPACE" \
               --workspaces-root /tmp/homotopy-workspaces \
               --metadata-out /tmp/hosted-result/intake.json
           else
-            python scripts/hosted_submission.py \
+            /usr/bin/python3 scripts/hosted_submission.py \
               --problem-id "$INPUT_PROBLEM_ID" \
               --repository-url "$INPUT_REPOSITORY_URL" \
               --commit-sha "$INPUT_COMMIT_SHA" \
@@ -204,7 +213,16 @@ jobs:
           # Challenge is benchmark-owned and does not import Submission. This
           # creates Lake 4.32 replay metadata before dependency trees become
           # read-only inside landrun; no submitted module is elaborated here.
-          (cd "$workspace" && lake update && lake exe cache get && lake build Challenge)
+          (
+            cd "$workspace"
+            env -u MATHLIB_CACHE_GET_URL -u MATHLIB_CACHE_FROM -u MATHLIB_CACHE_REPO_SCOPE \
+              MATHLIB_NO_CACHE_ON_UPDATE=1 lake update
+            env -u MATHLIB_CACHE_GET_URL -u MATHLIB_CACHE_FROM -u MATHLIB_CACHE_REPO_SCOPE \
+              lake exe cache get \
+                --repo=leanprover-community/mathlib4 \
+                --cache-from=master
+            lake build Challenge
+          )
 
       - name: Strip benchmark Git credentials before untrusted elaboration
         run: |
@@ -251,7 +269,7 @@ jobs:
           else
             issue_args=(--score-eligible false)
           fi
-          outcome=$(python scripts/build_hosted_result.py \
+          outcome=$(/usr/bin/python3 scripts/build_hosted_result.py \
             --metadata /tmp/hosted-result/intake.json \
             --evaluator-json /tmp/hosted-result/evaluator.json \
             --process-outcome "$PROCESS_OUTCOME" \
@@ -290,7 +308,7 @@ jobs:
   record:
     needs: evaluate
     if: always() && needs.evaluate.outputs.artifact_ready == 'true'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     concurrency:
       group: hosted-results-main
@@ -303,6 +321,9 @@ jobs:
         with:
           ref: main
           fetch-depth: 0
+
+      - name: Verify trusted runner Python
+        run: /usr/bin/python3 -c 'import sys; assert sys.version_info >= (3, 11), sys.version'
 
       - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
         with:
@@ -325,13 +346,13 @@ jobs:
             git worktree add --detach "$attempt_tree" origin/main
             if (
               cd "$attempt_tree" &&
-              result_path=$(python3 scripts/record_result.py \
+              result_path=$(/usr/bin/python3 scripts/record_result.py \
                 --artifact /tmp/hosted-verdict/result.json \
                 --digest /tmp/hosted-verdict/result.sha256 \
                 --output-dir results \
                 --expected-run-id "$RUN_ID" \
                 --expected-benchmark-commit "$BENCHMARK_COMMIT") &&
-              python3 scripts/generate_site_data.py &&
+              /usr/bin/python3 scripts/generate_site_data.py &&
               git add -- "$result_path" results/index.json website/public/data/leaderboard.json website/public/data/tracker.json &&
               git commit -m "results: record hosted evaluation $RUN_ID" &&
               git push origin HEAD:main
@@ -349,7 +370,7 @@ jobs:
   notify:
     needs: [evaluate, record]
     if: always() && github.event_name == 'issues' && startsWith(github.event.issue.title, '[submission]')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 5
     permissions:
       contents: read

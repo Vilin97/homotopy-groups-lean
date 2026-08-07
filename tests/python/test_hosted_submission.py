@@ -381,6 +381,46 @@ class ResultBuilderTests(unittest.TestCase):
             toolchain["comparator_stage_status_patch_sha256"],
         )
 
+    def test_hardened_evaluator_identity_is_in_result(self) -> None:
+        toolchain = accepted_result("sha256:" + "a" * 64)["toolchain"]
+        self.assertEqual(
+            {key: toolchain[key] for key in (
+                "runner",
+                "lean",
+                "lean_archive_sha256",
+                "go",
+                "go_archive_sha256",
+                "mathlib_cache_repo",
+                "mathlib_cache_from",
+            )},
+            {
+                "runner": "ubuntu-24.04",
+                "lean": "v4.32.2",
+                "lean_archive_sha256": (
+                    "5f2069e6f5db73780f374ccb49ce8ea649aa20a0cebf0116816744c999ce72aa"
+                ),
+                "go": "1.25.12",
+                "go_archive_sha256": (
+                    "234828b7a89e0e303d2556310ee549fbcf253d28de937bac3da13d6294262ac1"
+                ),
+                "mathlib_cache_repo": "leanprover-community/mathlib4",
+                "mathlib_cache_from": "master",
+            },
+        )
+        self.assertNotIn("node", toolchain)
+        self.assertNotIn("node_archive_sha256", toolchain)
+
+        workflow = (ROOT / ".github" / "workflows" / "submission.yml").read_text(encoding="utf-8")
+        lean_installer = (ROOT / "scripts" / "install_pinned_lean.sh").read_text(encoding="utf-8")
+        go_installer = (ROOT / "scripts" / "install_pinned_go.sh").read_text(encoding="utf-8")
+        self.assertIn(f"runs-on: {toolchain['runner']}", workflow)
+        self.assertIn(f"leanprover/lean4:{toolchain['lean']}", lean_installer)
+        self.assertIn(toolchain["lean_archive_sha256"], lean_installer)
+        self.assertIn(f"GO_VERSION='{toolchain['go']}'", go_installer)
+        self.assertIn(toolchain["go_archive_sha256"], go_installer)
+        self.assertIn(f"--repo={toolchain['mathlib_cache_repo']}", workflow)
+        self.assertIn(f"--cache-from={toolchain['mathlib_cache_from']}", workflow)
+
 
 class RecordTests(unittest.TestCase):
     def test_append_only_result(self) -> None:

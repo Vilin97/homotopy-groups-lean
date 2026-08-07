@@ -9,13 +9,17 @@ on:
 permissions:
   contents: read
 
+env:
+  # Prevent Mathlib's post-update hook from performing an implicit cache read.
+  MATHLIB_NO_CACHE_ON_UPDATE: '1'
+
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   verify:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 90
     steps:
       # actions/checkout v7.0.1, pinned 2026-07-30.
@@ -24,8 +28,11 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
+      - name: Verify trusted runner Python
+        run: /usr/bin/python3 -c 'import sys; assert sys.version_info >= (3, 11), sys.version'
+
       - name: Audit immutable workflow dependencies
-        run: python3 scripts/action_pin_audit.py
+        run: /usr/bin/python3 scripts/action_pin_audit.py
 
       # jlumbroso/free-disk-space v1.3.1, pinned 2026-05-04.
       - uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
@@ -38,28 +45,23 @@ jobs:
           docker-images: true
           swap-storage: true
 
-      # leanprover/lean-action v1.5.0, pinned 2026-05-04.
-      - uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9
-        with:
-          use-mathlib-cache: true
+      - name: Install digest-verified Lean toolchain
+        run: bash scripts/install_pinned_lean.sh
 
-      # actions/setup-python v7.0.0, pinned 2026-07-30.
-      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
-        with:
-          python-version: '3.11.10'
+      - name: Prime pinned Lean dependencies and Mathlib cache
+        run: |
+          env -u MATHLIB_CACHE_GET_URL -u MATHLIB_CACHE_FROM -u MATHLIB_CACHE_REPO_SCOPE \
+            MATHLIB_NO_CACHE_ON_UPDATE=1 lake update
+          env -u MATHLIB_CACHE_GET_URL -u MATHLIB_CACHE_FROM -u MATHLIB_CACHE_REPO_SCOPE \
+            lake exe cache get \
+              --repo=leanprover-community/mathlib4 \
+              --cache-from=master
 
-      # actions/setup-node v6.1.0, pinned 2026-08-07.
-      - uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f
-        with:
-          node-version: '22.19.0'
-          cache: npm
-          cache-dependency-path: website/package-lock.json
+      - name: Install digest-verified Go toolchain
+        run: bash scripts/install_pinned_go.sh
 
-      # actions/setup-go v7.0.0, pinned 2026-07-30.
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
-        with:
-          go-version: '1.25.12'
-          cache: false
+      - name: Install digest-verified Node toolchain
+        run: bash scripts/install_pinned_node.sh
 
       - name: Install landrun
         run: |
@@ -69,7 +71,7 @@ jobs:
       - name: Build lean4export
         run: |
           set -euo pipefail
-          git clone https://github.com/leanprover/lean4export.git .ci/lean4export
+          git clone --no-checkout https://github.com/leanprover/lean4export.git .ci/lean4export
           git -C .ci/lean4export checkout 4e7915201d3f9f04470d9eae002fa695f7cdc589
           cp lean-toolchain .ci/lean4export/lean-toolchain
           (cd .ci/lean4export && lake build lean4export)
@@ -78,7 +80,7 @@ jobs:
       - name: Build comparator
         run: |
           set -euo pipefail
-          git clone https://github.com/leanprover/comparator.git .ci/comparator
+          git clone --no-checkout https://github.com/leanprover/comparator.git .ci/comparator
           git -C .ci/comparator checkout 07bc4ea40f2266dcb861820a2ec1fa3244ed307f
           cp lean-toolchain .ci/comparator/lean-toolchain
           test "$(sha256sum patches/comparator-landrun-terminator.patch | cut -d' ' -f1)" = "a421770633877895de509d185a07bf04169a5c9becd73e595315ec95d40f326c"
@@ -96,17 +98,17 @@ jobs:
       - name: Build nanoda
         run: |
           set -euo pipefail
-          git clone https://github.com/robsimmons/nanoda_lib.git .ci/nanoda
+          git clone --no-checkout https://github.com/robsimmons/nanoda_lib.git .ci/nanoda
           git -C .ci/nanoda checkout 68d5ca9db226849b41a6fff59d796ff19d0a8840
-          (cd .ci/nanoda && cargo build --release)
+          (cd .ci/nanoda && cargo build --locked --release)
           echo "$PWD/.ci/nanoda/target/release" >> "$GITHUB_PATH"
 
       - name: Supply-chain and Python checks
         run: |
-          python -m py_compile scripts/*.py scripts/security_probes/*.py
-          python -m unittest discover -s tests/python -v
-          python scripts/generate_stable_stems.py --check
-          python scripts/generate_site_data.py --check
+          /usr/bin/python3 -m py_compile scripts/*.py scripts/security_probes/*.py
+          /usr/bin/python3 -m unittest discover -s tests/python -v
+          /usr/bin/python3 scripts/generate_stable_stems.py --check
+          /usr/bin/python3 scripts/generate_site_data.py --check
 
       - name: Validate and build the corpus
         run: |
@@ -124,10 +126,10 @@ jobs:
 
       - name: Comparator and sandbox smoke test
         run: |
-          python scripts/systemd_sandbox_probe.py
-          python scripts/sandbox_engaged_probe.py --require-tools
-          python scripts/security_probes/env_dump_probe.py --require-tools
-          python scripts/security_probes/path_shadow_probe.py --require-tools
+          /usr/bin/python3 scripts/systemd_sandbox_probe.py
+          /usr/bin/python3 scripts/sandbox_engaged_probe.py --require-tools
+          /usr/bin/python3 scripts/security_probes/env_dump_probe.py --require-tools
+          /usr/bin/python3 scripts/security_probes/path_shadow_probe.py --require-tools
           lake exe homotopy-groups-lean check-comparator-installation
           lake exe homotopy-groups-lean check-eval-workflow
 
