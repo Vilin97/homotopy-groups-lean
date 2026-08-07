@@ -206,32 +206,39 @@ jobs:
               --metadata-out /tmp/hosted-result/intake.json
           fi
 
-      - name: Prime trusted dependencies without elaborating submission code
+      - name: Prepare audited read-only dependencies without elaborating submission code
         run: |
           set -euo pipefail
           problem_id=$(jq -r .problem_id /tmp/hosted-result/intake.json)
           workspace="/tmp/homotopy-workspaces/$problem_id"
+          /usr/bin/python3 scripts/audit_dependency_git.py \
+            --benchmark-root "$GITHUB_WORKSPACE"
+
+          # These repositories have served their build purpose and are not
+          # Lake package identity. Remove them before untrusted elaboration.
+          rm -rf -- "$GITHUB_WORKSPACE/.git"
+          find "$GITHUB_WORKSPACE/.ci" -mindepth 2 -maxdepth 2 \
+            -type d -name .git -prune -exec rm -rf -- '{}' '+'
+
+          # Re-prime trusted root traces after removing the benchmark checkout
+          # metadata. This reads only benchmark-owned declarations.
+          lake exe homotopy-groups-lean generate --check --problem "$problem_id"
+
+          # Keep Lake's required package Git identity outside the candidate's
+          # writable .lake tree. Landrun resolves this symlink to the root
+          # package tree, which is covered only by its read-only `/` grant.
+          mkdir "$workspace/.lake"
+          ln -s "$GITHUB_WORKSPACE/.lake/packages" "$workspace/.lake/packages"
+          test "$(readlink -f "$workspace/.lake/packages")" = \
+            "$(readlink -f "$GITHUB_WORKSPACE/.lake/packages")"
+
           # Challenge is benchmark-owned and does not import Submission. This
-          # creates Lake 4.32 replay metadata before dependency trees become
-          # read-only inside landrun; no submitted module is elaborated here.
+          # creates Lake 4.32 replay metadata before landrun makes the shared
+          # dependency tree read-only; no submitted module is elaborated here.
           (
             cd "$workspace"
-            env -u MATHLIB_CACHE_GET_URL -u MATHLIB_CACHE_FROM -u MATHLIB_CACHE_REPO_SCOPE \
-              MATHLIB_NO_CACHE_ON_UPDATE=1 lake update
-            env -u MATHLIB_CACHE_GET_URL -u MATHLIB_CACHE_FROM -u MATHLIB_CACHE_REPO_SCOPE \
-              lake exe cache get \
-                --repo=leanprover-community/mathlib4 \
-                --cache-from=master,legacy
             lake build Challenge
           )
-
-      - name: Strip benchmark Git credentials before untrusted elaboration
-        run: |
-          problem_id=$(jq -r .problem_id /tmp/hosted-result/intake.json)
-          workspace="/tmp/homotopy-workspaces/$problem_id"
-          rm -rf .git
-          find .lake/packages -mindepth 2 -maxdepth 2 -type d -name .git -prune -exec rm -rf '{}' '+' 2>/dev/null || true
-          find -H "$workspace/.lake/packages" -mindepth 2 -maxdepth 2 -type d -name .git -prune -exec rm -rf '{}' '+' 2>/dev/null || true
 
       - name: Evaluate with comparator, Lean kernel, and nanoda
         id: comparator

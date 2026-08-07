@@ -422,6 +422,16 @@ class ResultBuilderTests(unittest.TestCase):
         self.assertIn(toolchain["go_archive_sha256"], go_installer)
         self.assertIn(f"--repo={toolchain['mathlib_cache_repo']}", workflow)
         self.assertIn(f"--cache-from={toolchain['mathlib_cache_from']}", workflow)
+        self.assertEqual(workflow.count("lake update"), 1)
+        self.assertEqual(
+            workflow.count(f"--cache-from={toolchain['mathlib_cache_from']}"), 1
+        )
+        self.assertIn("scripts/audit_dependency_git.py", workflow)
+        self.assertIn(
+            'ln -s "$GITHUB_WORKSPACE/.lake/packages" "$workspace/.lake/packages"',
+            workflow,
+        )
+        self.assertNotIn('find -H "$workspace/.lake/packages"', workflow)
         template = (ROOT / "templates" / "WorkspaceTest.lean").read_text(encoding="utf-8")
         runtime_seconds = int(toolchain["runtime_max_sec"])
         self.assertEqual(runtime_seconds % 60, 0)

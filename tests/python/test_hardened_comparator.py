@@ -56,6 +56,9 @@ class HardenedComparatorTests(unittest.TestCase):
         self.assertIn('let (leanBin, lakeBin) ← resolveLeanToolchain', template)
         self.assertIn('primeTrustedChallenge lakeBin workspace', template)
         self.assertIn('args := #["build", "Challenge"]', template)
+        self.assertIn('let home ← IO.FS.createTempDir', template)
+        self.assertIn('s!"HOME={serviceHome}"', template)
+        self.assertNotIn('s!"HOME={home}"', template)
         self.assertIn('"UV_USE_IO_URING=0"', template)
         for variable in ("COMPARATOR_LAKE", "COMPARATOR_LEAN", "COMPARATOR_GIT"):
             self.assertIn(variable, template)

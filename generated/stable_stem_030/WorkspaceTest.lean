@@ -74,6 +74,22 @@ private def primeTrustedChallenge
   if exitCode != 0 then
     throw <| IO.userError s!"Trusted Challenge priming failed with exit code {exitCode}."
 
+/-- Run the service with an empty HOME so Git and build tools cannot discover
+runner-global credentials or configuration. The directory is intentionally
+not writable through landrun's read-only `/` mount. -/
+private def withIsolatedHome {α : Type}
+    (action : System.FilePath → IO α) : IO α := do
+  let home ← IO.FS.createTempDir
+  try
+    IO.setAccessRights home {
+      user := { read := true, write := true, execution := true }
+      group := { read := true, execution := true }
+      other := { read := true, execution := true }
+    }
+    action home
+  finally
+    try IO.FS.removeDirAll home catch _ => pure ()
+
 /-- Invoke comparator on this workspace, forcing the external nanoda kernel on.
 
 nanoda is a global requirement of the eval, not a per-problem option: every
@@ -87,8 +103,6 @@ def main : IO UInt32 := do
   try
     let some path ← IO.getEnv "PATH"
       | throw <| IO.userError "PATH is unset; refusing to start comparator."
-    let some home ← IO.getEnv "HOME"
-      | throw <| IO.userError "HOME is unset; refusing to start comparator."
     let workspace ← IO.currentDir
     let path := trustedPath path workspace
     if path.isEmpty then
@@ -105,61 +119,63 @@ def main : IO UInt32 := do
     let configText ← IO.FS.readFile "config.json"
     let config ← IO.ofExcept (Json.parse configText)
     let config := config.setObjVal! "enable_nanoda" (Json.bool true)
-    IO.FS.withTempFile fun handle enforcedPath => do
-      handle.putStr config.pretty
-      handle.flush
-      -- `PrivateUsers=yes` remaps the service user. Make the random config
-      -- readable in that namespace; it remains immutable to the service.
-      IO.setAccessRights enforcedPath {
-        user := { read := true }
-        group := { read := true }
-        other := { read := true }
-      }
-      IO.FS.withTempFile fun statusHandle statusPath => do
-        statusHandle.putStr "starting"
-        statusHandle.flush
-        -- The remapped comparator must update this random, out-of-workspace
-        -- marker. Candidate children cannot: landrun mounts `/` read-only and
-        -- `COMPARATOR_STATUS_FILE` is deliberately absent from `envPass`.
-        IO.setAccessRights statusPath {
-          user := { read := true, write := true }
-          group := { read := true, write := true }
-          other := { read := true, write := true }
+    withIsolatedHome fun serviceHome => do
+      IO.FS.withTempFile fun handle enforcedPath => do
+        handle.putStr config.pretty
+        handle.flush
+        -- `PrivateUsers=yes` remaps the service user. Make the random config
+        -- readable in that namespace; it remains immutable to the service.
+        IO.setAccessRights enforcedPath {
+          user := { read := true }
+          group := { read := true }
+          other := { read := true }
         }
-        let child ← IO.Process.spawn {
-          cmd := systemdRunBin
-          args := #[
-            "--user", "--pipe", "--wait", "--collect", "--quiet",
-            "--property=RestrictAddressFamilies=~AF_UNIX",
-            "--property=SystemCallArchitectures=native",
-            "--property=SystemCallFilter=~@network-io @aio",
-            "--property=PrivateUsers=yes", "--property=ProtectProc=invisible",
-            "--property=ProcSubset=pid", "--property=NoNewPrivileges=yes",
-            "--property=KillMode=control-group",
-            "--property=MemoryMax=12G", "--property=TasksMax=512",
-            "--property=LimitNOFILE=4096", "--property=LimitFSIZE=1G",
-            "--property=RuntimeMaxSec=45min",
-            s!"--working-directory={workspace}", "--", "/usr/bin/env", "-i",
-            s!"PATH={path}", s!"HOME={home}", "LANG=C.UTF-8", "LC_ALL=C.UTF-8",
-            "LEAN_ABORT_ON_PANIC=1", "UV_USE_IO_URING=0",
-            s!"COMPARATOR_LANDRUN={landrunBin}",
-            s!"COMPARATOR_LEAN4EXPORT={lean4exportBin}",
-            s!"COMPARATOR_NANODA={nanodaBin}",
-            s!"COMPARATOR_LAKE={lakeBin}",
-            s!"COMPARATOR_LEAN={leanBin}",
-            s!"COMPARATOR_GIT={gitBin}",
-            s!"COMPARATOR_STATUS_FILE={statusPath}",
-            lakeBin, "env", comparatorBin, enforcedPath.toString]
-        }
-        let exitCode ← child.wait
-        let status := (← IO.FS.readFile statusPath).trimAscii.toString
-        IO.eprintln s!"Comparator exited with code {exitCode} at stage `{status}`."
-        if exitCode == 0 && status == "accepted" then return 0
-        -- Only the patched comparator's explicit, normally returned verdict is
-        -- a rejection. A stale progress marker, exception, signal, timeout,
-        -- resource kill, or tool failure is an infrastructure error.
-        if exitCode == 2 && status == "candidate_rejected" then return 2
-        return 1
+        IO.FS.withTempFile fun statusHandle statusPath => do
+          statusHandle.putStr "starting"
+          statusHandle.flush
+          -- The remapped comparator must update this random, out-of-workspace
+          -- marker. Candidate children cannot: landrun mounts `/` read-only and
+          -- `COMPARATOR_STATUS_FILE` is deliberately absent from `envPass`.
+          IO.setAccessRights statusPath {
+            user := { read := true, write := true }
+            group := { read := true, write := true }
+            other := { read := true, write := true }
+          }
+          let child ← IO.Process.spawn {
+            cmd := systemdRunBin
+            args := #[
+              "--user", "--pipe", "--wait", "--collect", "--quiet",
+              "--property=RestrictAddressFamilies=~AF_UNIX",
+              "--property=SystemCallArchitectures=native",
+              "--property=SystemCallFilter=~@network-io @aio",
+              "--property=PrivateUsers=yes", "--property=ProtectProc=invisible",
+              "--property=ProcSubset=pid", "--property=NoNewPrivileges=yes",
+              "--property=KillMode=control-group",
+              "--property=MemoryMax=12G", "--property=TasksMax=512",
+              "--property=LimitNOFILE=4096", "--property=LimitFSIZE=1G",
+              "--property=RuntimeMaxSec=45min",
+              s!"--working-directory={workspace}", "--", "/usr/bin/env", "-i",
+              s!"PATH={path}", s!"HOME={serviceHome}",
+              "LANG=C.UTF-8", "LC_ALL=C.UTF-8",
+              "LEAN_ABORT_ON_PANIC=1", "UV_USE_IO_URING=0",
+              s!"COMPARATOR_LANDRUN={landrunBin}",
+              s!"COMPARATOR_LEAN4EXPORT={lean4exportBin}",
+              s!"COMPARATOR_NANODA={nanodaBin}",
+              s!"COMPARATOR_LAKE={lakeBin}",
+              s!"COMPARATOR_LEAN={leanBin}",
+              s!"COMPARATOR_GIT={gitBin}",
+              s!"COMPARATOR_STATUS_FILE={statusPath}",
+              lakeBin, "env", comparatorBin, enforcedPath.toString]
+          }
+          let exitCode ← child.wait
+          let status := (← IO.FS.readFile statusPath).trimAscii.toString
+          IO.eprintln s!"Comparator exited with code {exitCode} at stage `{status}`."
+          if exitCode == 0 && status == "accepted" then return 0
+          -- Only the patched comparator's explicit, normally returned verdict is
+          -- a rejection. A stale progress marker, exception, signal, timeout,
+          -- resource kill, or tool failure is an infrastructure error.
+          if exitCode == 2 && status == "candidate_rejected" then return 2
+          return 1
   catch err =>
     IO.eprintln "Failed to run the hardened comparator."
     IO.eprintln "Make sure `systemd-run`, `comparator`, and the `nanoda_bin` external kernel are installed and on your `PATH`, or set `COMPARATOR_BIN=/path/to/comparator`."

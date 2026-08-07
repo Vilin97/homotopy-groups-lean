@@ -134,15 +134,23 @@ files without executing submitted code. Intake rejects path traversal,
 symlinks, oversized source sets, and more than 128 proof files, then overlays
 only `Submission.lean` and `Submission/**/*.lean` onto a freshly generated
 trusted workspace. Dependency priming runs only trusted `lake update`, Mathlib
-cache code, and the isolated benchmark-owned `Challenge` target. This creates
-Lake's replay metadata before the dependency tree becomes read-only and must
-never precompile a target importing `Submission`.
+cache code, root extraction, and the isolated benchmark-owned `Challenge`
+target. Before evaluation, a fail-closed audit binds every Lake package to the
+exact manifest revision and public GitHub origin and rejects unexpected Git
+configuration or credential-bearing process variables. The workspace then
+uses the audited root package tree through a symlink whose target is outside
+its writable `.lake` subtree. This preserves Lake's required Git identity while
+landrun exposes the package sources and metadata read-only. Priming must never
+precompile a target importing `Submission`.
 
 The evaluation job has only `contents: read`; checkout credentials are not
-persisted and `.git` metadata is stripped before untrusted elaboration. Only
-after comparator stops does it create a bounded, source-free JSON verdict and
-SHA-256 digest. Intake binds that verdict to a deterministic SHA-256 fingerprint
-of every trusted file in the pristine generated problem workspace. A separate
+persisted, benchmark/tool checkout metadata is stripped, and the service uses
+a new empty `HOME` rather than runner-global Git configuration. The retained
+package Git identity contains only audited public dependency metadata and is
+read-only to candidate code. Only after comparator stops does it create a
+bounded, source-free JSON verdict and SHA-256 digest. Intake binds that verdict
+to a deterministic SHA-256 fingerprint of every trusted file in the pristine
+generated problem workspace. A separate
 `contents: write` job recomputes that fingerprint and validates manifest
 membership, exact toolchain and comparator-patch pins, actor, issue, eligibility,
 run attempt, benchmark and submission SHAs, digest, the exact proof-file path

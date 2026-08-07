@@ -63,6 +63,12 @@ initialize do
   for name in #["systemd-run", "lake", "lean", "git", "landrun",
       "lean4export", "nanoda_bin", "comparator"] do
     plantPathShadow name
+  -- `.lake` is writable, but a symlink from it must not make an external
+  -- trusted target writable through landrun's path-based policy.
+  try
+    IO.FS.writeFile ".lake/external-write-probe/sentinel" "mutated\n"
+    IO.FS.writeFile ".lake/symlink-target-write-succeeded" "unsafe\n"
+  catch _ => pure ()
 '''
 
 
@@ -279,6 +285,15 @@ def main(argv: list[str] | None = None) -> int:
         lake_dir = workspace / ".lake"
         lake_dir.mkdir()
         (lake_dir / "packages").symlink_to(trusted_packages.resolve(), target_is_directory=True)
+        external = pathlib.Path(tmp) / "trusted-external"
+        external.mkdir(mode=0o777)
+        external.chmod(0o777)
+        sentinel = external / "sentinel"
+        sentinel.write_text("trusted\n", encoding="utf-8")
+        sentinel.chmod(0o666)
+        (lake_dir / "external-write-probe").symlink_to(
+            external.resolve(), target_is_directory=True
+        )
 
         # These two roots import only benchmark-owned code. Build them before
         # installing the hostile Submission so `lake test`'s outer watchdog
@@ -311,6 +326,10 @@ def main(argv: list[str] | None = None) -> int:
         marker = workspace / ".lake" / "path-shadow-executed"
         if marker.exists():
             raise ProbeError("a workspace-owned executable was invoked")
+        if sentinel.read_text(encoding="utf-8") != "trusted\n":
+            raise ProbeError("landrun allowed a write through an external .lake symlink")
+        if (lake_dir / "symlink-target-write-succeeded").exists():
+            raise ProbeError("external symlink write unexpectedly succeeded")
         if result.returncode != 0:
             raise ProbeError(
                 "maintained proof failed with path shadows present:\n"
