@@ -1,6 +1,21 @@
 {
   "archived_result_count": 0,
-  "result_count": 0,
-  "results": [],
+  "result_count": 1,
+  "results": [
+    {
+      "actor": "Vilin97",
+      "benchmark_commit": "934117058d1902a75b9d19bccec6563c2a5d3339",
+      "issue_number": null,
+      "model": "maintained-reference-smoke",
+      "outcome": "accepted",
+      "problem_fingerprint": "sha256:f368c7f3f34ca1d9e75bb22b8b0fe2058e7cc1677ff050f8ed79b1ab94557b0b",
+      "problem_id": "pi1_circle_mulEquiv_int",
+      "result_file": "issue-dispatch-run-31188000114-attempt-1.json",
+      "run_attempt": "1",
+      "run_id": "31188000114",
+      "score_eligible": false,
+      "submission_commit": "934117058d1902a75b9d19bccec6563c2a5d3339"
+    }
+  ],
   "schema_version": 2
 }

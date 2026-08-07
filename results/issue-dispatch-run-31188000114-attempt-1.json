@@ -1,0 +1,43 @@
+{
+  "actor": "Vilin97",
+  "benchmark_commit": "934117058d1902a75b9d19bccec6563c2a5d3339",
+  "checks": {
+    "comparator": true,
+    "lean_kernel": true,
+    "nanoda": true
+  },
+  "copied_files": [
+    "Submission.lean"
+  ],
+  "issue_number": null,
+  "model": "maintained-reference-smoke",
+  "outcome": "accepted",
+  "problem_fingerprint": "sha256:f368c7f3f34ca1d9e75bb22b8b0fe2058e7cc1677ff050f8ed79b1ab94557b0b",
+  "problem_id": "pi1_circle_mulEquiv_int",
+  "repository_url": "https://github.com/Vilin97/homotopy-groups-lean",
+  "run_attempt": "1",
+  "run_id": "31188000114",
+  "schema_version": 2,
+  "score_eligible": false,
+  "submission_commit": "934117058d1902a75b9d19bccec6563c2a5d3339",
+  "submission_path": "examples/submissions/pi1_circle",
+  "toolchain": {
+    "comparator": "07bc4ea40f2266dcb861820a2ec1fa3244ed307f",
+    "comparator_absolute_tools_patch_sha256": "c9796ebf468991d07acc31f2f8e95cef53f61164f03a1ad2302c14f725e2000e",
+    "comparator_stage_status_patch_sha256": "23a7fa6e34ebc79f2b71576db10f012a32bca85400ca7bf246a7337a3dab9ca2",
+    "comparator_terminator_patch_sha256": "a421770633877895de509d185a07bf04169a5c9becd73e595315ec95d40f326c",
+    "comparator_terminator_patch_upstream": "9badaf470d8f724346d33738bd273efacd78df76",
+    "go": "1.25.12",
+    "go_archive_sha256": "234828b7a89e0e303d2556310ee549fbcf253d28de937bac3da13d6294262ac1",
+    "landrun": "5ed4a3db3a4ad930d577215c6b9abaa19df7f99f",
+    "lean": "v4.32.2",
+    "lean4export": "4e7915201d3f9f04470d9eae002fa695f7cdc589",
+    "lean_archive_sha256": "5f2069e6f5db73780f374ccb49ce8ea649aa20a0cebf0116816744c999ce72aa",
+    "mathlib": "905b95818eb32af7874a58b427f50c1711a5e96c",
+    "mathlib_cache_from": "master,legacy",
+    "mathlib_cache_repo": "leanprover-community/mathlib4",
+    "nanoda": "68d5ca9db226849b41a6fff59d796ff19d0a8840",
+    "runner": "ubuntu-24.04",
+    "runtime_max_sec": "2700"
+  }
+}
