@@ -114,7 +114,8 @@ jobs:
         run: |
           lake exe homotopy-groups-lean validate-manifest
           lake exe homotopy-groups-lean check-problem-build
-          lake exe homotopy-groups-lean generate
+          # This re-extracts every declaration; generator write behavior is
+          # covered separately by `test_generate` below.
           lake exe homotopy-groups-lean generate --check
           lake exe homotopy-groups-lean check-generated-builds
 
