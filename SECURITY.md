@@ -40,6 +40,13 @@ each child output stream. The evaluator
 sets `UV_USE_IO_URING=0` before denying `@aio`, so Lean's libuv runtime does not
 attempt the intentionally blocked io_uring syscalls.
 
+The pinned Lean 4.32.2 release contains the fix for the checked-kernel
+soundness bug reported as `leanprover/lean4#14576` (4.32-branch commit
+`8be817b3f6310f62f220861b0c92dbabb951115d`). Both trusted workflows run the
+upstream minimal regression with `lean --trust=0` before loading dependencies
+or evaluating a submission. A toolchain that accepts the malformed nested
+inductive declaration is rejected even if its version string looks correct.
+
 ## Immutable dependency pins
 
 | Component | Pin |

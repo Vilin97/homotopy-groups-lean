@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "reviewed_on": "2026-08-08",
+  "purpose": "Published results in the literature review that cannot yet be stated faithfully using the pinned Mathlib foundations.",
+  "targets": [
+    {
+      "id": "unstable-integral-table-20",
+      "result": "The complete integral groups pi_(n+20)(S^n)",
+      "status": "blocked_on_registry",
+      "missing": ["versioned structured transcription of the Mimura-Toda 20-stem"],
+      "data_available": "The Toda 0-19 table is now generated as HomotopyGroups.TodaTable; the Mimura-Toda 20-stem is not present in the companion CSV"
+    },
+    {
+      "id": "unstable-two-primary-21-33",
+      "result": "The computed 2-primary components in unstable stems 21 through 33",
+      "status": "blocked_on_foundations",
+      "missing": ["p-primary subgroup or p-local homotopy group API", "versioned 2-primary registry"]
+    },
+    {
+      "id": "serre-first-odd-primary-torsion",
+      "result": "Serre's first occurrence theorem for odd-primary torsion in homotopy groups of spheres",
+      "status": "blocked_on_foundations",
+      "missing": ["primary torsion subgroup API", "Serre class construction"]
+    },
+    {
+      "id": "cohen-moore-neisendorfer-exponent",
+      "result": "Odd-primary exponent bounds for homotopy groups of odd spheres",
+      "status": "blocked_on_foundations",
+      "missing": ["localization", "power maps on loop spaces", "primary exponent API"]
+    },
+    {
+      "id": "freudenthal-stable-transport",
+      "result": "Suspension equivalences transporting a proved stable representative across its full stable diagonal",
+      "status": "blocked_on_foundations",
+      "missing": ["suspension homomorphism", "Freudenthal connectivity theorem"]
+    },
+    {
+      "id": "hopf-kervaire-and-image-j",
+      "result": "Hopf invariant one, Kervaire invariant one, image J, and Pontryagin-Thom results",
+      "status": "blocked_on_foundations",
+      "missing": ["spectra", "Hopf and Kervaire invariants", "stable J homomorphism", "framed cobordism and Pontryagin-Thom"]
+    },
+    {
+      "id": "chromatic-periodic-families",
+      "result": "Nishida nilpotence, telescope/chromatic-localization results, and periodic families",
+      "status": "blocked_on_foundations",
+      "missing": ["spectra", "Bousfield localization", "Morava K-theory", "stable products"]
+    },
+    {
+      "id": "adams-computations",
+      "result": "Adams and Adams-Novikov spectral-sequence detections and differentials used in the review",
+      "status": "blocked_on_foundations",
+      "missing": ["spectral sequences", "Steenrod algebra and Ext bridge", "convergence to stable homotopy"]
+    }
+  ]
+}

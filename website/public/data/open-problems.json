@@ -31,6 +31,25 @@
       "title": "Eventual nonvanishing of the two-primary component of pi_m(S^3)"
     },
     {
+      "id": "new-doomsday-adams-sq0",
+      "lean": {
+        "missing": [
+          "spectra",
+          "mod-two Adams spectral sequence",
+          "Sq^0 operation",
+          "permanent-cycle and survival predicates"
+        ],
+        "status": "blocked_on_foundations"
+      },
+      "source": {
+        "locator": "New Doomsday Conjecture; the cited preprint proves the e-family case only",
+        "url": "https://arxiv.org/abs/2602.20184"
+      },
+      "statement": "Every nonzero Sq^0-family in the mod-two Adams E_2-page has only finitely many members that survive to E_infinity.",
+      "status": "open_conjecture",
+      "title": "New Doomsday Conjecture for Sq^0-families"
+    },
+    {
       "id": "freyd-generating-hypothesis",
       "lean": {
         "missing": [
@@ -106,9 +125,9 @@
   "no_longer_open": [
     {
       "id": "ravenel-telescope",
-      "note": "Counterexamples show telescopic and chromatic localizations differ at every prime and every height at least two.",
+      "note": "The cited preprint claims counterexamples at every prime and every height at least two; retain the preprint qualifier pending published verification.",
       "source": "https://arxiv.org/abs/2310.17459",
-      "status": "disproved",
+      "status": "provisional_preprint_disproof",
       "title": "Ravenel telescope conjecture"
     }
   ],

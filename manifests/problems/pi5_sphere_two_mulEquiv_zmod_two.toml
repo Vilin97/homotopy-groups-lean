@@ -1,0 +1,8 @@
+id = "pi5_sphere_two_mulEquiv_zmod_two"
+title = "The fifth homotopy group of the two-sphere is cyclic of order two"
+test = false
+module = "HomotopyGroups.LiteratureReview"
+holes = ["pi5_sphere_two_mulEquiv_zmod_two"]
+submitter = "OpenAI Codex"
+source = "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
+notes = "knowledge_status=known_result/exact; records the first exceptional value in the third offset."

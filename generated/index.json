@@ -176,6 +176,50 @@
     "generated_path": "generated/pi3_sphere_two_mulEquiv_int"
   },
   {
+    "id": "pi5_sphere_two_mulEquiv_zmod_two",
+    "title": "The fifth homotopy group of the two-sphere is cyclic of order two",
+    "test": false,
+    "submitter": "OpenAI Codex",
+    "module": "HomotopyGroups.LiteratureReview",
+    "holes": [
+      "pi5_sphere_two_mulEquiv_zmod_two"
+    ],
+    "generated_path": "generated/pi5_sphere_two_mulEquiv_zmod_two"
+  },
+  {
+    "id": "pi6_sphere_three_mulEquiv_zmod_twelve",
+    "title": "The sixth homotopy group of the three-sphere is cyclic of order twelve",
+    "test": false,
+    "submitter": "OpenAI Codex",
+    "module": "HomotopyGroups.LiteratureReview",
+    "holes": [
+      "pi6_sphere_three_mulEquiv_zmod_twelve"
+    ],
+    "generated_path": "generated/pi6_sphere_three_mulEquiv_zmod_twelve"
+  },
+  {
+    "id": "pi7_sphere_four_mulEquiv_int_prod_zmod_twelve",
+    "title": "The seventh homotopy group of the four-sphere is Z plus C12",
+    "test": false,
+    "submitter": "OpenAI Codex",
+    "module": "HomotopyGroups.LiteratureReview",
+    "holes": [
+      "pi7_sphere_four_mulEquiv_int_prod_zmod_twelve"
+    ],
+    "generated_path": "generated/pi7_sphere_four_mulEquiv_int_prod_zmod_twelve"
+  },
+  {
+    "id": "positive_stable_stem_finite",
+    "title": "Every positive stable homotopy group of spheres is finite",
+    "test": false,
+    "submitter": "OpenAI Codex",
+    "module": "HomotopyGroups.LiteratureReview",
+    "holes": [
+      "positive_stable_stem_finite"
+    ],
+    "generated_path": "generated/positive_stable_stem_finite"
+  },
+  {
     "id": "realProjectiveSpace_higher_homotopy_mulEquiv_sphere",
     "title": "Higher homotopy groups of real projective space agree with those of its sphere cover",
     "test": false,
@@ -251,6 +295,39 @@
       "sphere_lower_homotopy_subsingleton"
     ],
     "generated_path": "generated/sphere_lower_homotopy_subsingleton"
+  },
+  {
+    "id": "sphere_one_higher_homotopy_subsingleton",
+    "title": "All higher homotopy groups of the circle vanish",
+    "test": false,
+    "submitter": "OpenAI Codex",
+    "module": "HomotopyGroups.LiteratureReview",
+    "holes": [
+      "sphere_one_higher_homotopy_subsingleton"
+    ],
+    "generated_path": "generated/sphere_one_higher_homotopy_subsingleton"
+  },
+  {
+    "id": "sphere_second_offset_homotopy_mulEquiv_zmod_two",
+    "title": "The second-offset homotopy group of every sphere is cyclic of order two",
+    "test": false,
+    "submitter": "OpenAI Codex",
+    "module": "HomotopyGroups.LiteratureReview",
+    "holes": [
+      "sphere_second_offset_homotopy_mulEquiv_zmod_two"
+    ],
+    "generated_path": "generated/sphere_second_offset_homotopy_mulEquiv_zmod_two"
+  },
+  {
+    "id": "sphere_third_offset_stable_mulEquiv_zmod_twenty_four",
+    "title": "The stable third-offset homotopy group of a sphere is cyclic of order twenty-four",
+    "test": false,
+    "submitter": "OpenAI Codex",
+    "module": "HomotopyGroups.LiteratureReview",
+    "holes": [
+      "sphere_third_offset_stable_mulEquiv_zmod_twenty_four"
+    ],
+    "generated_path": "generated/sphere_third_offset_stable_mulEquiv_zmod_twenty_four"
   },
   {
     "id": "sphere_three_all_higher_homotopy_nontrivial",
@@ -1296,5 +1373,16 @@
       "stable_two_primary_quadratic_growth_conjecture"
     ],
     "generated_path": "generated/stable_two_primary_quadratic_growth_conjecture"
+  },
+  {
+    "id": "toda_unstable_integral_table",
+    "title": "Toda integral unstable table through the 19-stem",
+    "test": false,
+    "submitter": "homotopy-groups-lean literature registry",
+    "module": "HomotopyGroups.TodaTable",
+    "holes": [
+      "toda_unstable_integral_table"
+    ],
+    "generated_path": "generated/toda_unstable_integral_table"
   }
 ]

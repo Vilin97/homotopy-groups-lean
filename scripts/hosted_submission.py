@@ -117,12 +117,38 @@ def validate_intake(
     return Intake(problem_id, repository_url, commit_sha, submission_path, model)
 
 
+def git_subprocess_environment(
+    environ: Mapping[str, str] | None = None,
+) -> dict[str, str]:
+    """Return a non-interactive Git environment without runner-global hooks.
+
+    A submitted tree can contain ``.gitattributes``.  Inheriting a runner's Git
+    configuration could therefore execute a configured smudge filter during
+    checkout, before the proof-file allowlist is applied.  Public HTTPS fetches
+    need neither the Actions token nor caller-supplied ``GIT_*`` overrides.
+    """
+
+    source = os.environ if environ is None else environ
+    command_environment = {
+        key: value
+        for key, value in source.items()
+        if key != "GITHUB_TOKEN" and not key.startswith("GIT_")
+    }
+    command_environment.update(
+        {
+            "GIT_TERMINAL_PROMPT": "0",
+            "GIT_ASKPASS": "/bin/false",
+            "GIT_CONFIG_NOSYSTEM": "1",
+            "GIT_CONFIG_GLOBAL": "/dev/null",
+            "GIT_ATTR_NOSYSTEM": "1",
+            "GIT_LFS_SKIP_SMUDGE": "1",
+        }
+    )
+    return command_environment
+
+
 def _run(args: list[str], *, cwd: pathlib.Path | None = None) -> str:
-    command_environment = os.environ.copy()
-    # The API token is needed only by urllib. Public Git transport does not need
-    # it, so do not pass it to any child process while inspecting a submission.
-    command_environment.pop("GITHUB_TOKEN", None)
-    command_environment["GIT_TERMINAL_PROMPT"] = "0"
+    command_environment = git_subprocess_environment()
     try:
         completed = subprocess.run(
             args,

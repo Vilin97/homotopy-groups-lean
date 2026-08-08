@@ -39,20 +39,76 @@ INTAKE_FIELDS = (
     "copied_files",
 )
 
+EVALUATOR_FIELDS = {
+    "total_problems",
+    "attempted_problems",
+    "succeeded_problems",
+    "attempted_test_problems",
+    "succeeded_test_problems",
+    "attempted_main_problems",
+    "succeeded_main_problems",
+    "problems",
+}
+EVALUATOR_PROBLEM_FIELDS = {
+    "id",
+    "title",
+    "test",
+    "attempted",
+    "succeeded",
+    "exit_code",
+    "mismatches",
+    "workspace_path",
+}
+
+
+def _is_nonnegative_int(value: object) -> bool:
+    return isinstance(value, int) and not isinstance(value, bool) and value >= 0
+
 
 def parse_evaluator(path: pathlib.Path, problem_id: str, process_succeeded: bool) -> tuple[str, bool]:
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
         return "infrastructure_error", False
+    if not isinstance(data, dict) or set(data) != EVALUATOR_FIELDS:
+        return "infrastructure_error", False
     problems = data.get("problems")
-    if not isinstance(problems, list):
+    if not isinstance(problems, list) or len(problems) != 1:
         return "infrastructure_error", False
-    matches = [row for row in problems if isinstance(row, dict) and row.get("id") == problem_id]
-    if len(matches) != 1 or not isinstance(matches[0].get("succeeded"), bool):
+    row = problems[0]
+    if not isinstance(row, dict) or set(row) != EVALUATOR_PROBLEM_FIELDS:
         return "infrastructure_error", False
-    row = matches[0]
+    if (
+        row.get("id") != problem_id
+        or not isinstance(row.get("title"), str)
+        or not row["title"]
+        or not isinstance(row.get("test"), bool)
+        or row.get("attempted") is not True
+        or not isinstance(row.get("succeeded"), bool)
+        or not _is_nonnegative_int(row.get("exit_code"))
+        or not isinstance(row.get("workspace_path"), str)
+        or not row["workspace_path"]
+        or not isinstance(row.get("mismatches"), list)
+        or not row["mismatches"]
+        or any(not isinstance(item, str) or not item for item in row["mismatches"])
+    ):
+        return "infrastructure_error", False
     passed = row["succeeded"] is True
+    is_test = row["test"] is True
+    expected_counts = {
+        "total_problems": 1,
+        "attempted_problems": 1,
+        "succeeded_problems": int(passed),
+        "attempted_test_problems": int(is_test),
+        "succeeded_test_problems": int(is_test and passed),
+        "attempted_main_problems": int(not is_test),
+        "succeeded_main_problems": int(not is_test and passed),
+    }
+    if any(
+        not _is_nonnegative_int(data.get(field)) or data[field] != expected
+        for field, expected in expected_counts.items()
+    ):
+        return "infrastructure_error", False
     exit_code = row.get("exit_code")
     if passed:
         if process_succeeded and exit_code == 0:

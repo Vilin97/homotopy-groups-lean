@@ -1,0 +1,8 @@
+id = "positive_stable_stem_finite"
+title = "Every positive stable homotopy group of spheres is finite"
+test = false
+module = "HomotopyGroups.LiteratureReview"
+holes = ["positive_stable_stem_finite"]
+submitter = "OpenAI Codex"
+source = "https://doi.org/10.2307/1969485"
+notes = "knowledge_status=foundation_blocked; uses the benchmark's canonical stable representative and states Serre finiteness for every positive stem."

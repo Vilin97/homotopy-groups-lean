@@ -1,0 +1,12 @@
+{
+  "id": "sphere_third_offset_stable_mulEquiv_zmod_twenty_four",
+  "module": "HomotopyGroups.LiteratureReview",
+  "holes": [
+    {
+      "name": "HomotopyGroups.sphere_third_offset_stable_mulEquiv_zmod_twenty_four",
+      "basename": "sphere_third_offset_stable_mulEquiv_zmod_twenty_four",
+      "kind": "theorem",
+      "body": "/-- The stable part of the third offset: `pi_(n+3)(S^n) = C24` for `n >= 5`. -/\ntheorem sphere_third_offset_stable_mulEquiv_zmod_twenty_four\n    (n : \u2115) (hn : 5 \u2264 n) :\n    Nonempty\n      (HomotopyGroup.Pi (n + 3) (SphereSpace n) (sphereBasepoint n) \u2243*\n        Multiplicative (ZMod 24)) := by\n  sorry"
+    }
+  ]
+}

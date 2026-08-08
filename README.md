@@ -12,13 +12,22 @@ presents the problem tracker and leaderboard; its source lives in
 [`website/`](website/). The Lean source and per-problem manifests are the
 benchmark's authoritative data.
 
-The launch corpus contains **118 Lean statements**: every additive stable stem
-from 0 through 90 (87 exact values and the complete published alternatives in
-stems 84, 85, 86, and 90), 25 foundational/unstable/advanced results, and two
-concrete open conjectures. Six open-conjecture families are source-tracked in
-[`research/open-problems.json`](research/open-problems.json); four whose required
+The corpus contains **126 Lean statements**: every additive stable stem from 0
+through 90 (87 exact values and the complete published alternatives in stems
+84, 85, 86, and 90), 33 foundational/unstable/advanced results, and two
+concrete open conjectures. Seven open-conjecture families are source-tracked in
+[`research/open-problems.json`](research/open-problems.json); five whose required
 foundations do not yet exist in Mathlib are recorded as blocked instead of being
 weakened into placeholder propositions.
+
+The audited 92 by 91 knowledge lattice is specified in
+[`research/lattice-coverage.json`](research/lattice-coverage.json). The attached
+[literature review](website/public/reports/homotopy-groups-of-spheres-literature-review.pdf),
+its [correction log](research/literature-review-audit.md), and the regenerated
+[CSV/BibTeX companions](research/report-data/) distinguish exact integral
+values, published alternatives, 2-primary-only computations, and a disputed
+33-stem entry. The independent purple proof overlay comes from the dated,
+source-auditable [`formalizations.json`](research/formalizations.json) inventory.
 
 ## Reproducible environment
 
@@ -125,6 +134,11 @@ The maintained positive fixture is
 a real proof that `π₁(S¹) ≅ ℤ`. Maintainers can run the same hosted path through
 the `Evaluate submission` workflow's manual dispatch; reference smoke runs are
 marked ineligible for leaderboard points.
+
+The second maintained source-auditable proof lives at
+[`examples/submissions/sphere_lower_homotopy_subsingleton/`](examples/submissions/sphere_lower_homotopy_subsingleton/).
+It proves `π_k(S^n) = 0` for `k < n` in the benchmark's exact metric-sphere
+model and passes Comparator, Lean with `--trust=0`, and nanoda.
 
 ## Comparator prerequisites
 

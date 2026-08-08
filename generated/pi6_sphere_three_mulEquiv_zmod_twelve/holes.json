@@ -1,0 +1,12 @@
+{
+  "id": "pi6_sphere_three_mulEquiv_zmod_twelve",
+  "module": "HomotopyGroups.LiteratureReview",
+  "holes": [
+    {
+      "name": "HomotopyGroups.pi6_sphere_three_mulEquiv_zmod_twelve",
+      "basename": "pi6_sphere_three_mulEquiv_zmod_twelve",
+      "kind": "theorem",
+      "body": "/-- The second exceptional third-offset value: `pi_6(S^3) = C12`. -/\ntheorem pi6_sphere_three_mulEquiv_zmod_twelve :\n    Nonempty\n      (HomotopyGroup.Pi 6 (SphereSpace 3) (sphereBasepoint 3) \u2243*\n        Multiplicative (ZMod 12)) := by\n  sorry"
+    }
+  ]
+}

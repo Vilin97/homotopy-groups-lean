@@ -146,7 +146,14 @@ human + Lean
                 hosted.collect_proof_files(repo, "proof")
 
     def test_git_subprocess_has_a_hard_timeout(self) -> None:
-        with mock.patch.dict(hosted.os.environ, {"GITHUB_TOKEN": "never-pass-to-git"}):
+        inherited = {
+            "GITHUB_TOKEN": "never-pass-to-git",
+            "GIT_CONFIG_COUNT": "1",
+            "GIT_CONFIG_KEY_0": "filter.evil.smudge",
+            "GIT_CONFIG_VALUE_0": "run-attacker-code",
+            "GIT_SSH_COMMAND": "run-attacker-code",
+        }
+        with mock.patch.dict(hosted.os.environ, inherited):
             with mock.patch.object(
                 hosted.subprocess,
                 "run",
@@ -155,8 +162,18 @@ human + Lean
                 with self.assertRaisesRegex(hosted.IntakeError, "timed out"):
                     hosted._run(["git", "fetch", "origin"])
         self.assertEqual(run.call_args.kwargs["timeout"], hosted.GIT_COMMAND_TIMEOUT_SECONDS)
-        self.assertNotIn("GITHUB_TOKEN", run.call_args.kwargs["env"])
-        self.assertEqual(run.call_args.kwargs["env"]["GIT_TERMINAL_PROMPT"], "0")
+        child_env = run.call_args.kwargs["env"]
+        self.assertNotIn("GITHUB_TOKEN", child_env)
+        self.assertNotIn("GIT_CONFIG_COUNT", child_env)
+        self.assertNotIn("GIT_CONFIG_KEY_0", child_env)
+        self.assertNotIn("GIT_CONFIG_VALUE_0", child_env)
+        self.assertNotIn("GIT_SSH_COMMAND", child_env)
+        self.assertEqual(child_env["GIT_TERMINAL_PROMPT"], "0")
+        self.assertEqual(child_env["GIT_ASKPASS"], "/bin/false")
+        self.assertEqual(child_env["GIT_CONFIG_NOSYSTEM"], "1")
+        self.assertEqual(child_env["GIT_CONFIG_GLOBAL"], "/dev/null")
+        self.assertEqual(child_env["GIT_ATTR_NOSYSTEM"], "1")
+        self.assertEqual(child_env["GIT_LFS_SKIP_SMUDGE"], "1")
 
     def test_github_metadata_request_is_authenticated_without_echoing_token(self) -> None:
         token = "ghs_top-secret-test-token"
@@ -310,11 +327,33 @@ class FingerprintTests(unittest.TestCase):
 
 
 class ResultBuilderTests(unittest.TestCase):
+    @staticmethod
+    def evaluator_payload(*, succeeded: bool, exit_code: int) -> dict[str, object]:
+        return {
+            "total_problems": 1,
+            "attempted_problems": 1,
+            "succeeded_problems": int(succeeded),
+            "attempted_test_problems": 0,
+            "succeeded_test_problems": 0,
+            "attempted_main_problems": 1,
+            "succeeded_main_problems": int(succeeded),
+            "problems": [{
+                "id": "circle",
+                "title": "Circle",
+                "test": False,
+                "attempted": True,
+                "succeeded": succeeded,
+                "exit_code": exit_code,
+                "mismatches": ["modified Submission.lean"],
+                "workspace_path": "workspaces/circle",
+            }],
+        }
+
     def test_evaluator_uses_reserved_rejection_exit_and_fails_closed_otherwise(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             evaluator = pathlib.Path(tmp) / "results.json"
             evaluator.write_text(
-                json.dumps({"problems": [{"id": "circle", "succeeded": True, "exit_code": 0}]}),
+                json.dumps(self.evaluator_payload(succeeded=True, exit_code=0)),
                 encoding="utf-8",
             )
             self.assertEqual(
@@ -327,7 +366,7 @@ class ResultBuilderTests(unittest.TestCase):
             )
 
             evaluator.write_text(
-                json.dumps({"problems": [{"id": "circle", "succeeded": False, "exit_code": 2}]}),
+                json.dumps(self.evaluator_payload(succeeded=False, exit_code=2)),
                 encoding="utf-8",
             )
             self.assertEqual(
@@ -336,13 +375,38 @@ class ResultBuilderTests(unittest.TestCase):
             )
 
             evaluator.write_text(
-                json.dumps({"problems": [{"id": "circle", "succeeded": False, "exit_code": 1}]}),
+                json.dumps(self.evaluator_payload(succeeded=False, exit_code=1)),
                 encoding="utf-8",
             )
             self.assertEqual(
                 builder.parse_evaluator(evaluator, "circle", process_succeeded=True),
                 ("infrastructure_error", False),
             )
+
+    def test_evaluator_requires_complete_consistent_single_problem_summary(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            evaluator = pathlib.Path(tmp) / "results.json"
+            malformed: list[object] = [
+                [],
+                {"problems": []},
+                {**self.evaluator_payload(succeeded=True, exit_code=0), "attempted_problems": 0},
+                {**self.evaluator_payload(succeeded=True, exit_code=0), "unexpected": True},
+            ]
+            duplicate = self.evaluator_payload(succeeded=True, exit_code=0)
+            duplicate["problems"] = duplicate["problems"] * 2
+            malformed.append(duplicate)
+            unattempted = self.evaluator_payload(succeeded=False, exit_code=2)
+            unattempted["problems"][0]["attempted"] = False
+            malformed.append(unattempted)
+            for payload in malformed:
+                with self.subTest(payload=payload):
+                    evaluator.write_text(json.dumps(payload), encoding="utf-8")
+                    self.assertEqual(
+                        builder.parse_evaluator(
+                            evaluator, "circle", process_succeeded=True
+                        ),
+                        ("infrastructure_error", False),
+                    )
 
             evaluator.write_text("not-json", encoding="utf-8")
             self.assertEqual(

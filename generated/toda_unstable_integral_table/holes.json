@@ -1,0 +1,12 @@
+{
+  "id": "toda_unstable_integral_table",
+  "module": "HomotopyGroups.TodaTable",
+  "holes": [
+    {
+      "name": "HomotopyGroups.toda_unstable_integral_table",
+      "basename": "toda_unstable_integral_table",
+      "kind": "theorem",
+      "body": "/--\nToda's complete integral unstable table through the 19-stem, for sphere\ndimensions 1 through 20. The two finite indices encode `n = nIndex + 1` and\nthe offset `k`; the target is therefore `pi_(n+k)(S^n)`.\n-/\ntheorem toda_unstable_integral_table (nIndex k : Fin 20) :\n    Nonempty\n      (HomotopyGroup.Pi (nIndex.val + 1 + k.val)\n          (SphereSpace (nIndex.val + 1)) (sphereBasepoint (nIndex.val + 1)) \u2243*\n        todaIntegralGroup nIndex k) := by\n  sorry"
+    }
+  ]
+}

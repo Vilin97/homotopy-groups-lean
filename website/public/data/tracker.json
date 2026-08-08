@@ -193,6 +193,54 @@
       "title": "The third homotopy group of the two-sphere is the integers"
     },
     {
+      "family": "LiteratureReview",
+      "formalization_status": "open",
+      "holes": [
+        "pi5_sphere_two_mulEquiv_zmod_two"
+      ],
+      "id": "pi5_sphere_two_mulEquiv_zmod_two",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact; records the first exceptional value in the third offset.",
+      "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
+      "title": "The fifth homotopy group of the two-sphere is cyclic of order two"
+    },
+    {
+      "family": "LiteratureReview",
+      "formalization_status": "open",
+      "holes": [
+        "pi6_sphere_three_mulEquiv_zmod_twelve"
+      ],
+      "id": "pi6_sphere_three_mulEquiv_zmod_twelve",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact; records the second exceptional value in the third offset.",
+      "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
+      "title": "The sixth homotopy group of the three-sphere is cyclic of order twelve"
+    },
+    {
+      "family": "LiteratureReview",
+      "formalization_status": "open",
+      "holes": [
+        "pi7_sphere_four_mulEquiv_int_prod_zmod_twelve"
+      ],
+      "id": "pi7_sphere_four_mulEquiv_int_prod_zmod_twelve",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact; records the third exceptional value in the third offset.",
+      "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
+      "title": "The seventh homotopy group of the four-sphere is Z plus C12"
+    },
+    {
+      "family": "LiteratureReview",
+      "formalization_status": "open",
+      "holes": [
+        "positive_stable_stem_finite"
+      ],
+      "id": "positive_stable_stem_finite",
+      "knowledge_status": "foundation_blocked",
+      "notes": "knowledge_status=foundation_blocked; uses the benchmark's canonical stable representative and states Serre finiteness for every positive stem.",
+      "source": "https://doi.org/10.2307/1969485",
+      "title": "Every positive stable homotopy group of spheres is finite"
+    },
+    {
       "family": "Spaces",
       "formalization_status": "open",
       "holes": [
@@ -275,6 +323,42 @@
       "notes": "knowledge_status=foundation_blocked; the concrete metric sphere exists, but sphere connectivity and cellular approximation are absent.",
       "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
       "title": "Homotopy groups below the dimension of a sphere vanish"
+    },
+    {
+      "family": "LiteratureReview",
+      "formalization_status": "open",
+      "holes": [
+        "sphere_one_higher_homotopy_subsingleton"
+      ],
+      "id": "sphere_one_higher_homotopy_subsingleton",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact; states the result for the benchmark's metric SphereSpace 1; the current TauCeti formalization uses an equivalent circle model whose explicit bridge is not yet in Mathlib.",
+      "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
+      "title": "All higher homotopy groups of the circle vanish"
+    },
+    {
+      "family": "LiteratureReview",
+      "formalization_status": "open",
+      "holes": [
+        "sphere_second_offset_homotopy_mulEquiv_zmod_two"
+      ],
+      "id": "sphere_second_offset_homotopy_mulEquiv_zmod_two",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact; states pi_(n+2)(S^n)=C2 for every n>=2.",
+      "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
+      "title": "The second-offset homotopy group of every sphere is cyclic of order two"
+    },
+    {
+      "family": "LiteratureReview",
+      "formalization_status": "open",
+      "holes": [
+        "sphere_third_offset_stable_mulEquiv_zmod_twenty_four"
+      ],
+      "id": "sphere_third_offset_stable_mulEquiv_zmod_twenty_four",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact; states pi_(n+3)(S^n)=C24 throughout the stable range n>=5.",
+      "source": "https://www.numdam.org/articles/10.1007/s10240-023-00139-1/",
+      "title": "The stable third-offset homotopy group of a sphere is cyclic of order twenty-four"
     },
     {
       "family": "Advanced",
@@ -1415,8 +1499,20 @@
       "notes": "knowledge_status=open_conjecture_in_cited_source; Conjecture 1.4. The two-primary order is the cardinality of elements killed by a power of two in the stable representative pi_(2k+2)(S^(k+2)); its cumulative product from stem 1 through k has log base two divided by k squared tending to a nonzero real constant.",
       "source": "https://doi.org/10.1007/s10240-023-00139-1",
       "title": "Quadratic logarithmic growth of cumulative two-primary stable stems"
+    },
+    {
+      "family": "TodaTable",
+      "formalization_status": "open",
+      "holes": [
+        "toda_unstable_integral_table"
+      ],
+      "id": "toda_unstable_integral_table",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact; one finite-indexed theorem family states all 400 integral values pi_(n+k)(S^n) for 1<=n<=20 and 0<=k<=19; generated from the audited compact CSV transcription.",
+      "source": "https://doi.org/10.1515/9781400882140",
+      "title": "Toda integral unstable table through the 19-stem"
     }
   ],
-  "problem_count": 118,
+  "problem_count": 126,
   "schema_version": 2
 }

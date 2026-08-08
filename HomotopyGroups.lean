@@ -4,3 +4,5 @@ import HomotopyGroups.Spaces
 import HomotopyGroups.Advanced
 import HomotopyGroups.Conjectures
 import HomotopyGroups.StableStems
+import HomotopyGroups.TodaTable
+import HomotopyGroups.LiteratureReview
