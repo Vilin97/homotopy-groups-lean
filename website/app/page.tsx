@@ -4,9 +4,23 @@ import stableStemData from "../public/data/stable-stems.json";
 import trackerData from "../public/data/tracker.json";
 import { Lattice } from "./lattice";
 import { Leaderboard } from "./leaderboard";
+import { siteAsset } from "./site";
 import { Tracker } from "./tracker";
 
 const repo = "https://github.com/Vilin97/homotopy-groups-lean";
+
+// The public site has no request-specific state; make that invariant explicit
+// so static-only hosts receive a concrete index.html.
+export const dynamic = "force-static";
+
+const reportPdf = siteAsset(
+  "/reports/homotopy-groups-of-spheres-literature-review.pdf",
+);
+const stableStemsCsv = siteAsset("/reports/stable_stems_0_90.csv");
+const todaTableCsv = siteAsset("/reports/toda_unstable_stems_0_19.csv");
+const bibliography = siteAsset(
+  "/reports/homotopy_spheres_bibliography.bib",
+);
 
 const stems = stableStemData.stems.map((row) => ({
   stem: row.stem,
@@ -138,10 +152,10 @@ export default function Home() {
               </p>
             </div>
             <div>
-              <a download href="/reports/homotopy-groups-of-spheres-literature-review.pdf">Download report (PDF) ↓</a>
-              <a download href="/reports/stable_stems_0_90.csv">Stable-stem data (CSV) ↓</a>
-              <a download href="/reports/toda_unstable_stems_0_19.csv">Toda table (CSV) ↓</a>
-              <a download href="/reports/homotopy_spheres_bibliography.bib">Bibliography (BibTeX) ↓</a>
+              <a download href={reportPdf}>Download report (PDF) ↓</a>
+              <a download href={stableStemsCsv}>Stable-stem data (CSV) ↓</a>
+              <a download href={todaTableCsv}>Toda table (CSV) ↓</a>
+              <a download href={bibliography}>Bibliography (BibTeX) ↓</a>
               <a href={`${repo}/blob/main/research/literature-review-audit.md`}>Read the audit ↗</a>
             </div>
           </div>
@@ -242,7 +256,7 @@ export default function Home() {
           </div>
           <div className="footer-links">
             <div><strong>Benchmark</strong><a href={`${repo}/tree/main/manifests/problems`}>Problems</a><a href={`${repo}/tree/main/results`}>Results</a><a href={`${repo}/blob/main/CONTRIBUTING.md`}>Contribute</a></div>
-            <div><strong>Research</strong><a href="/reports/homotopy-groups-of-spheres-literature-review.pdf">Literature review</a><a href={`${repo}/tree/main/research`}>Sources</a><a href="https://www.numdam.org/articles/10.1007/s10240-023-00139-1/">IWX table ↗</a><a href="https://link.springer.com/article/10.1007/s42543-025-00098-y">2025 corrections ↗</a></div>
+            <div><strong>Research</strong><a href={reportPdf}>Literature review</a><a href={`${repo}/tree/main/research`}>Sources</a><a href="https://www.numdam.org/articles/10.1007/s10240-023-00139-1/">IWX table ↗</a><a href="https://link.springer.com/article/10.1007/s42543-025-00098-y">2025 corrections ↗</a></div>
           </div>
         </div>
         <div className="shell footer-bottom"><span>Apache-2.0 · Open benchmark · Versioned claims</span><span>LEAN 4.32.2</span></div>

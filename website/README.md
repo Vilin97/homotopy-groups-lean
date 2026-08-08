@@ -1,9 +1,10 @@
 # Homotopy Groups Lean website
 
-Production: <https://homotopy-groups-lean.lean4lean4.chatgpt.site>
+Production: <https://vilin97.github.io/homotopy-groups-lean/>
 
 The public theorem tracker and leaderboard for the benchmark. It is built with
-Next.js-compatible React on vinext and deployed with OpenAI Sites.
+Next.js-compatible React on vinext, exported as static HTML, and deployed with
+GitHub Pages.
 
 Generated data under `public/data/` comes only from repository sources of truth:
 
@@ -33,6 +34,9 @@ npm ci
 npm run lint
 npm test
 ```
+
+`npm test` builds the same repository-scoped static artifact that GitHub Pages
+deploys and verifies that every hosted asset resolves beneath the project URL.
 
 The deployed client refreshes tracker and leaderboard JSON from the public
 GitHub repository, so newly recorded comparator verdicts appear without trusting

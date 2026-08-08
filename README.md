@@ -7,7 +7,7 @@ Mathlib, benchmark statements that still contain `sorry`, and genuinely open
 mathematical conjectures; a statement's presence is not a claim that it has
 already been formalized.
 
-The [companion site](https://homotopy-groups-lean.lean4lean4.chatgpt.site)
+The [companion site](https://vilin97.github.io/homotopy-groups-lean/)
 presents the problem tracker and leaderboard; its source lives in
 [`website/`](website/). The Lean source and per-problem manifests are the
 benchmark's authoritative data.
