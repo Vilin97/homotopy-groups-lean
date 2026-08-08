@@ -158,7 +158,7 @@
     },
     {
       "family": "Foundations",
-      "formalization_status": "open",
+      "formalization_status": "comparator_verified",
       "holes": [
         "pi1_simplyConnected_subsingleton"
       ],

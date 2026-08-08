@@ -1,6 +1,6 @@
 {
   "archived_result_count": 0,
-  "result_count": 4,
+  "result_count": 5,
   "results": [
     {
       "actor": "Vilin97",
@@ -41,6 +41,20 @@
       "result_file": "issue-8-run-31282003043-attempt-1.json",
       "run_attempt": "1",
       "run_id": "31282003043",
+      "score_eligible": true,
+      "submission_commit": "366e2315a194cdd3f3ea4fa42f9a895aa6d965c1"
+    },
+    {
+      "actor": "Vilin97",
+      "benchmark_commit": "366e2315a194cdd3f3ea4fa42f9a895aa6d965c1",
+      "issue_number": 9,
+      "model": "OpenAI Codex",
+      "outcome": "accepted",
+      "problem_fingerprint": "sha256:237bdc59c290836f8627f636737be83d6ad65b6ed522ba83d90d6cbf5ed3180b",
+      "problem_id": "pi1_simplyConnected_subsingleton",
+      "result_file": "issue-9-run-31282003286-attempt-1.json",
+      "run_attempt": "1",
+      "run_id": "31282003286",
       "score_eligible": true,
       "submission_commit": "366e2315a194cdd3f3ea4fa42f9a895aa6d965c1"
     },

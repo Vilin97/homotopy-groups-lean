@@ -1,11 +1,11 @@
 {
-  "accepted_eligible_results": 3,
+  "accepted_eligible_results": 4,
   "archived_result_count": 0,
-  "current_result_count": 4,
+  "current_result_count": 5,
   "entries": [
     {
       "actor": "Vilin97",
-      "firsts": 3,
+      "firsts": 4,
       "models": [
         "OpenAI Codex",
         "OpenAI Codex (source-audited Lean proof)"
@@ -13,10 +13,11 @@
       "problems": [
         "higher_homotopy_mul_comm",
         "pi0_pathConnected_subsingleton",
+        "pi1_simplyConnected_subsingleton",
         "sphere_lower_homotopy_subsingleton"
       ],
       "rank": 1,
-      "solved": 3
+      "solved": 4
     }
   ],
   "schema_version": 2
