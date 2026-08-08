@@ -4,21 +4,11 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 async function render() {
-  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
-  workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
-  const { default: worker } = await import(workerUrl.href);
-  return worker.fetch(
-    new Request("http://localhost/", { headers: { accept: "text/html" } }),
-    { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } },
-    { waitUntil() {}, passThroughOnException() {} },
-  );
+  return readFile(new URL("../dist/client/index.html", import.meta.url), "utf8");
 }
 
-test("server-renders the benchmark landing page", async () => {
-  const response = await render();
-  assert.equal(response.status, 200);
-  assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
-  const html = await response.text();
+test("statically exports the benchmark landing page", async () => {
+  const html = await render();
   assert.match(html, /<title>Homotopy Groups Lean<\/title>/i);
   assert.match(html, /The known edge of/);
   assert.match(html, /homotopy,/);
@@ -31,6 +21,22 @@ test("server-renders the benchmark landing page", async () => {
   assert.match(html, /A proof earns its checkmark/);
   assert.match(html, /Leaderboard/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape/i);
+});
+
+test("scopes every hosted asset to the GitHub Pages project", async () => {
+  const html = await render();
+  assert.match(
+    html,
+    /https:\/\/vilin97\.github\.io\/homotopy-groups-lean\/_next\/static\//,
+  );
+  assert.match(
+    html,
+    /href="\/homotopy-groups-lean\/reports\/homotopy-groups-of-spheres-literature-review\.pdf"/,
+  );
+  assert.doesNotMatch(html, /chatgpt\.site/i);
+  assert.doesNotMatch(html, /(?:href|src)="\/(?!homotopy-groups-lean(?:\/|"))/);
+  assert.doesNotMatch(html, /url\(["']?\/_next\//);
+  await readFile(new URL("../dist/client/.nojekyll", import.meta.url));
 });
 
 test("ships complete, synchronized benchmark data, report, and social art", async () => {

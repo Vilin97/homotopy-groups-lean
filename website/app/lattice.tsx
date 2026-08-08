@@ -10,6 +10,7 @@ import {
   useState,
 } from "react";
 import stableStemData from "../public/data/stable-stems.json";
+import { siteAsset } from "./site";
 
 type Decomposition = { free_rank: number; torsion_invariant_factors: number[] };
 type Group = { integral_decomposition: Decomposition };
@@ -270,7 +271,7 @@ export function Lattice() {
   const stable = isStable(selected.n, selected.k);
   const sourceUrl = stable
     ? stem?.source_refs.map((ref) => sources.get(ref.source_id)).find(Boolean)
-    : "/reports/homotopy-groups-of-spheres-literature-review.pdf";
+    : siteAsset("/reports/homotopy-groups-of-spheres-literature-review.pdf");
   const obviousGroup = selected.n === 1
     ? (selected.k === 0 ? "ℤ" : "0")
     : selected.k === 0 || (selected.n === 2 && selected.k === 1)
