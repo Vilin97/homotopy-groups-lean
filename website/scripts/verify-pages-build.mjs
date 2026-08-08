@@ -9,7 +9,7 @@ const indexUrl = new URL("index.html", output);
 const html = await readFile(indexUrl, "utf8");
 
 assert.match(html, /<title>Homotopy Groups Lean<\/title>/);
-assert.match(html, /The audited \(n,k\)-plane/);
+assert.match(html, /Knowledge lattice/);
 assert.doesNotMatch(html, /chatgpt\.site/i);
 assert.doesNotMatch(html, /url\(["']?\/_next\//);
 
