@@ -42,6 +42,17 @@ type PeriodicRow = {
   source_url: string;
 };
 type PeriodicResidue = { residue: number; family_count: number; rows: PeriodicRow[] };
+type ResearchAddendum = {
+  id: string;
+  result: string;
+  claim_type: string;
+  claim_scope: string;
+  statement: string;
+  publication_status: string;
+  primary_url: string;
+  source_locator: string;
+  lattice_effect: "none";
+};
 
 const firstStem = frontierData.display.first_stem;
 const lastStem = frontierData.display.last_stem;
@@ -55,6 +66,7 @@ const threePrimaryStems = frontierData.three_primary.stems as ThreePrimaryStem[]
 const fivePrimaryEntries = frontierData.five_primary_non_j.entries as FivePrimaryEntry[];
 const imageJStems = frontierData.image_j_v1.stems as ImageJStem[];
 const periodicResidues = frontierData.height_two_two_primary.residues as PeriodicResidue[];
+const researchAddenda = frontierData.research_addenda.records as ResearchAddendum[];
 
 const integralByStem = new Map(integralStems.map((row) => [row.stem, row]));
 const threeByStem = new Map(threePrimaryStems.map((row) => [row.stem, row]));
@@ -274,6 +286,7 @@ export function Frontiers() {
   const periodicMethods = Array.from(new Set(periodicRows.map((row) => row.proof_method)));
   const report = siteAsset("/reports/comprehensive-2026/");
   const frontierCsv = siteAsset("/reports/comprehensive-2026/data/computation_frontiers_2026.csv");
+  const addendaJson = siteAsset("/reports/comprehensive-2026/addenda.json");
   const audit = "https://github.com/Vilin97/homotopy-groups-lean/blob/main/research/comprehensive-handoff-audit.md";
 
   return (
@@ -366,10 +379,42 @@ export function Frontiers() {
           </article>
         </div>
       </div>
+      <section className="frontier-addenda" aria-labelledby="frontier-addenda-heading">
+        <header className="frontier-addenda-head">
+          <div>
+            <span>POST-HANDOFF AUDIT</span>
+            <h3 id="frontier-addenda-heading">Six important results, kept in their proper scope</h3>
+          </div>
+          <p>
+            These additions strengthen the research map without changing a single square in
+            the integral lattice. Every record states why its lattice effect is none.
+          </p>
+        </header>
+        <div className="frontier-addenda-grid">
+          {researchAddenda.map((entry) => (
+            <article key={entry.id}>
+              <div className="frontier-addenda-meta">
+                <span>{entry.claim_type.replaceAll("_", " ")}</span>
+                <strong>{entry.lattice_effect === "none" ? "no lattice recolor" : entry.lattice_effect}</strong>
+              </div>
+              <h4>{entry.result}</h4>
+              <p>{entry.statement}</p>
+              <dl>
+                <div><dt>Scope</dt><dd>{entry.claim_scope}</dd></div>
+                <div><dt>Status</dt><dd>{entry.publication_status}</dd></div>
+              </dl>
+              <a href={entry.primary_url} rel="noreferrer">
+                primary source · {entry.source_locator} ↗
+              </a>
+            </article>
+          ))}
+        </div>
+      </section>
       <div className="frontier-links">
-        <span>Audited overlay: current Ravenel edition · corrected v₁ exception · detector split · quarantined extraction defects</span>
+        <span>Audited overlay: corrected source metadata and six scoped addenda; lattice colors and counts are unchanged</span>
         <a href={report}>read the comprehensive report ↗</a>
         <a href={audit}>read the correction log ↗</a>
+        <a href={addendaJson}>download addenda JSON ↗</a>
         <a href={frontierCsv}>download frontier CSV ↗</a>
       </div>
     </div>

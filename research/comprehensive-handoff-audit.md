@@ -11,6 +11,9 @@ The source files are evidence artifacts, not proof certificates. Generated
 website data are produced by `scripts/generate_extended_frontiers.py`, which
 validates the hashes and table invariants and then applies the corrections
 below as an explicit overlay. It never rewrites the source package.
+The separately versioned
+[`comprehensive-handoff-addenda.json`](comprehensive-handoff-addenda.json)
+records important results found after that artifact was audited.
 
 ## Scope and website interpretation
 
@@ -124,6 +127,69 @@ overwritten: they retain richer repository schemas and existing consumers.
     the Mahowald uncertainty heuristic, or non-uniform Smith--Toda and growth
     programs to formal conjectures; it separately records the published failure
     of strong chromatic splitting and the preprint-qualified Singer status.
+
+## Important results omitted or under-specified by the handoff
+
+The post-handoff source audit found six results that belong in the research map.
+They are stored as typed records with explicit scope, publication status, primary
+URL/DOI, and `lattice_effect: "none"` in
+[`comprehensive-handoff-addenda.json`](comprehensive-handoff-addenda.json).
+
+1. **Adams E3 computation.** Chua's arXiv v2 paper computes all mod-2 Adams
+   `d2` differentials and filtration-one hidden E3 extensions for the sphere by
+   algorithm, runs the E3-page computation through stable stem 140, and resolves
+   all previously unknown `d2`, `d3`, `d4`, and `d5` differentials through stem
+   95. This is a spectral-sequence computation, not a new complete integral-group
+   table. [Primary record and arXiv DOI](https://doi.org/10.48550/arXiv.2105.07628).
+
+2. **All-degree image-of-J detection.** Carrick--Davies Theorem A proves at
+   every prime that the unit from the sphere spectrum to the connective
+   image-of-J spectrum is surjective on all homotopy groups. The Adams
+   `e`-invariant splits the surjection degree by degree, with filtered refinements
+   in the paper. This peer-reviewed theorem detects the height-one part but does
+   not classify an ambient stable stem.
+   [Transactions of the AMS, DOI 10.1090/tran/9526](https://doi.org/10.1090/tran/9526).
+
+3. **Localized Greek-letter families.** Kato--Katsumi Shimomura--Mao-no-suke
+   Shimomura Theorem 1.4 proves that, when `n^2 <= 2p-1`, outside `(2,1)` and
+   `(3,2)`, every nonzero-index `n`th Greek-letter element is a permanent cycle
+   generating a `Z/p` submodule of `pi_*(L_n S^0)`. Theorems 1.3 and Corollary
+   1.5 include the `(5,3)` gamma and `(7,4)` delta cases. This is an arXiv v1
+   theorem about localized spheres; it is not an assertion that these classes
+   lift to integral stable stems.
+   [Primary preprint and arXiv DOI](https://doi.org/10.48550/arXiv.2507.02155).
+
+4. **Barratt--Priddy--Quillen.** The foundational integral homology equivalence
+   from `B Sigma_infinity` to the basepoint component of the infinite loop space
+   of the sphere spectrum supplies a central bridge from stable symmetric groups
+   to stable homotopy. The original Barratt--Priddy publication contains the
+   homology identification; the Quillen plus-construction gives its standard
+   strengthened form. This is structural infrastructure, not a numerical stem.
+   [Original publication, DOI 10.1007/BF02566785](https://doi.org/10.1007/BF02566785);
+   [Delarue's modern scanning proof](https://arxiv.org/abs/2510.13564v2).
+
+5. **Very exotic spheres with free actions.** Bauer--Quigley Theorem A gives
+   infinite families of non-bp spheres with nontrivial 2- or 3-local
+   Pontryagin--Thom invariant carrying smooth free `S^1`- or `S^3`-actions. The
+   exact dimensions and the two disjunctive `S^3` families are retained in the
+   structured addendum. This arXiv v2 geometric-existence theorem uses selected
+   stable classes; it does not compute their entire ambient groups.
+   [Primary preprint and arXiv DOI](https://doi.org/10.48550/arXiv.2603.23241).
+
+6. **Nonzero Toda brackets and unstable relations.** Miyauchi--Mukai prove that
+   the two named stable 24-stem Toda brackets in their Theorem 1.1 agree with the
+   nonzero class `eta eta* sigma`, settling the cited Mahowald conjecture. Their
+   Theorem 1.3 also determines the stated relations involving
+   `bar-nu_6 omega_14` in `pi_30(S^6)` and `bar-nu_7 omega_15` in
+   `pi_31(S^7)`. These are named composition relations inside known groups, not
+   new additive-group values.
+   [Primary preprint and arXiv DOI](https://doi.org/10.48550/arXiv.2606.12046).
+
+None of these six records changes the rule or counts in
+`lattice-coverage.json`: none supplies a new complete integral additive group at
+a lattice coordinate. The website therefore renders them as source cards below
+the stable-frontier atlas rather than recoloring squares or extending the
+consecutive integral ledger.
 
 Primary verification links:
 
