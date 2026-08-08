@@ -1,7 +1,21 @@
 {
   "archived_result_count": 0,
-  "result_count": 1,
+  "result_count": 2,
   "results": [
+    {
+      "actor": "Vilin97",
+      "benchmark_commit": "0e574849a41e2a5003fe879052812434f8877883",
+      "issue_number": 1,
+      "model": "OpenAI Codex (source-audited Lean proof)",
+      "outcome": "accepted",
+      "problem_fingerprint": "sha256:00c1c334c1526582e8ab017fded12a57095cfae34ac8550921797ae8ec607f8d",
+      "problem_id": "sphere_lower_homotopy_subsingleton",
+      "result_file": "issue-1-run-31250004180-attempt-1.json",
+      "run_attempt": "1",
+      "run_id": "31250004180",
+      "score_eligible": true,
+      "submission_commit": "bf7b0084696cbd035430119cb133b27c5ebf5d30"
+    },
     {
       "actor": "Vilin97",
       "benchmark_commit": "934117058d1902a75b9d19bccec6563c2a5d3339",

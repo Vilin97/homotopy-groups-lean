@@ -266,7 +266,7 @@
     },
     {
       "family": "Spaces",
-      "formalization_status": "open",
+      "formalization_status": "comparator_verified",
       "holes": [
         "sphere_lower_homotopy_subsingleton"
       ],
