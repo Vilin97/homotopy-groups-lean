@@ -10,15 +10,17 @@ async function render() {
 test("statically exports the benchmark landing page", async () => {
   const html = await render();
   assert.match(html, /<title>Homotopy Groups Lean<\/title>/i);
-  assert.match(html, /The known edge of/);
-  assert.match(html, /homotopy,/);
-  assert.match(html, /The theorem tracker/);
-  assert.match(html, /The audited \(n,k\)-plane/);
+  assert.match(html, /mapped\./);
+  assert.match(html, /Knowledge lattice/);
+  assert.match(html, /Proof queue/);
+  assert.match(html, /manifests\/problems\/complexProjectiveSpace_higher_homotopy_mulEquiv_sphere\.toml/);
+  assert.doesNotMatch(html, /manifests\/problems\/[^"]+\.json/);
   assert.match(html, /4,468(?:<!-- -->)? exact integral/);
   assert.match(html, /Lean overlay<\/span><strong>183<\/strong>/);
-  assert.match(html, /Lean 2 HoTT · synthetic sphere/);
+  assert.match(html, /Lean 4 · comparator verified/);
+  assert.match(html, /research\/open-problems\.md/);
   assert.match(html, /homotopy-groups-of-spheres-literature-review\.pdf/);
-  assert.match(html, /A proof earns its checkmark/);
+  assert.match(html, /Comparator/);
   assert.match(html, /Leaderboard/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape/i);
 });

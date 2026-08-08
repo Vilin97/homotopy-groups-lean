@@ -44,11 +44,11 @@ const formalizationInventory =
   "https://github.com/Vilin97/homotopy-groups-lean/blob/main/research/formalizations.md";
 
 const knowledgeCopy: Record<Knowledge, { label: string; short: string; color: string }> = {
-  exact: { label: "Exact integral", short: "exact integral group", color: "#25314d" },
-  partial: { label: "Alternatives", short: "published integral alternatives", color: "#f39659" },
-  primary: { label: "2-primary", short: "exact 2-primary component only", color: "#3a96c8" },
-  disputed: { label: "Disputed", short: "conflicting published computations", color: "#d7566f" },
-  uncharted: { label: "Not tabulated", short: "not fully tabulated in the review", color: "#d8d4c9" },
+  exact: { label: "Exact integral", short: "exact integral group", color: "#4fdda8" },
+  partial: { label: "Alternatives", short: "published integral alternatives", color: "#ffb75e" },
+  primary: { label: "2-primary", short: "exact 2-primary component only", color: "#5da9d6" },
+  disputed: { label: "Disputed", short: "conflicting published computations", color: "#e36d86" },
+  uncharted: { label: "Not tabulated", short: "not fully tabulated in the review", color: "#303947" },
 };
 
 function isStable(n: number, k: number): boolean {
@@ -72,14 +72,21 @@ function formalizationAt(n: number, k: number): Formalization {
   // Current Lean 4 formalizations use Circle/AddCircle models. Keep the still-missing
   // explicit bridge to this page's metric-sphere model visible in the detail pane.
   if (n === 1) {
+    if (k === 0) {
+      return {
+        accessibleLabel: "comparator-verified in Lean 4 using an alternate circle model",
+        badge: "Lean 4 · comparator verified",
+        kind: "lean4",
+        note: "The Circle computation passed Comparator, Lean's kernel, and nanoda. The explicit equivalence with this lattice's metric S¹ model is not part of the proof.",
+        source: "https://github.com/Vilin97/homotopy-groups-lean/tree/main/examples/submissions/pi1_circle",
+      };
+    }
     return {
       accessibleLabel: "formalized in Lean 4 using an alternate circle model",
       badge: "Lean 4 · circle model",
       kind: "lean4",
       note: "Purple records a source-auditable Lean 4 computation for Circle or AddCircle. The explicit equivalence with this lattice's metric S¹ model is not part of these proofs.",
-      source: k === 0
-        ? "https://github.com/Vilin97/homotopy-groups-lean/tree/main/examples/submissions/pi1_circle"
-        : "https://github.com/TauCetiProject/TauCeti/blob/2b5d1fc89767051f490d5b4f00e76a4cdbd92876/TauCeti/AlgebraicTopology/UniversalCover/Circle/HigherHomotopy.lean",
+      source: "https://github.com/TauCetiProject/TauCeti/blob/2b5d1fc89767051f490d5b4f00e76a4cdbd92876/TauCeti/AlgebraicTopology/UniversalCover/Circle/HigherHomotopy.lean",
     };
   }
   // Lean 2's HoTT library proves pi_n(S^n)=Z and pi_3(S^2)=Z.
@@ -118,9 +125,9 @@ function formatGroup(group?: Group): string {
 }
 
 export function Lattice() {
-  const [selected, setSelected] = useState<Coordinate>({ n: 2, k: 1 });
-  const [jumpN, setJumpN] = useState("2");
-  const [jumpK, setJumpK] = useState("1");
+  const [selected, setSelected] = useState<Coordinate>({ n: 1, k: 0 });
+  const [jumpN, setJumpN] = useState("1");
+  const [jumpK, setJumpK] = useState("0");
   const [canvasWidth, setCanvasWidth] = useState(720);
   const [shown, setShown] = useState<Record<Knowledge, boolean>>({
     exact: true, partial: true, primary: true, disputed: true, uncharted: true,
@@ -173,7 +180,7 @@ export function Lattice() {
     canvas.style.height = `${height}px`;
     context.setTransform(ratio, 0, 0, ratio, 0, 0);
     context.clearRect(0, 0, canvasWidth, height);
-    context.fillStyle = "#fffefa";
+    context.fillStyle = "#080b10";
     context.fillRect(0, 0, canvasWidth, height);
     const gap = Math.max(.35, Math.min(1.1, cell * .12));
     for (let row = 0; row < rowCount; row += 1) {
@@ -194,10 +201,10 @@ export function Lattice() {
           const outlineSize = Math.max(1, cell - gap - 2 * inset);
           // A dark keyline keeps the purple overlay visible on light evidence cells;
           // purple itself remains visible on the dark exact-integral cells.
-          context.strokeStyle = "#111a2e";
+          context.strokeStyle = "#080b10";
           context.lineWidth = Math.max(1.6, cell * .28);
           context.strokeRect(outlineX, outlineY, outlineSize, outlineSize);
-          context.strokeStyle = formalization.kind === "lean4" ? "#846cf2" : "#b19efc";
+          context.strokeStyle = formalization.kind === "lean4" ? "#aa8cff" : "#c4afff";
           context.lineWidth = Math.max(.8, cell * .12);
           context.strokeRect(outlineX, outlineY, outlineSize, outlineSize);
         }
@@ -207,19 +214,19 @@ export function Lattice() {
     const selectedX = left + selected.k * cell + .5;
     const selectedY = top + (selected.n - nMin) * cell + .5;
     const selectedSize = Math.max(1, cell - 1);
-    context.strokeStyle = "#111a2e";
+    context.strokeStyle = "#f3f0e8";
     context.lineWidth = Math.max(2.4, cell * .34);
     context.strokeRect(selectedX, selectedY, selectedSize, selectedSize);
-    context.strokeStyle = "#c9f04f";
+    context.strokeStyle = "#4fdda8";
     context.lineWidth = Math.max(1.1, cell * .15);
     context.strokeRect(selectedX, selectedY, selectedSize, selectedSize);
-    context.fillStyle = "#6e7686";
+    context.fillStyle = "#7c899b";
     context.font = "8px ui-monospace, SFMono-Regular, Menlo, monospace";
     context.textAlign = "center";
     for (let k = 0; k <= kMax; k += 10) context.fillText(String(k), left + (k + .5) * cell, 15);
     context.textAlign = "right";
     for (let n = 10; n <= nMax; n += 10) context.fillText(String(n), left - 6, top + (n - nMin + .8) * cell);
-    context.fillStyle = "#846cf2";
+    context.fillStyle = "#4fdda8";
     context.font = "italic 11px Georgia, serif";
     context.textAlign = "left";
     context.fillText("n", 10, 14);

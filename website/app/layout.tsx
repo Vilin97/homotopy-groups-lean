@@ -13,11 +13,11 @@ export const metadata: Metadata = {
     template: "%s · Homotopy Groups Lean",
   },
   description:
-    "An open, comparator-gated Lean benchmark for known results and open problems in homotopy groups.",
+    "An interactive (n,k)-lattice of known, partial, disputed, and Lean-formalized homotopy groups of spheres.",
   alternates: { canonical: canonicalUrl },
   openGraph: {
-    title: "The known edge of homotopy, formalized.",
-    description: "A versioned Lean benchmark for homotopy groups, stable stems, and open conjectures.",
+    title: "πₙ₊ₖ(Sⁿ), mapped.",
+    description: "Explore the homotopy knowledge lattice, then formalize its gaps in Lean.",
     url: canonicalUrl,
     siteName: "Homotopy Groups Lean",
     type: "website",
@@ -25,8 +25,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Homotopy Groups Lean",
-    description: "The known edge of homotopy, formalized.",
+    title: "πₙ₊ₖ(Sⁿ), mapped.",
+    description: "The interactive homotopy knowledge lattice.",
     images: [socialImageUrl],
   },
   icons: {
