@@ -314,6 +314,14 @@ jobs:
         go_installer = (ROOT / "scripts" / "install_pinned_go.sh").read_text(encoding="utf-8")
         self.assertIn("GOTOOLCHAIN=local", go_installer)
 
+    def test_kernel_soundness_regression_runs_in_trusted_workflows(self) -> None:
+        command = "lean --trust=0 scripts/security_probes/lean_issue_14576_probe.lean"
+        for workflow_name in ("ci.yml", "submission.yml"):
+            workflow = (
+                ROOT / ".github" / "workflows" / workflow_name
+            ).read_text(encoding="utf-8")
+            self.assertEqual(workflow.count(command), 1)
+
     def test_repository_workflows_pass_the_audit(self) -> None:
         for workflow in sorted((ROOT / ".github" / "workflows").glob("*.yml")):
             with self.subTest(workflow=workflow.name):

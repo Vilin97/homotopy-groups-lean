@@ -1,0 +1,12 @@
+{
+  "id": "positive_stable_stem_finite",
+  "module": "HomotopyGroups.LiteratureReview",
+  "holes": [
+    {
+      "name": "HomotopyGroups.positive_stable_stem_finite",
+      "basename": "positive_stable_stem_finite",
+      "kind": "theorem",
+      "body": "/-- Every positive stable stem is finite, stated at the canonical representative\nused by this benchmark. -/\ntheorem positive_stable_stem_finite (k : \u2115) (hk : 0 < k) :\n    Finite\n      (HomotopyGroup.Pi (2 * k + 2) (SphereSpace (k + 2))\n        (sphereBasepoint (k + 2))) := by\n  sorry"
+    }
+  ]
+}

@@ -11,15 +11,8 @@ import {
 } from "react";
 import stableStemData from "../public/data/stable-stems.json";
 
-type Decomposition = {
-  free_rank: number;
-  torsion_invariant_factors: number[];
-};
-
-type Group = {
-  integral_decomposition: Decomposition;
-};
-
+type Decomposition = { free_rank: number; torsion_invariant_factors: number[] };
+type Group = { integral_decomposition: Decomposition };
 type StableStem = {
   stem: number;
   is_exact: boolean;
@@ -28,8 +21,14 @@ type StableStem = {
   note?: string;
   source_refs: Array<{ source_id: string }>;
 };
-
-type Knowledge = "formalized" | "exact" | "partial" | "uncharted";
+type Knowledge = "exact" | "partial" | "primary" | "disputed" | "uncharted";
+type Formalization = {
+  accessibleLabel: string;
+  badge: string;
+  kind: "lean4" | "historical";
+  note: string;
+  source: string;
+} | null;
 type Coordinate = { n: number; k: number };
 type CanvasGeometry = { left: number; top: number; cell: number };
 
@@ -40,29 +39,59 @@ const nMax = 92;
 const kMax = 90;
 const rowCount = nMax - nMin + 1;
 const columnCount = kMax + 1;
+const formalizationInventory =
+  "https://github.com/Vilin97/homotopy-groups-lean/blob/main/research/formalizations.md";
 
-const statusCopy: Record<Knowledge, { label: string; short: string; color: string }> = {
-  formalized: { label: "Lean verified", short: "formalized and kernel-verified", color: "#aa8cff" },
-  exact: { label: "Fully known", short: "exact group", color: "#4fdda8" },
-  partial: { label: "Some information", short: "published alternatives", color: "#ffb75e" },
-  uncharted: { label: "Uncharted", short: "no group value recorded", color: "#303947" },
+const knowledgeCopy: Record<Knowledge, { label: string; short: string; color: string }> = {
+  exact: { label: "Exact integral", short: "exact integral group", color: "#25314d" },
+  partial: { label: "Alternatives", short: "published integral alternatives", color: "#f39659" },
+  primary: { label: "2-primary", short: "exact 2-primary component only", color: "#3a96c8" },
+  disputed: { label: "Disputed", short: "conflicting published computations", color: "#d7566f" },
+  uncharted: { label: "Not tabulated", short: "not fully tabulated in the review", color: "#d8d4c9" },
 };
 
-function knowledgeAt(n: number, k: number): Knowledge {
-  if (n === 1 && k === 0) return "formalized";
-  if (n === 2 && k === 1) return "exact";
-  if (k > n - 2) return "uncharted";
-  return stems[k]?.is_exact ? "exact" : "partial";
+function isStable(n: number, k: number): boolean {
+  return k <= n - 2;
 }
 
-function factsAt(n: number, k: number): string[] {
-  if (n === 1 || k === 0) return [];
-  const facts: string[] = [];
-  if (n % 2 === 1) facts.push("|π| < ∞");
-  if (n % 2 === 0 && k !== n - 1) facts.push("|π| < ∞");
-  if (n % 2 === 0 && k === n - 1) facts.push("rank = 1");
-  if (n === 2 || n === 3) facts.push("π ≠ 0");
-  return facts;
+function knowledgeAt(n: number, k: number): Knowledge {
+  // S¹ is K(Z,1): the first group is Z and every higher group vanishes.
+  if (n === 1) return "exact";
+  // Toda's tables cover stems 0–19 and Mimura–Toda completes stem 20.
+  if (k <= 20) return "exact";
+  if (isStable(n, k)) return stems[k]?.is_exact ? "exact" : "partial";
+  // Published 2-primary unstable computations in the review.
+  if (k >= 21 && k <= 32) return "primary";
+  if (k === 33 && ((n >= 2 && n <= 9) || (n >= 28 && n <= 34))) return "primary";
+  if (k === 33 && n === 27) return "disputed";
+  return "uncharted";
+}
+
+function formalizationAt(n: number, k: number): Formalization {
+  // Current Lean 4 formalizations use Circle/AddCircle models. Keep the still-missing
+  // explicit bridge to this page's metric-sphere model visible in the detail pane.
+  if (n === 1) {
+    return {
+      accessibleLabel: "formalized in Lean 4 using an alternate circle model",
+      badge: "Lean 4 · circle model",
+      kind: "lean4",
+      note: "Purple records a source-auditable Lean 4 computation for Circle or AddCircle. The explicit equivalence with this lattice's metric S¹ model is not part of these proofs.",
+      source: k === 0
+        ? "https://github.com/Vilin97/homotopy-groups-lean/tree/main/examples/submissions/pi1_circle"
+        : "https://github.com/TauCetiProject/TauCeti/blob/2b5d1fc89767051f490d5b4f00e76a4cdbd92876/TauCeti/AlgebraicTopology/UniversalCover/Circle/HigherHomotopy.lean",
+    };
+  }
+  // Lean 2's HoTT library proves pi_n(S^n)=Z and pi_3(S^2)=Z.
+  if (k === 0 || (n === 2 && k === 1)) {
+    return {
+      accessibleLabel: "formalized in historical Lean 2 HoTT using a synthetic sphere model",
+      badge: "Lean 2 HoTT · synthetic sphere",
+      kind: "historical",
+      note: "Purple records a source-auditable historical Lean 2 HoTT computation in a synthetic higher-inductive sphere model.",
+      source: "https://github.com/leanprover/lean2/blob/8072fdf9a0b31abb9d43ab894d7a858639e20ed7/hott/homotopy/sphere2.hlean",
+    };
+  }
+  return null;
 }
 
 function superscript(value: number): string {
@@ -79,7 +108,6 @@ function formatGroup(group?: Group): string {
   const pieces: string[] = [];
   if (rank === 1) pieces.push("ℤ");
   if (rank > 1) pieces.push(`ℤ${superscript(rank)}`);
-
   const counts = new Map<number, number>();
   for (const factor of factors) counts.set(factor, (counts.get(factor) ?? 0) + 1);
   for (const [factor, count] of counts) {
@@ -89,32 +117,37 @@ function formatGroup(group?: Group): string {
 }
 
 export function Lattice() {
-  const [selected, setSelected] = useState<Coordinate>({ n: 1, k: 0 });
-  const [jumpN, setJumpN] = useState("1");
-  const [jumpK, setJumpK] = useState("0");
+  const [selected, setSelected] = useState<Coordinate>({ n: 2, k: 1 });
+  const [jumpN, setJumpN] = useState("2");
+  const [jumpK, setJumpK] = useState("1");
   const [canvasWidth, setCanvasWidth] = useState(720);
   const [shown, setShown] = useState<Record<Knowledge, boolean>>({
-    formalized: true,
-    exact: true,
-    partial: true,
-    uncharted: true,
+    exact: true, partial: true, primary: true, disputed: true, uncharted: true,
   });
+  const [showFormalizations, setShowFormalizations] = useState(true);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const canvasFrameRef = useRef<HTMLDivElement>(null);
   const geometryRef = useRef<CanvasGeometry>({ left: 34, top: 25, cell: 7 });
 
   const counts = useMemo(() => {
-    const total: Record<Knowledge, number> = { formalized: 0, exact: 0, partial: 0, uncharted: 0 };
+    const knowledge: Record<Knowledge, number> = {
+      exact: 0, partial: 0, primary: 0, disputed: 0, uncharted: 0,
+    };
+    let formalized = 0;
     for (let n = nMin; n <= nMax; n += 1) {
-      for (let k = 0; k <= kMax; k += 1) total[knowledgeAt(n, k)] += 1;
+      for (let k = 0; k <= kMax; k += 1) {
+        knowledge[knowledgeAt(n, k)] += 1;
+        if (formalizationAt(n, k)) formalized += 1;
+      }
     }
-    return total;
+    return { knowledge, formalized };
   }, []);
 
   useEffect(() => {
     const frame = canvasFrameRef.current;
     if (!frame) return;
-    const observer = new ResizeObserver(([entry]) => setCanvasWidth(Math.max(280, Math.floor(entry.contentRect.width))));
+    const observer = new ResizeObserver(([entry]) =>
+      setCanvasWidth(Math.max(280, Math.floor(entry.contentRect.width))));
     observer.observe(frame);
     setCanvasWidth(Math.max(280, Math.floor(frame.getBoundingClientRect().width)));
     return () => observer.disconnect();
@@ -125,67 +158,79 @@ export function Lattice() {
     if (!canvas) return;
     const context = canvas.getContext("2d");
     if (!context) return;
-
     const ratio = window.devicePixelRatio || 1;
     const left = 34;
     const top = 25;
     const right = 8;
     const bottom = 26;
     const cell = (canvasWidth - left - right) / columnCount;
-    const plotHeight = cell * rowCount;
-    const height = top + plotHeight + bottom;
+    const height = top + cell * rowCount + bottom;
     geometryRef.current = { left, top, cell };
-
     canvas.width = Math.round(canvasWidth * ratio);
     canvas.height = Math.round(height * ratio);
     canvas.style.width = `${canvasWidth}px`;
     canvas.style.height = `${height}px`;
     context.setTransform(ratio, 0, 0, ratio, 0, 0);
     context.clearRect(0, 0, canvasWidth, height);
-    context.fillStyle = "#080b10";
+    context.fillStyle = "#fffefa";
     context.fillRect(0, 0, canvasWidth, height);
-
-    const gap = Math.max(.35, Math.min(1.2, cell * .12));
+    const gap = Math.max(.35, Math.min(1.1, cell * .12));
     for (let row = 0; row < rowCount; row += 1) {
       const n = nMin + row;
       for (let k = 0; k <= kMax; k += 1) {
         const status = knowledgeAt(n, k);
-        context.globalAlpha = shown[status] ? .96 : .08;
-        context.fillStyle = statusCopy[status].color;
-        context.fillRect(left + k * cell + gap / 2, top + row * cell + gap / 2, cell - gap, cell - gap);
+        const formalization = formalizationAt(n, k);
+        const x = left + k * cell + gap / 2;
+        const y = top + row * cell + gap / 2;
+        context.globalAlpha = shown[status] ? .97 : .08;
+        context.fillStyle = knowledgeCopy[status].color;
+        context.fillRect(x, y, cell - gap, cell - gap);
+        if (formalization && showFormalizations) {
+          context.globalAlpha = 1;
+          const inset = Math.max(.65, cell * .13);
+          const outlineX = x + inset;
+          const outlineY = y + inset;
+          const outlineSize = Math.max(1, cell - gap - 2 * inset);
+          // A dark keyline keeps the purple overlay visible on light evidence cells;
+          // purple itself remains visible on the dark exact-integral cells.
+          context.strokeStyle = "#111a2e";
+          context.lineWidth = Math.max(1.6, cell * .28);
+          context.strokeRect(outlineX, outlineY, outlineSize, outlineSize);
+          context.strokeStyle = formalization.kind === "lean4" ? "#846cf2" : "#b19efc";
+          context.lineWidth = Math.max(.8, cell * .12);
+          context.strokeRect(outlineX, outlineY, outlineSize, outlineSize);
+        }
       }
     }
     context.globalAlpha = 1;
-
-    context.strokeStyle = "#f8f6ef";
-    context.lineWidth = Math.max(1.5, cell * .18);
-    context.strokeRect(
-      left + selected.k * cell + 1,
-      top + (selected.n - nMin) * cell + 1,
-      Math.max(1, cell - 2),
-      Math.max(1, cell - 2),
-    );
-
-    context.fillStyle = "#7c899b";
+    const selectedX = left + selected.k * cell + .5;
+    const selectedY = top + (selected.n - nMin) * cell + .5;
+    const selectedSize = Math.max(1, cell - 1);
+    context.strokeStyle = "#111a2e";
+    context.lineWidth = Math.max(2.4, cell * .34);
+    context.strokeRect(selectedX, selectedY, selectedSize, selectedSize);
+    context.strokeStyle = "#c9f04f";
+    context.lineWidth = Math.max(1.1, cell * .15);
+    context.strokeRect(selectedX, selectedY, selectedSize, selectedSize);
+    context.fillStyle = "#6e7686";
     context.font = "8px ui-monospace, SFMono-Regular, Menlo, monospace";
     context.textAlign = "center";
     for (let k = 0; k <= kMax; k += 10) context.fillText(String(k), left + (k + .5) * cell, 15);
     context.textAlign = "right";
     for (let n = 10; n <= nMax; n += 10) context.fillText(String(n), left - 6, top + (n - nMin + .8) * cell);
-    context.fillStyle = "#4fdda8";
+    context.fillStyle = "#846cf2";
     context.font = "italic 11px Georgia, serif";
     context.textAlign = "left";
     context.fillText("n", 10, 14);
     context.textAlign = "right";
     context.fillText("k →", canvasWidth - 8, height - 8);
-  }, [canvasWidth, selected, shown]);
+  }, [canvasWidth, selected, shown, showFormalizations]);
 
   const selectCoordinate = (coordinate: Coordinate) => {
     setSelected(coordinate);
     setJumpN(String(coordinate.n));
     setJumpK(String(coordinate.k));
   };
-
   const locate = (event: FormEvent) => {
     event.preventDefault();
     const n = Math.min(nMax, Math.max(nMin, Number.parseInt(jumpN, 10) || nMin));
@@ -193,7 +238,6 @@ export function Lattice() {
     selectCoordinate({ n, k });
     canvasRef.current?.focus();
   };
-
   const coordinateFromPointer = (event: PointerEvent<HTMLCanvasElement>): Coordinate | null => {
     const bounds = event.currentTarget.getBoundingClientRect();
     const scaleX = canvasWidth / bounds.width;
@@ -204,12 +248,10 @@ export function Lattice() {
     if (k < 0 || k > kMax || row < 0 || row >= rowCount) return null;
     return { n: nMin + row, k };
   };
-
   const inspectPointer = (event: PointerEvent<HTMLCanvasElement>) => {
     const coordinate = coordinateFromPointer(event);
     if (coordinate && (coordinate.n !== selected.n || coordinate.k !== selected.k)) selectCoordinate(coordinate);
   };
-
   const moveWithKeys = (event: KeyboardEvent<HTMLCanvasElement>) => {
     const movement: Record<string, Coordinate> = {
       ArrowUp: { n: Math.max(nMin, selected.n - 1), k: selected.k },
@@ -223,33 +265,35 @@ export function Lattice() {
   };
 
   const status = knowledgeAt(selected.n, selected.k);
+  const formalization = formalizationAt(selected.n, selected.k);
   const stem = stems[selected.k];
-  const isLeanVerifiedCell = selected.n === 1 && selected.k === 0;
-  const isHopfCell = selected.n === 2 && selected.k === 1;
-  const coordinateFacts = factsAt(selected.n, selected.k);
-  const sourceUrl = isLeanVerifiedCell
-    ? "https://github.com/Vilin97/homotopy-groups-lean/blob/main/results/issue-dispatch-run-31188000114-attempt-1.json"
-    : isHopfCell
-      ? "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
-      : stem?.source_refs.map((ref) => sources.get(ref.source_id)).find(Boolean);
+  const stable = isStable(selected.n, selected.k);
+  const sourceUrl = stable
+    ? stem?.source_refs.map((ref) => sources.get(ref.source_id)).find(Boolean)
+    : "/reports/homotopy-groups-of-spheres-literature-review.pdf";
+  const obviousGroup = selected.n === 1
+    ? (selected.k === 0 ? "ℤ" : "0")
+    : selected.k === 0 || (selected.n === 2 && selected.k === 1)
+      ? "ℤ"
+      : stable && status === "exact"
+        ? formatGroup(stem.group)
+        : null;
 
   return (
     <div className="atlas-card">
       <div className="atlas-toolbar">
-        <div className="knowledge-legend" aria-label="Toggle lattice knowledge classes">
-          {(Object.keys(statusCopy) as Knowledge[]).map((key) => (
-            <button
-              aria-pressed={shown[key]}
-              className={`legend-control ${key}`}
-              key={key}
-              onClick={() => setShown((current) => ({ ...current, [key]: !current[key] }))}
-              type="button"
-            >
-              <i aria-hidden="true" />
-              <span>{statusCopy[key].label}</span>
-              <strong>{counts[key].toLocaleString()}</strong>
+        <div className="knowledge-legend" aria-label="Toggle lattice evidence classes" role="group">
+          {(Object.keys(knowledgeCopy) as Knowledge[]).map((key) => (
+            <button aria-pressed={shown[key]} className={`legend-control ${key}`} key={key}
+              onClick={() => setShown((current) => ({ ...current, [key]: !current[key] }))} type="button">
+              <i aria-hidden="true" style={{ background: knowledgeCopy[key].color }} />
+              <span>{knowledgeCopy[key].label}</span><strong>{counts.knowledge[key].toLocaleString()}</strong>
             </button>
           ))}
+          <button aria-pressed={showFormalizations} className="legend-control formalized"
+            onClick={() => setShowFormalizations((current) => !current)} type="button">
+            <i aria-hidden="true" /><span>Lean overlay</span><strong>{counts.formalized}</strong>
+          </button>
         </div>
         <form className="coordinate-jump" onSubmit={locate}>
           <label><span>n</span><input aria-label="Sphere dimension n" max={nMax} min={nMin} onChange={(event) => setJumpN(event.target.value)} type="number" value={jumpN} /></label>
@@ -257,61 +301,41 @@ export function Lattice() {
           <button type="submit">Locate</button>
         </form>
       </div>
-
       <div className="atlas-main">
         <div className="lattice-wrap">
           <div className="lattice-axis-title"><span>π<sub>n+k</sub>(S<sup>n</sup>)</span><strong>hover · click · arrow keys</strong></div>
+          <p className="sr-only" id="lattice-instructions">Use the arrow keys to inspect adjacent cells, or enter n and k in the locate form.</p>
           <div className="canvas-frame" ref={canvasFrameRef}>
             <canvas
-              aria-label={`Interactive knowledge lattice. Selected π_${selected.n + selected.k}(S^${selected.n}): ${statusCopy[status].short}.`}
-              className="lattice-canvas"
-              onClick={inspectPointer}
-              onKeyDown={moveWithKeys}
-              onPointerMove={inspectPointer}
-              ref={canvasRef}
-              tabIndex={0}
-            />
+              aria-describedby="lattice-instructions"
+              aria-label={`Interactive evidence lattice. Selected pi_${selected.n + selected.k}(S^${selected.n}): ${knowledgeCopy[status].short}${formalization ? `, ${formalization.accessibleLabel}` : ""}.`}
+              className="lattice-canvas" onClick={inspectPointer} onKeyDown={moveWithKeys}
+              onPointerMove={inspectPointer} ref={canvasRef} tabIndex={0}
+            >Use the coordinate form to inspect the evidence lattice.</canvas>
           </div>
           <div className="k-axis"><span>n = 1…92</span><strong>k = m − n = 0…90</strong></div>
         </div>
-
         <aside className={`coordinate-detail ${status}`} aria-live="polite">
-          <div className="detail-status"><i aria-hidden="true" /> {statusCopy[status].label}</div>
+          <div className="detail-status"><i aria-hidden="true" style={{ background: knowledgeCopy[status].color }} /> {knowledgeCopy[status].label}</div>
+          {formalization && <div className="formalization-badge">{formalization.badge}</div>}
           <h3>π<sub>{selected.n + selected.k}</sub>(S<sup>{selected.n}</sup>)</h3>
           <div className="coordinate-pair"><span>n = {selected.n}</span><span>k = {selected.k}</span></div>
-
-          {status === "formalized" && (
-            <><div className="group-value"><span>Comparator + 2 kernels</span><strong>ℤ</strong></div><p>The proof of π<sub>1</sub>(S<sup>1</sup>) ≅ ℤ passed Comparator, Lean&apos;s kernel, and nanoda. Purple is reserved for recorded verified proofs.</p></>
-          )}
-
-          {status === "exact" && (
-            <>
-              <div className="group-value"><span>{isHopfCell ? "Hopf fibration" : <>≅ π<sub>{selected.k}</sub><sup>S</sup> ≅</>}</span><strong>{isHopfCell ? "ℤ" : formatGroup(stem.group)}</strong></div>
-              {isHopfCell ? <p>The explicit unstable exception: π<sub>3</sub>(S<sup>2</sup>) ≅ ℤ, not the stable first stem ℤ/2.</p> : <p>Stable because <b>k ≤ n − 2</b>. The abstract additive group is exact in the published registry.</p>}
-            </>
-          )}
-
-          {status === "partial" && (
-            <>
-              <div className="group-value"><span>≅ π<sub>{selected.k}</sub><sup>S</sup></span><strong>{stem.alternatives?.length ?? 0} possibilities</strong></div>
-              <div className="alternatives">{stem.alternatives?.map((alternative, index) => <span key={alternative.alternative_id}><b>{String.fromCharCode(65 + index)}</b>{formatGroup(alternative.group)}</span>)}</div>
-              <p>{stem.note}</p>
-            </>
-          )}
-
-          {status === "uncharted" && (
-            <>
-              <div className="group-value"><span>k &gt; n − 2</span><strong>unstable</strong></div>
-              <p>No exact group value is recorded for this coordinate in the benchmark yet. This is not a claim that the literature contains no information.</p>
-              {coordinateFacts.length > 0 && <div className="fact-badges" aria-label="Known qualitative facts">{coordinateFacts.map((fact) => <span key={fact}>{fact}</span>)}</div>}
-            </>
-          )}
-
-          {sourceUrl && status !== "uncharted" ? <a href={sourceUrl}>{status === "formalized" ? "verification record ↗" : "primary source ↗"}</a> : <a href="https://github.com/Vilin97/homotopy-groups-lean/issues/new/choose">add a result ↗</a>}
+          {obviousGroup && <div className="group-value"><span>integral group</span><strong>{obviousGroup}</strong></div>}
+          {status === "exact" && !obviousGroup && stable && <div className="group-value"><span>≅ π<sub>{selected.k}</sub><sup>S</sup></span><strong>{formatGroup(stem.group)}</strong></div>}
+          {status === "exact" && !obviousGroup && !stable && <p>The complete integral group is tabulated in Toda&apos;s 0–19 stem tables or the Mimura–Toda 20-stem computation reproduced in the review.</p>}
+          {status === "partial" && <><div className="group-value"><span>published full groups</span><strong>{stem.alternatives?.length ?? 0} alternatives</strong></div><div className="alternatives">{stem.alternatives?.map((alternative, index) => <span key={alternative.alternative_id}><b>{String.fromCharCode(65 + index)}</b>{formatGroup(alternative.group)}</span>)}</div><p>{stem.note}</p></>}
+          {status === "primary" && <><div className="group-value"><span>computed component</span><strong>2-primary</strong></div><p>The 2-primary component is tabulated, but this view does not claim a complete integral group.</p></>}
+          {status === "disputed" && <><div className="group-value"><span>33-stem</span><strong>conflicting values</strong></div><p>The literature review records incompatible published values at n = 27. This cell stays visibly disputed.</p></>}
+          {status === "uncharted" && <><div className="group-value"><span>review coverage</span><strong>not fully tabulated</strong></div><p>Gray means the attached review does not provide a complete integral value here—not that mathematics knows nothing about the group.</p></>}
+          {formalization && <p className="formalization-note">{formalization.note} It does not change the literature evidence class beneath it.</p>}
+          <div className="detail-links">
+            {formalization && <a href={formalization.source}>Lean source ↗</a>}
+            {formalization && <a href={formalizationInventory}>full inventory ↗</a>}
+            {sourceUrl && <a href={sourceUrl}>mathematical source ↗</a>}
+          </div>
         </aside>
       </div>
-
-      <p className="atlas-scope">Classification is benchmark-scoped. Purple means an actual comparator-verified Lean proof. In the stable range <b>k ≤ n − 2</b>, the cell inherits the published value of π<sub>k</sub><sup>S</sup>; elsewhere, gray means “not classified here.”</p>
+      <p className="atlas-scope">Audited 92 × 91 view: <b>{counts.knowledge.exact.toLocaleString()} exact integral</b>, <b>{counts.knowledge.partial.toLocaleString()} published-alternative</b>, <b>{counts.knowledge.primary.toLocaleString()} exact 2-primary-only</b>, <b>{counts.knowledge.disputed.toLocaleString()} disputed</b>, and <b>{counts.knowledge.uncharted.toLocaleString()} not fully tabulated</b> cells. Stability is used exactly when <b>k ≤ n − 2</b>. Purple is a separate source-auditable Lean overlay.</p>
     </div>
   );
 }

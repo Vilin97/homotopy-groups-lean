@@ -33,6 +33,20 @@
       }
     },
     {
+      "id": "new-doomsday-adams-sq0",
+      "title": "New Doomsday Conjecture for Sq^0-families",
+      "status": "open_conjecture",
+      "statement": "Every nonzero Sq^0-family in the mod-two Adams E_2-page has only finitely many members that survive to E_infinity.",
+      "source": {
+        "locator": "New Doomsday Conjecture; the cited preprint proves the e-family case only",
+        "url": "https://arxiv.org/abs/2602.20184"
+      },
+      "lean": {
+        "status": "blocked_on_foundations",
+        "missing": ["spectra", "mod-two Adams spectral sequence", "Sq^0 operation", "permanent-cycle and survival predicates"]
+      }
+    },
+    {
       "id": "freyd-generating-hypothesis",
       "title": "Freyd generating hypothesis",
       "status": "open_conjecture",
@@ -101,9 +115,9 @@
     {
       "id": "ravenel-telescope",
       "title": "Ravenel telescope conjecture",
-      "status": "disproved",
+      "status": "provisional_preprint_disproof",
       "source": "https://arxiv.org/abs/2310.17459",
-      "note": "Counterexamples show telescopic and chromatic localizations differ at every prime and every height at least two."
+      "note": "The cited preprint claims counterexamples at every prime and every height at least two; retain the preprint qualifier pending published verification."
     }
   ]
 }

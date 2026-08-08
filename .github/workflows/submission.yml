@@ -109,6 +109,9 @@ jobs:
       - name: Install digest-verified Lean toolchain
         run: bash scripts/install_pinned_lean.sh
 
+      - name: Reject Lean kernel soundness exploit 14576
+        run: lean --trust=0 scripts/security_probes/lean_issue_14576_probe.lean
+
       - name: Prime pinned Lean dependencies and Mathlib cache
         run: |
           env -u MATHLIB_CACHE_GET_URL -u MATHLIB_CACHE_FROM -u MATHLIB_CACHE_REPO_SCOPE \

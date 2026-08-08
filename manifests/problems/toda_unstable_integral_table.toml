@@ -1,0 +1,8 @@
+id = "toda_unstable_integral_table"
+title = "Toda integral unstable table through the 19-stem"
+test = false
+module = "HomotopyGroups.TodaTable"
+holes = ["toda_unstable_integral_table"]
+submitter = "homotopy-groups-lean literature registry"
+source = "https://doi.org/10.1515/9781400882140"
+notes = "knowledge_status=known_result/exact; one finite-indexed theorem family states all 400 integral values pi_(n+k)(S^n) for 1<=n<=20 and 0<=k<=19; generated from the audited compact CSV transcription."

@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "reviewed_on": "2026-08-08",
+  "coordinate": "pi_(n+k)(S^n)",
+  "domain": { "n_min": 1, "n_max": 92, "k_min": 0, "k_max": 90, "cell_count": 8372 },
+  "classification_precedence": [
+    { "when": "n = 1", "status": "exact_integral", "source_scope": "circle is K(Z,1)" },
+    { "when": "n >= 2 and k <= 20", "status": "exact_integral", "source_scope": "Toda stems 0-19 and Mimura-Toda stem 20" },
+    { "when": "k <= n - 2 and k in {84,85,86,90}", "status": "published_integral_alternatives", "source_scope": "stable-stems.json" },
+    { "when": "k <= n - 2", "status": "exact_integral", "source_scope": "stable-stems.json" },
+    { "when": "21 <= k <= 32", "status": "exact_2_primary_only", "source_scope": "published unstable 2-primary tables" },
+    { "when": "k = 33 and (2 <= n <= 9 or 28 <= n <= 34)", "status": "exact_2_primary_only", "source_scope": "Yang-Wu and cited 33-stem computations" },
+    { "when": "n = 27 and k = 33", "status": "disputed", "source_scope": "arXiv:2406.08621 has an internal range conflict" },
+    { "when": "otherwise", "status": "not_fully_tabulated", "source_scope": "no complete value in the supplied review" }
+  ],
+  "counts": {
+    "exact_integral": 4468,
+    "published_integral_alternatives": 19,
+    "exact_2_primary_only": 333,
+    "disputed": 1,
+    "not_fully_tabulated": 3551
+  },
+  "formalization_overlay": {
+    "independent_of_mathematical_status": true,
+    "rule": "A cell is overlaid only when a source-auditable Lean development proves that coordinate's result; a stable representative is not propagated without formal suspension equivalences.",
+    "inventory": "formalizations.json"
+  },
+  "primary_sources": [
+    "https://www.numdam.org/articles/10.1007/s10240-023-00139-1/",
+    "https://link.springer.com/article/10.1007/s42543-025-00098-y",
+    "https://arxiv.org/abs/2406.08621"
+  ]
+}

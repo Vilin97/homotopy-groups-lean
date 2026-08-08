@@ -1,0 +1,12 @@
+{
+  "id": "sphere_second_offset_homotopy_mulEquiv_zmod_two",
+  "module": "HomotopyGroups.LiteratureReview",
+  "holes": [
+    {
+      "name": "HomotopyGroups.sphere_second_offset_homotopy_mulEquiv_zmod_two",
+      "basename": "sphere_second_offset_homotopy_mulEquiv_zmod_two",
+      "kind": "theorem",
+      "body": "/-- The complete second-offset family: `pi_(n+2)(S^n) = C2` for `n >= 2`. -/\ntheorem sphere_second_offset_homotopy_mulEquiv_zmod_two\n    (n : \u2115) (hn : 2 \u2264 n) :\n    Nonempty\n      (HomotopyGroup.Pi (n + 2) (SphereSpace n) (sphereBasepoint n) \u2243*\n        Multiplicative (ZMod 2)) := by\n  sorry"
+    }
+  ]
+}

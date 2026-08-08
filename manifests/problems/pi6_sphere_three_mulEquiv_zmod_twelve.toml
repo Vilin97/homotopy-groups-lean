@@ -1,0 +1,8 @@
+id = "pi6_sphere_three_mulEquiv_zmod_twelve"
+title = "The sixth homotopy group of the three-sphere is cyclic of order twelve"
+test = false
+module = "HomotopyGroups.LiteratureReview"
+holes = ["pi6_sphere_three_mulEquiv_zmod_twelve"]
+submitter = "OpenAI Codex"
+source = "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
+notes = "knowledge_status=known_result/exact; records the second exceptional value in the third offset."

@@ -7,3 +7,12 @@ leanprover/lean-eval at commit 53348531969dc984e02e3be0379a7282c664abd9
 (https://github.com/leanprover/lean-eval), Copyright 2026 Lean FRO, LLC,
 under the Apache License, Version 2.0. They were modified for this benchmark,
 including project naming, module paths, smoke tests, and documentation.
+
+The proof modules under
+examples/submissions/sphere_lower_homotopy_subsingleton/Submission are adapted
+from Vilin97/lean-eval-pi-succ-sphere at commit
+1be6cb9b42874415a34defee070f4aa07d6e3193
+(https://github.com/Vilin97/lean-eval-pi-succ-sphere). Each source file is
+licensed under the Apache License, Version 2.0 and retains its original
+copyright and attribution header. The Homotopy and Map modules in that closure
+also retain their Tau Ceti attribution.

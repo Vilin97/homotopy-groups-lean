@@ -19,9 +19,10 @@ const liveTrackerUrl =
 const filters: Array<{ value: "all" | Status; label: string }> = [
   { value: "all", label: "All" },
   { value: "verified", label: "Verified" },
-  { value: "formalization", label: "Lean open" },
-  { value: "computation", label: "Compute" },
+  { value: "formalization", label: "To formalize" },
+  { value: "computation", label: "Open computation" },
   { value: "conjecture", label: "Conjectures" },
+  { value: "provisional", label: "Provisional" },
 ];
 
 function statusFor(entry: Entry): Status {
@@ -51,7 +52,7 @@ export function Tracker() {
   const [entries, setEntries] = useState<Entry[]>(initialTracker.entries as Entry[]);
   const [filter, setFilter] = useState<"all" | Status>("all");
   const [query, setQuery] = useState("");
-  const [limit, setLimit] = useState(8);
+  const [limit, setLimit] = useState(20);
 
   useEffect(() => {
     fetch(`${liveTrackerUrl}?v=${Date.now()}`, { cache: "no-store" })
@@ -71,22 +72,9 @@ export function Tracker() {
     });
   }, [entries, filter, query]);
 
-  const filterCounts = useMemo(() => {
-    const counts: Record<"all" | Status, number> = {
-      all: entries.length,
-      verified: 0,
-      formalization: 0,
-      computation: 0,
-      conjecture: 0,
-      provisional: 0,
-    };
-    for (const entry of entries) counts[statusFor(entry)] += 1;
-    return counts;
-  }, [entries]);
-
   const chooseFilter = (value: "all" | Status) => {
     setFilter(value);
-    setLimit(8);
+    setLimit(20);
   };
 
   return (
@@ -98,10 +86,9 @@ export function Tracker() {
               className={filter === item.value ? "active" : ""}
               key={item.value}
               onClick={() => chooseFilter(item.value)}
-              aria-pressed={filter === item.value}
               type="button"
             >
-              {item.label} · {filterCounts[item.value]}
+              {item.label}
             </button>
           ))}
         </div>
@@ -110,14 +97,14 @@ export function Tracker() {
           <span aria-hidden="true">⌕</span>
           <input
             value={query}
-            onChange={(event) => { setQuery(event.target.value); setLimit(8); }}
+            onChange={(event) => { setQuery(event.target.value); setLimit(20); }}
             placeholder="Search statements"
           />
         </label>
       </div>
       <div className="tracker-table" role="table" aria-label="Homotopy theorem tracker">
         <div className="tracker-row tracker-head" role="row">
-          <span role="columnheader">ID</span><span role="columnheader">Statement</span><span role="columnheader">Family</span><span role="columnheader">Queue</span>
+          <span role="columnheader">ID</span><span role="columnheader">Statement</span><span role="columnheader">Family</span><span role="columnheader">Knowledge status</span>
         </div>
         {visible.slice(0, limit).map((entry) => {
           const status = statusFor(entry);
@@ -126,7 +113,7 @@ export function Tracker() {
             <div className="tracker-row" role="row" key={entry.id}>
               <span className="tracker-id" role="cell">{entry.id}</span>
               <span className="tracker-statement" role="cell">
-                <a href={`https://github.com/Vilin97/homotopy-groups-lean/blob/main/manifests/problems/${entry.id}.json`}><strong>{entry.title}</strong></a>
+                <strong>{entry.title}</strong>
                 {sourceUrl ? <a href={sourceUrl} title={entry.source ?? undefined}>Primary source ↗</a> : <small>{entry.knowledge_status}</small>}
               </span>
               <span role="cell">{entry.family}</span>
@@ -136,10 +123,10 @@ export function Tracker() {
         })}
         {visible.length === 0 && <div className="no-results">No statements match this view.</div>}
       </div>
-      <div className="tracker-foot" aria-live="polite">
+      <div className="tracker-foot">
         <span>Showing {Math.min(limit, visible.length)} of {visible.length} matching · {entries.length} total</span>
         {limit < visible.length ? (
-          <button type="button" onClick={() => setLimit((current) => current + 8)}>Show 8 more ↓</button>
+          <button type="button" onClick={() => setLimit((current) => current + 20)}>Show 20 more ↓</button>
         ) : (
           <a href="https://github.com/Vilin97/homotopy-groups-lean/tree/main/manifests/problems">Machine-readable inventory ↗</a>
         )}

@@ -1,0 +1,8 @@
+id = "pi7_sphere_four_mulEquiv_int_prod_zmod_twelve"
+title = "The seventh homotopy group of the four-sphere is Z plus C12"
+test = false
+module = "HomotopyGroups.LiteratureReview"
+holes = ["pi7_sphere_four_mulEquiv_int_prod_zmod_twelve"]
+submitter = "OpenAI Codex"
+source = "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
+notes = "knowledge_status=known_result/exact; records the third exceptional value in the third offset."

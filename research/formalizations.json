@@ -1,0 +1,133 @@
+{
+  "schema_version": "1.0.0",
+  "reviewed_on": "2026-08-08",
+  "scope": "Public, source-auditable Lean formalizations whose statements directly compute or vanish homotopy groups of spheres or circle models, plus benchmark records requiring a trust qualification.",
+  "formalizations": [
+    {
+      "id": "lean4-benchmark-circle-pi1",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "934117058d1902a75b9d19bccec6563c2a5d3339",
+      "license": "Apache-2.0",
+      "declarations": ["Submission.pi1_circle_mulEquiv_int"],
+      "result": "pi_1(Circle) is infinite cyclic",
+      "model_relation": "Mathlib Circle; a metric-sphere homeomorphism is not part of the proof",
+      "status": "dual_kernel_verified_reference",
+      "source": "../examples/submissions/pi1_circle/Submission.lean",
+      "lattice_overlay": { "coordinates": "n=1,k=0", "kind": "lean4_alternate_model" }
+    },
+    {
+      "id": "lean4-tauceti-circle",
+      "system": "Lean 4",
+      "repository": "TauCetiProject/TauCeti",
+      "commit": "2b5d1fc89767051f490d5b4f00e76a4cdbd92876",
+      "license": "Apache-2.0",
+      "declarations": [
+        "TauCeti.AddCircle.fundamentalGroupMulEquiv",
+        "TauCeti.Circle.fundamentalGroupMulEquiv",
+        "TauCeti.AddCircle.subsingleton_homotopyGroup",
+        "TauCeti.AddCircle.homotopyGroupPi_eq_one"
+      ],
+      "result": "the circle has fundamental group Z and all higher homotopy groups trivial",
+      "model_relation": "AddCircle/complex Circle, with transport along homeomorphisms; the explicit bridge to SphereSpace 1 remains to be added",
+      "status": "source_audited_builds",
+      "source": "https://github.com/TauCetiProject/TauCeti/blob/2b5d1fc89767051f490d5b4f00e76a4cdbd92876/TauCeti/AlgebraicTopology/UniversalCover/Circle/HigherHomotopy.lean",
+      "lattice_overlay": { "coordinates": "n=1,k>=1", "kind": "lean4_alternate_model" }
+    },
+    {
+      "id": "lean4-metric-sphere-connectivity",
+      "system": "Lean 4",
+      "repository": "Vilin97/lean-eval-pi-succ-sphere",
+      "commit": "1be6cb9b42874415a34defee070f4aa07d6e3193",
+      "license": "Apache-2.0 headers in every imported source file",
+      "declarations": ["Submission.subsingleton_homotopyGroup_sphere_of_lt"],
+      "result": "pi_k(S^n) is trivial for k<n",
+      "model_relation": "exactly the Mathlib metric-sphere model used by SphereSpace",
+      "status": "source_audited_imported_submission",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Model/SphereConnected.lean",
+      "lattice_overlay": null,
+      "note": "The website lattice starts at pi_n(S^n), so these lower-dimensional groups fall outside its coordinate domain."
+    },
+    {
+      "id": "lean4-groundzero-circle",
+      "system": "Lean 4 HoTT",
+      "repository": "rzrn/ground_zero",
+      "commit": "2cbca29485c2e6f420c120365e00fe3b70db3acf",
+      "license": "Apache-2.0",
+      "declarations": ["GroundZero.HITs.Circle.fundamentalGroup"],
+      "result": "the loop space of the synthetic circle is Z",
+      "model_relation": "custom HoTT mode with HIT and univalence infrastructure, not Mathlib HomotopyGroup.Pi",
+      "status": "source_audited_builds",
+      "source": "https://github.com/rzrn/ground_zero/blob/2cbca29485c2e6f420c120365e00fe3b70db3acf/GroundZero/HITs/Circle.lean",
+      "lattice_overlay": { "coordinates": "n=1,k=0", "kind": "synthetic_model_supporting_source" }
+    },
+    {
+      "id": "lean2-hott-spheres",
+      "system": "Lean 2 HoTT",
+      "repository": "leanprover/lean2",
+      "commit": "8072fdf9a0b31abb9d43ab894d7a858639e20ed7",
+      "license": "Apache-2.0",
+      "declarations": [
+        "sphere.homotopy_group_sphere_le",
+        "circle.fundamental_group_of_circle",
+        "circle.homotopy_group_of_circle",
+        "sphere.π2S2",
+        "sphere.πnSn",
+        "sphere.π3S2"
+      ],
+      "result": "lower sphere groups vanish, pi_n(S^n)=Z, pi_3(S^2)=Z, and circle computations",
+      "model_relation": "historical synthetic HoTT/HIT sphere model",
+      "status": "source_audited_historical",
+      "source": "https://github.com/leanprover/lean2/blob/8072fdf9a0b31abb9d43ab894d7a858639e20ed7/hott/homotopy/sphere2.hlean",
+      "lattice_overlay": { "coordinates": "k=0 and (n,k)=(2,1)", "kind": "historical_hott" }
+    }
+  ],
+  "related_public_proofs": [
+    {
+      "result": "pi_1(Circle) is infinite cyclic",
+      "repository": "rkirov/lean-eval",
+      "commit": "0913f09053f62427808102039c0b7f7764633291",
+      "source": "https://github.com/rkirov/lean-eval/blob/0913f09053f62427808102039c0b7f7764633291/generated/pi1_circle_mulEquiv_int/Submission.lean",
+      "status": "source_scanned_sorry_free_link_only",
+      "license_note": "No license file or proof-file license header was present at the audited commit, so the code is not copied."
+    },
+    {
+      "result": "pi_1(Circle) is infinite cyclic",
+      "repository": "LorenzoLuccioli/lean-eval",
+      "commit": "00b32807abe0d286c4638daf888c739e1bb4b90c",
+      "source": "https://github.com/LorenzoLuccioli/lean-eval/blob/00b32807abe0d286c4638daf888c739e1bb4b90c/generated/pi1_circle_mulEquiv_int/Submission.lean",
+      "status": "source_scanned_sorry_free_link_only",
+      "license_note": "No license file or proof-file license header was present at the audited commit, so the code is not copied."
+    },
+    {
+      "result": "pi_1(Circle) is infinite cyclic",
+      "repository": "daouid/lean-eval",
+      "commit": "be5ca99521362ea9131eca9a2d95d91ec6fff0f4",
+      "source": "https://github.com/daouid/lean-eval/blob/be5ca99521362ea9131eca9a2d95d91ec6fff0f4/generated/pi1_circle_mulEquiv_int/Submission.lean",
+      "status": "source_scanned_sorry_free_link_only",
+      "license_note": "No license file or proof-file license header was present at the audited commit, so the code is not copied."
+    }
+  ],
+  "qualified_records": [
+    {
+      "id": "humanfia-pi3-s2",
+      "result": "pi_3(S^2)=Z",
+      "status": "quarantined_pre_nanoda_source_unavailable",
+      "reason": "The public source repository was deleted and the 2026-07-28 run predated mandatory independent-kernel replay. It is not used for the Lean overlay."
+    },
+    {
+      "id": "humanfia-diagonal-spheres",
+      "result": "pi_n(S^n)=Z",
+      "status": "dual_kernel_record_source_unavailable",
+      "reason": "The record passed the later nanoda gate, but its public proof source was deleted. The lattice relies on the auditable Lean 2 source instead."
+    },
+    {
+      "id": "lean4-first-stable-wip",
+      "repository": "Vilin97/lean-eval-pi-succ-sphere",
+      "commit": "1be6cb9b42874415a34defee070f4aa07d6e3193",
+      "result": "claimed work toward pi_(n+1)(S^n)=Z/2",
+      "status": "incomplete_not_a_formalization",
+      "reason": "The target's dependency closure contains active sorryAx in Excision, EMThree, and Kernel2. No cell is colored from it."
+    }
+  ]
+}

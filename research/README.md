@@ -1,5 +1,18 @@
 # Stable-stem research registry
 
+This directory now also contains the broader literature audit:
+
+- [`literature-review-audit.md`](literature-review-audit.md) records the exact
+  92 by 91 lattice classification and bibliographic corrections;
+- [`lattice-coverage.json`](lattice-coverage.json) is the machine-readable cell
+  rule and audited count;
+- [`formalizations.json`](formalizations.json) inventories source-auditable Lean
+  formalizations with exact commits, models, licenses, and trust qualifications;
+- [`report-data/`](report-data/) contains the CSV and BibTeX companions named in
+  the archived report;
+- [`foundation-blocked-results.json`](foundation-blocked-results.json) lists
+  published claims that cannot yet be stated faithfully in the pinned Mathlib.
+
 [`stable-stems.json`](./stable-stems.json) records the classical integral stable
 homotopy groups of spheres in stems 0 through 90. It is research-source data for
 the benchmark and is intentionally separate from generated manifests and website

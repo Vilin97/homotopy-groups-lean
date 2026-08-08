@@ -9,13 +9,20 @@ Generated data under `public/data/` comes only from repository sources of truth:
 
 - `manifests/problems/*.toml` for the theorem tracker;
 - `research/stable-stems.json` for the stable-stem map;
+- `research/open-problems.json` for the conjecture registry;
+- `research/lattice-coverage.json` and `research/formalizations.json` for the
+  audited evidence lattice and independent Lean overlay;
 - append-only `results/*.json` for the leaderboard.
+
+The archived literature-review PDF and its three machine-readable companions
+are served from `public/reports/`.
 
 Regenerate and verify data from the repository root:
 
 ```bash
-python scripts/generate_site_data.py
-python scripts/generate_site_data.py --check
+python3 scripts/generate_site_data.py
+python3 scripts/generate_site_data.py --check
+python3 scripts/generate_report_companions.py
 ```
 
 Build locally with Node.js 22.13 or newer:
