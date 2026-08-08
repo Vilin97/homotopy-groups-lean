@@ -23,8 +23,10 @@ from typing import Any
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SOURCE = ROOT / "research" / "comprehensive-handoff-2026"
+ADDENDA = ROOT / "research" / "comprehensive-handoff-addenda.json"
 PUBLIC_REPORT = ROOT / "website" / "public" / "reports" / "comprehensive-2026"
 PUBLIC_JSON = ROOT / "website" / "public" / "data" / "extended-frontiers.json"
+PUBLIC_ADDENDA = PUBLIC_REPORT / "addenda.json"
 ARCHIVE_SHA256 = "22e2f51ec60f14edf308845dc390475591608ba87f7d840fd11fd61d9b212e87"
 CHECKSUMS_SHA256 = "41992cd04e5fab41be7456397040629f7c058e274717f7f59b33b3c5d51990ef"
 KNOWLEDGE_CUTOFF = "2026-08-08"
@@ -65,6 +67,15 @@ FILTRATION_ONLY_PERIODIC_ROWS = {
 # mathematical uncertainty.
 P5_TRANSCRIPTION_QUARANTINE = {
     412, 475, 530, 601, 840, 875, 892, 954, 955, 964, 978, 990,
+}
+
+ADDENDUM_CLAIM_TYPES = {
+    "chua-adams-e3-page": "spectral_sequence_computation",
+    "carrick-davies-image-j-detection": "stable_detection_theorem",
+    "kato-shimomura-local-greek-letters": "chromatic_localization_existence",
+    "barratt-priddy-quillen": "foundational_stable_homology_equivalence",
+    "bauer-quigley-free-actions": "geometric_existence_family",
+    "miyauchi-mukai-toda-relations": "named_toda_bracket_and_composition_relation",
 }
 
 
@@ -142,6 +153,78 @@ def verify_handoff() -> None:
                 f"manifest CSV duplicate-count mismatch for {relative}")
 
 
+def read_addenda() -> dict[str, Any]:
+    try:
+        addenda = json.loads(ADDENDA.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+        raise GenerationError(f"cannot parse {ADDENDA}: {exc}") from exc
+
+    require(isinstance(addenda, dict), "research addenda must be a JSON object")
+    require(addenda.get("schema_version") == "1.0.0",
+            "unsupported research-addenda schema version")
+    require(addenda.get("reviewed_on") == KNOWLEDGE_CUTOFF,
+            "research-addenda review date must match the knowledge cutoff")
+    require(addenda.get("source_handoff_sha256") == ARCHIVE_SHA256,
+            "research addenda must identify the preserved source handoff")
+    require(isinstance(addenda.get("purpose"), str) and addenda["purpose"].strip(),
+            "research addenda need a stated purpose")
+    require(addenda.get("lattice_effect") == "none",
+            "research addenda must not change the integral lattice")
+    require(isinstance(addenda.get("lattice_note"), str) and addenda["lattice_note"],
+            "research addenda need a lattice-scope note")
+
+    records = addenda.get("records")
+    require(isinstance(records, list) and len(records) == len(ADDENDUM_CLAIM_TYPES),
+            "research addenda must contain the six audited records")
+    require(all(isinstance(record, dict) for record in records),
+            "every research-addendum record must be an object")
+    ids = [record.get("id") for record in records]
+    require(all(isinstance(record_id, str) and record_id for record_id in ids),
+            "research-addendum ids must be nonempty strings")
+    require(len(set(ids)) == len(ids),
+            "research-addendum ids must be unique strings")
+    require(set(ids) == set(ADDENDUM_CLAIM_TYPES),
+            "research-addendum id set changed; re-audit required")
+
+    primary_urls: set[str] = set()
+    dois: set[str] = set()
+    required_text = (
+        "result", "claim_scope", "statement", "work_title", "publication_status",
+        "primary_url", "doi", "source_locator", "lattice_reason",
+    )
+    for record in records:
+        record_id = record["id"]
+        require(record.get("claim_type") == ADDENDUM_CLAIM_TYPES[record_id],
+                f"unexpected claim type for research addendum {record_id}")
+        require(record.get("lattice_effect") == "none",
+                f"research addendum {record_id} must have lattice_effect none")
+        for field in required_text:
+            require(isinstance(record.get(field), str) and record[field].strip(),
+                    f"research addendum {record_id} needs nonempty {field}")
+        authors = record.get("authors")
+        require(isinstance(authors, list) and authors and
+                all(isinstance(author, str) and author.strip() for author in authors),
+                f"research addendum {record_id} needs named authors")
+        primary_url = record["primary_url"]
+        doi = record["doi"]
+        require(primary_url.startswith("https://"),
+                f"research addendum {record_id} needs an HTTPS primary URL")
+        require(re.fullmatch(r"10\.\d{4,9}/\S+", doi) is not None,
+                f"research addendum {record_id} has an invalid DOI")
+        require(primary_url not in primary_urls and doi not in dois,
+                "research-addendum primary URLs and DOIs must be unique")
+        primary_urls.add(primary_url)
+        dois.add(doi)
+
+    bpq = next(record for record in records if record["id"] == "barratt-priddy-quillen")
+    require(str(bpq.get("verification_url", "")).startswith("https://arxiv.org/"),
+            "the BPQ record needs a modern primary verification URL")
+    require(re.fullmatch(r"10\.48550/arXiv\.\d{4}\.\d{4,5}",
+                         str(bpq.get("verification_doi", ""))) is not None,
+            "the BPQ record needs the modern proof's arXiv DOI")
+    return addenda
+
+
 def read_csv(name: str) -> list[dict[str, str]]:
     path = SOURCE / "data" / name
     try:
@@ -163,6 +246,7 @@ def normalized_source(text: str) -> str:
 
 def build_registry() -> dict[str, Any]:
     verify_handoff()
+    addenda = read_addenda()
     integral = read_csv("stable_stems_0_90.csv")
     three = read_csv("stable_3_primary_groups_0_108.csv")
     five = read_csv("stable_5_primary_nonJ_0_999.csv")
@@ -426,6 +510,7 @@ def build_registry() -> dict[str, Any]:
         "interpretive_rule": (
             "Coverage, a named class, and a complete integral group are different claims."
         ),
+        "research_addenda": addenda,
         "audit_corrections": [
             {
                 "id": "ravenel-edition-link",
@@ -729,7 +814,7 @@ def render_report_html(markdown: str) -> str:
         f'<a class="level-{level}" href="#{anchor}">{html.escape(title)}</a>'
         for level, title, anchor in headings if level <= 2
     )
-    downloads = "".join(
+    downloads = '<a href="addenda.json">post-handoff addenda JSON</a>' + "".join(
         f'<a href="data/{name}">{html.escape(name.replace("_", " "))}</a>'
         for name in CSV_FILES
     )
@@ -742,7 +827,7 @@ def render_report_html(markdown: str) -> str:
 </style></head><body>
 <header class="top"><a href="../../">← Homotopy Groups Lean</a><a href="REPORT_CORE.md">raw Markdown</a></header>
 <div class="layout"><nav aria-label="Report contents">{toc}</nav><article>
-<aside class="audit"><strong>Repository audit overlay.</strong> The attached artifact is preserved verbatim. Generated consumers update the Ravenel edition link, correct the stem-3 2-primary v₁ entry to Z/8, split seven grouped period-192 detector labels, remove unsupported Yang–Wu journal metadata, and repair audited conjecture-ledger citations. <a href="https://github.com/Vilin97/homotopy-groups-lean/blob/main/research/comprehensive-handoff-audit.md">Read the correction log.</a></aside>
+<aside class="audit"><strong>Repository audit overlay.</strong> The attached artifact is preserved verbatim. Generated consumers update the Ravenel edition link, correct the stem-3 2-primary v₁ entry to Z/8, split seven grouped period-192 detector labels, remove unsupported Yang–Wu journal metadata, and repair audited conjecture-ledger citations. The post-handoff addendum records six omitted or under-specified results without changing any lattice square: Chua's E₃ computation, all-degree image-of-J detection, localized Greek-letter families, Barratt–Priddy–Quillen, very exotic sphere action families, and named Toda-bracket relations. <a href="https://github.com/Vilin97/homotopy-groups-lean/blob/main/research/comprehensive-handoff-audit.md">Read the correction log.</a></aside>
 <section class="downloads" aria-label="Report downloads">{downloads}</section>{article}
 </article></div></body></html>"""
 
@@ -752,6 +837,7 @@ def desired_outputs() -> dict[pathlib.Path, bytes]:
     report_markdown = (SOURCE / "REPORT_CORE.md").read_text(encoding="utf-8")
     outputs: dict[pathlib.Path, bytes] = {
         PUBLIC_JSON: (json.dumps(registry, indent=2, sort_keys=True, ensure_ascii=False) + "\n").encode(),
+        PUBLIC_ADDENDA: ADDENDA.read_bytes(),
         PUBLIC_REPORT / "index.html": render_report_html(report_markdown).encode(),
     }
     for name in ("REPORT_CORE.md", "FORMALIZATION_GUIDE.md", "README.md", "MANIFEST.json", "SHA256SUMS.txt"):

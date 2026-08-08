@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "reviewed_on": "2026-08-08",
-  "purpose": "Published results in the literature review that cannot yet be stated faithfully using the pinned Mathlib foundations.",
+  "purpose": "Published or source-audited results in the literature review and post-handoff addendum that cannot yet be stated faithfully using the pinned Mathlib foundations.",
   "targets": [
     {
       "id": "unstable-integral-table-20",
@@ -81,6 +81,55 @@
       "result": "Adams and Adams-Novikov spectral-sequence detections and differentials used in the review",
       "status": "blocked_on_foundations",
       "missing": ["spectral sequences", "Steenrod algebra and Ext bridge", "convergence to stable homotopy"]
+    },
+    {
+      "id": "chua-adams-e3-page",
+      "result": "Chua's mod-2 Adams E3-page data through stem 140 and completed d2 through d5 differentials through stem 95",
+      "status": "blocked_on_foundations",
+      "missing": ["classical Adams spectral sequence", "secondary Steenrod algebra", "synthetic-spectrum comparison", "machine-checkable certificate for the published computation"],
+      "source_url": "https://arxiv.org/abs/2105.07628v2",
+      "source_doi": "10.48550/arXiv.2105.07628"
+    },
+    {
+      "id": "carrick-davies-image-j-detection",
+      "result": "At every prime, the unit from the sphere spectrum to connective image-of-J is surjective on all homotopy groups",
+      "status": "blocked_on_foundations",
+      "missing": ["sphere and connective image-of-J spectra", "the unit map", "stable homotopy groups of spectra", "Adams e-invariant for the splitting"],
+      "source_url": "https://doi.org/10.1090/tran/9526",
+      "source_doi": "10.1090/tran/9526"
+    },
+    {
+      "id": "kato-shimomura-local-greek-letters",
+      "result": "The nth Greek-letter family generates order-p subgroups in pi_*(L_n S^0) under n^2 <= 2p-1 and the stated exclusions",
+      "status": "blocked_on_foundations",
+      "missing": ["spectra and Bousfield localization", "Brown-Peterson and Johnson-Wilson theories", "Adams-Novikov spectral sequence", "named Greek-letter elements", "localized Smith-Toda spectra"],
+      "scope_warning": "This is a theorem about localized sphere spectra, not an asserted lift to the integral stable stems.",
+      "source_url": "https://arxiv.org/abs/2507.02155v1",
+      "source_doi": "10.48550/arXiv.2507.02155"
+    },
+    {
+      "id": "barratt-priddy-quillen",
+      "result": "The integral homology equivalence from B Sigma_infinity to the basepoint component of the infinite loop space of the sphere spectrum",
+      "status": "blocked_on_foundations",
+      "missing": ["classifying spaces of the stable symmetric group", "Quillen plus construction", "infinite loop spaces and the sphere spectrum", "the comparison map and integral homology equivalence"],
+      "source_url": "https://doi.org/10.1007/BF02566785",
+      "source_doi": "10.1007/BF02566785"
+    },
+    {
+      "id": "bauer-quigley-free-actions",
+      "result": "Theorem A's infinite dimension families of non-bp spheres with smooth free S1- or S3-actions",
+      "status": "blocked_on_foundations",
+      "missing": ["smooth homotopy spheres and Kervaire-Milnor invariants", "Pontryagin-Thom theory", "smooth free Lie-group actions", "stable cohomotopy of projective spaces", "topological modular forms"],
+      "source_url": "https://arxiv.org/abs/2603.23241v2",
+      "source_doi": "10.48550/arXiv.2603.23241"
+    },
+    {
+      "id": "miyauchi-mukai-toda-relations",
+      "result": "The nonzero stable 24-stem Toda brackets and the specified relations in pi_30(S^6) and pi_31(S^7)",
+      "status": "blocked_on_registry_and_foundations",
+      "missing": ["named unstable and stable homotopy classes", "Toda brackets with indeterminacy", "composition products", "EHP, J-homomorphism, and generalized P-homomorphism APIs"],
+      "source_url": "https://arxiv.org/abs/2606.12046v1",
+      "source_doi": "10.48550/arXiv.2606.12046"
     }
   ]
 }

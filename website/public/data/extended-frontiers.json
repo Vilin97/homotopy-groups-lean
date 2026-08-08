@@ -18545,6 +18545,126 @@
   },
   "interpretive_rule": "Coverage, a named class, and a complete integral group are different claims.",
   "knowledge_cutoff": "2026-08-08",
+  "research_addenda": {
+    "lattice_effect": "none",
+    "lattice_note": "These are spectral-sequence, detection, localization, foundational-equivalence, geometric-action, or named-relation claims. None supplies a new complete integral additive group for a square in the 92 by 91 lattice.",
+    "purpose": "Primary-source results missing or materially under-specified in the comprehensive 2026 handoff.",
+    "records": [
+      {
+        "authors": [
+          "Dexter Edralin Chua"
+        ],
+        "claim_scope": "The classical mod-2 Adams spectral sequence for the sphere spectrum, with implemented E3-page data through stable stem 140 and all previously unknown d2, d3, d4, and d5 differentials resolved through stable stem 95.",
+        "claim_type": "spectral_sequence_computation",
+        "doi": "10.48550/arXiv.2105.07628",
+        "id": "chua-adams-e3-page",
+        "lattice_effect": "none",
+        "lattice_reason": "A spectral-sequence-page and differential computation is input to stable-stem calculations, not by itself a complete integral additive-group row.",
+        "primary_url": "https://arxiv.org/abs/2105.07628v2",
+        "publication_status": "arXiv v2 preprint and 2022 Harvard PhD dissertation",
+        "result": "Computed Adams E3-page data and low-page differentials",
+        "source_locator": "Abstract and Introduction, part 2 and part 3 summaries",
+        "statement": "Chua gives an algorithm for every Adams d2 and the filtration-one hidden extensions on E3, implements the E3-page computation through stem 140, and uses those extensions to resolve the remaining d2 through d5 differentials through stem 95.",
+        "work_title": "The E3 page of the Adams spectral sequence"
+      },
+      {
+        "authors": [
+          "Christian Carrick",
+          "Jack Morgan Davies"
+        ],
+        "claim_scope": "At every prime p, the unit from the sphere spectrum to the connective image-of-J spectrum j at p, in every homotopy degree.",
+        "claim_type": "stable_detection_theorem",
+        "doi": "10.1090/tran/9526",
+        "id": "carrick-davies-image-j-detection",
+        "lattice_effect": "none",
+        "lattice_reason": "Surjective detection of height-one classes does not determine the full ambient integral stable homotopy group in any new stem.",
+        "primary_url": "https://doi.org/10.1090/tran/9526",
+        "publication_status": "peer-reviewed publication, Transactions of the American Mathematical Society 379 (2026), 1985-2031",
+        "result": "All-degree detection by the connective image-of-J spectrum",
+        "source_locator": "Theorem A and the paragraph immediately following it",
+        "statement": "For each prime p, the unit S -> j is surjective on homotopy groups in every degree. The Adams e-invariant splits the degreewise surjection; the paper also gives filtered refinements.",
+        "work_title": "A synthetic approach to detecting v1-periodic families"
+      },
+      {
+        "authors": [
+          "Ryo Kato",
+          "Katsumi Shimomura",
+          "Mao-no-suke Shimomura"
+        ],
+        "claim_scope": "The vn^{-1}BP-local sphere LnS^0 at a prime p when n^2 <= 2p-1, excluding (p,n)=(2,1) and (3,2), together with the exceptional gamma and delta cases in Theorem 1.3.",
+        "claim_type": "chromatic_localization_existence",
+        "doi": "10.48550/arXiv.2507.02155",
+        "id": "kato-shimomura-local-greek-letters",
+        "lattice_effect": "none",
+        "lattice_reason": "The theorem is about Bousfield-localized sphere spectra and does not assert that the localized classes lift to the integral stable stems.",
+        "primary_url": "https://arxiv.org/abs/2507.02155v1",
+        "publication_status": "arXiv v1 preprint",
+        "result": "Greek-letter families in localized sphere spectra",
+        "source_locator": "Theorems 1.3 and 1.4 and Corollary 1.5",
+        "statement": "For every nonzero integer s under the stated hypotheses, the nth Greek-letter element alpha_s^(n) is a permanent cycle and generates a Z/p submodule of pi_*(LnS^0). In particular, the paper obtains gamma_s at (p,n)=(5,3), delta_s at (7,4), and order-p delta_s in pi_*(L4S^0) for p >= 7.",
+        "work_title": "A note on the Greek letter elements of the homotopy of the Ln-local spheres"
+      },
+      {
+        "authors": [
+          "Michael Barratt",
+          "Stewart Priddy"
+        ],
+        "claim_scope": "Stable integral homology of the infinite symmetric group and the basepoint component of the infinite loop space underlying the sphere spectrum.",
+        "claim_type": "foundational_stable_homology_equivalence",
+        "doi": "10.1007/BF02566785",
+        "id": "barratt-priddy-quillen",
+        "lattice_effect": "none",
+        "lattice_reason": "This is a foundational model for stable homotopy, not a computation of any particular integral group.",
+        "primary_url": "https://doi.org/10.1007/BF02566785",
+        "publication_status": "foundational peer-reviewed theorem, Commentarii Mathematici Helvetici 47 (1972), 1-14",
+        "result": "Barratt-Priddy-Quillen stable symmetric-group equivalence",
+        "source_locator": "Equation (1.2) and Section 4; modern exact formulation in Delarue, Theorem 1.1",
+        "statement": "There is an integral homology equivalence B Sigma_infinity -> Omega^infinity_0 S. Equivalently after the Quillen plus construction, this supplies the standard bridge from stable symmetric groups to the basepoint component of QS^0.",
+        "verification_doi": "10.48550/arXiv.2510.13564",
+        "verification_url": "https://arxiv.org/abs/2510.13564v2",
+        "work_title": "On the Homology of Non-Connected Monoids and Their Associated Groups"
+      },
+      {
+        "authors": [
+          "Tilman Bauer",
+          "J. D. Quigley"
+        ],
+        "claim_scope": "Non-bp homotopy spheres with nontrivial 2- or 3-local Pontryagin-Thom invariant, in the dimension families of Theorem A.",
+        "claim_type": "geometric_existence_family",
+        "doi": "10.48550/arXiv.2603.23241",
+        "id": "bauer-quigley-free-actions",
+        "lattice_effect": "none",
+        "lattice_reason": "Existence of exotic smooth structures and free actions is a geometric consequence of selected stable classes, not a complete additive-group calculation.",
+        "primary_url": "https://arxiv.org/abs/2603.23241v2",
+        "publication_status": "arXiv v2 preprint",
+        "result": "Infinite families of very exotic spheres with free circle and 3-sphere actions",
+        "source_locator": "Theorem A",
+        "statement": "For every k >= 0 there are non-bp spheres in dimensions 15+96k (nontrivial 2-local invariant) and 13+72k (nontrivial 3-local invariant) with smooth free S^1-actions. There are also non-bp spheres with nontrivial 2-local invariant and smooth free S^3-actions in dimension 35+96k, in one of dimensions 15+96k or 11+96k, and in one of dimensions 59+96k or 55+96k.",
+        "work_title": "Infinite families of very exotic spheres with free S1- and S3-actions"
+      },
+      {
+        "authors": [
+          "Toshiyuki Miyauchi",
+          "Juno Mukai"
+        ],
+        "claim_scope": "Named stable 24-stem Toda brackets and specified unstable composites in pi_30(S^6) and pi_31(S^7).",
+        "claim_type": "named_toda_bracket_and_composition_relation",
+        "doi": "10.48550/arXiv.2606.12046",
+        "id": "miyauchi-mukai-toda-relations",
+        "lattice_effect": "none",
+        "lattice_reason": "These are named bracket and composition relations inside already-covered groups; they do not change an additive-group value or its exactness status.",
+        "primary_url": "https://arxiv.org/abs/2606.12046v1",
+        "publication_status": "arXiv v1 preprint",
+        "result": "Nonzero 24-stem Toda brackets and unstable relations",
+        "source_locator": "Theorems 1.1 and 1.3",
+        "statement": "The stable brackets <bar-nu,sigma,bar-nu> and <nu,eta,bar-sigma> are the same nonzero class eta eta* sigma, settling the cited Mahowald conjecture. The paper also determines bar-nu_6 omega_14 modulo its stated indeterminacy and proves bar-nu_7 omega_15 = nu_7 sigma_10 kappa_17.",
+        "work_title": "Relations in the 24-th homotopy groups of spheres"
+      }
+    ],
+    "reviewed_on": "2026-08-08",
+    "schema_version": "1.0.0",
+    "source_handoff_sha256": "22e2f51ec60f14edf308845dc390475591608ba87f7d840fd11fd61d9b212e87"
+  },
   "schema_version": "1.0.0",
   "source_archive_sha256": "22e2f51ec60f14edf308845dc390475591608ba87f7d840fd11fd61d9b212e87",
   "source_ledger_status": {

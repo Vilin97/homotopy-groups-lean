@@ -146,10 +146,22 @@ a real proof that `π₁(S¹) ≅ ℤ`. Maintainers can run the same hosted path
 the `Evaluate submission` workflow's manual dispatch; reference smoke runs are
 marked ineligible for leaderboard points.
 
-The second maintained source-auditable proof lives at
-[`examples/submissions/sphere_lower_homotopy_subsingleton/`](examples/submissions/sphere_lower_homotopy_subsingleton/).
-It proves `π_k(S^n) = 0` for `k < n` in the benchmark's exact metric-sphere
-model and passes Comparator, Lean with `--trust=0`, and nanoda.
+The maintained source-auditable proof suite under
+[`examples/submissions/`](examples/submissions/) includes:
+
+- `sphere_lower_homotopy_subsingleton`, proving `π_k(S^n) = 0` for `k < n`
+  in the benchmark's exact metric-sphere model;
+- `higher_homotopy_mul_comm`, exposing the pinned Mathlib
+  Eckmann--Hilton `CommGroup` foundation for `π_{n+2}`;
+- `pi0_pathConnected_subsingleton` and
+  `pi1_simplyConnected_subsingleton`, transporting native component and
+  fundamental-group triviality across Mathlib's comparison equivalences; and
+- `pi1_hSpace_mul_comm`, a quotient-level Eckmann--Hilton proof that the
+  fundamental group of an H-space is abelian.
+
+The source directories are examples, not self-certifying results. Only
+accepted hosted evaluations recorded under `results/` color the tracker and
+count on the leaderboard.
 
 ## Comparator prerequisites
 

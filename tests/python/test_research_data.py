@@ -116,6 +116,55 @@ class ResearchDataTests(unittest.TestCase):
             weak_splitting["source_url"], "https://doi.org/10.1090/conm/181/02036"
         )
 
+        addenda = json.loads(
+            (ROOT / "research/comprehensive-handoff-addenda.json").read_text()
+        )
+        self.assertEqual(data["research_addenda"], addenda)
+        self.assertEqual(addenda["lattice_effect"], "none")
+        self.assertEqual(
+            (ROOT / "research/comprehensive-handoff-addenda.json").read_bytes(),
+            (ROOT / "website/public/reports/comprehensive-2026/addenda.json").read_bytes(),
+        )
+        expected_addendum_types = {
+            "chua-adams-e3-page": "spectral_sequence_computation",
+            "carrick-davies-image-j-detection": "stable_detection_theorem",
+            "kato-shimomura-local-greek-letters": "chromatic_localization_existence",
+            "barratt-priddy-quillen": "foundational_stable_homology_equivalence",
+            "bauer-quigley-free-actions": "geometric_existence_family",
+            "miyauchi-mukai-toda-relations": (
+                "named_toda_bracket_and_composition_relation"
+            ),
+        }
+        addendum_records = {row["id"]: row for row in addenda["records"]}
+        self.assertEqual(
+            {record_id: row["claim_type"] for record_id, row in addendum_records.items()},
+            expected_addendum_types,
+        )
+        self.assertTrue(
+            all(row["lattice_effect"] == "none" for row in addendum_records.values())
+        )
+        self.assertTrue(
+            all(row["primary_url"].startswith("https://") for row in addendum_records.values())
+        )
+        self.assertTrue(
+            all(row["doi"].startswith("10.") for row in addendum_records.values())
+        )
+        self.assertEqual(
+            addendum_records["barratt-priddy-quillen"]["verification_doi"],
+            "10.48550/arXiv.2510.13564",
+        )
+
+        blocked = json.loads(
+            (ROOT / "research/foundation-blocked-results.json").read_text()
+        )
+        blocked_by_id = {row["id"]: row for row in blocked["targets"]}
+        self.assertLessEqual(set(expected_addendum_types), set(blocked_by_id))
+        for record_id in expected_addendum_types:
+            target = blocked_by_id[record_id]
+            self.assertTrue(target["status"].startswith("blocked_on_"))
+            self.assertTrue(target["missing"])
+            self.assertEqual(target["source_doi"], addendum_records[record_id]["doi"])
+
     def test_three_primary_statement_is_reproducible(self) -> None:
         subprocess.run(
             [sys.executable, "scripts/generate_three_primary_table.py", "--check"],
