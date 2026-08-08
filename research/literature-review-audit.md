@@ -1,5 +1,10 @@
 # Literature review and lattice audit
 
+This document audits the earlier low-stem PDF. The later comprehensive 2026
+handoff and its beyond-stem-90 claim types are audited separately in
+[`comprehensive-handoff-audit.md`](comprehensive-handoff-audit.md). That newer
+material does not change the integral lattice rules below.
+
 The archived report, [*Homotopy Groups of Spheres: a literature
 review*](../website/public/reports/homotopy-groups-of-spheres-literature-review.pdf),
 is the source for the website's 92 by 91 evidence lattice.  Its SHA-256 digest is
@@ -78,9 +83,11 @@ stable-stem finiteness.  `HomotopyGroups.TodaTable` is generated from the
 versioned companion CSV and states all 400 integral entries for sphere
 dimensions 1 through 20 and stems 0 through 19 in a single finite-indexed
 theorem family.  The Mimura--Toda 20-stem still needs a structured
-transcription.  Statements about 2-primary components additionally require a genuine
-`pPrimarySubgroup` or localization API; substituting a placeholder proposition
-would misstate the mathematics.
+transcription. Finite primary components can use Mathlib's genuine
+`CommGroup.primaryComponent`; the exact 3-primary table through stem 108 is
+stated in `HomotopyGroups.StableThreePrimary`. The unstable 2-primary tables
+still need a versioned transcription, while degree-zero p-local statements
+still require localization.
 
 Serre's first odd-primary torsion theorem, the Cohen--Moore--Neisendorfer
 exponent theorem, suspension/Freudenthal, Hopf and Kervaire invariants,

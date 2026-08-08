@@ -1,0 +1,4 @@
+# Preserve the comprehensive handoff payload byte-for-byte, including its
+# source CRLF line endings. The public report tree intentionally mirrors it.
+research/comprehensive-handoff-2026/** -text -whitespace
+website/public/reports/comprehensive-2026/** -text -whitespace

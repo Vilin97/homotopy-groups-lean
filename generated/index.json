@@ -1364,6 +1364,17 @@
     "generated_path": "generated/stable_stem_090"
   },
   {
+    "id": "stable_three_primary_groups_001_108",
+    "title": "Exact 3-primary stable groups in stems 1 through 108",
+    "test": false,
+    "submitter": "homotopy-groups-lean comprehensive 2026 registry",
+    "module": "HomotopyGroups.StableThreePrimary",
+    "holes": [
+      "stable_three_primary_groups_001_108"
+    ],
+    "generated_path": "generated/stable_three_primary_groups_001_108"
+  },
+  {
     "id": "stable_two_primary_quadratic_growth_conjecture",
     "title": "Quadratic logarithmic growth of cumulative two-primary stable stems",
     "test": false,

@@ -11,9 +11,12 @@ group equivalences for the benchmark's metric-sphere model.  Their presence is
 not a claim that the proofs already exist in the pinned Mathlib.
 
 The integral Toda table through the 19-stem is generated separately from its
-versioned CSV registry in `HomotopyGroups.TodaTable`.  The Mimura--Toda
-20-stem still needs a structured transcription.  The 2-primary-only tables
-also need an actual primary-subgroup or localization API.
+versioned CSV registry in `HomotopyGroups.TodaTable`.  The exact positive-stem
+3-primary table through 108 is generated in
+`HomotopyGroups.StableThreePrimary`, using Mathlib's existing
+`CommGroup.primaryComponent`.  The Mimura--Toda 20-stem and the 2-primary-only
+unstable tables still need structured transcriptions; degree-zero p-local
+statements still need localization foundations.
 -/
 
 open scoped Topology

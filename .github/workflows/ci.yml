@@ -111,6 +111,8 @@ jobs:
           /usr/bin/python3 -m py_compile scripts/*.py scripts/security_probes/*.py
           /usr/bin/python3 -m unittest discover -s tests/python -v
           /usr/bin/python3 scripts/generate_stable_stems.py --check
+          /usr/bin/python3 scripts/generate_three_primary_table.py --check
+          /usr/bin/python3 scripts/generate_extended_frontiers.py --check
           /usr/bin/python3 scripts/generate_site_data.py --check
 
       - name: Validate and build the corpus

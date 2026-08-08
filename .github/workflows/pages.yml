@@ -5,6 +5,10 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/pages.yml'
+      - 'research/comprehensive-handoff-2026/**'
+      - 'research/open-problems.json'
+      - 'scripts/generate_extended_frontiers.py'
+      - 'scripts/generate_site_data.py'
       - 'website/**'
   workflow_dispatch:
 
@@ -35,6 +39,7 @@ jobs:
       - name: Verify workflow pins and generated site data
         run: |
           /usr/bin/python3 scripts/action_pin_audit.py
+          /usr/bin/python3 scripts/generate_extended_frontiers.py --check
           /usr/bin/python3 scripts/generate_site_data.py --check
 
       - name: Build and validate the static site

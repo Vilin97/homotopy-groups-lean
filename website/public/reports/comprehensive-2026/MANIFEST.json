@@ -1,0 +1,258 @@
+{
+  "package": "homotopy_groups_spheres_formalization_handoff",
+  "knowledge_cutoff": "2026-08-08",
+  "purpose": "Non-redundant literature and data handoff for formalization of homotopy groups of spheres.",
+  "files": [
+    {
+      "path": "REPORT_CORE.md",
+      "bytes": 117524,
+      "sha256": "4ea5dd5f9713d426ccbb1ac51972e64a60fd7558bbe05d1859c1833e931660ad",
+      "role": "Narrative literature survey without table appendices duplicated by CSV."
+    },
+    {
+      "path": "README.md",
+      "bytes": 5664,
+      "sha256": "438a7e6856cf3d657a9eb27bd16dd678e32a8cf63a0a61cda647db01a9e55f26",
+      "role": "Package map, status rules, notation, and omissions."
+    },
+    {
+      "path": "FORMALIZATION_GUIDE.md",
+      "bytes": 7032,
+      "sha256": "8155d43569a1031de0a70d76141f47ed1f53e80115b07af770ea4893e54667b2",
+      "role": "Formalization-specific theorem taxonomy, source hierarchy, and generation policy."
+    },
+    {
+      "path": "data/computation_frontiers_2026.csv",
+      "bytes": 2560,
+      "sha256": "f7a4aabc8e94c4cb4e1d6d0864ce59511bd5fbdc5bbd9a197807a19d913fa0ab",
+      "role": "Computation-layer frontier audit.",
+      "columns": [
+        "object",
+        "range",
+        "completeness",
+        "what_is_resolved",
+        "remaining_issue",
+        "principal_source"
+      ],
+      "data_rows": 14,
+      "duplicate_data_rows": 0
+    },
+    {
+      "path": "data/stable_stems_0_90.csv",
+      "bytes": 5817,
+      "sha256": "9f579b3c33cd7d47b1e5dfdc84a3a359daf80ad033bbf6d7a8b0c19716b8d9bf",
+      "role": "Audited integral stable additive groups through 90.",
+      "columns": [
+        "stem",
+        "2-primary_v1_torsion_compact",
+        "2-primary_v1_torsion",
+        "odd-primary_v1_torsion_compact",
+        "odd-primary_v1_torsion",
+        "v1_periodic_compact",
+        "v1_periodic",
+        "total_additive_group",
+        "status"
+      ],
+      "data_rows": 91,
+      "duplicate_data_rows": 0
+    },
+    {
+      "path": "data/stable_3_primary_groups_0_108.csv",
+      "bytes": 9276,
+      "sha256": "0d825bd35c689278b4b3bd9865f1579d518c0107d2a216f5337573f1b5f355d0",
+      "role": "Exact full 3-primary additive groups through 108.",
+      "columns": [
+        "stem",
+        "image_J_or_degree_zero",
+        "non_J_component",
+        "full_3_primary_component",
+        "non_J_generators",
+        "notes",
+        "status",
+        "source"
+      ],
+      "data_rows": 109,
+      "duplicate_data_rows": 0
+    },
+    {
+      "path": "data/stable_3_primary_nonJ_classes_0_108.csv",
+      "bytes": 14200,
+      "sha256": "debbb8ae199f06c79c518f40b97eaccde5753b147bca81ad687662be54e2c0d8",
+      "role": "Named non-J 3-primary classes and relations.",
+      "columns": [
+        "stem",
+        "element",
+        "order",
+        "relation_or_definition",
+        "status",
+        "source",
+        "source_url"
+      ],
+      "data_rows": 55,
+      "duplicate_data_rows": 0
+    },
+    {
+      "path": "data/stable_5_primary_nonJ_0_999.csv",
+      "bytes": 129725,
+      "sha256": "e73d716347816f61400ed37d7067672831edde752ba781ff357ab951d6ca3776",
+      "role": "Non-J 5-primary computation ledger through 999.",
+      "columns": [
+        "stem",
+        "non_J_elements_and_relations_source_transcription",
+        "contains_source_question_mark",
+        "status",
+        "source",
+        "source_url",
+        "transcription_note"
+      ],
+      "data_rows": 354,
+      "duplicate_data_rows": 0
+    },
+    {
+      "path": "data/v1_periodic_image_J_0_1000.csv",
+      "bytes": 107157,
+      "sha256": "a1ec05f3f3afc129ada2dff6bea7c6b900f6dc25219a9abfc5d6bd00e79f1d4e",
+      "role": "Instantiated image-J/v1 formulas through 1000.",
+      "columns": [
+        "stem",
+        "prime",
+        "family_type",
+        "group",
+        "parameter_t",
+        "p_adic_valuation",
+        "formula_case",
+        "status"
+      ],
+      "data_rows": 1520,
+      "duplicate_data_rows": 0
+    },
+    {
+      "path": "data/height_two_2_primary_192_periodic_families.csv",
+      "bytes": 8633,
+      "sha256": "7ece228504eba8fdcfc291512327f2097eea73d4e9ec84a839b8230b7c5890f6",
+      "role": "Height-two period-192 family catalog.",
+      "columns": [
+        "residue_mod_192",
+        "row_label",
+        "cyclic_order",
+        "representative_notation",
+        "filtration_range_as_source",
+        "number_of_families_in_row",
+        "stems",
+        "tmf_Hurewicz",
+        "detector",
+        "source",
+        "source_url"
+      ],
+      "data_rows": 26,
+      "duplicate_data_rows": 0
+    },
+    {
+      "path": "data/high_dimensional_results_ledger.csv",
+      "bytes": 5417,
+      "sha256": "fcf16dae8363ed69bd746c6616c8f4337660551260b3a2190fe8b25bec7396f5",
+      "role": "Index of high-dimensional results.",
+      "columns": [
+        "prime_or_scope",
+        "degrees",
+        "result",
+        "data_type",
+        "status",
+        "source"
+      ],
+      "data_rows": 22,
+      "duplicate_data_rows": 0
+    },
+    {
+      "path": "data/toda_unstable_stems_0_19.csv",
+      "bytes": 2193,
+      "sha256": "d069baa176652ab9a133933777b10e839f877349956f76899cb16f6d9152fe88",
+      "role": "Toda integral unstable table through offset 19.",
+      "columns": [
+        "stem_k",
+        "n=1",
+        "n=2",
+        "n=3",
+        "n=4",
+        "n=5",
+        "n=6",
+        "n=7",
+        "n=8",
+        "n=9",
+        "n=10",
+        "n=11",
+        "n=12",
+        "n=13",
+        "n=14",
+        "n=15",
+        "n=16",
+        "n=17",
+        "n=18",
+        "n=19",
+        "n=20",
+        "stable"
+      ],
+      "data_rows": 20,
+      "duplicate_data_rows": 0
+    },
+    {
+      "path": "data/unstable_computation_coverage.csv",
+      "bytes": 1153,
+      "sha256": "7c9d24bc3757f0f15f9547157c57dafc16da11a36bf8143f453cba77e9ba7e5f",
+      "role": "Unstable frontier coverage audit.",
+      "columns": [
+        "prime_or_integral",
+        "stem_offset",
+        "sphere_dimensions",
+        "status",
+        "source",
+        "notes"
+      ],
+      "data_rows": 12,
+      "duplicate_data_rows": 0
+    },
+    {
+      "path": "data/conjecture_status_ledger.csv",
+      "bytes": 11317,
+      "sha256": "dec2fd3f8636378e3e8ca6abc35185eed2da12b560fb26c3256c282ae3dd4f94",
+      "role": "Status-audited conjecture and historical-prediction ledger.",
+      "columns": [
+        "name",
+        "area",
+        "statement",
+        "status_2026",
+        "credibility_or_evidence",
+        "source",
+        "source_url"
+      ],
+      "data_rows": 27,
+      "duplicate_data_rows": 0
+    },
+    {
+      "path": "data/source_ledger.csv",
+      "bytes": 19928,
+      "sha256": "6be427e3065a6736faf357f5d48e3f02fd7a9dde2255f6a124eee605766deda3",
+      "role": "Bibliography and provenance inventory.",
+      "columns": [
+        "bibkey",
+        "type",
+        "author",
+        "title",
+        "year",
+        "venue_or_publisher",
+        "doi",
+        "url",
+        "note"
+      ],
+      "data_rows": 128,
+      "duplicate_data_rows": 0
+    }
+  ],
+  "omitted_as_redundant_or_nonmathematical": [
+    "PDF and DOCX renderings of the same report",
+    "byte-identical original low-stem CSV",
+    "dense report appendices duplicated by CSV",
+    "build/typesetting scripts",
+    "BibTeX duplicate of the source ledger"
+  ]
+}

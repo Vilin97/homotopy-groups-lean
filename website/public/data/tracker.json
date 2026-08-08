@@ -1489,6 +1489,18 @@
       "title": "Stable stem 90: pi_182(S^92)"
     },
     {
+      "family": "StableThreePrimary",
+      "formalization_status": "open",
+      "holes": [
+        "stable_three_primary_groups_001_108"
+      ],
+      "id": "stable_three_primary_groups_001_108",
+      "knowledge_status": "known_result/exact",
+      "notes": "knowledge_status=known_result/exact; one finite-indexed theorem family states the exact 3-primary subgroup in every positive stable stem from 1 through 108; generated from the audited handoff CSV; stem 0 is excluded because Z_(3) is localization rather than primary torsion.",
+      "source": "Ravenel, Complex Cobordism and Stable Homotopy Groups of Spheres, digital third edition (2026), Table A3.2 plus the image-of-J formula: https://www.sas.rochester.edu/mth/sites/doug-ravenel/mybooks/ravenel3rd.pdf",
+      "title": "Exact 3-primary stable groups in stems 1 through 108"
+    },
+    {
       "family": "Conjectures",
       "formalization_status": "open",
       "holes": [
@@ -1513,6 +1525,6 @@
       "title": "Toda integral unstable table through the 19-stem"
     }
   ],
-  "problem_count": 126,
+  "problem_count": 127,
   "schema_version": 2
 }

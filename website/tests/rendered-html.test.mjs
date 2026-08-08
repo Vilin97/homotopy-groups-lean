@@ -11,6 +11,7 @@ test("statically exports the benchmark landing page", async () => {
   const html = await render();
   assert.match(html, /<title>Homotopy Groups Lean<\/title>/i);
   assert.match(html, /mapped\./);
+  assert.match(html, /Stable frontier atlas/);
   assert.match(html, /Knowledge lattice/);
   assert.match(html, /Proof queue/);
   assert.match(html, /manifests\/problems\/complexProjectiveSpace_higher_homotopy_mulEquiv_sphere\.toml/);
@@ -20,9 +21,12 @@ test("statically exports the benchmark landing page", async () => {
   assert.match(html, /Lean 4 · comparator verified/);
   assert.match(html, /research\/open-problems\.md/);
   assert.match(html, /homotopy-groups-of-spheres-literature-review\.pdf/);
+  assert.match(html, /reports\/comprehensive-2026\//);
+  assert.match(html, /3-local degree 0/);
   assert.match(html, /Comparator/);
   assert.match(html, /Leaderboard/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape/i);
+  assert.doesNotMatch(html, /integral groups through 1000/i);
 });
 
 test("scopes every hosted asset to the GitHub Pages project", async () => {
@@ -35,25 +39,33 @@ test("scopes every hosted asset to the GitHub Pages project", async () => {
     html,
     /href="\/homotopy-groups-lean\/reports\/homotopy-groups-of-spheres-literature-review\.pdf"/,
   );
+  assert.match(
+    html,
+    /href="\/homotopy-groups-lean\/reports\/comprehensive-2026\/"/,
+  );
   assert.doesNotMatch(html, /chatgpt\.site/i);
   assert.doesNotMatch(html, /(?:href|src)="\/(?!homotopy-groups-lean(?:\/|"))/);
   assert.doesNotMatch(html, /url\(["']?\/_next\//);
   await readFile(new URL("../dist/client/.nojekyll", import.meta.url));
 });
 
-test("ships complete, synchronized benchmark data, report, and social art", async () => {
-  const [trackerText, stemsText, researchStemsText, openProblemsText, researchOpenProblemsText, leaderboardText, image, report, stableCsv, todaCsv, bibliography] = await Promise.all([
+test("ships complete, synchronized benchmark data, reports, and social art", async () => {
+  const [trackerText, stemsText, researchStemsText, openProblemsText, researchOpenProblemsText, leaderboardText, frontierText, image, report, stableCsv, todaCsv, bibliography, comprehensiveIndex, comprehensiveReport, researchComprehensiveReport] = await Promise.all([
     readFile(new URL("../public/data/tracker.json", import.meta.url), "utf8"),
     readFile(new URL("../public/data/stable-stems.json", import.meta.url), "utf8"),
     readFile(new URL("../../research/stable-stems.json", import.meta.url), "utf8"),
     readFile(new URL("../public/data/open-problems.json", import.meta.url), "utf8"),
     readFile(new URL("../../research/open-problems.json", import.meta.url), "utf8"),
     readFile(new URL("../public/data/leaderboard.json", import.meta.url), "utf8"),
+    readFile(new URL("../public/data/extended-frontiers.json", import.meta.url), "utf8"),
     readFile(new URL("../public/og.png", import.meta.url)),
     readFile(new URL("../public/reports/homotopy-groups-of-spheres-literature-review.pdf", import.meta.url)),
     readFile(new URL("../public/reports/stable_stems_0_90.csv", import.meta.url), "utf8"),
     readFile(new URL("../public/reports/toda_unstable_stems_0_19.csv", import.meta.url), "utf8"),
     readFile(new URL("../public/reports/homotopy_spheres_bibliography.bib", import.meta.url), "utf8"),
+    readFile(new URL("../public/reports/comprehensive-2026/index.html", import.meta.url), "utf8"),
+    readFile(new URL("../public/reports/comprehensive-2026/REPORT_CORE.md", import.meta.url)),
+    readFile(new URL("../../research/comprehensive-handoff-2026/REPORT_CORE.md", import.meta.url)),
   ]);
   const tracker = JSON.parse(trackerText);
   const stems = JSON.parse(stemsText);
@@ -61,16 +73,45 @@ test("ships complete, synchronized benchmark data, report, and social art", asyn
   const openProblems = JSON.parse(openProblemsText);
   const researchOpenProblems = JSON.parse(researchOpenProblemsText);
   const leaderboard = JSON.parse(leaderboardText);
+  const frontier = JSON.parse(frontierText);
   assert.equal(tracker.schema_version, 2);
   assert.equal(leaderboard.schema_version, 2);
   assert.equal(tracker.problem_count, tracker.entries.length);
-  assert.ok(tracker.problem_count >= 118);
+  assert.ok(tracker.problem_count >= 127);
   assert.equal(stems.stems.length, 91);
   assert.deepEqual(stems, researchStems);
   assert.deepEqual(stems.stems.filter((row) => !row.is_exact).map((row) => row.stem), [84, 85, 86, 90]);
   assert.deepEqual(openProblems, researchOpenProblems);
-  assert.equal(openProblems.conjectures.length, 7);
+  assert.equal(openProblems.conjectures.length, 16);
   assert.equal(openProblems.conjectures.filter((row) => row.lean.status === "statement_available").length, 2);
+  assert.equal(openProblems.conjectures.filter((row) => row.lean.status === "blocked_on_foundations").length, 14);
+  assert.equal(frontier.display.last_stem, 1000);
+  assert.equal(frontier.integral.stems.length, 91);
+  assert.equal(frontier.three_primary.stems.length, 109);
+  assert.equal(frontier.three_primary.stems[0].scope, "3_local_degree_zero");
+  assert.deepEqual(
+    frontier.three_primary.coverage.positive_stem_primary_components,
+    { first: 1, last: 108, status: "exact" },
+  );
+  assert.equal(frontier.three_primary.stems[91].group, "(Z/3)^3");
+  assert.equal(frontier.three_primary.stems[96].group, "0");
+  assert.equal(frontier.five_primary_non_j.entry_count, 354);
+  assert.deepEqual(frontier.five_primary_non_j.uncertain_stems, [932, 933, 970, 971]);
+  assert.equal(
+    frontier.five_primary_non_j.entries.find((row) => row.stem === 932).uncertain,
+    true,
+  );
+  assert.deepEqual(
+    frontier.five_primary_non_j.quarantined_transcription_stems,
+    [412, 475, 530, 601, 840, 875, 892, 954, 955, 964, 978, 990],
+  );
+  assert.equal(frontier.image_j_v1.ledger.row_count, 1520);
+  assert.equal(frontier.image_j_v1.ledger.last, 1000);
+  const stemThree = frontier.image_j_v1.stems.find((row) => row.stem === 3);
+  assert.ok(stemThree.entries.some((row) => row.prime === "2" && row.group === "Z/8"));
+  assert.equal(frontier.height_two_two_primary.grouped_row_count, 26);
+  assert.equal(frontier.height_two_two_primary.family_count, 125);
+  assert.equal(frontier.height_two_two_primary.residue_count, 19);
   assert.ok(Number.isInteger(leaderboard.accepted_eligible_results));
   assert.ok(Array.isArray(leaderboard.entries));
   for (const entry of leaderboard.entries) {
@@ -87,4 +128,8 @@ test("ships complete, synchronized benchmark data, report, and social art", asyn
   assert.equal(todaCsv.trim().split("\n").length, 21);
   assert.match(bibliography, /Bousfield1985/);
   assert.match(bibliography, /InoueMiyauchiMukai2015/);
+  assert.match(comprehensiveIndex, /Repository audit overlay/);
+  assert.match(comprehensiveIndex, /Read the correction log/);
+  assert.match(comprehensiveIndex, /Formalization-Oriented Research Survey/);
+  assert.deepEqual(comprehensiveReport, researchComprehensiveReport);
 });
