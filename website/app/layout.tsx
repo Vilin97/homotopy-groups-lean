@@ -19,17 +19,17 @@ export const metadata: Metadata = {
     template: "%s · Homotopy Groups Lean",
   },
   description:
-    "An open, comparator-gated Lean benchmark for known results and open problems in homotopy groups.",
+    "An interactive (n,k)-lattice of known, partial, uncharted, and Lean-verified homotopy groups of spheres.",
   openGraph: {
-    title: "The known edge of homotopy, formalized.",
-    description: "A versioned Lean benchmark for homotopy groups, stable stems, and open conjectures.",
-    images: [{ url: "/og.png", width: 1200, height: 630 }],
+    title: "πₙ₊ₖ(Sⁿ), mapped.",
+    description: "Explore the homotopy knowledge lattice, then formalize its gaps in Lean.",
+    images: [{ url: "/og-lattice.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Homotopy Groups Lean",
-    description: "The known edge of homotopy, formalized.",
-    images: ["/og.png"],
+    title: "πₙ₊ₖ(Sⁿ), mapped.",
+    description: "The interactive homotopy knowledge lattice.",
+    images: ["/og-lattice.png"],
   },
   icons: {
     icon: "/favicon.svg",

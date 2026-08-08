@@ -19,10 +19,14 @@ test("server-renders the benchmark landing page", async () => {
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
   const html = await response.text();
   assert.match(html, /<title>Homotopy Groups Lean<\/title>/i);
-  assert.match(html, /The known edge of/);
-  assert.match(html, /homotopy,/);
-  assert.match(html, /The theorem tracker/);
-  assert.match(html, /A proof earns its checkmark/);
+  assert.match(html, /mapped\./);
+  assert.match(html, /Knowledge lattice/);
+  assert.match(html, /Lean verified/);
+  assert.match(html, /Fully known/);
+  assert.match(html, /Some information/);
+  assert.match(html, /Uncharted/);
+  assert.match(html, /Proof queue/);
+  assert.match(html, /Comparator/);
   assert.match(html, /Leaderboard/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape/i);
 });
@@ -33,7 +37,7 @@ test("ships complete generated benchmark data and social art", async () => {
     readFile(new URL("../public/data/stable-stems.json", import.meta.url), "utf8"),
     readFile(new URL("../public/data/open-problems.json", import.meta.url), "utf8"),
     readFile(new URL("../public/data/leaderboard.json", import.meta.url), "utf8"),
-    readFile(new URL("../public/og.png", import.meta.url)),
+    readFile(new URL("../public/og-lattice.png", import.meta.url)),
   ]);
   const tracker = JSON.parse(trackerText);
   const stems = JSON.parse(stemsText);
@@ -43,6 +47,7 @@ test("ships complete generated benchmark data and social art", async () => {
   assert.equal(leaderboard.schema_version, 2);
   assert.equal(tracker.problem_count, tracker.entries.length);
   assert.ok(tracker.problem_count >= 118);
+  assert.equal(tracker.entries.filter((row) => row.formalization_status === "comparator_verified").length, 1);
   assert.equal(stems.stems.length, 91);
   assert.deepEqual(stems.stems.filter((row) => !row.is_exact).map((row) => row.stem), [84, 85, 86, 90]);
   assert.equal(openProblems.conjectures.length, 6);
