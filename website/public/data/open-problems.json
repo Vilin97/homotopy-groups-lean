@@ -1,4 +1,13 @@
 {
+  "conditional_scenarios": [
+    {
+      "id": "stable-stem-growth-sharpness",
+      "note": "The proposed sharp scale is conditional on a strong form of telescope failure.",
+      "source": "https://arxiv.org/abs/2203.00670",
+      "status": "conditional_prediction_not_named_conjecture",
+      "title": "Asymptotic stable-stem growth sharpness scenario"
+    }
+  ],
   "conjectures": [
     {
       "id": "iwx-two-primary-growth",
@@ -42,10 +51,13 @@
         "status": "blocked_on_foundations"
       },
       "source": {
-        "locator": "New Doomsday Conjecture; the cited preprint proves the e-family case only",
-        "url": "https://arxiv.org/abs/2602.20184"
+        "doi": "10.2307/2374955",
+        "locator": "p. 982, New Doomsday Conjecture",
+        "progress_note": "Li--Li prove the e-family case only.",
+        "progress_url": "https://arxiv.org/abs/2602.20184",
+        "url": "https://doi.org/10.2307/2374955"
       },
-      "statement": "Every nonzero Sq^0-family in the mod-two Adams E_2-page has only finitely many members that survive to E_infinity.",
+      "statement": "For every Adams filtration s there is an n(s) such that no nonzero class in the image of (Sq^0)^(n(s)) in the mod-two Adams E_2-page at filtration s is a permanent cycle.",
       "status": "open_conjecture",
       "title": "New Doomsday Conjecture for Sq^0-families"
     },
@@ -80,7 +92,7 @@
       "source": {
         "url": "https://arxiv.org/abs/1609.03143"
       },
-      "statement": "In positive degrees, the image of the stable mod-two Hurewicz map is generated only by Hopf-invariant-one and Kervaire-invariant-one classes.",
+      "statement": "In positive degrees, the spherical classes in H_*(Q_0 S^0; F_2), equivalently the image of the stable mod-two Hurewicz map, are exactly those arising from Hopf-invariant-one and Kervaire-invariant-one elements.",
       "status": "open_conjecture",
       "title": "Curtis spherical-classes conjecture at two"
     },
@@ -96,7 +108,8 @@
         "status": "blocked_on_foundations"
       },
       "source": {
-        "url": "https://www.cambridge.org/core/services/aop-cambridge-core/content/view/7AADB930A50A377D384B7E5E23152482/S0305004100060916a.pdf/on_conjectures_of_moore_and_serre_in_the_case_of_torsionfree_suspensions.pdf"
+        "doi": "10.1017/S0305004100060916",
+        "url": "https://doi.org/10.1017/S0305004100060916"
       },
       "statement": "For a finite simply connected CW complex X and prime p, the p-primary torsion in all homotopy groups of X has a uniform finite exponent if and only if the direct sum of its rational homotopy groups is finite-dimensional.",
       "status": "open_conjecture",
@@ -120,6 +133,208 @@
       "statement": "In dimensions greater than four, the only spheres with unique smooth structure are S^5, S^6, S^12, S^56, and S^61.",
       "status": "open_conjecture",
       "title": "Unique smooth structures on high-dimensional spheres"
+    },
+    {
+      "id": "eccles-spherical-classes",
+      "lean": {
+        "missing": [
+          "infinite loop spaces QX",
+          "homology operations",
+          "stable Hurewicz map",
+          "mapping-cone primary-operation detection"
+        ],
+        "status": "blocked_on_foundations"
+      },
+      "source": {
+        "url": "https://arxiv.org/abs/1609.03143"
+      },
+      "statement": "For a pointed path-connected space X, a positive-dimensional spherical class in H_*(QX; F_2) is either stably spherical or arises from a stable map detected by a primary operation in its mapping cone.",
+      "status": "open_conjecture",
+      "title": "Eccles spherical-class conjecture for QX"
+    },
+    {
+      "id": "lannes-zarati-vanishing",
+      "lean": {
+        "missing": [
+          "Steenrod algebra Ext",
+          "Lannes--Zarati homomorphism",
+          "positive-stem grading"
+        ],
+        "status": "blocked_on_foundations"
+      },
+      "source": {
+        "doi": "10.1016/j.crma.2014.01.013",
+        "url": "https://doi.org/10.1016/j.crma.2014.01.013"
+      },
+      "statement": "The s-th Lannes--Zarati homomorphism vanishes in every positive stem for s greater than 2.",
+      "status": "open_conjecture",
+      "title": "Lannes--Zarati positive-stem vanishing above filtration two"
+    },
+    {
+      "id": "ravenel-ehp-eta-differential",
+      "lean": {
+        "missing": [
+          "EHP spectral sequence",
+          "named nu and eta_j classes",
+          "differentials"
+        ],
+        "status": "blocked_on_foundations"
+      },
+      "source": {
+        "locator": "Conjecture 1.5.26",
+        "url": "https://www.sas.rochester.edu/mth/sites/doug-ravenel/mybooks/ravenel3rd.pdf"
+      },
+      "statement": "For j>=3 and k=(2s+1)2^(j-2) with s>0, the predicted EHP differential d_(2^(j-2))(nu)=eta_j occurs.",
+      "status": "open_conjecture",
+      "title": "Ravenel EHP differential pattern for eta_j"
+    },
+    {
+      "id": "ravenel-kervaire-ehp-differential",
+      "lean": {
+        "missing": [
+          "EHP spectral sequence",
+          "Kervaire classes",
+          "bar_alpha_j classes",
+          "differentials and dimensions"
+        ],
+        "status": "blocked_on_foundations"
+      },
+      "source": {
+        "locator": "Conjecture 1.5.27(ii)",
+        "url": "https://www.sas.rochester.edu/mth/sites/doug-ravenel/mybooks/ravenel3rd.pdf"
+      },
+      "statement": "For j>=2 and s>0, whenever theta_j exists as in Ravenel Conjecture 1.5.27(i), the EHP class bar_alpha_j in E_2^{2^(j+1)(2s+1)-2,*} satisfies d_r(bar_alpha_j)=theta_j, where r=2^(j+1)-1-dim(bar_alpha_j).",
+      "status": "open_conjecture_conditional",
+      "title": "Conditional Kervaire EHP differential pattern"
+    },
+    {
+      "id": "chromatic-mahowald-root-invariant",
+      "lean": {
+        "missing": [
+          "spectra",
+          "Greek-letter classes",
+          "Mahowald/root invariants",
+          "chromatic height"
+        ],
+        "status": "blocked_on_foundations"
+      },
+      "source": {
+        "locator": "Conjecture 1.5.33",
+        "url": "https://www.sas.rochester.edu/mth/sites/doug-ravenel/mybooks/ravenel3rd.pdf"
+      },
+      "statement": "Whenever the Greek-letter elements alpha_j^(n) and alpha_j^(n+1) both exist in homotopy, alpha_j^(n+1) lies in the Mahowald invariant M(alpha_j^(n)).",
+      "status": "open_conjecture",
+      "title": "Chromatic Mahowald/root-invariant height raising"
+    },
+    {
+      "id": "kervaire-mahowald-invariant",
+      "lean": {
+        "missing": [
+          "sphere spectrum",
+          "Kervaire classes",
+          "Mahowald invariant",
+          "membership with indeterminacy"
+        ],
+        "status": "blocked_on_foundations"
+      },
+      "source": {
+        "locator": "Conjecture 1.5.32",
+        "url": "https://www.sas.rochester.edu/mth/sites/doug-ravenel/mybooks/ravenel3rd.pdf"
+      },
+      "statement": "Whenever both consecutive Kervaire classes theta_j and theta_(j+1) exist, theta_(j+1) lies in the Mahowald invariant M(theta_j).",
+      "status": "open_conjecture_conditional",
+      "title": "Mahowald invariant of consecutive Kervaire classes"
+    },
+    {
+      "id": "ravenel-beta1-exponent-p-ge-7",
+      "lean": {
+        "missing": [
+          "p-local sphere spectrum",
+          "named beta_1 class",
+          "stable multiplication",
+          "higher Toda brackets"
+        ],
+        "status": "blocked_on_foundations"
+      },
+      "source": {
+        "locator": "Conjecture 7.6.2",
+        "url": "https://www.sas.rochester.edu/mth/sites/doug-ravenel/mybooks/ravenel3rd.pdf"
+      },
+      "statement": "For p>=7, beta_1^(p^2-p) is nonzero, beta_1^(p^2-p+1) vanishes, and the higher Toda bracket <gamma_3,gamma_2,...,gamma_2>, with gamma_2 repeated (p-5)/2 times, equals beta_1^((2p-1)(p-1)/2).",
+      "status": "open_conjecture",
+      "title": "Ravenel beta_1 exponent pattern at primes at least seven"
+    },
+    {
+      "id": "weak-chromatic-splitting",
+      "lean": {
+        "missing": [
+          "spectra",
+          "Bousfield localization",
+          "Morava K-theory",
+          "split monomorphisms in a stable category"
+        ],
+        "status": "blocked_on_foundations"
+      },
+      "source": {
+        "doi": "10.1090/conm/181/02036",
+        "locator": "Hovey, Introduction p. 2 (weak finite-spectrum form); Conjecture 4.2(v) (sphere splitting)",
+        "status_evidence_doi": "10.2140/gt.2017.21.3213",
+        "status_note": "Beaudry disproves the stronger explicit decomposition at n=p=2 without contradicting this wedge-summand assertion.",
+        "url": "https://doi.org/10.1090/conm/181/02036"
+      },
+      "statement": "For every prime p, height n>=1, and finite spectrum X, L_(n-1) of the p-completion of X is a wedge summand of L_(n-1)L_K(n) of the p-completion of X.",
+      "status": "open_conjecture",
+      "title": "Weak chromatic splitting conjecture"
+    },
+    {
+      "id": "very-exotic-spheres",
+      "lean": {
+        "missing": [
+          "smooth homotopy spheres",
+          "coker J",
+          "Pontryagin--Thom",
+          "very-exotic predicate"
+        ],
+        "status": "blocked_on_foundations"
+      },
+      "source": {
+        "url": "https://arxiv.org/abs/2410.21181"
+      },
+      "statement": "Very exotic spheres exist in every dimension greater than four except 5, 6, 11, 12, 27, 43, 56, and 61.",
+      "status": "open_conjecture",
+      "title": "Very exotic spheres outside the exceptional dimensions"
+    }
+  ],
+  "heuristics": [
+    {
+      "id": "mahowald-uncertainty-principle",
+      "note": "Useful context, but intentionally excluded from the credible conjecture list.",
+      "source": "https://www.sas.rochester.edu/mth/sites/doug-ravenel/mybooks/ravenel3rd.pdf",
+      "status": "non_falsifiable_organizing_heuristic",
+      "title": "Mahowald uncertainty principle"
+    }
+  ],
+  "needs_reformulation": [
+    {
+      "id": "ravenel-odd-primary-ehp-birth",
+      "note": "Conjecture 1.5.20 has an explicit p=3 exception and needs a corrected precise formulation before entering the conjecture registry.",
+      "source": "https://www.sas.rochester.edu/mth/sites/doug-ravenel/mybooks/ravenel3rd.pdf",
+      "status": "false_verbatim",
+      "title": "Ravenel odd-primary EHP birth pattern"
+    },
+    {
+      "id": "odd-primary-spherical-classes",
+      "note": "The handoff records a family of analogies rather than one precise universally accepted conjecture.",
+      "source": "https://arxiv.org/abs/1609.03143",
+      "status": "no_single_accepted_formulation",
+      "title": "Odd-primary spherical-class restrictions"
+    },
+    {
+      "id": "smith-toda-existence-pattern",
+      "note": "Existence and nonexistence depend on prime and height; the raw row is not one quantified conjecture.",
+      "source": "https://www.sas.rochester.edu/mth/sites/doug-ravenel/mybooks/ravenel3rd.pdf",
+      "status": "case_by_case_research_pattern",
+      "title": "Smith--Toda complex existence pattern"
     }
   ],
   "no_longer_open": [
@@ -129,6 +344,36 @@
       "source": "https://arxiv.org/abs/2310.17459",
       "status": "provisional_preprint_disproof",
       "title": "Ravenel telescope conjecture"
+    },
+    {
+      "id": "strong-chromatic-splitting",
+      "note": "Keep the weaker split-monic formulation in the conjecture registry, not this stronger decomposition.",
+      "source": "https://doi.org/10.2140/gt.2017.21.3213",
+      "status": "published_counterexample_at_n_equals_p_equals_2",
+      "title": "Strong classical chromatic-splitting decomposition"
+    },
+    {
+      "id": "kervaire-beyond-126",
+      "note": "Hill--Hopkins--Ravenel rule out theta_j for j>=7; theta_6 is separately tracked as a provisional positive result.",
+      "source": "https://doi.org/10.4007/annals.2016.184.1.1",
+      "status": "refuted",
+      "title": "Kervaire invariant one beyond dimension 126"
+    },
+    {
+      "id": "singer-global-transfer",
+      "note": "Recent preprints claim rank-five and rank-six counterexamples, so the unqualified global statement is not listed as a credible open conjecture.",
+      "rank_five_source": "https://arxiv.org/abs/2408.06669",
+      "rank_six_source": "https://arxiv.org/abs/2509.09455",
+      "status": "provisional_preprint_counterexamples",
+      "title": "Singer algebraic transfer injectivity in every rank and degree"
+    }
+  ],
+  "out_of_scope": [
+    {
+      "id": "smooth-four-dimensional-poincare",
+      "note": "Precise and credible, but separate from stable-stem methods and the high-dimensional surgery bridge used by this benchmark.",
+      "status": "open_but_outside_stable_stem_scope",
+      "title": "Smooth four-dimensional Poincare conjecture"
     }
   ],
   "provisional_results": [
@@ -141,6 +386,29 @@
       "title": "Kervaire invariant one in dimension 126"
     }
   ],
-  "reviewed_on": "2026-08-07",
+  "research_programs": [
+    {
+      "id": "chromatic-redshift",
+      "note": "The handoff combines lower-bound and descent expectations using non-falsifiable qualifiers; retain it as a research program until a precise Ausoni--Rognes formulation is sourced.",
+      "source": "https://arxiv.org/abs/2608.02180",
+      "status": "research_program_not_single_formal_statement",
+      "title": "Chromatic redshift for algebraic K-theory"
+    },
+    {
+      "id": "hopkins-mahowald-height-two-catalog",
+      "note": "Recent work confirms many predicted families, but the chart is neither a single proposition nor known exhaustive.",
+      "source": "https://arxiv.org/abs/2506.20507",
+      "status": "partially_confirmed_nonexhaustive_catalog",
+      "title": "Hopkins--Mahowald height-two family predictions"
+    },
+    {
+      "id": "sharp-unstable-homotopy-growth",
+      "note": "The handoff calls for sharper explicit chromatic laws but does not supply one falsifiable asymptotic statement.",
+      "source": "https://arxiv.org/abs/2203.00670",
+      "status": "research_program_without_single_sourced_law",
+      "title": "Sharp unstable homotopy growth laws"
+    }
+  ],
+  "reviewed_on": "2026-08-08",
   "schema_version": "1.0.0"
 }

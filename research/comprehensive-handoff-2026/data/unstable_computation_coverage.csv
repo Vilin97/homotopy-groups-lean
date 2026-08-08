@@ -1,0 +1,13 @@
+prime_or_integral,stem_offset,sphere_dimensions,status,source,notes
+integral,0-19,all (Toda table),complete,Toda 1962,Full integral table; stable value included.
+integral,20,all,complete,Mimura-Toda 1963,Completes integral 20-stem.
+2-primary,21-22,all,complete,Mimura 1965,
+2-primary,23-24,all,complete,Mimura-Mori-Oda 1975,
+2-primary,25-31,all,complete after later corrections,Oda 1979; Inoue-Mukai,Generator and extension literature should be consulted for conventions.
+2-primary,32,all n>=2,complete,Miyauchi-Mukai 2017,
+2-primary,33,n=2-9,known,Oda; Miyauchi-Mukai; Yang-Wu 2026,
+2-primary,33,n=10-26,open/incomplete,Yang-Wu 2026,
+2-primary,33,n=27,source-internal inconsistency,Yang-Wu 2026,Caption/corollary and prose/table do not agree; report conservatively does not call it settled.
+2-primary,33,n>=28,known by backward/stable-range methods,Thomeier + stable 33-stem,
+3-primary,k<80,Toda monograph coverage,complete prime-local tables,Toda 2003,Independent of the shorter all-prime integral frontier.
+all primes,stable range,n>=k+2,reduces to stable stem,Freudenthal,Every stable computation gives infinitely many unstable groups.

@@ -1,6 +1,7 @@
 import openProblemData from "../public/data/open-problems.json";
 import stableStemData from "../public/data/stable-stems.json";
 import trackerData from "../public/data/tracker.json";
+import { Frontiers } from "./frontiers";
 import { Lattice } from "./lattice";
 import { Leaderboard } from "./leaderboard";
 import { siteAsset } from "./site";
@@ -13,6 +14,7 @@ const partialStemCount = stableStemData.stems.length - exactStemCount;
 const reportPdf = siteAsset(
   "/reports/homotopy-groups-of-spheres-literature-review.pdf",
 );
+const comprehensiveReport = siteAsset("/reports/comprehensive-2026/");
 
 // The public site has no request-specific state; make that invariant explicit
 // so static-only hosts receive a concrete index.html.
@@ -27,10 +29,11 @@ export default function Home() {
           <strong>HGL</strong>
         </a>
         <div className="site-nav-links">
+          <a href="#frontiers">Frontiers</a>
           <a href="#atlas">Atlas</a>
           <a href="#problems">Problems</a>
           <a href="#leaderboard">Leaderboard</a>
-          <a href={reportPdf}>Report</a>
+          <a href={comprehensiveReport}>Report</a>
           <a href={`${repo}#hosted-submission-flow`}>Submit ↗</a>
         </div>
         <a className="repo-link" href={repo}>GitHub <span aria-hidden="true">↗</span></a>
@@ -40,8 +43,9 @@ export default function Home() {
         <div className="hero-title">
           <p>
             <span>{trackerData.problem_count} Lean challenges</span>
-            <span>stems 0–90</span>
-            <span>dual-kernel checked</span>
+            <span>integral atlas 0–90</span>
+            <span>3-local / primary through 108</span>
+            <span>structured ledgers to 1000</span>
           </p>
           <h1>π<sub>n+k</sub>(S<sup>n</sup>), <em>mapped.</em></h1>
         </div>
@@ -51,10 +55,26 @@ export default function Home() {
           <strong>π<sub>n+k</sub>(S<sup>n</sup>) ≅ π<sub>k</sub><sup>S</sup></strong>
         </div>
         <div className="hero-bottom">
-          <p>Click a coordinate. See the group, the evidence, and the gaps.</p>
-          <a href="#atlas">enter the (n,k)-plane ↓</a>
+          <p>Separate complete groups, primary components, named classes, and periodic families.</p>
+          <a href="#frontiers">enter the stable frontiers ↓</a>
         </div>
       </header>
+
+      <section className="frontier-section shell" id="frontiers" aria-labelledby="frontiers-title">
+        <div className="compact-heading">
+          <div>
+            <span>BEYOND STEM 90</span>
+            <h2 id="frontiers-title">Stable frontier atlas</h2>
+          </div>
+          <div className="heading-math">
+            <span>3-local degree 0 · p-primary exact 1–108</span>
+            <span>5-primary ledger 0–999</span>
+            <strong>image J / v₁ in all stems</strong>
+            <a href={comprehensiveReport}>2026 report ↗</a>
+          </div>
+        </div>
+        <Frontiers />
+      </section>
 
       <section className="atlas-section shell" id="atlas" aria-labelledby="atlas-title">
         <div className="compact-heading">
@@ -66,7 +86,7 @@ export default function Home() {
             <span>n = 1…92</span>
             <span>k = 0…90</span>
             <strong>{exactStemCount} exact stems · {partialStemCount} partial</strong>
-            <a href={reportPdf}>literature review ↗</a>
+            <a href={reportPdf}>earlier low-stem PDF ↗</a>
           </div>
         </div>
         <Lattice />
@@ -120,7 +140,8 @@ export default function Home() {
           <a className="wordmark" href="#top"><span aria-hidden="true">π</span><strong>HGL</strong></a>
           <p>π<sub>n+k</sub>(S<sup>n</sup>) · Lean 4.32.2 · Apache-2.0</p>
           <div>
-            <a href={reportPdf}>report</a>
+            <a href={comprehensiveReport}>2026 report</a>
+            <a href={reportPdf}>earlier PDF</a>
             <a href={`${repo}/blob/main/SECURITY.md`}>trust model</a>
             <a href={`${repo}/tree/main/research`}>sources</a>
             <a href={repo}>code ↗</a>

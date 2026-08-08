@@ -12,13 +12,15 @@ presents the problem tracker and leaderboard; its source lives in
 [`website/`](website/). The Lean source and per-problem manifests are the
 benchmark's authoritative data.
 
-The corpus contains **126 Lean statements**: every additive stable stem from 0
+The corpus contains **127 Lean statements**: every additive stable stem from 0
 through 90 (87 exact values and the complete published alternatives in stems
-84, 85, 86, and 90), 33 foundational/unstable/advanced results, and two
-concrete open conjectures. Seven open-conjecture families are source-tracked in
-[`research/open-problems.json`](research/open-problems.json); five whose required
-foundations do not yet exist in Mathlib are recorded as blocked instead of being
-weakened into placeholder propositions.
+84, 85, 86, and 90), 34 foundational/unstable/advanced table results, and two
+concrete open conjectures. The new finite-indexed table statement records every
+positive-stem 3-primary component through stem 108 using Mathlib's actual
+`CommGroup.primaryComponent`. Sixteen credible open-conjecture families are
+source-tracked in [`research/open-problems.json`](research/open-problems.json);
+fourteen whose required foundations do not yet exist in Mathlib are recorded as
+blocked instead of being weakened into placeholder propositions.
 
 The audited 92 by 91 knowledge lattice is specified in
 [`research/lattice-coverage.json`](research/lattice-coverage.json). The attached
@@ -28,6 +30,15 @@ its [correction log](research/literature-review-audit.md), and the regenerated
 values, published alternatives, 2-primary-only computations, and a disputed
 33-stem entry. The independent purple proof overlay comes from the dated,
 source-auditable [`formalizations.json`](research/formalizations.json) inventory.
+
+The [comprehensive 2026 report](website/public/reports/comprehensive-2026/index.html)
+and its [audit](research/comprehensive-handoff-audit.md) extend the source
+registry beyond stem 90 without overstating complete integral knowledge. A
+separate stable-frontier atlas distinguishes exact 3-primary components through
+108, the non-image-J 5-primary class ledger through 999, all-stem image-J and
+height-one formulas, and period-192 height-two existence families. The received
+handoff remains byte-for-byte preserved under
+[`research/comprehensive-handoff-2026/`](research/comprehensive-handoff-2026/).
 
 ## Reproducible environment
 

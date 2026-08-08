@@ -10,7 +10,9 @@ const html = await readFile(indexUrl, "utf8");
 
 assert.match(html, /<title>Homotopy Groups Lean<\/title>/);
 assert.match(html, /Knowledge lattice/);
+assert.match(html, /Stable frontier atlas/);
 assert.doesNotMatch(html, /chatgpt\.site/i);
+assert.doesNotMatch(html, /integral groups through 1000/i);
 assert.doesNotMatch(html, /url\(["']?\/_next\//);
 
 const localReferences = [
@@ -52,6 +54,12 @@ for (const relative of [
   "reports/stable_stems_0_90.csv",
   "reports/toda_unstable_stems_0_19.csv",
   "reports/homotopy_spheres_bibliography.bib",
+  "reports/comprehensive-2026/index.html",
+  "reports/comprehensive-2026/REPORT_CORE.md",
+  "reports/comprehensive-2026/data/stable_3_primary_groups_0_108.csv",
+  "reports/comprehensive-2026/data/stable_5_primary_nonJ_0_999.csv",
+  "reports/comprehensive-2026/data/v1_periodic_image_J_0_1000.csv",
+  "data/extended-frontiers.json",
   "data/leaderboard.json",
 ]) {
   await access(new URL(relative, output));

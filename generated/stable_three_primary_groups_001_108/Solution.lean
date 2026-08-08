@@ -1,0 +1,14 @@
+import ChallengeDeps
+import Submission
+
+open HomotopyGroups
+open scoped Topology
+
+theorem stable_three_primary_groups_001_108 (stemIndex : Fin 108) :
+    Nonempty
+      (CommGroup.primaryComponent
+          (π_ (2 * (stemIndex.val + 1) + 2)
+            (StableStems.StableSphere (stemIndex.val + 3))
+            (StableStems.stableSphereBasepoint (stemIndex.val + 3))) 3 ≃*
+        stableThreePrimaryGroup stemIndex) := by
+  exact Submission.stable_three_primary_groups_001_108 stemIndex

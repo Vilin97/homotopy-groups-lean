@@ -13,20 +13,50 @@
     {
       "id": "unstable-two-primary-21-33",
       "result": "The computed 2-primary components in unstable stems 21 through 33",
+      "status": "blocked_on_registry",
+      "missing": ["versioned 2-primary group registry with generator conventions"],
+      "available_foundation": "Mathlib's CommGroup.primaryComponent can state finite primary subgroups once the data are transcribed"
+    },
+    {
+      "id": "stable-three-primary-degree-zero",
+      "result": "The degree-zero 3-local stable group is Z_(3)",
       "status": "blocked_on_foundations",
-      "missing": ["p-primary subgroup or p-local homotopy group API", "versioned 2-primary registry"]
+      "missing": ["localization of the infinite cyclic stable stem"],
+      "data_available": "Positive stems 1 through 108 are stated by HomotopyGroups.StableThreePrimary"
     },
     {
       "id": "serre-first-odd-primary-torsion",
       "result": "Serre's first occurrence theorem for odd-primary torsion in homotopy groups of spheres",
       "status": "blocked_on_foundations",
-      "missing": ["primary torsion subgroup API", "Serre class construction"]
+      "missing": ["Serre class construction and first-occurrence proof"],
+      "available_foundation": "Mathlib's CommGroup.primaryComponent supplies the subgroup API"
     },
     {
       "id": "cohen-moore-neisendorfer-exponent",
       "result": "Odd-primary exponent bounds for homotopy groups of odd spheres",
       "status": "blocked_on_foundations",
       "missing": ["localization", "power maps on loop spaces", "primary exponent API"]
+    },
+    {
+      "id": "stable-three-primary-named-classes",
+      "result": "The 55 named non-image-J 3-primary class and relation rows through stem 108",
+      "status": "blocked_on_foundations",
+      "missing": ["named stable classes", "Toda brackets with indeterminacy", "stable products"],
+      "data_available": "The abstract additive 3-primary groups in positive stems are already stated by HomotopyGroups.StableThreePrimary"
+    },
+    {
+      "id": "stable-five-primary-non-j-ledger",
+      "result": "The named non-image-J 5-primary classes and relations through stem 999",
+      "status": "blocked_on_registry_and_foundations",
+      "missing": ["checked structured transcription of Ravenel Table A3.3", "named stable classes", "stable products and Toda brackets"],
+      "data_warning": "The handoff CSV is flattened class/relation metadata, with four source uncertainties and twelve quarantined extraction defects; it is not an additive-group table"
+    },
+    {
+      "id": "unstable-three-primary-through-79",
+      "result": "Toda's complete 3-primary unstable tables in offsets below 80",
+      "status": "blocked_on_registry",
+      "missing": ["the actual versioned group/generator table from Toda 2003"],
+      "data_warning": "The handoff supplies a coverage claim only and incorrectly says the source PDF is included"
     },
     {
       "id": "freudenthal-stable-transport",

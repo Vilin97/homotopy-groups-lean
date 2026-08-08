@@ -27,6 +27,107 @@ class ResearchDataTests(unittest.TestCase):
             check=True,
         )
 
+    def test_comprehensive_frontiers_are_reproducible_and_typed(self) -> None:
+        subprocess.run(
+            [sys.executable, "scripts/generate_extended_frontiers.py", "--check"],
+            cwd=ROOT,
+            check=True,
+        )
+        data = json.loads(
+            (ROOT / "website/public/data/extended-frontiers.json").read_text()
+        )
+        self.assertEqual(data["display"], {"first_stem": 0, "last_stem": 1000})
+        self.assertEqual(len(data["integral"]["stems"]), 91)
+        self.assertEqual(
+            data["integral"]["published_alternative_stems"], [84, 85, 86, 90]
+        )
+
+        three = data["three_primary"]
+        self.assertEqual([row["stem"] for row in three["stems"]], list(range(109)))
+        self.assertEqual(three["stems"][0]["scope"], "3_local_degree_zero")
+        self.assertEqual(
+            {row["scope"] for row in three["stems"][1:]},
+            {"3_primary_torsion_component"},
+        )
+        self.assertEqual(
+            three["coverage"]["positive_stem_primary_components"],
+            {"first": 1, "last": 108, "status": "exact"},
+        )
+        self.assertEqual(three["stems"][91]["group"], "(Z/3)^3")
+        self.assertEqual(three["stems"][96]["group"], "0")
+
+        five = data["five_primary_non_j"]
+        self.assertEqual(five["entry_count"], 354)
+        self.assertEqual(max(row["stem"] for row in five["entries"]), 999)
+        self.assertEqual(five["uncertain_stems"], [932, 933, 970, 971])
+        self.assertEqual(
+            five["quarantined_transcription_stems"],
+            [412, 475, 530, 601, 840, 875, 892, 954, 955, 964, 978, 990],
+        )
+        self.assertIn("does not assert a zero group", five["missing_row_meaning"])
+        self.assertTrue(next(row for row in five["entries"] if row["stem"] == 932)["uncertain"])
+
+        image_j = data["image_j_v1"]
+        self.assertEqual(image_j["theorem_scope"], "all_stems")
+        self.assertEqual(image_j["ledger"], {"first": 0, "last": 1000, "row_count": 1520})
+        stem_three = next(row for row in image_j["stems"] if row["stem"] == 3)
+        self.assertIn(
+            {"prime": "2", "family_type": "2-primary v1-periodic", "group": "Z/8",
+             "formula_case": "k=3", "status": "exact"},
+            stem_three["entries"],
+        )
+
+        height_two = data["height_two_two_primary"]
+        self.assertEqual(
+            (height_two["grouped_row_count"], height_two["family_count"],
+             height_two["residue_count"], height_two["period"]),
+            (26, 125, 19, 192),
+        )
+        filtration_only = [
+            row
+            for residue in height_two["residues"]
+            for row in residue["rows"]
+            if "not certified" in row["proof_method"]
+        ]
+        self.assertEqual(len(filtration_only), 7)
+        self.assertEqual(sum(row["family_count"] for row in filtration_only), 19)
+        self.assertIn(23, {row["residue"] for row in height_two["residues"]})
+
+        corrections = {row["id"] for row in data["audit_corrections"]}
+        self.assertIn("conjecture-ledger-citations-and-ehp-index", corrections)
+        ehp = next(
+            row for row in data["conjecture_status"]["entries"]
+            if row["name"].startswith("Ravenel EHP differential")
+        )
+        self.assertIn("d_{2^{j-2}}(nu)=eta_j", ehp["statement"])
+        conjectures = data["conjecture_status"]["entries"]
+        self.assertFalse(
+            any(row["source_url"].endswith("/mybooks/ravenel.pdf") for row in conjectures)
+        )
+        new_doomsday = next(
+            row for row in conjectures if row["name"] == "New Doomsday conjecture"
+        )
+        self.assertEqual(new_doomsday["source_url"], "https://doi.org/10.2307/2374955")
+        weak_splitting = next(
+            row for row in conjectures
+            if row["name"] == "Chromatic splitting conjecture - weak form"
+        )
+        self.assertEqual(
+            weak_splitting["source_url"], "https://doi.org/10.1090/conm/181/02036"
+        )
+
+    def test_three_primary_statement_is_reproducible(self) -> None:
+        subprocess.run(
+            [sys.executable, "scripts/generate_three_primary_table.py", "--check"],
+            cwd=ROOT,
+            check=True,
+        )
+        manifest = (
+            ROOT / "manifests/problems/stable_three_primary_groups_001_108.toml"
+        ).read_text()
+        self.assertIn("Table A3.2 plus the image-of-J formula", manifest)
+        self.assertNotIn("Table A3.4", manifest)
+
     def test_lattice_rules_reproduce_committed_counts(self) -> None:
         coverage = json.loads((ROOT / "research/lattice-coverage.json").read_text())
         stems = {

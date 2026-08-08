@@ -1,0 +1,1521 @@
+stem,prime,family_type,group,parameter_t,p_adic_valuation,formula_case,status
+0,all,degree zero,Z,,,pi_0^S=Z,exact in all dimensions
+1,2,2-primary v1-periodic,Z/2,,,k=1 or 2,exact
+2,2,2-primary v1-periodic,Z/2,,,k=1 or 2,exact
+3,2,2-primary v1-periodic,Z/4,,,k=3,exact
+3,3,odd-primary image J,Z/3,1,0,k=(2p-2)t-1,exact in all dimensions
+7,2,2-primary image-J cyclic summand,Z/16,1,0,"k=8t-1, t odd*2^m",exact
+7,3,odd-primary image J,Z/3,2,0,k=(2p-2)t-1,exact in all dimensions
+7,5,odd-primary image J,Z/5,1,0,k=(2p-2)t-1,exact in all dimensions
+8,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+9,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+10,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+11,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+11,3,odd-primary image J,Z/9,3,1,k=(2p-2)t-1,exact in all dimensions
+11,7,odd-primary image J,Z/7,1,0,k=(2p-2)t-1,exact in all dimensions
+15,2,2-primary image-J cyclic summand,Z/32,2,1,"k=8t-1, t odd*2^m",exact
+15,3,odd-primary image J,Z/3,4,0,k=(2p-2)t-1,exact in all dimensions
+15,5,odd-primary image J,Z/5,2,0,k=(2p-2)t-1,exact in all dimensions
+16,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+17,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+18,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+19,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+19,3,odd-primary image J,Z/3,5,0,k=(2p-2)t-1,exact in all dimensions
+19,11,odd-primary image J,Z/11,1,0,k=(2p-2)t-1,exact in all dimensions
+23,2,2-primary image-J cyclic summand,Z/16,3,0,"k=8t-1, t odd*2^m",exact
+23,3,odd-primary image J,Z/9,6,1,k=(2p-2)t-1,exact in all dimensions
+23,5,odd-primary image J,Z/5,3,0,k=(2p-2)t-1,exact in all dimensions
+23,7,odd-primary image J,Z/7,2,0,k=(2p-2)t-1,exact in all dimensions
+23,13,odd-primary image J,Z/13,1,0,k=(2p-2)t-1,exact in all dimensions
+24,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+25,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+26,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+27,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+27,3,odd-primary image J,Z/3,7,0,k=(2p-2)t-1,exact in all dimensions
+31,2,2-primary image-J cyclic summand,Z/64,4,2,"k=8t-1, t odd*2^m",exact
+31,3,odd-primary image J,Z/3,8,0,k=(2p-2)t-1,exact in all dimensions
+31,5,odd-primary image J,Z/5,4,0,k=(2p-2)t-1,exact in all dimensions
+31,17,odd-primary image J,Z/17,1,0,k=(2p-2)t-1,exact in all dimensions
+32,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+33,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+34,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+35,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+35,3,odd-primary image J,Z/27,9,2,k=(2p-2)t-1,exact in all dimensions
+35,7,odd-primary image J,Z/7,3,0,k=(2p-2)t-1,exact in all dimensions
+35,19,odd-primary image J,Z/19,1,0,k=(2p-2)t-1,exact in all dimensions
+39,2,2-primary image-J cyclic summand,Z/16,5,0,"k=8t-1, t odd*2^m",exact
+39,3,odd-primary image J,Z/3,10,0,k=(2p-2)t-1,exact in all dimensions
+39,5,odd-primary image J,Z/25,5,1,k=(2p-2)t-1,exact in all dimensions
+39,11,odd-primary image J,Z/11,2,0,k=(2p-2)t-1,exact in all dimensions
+40,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+41,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+42,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+43,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+43,3,odd-primary image J,Z/3,11,0,k=(2p-2)t-1,exact in all dimensions
+43,23,odd-primary image J,Z/23,1,0,k=(2p-2)t-1,exact in all dimensions
+47,2,2-primary image-J cyclic summand,Z/32,6,1,"k=8t-1, t odd*2^m",exact
+47,3,odd-primary image J,Z/9,12,1,k=(2p-2)t-1,exact in all dimensions
+47,5,odd-primary image J,Z/5,6,0,k=(2p-2)t-1,exact in all dimensions
+47,7,odd-primary image J,Z/7,4,0,k=(2p-2)t-1,exact in all dimensions
+47,13,odd-primary image J,Z/13,2,0,k=(2p-2)t-1,exact in all dimensions
+48,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+49,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+50,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+51,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+51,3,odd-primary image J,Z/3,13,0,k=(2p-2)t-1,exact in all dimensions
+55,2,2-primary image-J cyclic summand,Z/16,7,0,"k=8t-1, t odd*2^m",exact
+55,3,odd-primary image J,Z/3,14,0,k=(2p-2)t-1,exact in all dimensions
+55,5,odd-primary image J,Z/5,7,0,k=(2p-2)t-1,exact in all dimensions
+55,29,odd-primary image J,Z/29,1,0,k=(2p-2)t-1,exact in all dimensions
+56,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+57,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+58,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+59,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+59,3,odd-primary image J,Z/9,15,1,k=(2p-2)t-1,exact in all dimensions
+59,7,odd-primary image J,Z/7,5,0,k=(2p-2)t-1,exact in all dimensions
+59,11,odd-primary image J,Z/11,3,0,k=(2p-2)t-1,exact in all dimensions
+59,31,odd-primary image J,Z/31,1,0,k=(2p-2)t-1,exact in all dimensions
+63,2,2-primary image-J cyclic summand,Z/128,8,3,"k=8t-1, t odd*2^m",exact
+63,3,odd-primary image J,Z/3,16,0,k=(2p-2)t-1,exact in all dimensions
+63,5,odd-primary image J,Z/5,8,0,k=(2p-2)t-1,exact in all dimensions
+63,17,odd-primary image J,Z/17,2,0,k=(2p-2)t-1,exact in all dimensions
+64,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+65,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+66,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+67,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+67,3,odd-primary image J,Z/3,17,0,k=(2p-2)t-1,exact in all dimensions
+71,2,2-primary image-J cyclic summand,Z/16,9,0,"k=8t-1, t odd*2^m",exact
+71,3,odd-primary image J,Z/27,18,2,k=(2p-2)t-1,exact in all dimensions
+71,5,odd-primary image J,Z/5,9,0,k=(2p-2)t-1,exact in all dimensions
+71,7,odd-primary image J,Z/7,6,0,k=(2p-2)t-1,exact in all dimensions
+71,13,odd-primary image J,Z/13,3,0,k=(2p-2)t-1,exact in all dimensions
+71,19,odd-primary image J,Z/19,2,0,k=(2p-2)t-1,exact in all dimensions
+71,37,odd-primary image J,Z/37,1,0,k=(2p-2)t-1,exact in all dimensions
+72,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+73,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+74,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+75,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+75,3,odd-primary image J,Z/3,19,0,k=(2p-2)t-1,exact in all dimensions
+79,2,2-primary image-J cyclic summand,Z/32,10,1,"k=8t-1, t odd*2^m",exact
+79,3,odd-primary image J,Z/3,20,0,k=(2p-2)t-1,exact in all dimensions
+79,5,odd-primary image J,Z/25,10,1,k=(2p-2)t-1,exact in all dimensions
+79,11,odd-primary image J,Z/11,4,0,k=(2p-2)t-1,exact in all dimensions
+79,41,odd-primary image J,Z/41,1,0,k=(2p-2)t-1,exact in all dimensions
+80,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+81,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+82,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+83,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+83,3,odd-primary image J,Z/9,21,1,k=(2p-2)t-1,exact in all dimensions
+83,7,odd-primary image J,Z/49,7,1,k=(2p-2)t-1,exact in all dimensions
+83,43,odd-primary image J,Z/43,1,0,k=(2p-2)t-1,exact in all dimensions
+87,2,2-primary image-J cyclic summand,Z/16,11,0,"k=8t-1, t odd*2^m",exact
+87,3,odd-primary image J,Z/3,22,0,k=(2p-2)t-1,exact in all dimensions
+87,5,odd-primary image J,Z/5,11,0,k=(2p-2)t-1,exact in all dimensions
+87,23,odd-primary image J,Z/23,2,0,k=(2p-2)t-1,exact in all dimensions
+88,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+89,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+90,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+91,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+91,3,odd-primary image J,Z/3,23,0,k=(2p-2)t-1,exact in all dimensions
+91,47,odd-primary image J,Z/47,1,0,k=(2p-2)t-1,exact in all dimensions
+95,2,2-primary image-J cyclic summand,Z/64,12,2,"k=8t-1, t odd*2^m",exact
+95,3,odd-primary image J,Z/9,24,1,k=(2p-2)t-1,exact in all dimensions
+95,5,odd-primary image J,Z/5,12,0,k=(2p-2)t-1,exact in all dimensions
+95,7,odd-primary image J,Z/7,8,0,k=(2p-2)t-1,exact in all dimensions
+95,13,odd-primary image J,Z/13,4,0,k=(2p-2)t-1,exact in all dimensions
+95,17,odd-primary image J,Z/17,3,0,k=(2p-2)t-1,exact in all dimensions
+96,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+97,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+98,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+99,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+99,3,odd-primary image J,Z/3,25,0,k=(2p-2)t-1,exact in all dimensions
+99,11,odd-primary image J,Z/11,5,0,k=(2p-2)t-1,exact in all dimensions
+103,2,2-primary image-J cyclic summand,Z/16,13,0,"k=8t-1, t odd*2^m",exact
+103,3,odd-primary image J,Z/3,26,0,k=(2p-2)t-1,exact in all dimensions
+103,5,odd-primary image J,Z/5,13,0,k=(2p-2)t-1,exact in all dimensions
+103,53,odd-primary image J,Z/53,1,0,k=(2p-2)t-1,exact in all dimensions
+104,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+105,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+106,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+107,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+107,3,odd-primary image J,Z/81,27,3,k=(2p-2)t-1,exact in all dimensions
+107,7,odd-primary image J,Z/7,9,0,k=(2p-2)t-1,exact in all dimensions
+107,19,odd-primary image J,Z/19,3,0,k=(2p-2)t-1,exact in all dimensions
+111,2,2-primary image-J cyclic summand,Z/32,14,1,"k=8t-1, t odd*2^m",exact
+111,3,odd-primary image J,Z/3,28,0,k=(2p-2)t-1,exact in all dimensions
+111,5,odd-primary image J,Z/5,14,0,k=(2p-2)t-1,exact in all dimensions
+111,29,odd-primary image J,Z/29,2,0,k=(2p-2)t-1,exact in all dimensions
+112,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+113,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+114,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+115,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+115,3,odd-primary image J,Z/3,29,0,k=(2p-2)t-1,exact in all dimensions
+115,59,odd-primary image J,Z/59,1,0,k=(2p-2)t-1,exact in all dimensions
+119,2,2-primary image-J cyclic summand,Z/16,15,0,"k=8t-1, t odd*2^m",exact
+119,3,odd-primary image J,Z/9,30,1,k=(2p-2)t-1,exact in all dimensions
+119,5,odd-primary image J,Z/25,15,1,k=(2p-2)t-1,exact in all dimensions
+119,7,odd-primary image J,Z/7,10,0,k=(2p-2)t-1,exact in all dimensions
+119,11,odd-primary image J,Z/11,6,0,k=(2p-2)t-1,exact in all dimensions
+119,13,odd-primary image J,Z/13,5,0,k=(2p-2)t-1,exact in all dimensions
+119,31,odd-primary image J,Z/31,2,0,k=(2p-2)t-1,exact in all dimensions
+119,61,odd-primary image J,Z/61,1,0,k=(2p-2)t-1,exact in all dimensions
+120,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+121,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+122,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+123,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+123,3,odd-primary image J,Z/3,31,0,k=(2p-2)t-1,exact in all dimensions
+127,2,2-primary image-J cyclic summand,Z/256,16,4,"k=8t-1, t odd*2^m",exact
+127,3,odd-primary image J,Z/3,32,0,k=(2p-2)t-1,exact in all dimensions
+127,5,odd-primary image J,Z/5,16,0,k=(2p-2)t-1,exact in all dimensions
+127,17,odd-primary image J,Z/17,4,0,k=(2p-2)t-1,exact in all dimensions
+128,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+129,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+130,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+131,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+131,3,odd-primary image J,Z/9,33,1,k=(2p-2)t-1,exact in all dimensions
+131,7,odd-primary image J,Z/7,11,0,k=(2p-2)t-1,exact in all dimensions
+131,23,odd-primary image J,Z/23,3,0,k=(2p-2)t-1,exact in all dimensions
+131,67,odd-primary image J,Z/67,1,0,k=(2p-2)t-1,exact in all dimensions
+135,2,2-primary image-J cyclic summand,Z/16,17,0,"k=8t-1, t odd*2^m",exact
+135,3,odd-primary image J,Z/3,34,0,k=(2p-2)t-1,exact in all dimensions
+135,5,odd-primary image J,Z/5,17,0,k=(2p-2)t-1,exact in all dimensions
+136,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+137,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+138,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+139,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+139,3,odd-primary image J,Z/3,35,0,k=(2p-2)t-1,exact in all dimensions
+139,11,odd-primary image J,Z/11,7,0,k=(2p-2)t-1,exact in all dimensions
+139,71,odd-primary image J,Z/71,1,0,k=(2p-2)t-1,exact in all dimensions
+143,2,2-primary image-J cyclic summand,Z/32,18,1,"k=8t-1, t odd*2^m",exact
+143,3,odd-primary image J,Z/27,36,2,k=(2p-2)t-1,exact in all dimensions
+143,5,odd-primary image J,Z/5,18,0,k=(2p-2)t-1,exact in all dimensions
+143,7,odd-primary image J,Z/7,12,0,k=(2p-2)t-1,exact in all dimensions
+143,13,odd-primary image J,Z/13,6,0,k=(2p-2)t-1,exact in all dimensions
+143,19,odd-primary image J,Z/19,4,0,k=(2p-2)t-1,exact in all dimensions
+143,37,odd-primary image J,Z/37,2,0,k=(2p-2)t-1,exact in all dimensions
+143,73,odd-primary image J,Z/73,1,0,k=(2p-2)t-1,exact in all dimensions
+144,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+145,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+146,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+147,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+147,3,odd-primary image J,Z/3,37,0,k=(2p-2)t-1,exact in all dimensions
+151,2,2-primary image-J cyclic summand,Z/16,19,0,"k=8t-1, t odd*2^m",exact
+151,3,odd-primary image J,Z/3,38,0,k=(2p-2)t-1,exact in all dimensions
+151,5,odd-primary image J,Z/5,19,0,k=(2p-2)t-1,exact in all dimensions
+152,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+153,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+154,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+155,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+155,3,odd-primary image J,Z/9,39,1,k=(2p-2)t-1,exact in all dimensions
+155,7,odd-primary image J,Z/7,13,0,k=(2p-2)t-1,exact in all dimensions
+155,79,odd-primary image J,Z/79,1,0,k=(2p-2)t-1,exact in all dimensions
+159,2,2-primary image-J cyclic summand,Z/64,20,2,"k=8t-1, t odd*2^m",exact
+159,3,odd-primary image J,Z/3,40,0,k=(2p-2)t-1,exact in all dimensions
+159,5,odd-primary image J,Z/25,20,1,k=(2p-2)t-1,exact in all dimensions
+159,11,odd-primary image J,Z/11,8,0,k=(2p-2)t-1,exact in all dimensions
+159,17,odd-primary image J,Z/17,5,0,k=(2p-2)t-1,exact in all dimensions
+159,41,odd-primary image J,Z/41,2,0,k=(2p-2)t-1,exact in all dimensions
+160,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+161,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+162,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+163,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+163,3,odd-primary image J,Z/3,41,0,k=(2p-2)t-1,exact in all dimensions
+163,83,odd-primary image J,Z/83,1,0,k=(2p-2)t-1,exact in all dimensions
+167,2,2-primary image-J cyclic summand,Z/16,21,0,"k=8t-1, t odd*2^m",exact
+167,3,odd-primary image J,Z/9,42,1,k=(2p-2)t-1,exact in all dimensions
+167,5,odd-primary image J,Z/5,21,0,k=(2p-2)t-1,exact in all dimensions
+167,7,odd-primary image J,Z/49,14,1,k=(2p-2)t-1,exact in all dimensions
+167,13,odd-primary image J,Z/13,7,0,k=(2p-2)t-1,exact in all dimensions
+167,29,odd-primary image J,Z/29,3,0,k=(2p-2)t-1,exact in all dimensions
+167,43,odd-primary image J,Z/43,2,0,k=(2p-2)t-1,exact in all dimensions
+168,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+169,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+170,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+171,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+171,3,odd-primary image J,Z/3,43,0,k=(2p-2)t-1,exact in all dimensions
+175,2,2-primary image-J cyclic summand,Z/32,22,1,"k=8t-1, t odd*2^m",exact
+175,3,odd-primary image J,Z/3,44,0,k=(2p-2)t-1,exact in all dimensions
+175,5,odd-primary image J,Z/5,22,0,k=(2p-2)t-1,exact in all dimensions
+175,23,odd-primary image J,Z/23,4,0,k=(2p-2)t-1,exact in all dimensions
+175,89,odd-primary image J,Z/89,1,0,k=(2p-2)t-1,exact in all dimensions
+176,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+177,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+178,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+179,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+179,3,odd-primary image J,Z/27,45,2,k=(2p-2)t-1,exact in all dimensions
+179,7,odd-primary image J,Z/7,15,0,k=(2p-2)t-1,exact in all dimensions
+179,11,odd-primary image J,Z/11,9,0,k=(2p-2)t-1,exact in all dimensions
+179,19,odd-primary image J,Z/19,5,0,k=(2p-2)t-1,exact in all dimensions
+179,31,odd-primary image J,Z/31,3,0,k=(2p-2)t-1,exact in all dimensions
+183,2,2-primary image-J cyclic summand,Z/16,23,0,"k=8t-1, t odd*2^m",exact
+183,3,odd-primary image J,Z/3,46,0,k=(2p-2)t-1,exact in all dimensions
+183,5,odd-primary image J,Z/5,23,0,k=(2p-2)t-1,exact in all dimensions
+183,47,odd-primary image J,Z/47,2,0,k=(2p-2)t-1,exact in all dimensions
+184,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+185,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+186,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+187,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+187,3,odd-primary image J,Z/3,47,0,k=(2p-2)t-1,exact in all dimensions
+191,2,2-primary image-J cyclic summand,Z/128,24,3,"k=8t-1, t odd*2^m",exact
+191,3,odd-primary image J,Z/9,48,1,k=(2p-2)t-1,exact in all dimensions
+191,5,odd-primary image J,Z/5,24,0,k=(2p-2)t-1,exact in all dimensions
+191,7,odd-primary image J,Z/7,16,0,k=(2p-2)t-1,exact in all dimensions
+191,13,odd-primary image J,Z/13,8,0,k=(2p-2)t-1,exact in all dimensions
+191,17,odd-primary image J,Z/17,6,0,k=(2p-2)t-1,exact in all dimensions
+191,97,odd-primary image J,Z/97,1,0,k=(2p-2)t-1,exact in all dimensions
+192,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+193,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+194,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+195,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+195,3,odd-primary image J,Z/3,49,0,k=(2p-2)t-1,exact in all dimensions
+199,2,2-primary image-J cyclic summand,Z/16,25,0,"k=8t-1, t odd*2^m",exact
+199,3,odd-primary image J,Z/3,50,0,k=(2p-2)t-1,exact in all dimensions
+199,5,odd-primary image J,Z/125,25,2,k=(2p-2)t-1,exact in all dimensions
+199,11,odd-primary image J,Z/11,10,0,k=(2p-2)t-1,exact in all dimensions
+199,101,odd-primary image J,Z/101,1,0,k=(2p-2)t-1,exact in all dimensions
+200,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+201,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+202,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+203,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+203,3,odd-primary image J,Z/9,51,1,k=(2p-2)t-1,exact in all dimensions
+203,7,odd-primary image J,Z/7,17,0,k=(2p-2)t-1,exact in all dimensions
+203,103,odd-primary image J,Z/103,1,0,k=(2p-2)t-1,exact in all dimensions
+207,2,2-primary image-J cyclic summand,Z/32,26,1,"k=8t-1, t odd*2^m",exact
+207,3,odd-primary image J,Z/3,52,0,k=(2p-2)t-1,exact in all dimensions
+207,5,odd-primary image J,Z/5,26,0,k=(2p-2)t-1,exact in all dimensions
+207,53,odd-primary image J,Z/53,2,0,k=(2p-2)t-1,exact in all dimensions
+208,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+209,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+210,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+211,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+211,3,odd-primary image J,Z/3,53,0,k=(2p-2)t-1,exact in all dimensions
+211,107,odd-primary image J,Z/107,1,0,k=(2p-2)t-1,exact in all dimensions
+215,2,2-primary image-J cyclic summand,Z/16,27,0,"k=8t-1, t odd*2^m",exact
+215,3,odd-primary image J,Z/81,54,3,k=(2p-2)t-1,exact in all dimensions
+215,5,odd-primary image J,Z/5,27,0,k=(2p-2)t-1,exact in all dimensions
+215,7,odd-primary image J,Z/7,18,0,k=(2p-2)t-1,exact in all dimensions
+215,13,odd-primary image J,Z/13,9,0,k=(2p-2)t-1,exact in all dimensions
+215,19,odd-primary image J,Z/19,6,0,k=(2p-2)t-1,exact in all dimensions
+215,37,odd-primary image J,Z/37,3,0,k=(2p-2)t-1,exact in all dimensions
+215,109,odd-primary image J,Z/109,1,0,k=(2p-2)t-1,exact in all dimensions
+216,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+217,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+218,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+219,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+219,3,odd-primary image J,Z/3,55,0,k=(2p-2)t-1,exact in all dimensions
+219,11,odd-primary image J,Z/121,11,1,k=(2p-2)t-1,exact in all dimensions
+219,23,odd-primary image J,Z/23,5,0,k=(2p-2)t-1,exact in all dimensions
+223,2,2-primary image-J cyclic summand,Z/64,28,2,"k=8t-1, t odd*2^m",exact
+223,3,odd-primary image J,Z/3,56,0,k=(2p-2)t-1,exact in all dimensions
+223,5,odd-primary image J,Z/5,28,0,k=(2p-2)t-1,exact in all dimensions
+223,17,odd-primary image J,Z/17,7,0,k=(2p-2)t-1,exact in all dimensions
+223,29,odd-primary image J,Z/29,4,0,k=(2p-2)t-1,exact in all dimensions
+223,113,odd-primary image J,Z/113,1,0,k=(2p-2)t-1,exact in all dimensions
+224,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+225,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+226,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+227,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+227,3,odd-primary image J,Z/9,57,1,k=(2p-2)t-1,exact in all dimensions
+227,7,odd-primary image J,Z/7,19,0,k=(2p-2)t-1,exact in all dimensions
+231,2,2-primary image-J cyclic summand,Z/16,29,0,"k=8t-1, t odd*2^m",exact
+231,3,odd-primary image J,Z/3,58,0,k=(2p-2)t-1,exact in all dimensions
+231,5,odd-primary image J,Z/5,29,0,k=(2p-2)t-1,exact in all dimensions
+231,59,odd-primary image J,Z/59,2,0,k=(2p-2)t-1,exact in all dimensions
+232,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+233,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+234,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+235,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+235,3,odd-primary image J,Z/3,59,0,k=(2p-2)t-1,exact in all dimensions
+239,2,2-primary image-J cyclic summand,Z/32,30,1,"k=8t-1, t odd*2^m",exact
+239,3,odd-primary image J,Z/9,60,1,k=(2p-2)t-1,exact in all dimensions
+239,5,odd-primary image J,Z/25,30,1,k=(2p-2)t-1,exact in all dimensions
+239,7,odd-primary image J,Z/7,20,0,k=(2p-2)t-1,exact in all dimensions
+239,11,odd-primary image J,Z/11,12,0,k=(2p-2)t-1,exact in all dimensions
+239,13,odd-primary image J,Z/13,10,0,k=(2p-2)t-1,exact in all dimensions
+239,31,odd-primary image J,Z/31,4,0,k=(2p-2)t-1,exact in all dimensions
+239,41,odd-primary image J,Z/41,3,0,k=(2p-2)t-1,exact in all dimensions
+239,61,odd-primary image J,Z/61,2,0,k=(2p-2)t-1,exact in all dimensions
+240,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+241,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+242,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+243,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+243,3,odd-primary image J,Z/3,61,0,k=(2p-2)t-1,exact in all dimensions
+247,2,2-primary image-J cyclic summand,Z/16,31,0,"k=8t-1, t odd*2^m",exact
+247,3,odd-primary image J,Z/3,62,0,k=(2p-2)t-1,exact in all dimensions
+247,5,odd-primary image J,Z/5,31,0,k=(2p-2)t-1,exact in all dimensions
+248,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+249,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+250,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+251,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+251,3,odd-primary image J,Z/27,63,2,k=(2p-2)t-1,exact in all dimensions
+251,7,odd-primary image J,Z/49,21,1,k=(2p-2)t-1,exact in all dimensions
+251,19,odd-primary image J,Z/19,7,0,k=(2p-2)t-1,exact in all dimensions
+251,43,odd-primary image J,Z/43,3,0,k=(2p-2)t-1,exact in all dimensions
+251,127,odd-primary image J,Z/127,1,0,k=(2p-2)t-1,exact in all dimensions
+255,2,2-primary image-J cyclic summand,Z/512,32,5,"k=8t-1, t odd*2^m",exact
+255,3,odd-primary image J,Z/3,64,0,k=(2p-2)t-1,exact in all dimensions
+255,5,odd-primary image J,Z/5,32,0,k=(2p-2)t-1,exact in all dimensions
+255,17,odd-primary image J,Z/17,8,0,k=(2p-2)t-1,exact in all dimensions
+256,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+257,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+258,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+259,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+259,3,odd-primary image J,Z/3,65,0,k=(2p-2)t-1,exact in all dimensions
+259,11,odd-primary image J,Z/11,13,0,k=(2p-2)t-1,exact in all dimensions
+259,131,odd-primary image J,Z/131,1,0,k=(2p-2)t-1,exact in all dimensions
+263,2,2-primary image-J cyclic summand,Z/16,33,0,"k=8t-1, t odd*2^m",exact
+263,3,odd-primary image J,Z/9,66,1,k=(2p-2)t-1,exact in all dimensions
+263,5,odd-primary image J,Z/5,33,0,k=(2p-2)t-1,exact in all dimensions
+263,7,odd-primary image J,Z/7,22,0,k=(2p-2)t-1,exact in all dimensions
+263,13,odd-primary image J,Z/13,11,0,k=(2p-2)t-1,exact in all dimensions
+263,23,odd-primary image J,Z/23,6,0,k=(2p-2)t-1,exact in all dimensions
+263,67,odd-primary image J,Z/67,2,0,k=(2p-2)t-1,exact in all dimensions
+264,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+265,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+266,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+267,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+267,3,odd-primary image J,Z/3,67,0,k=(2p-2)t-1,exact in all dimensions
+271,2,2-primary image-J cyclic summand,Z/32,34,1,"k=8t-1, t odd*2^m",exact
+271,3,odd-primary image J,Z/3,68,0,k=(2p-2)t-1,exact in all dimensions
+271,5,odd-primary image J,Z/5,34,0,k=(2p-2)t-1,exact in all dimensions
+271,137,odd-primary image J,Z/137,1,0,k=(2p-2)t-1,exact in all dimensions
+272,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+273,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+274,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+275,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+275,3,odd-primary image J,Z/9,69,1,k=(2p-2)t-1,exact in all dimensions
+275,7,odd-primary image J,Z/7,23,0,k=(2p-2)t-1,exact in all dimensions
+275,47,odd-primary image J,Z/47,3,0,k=(2p-2)t-1,exact in all dimensions
+275,139,odd-primary image J,Z/139,1,0,k=(2p-2)t-1,exact in all dimensions
+279,2,2-primary image-J cyclic summand,Z/16,35,0,"k=8t-1, t odd*2^m",exact
+279,3,odd-primary image J,Z/3,70,0,k=(2p-2)t-1,exact in all dimensions
+279,5,odd-primary image J,Z/25,35,1,k=(2p-2)t-1,exact in all dimensions
+279,11,odd-primary image J,Z/11,14,0,k=(2p-2)t-1,exact in all dimensions
+279,29,odd-primary image J,Z/29,5,0,k=(2p-2)t-1,exact in all dimensions
+279,71,odd-primary image J,Z/71,2,0,k=(2p-2)t-1,exact in all dimensions
+280,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+281,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+282,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+283,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+283,3,odd-primary image J,Z/3,71,0,k=(2p-2)t-1,exact in all dimensions
+287,2,2-primary image-J cyclic summand,Z/64,36,2,"k=8t-1, t odd*2^m",exact
+287,3,odd-primary image J,Z/27,72,2,k=(2p-2)t-1,exact in all dimensions
+287,5,odd-primary image J,Z/5,36,0,k=(2p-2)t-1,exact in all dimensions
+287,7,odd-primary image J,Z/7,24,0,k=(2p-2)t-1,exact in all dimensions
+287,13,odd-primary image J,Z/13,12,0,k=(2p-2)t-1,exact in all dimensions
+287,17,odd-primary image J,Z/17,9,0,k=(2p-2)t-1,exact in all dimensions
+287,19,odd-primary image J,Z/19,8,0,k=(2p-2)t-1,exact in all dimensions
+287,37,odd-primary image J,Z/37,4,0,k=(2p-2)t-1,exact in all dimensions
+287,73,odd-primary image J,Z/73,2,0,k=(2p-2)t-1,exact in all dimensions
+288,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+289,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+290,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+291,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+291,3,odd-primary image J,Z/3,73,0,k=(2p-2)t-1,exact in all dimensions
+295,2,2-primary image-J cyclic summand,Z/16,37,0,"k=8t-1, t odd*2^m",exact
+295,3,odd-primary image J,Z/3,74,0,k=(2p-2)t-1,exact in all dimensions
+295,5,odd-primary image J,Z/5,37,0,k=(2p-2)t-1,exact in all dimensions
+295,149,odd-primary image J,Z/149,1,0,k=(2p-2)t-1,exact in all dimensions
+296,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+297,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+298,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+299,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+299,3,odd-primary image J,Z/9,75,1,k=(2p-2)t-1,exact in all dimensions
+299,7,odd-primary image J,Z/7,25,0,k=(2p-2)t-1,exact in all dimensions
+299,11,odd-primary image J,Z/11,15,0,k=(2p-2)t-1,exact in all dimensions
+299,31,odd-primary image J,Z/31,5,0,k=(2p-2)t-1,exact in all dimensions
+299,151,odd-primary image J,Z/151,1,0,k=(2p-2)t-1,exact in all dimensions
+303,2,2-primary image-J cyclic summand,Z/32,38,1,"k=8t-1, t odd*2^m",exact
+303,3,odd-primary image J,Z/3,76,0,k=(2p-2)t-1,exact in all dimensions
+303,5,odd-primary image J,Z/5,38,0,k=(2p-2)t-1,exact in all dimensions
+304,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+305,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+306,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+307,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+307,3,odd-primary image J,Z/3,77,0,k=(2p-2)t-1,exact in all dimensions
+307,23,odd-primary image J,Z/23,7,0,k=(2p-2)t-1,exact in all dimensions
+311,2,2-primary image-J cyclic summand,Z/16,39,0,"k=8t-1, t odd*2^m",exact
+311,3,odd-primary image J,Z/9,78,1,k=(2p-2)t-1,exact in all dimensions
+311,5,odd-primary image J,Z/5,39,0,k=(2p-2)t-1,exact in all dimensions
+311,7,odd-primary image J,Z/7,26,0,k=(2p-2)t-1,exact in all dimensions
+311,13,odd-primary image J,Z/169,13,1,k=(2p-2)t-1,exact in all dimensions
+311,53,odd-primary image J,Z/53,3,0,k=(2p-2)t-1,exact in all dimensions
+311,79,odd-primary image J,Z/79,2,0,k=(2p-2)t-1,exact in all dimensions
+311,157,odd-primary image J,Z/157,1,0,k=(2p-2)t-1,exact in all dimensions
+312,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+313,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+314,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+315,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+315,3,odd-primary image J,Z/3,79,0,k=(2p-2)t-1,exact in all dimensions
+319,2,2-primary image-J cyclic summand,Z/128,40,3,"k=8t-1, t odd*2^m",exact
+319,3,odd-primary image J,Z/3,80,0,k=(2p-2)t-1,exact in all dimensions
+319,5,odd-primary image J,Z/25,40,1,k=(2p-2)t-1,exact in all dimensions
+319,11,odd-primary image J,Z/11,16,0,k=(2p-2)t-1,exact in all dimensions
+319,17,odd-primary image J,Z/17,10,0,k=(2p-2)t-1,exact in all dimensions
+319,41,odd-primary image J,Z/41,4,0,k=(2p-2)t-1,exact in all dimensions
+320,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+321,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+322,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+323,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+323,3,odd-primary image J,Z/243,81,4,k=(2p-2)t-1,exact in all dimensions
+323,7,odd-primary image J,Z/7,27,0,k=(2p-2)t-1,exact in all dimensions
+323,19,odd-primary image J,Z/19,9,0,k=(2p-2)t-1,exact in all dimensions
+323,163,odd-primary image J,Z/163,1,0,k=(2p-2)t-1,exact in all dimensions
+327,2,2-primary image-J cyclic summand,Z/16,41,0,"k=8t-1, t odd*2^m",exact
+327,3,odd-primary image J,Z/3,82,0,k=(2p-2)t-1,exact in all dimensions
+327,5,odd-primary image J,Z/5,41,0,k=(2p-2)t-1,exact in all dimensions
+327,83,odd-primary image J,Z/83,2,0,k=(2p-2)t-1,exact in all dimensions
+328,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+329,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+330,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+331,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+331,3,odd-primary image J,Z/3,83,0,k=(2p-2)t-1,exact in all dimensions
+331,167,odd-primary image J,Z/167,1,0,k=(2p-2)t-1,exact in all dimensions
+335,2,2-primary image-J cyclic summand,Z/32,42,1,"k=8t-1, t odd*2^m",exact
+335,3,odd-primary image J,Z/9,84,1,k=(2p-2)t-1,exact in all dimensions
+335,5,odd-primary image J,Z/5,42,0,k=(2p-2)t-1,exact in all dimensions
+335,7,odd-primary image J,Z/49,28,1,k=(2p-2)t-1,exact in all dimensions
+335,13,odd-primary image J,Z/13,14,0,k=(2p-2)t-1,exact in all dimensions
+335,29,odd-primary image J,Z/29,6,0,k=(2p-2)t-1,exact in all dimensions
+335,43,odd-primary image J,Z/43,4,0,k=(2p-2)t-1,exact in all dimensions
+336,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+337,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+338,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+339,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+339,3,odd-primary image J,Z/3,85,0,k=(2p-2)t-1,exact in all dimensions
+339,11,odd-primary image J,Z/11,17,0,k=(2p-2)t-1,exact in all dimensions
+343,2,2-primary image-J cyclic summand,Z/16,43,0,"k=8t-1, t odd*2^m",exact
+343,3,odd-primary image J,Z/3,86,0,k=(2p-2)t-1,exact in all dimensions
+343,5,odd-primary image J,Z/5,43,0,k=(2p-2)t-1,exact in all dimensions
+343,173,odd-primary image J,Z/173,1,0,k=(2p-2)t-1,exact in all dimensions
+344,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+345,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+346,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+347,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+347,3,odd-primary image J,Z/9,87,1,k=(2p-2)t-1,exact in all dimensions
+347,7,odd-primary image J,Z/7,29,0,k=(2p-2)t-1,exact in all dimensions
+347,59,odd-primary image J,Z/59,3,0,k=(2p-2)t-1,exact in all dimensions
+351,2,2-primary image-J cyclic summand,Z/64,44,2,"k=8t-1, t odd*2^m",exact
+351,3,odd-primary image J,Z/3,88,0,k=(2p-2)t-1,exact in all dimensions
+351,5,odd-primary image J,Z/5,44,0,k=(2p-2)t-1,exact in all dimensions
+351,17,odd-primary image J,Z/17,11,0,k=(2p-2)t-1,exact in all dimensions
+351,23,odd-primary image J,Z/23,8,0,k=(2p-2)t-1,exact in all dimensions
+351,89,odd-primary image J,Z/89,2,0,k=(2p-2)t-1,exact in all dimensions
+352,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+353,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+354,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+355,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+355,3,odd-primary image J,Z/3,89,0,k=(2p-2)t-1,exact in all dimensions
+355,179,odd-primary image J,Z/179,1,0,k=(2p-2)t-1,exact in all dimensions
+359,2,2-primary image-J cyclic summand,Z/16,45,0,"k=8t-1, t odd*2^m",exact
+359,3,odd-primary image J,Z/27,90,2,k=(2p-2)t-1,exact in all dimensions
+359,5,odd-primary image J,Z/25,45,1,k=(2p-2)t-1,exact in all dimensions
+359,7,odd-primary image J,Z/7,30,0,k=(2p-2)t-1,exact in all dimensions
+359,11,odd-primary image J,Z/11,18,0,k=(2p-2)t-1,exact in all dimensions
+359,13,odd-primary image J,Z/13,15,0,k=(2p-2)t-1,exact in all dimensions
+359,19,odd-primary image J,Z/19,10,0,k=(2p-2)t-1,exact in all dimensions
+359,31,odd-primary image J,Z/31,6,0,k=(2p-2)t-1,exact in all dimensions
+359,37,odd-primary image J,Z/37,5,0,k=(2p-2)t-1,exact in all dimensions
+359,61,odd-primary image J,Z/61,3,0,k=(2p-2)t-1,exact in all dimensions
+359,181,odd-primary image J,Z/181,1,0,k=(2p-2)t-1,exact in all dimensions
+360,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+361,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+362,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+363,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+363,3,odd-primary image J,Z/3,91,0,k=(2p-2)t-1,exact in all dimensions
+367,2,2-primary image-J cyclic summand,Z/32,46,1,"k=8t-1, t odd*2^m",exact
+367,3,odd-primary image J,Z/3,92,0,k=(2p-2)t-1,exact in all dimensions
+367,5,odd-primary image J,Z/5,46,0,k=(2p-2)t-1,exact in all dimensions
+367,47,odd-primary image J,Z/47,4,0,k=(2p-2)t-1,exact in all dimensions
+368,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+369,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+370,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+371,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+371,3,odd-primary image J,Z/9,93,1,k=(2p-2)t-1,exact in all dimensions
+371,7,odd-primary image J,Z/7,31,0,k=(2p-2)t-1,exact in all dimensions
+375,2,2-primary image-J cyclic summand,Z/16,47,0,"k=8t-1, t odd*2^m",exact
+375,3,odd-primary image J,Z/3,94,0,k=(2p-2)t-1,exact in all dimensions
+375,5,odd-primary image J,Z/5,47,0,k=(2p-2)t-1,exact in all dimensions
+376,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+377,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+378,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+379,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+379,3,odd-primary image J,Z/3,95,0,k=(2p-2)t-1,exact in all dimensions
+379,11,odd-primary image J,Z/11,19,0,k=(2p-2)t-1,exact in all dimensions
+379,191,odd-primary image J,Z/191,1,0,k=(2p-2)t-1,exact in all dimensions
+383,2,2-primary image-J cyclic summand,Z/256,48,4,"k=8t-1, t odd*2^m",exact
+383,3,odd-primary image J,Z/9,96,1,k=(2p-2)t-1,exact in all dimensions
+383,5,odd-primary image J,Z/5,48,0,k=(2p-2)t-1,exact in all dimensions
+383,7,odd-primary image J,Z/7,32,0,k=(2p-2)t-1,exact in all dimensions
+383,13,odd-primary image J,Z/13,16,0,k=(2p-2)t-1,exact in all dimensions
+383,17,odd-primary image J,Z/17,12,0,k=(2p-2)t-1,exact in all dimensions
+383,97,odd-primary image J,Z/97,2,0,k=(2p-2)t-1,exact in all dimensions
+383,193,odd-primary image J,Z/193,1,0,k=(2p-2)t-1,exact in all dimensions
+384,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+385,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+386,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+387,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+387,3,odd-primary image J,Z/3,97,0,k=(2p-2)t-1,exact in all dimensions
+391,2,2-primary image-J cyclic summand,Z/16,49,0,"k=8t-1, t odd*2^m",exact
+391,3,odd-primary image J,Z/3,98,0,k=(2p-2)t-1,exact in all dimensions
+391,5,odd-primary image J,Z/5,49,0,k=(2p-2)t-1,exact in all dimensions
+391,29,odd-primary image J,Z/29,7,0,k=(2p-2)t-1,exact in all dimensions
+391,197,odd-primary image J,Z/197,1,0,k=(2p-2)t-1,exact in all dimensions
+392,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+393,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+394,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+395,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+395,3,odd-primary image J,Z/27,99,2,k=(2p-2)t-1,exact in all dimensions
+395,7,odd-primary image J,Z/7,33,0,k=(2p-2)t-1,exact in all dimensions
+395,19,odd-primary image J,Z/19,11,0,k=(2p-2)t-1,exact in all dimensions
+395,23,odd-primary image J,Z/23,9,0,k=(2p-2)t-1,exact in all dimensions
+395,67,odd-primary image J,Z/67,3,0,k=(2p-2)t-1,exact in all dimensions
+395,199,odd-primary image J,Z/199,1,0,k=(2p-2)t-1,exact in all dimensions
+399,2,2-primary image-J cyclic summand,Z/32,50,1,"k=8t-1, t odd*2^m",exact
+399,3,odd-primary image J,Z/3,100,0,k=(2p-2)t-1,exact in all dimensions
+399,5,odd-primary image J,Z/125,50,2,k=(2p-2)t-1,exact in all dimensions
+399,11,odd-primary image J,Z/11,20,0,k=(2p-2)t-1,exact in all dimensions
+399,41,odd-primary image J,Z/41,5,0,k=(2p-2)t-1,exact in all dimensions
+399,101,odd-primary image J,Z/101,2,0,k=(2p-2)t-1,exact in all dimensions
+400,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+401,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+402,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+403,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+403,3,odd-primary image J,Z/3,101,0,k=(2p-2)t-1,exact in all dimensions
+407,2,2-primary image-J cyclic summand,Z/16,51,0,"k=8t-1, t odd*2^m",exact
+407,3,odd-primary image J,Z/9,102,1,k=(2p-2)t-1,exact in all dimensions
+407,5,odd-primary image J,Z/5,51,0,k=(2p-2)t-1,exact in all dimensions
+407,7,odd-primary image J,Z/7,34,0,k=(2p-2)t-1,exact in all dimensions
+407,13,odd-primary image J,Z/13,17,0,k=(2p-2)t-1,exact in all dimensions
+407,103,odd-primary image J,Z/103,2,0,k=(2p-2)t-1,exact in all dimensions
+408,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+409,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+410,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+411,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+411,3,odd-primary image J,Z/3,103,0,k=(2p-2)t-1,exact in all dimensions
+415,2,2-primary image-J cyclic summand,Z/64,52,2,"k=8t-1, t odd*2^m",exact
+415,3,odd-primary image J,Z/3,104,0,k=(2p-2)t-1,exact in all dimensions
+415,5,odd-primary image J,Z/5,52,0,k=(2p-2)t-1,exact in all dimensions
+415,17,odd-primary image J,Z/17,13,0,k=(2p-2)t-1,exact in all dimensions
+415,53,odd-primary image J,Z/53,4,0,k=(2p-2)t-1,exact in all dimensions
+416,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+417,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+418,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+419,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+419,3,odd-primary image J,Z/9,105,1,k=(2p-2)t-1,exact in all dimensions
+419,7,odd-primary image J,Z/49,35,1,k=(2p-2)t-1,exact in all dimensions
+419,11,odd-primary image J,Z/11,21,0,k=(2p-2)t-1,exact in all dimensions
+419,31,odd-primary image J,Z/31,7,0,k=(2p-2)t-1,exact in all dimensions
+419,43,odd-primary image J,Z/43,5,0,k=(2p-2)t-1,exact in all dimensions
+419,71,odd-primary image J,Z/71,3,0,k=(2p-2)t-1,exact in all dimensions
+419,211,odd-primary image J,Z/211,1,0,k=(2p-2)t-1,exact in all dimensions
+423,2,2-primary image-J cyclic summand,Z/16,53,0,"k=8t-1, t odd*2^m",exact
+423,3,odd-primary image J,Z/3,106,0,k=(2p-2)t-1,exact in all dimensions
+423,5,odd-primary image J,Z/5,53,0,k=(2p-2)t-1,exact in all dimensions
+423,107,odd-primary image J,Z/107,2,0,k=(2p-2)t-1,exact in all dimensions
+424,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+425,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+426,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+427,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+427,3,odd-primary image J,Z/3,107,0,k=(2p-2)t-1,exact in all dimensions
+431,2,2-primary image-J cyclic summand,Z/32,54,1,"k=8t-1, t odd*2^m",exact
+431,3,odd-primary image J,Z/81,108,3,k=(2p-2)t-1,exact in all dimensions
+431,5,odd-primary image J,Z/5,54,0,k=(2p-2)t-1,exact in all dimensions
+431,7,odd-primary image J,Z/7,36,0,k=(2p-2)t-1,exact in all dimensions
+431,13,odd-primary image J,Z/13,18,0,k=(2p-2)t-1,exact in all dimensions
+431,19,odd-primary image J,Z/19,12,0,k=(2p-2)t-1,exact in all dimensions
+431,37,odd-primary image J,Z/37,6,0,k=(2p-2)t-1,exact in all dimensions
+431,73,odd-primary image J,Z/73,3,0,k=(2p-2)t-1,exact in all dimensions
+431,109,odd-primary image J,Z/109,2,0,k=(2p-2)t-1,exact in all dimensions
+432,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+433,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+434,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+435,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+435,3,odd-primary image J,Z/3,109,0,k=(2p-2)t-1,exact in all dimensions
+439,2,2-primary image-J cyclic summand,Z/16,55,0,"k=8t-1, t odd*2^m",exact
+439,3,odd-primary image J,Z/3,110,0,k=(2p-2)t-1,exact in all dimensions
+439,5,odd-primary image J,Z/25,55,1,k=(2p-2)t-1,exact in all dimensions
+439,11,odd-primary image J,Z/121,22,1,k=(2p-2)t-1,exact in all dimensions
+439,23,odd-primary image J,Z/23,10,0,k=(2p-2)t-1,exact in all dimensions
+440,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+441,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+442,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+443,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+443,3,odd-primary image J,Z/9,111,1,k=(2p-2)t-1,exact in all dimensions
+443,7,odd-primary image J,Z/7,37,0,k=(2p-2)t-1,exact in all dimensions
+443,223,odd-primary image J,Z/223,1,0,k=(2p-2)t-1,exact in all dimensions
+447,2,2-primary image-J cyclic summand,Z/128,56,3,"k=8t-1, t odd*2^m",exact
+447,3,odd-primary image J,Z/3,112,0,k=(2p-2)t-1,exact in all dimensions
+447,5,odd-primary image J,Z/5,56,0,k=(2p-2)t-1,exact in all dimensions
+447,17,odd-primary image J,Z/17,14,0,k=(2p-2)t-1,exact in all dimensions
+447,29,odd-primary image J,Z/29,8,0,k=(2p-2)t-1,exact in all dimensions
+447,113,odd-primary image J,Z/113,2,0,k=(2p-2)t-1,exact in all dimensions
+448,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+449,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+450,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+451,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+451,3,odd-primary image J,Z/3,113,0,k=(2p-2)t-1,exact in all dimensions
+451,227,odd-primary image J,Z/227,1,0,k=(2p-2)t-1,exact in all dimensions
+455,2,2-primary image-J cyclic summand,Z/16,57,0,"k=8t-1, t odd*2^m",exact
+455,3,odd-primary image J,Z/9,114,1,k=(2p-2)t-1,exact in all dimensions
+455,5,odd-primary image J,Z/5,57,0,k=(2p-2)t-1,exact in all dimensions
+455,7,odd-primary image J,Z/7,38,0,k=(2p-2)t-1,exact in all dimensions
+455,13,odd-primary image J,Z/13,19,0,k=(2p-2)t-1,exact in all dimensions
+455,229,odd-primary image J,Z/229,1,0,k=(2p-2)t-1,exact in all dimensions
+456,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+457,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+458,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+459,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+459,3,odd-primary image J,Z/3,115,0,k=(2p-2)t-1,exact in all dimensions
+459,11,odd-primary image J,Z/11,23,0,k=(2p-2)t-1,exact in all dimensions
+459,47,odd-primary image J,Z/47,5,0,k=(2p-2)t-1,exact in all dimensions
+463,2,2-primary image-J cyclic summand,Z/32,58,1,"k=8t-1, t odd*2^m",exact
+463,3,odd-primary image J,Z/3,116,0,k=(2p-2)t-1,exact in all dimensions
+463,5,odd-primary image J,Z/5,58,0,k=(2p-2)t-1,exact in all dimensions
+463,59,odd-primary image J,Z/59,4,0,k=(2p-2)t-1,exact in all dimensions
+463,233,odd-primary image J,Z/233,1,0,k=(2p-2)t-1,exact in all dimensions
+464,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+465,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+466,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+467,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+467,3,odd-primary image J,Z/27,117,2,k=(2p-2)t-1,exact in all dimensions
+467,7,odd-primary image J,Z/7,39,0,k=(2p-2)t-1,exact in all dimensions
+467,19,odd-primary image J,Z/19,13,0,k=(2p-2)t-1,exact in all dimensions
+467,79,odd-primary image J,Z/79,3,0,k=(2p-2)t-1,exact in all dimensions
+471,2,2-primary image-J cyclic summand,Z/16,59,0,"k=8t-1, t odd*2^m",exact
+471,3,odd-primary image J,Z/3,118,0,k=(2p-2)t-1,exact in all dimensions
+471,5,odd-primary image J,Z/5,59,0,k=(2p-2)t-1,exact in all dimensions
+472,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+473,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+474,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+475,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+475,3,odd-primary image J,Z/3,119,0,k=(2p-2)t-1,exact in all dimensions
+475,239,odd-primary image J,Z/239,1,0,k=(2p-2)t-1,exact in all dimensions
+479,2,2-primary image-J cyclic summand,Z/64,60,2,"k=8t-1, t odd*2^m",exact
+479,3,odd-primary image J,Z/9,120,1,k=(2p-2)t-1,exact in all dimensions
+479,5,odd-primary image J,Z/25,60,1,k=(2p-2)t-1,exact in all dimensions
+479,7,odd-primary image J,Z/7,40,0,k=(2p-2)t-1,exact in all dimensions
+479,11,odd-primary image J,Z/11,24,0,k=(2p-2)t-1,exact in all dimensions
+479,13,odd-primary image J,Z/13,20,0,k=(2p-2)t-1,exact in all dimensions
+479,17,odd-primary image J,Z/17,15,0,k=(2p-2)t-1,exact in all dimensions
+479,31,odd-primary image J,Z/31,8,0,k=(2p-2)t-1,exact in all dimensions
+479,41,odd-primary image J,Z/41,6,0,k=(2p-2)t-1,exact in all dimensions
+479,61,odd-primary image J,Z/61,4,0,k=(2p-2)t-1,exact in all dimensions
+479,241,odd-primary image J,Z/241,1,0,k=(2p-2)t-1,exact in all dimensions
+480,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+481,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+482,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+483,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+483,3,odd-primary image J,Z/3,121,0,k=(2p-2)t-1,exact in all dimensions
+483,23,odd-primary image J,Z/23,11,0,k=(2p-2)t-1,exact in all dimensions
+487,2,2-primary image-J cyclic summand,Z/16,61,0,"k=8t-1, t odd*2^m",exact
+487,3,odd-primary image J,Z/3,122,0,k=(2p-2)t-1,exact in all dimensions
+487,5,odd-primary image J,Z/5,61,0,k=(2p-2)t-1,exact in all dimensions
+488,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+489,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+490,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+491,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+491,3,odd-primary image J,Z/9,123,1,k=(2p-2)t-1,exact in all dimensions
+491,7,odd-primary image J,Z/7,41,0,k=(2p-2)t-1,exact in all dimensions
+491,83,odd-primary image J,Z/83,3,0,k=(2p-2)t-1,exact in all dimensions
+495,2,2-primary image-J cyclic summand,Z/32,62,1,"k=8t-1, t odd*2^m",exact
+495,3,odd-primary image J,Z/3,124,0,k=(2p-2)t-1,exact in all dimensions
+495,5,odd-primary image J,Z/5,62,0,k=(2p-2)t-1,exact in all dimensions
+496,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+497,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+498,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+499,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+499,3,odd-primary image J,Z/3,125,0,k=(2p-2)t-1,exact in all dimensions
+499,11,odd-primary image J,Z/11,25,0,k=(2p-2)t-1,exact in all dimensions
+499,251,odd-primary image J,Z/251,1,0,k=(2p-2)t-1,exact in all dimensions
+503,2,2-primary image-J cyclic summand,Z/16,63,0,"k=8t-1, t odd*2^m",exact
+503,3,odd-primary image J,Z/27,126,2,k=(2p-2)t-1,exact in all dimensions
+503,5,odd-primary image J,Z/5,63,0,k=(2p-2)t-1,exact in all dimensions
+503,7,odd-primary image J,Z/49,42,1,k=(2p-2)t-1,exact in all dimensions
+503,13,odd-primary image J,Z/13,21,0,k=(2p-2)t-1,exact in all dimensions
+503,19,odd-primary image J,Z/19,14,0,k=(2p-2)t-1,exact in all dimensions
+503,29,odd-primary image J,Z/29,9,0,k=(2p-2)t-1,exact in all dimensions
+503,37,odd-primary image J,Z/37,7,0,k=(2p-2)t-1,exact in all dimensions
+503,43,odd-primary image J,Z/43,6,0,k=(2p-2)t-1,exact in all dimensions
+503,127,odd-primary image J,Z/127,2,0,k=(2p-2)t-1,exact in all dimensions
+504,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+505,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+506,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+507,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+507,3,odd-primary image J,Z/3,127,0,k=(2p-2)t-1,exact in all dimensions
+511,2,2-primary image-J cyclic summand,Z/1024,64,6,"k=8t-1, t odd*2^m",exact
+511,3,odd-primary image J,Z/3,128,0,k=(2p-2)t-1,exact in all dimensions
+511,5,odd-primary image J,Z/5,64,0,k=(2p-2)t-1,exact in all dimensions
+511,17,odd-primary image J,Z/17,16,0,k=(2p-2)t-1,exact in all dimensions
+511,257,odd-primary image J,Z/257,1,0,k=(2p-2)t-1,exact in all dimensions
+512,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+513,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+514,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+515,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+515,3,odd-primary image J,Z/9,129,1,k=(2p-2)t-1,exact in all dimensions
+515,7,odd-primary image J,Z/7,43,0,k=(2p-2)t-1,exact in all dimensions
+519,2,2-primary image-J cyclic summand,Z/16,65,0,"k=8t-1, t odd*2^m",exact
+519,3,odd-primary image J,Z/3,130,0,k=(2p-2)t-1,exact in all dimensions
+519,5,odd-primary image J,Z/25,65,1,k=(2p-2)t-1,exact in all dimensions
+519,11,odd-primary image J,Z/11,26,0,k=(2p-2)t-1,exact in all dimensions
+519,53,odd-primary image J,Z/53,5,0,k=(2p-2)t-1,exact in all dimensions
+519,131,odd-primary image J,Z/131,2,0,k=(2p-2)t-1,exact in all dimensions
+520,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+521,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+522,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+523,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+523,3,odd-primary image J,Z/3,131,0,k=(2p-2)t-1,exact in all dimensions
+523,263,odd-primary image J,Z/263,1,0,k=(2p-2)t-1,exact in all dimensions
+527,2,2-primary image-J cyclic summand,Z/32,66,1,"k=8t-1, t odd*2^m",exact
+527,3,odd-primary image J,Z/9,132,1,k=(2p-2)t-1,exact in all dimensions
+527,5,odd-primary image J,Z/5,66,0,k=(2p-2)t-1,exact in all dimensions
+527,7,odd-primary image J,Z/7,44,0,k=(2p-2)t-1,exact in all dimensions
+527,13,odd-primary image J,Z/13,22,0,k=(2p-2)t-1,exact in all dimensions
+527,23,odd-primary image J,Z/23,12,0,k=(2p-2)t-1,exact in all dimensions
+527,67,odd-primary image J,Z/67,4,0,k=(2p-2)t-1,exact in all dimensions
+527,89,odd-primary image J,Z/89,3,0,k=(2p-2)t-1,exact in all dimensions
+528,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+529,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+530,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+531,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+531,3,odd-primary image J,Z/3,133,0,k=(2p-2)t-1,exact in all dimensions
+535,2,2-primary image-J cyclic summand,Z/16,67,0,"k=8t-1, t odd*2^m",exact
+535,3,odd-primary image J,Z/3,134,0,k=(2p-2)t-1,exact in all dimensions
+535,5,odd-primary image J,Z/5,67,0,k=(2p-2)t-1,exact in all dimensions
+535,269,odd-primary image J,Z/269,1,0,k=(2p-2)t-1,exact in all dimensions
+536,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+537,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+538,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+539,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+539,3,odd-primary image J,Z/81,135,3,k=(2p-2)t-1,exact in all dimensions
+539,7,odd-primary image J,Z/7,45,0,k=(2p-2)t-1,exact in all dimensions
+539,11,odd-primary image J,Z/11,27,0,k=(2p-2)t-1,exact in all dimensions
+539,19,odd-primary image J,Z/19,15,0,k=(2p-2)t-1,exact in all dimensions
+539,31,odd-primary image J,Z/31,9,0,k=(2p-2)t-1,exact in all dimensions
+539,271,odd-primary image J,Z/271,1,0,k=(2p-2)t-1,exact in all dimensions
+543,2,2-primary image-J cyclic summand,Z/64,68,2,"k=8t-1, t odd*2^m",exact
+543,3,odd-primary image J,Z/3,136,0,k=(2p-2)t-1,exact in all dimensions
+543,5,odd-primary image J,Z/5,68,0,k=(2p-2)t-1,exact in all dimensions
+543,17,odd-primary image J,Z/289,17,1,k=(2p-2)t-1,exact in all dimensions
+543,137,odd-primary image J,Z/137,2,0,k=(2p-2)t-1,exact in all dimensions
+544,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+545,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+546,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+547,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+547,3,odd-primary image J,Z/3,137,0,k=(2p-2)t-1,exact in all dimensions
+551,2,2-primary image-J cyclic summand,Z/16,69,0,"k=8t-1, t odd*2^m",exact
+551,3,odd-primary image J,Z/9,138,1,k=(2p-2)t-1,exact in all dimensions
+551,5,odd-primary image J,Z/5,69,0,k=(2p-2)t-1,exact in all dimensions
+551,7,odd-primary image J,Z/7,46,0,k=(2p-2)t-1,exact in all dimensions
+551,13,odd-primary image J,Z/13,23,0,k=(2p-2)t-1,exact in all dimensions
+551,47,odd-primary image J,Z/47,6,0,k=(2p-2)t-1,exact in all dimensions
+551,139,odd-primary image J,Z/139,2,0,k=(2p-2)t-1,exact in all dimensions
+551,277,odd-primary image J,Z/277,1,0,k=(2p-2)t-1,exact in all dimensions
+552,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+553,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+554,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+555,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+555,3,odd-primary image J,Z/3,139,0,k=(2p-2)t-1,exact in all dimensions
+559,2,2-primary image-J cyclic summand,Z/32,70,1,"k=8t-1, t odd*2^m",exact
+559,3,odd-primary image J,Z/3,140,0,k=(2p-2)t-1,exact in all dimensions
+559,5,odd-primary image J,Z/25,70,1,k=(2p-2)t-1,exact in all dimensions
+559,11,odd-primary image J,Z/11,28,0,k=(2p-2)t-1,exact in all dimensions
+559,29,odd-primary image J,Z/29,10,0,k=(2p-2)t-1,exact in all dimensions
+559,41,odd-primary image J,Z/41,7,0,k=(2p-2)t-1,exact in all dimensions
+559,71,odd-primary image J,Z/71,4,0,k=(2p-2)t-1,exact in all dimensions
+559,281,odd-primary image J,Z/281,1,0,k=(2p-2)t-1,exact in all dimensions
+560,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+561,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+562,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+563,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+563,3,odd-primary image J,Z/9,141,1,k=(2p-2)t-1,exact in all dimensions
+563,7,odd-primary image J,Z/7,47,0,k=(2p-2)t-1,exact in all dimensions
+563,283,odd-primary image J,Z/283,1,0,k=(2p-2)t-1,exact in all dimensions
+567,2,2-primary image-J cyclic summand,Z/16,71,0,"k=8t-1, t odd*2^m",exact
+567,3,odd-primary image J,Z/3,142,0,k=(2p-2)t-1,exact in all dimensions
+567,5,odd-primary image J,Z/5,71,0,k=(2p-2)t-1,exact in all dimensions
+568,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+569,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+570,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+571,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+571,3,odd-primary image J,Z/3,143,0,k=(2p-2)t-1,exact in all dimensions
+571,23,odd-primary image J,Z/23,13,0,k=(2p-2)t-1,exact in all dimensions
+575,2,2-primary image-J cyclic summand,Z/128,72,3,"k=8t-1, t odd*2^m",exact
+575,3,odd-primary image J,Z/27,144,2,k=(2p-2)t-1,exact in all dimensions
+575,5,odd-primary image J,Z/5,72,0,k=(2p-2)t-1,exact in all dimensions
+575,7,odd-primary image J,Z/7,48,0,k=(2p-2)t-1,exact in all dimensions
+575,13,odd-primary image J,Z/13,24,0,k=(2p-2)t-1,exact in all dimensions
+575,17,odd-primary image J,Z/17,18,0,k=(2p-2)t-1,exact in all dimensions
+575,19,odd-primary image J,Z/19,16,0,k=(2p-2)t-1,exact in all dimensions
+575,37,odd-primary image J,Z/37,8,0,k=(2p-2)t-1,exact in all dimensions
+575,73,odd-primary image J,Z/73,4,0,k=(2p-2)t-1,exact in all dimensions
+575,97,odd-primary image J,Z/97,3,0,k=(2p-2)t-1,exact in all dimensions
+576,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+577,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+578,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+579,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+579,3,odd-primary image J,Z/3,145,0,k=(2p-2)t-1,exact in all dimensions
+579,11,odd-primary image J,Z/11,29,0,k=(2p-2)t-1,exact in all dimensions
+579,59,odd-primary image J,Z/59,5,0,k=(2p-2)t-1,exact in all dimensions
+583,2,2-primary image-J cyclic summand,Z/16,73,0,"k=8t-1, t odd*2^m",exact
+583,3,odd-primary image J,Z/3,146,0,k=(2p-2)t-1,exact in all dimensions
+583,5,odd-primary image J,Z/5,73,0,k=(2p-2)t-1,exact in all dimensions
+583,293,odd-primary image J,Z/293,1,0,k=(2p-2)t-1,exact in all dimensions
+584,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+585,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+586,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+587,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+587,3,odd-primary image J,Z/9,147,1,k=(2p-2)t-1,exact in all dimensions
+587,7,odd-primary image J,Z/343,49,2,k=(2p-2)t-1,exact in all dimensions
+587,43,odd-primary image J,Z/43,7,0,k=(2p-2)t-1,exact in all dimensions
+591,2,2-primary image-J cyclic summand,Z/32,74,1,"k=8t-1, t odd*2^m",exact
+591,3,odd-primary image J,Z/3,148,0,k=(2p-2)t-1,exact in all dimensions
+591,5,odd-primary image J,Z/5,74,0,k=(2p-2)t-1,exact in all dimensions
+591,149,odd-primary image J,Z/149,2,0,k=(2p-2)t-1,exact in all dimensions
+592,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+593,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+594,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+595,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+595,3,odd-primary image J,Z/3,149,0,k=(2p-2)t-1,exact in all dimensions
+599,2,2-primary image-J cyclic summand,Z/16,75,0,"k=8t-1, t odd*2^m",exact
+599,3,odd-primary image J,Z/9,150,1,k=(2p-2)t-1,exact in all dimensions
+599,5,odd-primary image J,Z/125,75,2,k=(2p-2)t-1,exact in all dimensions
+599,7,odd-primary image J,Z/7,50,0,k=(2p-2)t-1,exact in all dimensions
+599,11,odd-primary image J,Z/11,30,0,k=(2p-2)t-1,exact in all dimensions
+599,13,odd-primary image J,Z/13,25,0,k=(2p-2)t-1,exact in all dimensions
+599,31,odd-primary image J,Z/31,10,0,k=(2p-2)t-1,exact in all dimensions
+599,61,odd-primary image J,Z/61,5,0,k=(2p-2)t-1,exact in all dimensions
+599,101,odd-primary image J,Z/101,3,0,k=(2p-2)t-1,exact in all dimensions
+599,151,odd-primary image J,Z/151,2,0,k=(2p-2)t-1,exact in all dimensions
+600,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+601,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+602,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+603,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+603,3,odd-primary image J,Z/3,151,0,k=(2p-2)t-1,exact in all dimensions
+607,2,2-primary image-J cyclic summand,Z/64,76,2,"k=8t-1, t odd*2^m",exact
+607,3,odd-primary image J,Z/3,152,0,k=(2p-2)t-1,exact in all dimensions
+607,5,odd-primary image J,Z/5,76,0,k=(2p-2)t-1,exact in all dimensions
+607,17,odd-primary image J,Z/17,19,0,k=(2p-2)t-1,exact in all dimensions
+608,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+609,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+610,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+611,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+611,3,odd-primary image J,Z/27,153,2,k=(2p-2)t-1,exact in all dimensions
+611,7,odd-primary image J,Z/7,51,0,k=(2p-2)t-1,exact in all dimensions
+611,19,odd-primary image J,Z/19,17,0,k=(2p-2)t-1,exact in all dimensions
+611,103,odd-primary image J,Z/103,3,0,k=(2p-2)t-1,exact in all dimensions
+611,307,odd-primary image J,Z/307,1,0,k=(2p-2)t-1,exact in all dimensions
+615,2,2-primary image-J cyclic summand,Z/16,77,0,"k=8t-1, t odd*2^m",exact
+615,3,odd-primary image J,Z/3,154,0,k=(2p-2)t-1,exact in all dimensions
+615,5,odd-primary image J,Z/5,77,0,k=(2p-2)t-1,exact in all dimensions
+615,23,odd-primary image J,Z/23,14,0,k=(2p-2)t-1,exact in all dimensions
+615,29,odd-primary image J,Z/29,11,0,k=(2p-2)t-1,exact in all dimensions
+616,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+617,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+618,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+619,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+619,3,odd-primary image J,Z/3,155,0,k=(2p-2)t-1,exact in all dimensions
+619,11,odd-primary image J,Z/11,31,0,k=(2p-2)t-1,exact in all dimensions
+619,311,odd-primary image J,Z/311,1,0,k=(2p-2)t-1,exact in all dimensions
+623,2,2-primary image-J cyclic summand,Z/32,78,1,"k=8t-1, t odd*2^m",exact
+623,3,odd-primary image J,Z/9,156,1,k=(2p-2)t-1,exact in all dimensions
+623,5,odd-primary image J,Z/5,78,0,k=(2p-2)t-1,exact in all dimensions
+623,7,odd-primary image J,Z/7,52,0,k=(2p-2)t-1,exact in all dimensions
+623,13,odd-primary image J,Z/169,26,1,k=(2p-2)t-1,exact in all dimensions
+623,53,odd-primary image J,Z/53,6,0,k=(2p-2)t-1,exact in all dimensions
+623,79,odd-primary image J,Z/79,4,0,k=(2p-2)t-1,exact in all dimensions
+623,157,odd-primary image J,Z/157,2,0,k=(2p-2)t-1,exact in all dimensions
+623,313,odd-primary image J,Z/313,1,0,k=(2p-2)t-1,exact in all dimensions
+624,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+625,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+626,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+627,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+627,3,odd-primary image J,Z/3,157,0,k=(2p-2)t-1,exact in all dimensions
+631,2,2-primary image-J cyclic summand,Z/16,79,0,"k=8t-1, t odd*2^m",exact
+631,3,odd-primary image J,Z/3,158,0,k=(2p-2)t-1,exact in all dimensions
+631,5,odd-primary image J,Z/5,79,0,k=(2p-2)t-1,exact in all dimensions
+631,317,odd-primary image J,Z/317,1,0,k=(2p-2)t-1,exact in all dimensions
+632,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+633,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+634,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+635,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+635,3,odd-primary image J,Z/9,159,1,k=(2p-2)t-1,exact in all dimensions
+635,7,odd-primary image J,Z/7,53,0,k=(2p-2)t-1,exact in all dimensions
+635,107,odd-primary image J,Z/107,3,0,k=(2p-2)t-1,exact in all dimensions
+639,2,2-primary image-J cyclic summand,Z/256,80,4,"k=8t-1, t odd*2^m",exact
+639,3,odd-primary image J,Z/3,160,0,k=(2p-2)t-1,exact in all dimensions
+639,5,odd-primary image J,Z/25,80,1,k=(2p-2)t-1,exact in all dimensions
+639,11,odd-primary image J,Z/11,32,0,k=(2p-2)t-1,exact in all dimensions
+639,17,odd-primary image J,Z/17,20,0,k=(2p-2)t-1,exact in all dimensions
+639,41,odd-primary image J,Z/41,8,0,k=(2p-2)t-1,exact in all dimensions
+640,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+641,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+642,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+643,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+643,3,odd-primary image J,Z/3,161,0,k=(2p-2)t-1,exact in all dimensions
+643,47,odd-primary image J,Z/47,7,0,k=(2p-2)t-1,exact in all dimensions
+647,2,2-primary image-J cyclic summand,Z/16,81,0,"k=8t-1, t odd*2^m",exact
+647,3,odd-primary image J,Z/243,162,4,k=(2p-2)t-1,exact in all dimensions
+647,5,odd-primary image J,Z/5,81,0,k=(2p-2)t-1,exact in all dimensions
+647,7,odd-primary image J,Z/7,54,0,k=(2p-2)t-1,exact in all dimensions
+647,13,odd-primary image J,Z/13,27,0,k=(2p-2)t-1,exact in all dimensions
+647,19,odd-primary image J,Z/19,18,0,k=(2p-2)t-1,exact in all dimensions
+647,37,odd-primary image J,Z/37,9,0,k=(2p-2)t-1,exact in all dimensions
+647,109,odd-primary image J,Z/109,3,0,k=(2p-2)t-1,exact in all dimensions
+647,163,odd-primary image J,Z/163,2,0,k=(2p-2)t-1,exact in all dimensions
+648,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+649,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+650,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+651,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+651,3,odd-primary image J,Z/3,163,0,k=(2p-2)t-1,exact in all dimensions
+655,2,2-primary image-J cyclic summand,Z/32,82,1,"k=8t-1, t odd*2^m",exact
+655,3,odd-primary image J,Z/3,164,0,k=(2p-2)t-1,exact in all dimensions
+655,5,odd-primary image J,Z/5,82,0,k=(2p-2)t-1,exact in all dimensions
+655,83,odd-primary image J,Z/83,4,0,k=(2p-2)t-1,exact in all dimensions
+656,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+657,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+658,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+659,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+659,3,odd-primary image J,Z/9,165,1,k=(2p-2)t-1,exact in all dimensions
+659,7,odd-primary image J,Z/7,55,0,k=(2p-2)t-1,exact in all dimensions
+659,11,odd-primary image J,Z/121,33,1,k=(2p-2)t-1,exact in all dimensions
+659,23,odd-primary image J,Z/23,15,0,k=(2p-2)t-1,exact in all dimensions
+659,31,odd-primary image J,Z/31,11,0,k=(2p-2)t-1,exact in all dimensions
+659,67,odd-primary image J,Z/67,5,0,k=(2p-2)t-1,exact in all dimensions
+659,331,odd-primary image J,Z/331,1,0,k=(2p-2)t-1,exact in all dimensions
+663,2,2-primary image-J cyclic summand,Z/16,83,0,"k=8t-1, t odd*2^m",exact
+663,3,odd-primary image J,Z/3,166,0,k=(2p-2)t-1,exact in all dimensions
+663,5,odd-primary image J,Z/5,83,0,k=(2p-2)t-1,exact in all dimensions
+663,167,odd-primary image J,Z/167,2,0,k=(2p-2)t-1,exact in all dimensions
+664,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+665,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+666,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+667,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+667,3,odd-primary image J,Z/3,167,0,k=(2p-2)t-1,exact in all dimensions
+671,2,2-primary image-J cyclic summand,Z/64,84,2,"k=8t-1, t odd*2^m",exact
+671,3,odd-primary image J,Z/9,168,1,k=(2p-2)t-1,exact in all dimensions
+671,5,odd-primary image J,Z/5,84,0,k=(2p-2)t-1,exact in all dimensions
+671,7,odd-primary image J,Z/49,56,1,k=(2p-2)t-1,exact in all dimensions
+671,13,odd-primary image J,Z/13,28,0,k=(2p-2)t-1,exact in all dimensions
+671,17,odd-primary image J,Z/17,21,0,k=(2p-2)t-1,exact in all dimensions
+671,29,odd-primary image J,Z/29,12,0,k=(2p-2)t-1,exact in all dimensions
+671,43,odd-primary image J,Z/43,8,0,k=(2p-2)t-1,exact in all dimensions
+671,113,odd-primary image J,Z/113,3,0,k=(2p-2)t-1,exact in all dimensions
+671,337,odd-primary image J,Z/337,1,0,k=(2p-2)t-1,exact in all dimensions
+672,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+673,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+674,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+675,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+675,3,odd-primary image J,Z/3,169,0,k=(2p-2)t-1,exact in all dimensions
+679,2,2-primary image-J cyclic summand,Z/16,85,0,"k=8t-1, t odd*2^m",exact
+679,3,odd-primary image J,Z/3,170,0,k=(2p-2)t-1,exact in all dimensions
+679,5,odd-primary image J,Z/25,85,1,k=(2p-2)t-1,exact in all dimensions
+679,11,odd-primary image J,Z/11,34,0,k=(2p-2)t-1,exact in all dimensions
+680,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+681,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+682,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+683,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+683,3,odd-primary image J,Z/27,171,2,k=(2p-2)t-1,exact in all dimensions
+683,7,odd-primary image J,Z/7,57,0,k=(2p-2)t-1,exact in all dimensions
+683,19,odd-primary image J,Z/361,19,1,k=(2p-2)t-1,exact in all dimensions
+687,2,2-primary image-J cyclic summand,Z/32,86,1,"k=8t-1, t odd*2^m",exact
+687,3,odd-primary image J,Z/3,172,0,k=(2p-2)t-1,exact in all dimensions
+687,5,odd-primary image J,Z/5,86,0,k=(2p-2)t-1,exact in all dimensions
+687,173,odd-primary image J,Z/173,2,0,k=(2p-2)t-1,exact in all dimensions
+688,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+689,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+690,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+691,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+691,3,odd-primary image J,Z/3,173,0,k=(2p-2)t-1,exact in all dimensions
+691,347,odd-primary image J,Z/347,1,0,k=(2p-2)t-1,exact in all dimensions
+695,2,2-primary image-J cyclic summand,Z/16,87,0,"k=8t-1, t odd*2^m",exact
+695,3,odd-primary image J,Z/9,174,1,k=(2p-2)t-1,exact in all dimensions
+695,5,odd-primary image J,Z/5,87,0,k=(2p-2)t-1,exact in all dimensions
+695,7,odd-primary image J,Z/7,58,0,k=(2p-2)t-1,exact in all dimensions
+695,13,odd-primary image J,Z/13,29,0,k=(2p-2)t-1,exact in all dimensions
+695,59,odd-primary image J,Z/59,6,0,k=(2p-2)t-1,exact in all dimensions
+695,349,odd-primary image J,Z/349,1,0,k=(2p-2)t-1,exact in all dimensions
+696,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+697,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+698,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+699,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+699,3,odd-primary image J,Z/3,175,0,k=(2p-2)t-1,exact in all dimensions
+699,11,odd-primary image J,Z/11,35,0,k=(2p-2)t-1,exact in all dimensions
+699,71,odd-primary image J,Z/71,5,0,k=(2p-2)t-1,exact in all dimensions
+703,2,2-primary image-J cyclic summand,Z/128,88,3,"k=8t-1, t odd*2^m",exact
+703,3,odd-primary image J,Z/3,176,0,k=(2p-2)t-1,exact in all dimensions
+703,5,odd-primary image J,Z/5,88,0,k=(2p-2)t-1,exact in all dimensions
+703,17,odd-primary image J,Z/17,22,0,k=(2p-2)t-1,exact in all dimensions
+703,23,odd-primary image J,Z/23,16,0,k=(2p-2)t-1,exact in all dimensions
+703,89,odd-primary image J,Z/89,4,0,k=(2p-2)t-1,exact in all dimensions
+703,353,odd-primary image J,Z/353,1,0,k=(2p-2)t-1,exact in all dimensions
+704,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+705,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+706,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+707,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+707,3,odd-primary image J,Z/9,177,1,k=(2p-2)t-1,exact in all dimensions
+707,7,odd-primary image J,Z/7,59,0,k=(2p-2)t-1,exact in all dimensions
+711,2,2-primary image-J cyclic summand,Z/16,89,0,"k=8t-1, t odd*2^m",exact
+711,3,odd-primary image J,Z/3,178,0,k=(2p-2)t-1,exact in all dimensions
+711,5,odd-primary image J,Z/5,89,0,k=(2p-2)t-1,exact in all dimensions
+711,179,odd-primary image J,Z/179,2,0,k=(2p-2)t-1,exact in all dimensions
+712,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+713,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+714,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+715,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+715,3,odd-primary image J,Z/3,179,0,k=(2p-2)t-1,exact in all dimensions
+715,359,odd-primary image J,Z/359,1,0,k=(2p-2)t-1,exact in all dimensions
+719,2,2-primary image-J cyclic summand,Z/32,90,1,"k=8t-1, t odd*2^m",exact
+719,3,odd-primary image J,Z/27,180,2,k=(2p-2)t-1,exact in all dimensions
+719,5,odd-primary image J,Z/25,90,1,k=(2p-2)t-1,exact in all dimensions
+719,7,odd-primary image J,Z/7,60,0,k=(2p-2)t-1,exact in all dimensions
+719,11,odd-primary image J,Z/11,36,0,k=(2p-2)t-1,exact in all dimensions
+719,13,odd-primary image J,Z/13,30,0,k=(2p-2)t-1,exact in all dimensions
+719,19,odd-primary image J,Z/19,20,0,k=(2p-2)t-1,exact in all dimensions
+719,31,odd-primary image J,Z/31,12,0,k=(2p-2)t-1,exact in all dimensions
+719,37,odd-primary image J,Z/37,10,0,k=(2p-2)t-1,exact in all dimensions
+719,41,odd-primary image J,Z/41,9,0,k=(2p-2)t-1,exact in all dimensions
+719,61,odd-primary image J,Z/61,6,0,k=(2p-2)t-1,exact in all dimensions
+719,73,odd-primary image J,Z/73,5,0,k=(2p-2)t-1,exact in all dimensions
+719,181,odd-primary image J,Z/181,2,0,k=(2p-2)t-1,exact in all dimensions
+720,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+721,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+722,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+723,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+723,3,odd-primary image J,Z/3,181,0,k=(2p-2)t-1,exact in all dimensions
+727,2,2-primary image-J cyclic summand,Z/16,91,0,"k=8t-1, t odd*2^m",exact
+727,3,odd-primary image J,Z/3,182,0,k=(2p-2)t-1,exact in all dimensions
+727,5,odd-primary image J,Z/5,91,0,k=(2p-2)t-1,exact in all dimensions
+727,29,odd-primary image J,Z/29,13,0,k=(2p-2)t-1,exact in all dimensions
+727,53,odd-primary image J,Z/53,7,0,k=(2p-2)t-1,exact in all dimensions
+728,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+729,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+730,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+731,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+731,3,odd-primary image J,Z/9,183,1,k=(2p-2)t-1,exact in all dimensions
+731,7,odd-primary image J,Z/7,61,0,k=(2p-2)t-1,exact in all dimensions
+731,367,odd-primary image J,Z/367,1,0,k=(2p-2)t-1,exact in all dimensions
+735,2,2-primary image-J cyclic summand,Z/64,92,2,"k=8t-1, t odd*2^m",exact
+735,3,odd-primary image J,Z/3,184,0,k=(2p-2)t-1,exact in all dimensions
+735,5,odd-primary image J,Z/5,92,0,k=(2p-2)t-1,exact in all dimensions
+735,17,odd-primary image J,Z/17,23,0,k=(2p-2)t-1,exact in all dimensions
+735,47,odd-primary image J,Z/47,8,0,k=(2p-2)t-1,exact in all dimensions
+736,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+737,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+738,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+739,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+739,3,odd-primary image J,Z/3,185,0,k=(2p-2)t-1,exact in all dimensions
+739,11,odd-primary image J,Z/11,37,0,k=(2p-2)t-1,exact in all dimensions
+743,2,2-primary image-J cyclic summand,Z/16,93,0,"k=8t-1, t odd*2^m",exact
+743,3,odd-primary image J,Z/9,186,1,k=(2p-2)t-1,exact in all dimensions
+743,5,odd-primary image J,Z/5,93,0,k=(2p-2)t-1,exact in all dimensions
+743,7,odd-primary image J,Z/7,62,0,k=(2p-2)t-1,exact in all dimensions
+743,13,odd-primary image J,Z/13,31,0,k=(2p-2)t-1,exact in all dimensions
+743,373,odd-primary image J,Z/373,1,0,k=(2p-2)t-1,exact in all dimensions
+744,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+745,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+746,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+747,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+747,3,odd-primary image J,Z/3,187,0,k=(2p-2)t-1,exact in all dimensions
+747,23,odd-primary image J,Z/23,17,0,k=(2p-2)t-1,exact in all dimensions
+751,2,2-primary image-J cyclic summand,Z/32,94,1,"k=8t-1, t odd*2^m",exact
+751,3,odd-primary image J,Z/3,188,0,k=(2p-2)t-1,exact in all dimensions
+751,5,odd-primary image J,Z/5,94,0,k=(2p-2)t-1,exact in all dimensions
+752,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+753,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+754,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+755,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+755,3,odd-primary image J,Z/81,189,3,k=(2p-2)t-1,exact in all dimensions
+755,7,odd-primary image J,Z/49,63,1,k=(2p-2)t-1,exact in all dimensions
+755,19,odd-primary image J,Z/19,21,0,k=(2p-2)t-1,exact in all dimensions
+755,43,odd-primary image J,Z/43,9,0,k=(2p-2)t-1,exact in all dimensions
+755,127,odd-primary image J,Z/127,3,0,k=(2p-2)t-1,exact in all dimensions
+755,379,odd-primary image J,Z/379,1,0,k=(2p-2)t-1,exact in all dimensions
+759,2,2-primary image-J cyclic summand,Z/16,95,0,"k=8t-1, t odd*2^m",exact
+759,3,odd-primary image J,Z/3,190,0,k=(2p-2)t-1,exact in all dimensions
+759,5,odd-primary image J,Z/25,95,1,k=(2p-2)t-1,exact in all dimensions
+759,11,odd-primary image J,Z/11,38,0,k=(2p-2)t-1,exact in all dimensions
+759,191,odd-primary image J,Z/191,2,0,k=(2p-2)t-1,exact in all dimensions
+760,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+761,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+762,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+763,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+763,3,odd-primary image J,Z/3,191,0,k=(2p-2)t-1,exact in all dimensions
+763,383,odd-primary image J,Z/383,1,0,k=(2p-2)t-1,exact in all dimensions
+767,2,2-primary image-J cyclic summand,Z/512,96,5,"k=8t-1, t odd*2^m",exact
+767,3,odd-primary image J,Z/9,192,1,k=(2p-2)t-1,exact in all dimensions
+767,5,odd-primary image J,Z/5,96,0,k=(2p-2)t-1,exact in all dimensions
+767,7,odd-primary image J,Z/7,64,0,k=(2p-2)t-1,exact in all dimensions
+767,13,odd-primary image J,Z/13,32,0,k=(2p-2)t-1,exact in all dimensions
+767,17,odd-primary image J,Z/17,24,0,k=(2p-2)t-1,exact in all dimensions
+767,97,odd-primary image J,Z/97,4,0,k=(2p-2)t-1,exact in all dimensions
+767,193,odd-primary image J,Z/193,2,0,k=(2p-2)t-1,exact in all dimensions
+768,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+769,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+770,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+771,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+771,3,odd-primary image J,Z/3,193,0,k=(2p-2)t-1,exact in all dimensions
+775,2,2-primary image-J cyclic summand,Z/16,97,0,"k=8t-1, t odd*2^m",exact
+775,3,odd-primary image J,Z/3,194,0,k=(2p-2)t-1,exact in all dimensions
+775,5,odd-primary image J,Z/5,97,0,k=(2p-2)t-1,exact in all dimensions
+775,389,odd-primary image J,Z/389,1,0,k=(2p-2)t-1,exact in all dimensions
+776,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+777,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+778,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+779,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+779,3,odd-primary image J,Z/9,195,1,k=(2p-2)t-1,exact in all dimensions
+779,7,odd-primary image J,Z/7,65,0,k=(2p-2)t-1,exact in all dimensions
+779,11,odd-primary image J,Z/11,39,0,k=(2p-2)t-1,exact in all dimensions
+779,31,odd-primary image J,Z/31,13,0,k=(2p-2)t-1,exact in all dimensions
+779,79,odd-primary image J,Z/79,5,0,k=(2p-2)t-1,exact in all dimensions
+779,131,odd-primary image J,Z/131,3,0,k=(2p-2)t-1,exact in all dimensions
+783,2,2-primary image-J cyclic summand,Z/32,98,1,"k=8t-1, t odd*2^m",exact
+783,3,odd-primary image J,Z/3,196,0,k=(2p-2)t-1,exact in all dimensions
+783,5,odd-primary image J,Z/5,98,0,k=(2p-2)t-1,exact in all dimensions
+783,29,odd-primary image J,Z/29,14,0,k=(2p-2)t-1,exact in all dimensions
+783,197,odd-primary image J,Z/197,2,0,k=(2p-2)t-1,exact in all dimensions
+784,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+785,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+786,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+787,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+787,3,odd-primary image J,Z/3,197,0,k=(2p-2)t-1,exact in all dimensions
+791,2,2-primary image-J cyclic summand,Z/16,99,0,"k=8t-1, t odd*2^m",exact
+791,3,odd-primary image J,Z/27,198,2,k=(2p-2)t-1,exact in all dimensions
+791,5,odd-primary image J,Z/5,99,0,k=(2p-2)t-1,exact in all dimensions
+791,7,odd-primary image J,Z/7,66,0,k=(2p-2)t-1,exact in all dimensions
+791,13,odd-primary image J,Z/13,33,0,k=(2p-2)t-1,exact in all dimensions
+791,19,odd-primary image J,Z/19,22,0,k=(2p-2)t-1,exact in all dimensions
+791,23,odd-primary image J,Z/23,18,0,k=(2p-2)t-1,exact in all dimensions
+791,37,odd-primary image J,Z/37,11,0,k=(2p-2)t-1,exact in all dimensions
+791,67,odd-primary image J,Z/67,6,0,k=(2p-2)t-1,exact in all dimensions
+791,199,odd-primary image J,Z/199,2,0,k=(2p-2)t-1,exact in all dimensions
+791,397,odd-primary image J,Z/397,1,0,k=(2p-2)t-1,exact in all dimensions
+792,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+793,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+794,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+795,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+795,3,odd-primary image J,Z/3,199,0,k=(2p-2)t-1,exact in all dimensions
+799,2,2-primary image-J cyclic summand,Z/64,100,2,"k=8t-1, t odd*2^m",exact
+799,3,odd-primary image J,Z/3,200,0,k=(2p-2)t-1,exact in all dimensions
+799,5,odd-primary image J,Z/125,100,2,k=(2p-2)t-1,exact in all dimensions
+799,11,odd-primary image J,Z/11,40,0,k=(2p-2)t-1,exact in all dimensions
+799,17,odd-primary image J,Z/17,25,0,k=(2p-2)t-1,exact in all dimensions
+799,41,odd-primary image J,Z/41,10,0,k=(2p-2)t-1,exact in all dimensions
+799,101,odd-primary image J,Z/101,4,0,k=(2p-2)t-1,exact in all dimensions
+799,401,odd-primary image J,Z/401,1,0,k=(2p-2)t-1,exact in all dimensions
+800,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+801,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+802,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+803,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+803,3,odd-primary image J,Z/9,201,1,k=(2p-2)t-1,exact in all dimensions
+803,7,odd-primary image J,Z/7,67,0,k=(2p-2)t-1,exact in all dimensions
+807,2,2-primary image-J cyclic summand,Z/16,101,0,"k=8t-1, t odd*2^m",exact
+807,3,odd-primary image J,Z/3,202,0,k=(2p-2)t-1,exact in all dimensions
+807,5,odd-primary image J,Z/5,101,0,k=(2p-2)t-1,exact in all dimensions
+808,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+809,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+810,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+811,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+811,3,odd-primary image J,Z/3,203,0,k=(2p-2)t-1,exact in all dimensions
+811,59,odd-primary image J,Z/59,7,0,k=(2p-2)t-1,exact in all dimensions
+815,2,2-primary image-J cyclic summand,Z/32,102,1,"k=8t-1, t odd*2^m",exact
+815,3,odd-primary image J,Z/9,204,1,k=(2p-2)t-1,exact in all dimensions
+815,5,odd-primary image J,Z/5,102,0,k=(2p-2)t-1,exact in all dimensions
+815,7,odd-primary image J,Z/7,68,0,k=(2p-2)t-1,exact in all dimensions
+815,13,odd-primary image J,Z/13,34,0,k=(2p-2)t-1,exact in all dimensions
+815,103,odd-primary image J,Z/103,4,0,k=(2p-2)t-1,exact in all dimensions
+815,137,odd-primary image J,Z/137,3,0,k=(2p-2)t-1,exact in all dimensions
+815,409,odd-primary image J,Z/409,1,0,k=(2p-2)t-1,exact in all dimensions
+816,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+817,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+818,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+819,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+819,3,odd-primary image J,Z/3,205,0,k=(2p-2)t-1,exact in all dimensions
+819,11,odd-primary image J,Z/11,41,0,k=(2p-2)t-1,exact in all dimensions
+819,83,odd-primary image J,Z/83,5,0,k=(2p-2)t-1,exact in all dimensions
+823,2,2-primary image-J cyclic summand,Z/16,103,0,"k=8t-1, t odd*2^m",exact
+823,3,odd-primary image J,Z/3,206,0,k=(2p-2)t-1,exact in all dimensions
+823,5,odd-primary image J,Z/5,103,0,k=(2p-2)t-1,exact in all dimensions
+824,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+825,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+826,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+827,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+827,3,odd-primary image J,Z/27,207,2,k=(2p-2)t-1,exact in all dimensions
+827,7,odd-primary image J,Z/7,69,0,k=(2p-2)t-1,exact in all dimensions
+827,19,odd-primary image J,Z/19,23,0,k=(2p-2)t-1,exact in all dimensions
+827,47,odd-primary image J,Z/47,9,0,k=(2p-2)t-1,exact in all dimensions
+827,139,odd-primary image J,Z/139,3,0,k=(2p-2)t-1,exact in all dimensions
+831,2,2-primary image-J cyclic summand,Z/128,104,3,"k=8t-1, t odd*2^m",exact
+831,3,odd-primary image J,Z/3,208,0,k=(2p-2)t-1,exact in all dimensions
+831,5,odd-primary image J,Z/5,104,0,k=(2p-2)t-1,exact in all dimensions
+831,17,odd-primary image J,Z/17,26,0,k=(2p-2)t-1,exact in all dimensions
+831,53,odd-primary image J,Z/53,8,0,k=(2p-2)t-1,exact in all dimensions
+832,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+833,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+834,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+835,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+835,3,odd-primary image J,Z/3,209,0,k=(2p-2)t-1,exact in all dimensions
+835,23,odd-primary image J,Z/23,19,0,k=(2p-2)t-1,exact in all dimensions
+835,419,odd-primary image J,Z/419,1,0,k=(2p-2)t-1,exact in all dimensions
+839,2,2-primary image-J cyclic summand,Z/16,105,0,"k=8t-1, t odd*2^m",exact
+839,3,odd-primary image J,Z/9,210,1,k=(2p-2)t-1,exact in all dimensions
+839,5,odd-primary image J,Z/25,105,1,k=(2p-2)t-1,exact in all dimensions
+839,7,odd-primary image J,Z/49,70,1,k=(2p-2)t-1,exact in all dimensions
+839,11,odd-primary image J,Z/11,42,0,k=(2p-2)t-1,exact in all dimensions
+839,13,odd-primary image J,Z/13,35,0,k=(2p-2)t-1,exact in all dimensions
+839,29,odd-primary image J,Z/29,15,0,k=(2p-2)t-1,exact in all dimensions
+839,31,odd-primary image J,Z/31,14,0,k=(2p-2)t-1,exact in all dimensions
+839,43,odd-primary image J,Z/43,10,0,k=(2p-2)t-1,exact in all dimensions
+839,61,odd-primary image J,Z/61,7,0,k=(2p-2)t-1,exact in all dimensions
+839,71,odd-primary image J,Z/71,6,0,k=(2p-2)t-1,exact in all dimensions
+839,211,odd-primary image J,Z/211,2,0,k=(2p-2)t-1,exact in all dimensions
+839,421,odd-primary image J,Z/421,1,0,k=(2p-2)t-1,exact in all dimensions
+840,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+841,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+842,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+843,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+843,3,odd-primary image J,Z/3,211,0,k=(2p-2)t-1,exact in all dimensions
+847,2,2-primary image-J cyclic summand,Z/32,106,1,"k=8t-1, t odd*2^m",exact
+847,3,odd-primary image J,Z/3,212,0,k=(2p-2)t-1,exact in all dimensions
+847,5,odd-primary image J,Z/5,106,0,k=(2p-2)t-1,exact in all dimensions
+847,107,odd-primary image J,Z/107,4,0,k=(2p-2)t-1,exact in all dimensions
+848,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+849,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+850,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+851,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+851,3,odd-primary image J,Z/9,213,1,k=(2p-2)t-1,exact in all dimensions
+851,7,odd-primary image J,Z/7,71,0,k=(2p-2)t-1,exact in all dimensions
+855,2,2-primary image-J cyclic summand,Z/16,107,0,"k=8t-1, t odd*2^m",exact
+855,3,odd-primary image J,Z/3,214,0,k=(2p-2)t-1,exact in all dimensions
+855,5,odd-primary image J,Z/5,107,0,k=(2p-2)t-1,exact in all dimensions
+856,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+857,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+858,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+859,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+859,3,odd-primary image J,Z/3,215,0,k=(2p-2)t-1,exact in all dimensions
+859,11,odd-primary image J,Z/11,43,0,k=(2p-2)t-1,exact in all dimensions
+859,431,odd-primary image J,Z/431,1,0,k=(2p-2)t-1,exact in all dimensions
+863,2,2-primary image-J cyclic summand,Z/64,108,2,"k=8t-1, t odd*2^m",exact
+863,3,odd-primary image J,Z/81,216,3,k=(2p-2)t-1,exact in all dimensions
+863,5,odd-primary image J,Z/5,108,0,k=(2p-2)t-1,exact in all dimensions
+863,7,odd-primary image J,Z/7,72,0,k=(2p-2)t-1,exact in all dimensions
+863,13,odd-primary image J,Z/13,36,0,k=(2p-2)t-1,exact in all dimensions
+863,17,odd-primary image J,Z/17,27,0,k=(2p-2)t-1,exact in all dimensions
+863,19,odd-primary image J,Z/19,24,0,k=(2p-2)t-1,exact in all dimensions
+863,37,odd-primary image J,Z/37,12,0,k=(2p-2)t-1,exact in all dimensions
+863,73,odd-primary image J,Z/73,6,0,k=(2p-2)t-1,exact in all dimensions
+863,109,odd-primary image J,Z/109,4,0,k=(2p-2)t-1,exact in all dimensions
+863,433,odd-primary image J,Z/433,1,0,k=(2p-2)t-1,exact in all dimensions
+864,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+865,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+866,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+867,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+867,3,odd-primary image J,Z/3,217,0,k=(2p-2)t-1,exact in all dimensions
+871,2,2-primary image-J cyclic summand,Z/16,109,0,"k=8t-1, t odd*2^m",exact
+871,3,odd-primary image J,Z/3,218,0,k=(2p-2)t-1,exact in all dimensions
+871,5,odd-primary image J,Z/5,109,0,k=(2p-2)t-1,exact in all dimensions
+872,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+873,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+874,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+875,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+875,3,odd-primary image J,Z/9,219,1,k=(2p-2)t-1,exact in all dimensions
+875,7,odd-primary image J,Z/7,73,0,k=(2p-2)t-1,exact in all dimensions
+875,439,odd-primary image J,Z/439,1,0,k=(2p-2)t-1,exact in all dimensions
+879,2,2-primary image-J cyclic summand,Z/32,110,1,"k=8t-1, t odd*2^m",exact
+879,3,odd-primary image J,Z/3,220,0,k=(2p-2)t-1,exact in all dimensions
+879,5,odd-primary image J,Z/25,110,1,k=(2p-2)t-1,exact in all dimensions
+879,11,odd-primary image J,Z/121,44,1,k=(2p-2)t-1,exact in all dimensions
+879,23,odd-primary image J,Z/23,20,0,k=(2p-2)t-1,exact in all dimensions
+879,41,odd-primary image J,Z/41,11,0,k=(2p-2)t-1,exact in all dimensions
+879,89,odd-primary image J,Z/89,5,0,k=(2p-2)t-1,exact in all dimensions
+880,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+881,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+882,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+883,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+883,3,odd-primary image J,Z/3,221,0,k=(2p-2)t-1,exact in all dimensions
+883,443,odd-primary image J,Z/443,1,0,k=(2p-2)t-1,exact in all dimensions
+887,2,2-primary image-J cyclic summand,Z/16,111,0,"k=8t-1, t odd*2^m",exact
+887,3,odd-primary image J,Z/9,222,1,k=(2p-2)t-1,exact in all dimensions
+887,5,odd-primary image J,Z/5,111,0,k=(2p-2)t-1,exact in all dimensions
+887,7,odd-primary image J,Z/7,74,0,k=(2p-2)t-1,exact in all dimensions
+887,13,odd-primary image J,Z/13,37,0,k=(2p-2)t-1,exact in all dimensions
+887,149,odd-primary image J,Z/149,3,0,k=(2p-2)t-1,exact in all dimensions
+887,223,odd-primary image J,Z/223,2,0,k=(2p-2)t-1,exact in all dimensions
+888,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+889,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+890,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+891,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+891,3,odd-primary image J,Z/3,223,0,k=(2p-2)t-1,exact in all dimensions
+895,2,2-primary image-J cyclic summand,Z/256,112,4,"k=8t-1, t odd*2^m",exact
+895,3,odd-primary image J,Z/3,224,0,k=(2p-2)t-1,exact in all dimensions
+895,5,odd-primary image J,Z/5,112,0,k=(2p-2)t-1,exact in all dimensions
+895,17,odd-primary image J,Z/17,28,0,k=(2p-2)t-1,exact in all dimensions
+895,29,odd-primary image J,Z/29,16,0,k=(2p-2)t-1,exact in all dimensions
+895,113,odd-primary image J,Z/113,4,0,k=(2p-2)t-1,exact in all dimensions
+895,449,odd-primary image J,Z/449,1,0,k=(2p-2)t-1,exact in all dimensions
+896,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+897,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+898,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+899,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+899,3,odd-primary image J,Z/27,225,2,k=(2p-2)t-1,exact in all dimensions
+899,7,odd-primary image J,Z/7,75,0,k=(2p-2)t-1,exact in all dimensions
+899,11,odd-primary image J,Z/11,45,0,k=(2p-2)t-1,exact in all dimensions
+899,19,odd-primary image J,Z/19,25,0,k=(2p-2)t-1,exact in all dimensions
+899,31,odd-primary image J,Z/31,15,0,k=(2p-2)t-1,exact in all dimensions
+899,151,odd-primary image J,Z/151,3,0,k=(2p-2)t-1,exact in all dimensions
+903,2,2-primary image-J cyclic summand,Z/16,113,0,"k=8t-1, t odd*2^m",exact
+903,3,odd-primary image J,Z/3,226,0,k=(2p-2)t-1,exact in all dimensions
+903,5,odd-primary image J,Z/5,113,0,k=(2p-2)t-1,exact in all dimensions
+903,227,odd-primary image J,Z/227,2,0,k=(2p-2)t-1,exact in all dimensions
+904,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+905,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+906,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+907,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+907,3,odd-primary image J,Z/3,227,0,k=(2p-2)t-1,exact in all dimensions
+911,2,2-primary image-J cyclic summand,Z/32,114,1,"k=8t-1, t odd*2^m",exact
+911,3,odd-primary image J,Z/9,228,1,k=(2p-2)t-1,exact in all dimensions
+911,5,odd-primary image J,Z/5,114,0,k=(2p-2)t-1,exact in all dimensions
+911,7,odd-primary image J,Z/7,76,0,k=(2p-2)t-1,exact in all dimensions
+911,13,odd-primary image J,Z/13,38,0,k=(2p-2)t-1,exact in all dimensions
+911,229,odd-primary image J,Z/229,2,0,k=(2p-2)t-1,exact in all dimensions
+911,457,odd-primary image J,Z/457,1,0,k=(2p-2)t-1,exact in all dimensions
+912,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+913,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+914,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+915,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+915,3,odd-primary image J,Z/3,229,0,k=(2p-2)t-1,exact in all dimensions
+919,2,2-primary image-J cyclic summand,Z/16,115,0,"k=8t-1, t odd*2^m",exact
+919,3,odd-primary image J,Z/3,230,0,k=(2p-2)t-1,exact in all dimensions
+919,5,odd-primary image J,Z/25,115,1,k=(2p-2)t-1,exact in all dimensions
+919,11,odd-primary image J,Z/11,46,0,k=(2p-2)t-1,exact in all dimensions
+919,47,odd-primary image J,Z/47,10,0,k=(2p-2)t-1,exact in all dimensions
+919,461,odd-primary image J,Z/461,1,0,k=(2p-2)t-1,exact in all dimensions
+920,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+921,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+922,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+923,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+923,3,odd-primary image J,Z/9,231,1,k=(2p-2)t-1,exact in all dimensions
+923,7,odd-primary image J,Z/49,77,1,k=(2p-2)t-1,exact in all dimensions
+923,23,odd-primary image J,Z/23,21,0,k=(2p-2)t-1,exact in all dimensions
+923,43,odd-primary image J,Z/43,11,0,k=(2p-2)t-1,exact in all dimensions
+923,67,odd-primary image J,Z/67,7,0,k=(2p-2)t-1,exact in all dimensions
+923,463,odd-primary image J,Z/463,1,0,k=(2p-2)t-1,exact in all dimensions
+927,2,2-primary image-J cyclic summand,Z/64,116,2,"k=8t-1, t odd*2^m",exact
+927,3,odd-primary image J,Z/3,232,0,k=(2p-2)t-1,exact in all dimensions
+927,5,odd-primary image J,Z/5,116,0,k=(2p-2)t-1,exact in all dimensions
+927,17,odd-primary image J,Z/17,29,0,k=(2p-2)t-1,exact in all dimensions
+927,59,odd-primary image J,Z/59,8,0,k=(2p-2)t-1,exact in all dimensions
+927,233,odd-primary image J,Z/233,2,0,k=(2p-2)t-1,exact in all dimensions
+928,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+929,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+930,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+931,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+931,3,odd-primary image J,Z/3,233,0,k=(2p-2)t-1,exact in all dimensions
+931,467,odd-primary image J,Z/467,1,0,k=(2p-2)t-1,exact in all dimensions
+935,2,2-primary image-J cyclic summand,Z/16,117,0,"k=8t-1, t odd*2^m",exact
+935,3,odd-primary image J,Z/27,234,2,k=(2p-2)t-1,exact in all dimensions
+935,5,odd-primary image J,Z/5,117,0,k=(2p-2)t-1,exact in all dimensions
+935,7,odd-primary image J,Z/7,78,0,k=(2p-2)t-1,exact in all dimensions
+935,13,odd-primary image J,Z/169,39,1,k=(2p-2)t-1,exact in all dimensions
+935,19,odd-primary image J,Z/19,26,0,k=(2p-2)t-1,exact in all dimensions
+935,37,odd-primary image J,Z/37,13,0,k=(2p-2)t-1,exact in all dimensions
+935,53,odd-primary image J,Z/53,9,0,k=(2p-2)t-1,exact in all dimensions
+935,79,odd-primary image J,Z/79,6,0,k=(2p-2)t-1,exact in all dimensions
+935,157,odd-primary image J,Z/157,3,0,k=(2p-2)t-1,exact in all dimensions
+936,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+937,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+938,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+939,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+939,3,odd-primary image J,Z/3,235,0,k=(2p-2)t-1,exact in all dimensions
+939,11,odd-primary image J,Z/11,47,0,k=(2p-2)t-1,exact in all dimensions
+943,2,2-primary image-J cyclic summand,Z/32,118,1,"k=8t-1, t odd*2^m",exact
+943,3,odd-primary image J,Z/3,236,0,k=(2p-2)t-1,exact in all dimensions
+943,5,odd-primary image J,Z/5,118,0,k=(2p-2)t-1,exact in all dimensions
+944,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+945,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+946,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+947,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+947,3,odd-primary image J,Z/9,237,1,k=(2p-2)t-1,exact in all dimensions
+947,7,odd-primary image J,Z/7,79,0,k=(2p-2)t-1,exact in all dimensions
+951,2,2-primary image-J cyclic summand,Z/16,119,0,"k=8t-1, t odd*2^m",exact
+951,3,odd-primary image J,Z/3,238,0,k=(2p-2)t-1,exact in all dimensions
+951,5,odd-primary image J,Z/5,119,0,k=(2p-2)t-1,exact in all dimensions
+951,29,odd-primary image J,Z/29,17,0,k=(2p-2)t-1,exact in all dimensions
+951,239,odd-primary image J,Z/239,2,0,k=(2p-2)t-1,exact in all dimensions
+952,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+953,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+954,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+955,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+955,3,odd-primary image J,Z/3,239,0,k=(2p-2)t-1,exact in all dimensions
+955,479,odd-primary image J,Z/479,1,0,k=(2p-2)t-1,exact in all dimensions
+959,2,2-primary image-J cyclic summand,Z/128,120,3,"k=8t-1, t odd*2^m",exact
+959,3,odd-primary image J,Z/9,240,1,k=(2p-2)t-1,exact in all dimensions
+959,5,odd-primary image J,Z/25,120,1,k=(2p-2)t-1,exact in all dimensions
+959,7,odd-primary image J,Z/7,80,0,k=(2p-2)t-1,exact in all dimensions
+959,11,odd-primary image J,Z/11,48,0,k=(2p-2)t-1,exact in all dimensions
+959,13,odd-primary image J,Z/13,40,0,k=(2p-2)t-1,exact in all dimensions
+959,17,odd-primary image J,Z/17,30,0,k=(2p-2)t-1,exact in all dimensions
+959,31,odd-primary image J,Z/31,16,0,k=(2p-2)t-1,exact in all dimensions
+959,41,odd-primary image J,Z/41,12,0,k=(2p-2)t-1,exact in all dimensions
+959,61,odd-primary image J,Z/61,8,0,k=(2p-2)t-1,exact in all dimensions
+959,97,odd-primary image J,Z/97,5,0,k=(2p-2)t-1,exact in all dimensions
+959,241,odd-primary image J,Z/241,2,0,k=(2p-2)t-1,exact in all dimensions
+960,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+961,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+962,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+963,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+963,3,odd-primary image J,Z/3,241,0,k=(2p-2)t-1,exact in all dimensions
+967,2,2-primary image-J cyclic summand,Z/16,121,0,"k=8t-1, t odd*2^m",exact
+967,3,odd-primary image J,Z/3,242,0,k=(2p-2)t-1,exact in all dimensions
+967,5,odd-primary image J,Z/5,121,0,k=(2p-2)t-1,exact in all dimensions
+967,23,odd-primary image J,Z/23,22,0,k=(2p-2)t-1,exact in all dimensions
+968,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+969,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+970,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+971,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+971,3,odd-primary image J,Z/729,243,5,k=(2p-2)t-1,exact in all dimensions
+971,7,odd-primary image J,Z/7,81,0,k=(2p-2)t-1,exact in all dimensions
+971,19,odd-primary image J,Z/19,27,0,k=(2p-2)t-1,exact in all dimensions
+971,163,odd-primary image J,Z/163,3,0,k=(2p-2)t-1,exact in all dimensions
+971,487,odd-primary image J,Z/487,1,0,k=(2p-2)t-1,exact in all dimensions
+975,2,2-primary image-J cyclic summand,Z/32,122,1,"k=8t-1, t odd*2^m",exact
+975,3,odd-primary image J,Z/3,244,0,k=(2p-2)t-1,exact in all dimensions
+975,5,odd-primary image J,Z/5,122,0,k=(2p-2)t-1,exact in all dimensions
+976,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+977,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+978,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+979,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+979,3,odd-primary image J,Z/3,245,0,k=(2p-2)t-1,exact in all dimensions
+979,11,odd-primary image J,Z/11,49,0,k=(2p-2)t-1,exact in all dimensions
+979,71,odd-primary image J,Z/71,7,0,k=(2p-2)t-1,exact in all dimensions
+979,491,odd-primary image J,Z/491,1,0,k=(2p-2)t-1,exact in all dimensions
+983,2,2-primary image-J cyclic summand,Z/16,123,0,"k=8t-1, t odd*2^m",exact
+983,3,odd-primary image J,Z/9,246,1,k=(2p-2)t-1,exact in all dimensions
+983,5,odd-primary image J,Z/5,123,0,k=(2p-2)t-1,exact in all dimensions
+983,7,odd-primary image J,Z/7,82,0,k=(2p-2)t-1,exact in all dimensions
+983,13,odd-primary image J,Z/13,41,0,k=(2p-2)t-1,exact in all dimensions
+983,83,odd-primary image J,Z/83,6,0,k=(2p-2)t-1,exact in all dimensions
+984,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+985,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+986,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+987,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+987,3,odd-primary image J,Z/3,247,0,k=(2p-2)t-1,exact in all dimensions
+991,2,2-primary image-J cyclic summand,Z/64,124,2,"k=8t-1, t odd*2^m",exact
+991,3,odd-primary image J,Z/3,248,0,k=(2p-2)t-1,exact in all dimensions
+991,5,odd-primary image J,Z/5,124,0,k=(2p-2)t-1,exact in all dimensions
+991,17,odd-primary image J,Z/17,31,0,k=(2p-2)t-1,exact in all dimensions
+992,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+993,2,2-primary v1-periodic,(Z/2)^2,,,k congruent 1 mod 8,exact
+994,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact
+995,2,2-primary v1-periodic,Z/8,,,k congruent 3 mod 8,exact
+995,3,odd-primary image J,Z/9,249,1,k=(2p-2)t-1,exact in all dimensions
+995,7,odd-primary image J,Z/7,83,0,k=(2p-2)t-1,exact in all dimensions
+995,167,odd-primary image J,Z/167,3,0,k=(2p-2)t-1,exact in all dimensions
+995,499,odd-primary image J,Z/499,1,0,k=(2p-2)t-1,exact in all dimensions
+999,2,2-primary image-J cyclic summand,Z/16,125,0,"k=8t-1, t odd*2^m",exact
+999,3,odd-primary image J,Z/3,250,0,k=(2p-2)t-1,exact in all dimensions
+999,5,odd-primary image J,Z/625,125,3,k=(2p-2)t-1,exact in all dimensions
+999,11,odd-primary image J,Z/11,50,0,k=(2p-2)t-1,exact in all dimensions
+999,101,odd-primary image J,Z/101,5,0,k=(2p-2)t-1,exact in all dimensions
+999,251,odd-primary image J,Z/251,2,0,k=(2p-2)t-1,exact in all dimensions
+1000,2,2-primary v1-periodic,Z/2,,,k congruent 0 or 2 mod 8,exact

@@ -1,0 +1,15 @@
+object,range,completeness,what_is_resolved,remaining_issue,principal_source
+Integral stable additive groups,0-83,complete,all primes and additive extensions,none in range,IWX 2023; Burklund-Isaksen-Xu 2025
+Integral stable additive groups,84-90,partial,"exact in stems 87,88,89; explicit alternatives elsewhere","2-primary ambiguities in 84,85,86,90",IWX 2023 with BIX corrections
+2-primary classical Adams E2,through stem 110,algebraic input range,Ext chart,does not by itself determine homotopy,IWX chart datasets / Bruner-style Ext computations
+2-primary stable homotopy,"through 90, partial higher",near-complete/partial,low stems plus selected facts into 90s,differentials and hidden extensions,IWX 2023; BIX 2025; machine-proof project
+3-primary stable homotopy,through 108,complete classical computation,non-J table plus image J,none in stated range,Tangora/Aubry/Ravenel; Ravenel 2026 Table A3.2
+5-primary stable homotopy,through 999,complete classical table with source-marked ? entries,non-J elements/relations plus image J,"entries explicitly marked ? at 932,933,970,971 in current table",Ravenel 2026 Table A3.3
+Odd-primary image J,all stems,closed formula,exact cyclic summands,none,Adams; Quillen; Sullivan; Ravenel
+2-primary v1-periodic summands,all stems,closed formula,image-J and Adams v1-periodic summands,none,Adams; Davis-Mahowald; Ravenel
+2-primary height-two periodic families,arbitrarily high stems,125 explicit period-192 families in 19 residues,"existence, orders for cataloged simple families, periodicity, detectors",not a classification of all 2-primary stems,Carrick-Davies 2025/2026; BBQ; BQ
+3-primary height-two products,arbitrarily high stems,large explicit families/products,j_2 Hurewicz image and many nonzero products,not a complete ring presentation,Carrick-Davies arXiv:2410.02564v3
+Integral unstable k-stems,"k<=20, all sphere dimensions",complete,all primes and extensions,none,Toda 1962; Mimura-Toda 1963
+2-primary unstable k-stems,"k<=32, all sphere dimensions",complete,groups and classical generators/relations,none in range,Mimura; Mimura-Mori-Oda; Oda; Inoue-Mukai; Miyauchi-Mukai
+2-primary unstable 33-stem,n=2-9 and stable/backward range n>=28,partial,three 2026 extension problems plus previous cases,n=10-26 unresolved; n=27 source inconsistency,Yang-Wu 2026 and predecessors
+3-primary unstable groups,k<80 (source convention),complete prime-local tables,3-primary groups in Toda monograph range,not integral and not all primes,"Hirosi Toda, Unstable 3-Primary Homotopy Groups of Spheres (2003)"

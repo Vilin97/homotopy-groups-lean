@@ -1,0 +1,12 @@
+{
+  "id": "stable_three_primary_groups_001_108",
+  "module": "HomotopyGroups.StableThreePrimary",
+  "holes": [
+    {
+      "name": "HomotopyGroups.stable_three_primary_groups_001_108",
+      "basename": "stable_three_primary_groups_001_108",
+      "kind": "theorem",
+      "body": "/--\nThe exact 3-primary components of the positive stable stems 1 through 108.\nThe finite index `stemIndex` represents stable stem `stemIndex + 1`; the\nchosen homotopy group is the same canonical Freudenthal-range representative\nused by `HomotopyGroups.StableStems`.\n\nStem zero is deliberately excluded: its `Z_(3)` entry is a localization of the\ninfinite cyclic group, not the primary torsion subgroup defined by Mathlib.\n\nSource: Ravenel, *Complex Cobordism and Stable Homotopy Groups of Spheres*,\ndigital third edition (2026), Table A3.2 plus the image-of-J formula: https://www.sas.rochester.edu/mth/sites/doug-ravenel/mybooks/ravenel3rd.pdf\n-/\ntheorem stable_three_primary_groups_001_108 (stemIndex : Fin 108) :\n    Nonempty\n      (CommGroup.primaryComponent\n          (\u03c0_ (2 * (stemIndex.val + 1) + 2)\n            (StableStems.StableSphere (stemIndex.val + 3))\n            (StableStems.stableSphereBasepoint (stemIndex.val + 3))) 3 \u2243*\n        stableThreePrimaryGroup stemIndex) := by\n  sorry"
+    }
+  ]
+}
