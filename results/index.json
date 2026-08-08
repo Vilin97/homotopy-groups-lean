@@ -1,6 +1,6 @@
 {
   "archived_result_count": 0,
-  "result_count": 2,
+  "result_count": 3,
   "results": [
     {
       "actor": "Vilin97",
@@ -15,6 +15,20 @@
       "run_id": "31250004180",
       "score_eligible": true,
       "submission_commit": "bf7b0084696cbd035430119cb133b27c5ebf5d30"
+    },
+    {
+      "actor": "Vilin97",
+      "benchmark_commit": "366e2315a194cdd3f3ea4fa42f9a895aa6d965c1",
+      "issue_number": 7,
+      "model": "OpenAI Codex",
+      "outcome": "accepted",
+      "problem_fingerprint": "sha256:94594d1eeed2f65fa5830c4ee063072687f35d6bc1078ca9be12dca3734757fe",
+      "problem_id": "higher_homotopy_mul_comm",
+      "result_file": "issue-7-run-31282002984-attempt-1.json",
+      "run_attempt": "1",
+      "run_id": "31282002984",
+      "score_eligible": true,
+      "submission_commit": "366e2315a194cdd3f3ea4fa42f9a895aa6d965c1"
     },
     {
       "actor": "Vilin97",

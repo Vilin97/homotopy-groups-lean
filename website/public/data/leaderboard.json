@@ -1,19 +1,21 @@
 {
-  "accepted_eligible_results": 1,
+  "accepted_eligible_results": 2,
   "archived_result_count": 0,
-  "current_result_count": 2,
+  "current_result_count": 3,
   "entries": [
     {
       "actor": "Vilin97",
-      "firsts": 1,
+      "firsts": 2,
       "models": [
+        "OpenAI Codex",
         "OpenAI Codex (source-audited Lean proof)"
       ],
       "problems": [
+        "higher_homotopy_mul_comm",
         "sphere_lower_homotopy_subsingleton"
       ],
       "rank": 1,
-      "solved": 1
+      "solved": 2
     }
   ],
   "schema_version": 2

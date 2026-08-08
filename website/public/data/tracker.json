@@ -14,7 +14,7 @@
     },
     {
       "family": "Foundations",
-      "formalization_status": "open",
+      "formalization_status": "comparator_verified",
       "holes": [
         "higher_homotopy_mul_comm"
       ],
