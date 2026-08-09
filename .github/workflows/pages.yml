@@ -10,6 +10,12 @@ on:
       - 'scripts/generate_extended_frontiers.py'
       - 'scripts/generate_site_data.py'
       - 'website/**'
+  # Commits made by the evaluator's GITHUB_TOKEN do not start push workflows.
+  # Deploy after the evaluator finishes so recorded results reach Pages without
+  # requiring a manual dispatch.
+  workflow_run:
+    workflows: ['Evaluate submission']
+    types: [completed]
   workflow_dispatch:
 
 permissions: {}
@@ -22,7 +28,9 @@ concurrency:
 
 jobs:
   build:
-    if: github.ref == 'refs/heads/main'
+    if: >-
+      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') ||
+      (github.event_name != 'workflow_run' && github.ref == 'refs/heads/main')
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     permissions:
@@ -31,6 +39,7 @@ jobs:
       # actions/checkout v7.0.1, pinned 2026-07-30.
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
+          ref: main
           persist-credentials: false
 
       - name: Install digest-verified Node toolchain
@@ -57,7 +66,7 @@ jobs:
           include-hidden-files: true
 
   deploy:
-    if: github.ref == 'refs/heads/main'
+    if: needs.build.result == 'success'
     needs: build
     runs-on: ubuntu-24.04
     timeout-minutes: 10
