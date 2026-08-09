@@ -1,5 +1,5 @@
 {
-  "accepted_eligible_results": 6,
+  "accepted_eligible_results": 7,
   "accepted_problems": [
     {
       "actors": [
@@ -75,6 +75,23 @@
       ],
       "family": "Foundations",
       "first_actor": "Vilin97",
+      "id": "pi1_mulEquiv_fundamentalGroup",
+      "models": [
+        "OpenAI Codex"
+      ],
+      "result_count": 1,
+      "result_files": [
+        "issue-13-run-31298612811-attempt-1.json"
+      ],
+      "score_eligible": true,
+      "title": "The first homotopy group agrees with the fundamental group"
+    },
+    {
+      "actors": [
+        "Vilin97"
+      ],
+      "family": "Foundations",
+      "first_actor": "Vilin97",
       "id": "pi1_hSpace_mul_comm",
       "models": [
         "OpenAI Codex"
@@ -122,11 +139,11 @@
     }
   ],
   "archived_result_count": 0,
-  "current_result_count": 7,
+  "current_result_count": 8,
   "entries": [
     {
       "actor": "Vilin97",
-      "firsts": 6,
+      "firsts": 7,
       "models": [
         "OpenAI Codex",
         "OpenAI Codex (source-audited Lean proof)"
@@ -136,11 +153,12 @@
         "pi0_equiv_zerothHomotopy",
         "pi0_pathConnected_subsingleton",
         "pi1_hSpace_mul_comm",
+        "pi1_mulEquiv_fundamentalGroup",
         "pi1_simplyConnected_subsingleton",
         "sphere_lower_homotopy_subsingleton"
       ],
       "rank": 1,
-      "solved": 6
+      "solved": 7
     }
   ],
   "formalization_inventory": {

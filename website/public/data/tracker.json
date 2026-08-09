@@ -134,7 +134,7 @@
     },
     {
       "family": "Foundations",
-      "formalization_status": "open",
+      "formalization_status": "comparator_verified",
       "holes": [
         "pi1_mulEquiv_fundamentalGroup"
       ],
