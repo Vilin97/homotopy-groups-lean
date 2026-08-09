@@ -1,5 +1,5 @@
 {
-  "accepted_eligible_results": 5,
+  "accepted_eligible_results": 6,
   "accepted_problems": [
     {
       "actors": [
@@ -90,6 +90,23 @@
       "actors": [
         "Vilin97"
       ],
+      "family": "Foundations",
+      "first_actor": "Vilin97",
+      "id": "pi0_equiv_zerothHomotopy",
+      "models": [
+        "OpenAI Codex"
+      ],
+      "result_count": 1,
+      "result_files": [
+        "issue-12-run-31298612079-attempt-1.json"
+      ],
+      "score_eligible": true,
+      "title": "Zeroth homotopy groups agree with path components"
+    },
+    {
+      "actors": [
+        "Vilin97"
+      ],
       "family": "Spaces",
       "first_actor": null,
       "id": "pi1_circle_mulEquiv_int",
@@ -105,24 +122,25 @@
     }
   ],
   "archived_result_count": 0,
-  "current_result_count": 6,
+  "current_result_count": 7,
   "entries": [
     {
       "actor": "Vilin97",
-      "firsts": 5,
+      "firsts": 6,
       "models": [
         "OpenAI Codex",
         "OpenAI Codex (source-audited Lean proof)"
       ],
       "problems": [
         "higher_homotopy_mul_comm",
+        "pi0_equiv_zerothHomotopy",
         "pi0_pathConnected_subsingleton",
         "pi1_hSpace_mul_comm",
         "pi1_simplyConnected_subsingleton",
         "sphere_lower_homotopy_subsingleton"
       ],
       "rank": 1,
-      "solved": 5
+      "solved": 6
     }
   ],
   "formalization_inventory": {
