@@ -1,5 +1,109 @@
 {
   "accepted_eligible_results": 5,
+  "accepted_problems": [
+    {
+      "actors": [
+        "Vilin97"
+      ],
+      "family": "Foundations",
+      "first_actor": "Vilin97",
+      "id": "pi0_pathConnected_subsingleton",
+      "models": [
+        "OpenAI Codex"
+      ],
+      "result_count": 1,
+      "result_files": [
+        "issue-8-run-31282003043-attempt-1.json"
+      ],
+      "score_eligible": true,
+      "title": "A path-connected space has trivial zeroth homotopy group"
+    },
+    {
+      "actors": [
+        "Vilin97"
+      ],
+      "family": "Foundations",
+      "first_actor": "Vilin97",
+      "id": "pi1_simplyConnected_subsingleton",
+      "models": [
+        "OpenAI Codex"
+      ],
+      "result_count": 1,
+      "result_files": [
+        "issue-9-run-31282003286-attempt-1.json"
+      ],
+      "score_eligible": true,
+      "title": "A simply connected space has trivial fundamental homotopy group"
+    },
+    {
+      "actors": [
+        "Vilin97"
+      ],
+      "family": "Foundations",
+      "first_actor": "Vilin97",
+      "id": "higher_homotopy_mul_comm",
+      "models": [
+        "OpenAI Codex"
+      ],
+      "result_count": 1,
+      "result_files": [
+        "issue-7-run-31282002984-attempt-1.json"
+      ],
+      "score_eligible": true,
+      "title": "Higher homotopy groups are commutative"
+    },
+    {
+      "actors": [
+        "Vilin97"
+      ],
+      "family": "Spaces",
+      "first_actor": "Vilin97",
+      "id": "sphere_lower_homotopy_subsingleton",
+      "models": [
+        "OpenAI Codex (source-audited Lean proof)"
+      ],
+      "result_count": 1,
+      "result_files": [
+        "issue-1-run-31250004180-attempt-1.json"
+      ],
+      "score_eligible": true,
+      "title": "Homotopy groups below the dimension of a sphere vanish"
+    },
+    {
+      "actors": [
+        "Vilin97"
+      ],
+      "family": "Foundations",
+      "first_actor": "Vilin97",
+      "id": "pi1_hSpace_mul_comm",
+      "models": [
+        "OpenAI Codex"
+      ],
+      "result_count": 1,
+      "result_files": [
+        "issue-10-run-31282004129-attempt-1.json"
+      ],
+      "score_eligible": true,
+      "title": "The fundamental group of an H-space is commutative"
+    },
+    {
+      "actors": [
+        "Vilin97"
+      ],
+      "family": "Spaces",
+      "first_actor": null,
+      "id": "pi1_circle_mulEquiv_int",
+      "models": [
+        "maintained-reference-smoke"
+      ],
+      "result_count": 1,
+      "result_files": [
+        "issue-dispatch-run-31188000114-attempt-1.json"
+      ],
+      "score_eligible": false,
+      "title": "The fundamental group of the circle is the integers"
+    }
+  ],
   "archived_result_count": 0,
   "current_result_count": 6,
   "entries": [
@@ -21,5 +125,1570 @@
       "solved": 5
     }
   ],
+  "formalization_inventory": {
+    "lattice": {
+      "cell_count": 183,
+      "cells": [
+        {
+          "k": 0,
+          "n": 1,
+          "record_id": "lean4-benchmark-circle-pi1",
+          "record_ids": [
+            "lean4-benchmark-circle-pi1",
+            "lean4-groundzero-circle",
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 1,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 2,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 3,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 4,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 5,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 6,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 7,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 8,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 9,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 10,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 11,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 12,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 13,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 14,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 15,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 16,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 17,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 18,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 19,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 20,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 21,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 22,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 23,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 24,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 25,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 26,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 27,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 28,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 29,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 30,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 31,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 32,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 33,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 34,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 35,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 36,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 37,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 38,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 39,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 40,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 41,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 42,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 43,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 44,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 45,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 46,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 47,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 48,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 49,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 50,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 51,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 52,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 53,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 54,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 55,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 56,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 57,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 58,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 59,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 60,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 61,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 62,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 63,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 64,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 65,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 66,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 67,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 68,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 69,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 70,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 71,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 72,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 73,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 74,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 75,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 76,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 77,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 78,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 79,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 80,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 81,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 82,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 83,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 84,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 85,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 86,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 87,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 88,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 89,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 90,
+          "n": 1,
+          "record_id": "lean4-tauceti-circle",
+          "record_ids": [
+            "lean4-tauceti-circle"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 2,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 1,
+          "n": 2,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 3,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 4,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 5,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 6,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 7,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 8,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 9,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 10,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 11,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 12,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 13,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 14,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 15,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 16,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 17,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 18,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 19,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 20,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 21,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 22,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 23,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 24,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 25,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 26,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 27,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 28,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 29,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 30,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 31,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 32,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 33,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 34,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 35,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 36,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 37,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 38,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 39,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 40,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 41,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 42,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 43,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 44,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 45,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 46,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 47,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 48,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 49,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 50,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 51,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 52,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 53,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 54,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 55,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 56,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 57,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 58,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 59,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 60,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 61,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 62,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 63,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 64,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 65,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 66,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 67,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 68,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 69,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 70,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 71,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 72,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 73,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 74,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 75,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 76,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 77,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 78,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 79,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 80,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 81,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 82,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 83,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 84,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 85,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 86,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 87,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 88,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 89,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 90,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 91,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 92,
+          "record_id": "lean2-hott-spheres",
+          "record_ids": [
+            "lean2-hott-spheres"
+          ]
+        }
+      ],
+      "k_max": 90,
+      "k_min": 0,
+      "n_max": 92,
+      "n_min": 1
+    },
+    "records": [
+      {
+        "cell_count": 1,
+        "coordinates": "n=1,k=0",
+        "declarations": [
+          "Submission.pi1_circle_mulEquiv_int"
+        ],
+        "id": "lean4-benchmark-circle-pi1",
+        "lattice_kind": "lean4_alternate_model",
+        "model_relation": "Mathlib Circle; a metric-sphere homeomorphism is not part of the proof",
+        "note": null,
+        "result": "pi_1(Circle) is infinite cyclic",
+        "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/934117058d1902a75b9d19bccec6563c2a5d3339/examples/submissions/pi1_circle/Submission.lean",
+        "status": "dual_kernel_verified_reference",
+        "system": "Lean 4"
+      },
+      {
+        "cell_count": 90,
+        "coordinates": "n=1,k>=1",
+        "declarations": [
+          "TauCeti.AddCircle.fundamentalGroupMulEquiv",
+          "TauCeti.Circle.fundamentalGroupMulEquiv",
+          "TauCeti.AddCircle.subsingleton_homotopyGroup",
+          "TauCeti.AddCircle.homotopyGroupPi_eq_one"
+        ],
+        "id": "lean4-tauceti-circle",
+        "lattice_kind": "lean4_alternate_model",
+        "model_relation": "AddCircle/complex Circle, with transport along homeomorphisms; the explicit bridge to SphereSpace 1 remains to be added",
+        "note": null,
+        "result": "the circle has fundamental group Z and all higher homotopy groups trivial",
+        "source": "https://github.com/TauCetiProject/TauCeti/blob/2b5d1fc89767051f490d5b4f00e76a4cdbd92876/TauCeti/AlgebraicTopology/UniversalCover/Circle/HigherHomotopy.lean",
+        "status": "source_audited_builds",
+        "system": "Lean 4"
+      },
+      {
+        "cell_count": 0,
+        "coordinates": null,
+        "declarations": [
+          "Submission.subsingleton_homotopyGroup_sphere_of_lt"
+        ],
+        "id": "lean4-metric-sphere-connectivity",
+        "lattice_kind": null,
+        "model_relation": "exactly the Mathlib metric-sphere model used by SphereSpace",
+        "note": "The website lattice starts at pi_n(S^n), so these lower-dimensional groups fall outside its coordinate domain.",
+        "result": "pi_k(S^n) is trivial for k<n",
+        "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/0119d6355024b9af41fa9dbf09a6cfb96fea6af8/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Model/SphereConnected.lean",
+        "status": "source_audited_imported_submission",
+        "system": "Lean 4"
+      },
+      {
+        "cell_count": 1,
+        "coordinates": "n=1,k=0",
+        "declarations": [
+          "GroundZero.HITs.Circle.fundamentalGroup"
+        ],
+        "id": "lean4-groundzero-circle",
+        "lattice_kind": "synthetic_model_supporting_source",
+        "model_relation": "custom HoTT mode with HIT and univalence infrastructure, not Mathlib HomotopyGroup.Pi",
+        "note": null,
+        "result": "the loop space of the synthetic circle is Z",
+        "source": "https://github.com/rzrn/ground_zero/blob/2cbca29485c2e6f420c120365e00fe3b70db3acf/GroundZero/HITs/Circle.lean",
+        "status": "source_audited_builds",
+        "system": "Lean 4 HoTT"
+      },
+      {
+        "cell_count": 93,
+        "coordinates": "k=0 and (n,k)=(2,1)",
+        "declarations": [
+          "sphere.homotopy_group_sphere_le",
+          "circle.fundamental_group_of_circle",
+          "circle.homotopy_group_of_circle",
+          "sphere.π2S2",
+          "sphere.πnSn",
+          "sphere.π3S2"
+        ],
+        "id": "lean2-hott-spheres",
+        "lattice_kind": "historical_hott",
+        "model_relation": "historical synthetic HoTT/HIT sphere model",
+        "note": null,
+        "result": "lower sphere groups vanish, pi_n(S^n)=Z, pi_3(S^2)=Z, and circle computations",
+        "source": "https://github.com/leanprover/lean2/blob/8072fdf9a0b31abb9d43ab894d7a858639e20ed7/hott/homotopy/sphere2.hlean",
+        "status": "source_audited_historical",
+        "system": "Lean 2 HoTT"
+      }
+    ],
+    "reviewed_on": "2026-08-08",
+    "schema_version": "1.0.0",
+    "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/main/research/formalizations.json"
+  },
   "schema_version": 2
 }
