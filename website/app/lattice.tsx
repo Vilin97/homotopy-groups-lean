@@ -9,6 +9,7 @@ import {
   useRef,
   useState,
 } from "react";
+import leaderboardData from "../public/data/leaderboard.json";
 import stableStemData from "../public/data/stable-stems.json";
 import { siteAsset } from "./site";
 
@@ -30,6 +31,20 @@ type Formalization = {
   note: string;
   source: string;
 } | null;
+type FormalizationRecord = {
+  id: string;
+  system: string;
+  result: string;
+  model_relation: string;
+  status: string;
+  source: string;
+};
+type FormalizationCell = { n: number; k: number; record_id: string };
+type FormalizationInventory = {
+  source: string;
+  records: FormalizationRecord[];
+  lattice: { cells: FormalizationCell[] };
+};
 type Coordinate = { n: number; k: number };
 type CanvasGeometry = { left: number; top: number; cell: number };
 
@@ -40,8 +55,13 @@ const nMax = 92;
 const kMax = 90;
 const rowCount = nMax - nMin + 1;
 const columnCount = kMax + 1;
-const formalizationInventory =
-  "https://github.com/Vilin97/homotopy-groups-lean/blob/main/research/formalizations.md";
+const formalizationInventory = leaderboardData.formalization_inventory as FormalizationInventory;
+const formalizationRecords = new Map(
+  formalizationInventory.records.map((record) => [record.id, record]),
+);
+const formalizationCells = new Map(
+  formalizationInventory.lattice.cells.map((cell) => [`${cell.n}:${cell.k}`, cell.record_id]),
+);
 
 const knowledgeCopy: Record<Knowledge, { label: string; short: string; color: string }> = {
   exact: { label: "Exact integral", short: "exact integral group", color: "#4fdda8" },
@@ -69,37 +89,23 @@ function knowledgeAt(n: number, k: number): Knowledge {
 }
 
 function formalizationAt(n: number, k: number): Formalization {
-  // Current Lean 4 formalizations use Circle/AddCircle models. Keep the still-missing
-  // explicit bridge to this page's metric-sphere model visible in the detail pane.
-  if (n === 1) {
-    if (k === 0) {
-      return {
-        accessibleLabel: "comparator-verified in Lean 4 using an alternate circle model",
-        badge: "Lean 4 · comparator verified",
-        kind: "lean4",
-        note: "The Circle computation passed Comparator, Lean's kernel, and nanoda. The explicit equivalence with this lattice's metric S¹ model is not part of the proof.",
-        source: "https://github.com/Vilin97/homotopy-groups-lean/tree/main/examples/submissions/pi1_circle",
-      };
-    }
-    return {
-      accessibleLabel: "formalized in Lean 4 using an alternate circle model",
-      badge: "Lean 4 · circle model",
-      kind: "lean4",
-      note: "Purple records a source-auditable Lean 4 computation for Circle or AddCircle. The explicit equivalence with this lattice's metric S¹ model is not part of these proofs.",
-      source: "https://github.com/TauCetiProject/TauCeti/blob/2b5d1fc89767051f490d5b4f00e76a4cdbd92876/TauCeti/AlgebraicTopology/UniversalCover/Circle/HigherHomotopy.lean",
-    };
-  }
-  // Lean 2's HoTT library proves pi_n(S^n)=Z and pi_3(S^2)=Z.
-  if (k === 0 || (n === 2 && k === 1)) {
-    return {
-      accessibleLabel: "formalized in historical Lean 2 HoTT using a synthetic sphere model",
-      badge: "Lean 2 HoTT · synthetic sphere",
-      kind: "historical",
-      note: "Purple records a source-auditable historical Lean 2 HoTT computation in a synthetic higher-inductive sphere model.",
-      source: "https://github.com/leanprover/lean2/blob/8072fdf9a0b31abb9d43ab894d7a858639e20ed7/hott/homotopy/sphere2.hlean",
-    };
-  }
-  return null;
+  const recordId = formalizationCells.get(`${n}:${k}`);
+  const record = recordId ? formalizationRecords.get(recordId) : undefined;
+  if (!record) return null;
+  const dualKernel = record.status === "dual_kernel_verified_reference";
+  const historical = record.status === "source_audited_historical";
+  const statusLabel = dualKernel
+    ? "dual-kernel verified"
+    : historical
+      ? "historical · source audited"
+      : "source audited";
+  return {
+    accessibleLabel: `${statusLabel} in ${record.system}`,
+    badge: `${record.system} · ${statusLabel}`,
+    kind: record.system.startsWith("Lean 4") ? "lean4" : "historical",
+    note: `${record.result}. ${record.model_relation}.`,
+    source: record.source,
+  };
 }
 
 function superscript(value: number): string {
@@ -311,7 +317,7 @@ export function Lattice() {
       </div>
       <div className="atlas-main">
         <div className="lattice-wrap">
-          <div className="lattice-axis-title"><span>π<sub>n+k</sub>(S<sup>n</sup>)</span><strong>hover · click · arrow keys</strong></div>
+          <div className="lattice-axis-title"><span className="math-expression">π<sub>n+k</sub>(S<sup>n</sup>)</span><strong>hover · click · arrow keys</strong></div>
           <p className="sr-only" id="lattice-instructions">Use the arrow keys to inspect adjacent cells, or enter n and k in the locate form.</p>
           <div className="canvas-frame" ref={canvasFrameRef}>
             <canvas
@@ -326,10 +332,10 @@ export function Lattice() {
         <aside className={`coordinate-detail ${status}`} aria-live="polite">
           <div className="detail-status"><i aria-hidden="true" style={{ background: knowledgeCopy[status].color }} /> {knowledgeCopy[status].label}</div>
           {formalization && <div className="formalization-badge">{formalization.badge}</div>}
-          <h3>π<sub>{selected.n + selected.k}</sub>(S<sup>{selected.n}</sup>)</h3>
+          <h3 className="math-expression">π<sub>{selected.n + selected.k}</sub>(S<sup>{selected.n}</sup>)</h3>
           <div className="coordinate-pair"><span>n = {selected.n}</span><span>k = {selected.k}</span></div>
           {obviousGroup && <div className="group-value"><span>integral group</span><strong>{obviousGroup}</strong></div>}
-          {status === "exact" && !obviousGroup && stable && <div className="group-value"><span>≅ π<sub>{selected.k}</sub><sup>S</sup></span><strong>{formatGroup(stem.group)}</strong></div>}
+          {status === "exact" && !obviousGroup && stable && <div className="group-value"><span className="math-expression">≅ π<sub>{selected.k}</sub>(𝕊)</span><strong>{formatGroup(stem.group)}</strong></div>}
           {status === "exact" && !obviousGroup && !stable && <p>The complete integral group is tabulated in Toda&apos;s 0–19 stem tables or the Mimura–Toda 20-stem computation reproduced in the review.</p>}
           {status === "partial" && <><div className="group-value"><span>published full groups</span><strong>{stem.alternatives?.length ?? 0} alternatives</strong></div><div className="alternatives">{stem.alternatives?.map((alternative, index) => <span key={alternative.alternative_id}><b>{String.fromCharCode(65 + index)}</b>{formatGroup(alternative.group)}</span>)}</div><p>{stem.note}</p></>}
           {status === "primary" && <><div className="group-value"><span>computed component</span><strong>2-primary</strong></div><p>The 2-primary component is tabulated, but this view does not claim a complete integral group.</p></>}
@@ -338,7 +344,7 @@ export function Lattice() {
           {formalization && <p className="formalization-note">{formalization.note} It does not change the literature evidence class beneath it.</p>}
           <div className="detail-links">
             {formalization && <a href={formalization.source}>Lean source ↗</a>}
-            {formalization && <a href={formalizationInventory}>full inventory ↗</a>}
+            {formalization && <a href={formalizationInventory.source}>full inventory ↗</a>}
             {sourceUrl && <a href={sourceUrl}>mathematical source ↗</a>}
           </div>
         </aside>

@@ -14,7 +14,11 @@
       "model_relation": "Mathlib Circle; a metric-sphere homeomorphism is not part of the proof",
       "status": "dual_kernel_verified_reference",
       "source": "../examples/submissions/pi1_circle/Submission.lean",
-      "lattice_overlay": { "coordinates": "n=1,k=0", "kind": "lean4_alternate_model" }
+      "lattice_overlay": {
+        "coordinates": "n=1,k=0",
+        "kind": "lean4_alternate_model",
+        "cell_ranges": [{ "n": [1, 1], "k": [0, 0] }]
+      }
     },
     {
       "id": "lean4-tauceti-circle",
@@ -32,7 +36,11 @@
       "model_relation": "AddCircle/complex Circle, with transport along homeomorphisms; the explicit bridge to SphereSpace 1 remains to be added",
       "status": "source_audited_builds",
       "source": "https://github.com/TauCetiProject/TauCeti/blob/2b5d1fc89767051f490d5b4f00e76a4cdbd92876/TauCeti/AlgebraicTopology/UniversalCover/Circle/HigherHomotopy.lean",
-      "lattice_overlay": { "coordinates": "n=1,k>=1", "kind": "lean4_alternate_model" }
+      "lattice_overlay": {
+        "coordinates": "n=1,k>=1",
+        "kind": "lean4_alternate_model",
+        "cell_ranges": [{ "n": [1, 1], "k": [1, 90] }]
+      }
     },
     {
       "id": "lean4-metric-sphere-connectivity",
@@ -44,7 +52,7 @@
       "result": "pi_k(S^n) is trivial for k<n",
       "model_relation": "exactly the Mathlib metric-sphere model used by SphereSpace",
       "status": "source_audited_imported_submission",
-      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Model/SphereConnected.lean",
+      "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/0119d6355024b9af41fa9dbf09a6cfb96fea6af8/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Model/SphereConnected.lean",
       "lattice_overlay": null,
       "note": "The website lattice starts at pi_n(S^n), so these lower-dimensional groups fall outside its coordinate domain."
     },
@@ -59,7 +67,11 @@
       "model_relation": "custom HoTT mode with HIT and univalence infrastructure, not Mathlib HomotopyGroup.Pi",
       "status": "source_audited_builds",
       "source": "https://github.com/rzrn/ground_zero/blob/2cbca29485c2e6f420c120365e00fe3b70db3acf/GroundZero/HITs/Circle.lean",
-      "lattice_overlay": { "coordinates": "n=1,k=0", "kind": "synthetic_model_supporting_source" }
+      "lattice_overlay": {
+        "coordinates": "n=1,k=0",
+        "kind": "synthetic_model_supporting_source",
+        "cell_ranges": [{ "n": [1, 1], "k": [0, 0] }]
+      }
     },
     {
       "id": "lean2-hott-spheres",
@@ -79,7 +91,14 @@
       "model_relation": "historical synthetic HoTT/HIT sphere model",
       "status": "source_audited_historical",
       "source": "https://github.com/leanprover/lean2/blob/8072fdf9a0b31abb9d43ab894d7a858639e20ed7/hott/homotopy/sphere2.hlean",
-      "lattice_overlay": { "coordinates": "k=0 and (n,k)=(2,1)", "kind": "historical_hott" }
+      "lattice_overlay": {
+        "coordinates": "k=0 and (n,k)=(2,1)",
+        "kind": "historical_hott",
+        "cell_ranges": [
+          { "n": [1, 92], "k": [0, 0] },
+          { "n": [2, 2], "k": [1, 1] }
+        ]
+      }
     }
   ],
   "related_public_proofs": [

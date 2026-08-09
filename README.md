@@ -153,6 +153,9 @@ The maintained source-auditable proof suite under
   in the benchmark's exact metric-sphere model;
 - `higher_homotopy_mul_comm`, exposing the pinned Mathlib
   Eckmann--Hilton `CommGroup` foundation for `π_{n+2}`;
+- `pi0_equiv_zerothHomotopy` and `pi1_mulEquiv_fundamentalGroup`, exposing
+  Mathlib's native comparison equivalences for path components and the
+  fundamental group;
 - `pi0_pathConnected_subsingleton` and
   `pi1_simplyConnected_subsingleton`, transporting native component and
   fundamental-group triviality across Mathlib's comparison equivalences; and

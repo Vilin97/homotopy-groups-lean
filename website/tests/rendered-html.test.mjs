@@ -18,13 +18,18 @@ test("statically exports the benchmark landing page", async () => {
   assert.doesNotMatch(html, /manifests\/problems\/[^"]+\.json/);
   assert.match(html, /4,468(?:<!-- -->)? exact integral/);
   assert.match(html, /Lean overlay<\/span><strong>183<\/strong>/);
-  assert.match(html, /Lean 4 · comparator verified/);
+  assert.match(html, /Lean 4 · dual-kernel verified/);
   assert.match(html, /research\/open-problems\.md/);
   assert.match(html, /homotopy-groups-of-spheres-literature-review\.pdf/);
   assert.match(html, /reports\/comprehensive-2026\//);
   assert.match(html, /3-local degree 0/);
   assert.match(html, /Comparator/);
   assert.match(html, /Leaderboard/);
+  assert.match(html, /π<sub>k<\/sub>\(𝕊\)/);
+  assert.doesNotMatch(html, /π<sub>k<\/sub><sup>S<\/sup>/);
+  assert.match(html, /Which homotopy groups are in Lean\?/);
+  assert.match(html, /π₃\(S²\)=ℤ/);
+  assert.match(html, /A path-connected space has trivial zeroth homotopy group/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape/i);
   assert.doesNotMatch(html, /integral groups through 1000/i);
 });
@@ -114,6 +119,14 @@ test("ships complete, synchronized benchmark data, reports, and social art", asy
   assert.equal(frontier.height_two_two_primary.residue_count, 19);
   assert.ok(Number.isInteger(leaderboard.accepted_eligible_results));
   assert.ok(Array.isArray(leaderboard.entries));
+  assert.ok(Array.isArray(leaderboard.accepted_problems));
+  assert.ok(leaderboard.accepted_problems.length >= 6);
+  assert.ok(leaderboard.accepted_problems.every((problem) => typeof problem.title === "string" && problem.title.length > 0));
+  assert.ok(leaderboard.accepted_problems.some((problem) => problem.title === "The fundamental group of the circle is the integers" && problem.score_eligible === false));
+  assert.equal(leaderboard.formalization_inventory.records.length, 5);
+  assert.equal(leaderboard.formalization_inventory.lattice.cell_count, 183);
+  assert.ok(leaderboard.formalization_inventory.records.some((record) => record.result.includes("pi_3(S^2)=Z")));
+  assert.ok(leaderboard.formalization_inventory.lattice.cells.some((cell) => cell.n === 2 && cell.k === 1 && cell.record_id === "lean2-hott-spheres"));
   for (const entry of leaderboard.entries) {
     assert.ok(Number.isInteger(entry.rank) && entry.rank > 0);
     assert.ok(typeof entry.actor === "string" && entry.actor.length > 0);

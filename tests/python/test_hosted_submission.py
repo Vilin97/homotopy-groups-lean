@@ -90,6 +90,37 @@ def accepted_result(fingerprint: str, *, run_id: str = "123") -> dict[str, objec
     )
 
 
+def write_formalization_registry(
+    root: pathlib.Path,
+    cell_ranges: object,
+) -> None:
+    payload = {
+        "schema_version": "1.0.0",
+        "reviewed_on": "2026-08-08",
+        "formalizations": [
+            {
+                "id": "test-circle",
+                "system": "Lean 4",
+                "repository": "example/formalization",
+                "commit": "a" * 40,
+                "declarations": ["Example.circle"],
+                "result": "pi_1(Circle) is infinite cyclic",
+                "model_relation": "test model",
+                "status": "source_audited_builds",
+                "source": "https://github.com/example/formalization/blob/" + "a" * 40 + "/Circle.lean",
+                "lattice_overlay": {
+                    "coordinates": "n=1,k=0",
+                    "kind": "lean4_alternate_model",
+                    "cell_ranges": cell_ranges,
+                },
+            }
+        ],
+    }
+    (root / "research" / "formalizations.json").write_text(
+        json.dumps(payload), encoding="utf-8"
+    )
+
+
 class IntakeTests(unittest.TestCase):
     def test_issue_form_round_trip(self) -> None:
         body = """### Problem ID
@@ -567,6 +598,54 @@ class RecordTests(unittest.TestCase):
 
 
 class SiteDataTests(unittest.TestCase):
+    def test_generates_manifest_titles_and_formalization_inventory(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            fingerprint = make_benchmark(root)
+            result = accepted_result(fingerprint, run_id="100")
+            (root / "results" / "issue-7-run-100-attempt-1.json").write_text(
+                json.dumps(result), encoding="utf-8"
+            )
+            write_formalization_registry(
+                root, [{"n": [1, 1], "k": [0, 0]}]
+            )
+
+            payloads = site_data.payloads(root)
+            leaderboard = payloads[root / "website" / "public" / "data" / "leaderboard.json"]
+            self.assertEqual(leaderboard["accepted_problems"][0]["title"], "Circle")
+            inventory = leaderboard["formalization_inventory"]
+            self.assertEqual(inventory["records"][0]["id"], "test-circle")
+            self.assertEqual(inventory["lattice"]["cell_count"], 1)
+            self.assertEqual(
+                inventory["lattice"]["cells"][0],
+                {
+                    "n": 1,
+                    "k": 0,
+                    "record_id": "test-circle",
+                    "record_ids": ["test-circle"],
+                },
+            )
+
+    def test_formalization_ranges_fail_closed(self) -> None:
+        cases = {
+            "malformed": ([{"n": [1], "k": [0, 0]}], "must be \\[min, max\\]"),
+            "out of domain": ([{"n": [0, 1], "k": [0, 0]}], "lies outside"),
+            "duplicate": (
+                [
+                    {"n": [1, 1], "k": [0, 0]},
+                    {"n": [1, 1], "k": [0, 0]},
+                ],
+                "duplicates lattice cell",
+            ),
+        }
+        for label, (ranges, message) in cases.items():
+            with self.subTest(label=label), tempfile.TemporaryDirectory() as tmp:
+                root = pathlib.Path(tmp)
+                make_benchmark(root)
+                write_formalization_registry(root, ranges)
+                with self.assertRaisesRegex(ValueError, message):
+                    site_data.payloads(root)
+
     def test_only_current_problem_fingerprints_count(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = pathlib.Path(tmp)

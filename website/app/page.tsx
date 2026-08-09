@@ -47,12 +47,16 @@ export default function Home() {
             <span>3-local / primary through 108</span>
             <span>structured ledgers to 1000</span>
           </p>
-          <h1>π<sub>n+k</sub>(S<sup>n</sup>), <em>mapped.</em></h1>
+          <h1><span className="math-expression">π<sub>n+k</sub>(S<sup>n</sup>)</span>, <em>mapped.</em></h1>
         </div>
         <div className="hero-notation" aria-label="Stable range formula">
           <span>k ≤ n − 2</span>
           <i>⇒</i>
-          <strong>π<sub>n+k</sub>(S<sup>n</sup>) ≅ π<sub>k</sub><sup>S</sup></strong>
+          <strong className="stable-formula">
+            <span className="math-expression">π<sub>n+k</sub>(S<sup>n</sup>)</span>
+            <span aria-hidden="true">≅</span>
+            <span className="math-expression">π<sub>k</sub>(𝕊)</span>
+          </strong>
         </div>
         <div className="hero-bottom">
           <p>Separate complete groups, primary components, named classes, and periodic families.</p>
@@ -138,7 +142,7 @@ export default function Home() {
       <footer>
         <div className="shell lean-footer">
           <a className="wordmark" href="#top"><span aria-hidden="true">π</span><strong>HGL</strong></a>
-          <p>π<sub>n+k</sub>(S<sup>n</sup>) · Lean 4.32.2 · Apache-2.0</p>
+          <p><span className="math-expression">π<sub>n+k</sub>(S<sup>n</sup>)</span> · Lean 4.32.2 · Apache-2.0</p>
           <div>
             <a href={comprehensiveReport}>2026 report</a>
             <a href={reportPdf}>earlier PDF</a>
