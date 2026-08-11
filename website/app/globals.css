@@ -126,7 +126,10 @@ h2 { margin: 0; font-size: clamp(34px, 4vw, 56px); font-weight: 520; letter-spac
 .knowledge-legend { display: flex; flex-wrap: wrap; gap: 7px; }
 .legend-control { min-height: 38px; display: inline-flex; align-items: center; gap: 8px; padding: 0 10px; border: 1px solid var(--line); border-radius: 3px; background: transparent; color: #bbc3ce; cursor: pointer; font-family: var(--mono); font-size: 9px; }
 .legend-control i, .detail-status i { width: 10px; height: 10px; display: inline-block; border-radius: 2px; background: var(--uncharted); }
-.legend-control.formalized i, .coordinate-detail.formalized .detail-status i { background: var(--formalized); }
+.legend-control.formalized i {
+  background: linear-gradient(90deg, #f0bfff 0 50%, var(--formalized) 50%);
+}
+.coordinate-detail.formalized .detail-status i { background: var(--formalized); }
 .legend-control.exact i, .coordinate-detail.exact .detail-status i { background: var(--known); }
 .legend-control.partial i, .coordinate-detail.partial .detail-status i { background: var(--partial); }
 .legend-control strong { min-width: 32px; color: #738093; font-size: 9px; text-align: right; }

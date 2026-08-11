@@ -117,6 +117,7 @@ jobs:
 
       - name: Validate and build the corpus
         run: |
+          lake build SubmissionIndependentResults
           lake exe homotopy-groups-lean validate-manifest
           lake exe homotopy-groups-lean check-problem-build
           # This re-extracts every declaration; generator write behavior is

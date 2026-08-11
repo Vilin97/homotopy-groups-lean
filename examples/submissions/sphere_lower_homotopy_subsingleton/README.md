@@ -7,8 +7,9 @@ Mathlib homotopy group `π_k(S^n)` of the unit metric sphere in
 The proof uses piecewise-affine approximation on a cubical grid. General
 position supplies a point missed by the approximating map, so the map factors
 up to homotopy through the complement of that point; the sphere complement is
-contractible. The source closure consists of exactly twelve modules below
-`Submission/`.
+contractible. The sphere proof's original source closure consists of twelve
+modules below `Submission/`. Three further modules now provide the independently
+counted product and covering theorems and the nine-result structural suite.
 
 The proof and modules are adapted from
 [`Vilin97/lean-eval-pi-succ-sphere`](https://github.com/Vilin97/lean-eval-pi-succ-sphere/tree/1be6cb9b42874415a34defee070f4aa07d6e3193/Submission)

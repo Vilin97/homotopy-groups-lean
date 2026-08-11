@@ -1,7 +1,73 @@
 {
   "schema_version": "1.0.0",
-  "reviewed_on": "2026-08-08",
-  "scope": "Public, source-auditable Lean formalizations whose statements directly compute or vanish homotopy groups of spheres or circle models, plus benchmark records requiring a trust qualification.",
+  "reviewed_on": "2026-08-11",
+  "scope": "Public, source-auditable Lean formalizations of homotopy-group computations and reusable structural results, plus benchmark records requiring a trust qualification.",
+  "maintained_independent_result_set": {
+    "count": 10,
+    "counting_rule": "Only mathematically distinct general statements count. Numerical specializations and convenience corollaries of one general theorem do not count separately.",
+    "results": [
+      {
+        "id": "metric-circle-higher-vanishing",
+        "declaration": "Submission.sphere_one_higher_homotopy_subsingleton",
+        "source": "../examples/submissions/sphere_one_higher_homotopy_subsingleton/Submission.lean",
+        "lattice_effect": "colors the exact-model n=1,k>=1 row"
+      },
+      {
+        "id": "pi0-comparison",
+        "declaration": "Submission.pi0_equiv_zerothHomotopy",
+        "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/IndependentResults.lean",
+        "lattice_effect": "none; structural result"
+      },
+      {
+        "id": "pi1-comparison",
+        "declaration": "Submission.pi1_mulEquiv_fundamentalGroup",
+        "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/IndependentResults.lean",
+        "lattice_effect": "none; structural result"
+      },
+      {
+        "id": "change-of-basepoint",
+        "declaration": "Submission.homotopyGroup_change_basepoint",
+        "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/IndependentResults.lean",
+        "lattice_effect": "none; structural result"
+      },
+      {
+        "id": "homotopy-invariance",
+        "declaration": "Submission.homotopyGroup_homotopy_invariance",
+        "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/IndependentResults.lean",
+        "lattice_effect": "none; structural result"
+      },
+      {
+        "id": "binary-product",
+        "declaration": "Submission.homotopyGroup_product",
+        "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/IndependentResults.lean",
+        "lattice_effect": "none; structural result"
+      },
+      {
+        "id": "induced-map-functoriality",
+        "declaration": "Submission.homotopyGroup_map_comp",
+        "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/IndependentResults.lean",
+        "lattice_effect": "none; structural result"
+      },
+      {
+        "id": "pointed-homotopy-invariance",
+        "declaration": "Submission.homotopyGroup_pointed_homotopy_invariance",
+        "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/IndependentResults.lean",
+        "lattice_effect": "none; structural result"
+      },
+      {
+        "id": "covering-invariance",
+        "declaration": "Submission.homotopyGroup_covering_invariance",
+        "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/IndependentResults.lean",
+        "lattice_effect": "none directly; used by the metric-circle computation"
+      },
+      {
+        "id": "contractible-vanishing",
+        "declaration": "Submission.homotopyGroup_contractible_subsingleton",
+        "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/IndependentResults.lean",
+        "lattice_effect": "none; structural result"
+      }
+    ]
+  },
   "formalizations": [
     {
       "id": "lean4-benchmark-circle-pi1",
@@ -29,10 +95,60 @@
         "TauCeti.AddCircle.homotopyGroupPi_eq_one"
       ],
       "result": "the circle has fundamental group Z and all higher homotopy groups trivial",
-      "model_relation": "AddCircle/complex Circle, with transport along homeomorphisms; the explicit bridge to SphereSpace 1 remains to be added",
+      "model_relation": "AddCircle/complex Circle, with transport along homeomorphisms; the separate lean4-benchmark-metric-circle-higher entry supplies the explicit bridge to SphereSpace 1",
       "status": "source_audited_builds",
       "source": "https://github.com/TauCetiProject/TauCeti/blob/2b5d1fc89767051f490d5b4f00e76a4cdbd92876/TauCeti/AlgebraicTopology/UniversalCover/Circle/HigherHomotopy.lean",
       "lattice_overlay": { "coordinates": "n=1,k>=1", "kind": "lean4_alternate_model" }
+    },
+    {
+      "id": "lean4-benchmark-metric-circle-higher",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": null,
+      "license": "Apache-2.0",
+      "declarations": ["Submission.sphere_one_higher_homotopy_subsingleton"],
+      "convenience_corollaries": [
+        "Submission.pi2_sphere_one_subsingleton",
+        "Submission.pi3_sphere_one_subsingleton",
+        "Submission.pi4_sphere_one_subsingleton",
+        "Submission.pi5_sphere_one_subsingleton",
+        "Submission.pi6_sphere_one_subsingleton",
+        "Submission.pi7_sphere_one_subsingleton",
+        "Submission.pi8_sphere_one_subsingleton",
+        "Submission.pi9_sphere_one_subsingleton",
+        "Submission.pi10_sphere_one_subsingleton",
+        "Submission.pi11_sphere_one_subsingleton"
+      ],
+      "result": "pi_m of the metric 1-sphere is trivial for every m at least 2; this is counted as one general result",
+      "model_relation": "exactly the Mathlib metric-sphere model used by SphereSpace 1, via an explicit orthonormal-basis homeomorphism from Circle",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_one_higher_homotopy_subsingleton/Submission.lean",
+      "lattice_overlay": { "coordinates": "n=1,k>=1", "kind": "lean4_exact_metric_model" },
+      "note": "The commit is null while this source is an uncommitted worktree change; pin it to the containing commit when merged."
+    },
+    {
+      "id": "lean4-homotopy-structural-suite",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": null,
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.pi0_equiv_zerothHomotopy",
+        "Submission.pi1_mulEquiv_fundamentalGroup",
+        "Submission.homotopyGroup_change_basepoint",
+        "Submission.homotopyGroup_homotopy_invariance",
+        "Submission.homotopyGroup_product",
+        "Submission.homotopyGroup_map_comp",
+        "Submission.homotopyGroup_pointed_homotopy_invariance",
+        "Submission.homotopyGroup_covering_invariance",
+        "Submission.homotopyGroup_contractible_subsingleton"
+      ],
+      "result": "nine distinct comparison, invariance, functoriality, product, covering, and vanishing theorems for cubical homotopy groups",
+      "model_relation": "general theorems for Mathlib HomotopyGroup, not additional sphere-lattice computations",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/IndependentResults.lean",
+      "lattice_overlay": null,
+      "note": "Built through the generated sphere_lower_homotopy_subsingleton dependency closure. The commit is null while this source is an uncommitted worktree change; pin it to the containing commit when merged."
     },
     {
       "id": "lean4-metric-sphere-connectivity",

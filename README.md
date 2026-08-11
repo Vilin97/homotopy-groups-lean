@@ -151,6 +151,12 @@ The maintained source-auditable proof suite under
 
 - `sphere_lower_homotopy_subsingleton`, proving `π_k(S^n) = 0` for `k < n`
   in the benchmark's exact metric-sphere model;
+- `sphere_one_higher_homotopy_subsingleton`, proving `π_m(S¹) = 0` for
+  every `m ≥ 2` in that same metric-sphere model (one general result; its
+  degree-specific corollaries are not counted separately);
+- `Submission.IndependentResults`, a kernel-checked set of nine distinct
+  structural results covering comparison equivalences, basepoint and homotopy
+  invariance, functoriality, products, coverings, and contractible vanishing;
 - `higher_homotopy_mul_comm`, exposing the pinned Mathlib
   Eckmann--Hilton `CommGroup` foundation for `π_{n+2}`;
 - `pi0_pathConnected_subsingleton` and
@@ -162,6 +168,9 @@ The maintained source-auditable proof suite under
 The source directories are examples, not self-certifying results. Only
 accepted hosted evaluations recorded under `results/` color the tracker and
 count on the leaderboard.
+
+Run `lake build SubmissionIndependentResults` to compile the nine-result
+structural suite together with its generated trusted dependency closure.
 
 ## Comparator prerequisites
 

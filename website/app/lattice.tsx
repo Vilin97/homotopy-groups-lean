@@ -26,7 +26,7 @@ type Knowledge = "exact" | "partial" | "primary" | "disputed" | "uncharted";
 type Formalization = {
   accessibleLabel: string;
   badge: string;
-  kind: "lean4" | "historical";
+  kind: "lean4-exact" | "lean4" | "historical";
   note: string;
   source: string;
 } | null;
@@ -69,8 +69,6 @@ function knowledgeAt(n: number, k: number): Knowledge {
 }
 
 function formalizationAt(n: number, k: number): Formalization {
-  // Current Lean 4 formalizations use Circle/AddCircle models. Keep the still-missing
-  // explicit bridge to this page's metric-sphere model visible in the detail pane.
   if (n === 1) {
     if (k === 0) {
       return {
@@ -81,12 +79,14 @@ function formalizationAt(n: number, k: number): Formalization {
         source: "https://github.com/Vilin97/homotopy-groups-lean/tree/main/examples/submissions/pi1_circle",
       };
     }
+    // The maintained covering-space submission includes the explicit
+    // Circle ≃ SphereSpace 1 bridge and proves the whole higher row.
     return {
-      accessibleLabel: "formalized in Lean 4 using an alternate circle model",
-      badge: "Lean 4 · circle model",
-      kind: "lean4",
-      note: "Purple records a source-auditable Lean 4 computation for Circle or AddCircle. The explicit equivalence with this lattice's metric S¹ model is not part of these proofs.",
-      source: "https://github.com/TauCetiProject/TauCeti/blob/2b5d1fc89767051f490d5b4f00e76a4cdbd92876/TauCeti/AlgebraicTopology/UniversalCover/Circle/HigherHomotopy.lean",
+      accessibleLabel: "formalized in Lean 4 for the exact metric-sphere model",
+      badge: "Lean 4 · exact metric S¹",
+      kind: "lean4-exact",
+      note: "The maintained submission proves every higher homotopy group of the exact metric SphereSpace 1 model trivial. The whole row is one general formalized result, not one result per displayed cell.",
+      source: "https://github.com/Vilin97/homotopy-groups-lean/tree/main/examples/submissions/sphere_one_higher_homotopy_subsingleton",
     };
   }
   // Lean 2's HoTT library proves pi_n(S^n)=Z and pi_3(S^2)=Z.
@@ -204,7 +204,9 @@ export function Lattice() {
           context.strokeStyle = "#080b10";
           context.lineWidth = Math.max(1.6, cell * .28);
           context.strokeRect(outlineX, outlineY, outlineSize, outlineSize);
-          context.strokeStyle = formalization.kind === "lean4" ? "#aa8cff" : "#c4afff";
+          context.strokeStyle = formalization.kind === "lean4-exact"
+            ? "#f0bfff"
+            : formalization.kind === "lean4" ? "#aa8cff" : "#c4afff";
           context.lineWidth = Math.max(.8, cell * .12);
           context.strokeRect(outlineX, outlineY, outlineSize, outlineSize);
         }
@@ -343,7 +345,7 @@ export function Lattice() {
           </div>
         </aside>
       </div>
-      <p className="atlas-scope">Audited 92 × 91 view: <b>{counts.knowledge.exact.toLocaleString()} exact integral</b>, <b>{counts.knowledge.partial.toLocaleString()} published-alternative</b>, <b>{counts.knowledge.primary.toLocaleString()} exact 2-primary-only</b>, <b>{counts.knowledge.disputed.toLocaleString()} disputed</b>, and <b>{counts.knowledge.uncharted.toLocaleString()} not fully tabulated</b> cells. Stability is used exactly when <b>k ≤ n − 2</b>. Purple is a separate source-auditable Lean overlay.</p>
+      <p className="atlas-scope">Audited 92 × 91 view: <b>{counts.knowledge.exact.toLocaleString()} exact integral</b>, <b>{counts.knowledge.partial.toLocaleString()} published-alternative</b>, <b>{counts.knowledge.primary.toLocaleString()} exact 2-primary-only</b>, <b>{counts.knowledge.disputed.toLocaleString()} disputed</b>, and <b>{counts.knowledge.uncharted.toLocaleString()} not fully tabulated</b> cells. Stability is used exactly when <b>k ≤ n − 2</b>. Purple is a separate source-auditable Lean overlay; bright purple marks the exact benchmark model.</p>
     </div>
   );
 }
