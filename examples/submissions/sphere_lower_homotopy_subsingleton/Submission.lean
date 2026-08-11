@@ -6,10 +6,10 @@ Apache-2.0 license and attribution headers.
 -/
 import ChallengeDeps
 import Submission.IndependentResults
+import Submission.HigherSphereFoundations
 import Submission.Lean4TwentyResults
 import Submission.MetricSpherePiOne
 import Submission.Model.SphereConnected
-import Submission.Pi2SphereTwo
 
 open HomotopyGroups
 open scoped Topology
