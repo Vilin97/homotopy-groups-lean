@@ -9,6 +9,7 @@ import Submission.IndependentResults
 import Submission.Lean4TwentyResults
 import Submission.MetricSpherePiOne
 import Submission.Model.SphereConnected
+import Submission.Pi2SphereTwo
 
 open HomotopyGroups
 open scoped Topology
