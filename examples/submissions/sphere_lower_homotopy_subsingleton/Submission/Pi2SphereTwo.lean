@@ -2,7 +2,7 @@
 Copyright (c) 2026 Vasily Ilin. All rights reserved.
 Released under Apache 2.0 license.
 -/
-import HomotopyGroups.Spaces
+import ChallengeDeps
 import Submission.Homology.LoopSphereHomology
 import Submission.Homotopy.FibrationLESGroup
 import Submission.Homotopy.LoopSpace
