@@ -6,6 +6,7 @@ Apache-2.0 license and attribution headers.
 -/
 import ChallengeDeps
 import Submission.IndependentResults
+import Submission.MetricSpherePiOne
 import Submission.Model.SphereConnected
 
 open HomotopyGroups

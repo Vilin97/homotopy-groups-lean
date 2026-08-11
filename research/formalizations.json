@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "reviewed_on": "2026-08-11",
-  "scope": "Public, source-auditable Lean formalizations of homotopy-group computations and reusable structural results, plus benchmark records requiring a trust qualification.",
+  "scope": "Public, source-auditable Lean and Cubical Agda formalizations of homotopy-group computations and reusable structural results, plus benchmark records requiring a trust qualification.",
   "maintained_independent_result_set": {
     "count": 10,
     "counting_rule": "Only mathematically distinct general statements count. Numerical specializations and convenience corollaries of one general theorem do not count separately.",
@@ -68,7 +68,137 @@
       }
     ]
   },
+  "maintained_second_result_set": {
+    "count": 10,
+    "counting_rule": "Only mathematically distinct general declarations count. No numerical specialization, named convenience corollary, or displayed cell is counted as a separate result.",
+    "checker": "../scripts/check_cubical_second_batch.sh",
+    "results": [
+      {
+        "id": "metric-circle-fundamental-group",
+        "declaration": "Submission.pi1_sphere_one_mulEquiv_int",
+        "system": "Lean 4",
+        "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/MetricSpherePiOne.lean",
+        "provenance": "new maintained proof",
+        "lattice_effect": "colors the exact-model (n,k)=(1,0) cell"
+      },
+      {
+        "id": "cubical-sphere-diagonal",
+        "declaration": "Cubical.Homotopy.Group.PinSn.πₙSⁿ≅ℤ",
+        "system": "Cubical Agda",
+        "source": "https://github.com/agda/cubical/blob/92166033326aa59800a580b428125f3c654b5e45/Cubical/Homotopy/Group/PinSn.agda#L183-L185",
+        "provenance": "commit-pinned upstream proof imported by the maintained safe checker",
+        "lattice_effect": "colors every k=0 cell for n>=2"
+      },
+      {
+        "id": "cubical-sphere-diagonal-generator",
+        "declaration": "Cubical.Homotopy.Group.PinSn.πₙ'Sⁿ-gen-by-idfun",
+        "system": "Cubical Agda",
+        "source": "https://github.com/agda/cubical/blob/92166033326aa59800a580b428125f3c654b5e45/Cubical/Homotopy/Group/PinSn.agda#L334-L342",
+        "provenance": "commit-pinned upstream proof imported by the maintained safe checker",
+        "lattice_effect": "identifies a generator in every formalized k=0 cell"
+      },
+      {
+        "id": "cubical-diagonal-hurewicz-equivalence",
+        "declaration": "Cubical.Homotopy.Group.PinSn.πₙSⁿ≅HⁿSⁿ",
+        "system": "Cubical Agda",
+        "source": "https://github.com/agda/cubical/blob/92166033326aa59800a580b428125f3c654b5e45/Cubical/Homotopy/Group/PinSn.agda#L511-L534",
+        "provenance": "commit-pinned upstream proof imported by the maintained safe checker",
+        "lattice_effect": "gives the cohomological identification behind every formalized k=0 cell"
+      },
+      {
+        "id": "cubical-pi3-s2",
+        "declaration": "Cubical.Homotopy.Group.Pi3S2.π₃S²≅ℤ",
+        "system": "Cubical Agda",
+        "source": "https://github.com/agda/cubical/blob/92166033326aa59800a580b428125f3c654b5e45/Cubical/Homotopy/Group/Pi3S2.agda",
+        "provenance": "commit-pinned upstream proof imported by the maintained safe checker",
+        "lattice_effect": "colors (n,k)=(2,1)"
+      },
+      {
+        "id": "cubical-pi4-s3",
+        "declaration": "Cubical.Homotopy.Group.Pi4S3.Summary.π₄S³≃ℤ/2ℤ",
+        "system": "Cubical Agda",
+        "source": "https://github.com/agda/cubical/blob/92166033326aa59800a580b428125f3c654b5e45/Cubical/Homotopy/Group/Pi4S3/Summary.agda",
+        "provenance": "commit-pinned upstream proof used as a maintained derivation base case",
+        "lattice_effect": "colors (n,k)=(3,1) and starts the first-stem induction"
+      },
+      {
+        "id": "cubical-first-stem-suspension",
+        "declaration": "SecondBatch.firstStemSuspIso",
+        "system": "Cubical Agda",
+        "source": "../formalizations/cubical/SecondBatch.agda",
+        "provenance": "new maintained proof",
+        "lattice_effect": "proves the suspension equivalences that propagate the k=1 computation through n>=3"
+      },
+      {
+        "id": "cubical-hopf-sphere-equivalence",
+        "declaration": "SecondBatch.πS³≃πS²",
+        "system": "Cubical Agda",
+        "source": "../formalizations/cubical/SecondBatch.agda",
+        "provenance": "new maintained proof",
+        "lattice_effect": "transfers every degree-m computation between the n=3 and n=2 rows for m>=3"
+      },
+      {
+        "id": "cubical-pi4-s2",
+        "declaration": "SecondBatch.π₄S²≃ℤ/2ℤ",
+        "system": "Cubical Agda",
+        "source": "../formalizations/cubical/SecondBatch.agda",
+        "provenance": "new maintained proof",
+        "lattice_effect": "colors (n,k)=(2,2)"
+      },
+      {
+        "id": "cubical-first-stable-stem",
+        "declaration": "SecondBatch.firstStableStem",
+        "system": "Cubical Agda",
+        "source": "../formalizations/cubical/SecondBatch.agda",
+        "provenance": "new maintained proof",
+        "lattice_effect": "colors every k=1 cell for n>=3"
+      }
+    ]
+  },
   "formalizations": [
+    {
+      "id": "lean4-benchmark-metric-circle-pi1",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": null,
+      "license": "Apache-2.0",
+      "declarations": ["Submission.pi1_sphere_one_mulEquiv_int"],
+      "result": "pi_1 of the exact metric 1-sphere is infinite cyclic",
+      "model_relation": "exactly the Mathlib metric-sphere model used by SphereSpace 1, via an explicit basepoint-preserving homeomorphism from Circle",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/MetricSpherePiOne.lean",
+      "lattice_overlay": { "coordinates": "n=1,k=0", "kind": "lean4_exact_metric_model" },
+      "note": "The containing commit is filled by the provenance follow-up after this source lands."
+    },
+    {
+      "id": "cubical-agda-sphere-lattice",
+      "system": "Cubical Agda 2.8.0",
+      "repository": "agda/cubical plus Vilin97/homotopy-groups-lean companion derivations",
+      "commit": "92166033326aa59800a580b428125f3c654b5e45",
+      "local_commit": null,
+      "license": "MIT for agda/cubical; repository license for the companion source",
+      "declarations": [
+        "Cubical.Homotopy.Group.PinSn.πₙSⁿ≅ℤ",
+        "Cubical.Homotopy.Group.PinSn.πₙ'Sⁿ-gen-by-idfun",
+        "Cubical.Homotopy.Group.PinSn.πₙSⁿ≅HⁿSⁿ",
+        "Cubical.Homotopy.Group.Pi3S2.π₃S²≅ℤ",
+        "Cubical.Homotopy.Group.Pi4S3.Summary.π₄S³≃ℤ/2ℤ",
+        "SecondBatch.firstStemSuspIso",
+        "SecondBatch.πS³≃πS²",
+        "SecondBatch.π₄S²≃ℤ/2ℤ",
+        "SecondBatch.firstStableStem"
+      ],
+      "result": "the sphere diagonal, pi_3(S^2), pi_4(S^2), pi_4(S^3), and the complete first stable stem, together with the generator and transfer equivalences used to justify the lattice propagation",
+      "model_relation": "synthetic higher-inductive spheres in Cubical Agda; not definitionally the Mathlib metric SphereSpace model",
+      "status": "safe_mode_machine_checked_commit_pinned",
+      "source": "../formalizations/cubical/SecondBatch.agda",
+      "checker": "../scripts/check_cubical_second_batch.sh",
+      "lattice_overlay": {
+        "coordinates": "k=0; k=1; and (n,k)=(2,2)",
+        "kind": "cubical_agda_synthetic_sphere"
+      },
+      "note": "The checker downloads digest-pinned Agda 2.8.0, checks out the exact upstream commit, and type-checks the maintained companion with --safe."
+    },
     {
       "id": "lean4-benchmark-circle-pi1",
       "system": "Lean 4",
@@ -104,7 +234,7 @@
       "id": "lean4-benchmark-metric-circle-higher",
       "system": "Lean 4",
       "repository": "Vilin97/homotopy-groups-lean",
-      "commit": null,
+      "commit": "42c9f66e2dd6a4aa2ae7abffa57e6b0a2c431222",
       "license": "Apache-2.0",
       "declarations": ["Submission.sphere_one_higher_homotopy_subsingleton"],
       "convenience_corollaries": [
@@ -124,13 +254,13 @@
       "status": "lean_kernel_checked_local_source",
       "source": "../examples/submissions/sphere_one_higher_homotopy_subsingleton/Submission.lean",
       "lattice_overlay": { "coordinates": "n=1,k>=1", "kind": "lean4_exact_metric_model" },
-      "note": "The commit is null while this source is an uncommitted worktree change; pin it to the containing commit when merged."
+      "note": "The entire higher row is one general theorem; its ten named low-degree corollaries are not counted separately."
     },
     {
       "id": "lean4-homotopy-structural-suite",
       "system": "Lean 4",
       "repository": "Vilin97/homotopy-groups-lean",
-      "commit": null,
+      "commit": "42c9f66e2dd6a4aa2ae7abffa57e6b0a2c431222",
       "license": "Apache-2.0",
       "declarations": [
         "Submission.pi0_equiv_zerothHomotopy",
@@ -148,7 +278,7 @@
       "status": "lean_kernel_checked_local_source",
       "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/IndependentResults.lean",
       "lattice_overlay": null,
-      "note": "Built through the generated sphere_lower_homotopy_subsingleton dependency closure. The commit is null while this source is an uncommitted worktree change; pin it to the containing commit when merged."
+      "note": "Built through the generated sphere_lower_homotopy_subsingleton dependency closure."
     },
     {
       "id": "lean4-metric-sphere-connectivity",

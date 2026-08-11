@@ -115,6 +115,9 @@ jobs:
           /usr/bin/python3 scripts/generate_extended_frontiers.py --check
           /usr/bin/python3 scripts/generate_site_data.py --check
 
+      - name: Check Cubical Agda sphere computations
+        run: bash scripts/check_cubical_second_batch.sh
+
       - name: Validate and build the corpus
         run: |
           lake build SubmissionIndependentResults

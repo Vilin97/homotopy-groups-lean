@@ -30,6 +30,9 @@ its [correction log](research/literature-review-audit.md), and the regenerated
 values, published alternatives, 2-primary-only computations, and a disputed
 33-stem entry. The independent purple proof overlay comes from the dated,
 source-auditable [`formalizations.json`](research/formalizations.json) inventory.
+It includes exact metric-circle Lean proofs and a safe, commit-pinned Cubical
+Agda companion covering the sphere diagonal, the complete first stable stem,
+and `π₄(S²)`.
 
 The [comprehensive 2026 report](website/public/reports/comprehensive-2026/index.html)
 and its [audit](research/comprehensive-handoff-audit.md) extend the source

@@ -286,6 +286,51 @@ class ResearchDataTests(unittest.TestCase):
         )
         self.assertIsNone(suite["lattice_overlay"])
 
+    def test_second_set_has_ten_distinct_lattice_results(self) -> None:
+        inventory = json.loads((ROOT / "research/formalizations.json").read_text())
+        result_set = inventory["maintained_second_result_set"]
+        results = result_set["results"]
+        self.assertEqual(result_set["count"], 10)
+        self.assertEqual(len(results), 10)
+        self.assertEqual(len({row["id"] for row in results}), 10)
+        self.assertEqual(len({row["declaration"] for row in results}), 10)
+        self.assertIn("No numerical specialization", result_set["counting_rule"])
+        self.assertTrue(all("none" not in row["lattice_effect"] for row in results))
+
+        cubical_commit = "92166033326aa59800a580b428125f3c654b5e45"
+        for result in results:
+            source_ref = result["source"]
+            if source_ref.startswith("https://"):
+                self.assertIn(cubical_commit, source_ref)
+                continue
+            source = (ROOT / "research" / source_ref).resolve()
+            self.assertTrue(source.is_file())
+            text = source.read_text()
+            for placeholder in ("sorry", "postulate", "{!!}"):
+                self.assertNotIn(placeholder, text)
+            short_name = result["declaration"].rsplit(".", 1)[-1]
+            if result["system"] == "Lean 4":
+                self.assertIn(f"theorem {short_name}", text)
+            else:
+                self.assertIn(f"{short_name} :", text)
+
+        checker = (ROOT / "scripts/check_cubical_second_batch.sh").read_text()
+        self.assertIn(cubical_commit, checker)
+        self.assertIn("824081b8dcbe431289a50ac6bd83e451", checker)
+        self.assertIn("--safe", checker)
+        self.assertIn("SecondBatch.agda", checker)
+
+        cubical = next(
+            item for item in inventory["formalizations"]
+            if item["id"] == "cubical-agda-sphere-lattice"
+        )
+        self.assertEqual(cubical["commit"], cubical_commit)
+        self.assertEqual(cubical["status"], "safe_mode_machine_checked_commit_pinned")
+        self.assertEqual(
+            cubical["lattice_overlay"]["coordinates"],
+            "k=0; k=1; and (n,k)=(2,2)",
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -26,7 +26,7 @@ type Knowledge = "exact" | "partial" | "primary" | "disputed" | "uncharted";
 type Formalization = {
   accessibleLabel: string;
   badge: string;
-  kind: "lean4-exact" | "lean4" | "historical";
+  kind: "lean4-exact" | "lean4" | "cubical" | "historical";
   note: string;
   source: string;
 } | null;
@@ -72,11 +72,11 @@ function formalizationAt(n: number, k: number): Formalization {
   if (n === 1) {
     if (k === 0) {
       return {
-        accessibleLabel: "comparator-verified in Lean 4 using an alternate circle model",
-        badge: "Lean 4 · comparator verified",
-        kind: "lean4",
-        note: "The Circle computation passed Comparator, Lean's kernel, and nanoda. The explicit equivalence with this lattice's metric S¹ model is not part of the proof.",
-        source: "https://github.com/Vilin97/homotopy-groups-lean/tree/main/examples/submissions/pi1_circle",
+        accessibleLabel: "formalized in Lean 4 for the exact metric-sphere model",
+        badge: "Lean 4 · exact metric S¹",
+        kind: "lean4-exact",
+        note: "The maintained proof computes π₁ of the exact metric SphereSpace 1 model as ℤ by transporting the exponential-covering computation across an explicit basepoint-preserving homeomorphism.",
+        source: "https://github.com/Vilin97/homotopy-groups-lean/blob/main/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/MetricSpherePiOne.lean",
       };
     }
     // The maintained covering-space submission includes the explicit
@@ -89,14 +89,37 @@ function formalizationAt(n: number, k: number): Formalization {
       source: "https://github.com/Vilin97/homotopy-groups-lean/tree/main/examples/submissions/sphere_one_higher_homotopy_subsingleton",
     };
   }
-  // Lean 2's HoTT library proves pi_n(S^n)=Z and pi_3(S^2)=Z.
-  if (k === 0 || (n === 2 && k === 1)) {
+  // The commit-pinned Cubical Agda companion proves the diagonal, π₃(S²),
+  // π₄(S²), and the complete first stable stem.
+  if (k === 0) {
     return {
-      accessibleLabel: "formalized in historical Lean 2 HoTT using a synthetic sphere model",
-      badge: "Lean 2 HoTT · synthetic sphere",
-      kind: "historical",
-      note: "Purple records a source-auditable historical Lean 2 HoTT computation in a synthetic higher-inductive sphere model.",
-      source: "https://github.com/leanprover/lean2/blob/8072fdf9a0b31abb9d43ab894d7a858639e20ed7/hott/homotopy/sphere2.hlean",
+      accessibleLabel: "machine-checked in safe Cubical Agda using a synthetic sphere model",
+      badge: "Cubical Agda · πₙ(Sⁿ) ≅ ℤ",
+      kind: "cubical",
+      note: "The commit-pinned Cubical library computes the full diagonal πₙ(Sⁿ) ≅ ℤ, identifies its generator, and relates it to sphere cohomology. This repository replays the imported proof in Agda's safe mode.",
+      source: "https://github.com/agda/cubical/blob/92166033326aa59800a580b428125f3c654b5e45/Cubical/Homotopy/Group/PinSn.agda",
+    };
+  }
+  if (k === 1) {
+    return {
+      accessibleLabel: "machine-checked in safe Cubical Agda using a synthetic sphere model",
+      badge: n === 2 ? "Cubical Agda · π₃(S²) ≅ ℤ" : "Cubical Agda · first stable stem",
+      kind: "cubical",
+      note: n === 2
+        ? "The commit-pinned Cubical proof computes π₃(S²) ≅ ℤ through the Hopf fibration."
+        : "The maintained safe Cubical proof starts from π₄(S³) ≅ ℤ/2 and proves the suspension isomorphisms needed to obtain πₙ₊₁(Sⁿ) ≅ ℤ/2 for every n ≥ 3.",
+      source: n === 2
+        ? "https://github.com/agda/cubical/blob/92166033326aa59800a580b428125f3c654b5e45/Cubical/Homotopy/Group/Pi3S2.agda"
+        : "https://github.com/Vilin97/homotopy-groups-lean/blob/main/formalizations/cubical/SecondBatch.agda",
+    };
+  }
+  if (n === 2 && k === 2) {
+    return {
+      accessibleLabel: "machine-checked in safe Cubical Agda using a synthetic sphere model",
+      badge: "Cubical Agda · π₄(S²) ≅ ℤ/2",
+      kind: "cubical",
+      note: "The maintained proof derives π₄(S²) ≅ ℤ/2 from the Hopf-fibration equivalence πₘ(S³) ≅ πₘ(S²) for m ≥ 3 and the commit-pinned π₄(S³) computation.",
+      source: "https://github.com/Vilin97/homotopy-groups-lean/blob/main/formalizations/cubical/SecondBatch.agda",
     };
   }
   return null;
@@ -206,7 +229,8 @@ export function Lattice() {
           context.strokeRect(outlineX, outlineY, outlineSize, outlineSize);
           context.strokeStyle = formalization.kind === "lean4-exact"
             ? "#f0bfff"
-            : formalization.kind === "lean4" ? "#aa8cff" : "#c4afff";
+            : formalization.kind === "lean4" ? "#aa8cff"
+              : formalization.kind === "cubical" ? "#b894ff" : "#c4afff";
           context.lineWidth = Math.max(.8, cell * .12);
           context.strokeRect(outlineX, outlineY, outlineSize, outlineSize);
         }
@@ -285,6 +309,8 @@ export function Lattice() {
     ? (selected.k === 0 ? "ℤ" : "0")
     : selected.k === 0 || (selected.n === 2 && selected.k === 1)
       ? "ℤ"
+      : selected.n === 2 && selected.k === 2
+        ? "ℤ/2"
       : stable && status === "exact"
         ? formatGroup(stem.group)
         : null;
@@ -302,7 +328,7 @@ export function Lattice() {
           ))}
           <button aria-pressed={showFormalizations} className="legend-control formalized"
             onClick={() => setShowFormalizations((current) => !current)} type="button">
-            <i aria-hidden="true" /><span>Lean overlay</span><strong>{counts.formalized}</strong>
+            <i aria-hidden="true" /><span>Proof overlay</span><strong>{counts.formalized}</strong>
           </button>
         </div>
         <form className="coordinate-jump" onSubmit={locate}>
@@ -339,13 +365,13 @@ export function Lattice() {
           {status === "uncharted" && <><div className="group-value"><span>review coverage</span><strong>not fully tabulated</strong></div><p>Gray means the attached review does not provide a complete integral value here—not that mathematics knows nothing about the group.</p></>}
           {formalization && <p className="formalization-note">{formalization.note} It does not change the literature evidence class beneath it.</p>}
           <div className="detail-links">
-            {formalization && <a href={formalization.source}>Lean source ↗</a>}
+            {formalization && <a href={formalization.source}>proof source ↗</a>}
             {formalization && <a href={formalizationInventory}>full inventory ↗</a>}
             {sourceUrl && <a href={sourceUrl}>mathematical source ↗</a>}
           </div>
         </aside>
       </div>
-      <p className="atlas-scope">Audited 92 × 91 view: <b>{counts.knowledge.exact.toLocaleString()} exact integral</b>, <b>{counts.knowledge.partial.toLocaleString()} published-alternative</b>, <b>{counts.knowledge.primary.toLocaleString()} exact 2-primary-only</b>, <b>{counts.knowledge.disputed.toLocaleString()} disputed</b>, and <b>{counts.knowledge.uncharted.toLocaleString()} not fully tabulated</b> cells. Stability is used exactly when <b>k ≤ n − 2</b>. Purple is a separate source-auditable Lean overlay; bright purple marks the exact benchmark model.</p>
+      <p className="atlas-scope">Audited 92 × 91 view: <b>{counts.knowledge.exact.toLocaleString()} exact integral</b>, <b>{counts.knowledge.partial.toLocaleString()} published-alternative</b>, <b>{counts.knowledge.primary.toLocaleString()} exact 2-primary-only</b>, <b>{counts.knowledge.disputed.toLocaleString()} disputed</b>, and <b>{counts.knowledge.uncharted.toLocaleString()} not fully tabulated</b> cells. Stability is used exactly when <b>k ≤ n − 2</b>. Purple is a separate source-auditable Lean and safe Cubical Agda proof overlay; bright purple marks the exact benchmark model.</p>
     </div>
   );
 }
