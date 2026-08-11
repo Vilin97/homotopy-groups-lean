@@ -150,9 +150,10 @@ the `Evaluate submission` workflow's manual dispatch; reference smoke runs are
 marked ineligible for leaderboard points.
 
 The maintained source-auditable proof suite under
-[`examples/submissions/`](examples/submissions/) currently exposes 31 distinct
+[`examples/submissions/`](examples/submissions/) currently exposes 40 distinct
 Lean 4 results: the original ten, twenty additional structural/exact-circle
-results, and the exact `π₂(S²)` calculation. It includes:
+results, and ten higher-sphere foundations culminating in the exact `π₂(S²)`
+calculation. It includes:
 
 - `sphere_lower_homotopy_subsingleton`, proving `π_k(S^n) = 0` for `k < n`
   in the benchmark's exact metric-sphere model;
@@ -168,6 +169,9 @@ results, and the exact `π₂(S²)` calculation. It includes:
 - `Submission.Pi2SphereTwo`, proving `π₂(S²) ≅ ℤ` in the benchmark's exact
   metric-sphere model from the path fibration, degree-one Hurewicz, and the
   integral homology of `ΩS²`;
+- `Submission.HigherSphereFoundations`, upgrading the loop-space shift to a
+  group equivalence and packaging the contractible-pair comparison needed to
+  turn suspension excision into higher diagonal group isomorphisms;
 - `higher_homotopy_mul_comm`, exposing the pinned Mathlib
   Eckmann--Hilton `CommGroup` foundation for `π_{n+2}`;
 - `pi0_equiv_zerothHomotopy` and `pi1_mulEquiv_fundamentalGroup`, exposing

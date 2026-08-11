@@ -1107,6 +1107,30 @@
         "system": "Lean 4"
       },
       {
+        "cell_count": 0,
+        "coordinates": null,
+        "declarations": [
+          "Submission.isSerreFibration_ev₁",
+          "Submission.subsingleton_pi_pathSpace",
+          "Submission.nonempty_piSucc_mulEquiv_pi_loopSpace",
+          "Submission.hurewiczOnePiOfSpace",
+          "Submission.hgrpSphereSelfIsoZ",
+          "Submission.isZero_Hgrp_sphere",
+          "Submission.loopSphereHgrpMul",
+          "Submission.isZero_loopSphereHgrp",
+          "Submission.piMulEquiv_of_bijective_relativeHom",
+          "Submission.pi2_sphere_two_mulEquiv_int"
+        ],
+        "id": "lean4-higher-sphere-foundations",
+        "lattice_kind": null,
+        "model_relation": "general Mathlib homotopy and singular-homology results; the final declaration uses exactly the benchmark metric SphereSpace 2 model",
+        "note": "All ten declarations have an audited axiom closure containing only propext, Classical.choice, and Quot.sound. The exact pi_2(S^2) cell is recorded by its dedicated formalization entry.",
+        "result": "ten higher-sphere foundations covering path fibrations, loop shifts, Hurewicz, sphere and loop-sphere homology, relative comparison, and pi_2(S^2)",
+        "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/ea761e8cbf4d4f645ac35b6abb3bd0b88795801e/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HigherSphereFoundations.lean",
+        "status": "lean_kernel_checked_local_source",
+        "system": "Lean 4"
+      },
+      {
         "cell_count": 1,
         "coordinates": "n=1,k=0",
         "declarations": [

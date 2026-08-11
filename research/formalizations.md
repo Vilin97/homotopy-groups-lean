@@ -33,6 +33,21 @@ components, basepoint independence, higher-group commutativity, covering-map
 injectivity, and exact metric-circle computations at arbitrary basepoints.
 Numerical specializations, displayed cells, and aliases are not counted.
 
+## Ten higher-sphere foundations
+
+`maintained_higher_sphere_foundation_set` records ten further, distinct Lean 4
+declarations.  They formalize the Serre path fibration, path-space vanishing,
+the group-level loop-space shift, degree-one Hurewicz, top and off-diagonal
+sphere homology, the complete integral homology pattern of one-fold loop
+spheres, a contractible-pair relative comparison principle, and the exact
+`pi_2(S^2) = Z` calculation.  Their audited axiom closures contain no
+`sorryAx`.
+
+The relative comparison principle is intentionally group-valued: once the
+geometric suspension-excision bijection is supplied, it yields an actual
+`MulEquiv` between successive sphere homotopy groups, not merely equality of
+cardinalities.
+
 The maintained Lean 4 closure now also contains the path fibration, the
 degree-one Hurewicz theorem, the needed Mayer--Vietoris and Wang machinery, and
 the computation `H_1(ΩS²) = Z`.  Their composition proves `pi_2(S^2) = Z` in

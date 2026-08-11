@@ -96,6 +96,23 @@
       { "id": "metric-circle-higher-all-basepoints", "declaration": "Submission.sphere_one_higher_homotopy_subsingleton_at", "lattice_effect": "strengthens exact-model n=1,k>=1 coverage to every basepoint" }
     ]
   },
+  "maintained_higher_sphere_foundation_set": {
+    "count": 10,
+    "system": "Lean 4",
+    "counting_rule": "These are ten mathematically distinct declarations: fibration and loop-shift structure, Hurewicz and homology computations, a relative comparison principle, and one exact sphere-lattice calculation.",
+    "results": [
+      { "id": "path-fibration-serre", "declaration": "Submission.isSerreFibration_ev₁", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Homotopy/PathFibration.lean", "lattice_effect": "none directly; fibration foundation" },
+      { "id": "path-space-homotopy-vanishing", "declaration": "Submission.subsingleton_pi_pathSpace", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Homotopy/LoopSpace.lean", "lattice_effect": "none directly; loop-shift input" },
+      { "id": "group-level-loop-shift", "declaration": "Submission.nonempty_piSucc_mulEquiv_pi_loopSpace", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HigherSphereFoundations.lean", "lattice_effect": "none directly; shifts higher sphere groups to loop spaces" },
+      { "id": "degree-one-hurewicz", "declaration": "Submission.hurewiczOnePiOfSpace", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/DegreeOne.lean", "lattice_effect": "none directly; used in the pi_2(S^2) computation" },
+      { "id": "sphere-top-homology", "declaration": "Submission.hgrpSphereSelfIsoZ", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Homology/SphereOne.lean", "lattice_effect": "none directly; computes H_n(S^n)" },
+      { "id": "sphere-off-diagonal-homology", "declaration": "Submission.isZero_Hgrp_sphere", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Homology/Sphere.lean", "lattice_effect": "none directly; computes off-diagonal sphere homology" },
+      { "id": "loop-sphere-periodic-homology", "declaration": "Submission.loopSphereHgrpMul", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Homology/LoopSphereHomology.lean", "lattice_effect": "none directly; computes H_{jd}(Omega S^{d+1})" },
+      { "id": "loop-sphere-vanishing-homology", "declaration": "Submission.isZero_loopSphereHgrp", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Homology/LoopSphereHomology.lean", "lattice_effect": "none directly; vanishing away from multiples of d" },
+      { "id": "contractible-pair-relative-comparison", "declaration": "Submission.piMulEquiv_of_bijective_relativeHom", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HigherSphereFoundations.lean", "lattice_effect": "none yet; converts future suspension excision into group isomorphisms" },
+      { "id": "metric-sphere-pi2", "declaration": "Submission.pi2_sphere_two_mulEquiv_int", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Pi2SphereTwo.lean", "lattice_effect": "colors exact-model (n,k)=(2,0)" }
+    ]
+  },
   "formalizations": [
     {
       "id": "lean4-benchmark-metric-sphere-pi2",
@@ -114,6 +131,31 @@
         "cell_ranges": [{ "n": [2, 2], "k": [0, 0] }]
       },
       "note": "The proof composes the path-fibration connecting isomorphism, degree-one Hurewicz, and the Wang-sequence computation of H_1 of the loop space; its axiom closure contains no sorryAx."
+    },
+    {
+      "id": "lean4-higher-sphere-foundations",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "ea761e8cbf4d4f645ac35b6abb3bd0b88795801e",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.isSerreFibration_ev₁",
+        "Submission.subsingleton_pi_pathSpace",
+        "Submission.nonempty_piSucc_mulEquiv_pi_loopSpace",
+        "Submission.hurewiczOnePiOfSpace",
+        "Submission.hgrpSphereSelfIsoZ",
+        "Submission.isZero_Hgrp_sphere",
+        "Submission.loopSphereHgrpMul",
+        "Submission.isZero_loopSphereHgrp",
+        "Submission.piMulEquiv_of_bijective_relativeHom",
+        "Submission.pi2_sphere_two_mulEquiv_int"
+      ],
+      "result": "ten higher-sphere foundations covering path fibrations, loop shifts, Hurewicz, sphere and loop-sphere homology, relative comparison, and pi_2(S^2)",
+      "model_relation": "general Mathlib homotopy and singular-homology results; the final declaration uses exactly the benchmark metric SphereSpace 2 model",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HigherSphereFoundations.lean",
+      "lattice_overlay": null,
+      "note": "All ten declarations have an audited axiom closure containing only propext, Classical.choice, and Quot.sound. The exact pi_2(S^2) cell is recorded by its dedicated formalization entry."
     },
     {
       "id": "lean4-benchmark-metric-circle-pi1",

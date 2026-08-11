@@ -330,6 +330,33 @@ class ResearchDataTests(unittest.TestCase):
             [{"n": [1, 1], "k": [0, 90]}],
         )
 
+    def test_higher_sphere_foundation_set_matches_lean_sources(self) -> None:
+        inventory = json.loads((ROOT / "research/formalizations.json").read_text())
+        result_set = inventory["maintained_higher_sphere_foundation_set"]
+        results = result_set["results"]
+        self.assertEqual(result_set["system"], "Lean 4")
+        self.assertEqual(result_set["count"], 10)
+        self.assertEqual(len(results), 10)
+        self.assertEqual(len({row["id"] for row in results}), 10)
+        self.assertEqual(len({row["declaration"] for row in results}), 10)
+        for result in results:
+            source = (ROOT / "research" / result["source"]).resolve()
+            self.assertTrue(source.is_file())
+            text = source.read_text()
+            self.assertNotIn("sorry", text)
+            self.assertNotIn("admit", text)
+            self.assertIn(result["declaration"].rsplit(".", 1)[-1], text)
+
+        suite = next(
+            item for item in inventory["formalizations"]
+            if item["id"] == "lean4-higher-sphere-foundations"
+        )
+        self.assertEqual(
+            suite["declarations"],
+            [row["declaration"] for row in results],
+        )
+        self.assertIsNone(suite["lattice_overlay"])
+
 
 if __name__ == "__main__":
     unittest.main()
