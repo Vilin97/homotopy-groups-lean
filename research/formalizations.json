@@ -160,7 +160,7 @@
       "id": "lean4-benchmark-metric-circle-pi1",
       "system": "Lean 4",
       "repository": "Vilin97/homotopy-groups-lean",
-      "commit": null,
+      "commit": "1c7300834fa28b729434fab08bed188d7436ca6f",
       "license": "Apache-2.0",
       "declarations": ["Submission.pi1_sphere_one_mulEquiv_int"],
       "result": "pi_1 of the exact metric 1-sphere is infinite cyclic",
@@ -168,15 +168,15 @@
       "status": "lean_kernel_checked_local_source",
       "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/MetricSpherePiOne.lean",
       "lattice_overlay": { "coordinates": "n=1,k=0", "kind": "lean4_exact_metric_model" },
-      "note": "The containing commit is filled by the provenance follow-up after this source lands."
+      "note": "The proof is built through the maintained SubmissionIndependentResults target."
     },
     {
       "id": "cubical-agda-sphere-lattice",
       "system": "Cubical Agda 2.8.0",
       "repository": "agda/cubical plus Vilin97/homotopy-groups-lean companion derivations",
       "commit": "92166033326aa59800a580b428125f3c654b5e45",
-      "local_commit": null,
-      "license": "MIT for agda/cubical; repository license for the companion source",
+      "local_commit": "1c7300834fa28b729434fab08bed188d7436ca6f",
+      "license": "MIT for agda/cubical; Apache-2.0 for the companion source",
       "declarations": [
         "Cubical.Homotopy.Group.PinSn.πₙSⁿ≅ℤ",
         "Cubical.Homotopy.Group.PinSn.πₙ'Sⁿ-gen-by-idfun",
