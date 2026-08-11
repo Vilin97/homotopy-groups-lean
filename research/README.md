@@ -14,8 +14,7 @@ This directory now also contains the broader literature audit:
 - [`lattice-coverage.json`](lattice-coverage.json) is the machine-readable cell
   rule and audited count;
 - [`formalizations.json`](formalizations.json) inventories source-auditable Lean
-  and safe Cubical Agda formalizations with exact commits, models, licenses, and
-  trust qualifications;
+  4 formalizations with exact commits, models, licenses, and trust qualifications;
 - [`report-data/`](report-data/) contains the CSV and BibTeX companions named in
   the archived report;
 - [`foundation-blocked-results.json`](foundation-blocked-results.json) lists

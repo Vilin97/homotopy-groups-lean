@@ -17,7 +17,7 @@ test("statically exports the benchmark landing page", async () => {
   assert.match(html, /manifests\/problems\/complexProjectiveSpace_higher_homotopy_mulEquiv_sphere\.toml/);
   assert.doesNotMatch(html, /manifests\/problems\/[^"]+\.json/);
   assert.match(html, /4,468(?:<!-- -->)? exact integral/);
-  assert.match(html, /Proof overlay<\/span><strong>274<\/strong>/);
+  assert.match(html, /Proof overlay<\/span><strong>91<\/strong>/);
   assert.match(html, /Lean 4 · exact metric S¹/);
   assert.match(html, /research\/open-problems\.md/);
   assert.match(html, /homotopy-groups-of-spheres-literature-review\.pdf/);

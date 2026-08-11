@@ -1,11 +1,10 @@
-# Audited formalizations
+# Audited Lean 4 formalizations
 
 [`formalizations.json`](formalizations.json) is the dated, machine-readable
-inventory behind the website's purple overlay.  The audit covers the public
-Lean/Mathlib ecosystem, LeanEval submissions, TauCeti, GroundZero, Lean's
-historical HoTT library, and the official Cubical Agda library.  Each positive
-entry has a source path, model qualification, trust status, and license; public
-dependencies are commit-pinned.
+inventory behind the website's purple overlay.  The maintained proof sets and
+the displayed overlay are Lean 4 only.  Each positive entry has a source path,
+model qualification, trust status, and license; public dependencies are
+commit-pinned.
 
 The strongest current-model result imported into this repository is the
 sorry-free proof that `pi_k(S^n)` vanishes below the sphere dimension.  Its
@@ -23,23 +22,24 @@ covering invariance to show `pi_m(S^1) = 0` for every `m >= 2`.  The higher row
 is one general formalized result.  Its named degree corollaries are conveniences
 and are not counted separately.
 
-## The second ten-result batch
+## Twenty additional Lean 4 results
 
-`maintained_second_result_set` records exactly ten mathematically distinct
-declarations.  It does not count numerical instances or displayed cells.  One
-is the new exact-model Lean theorem for `pi_1(S^1)`.  Nine are Cubical Agda
-sphere results: the diagonal group, its identity generator, its cohomological
-identification, `pi_3(S^2)`, `pi_4(S^3)`, first-stem suspension, the higher Hopf
-sphere equivalence, `pi_4(S^2)`, and the full first stable stem.
+`maintained_lean4_twenty_result_set` records exactly twenty mathematically
+distinct Lean 4 declarations in
+[`Lean4TwentyResults.lean`](../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Lean4TwentyResults.lean).
+They cover retract injectivity, section surjectivity, strict equivalences,
+vanishing transfer along retracts and equivalences, homeomorphism and
+pointed-homotopy invariance, product triviality, contractible factors, products
+of fundamental groups and path components, basepoint independence,
+higher-group commutativity, covering-map injectivity, and exact metric-circle
+computations at arbitrary basepoints.  Numerical specializations, displayed
+cells, and aliases are not counted.
 
-The companion source
-[`formalizations/cubical/SecondBatch.agda`](../formalizations/cubical/SecondBatch.agda)
-adds the transfer and stability derivations.  The reproducible checker uses
-digest-pinned Agda 2.8.0 and
-[`agda/cubical`](https://github.com/agda/cubical) commit
-`92166033326aa59800a580b428125f3c654b5e45`, then type-checks the companion with
-`--safe`.  The checked proof overlay now occupies 274 displayed cells: the full
-`n=1` row, all diagonal cells, the complete first stem, and `pi_4(S^2)`.
+The current pinned Mathlib does not contain the Freudenthal, Hopf-fibration, or
+degree/Hurewicz infrastructure needed to prove the diagonal or stable sphere
+stems in Lean 4.  Public Lean 4 attempts at those computations remain
+incomplete, so they do not color cells.  The honest Lean 4 overlay is therefore
+the 91-cell `n=1` row, whose exact metric model is fully checked.
 
 The maintained ten-result set is recorded explicitly in
 `maintained_independent_result_set`.  Besides the metric-circle computation it
@@ -51,12 +51,9 @@ metric-circle theorem colors lattice cells; the other nine are reusable
 foundations and the inventory says so rather than presenting them as new sphere
 computations.
 
-The purple overlay is deliberately broader than “same Lean declaration”: it
-can record a source-auditable formalization in an exact metric model or in a
-synthetic higher-inductive sphere model.  The detail pane always states the
-proof assistant and model.  It never promotes the underlying mathematical
-evidence class.  The first-stem cells are propagated only because
-`SecondBatch.firstStemSuspIso` supplies the formal suspension isomorphisms.
+The purple overlay records Lean 4 proofs only and never promotes the underlying
+mathematical evidence class.  Non-maintained historical records do not color
+the overlay.
 
 Deleted-source and incomplete attempts remain in `qualified_records` so the
 negative audit is reproducible.  They do not color cells.

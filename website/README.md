@@ -12,7 +12,7 @@ Generated data under `public/data/` comes only from repository sources of truth:
 - `research/stable-stems.json` for the stable-stem map;
 - `research/open-problems.json` for the conjecture registry;
 - `research/lattice-coverage.json` and `research/formalizations.json` for the
-  audited evidence lattice and independent Lean/Cubical proof overlay;
+  audited evidence lattice and independent Lean 4 proof overlay;
 - append-only `results/*.json` for the leaderboard.
 
 The archived literature-review PDF and its three machine-readable companions
