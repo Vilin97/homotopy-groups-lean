@@ -27,7 +27,7 @@ type Knowledge = "exact" | "partial" | "primary" | "disputed" | "uncharted";
 type Formalization = {
   accessibleLabel: string;
   badge: string;
-  kind: "lean4" | "historical";
+  kind: "lean4-exact" | "lean4" | "historical";
   note: string;
   source: string;
 } | null;
@@ -210,7 +210,9 @@ export function Lattice() {
           context.strokeStyle = "#080b10";
           context.lineWidth = Math.max(1.6, cell * .28);
           context.strokeRect(outlineX, outlineY, outlineSize, outlineSize);
-          context.strokeStyle = formalization.kind === "lean4" ? "#aa8cff" : "#c4afff";
+          context.strokeStyle = formalization.kind === "lean4-exact"
+            ? "#f0bfff"
+            : formalization.kind === "lean4" ? "#aa8cff" : "#c4afff";
           context.lineWidth = Math.max(.8, cell * .12);
           context.strokeRect(outlineX, outlineY, outlineSize, outlineSize);
         }
@@ -349,7 +351,7 @@ export function Lattice() {
           </div>
         </aside>
       </div>
-      <p className="atlas-scope">Audited 92 × 91 view: <b>{counts.knowledge.exact.toLocaleString()} exact integral</b>, <b>{counts.knowledge.partial.toLocaleString()} published-alternative</b>, <b>{counts.knowledge.primary.toLocaleString()} exact 2-primary-only</b>, <b>{counts.knowledge.disputed.toLocaleString()} disputed</b>, and <b>{counts.knowledge.uncharted.toLocaleString()} not fully tabulated</b> cells. Stability is used exactly when <b>k ≤ n − 2</b>. Purple is a separate source-auditable Lean overlay.</p>
+      <p className="atlas-scope">Audited 92 × 91 view: <b>{counts.knowledge.exact.toLocaleString()} exact integral</b>, <b>{counts.knowledge.partial.toLocaleString()} published-alternative</b>, <b>{counts.knowledge.primary.toLocaleString()} exact 2-primary-only</b>, <b>{counts.knowledge.disputed.toLocaleString()} disputed</b>, and <b>{counts.knowledge.uncharted.toLocaleString()} not fully tabulated</b> cells. Stability is used exactly when <b>k ≤ n − 2</b>. Purple is a separate source-auditable Lean overlay; bright purple marks the exact benchmark model.</p>
     </div>
   );
 }

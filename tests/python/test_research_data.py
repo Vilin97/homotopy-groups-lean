@@ -249,6 +249,43 @@ class ResearchDataTests(unittest.TestCase):
             qualified["lean4-first-stable-wip"], "incomplete_not_a_formalization"
         )
 
+    def test_maintained_set_has_ten_independent_results(self) -> None:
+        inventory = json.loads((ROOT / "research/formalizations.json").read_text())
+        result_set = inventory["maintained_independent_result_set"]
+        results = result_set["results"]
+        self.assertEqual(result_set["count"], 10)
+        self.assertEqual(len(results), 10)
+        self.assertEqual(len({row["id"] for row in results}), 10)
+        self.assertEqual(len({row["declaration"] for row in results}), 10)
+        self.assertIn("do not count separately", result_set["counting_rule"])
+        for result in results:
+            source = (ROOT / "research" / result["source"]).resolve()
+            self.assertTrue(source.is_file())
+            text = source.read_text()
+            self.assertNotIn("sorry", text)
+            self.assertNotIn("admit", text)
+            short_name = result["declaration"].rsplit(".", 1)[-1]
+            self.assertIn(f"theorem {short_name}", text)
+
+        circle = next(
+            item for item in inventory["formalizations"]
+            if item["id"] == "lean4-benchmark-metric-circle-higher"
+        )
+        self.assertEqual(
+            circle["declarations"],
+            ["Submission.sphere_one_higher_homotopy_subsingleton"],
+        )
+        self.assertEqual(len(circle["convenience_corollaries"]), 10)
+        suite = next(
+            item for item in inventory["formalizations"]
+            if item["id"] == "lean4-homotopy-structural-suite"
+        )
+        self.assertEqual(
+            suite["declarations"],
+            [row["declaration"] for row in results[1:]],
+        )
+        self.assertIsNone(suite["lattice_overlay"])
+
 
 if __name__ == "__main__":
     unittest.main()

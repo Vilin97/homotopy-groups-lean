@@ -20,6 +20,16 @@ name = "HomotopyGroups"
 [[lean_lib]]
 name = "EvalTools"
 
+[[lean_lib]]
+name = "SubmissionIndependentResults"
+srcDir = "examples/submissions/sphere_lower_homotopy_subsingleton"
+roots = ["Submission"]
+
+[[lean_lib]]
+name = "SphereLowerChallengeDeps"
+srcDir = "generated/sphere_lower_homotopy_subsingleton"
+roots = ["ChallengeDeps"]
+
 [[lean_exe]]
 name = "extract_theorem"
 root = "EvalTools.ExtractTheorem"
