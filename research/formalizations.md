@@ -6,9 +6,8 @@ the displayed overlay are Lean 4 only.  Each positive entry has a source path,
 model qualification, trust status, and license; public dependencies are
 commit-pinned.
 
-The strongest current-model result imported into this repository is the
-sorry-free proof that `pi_k(S^n)` vanishes below the sphere dimension.  Its
-minimal twelve-module closure is vendored under
+The repository includes a sorry-free proof that `pi_k(S^n)` vanishes below the
+sphere dimension.  Its minimal twelve-module closure is vendored under
 [`examples/submissions/sphere_lower_homotopy_subsingleton`](../examples/submissions/sphere_lower_homotopy_subsingleton/)
 and is evaluated against the benchmark-owned statement.  This result does not
 occupy a square in the displayed `(n,k)` lattice, because that lattice begins at
@@ -34,11 +33,16 @@ components, basepoint independence, higher-group commutativity, covering-map
 injectivity, and exact metric-circle computations at arbitrary basepoints.
 Numerical specializations, displayed cells, and aliases are not counted.
 
-The pinned Mathlib does not yet contain the Freudenthal, Hopf-fibration, or
-degree/Hurewicz infrastructure needed to prove the diagonal or stable sphere
-stems in Lean 4.  Public Lean 4 attempts at those computations remain
-incomplete, so they do not color cells.  The honest Lean 4 overlay is therefore
-the 91-cell `n=1` row, whose exact metric model is fully checked.
+The maintained Lean 4 closure now also contains the path fibration, the
+degree-one Hurewicz theorem, the needed Mayer--Vietoris and Wang machinery, and
+the computation `H_1(ΩS²) = Z`.  Their composition proves `pi_2(S^2) = Z` in
+the exact metric-sphere model and adds `(n,k)=(2,0)` to the overlay.  The honest
+Lean 4 overlay therefore has 92 cells: the complete 91-cell `n=1` row and this
+first diagonal cell.
+
+Higher diagonal and stable sphere stems still require additional
+Freudenthal, higher-Hurewicz, and Hopf-fibration infrastructure.  Incomplete
+attempts do not color cells.
 
 The maintained ten-result set is recorded explicitly in
 `maintained_independent_result_set`.  Besides the metric-circle computation it

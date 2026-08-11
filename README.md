@@ -31,7 +31,8 @@ values, published alternatives, 2-primary-only computations, and a disputed
 33-stem entry. The independent purple proof overlay comes from the dated,
 source-auditable [`formalizations.json`](research/formalizations.json) inventory.
 The maintained overlay is Lean 4 only and currently covers the complete
-91-cell exact metric-circle row.
+91-cell exact metric-circle row together with the exact metric-model cell
+`π₂(S²) ≅ ℤ`.
 
 The [comprehensive 2026 report](website/public/reports/comprehensive-2026/index.html)
 and its [audit](research/comprehensive-handoff-audit.md) extend the source
@@ -149,7 +150,9 @@ the `Evaluate submission` workflow's manual dispatch; reference smoke runs are
 marked ineligible for leaderboard points.
 
 The maintained source-auditable proof suite under
-[`examples/submissions/`](examples/submissions/) includes:
+[`examples/submissions/`](examples/submissions/) currently exposes 31 distinct
+Lean 4 results: the original ten, twenty additional structural/exact-circle
+results, and the exact `π₂(S²)` calculation. It includes:
 
 - `sphere_lower_homotopy_subsingleton`, proving `π_k(S^n) = 0` for `k < n`
   in the benchmark's exact metric-sphere model;
@@ -162,6 +165,9 @@ The maintained source-auditable proof suite under
 - `Submission.Lean4TwentyResults`, twenty additional kernel-checked Lean 4
   theorems covering induced maps, retracts, sections, equivalences, products,
   coverings, commutativity, and the exact metric circle at arbitrary basepoints;
+- `Submission.Pi2SphereTwo`, proving `π₂(S²) ≅ ℤ` in the benchmark's exact
+  metric-sphere model from the path fibration, degree-one Hurewicz, and the
+  integral homology of `ΩS²`;
 - `higher_homotopy_mul_comm`, exposing the pinned Mathlib
   Eckmann--Hilton `CommGroup` foundation for `π_{n+2}`;
 - `pi0_equiv_zerothHomotopy` and `pi1_mulEquiv_fundamentalGroup`, exposing

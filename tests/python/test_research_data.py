@@ -250,6 +250,19 @@ class ResearchDataTests(unittest.TestCase):
             qualified["lean4-first-stable-wip"], "incomplete_not_a_formalization"
         )
 
+        pi2 = next(
+            entry for entry in entries
+            if entry["id"] == "lean4-benchmark-metric-sphere-pi2"
+        )
+        self.assertEqual(
+            pi2["declarations"],
+            ["Submission.pi2_sphere_two_mulEquiv_int"],
+        )
+        self.assertEqual(
+            pi2["lattice_overlay"]["cell_ranges"],
+            [{"n": [2, 2], "k": [0, 0]}],
+        )
+
     def test_maintained_set_has_ten_independent_results(self) -> None:
         inventory = json.loads((ROOT / "research/formalizations.json").read_text())
         result_set = inventory["maintained_independent_result_set"]

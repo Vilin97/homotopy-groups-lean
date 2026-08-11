@@ -163,7 +163,7 @@
   ],
   "formalization_inventory": {
     "lattice": {
-      "cell_count": 91,
+      "cell_count": 92,
       "cells": [
         {
           "k": 0,
@@ -1075,6 +1075,14 @@
             "lean4-twenty-result-suite",
             "lean4-tauceti-circle"
           ]
+        },
+        {
+          "k": 0,
+          "n": 2,
+          "record_id": "lean4-benchmark-metric-sphere-pi2",
+          "record_ids": [
+            "lean4-benchmark-metric-sphere-pi2"
+          ]
         }
       ],
       "k_max": 90,
@@ -1083,6 +1091,21 @@
       "n_min": 1
     },
     "records": [
+      {
+        "cell_count": 1,
+        "coordinates": "n=2,k=0",
+        "declarations": [
+          "Submission.pi2_sphere_two_mulEquiv_int"
+        ],
+        "id": "lean4-benchmark-metric-sphere-pi2",
+        "lattice_kind": "lean4_exact_metric_model",
+        "model_relation": "exactly the Mathlib metric-sphere model and distinguished basepoint used by SphereSpace 2",
+        "note": "The proof composes the path-fibration connecting isomorphism, degree-one Hurewicz, and the Wang-sequence computation of H_1 of the loop space; its axiom closure contains no sorryAx.",
+        "result": "pi_2 of the exact metric 2-sphere is infinite cyclic",
+        "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/944300773c164ed95d0ddbc692a1d007e7d3a0fe/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Pi2SphereTwo.lean",
+        "status": "lean_kernel_checked_local_source",
+        "system": "Lean 4"
+      },
       {
         "cell_count": 1,
         "coordinates": "n=1,k=0",
