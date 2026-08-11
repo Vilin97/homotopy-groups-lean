@@ -17,8 +17,8 @@ test("statically exports the benchmark landing page", async () => {
   assert.match(html, /manifests\/problems\/complexProjectiveSpace_higher_homotopy_mulEquiv_sphere\.toml/);
   assert.doesNotMatch(html, /manifests\/problems\/[^"]+\.json/);
   assert.match(html, /4,468(?:<!-- -->)? exact integral/);
-  assert.match(html, /Lean overlay<\/span><strong>183<\/strong>/);
-  assert.match(html, /Lean 4 · dual-kernel verified/);
+  assert.match(html, /Lean overlay<\/span><strong>91<\/strong>/);
+  assert.match(html, /Lean 4 · kernel checked · exact metric model/);
   assert.match(html, /research\/open-problems\.md/);
   assert.match(html, /homotopy-groups-of-spheres-literature-review\.pdf/);
   assert.match(html, /reports\/comprehensive-2026\//);
@@ -28,7 +28,7 @@ test("statically exports the benchmark landing page", async () => {
   assert.match(html, /π<sub>k<\/sub>\(𝕊\)/);
   assert.doesNotMatch(html, /π<sub>k<\/sub><sup>S<\/sup>/);
   assert.match(html, /Which homotopy groups are in Lean\?/);
-  assert.match(html, /π₃\(S²\)=ℤ/);
+  assert.doesNotMatch(html, /Lean 2 HoTT/);
   assert.match(html, /A path-connected space has trivial zeroth homotopy group/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape/i);
   assert.doesNotMatch(html, /integral groups through 1000/i);
@@ -123,10 +123,19 @@ test("ships complete, synchronized benchmark data, reports, and social art", asy
   assert.ok(leaderboard.accepted_problems.length >= 6);
   assert.ok(leaderboard.accepted_problems.every((problem) => typeof problem.title === "string" && problem.title.length > 0));
   assert.ok(leaderboard.accepted_problems.some((problem) => problem.title === "The fundamental group of the circle is the integers" && problem.score_eligible === false));
-  assert.equal(leaderboard.formalization_inventory.records.length, 5);
-  assert.equal(leaderboard.formalization_inventory.lattice.cell_count, 183);
-  assert.ok(leaderboard.formalization_inventory.records.some((record) => record.result.includes("pi_3(S^2)=Z")));
-  assert.ok(leaderboard.formalization_inventory.lattice.cells.some((cell) => cell.n === 2 && cell.k === 1 && cell.record_id === "lean2-hott-spheres"));
+  assert.equal(leaderboard.formalization_inventory.records.length, 8);
+  assert.equal(leaderboard.formalization_inventory.lattice.cell_count, 91);
+  assert.ok(
+    leaderboard.formalization_inventory.records.every((record) =>
+      record.system.startsWith("Lean 4")),
+  );
+  assert.ok(
+    leaderboard.formalization_inventory.lattice.cells.every((cell) => cell.n === 1),
+  );
+  assert.ok(
+    leaderboard.formalization_inventory.lattice.cells.some((cell) =>
+      cell.k === 0 && cell.record_id === "lean4-benchmark-metric-circle-pi1"),
+  );
   for (const entry of leaderboard.entries) {
     assert.ok(Number.isInteger(entry.rank) && entry.rank > 0);
     assert.ok(typeof entry.actor === "string" && entry.actor.length > 0);

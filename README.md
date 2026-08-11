@@ -30,6 +30,8 @@ its [correction log](research/literature-review-audit.md), and the regenerated
 values, published alternatives, 2-primary-only computations, and a disputed
 33-stem entry. The independent purple proof overlay comes from the dated,
 source-auditable [`formalizations.json`](research/formalizations.json) inventory.
+The maintained overlay is Lean 4 only and currently covers the complete
+91-cell exact metric-circle row.
 
 The [comprehensive 2026 report](website/public/reports/comprehensive-2026/index.html)
 and its [audit](research/comprehensive-handoff-audit.md) extend the source
@@ -157,6 +159,9 @@ The maintained source-auditable proof suite under
 - `Submission.IndependentResults`, a kernel-checked set of nine distinct
   structural results covering comparison equivalences, basepoint and homotopy
   invariance, functoriality, products, coverings, and contractible vanishing;
+- `Submission.Lean4TwentyResults`, twenty additional kernel-checked Lean 4
+  theorems covering induced maps, retracts, sections, equivalences, products,
+  coverings, commutativity, and the exact metric circle at arbitrary basepoints;
 - `higher_homotopy_mul_comm`, exposing the pinned Mathlib
   Eckmann--Hilton `CommGroup` foundation for `π_{n+2}`;
 - `pi0_equiv_zerothHomotopy` and `pi1_mulEquiv_fundamentalGroup`, exposing
@@ -172,8 +177,8 @@ The source directories are examples, not self-certifying results. Only
 accepted hosted evaluations recorded under `results/` color the tracker and
 count on the leaderboard.
 
-Run `lake build SubmissionIndependentResults` to compile the nine-result
-structural suite together with its generated trusted dependency closure.
+Run `lake build SubmissionIndependentResults` to compile both maintained
+result suites together with their generated trusted dependency closure.
 
 ## Comparator prerequisites
 

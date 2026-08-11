@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "reviewed_on": "2026-08-11",
-  "scope": "Public, source-auditable Lean formalizations of homotopy-group computations and reusable structural results, plus benchmark records requiring a trust qualification.",
+  "scope": "Public, source-auditable Lean 4 formalizations of homotopy-group computations and reusable structural results, plus benchmark records requiring a trust qualification.",
   "maintained_independent_result_set": {
     "count": 10,
     "counting_rule": "Only mathematically distinct general statements count. Numerical specializations and convenience corollaries of one general theorem do not count separately.",
@@ -68,7 +68,92 @@
       }
     ]
   },
+  "maintained_lean4_twenty_result_set": {
+    "count": 20,
+    "system": "Lean 4",
+    "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Lean4TwentyResults.lean",
+    "counting_rule": "Only mathematically distinct general declarations count. Numerical specializations, displayed cells, and aliases of the same theorem do not count separately.",
+    "results": [
+      { "id": "retraction-injective", "declaration": "Submission.homotopyGroup_retraction_injective", "lattice_effect": "none; general retract theorem" },
+      { "id": "section-surjective", "declaration": "Submission.homotopyGroup_section_surjective", "lattice_effect": "none; general section theorem" },
+      { "id": "strict-equivalence", "declaration": "Submission.homotopyGroup_strict_equivalence", "lattice_effect": "none; general equivalence theorem" },
+      { "id": "retract-triviality", "declaration": "Submission.homotopyGroup_retract_subsingleton", "lattice_effect": "none; transfers vanishing along retracts" },
+      { "id": "section-triviality", "declaration": "Submission.homotopyGroup_section_subsingleton", "lattice_effect": "none; transfers vanishing along sections" },
+      { "id": "strict-equivalence-triviality", "declaration": "Submission.homotopyGroup_strict_equivalence_subsingleton_iff", "lattice_effect": "none; preserves vanishing in both directions" },
+      { "id": "homeomorphism-invariance", "declaration": "Submission.homotopyGroup_homeomorphism_invariance", "lattice_effect": "none directly; transfers exact-model computations" },
+      { "id": "pointed-homotopy-all-dimensions", "declaration": "Submission.homotopyGroup_pointed_homotopy_invariance_all_dimensions", "lattice_effect": "none; induced-map structure" },
+      { "id": "product-triviality", "declaration": "Submission.homotopyGroup_product_subsingleton_iff", "lattice_effect": "none; characterizes product-group vanishing" },
+      { "id": "contractible-right-factor", "declaration": "Submission.homotopyGroup_product_contractible_right", "lattice_effect": "none; product reduction" },
+      { "id": "contractible-left-factor", "declaration": "Submission.homotopyGroup_product_contractible_left", "lattice_effect": "none; product reduction" },
+      { "id": "fundamental-group-product", "declaration": "Submission.fundamentalGroup_product", "lattice_effect": "none; product computation for fundamental groups" },
+      { "id": "path-components-product", "declaration": "Submission.zerothHomotopy_product", "lattice_effect": "outside the displayed lattice" },
+      { "id": "homotopy-equivalence-triviality", "declaration": "Submission.homotopyGroup_homotopy_equiv_subsingleton", "lattice_effect": "none directly; transfers vanishing" },
+      { "id": "homeomorphism-triviality", "declaration": "Submission.homotopyGroup_homeomorphism_subsingleton_iff", "lattice_effect": "none directly; exact-model transfer" },
+      { "id": "basepoint-triviality", "declaration": "Submission.homotopyGroup_pathConnected_subsingleton_iff", "lattice_effect": "none directly; removes basepoint dependence" },
+      { "id": "higher-commutativity", "declaration": "Submission.higher_homotopy_mul_comm", "lattice_effect": "none; group-structure theorem" },
+      { "id": "covering-injectivity", "declaration": "Submission.homotopyGroup_covering_map_injective", "lattice_effect": "none directly; includes pi_1" },
+      { "id": "metric-circle-pi1-all-basepoints", "declaration": "Submission.pi1_sphere_one_mulEquiv_int_at", "lattice_effect": "strengthens exact-model (n,k)=(1,0) coverage to every basepoint" },
+      { "id": "metric-circle-higher-all-basepoints", "declaration": "Submission.sphere_one_higher_homotopy_subsingleton_at", "lattice_effect": "strengthens exact-model n=1,k>=1 coverage to every basepoint" }
+    ]
+  },
   "formalizations": [
+    {
+      "id": "lean4-benchmark-metric-circle-pi1",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "23f878b04af1d4708730eed35a7ef353c9833841",
+      "license": "Apache-2.0",
+      "declarations": ["Submission.pi1_sphere_one_mulEquiv_int"],
+      "result": "pi_1 of the exact metric 1-sphere is infinite cyclic",
+      "model_relation": "exactly the Mathlib metric-sphere model used by SphereSpace 1, via an explicit basepoint-preserving homeomorphism from Circle",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/MetricSpherePiOne.lean",
+      "lattice_overlay": {
+        "coordinates": "n=1,k=0",
+        "kind": "lean4_exact_metric_model",
+        "cell_ranges": [{ "n": [1, 1], "k": [0, 0] }]
+      },
+      "note": "The proof is built through the maintained SubmissionIndependentResults target."
+    },
+    {
+      "id": "lean4-twenty-result-suite",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "23f878b04af1d4708730eed35a7ef353c9833841",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.homotopyGroup_retraction_injective",
+        "Submission.homotopyGroup_section_surjective",
+        "Submission.homotopyGroup_strict_equivalence",
+        "Submission.homotopyGroup_retract_subsingleton",
+        "Submission.homotopyGroup_section_subsingleton",
+        "Submission.homotopyGroup_strict_equivalence_subsingleton_iff",
+        "Submission.homotopyGroup_homeomorphism_invariance",
+        "Submission.homotopyGroup_pointed_homotopy_invariance_all_dimensions",
+        "Submission.homotopyGroup_product_subsingleton_iff",
+        "Submission.homotopyGroup_product_contractible_right",
+        "Submission.homotopyGroup_product_contractible_left",
+        "Submission.fundamentalGroup_product",
+        "Submission.zerothHomotopy_product",
+        "Submission.homotopyGroup_homotopy_equiv_subsingleton",
+        "Submission.homotopyGroup_homeomorphism_subsingleton_iff",
+        "Submission.homotopyGroup_pathConnected_subsingleton_iff",
+        "Submission.higher_homotopy_mul_comm",
+        "Submission.homotopyGroup_covering_map_injective",
+        "Submission.pi1_sphere_one_mulEquiv_int_at",
+        "Submission.sphere_one_higher_homotopy_subsingleton_at"
+      ],
+      "result": "twenty distinct Lean 4 theorems for induced maps, retracts, sections, equivalences, basepoints, products, vanishing, commutativity, covering injectivity, and exact metric-circle computations at arbitrary basepoints",
+      "model_relation": "Mathlib HomotopyGroup throughout; the last two declarations use exactly the benchmark metric SphereSpace 1 model",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Lean4TwentyResults.lean",
+      "lattice_overlay": {
+        "coordinates": "n=1,k>=0",
+        "kind": "lean4_exact_metric_model",
+        "cell_ranges": [{ "n": [1, 1], "k": [0, 90] }]
+      },
+      "note": "The complete suite is imported by the maintained SubmissionIndependentResults target."
+    },
     {
       "id": "lean4-benchmark-circle-pi1",
       "system": "Lean 4",
@@ -112,7 +197,7 @@
       "id": "lean4-benchmark-metric-circle-higher",
       "system": "Lean 4",
       "repository": "Vilin97/homotopy-groups-lean",
-      "commit": null,
+      "commit": "4e1b19cfc005273996c6a0551208f4d602bd288a",
       "license": "Apache-2.0",
       "declarations": ["Submission.sphere_one_higher_homotopy_subsingleton"],
       "convenience_corollaries": [
@@ -131,14 +216,18 @@
       "model_relation": "exactly the Mathlib metric-sphere model used by SphereSpace 1, via an explicit orthonormal-basis homeomorphism from Circle",
       "status": "lean_kernel_checked_local_source",
       "source": "../examples/submissions/sphere_one_higher_homotopy_subsingleton/Submission.lean",
-      "lattice_overlay": { "coordinates": "n=1,k>=1", "kind": "lean4_exact_metric_model" },
-      "note": "The commit is null while this source is an uncommitted worktree change; pin it to the containing commit when merged."
+      "lattice_overlay": {
+        "coordinates": "n=1,k>=1",
+        "kind": "lean4_exact_metric_model",
+        "cell_ranges": [{ "n": [1, 1], "k": [1, 90] }]
+      },
+      "note": "The entire higher row is one general theorem; its ten named low-degree corollaries are not counted separately."
     },
     {
       "id": "lean4-homotopy-structural-suite",
       "system": "Lean 4",
       "repository": "Vilin97/homotopy-groups-lean",
-      "commit": null,
+      "commit": "4e1b19cfc005273996c6a0551208f4d602bd288a",
       "license": "Apache-2.0",
       "declarations": [
         "Submission.pi0_equiv_zerothHomotopy",
@@ -156,7 +245,7 @@
       "status": "lean_kernel_checked_local_source",
       "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/IndependentResults.lean",
       "lattice_overlay": null,
-      "note": "Built through the generated sphere_lower_homotopy_subsingleton dependency closure. The commit is null while this source is an uncommitted worktree change; pin it to the containing commit when merged."
+      "note": "Built through the generated sphere_lower_homotopy_subsingleton dependency closure."
     },
     {
       "id": "lean4-metric-sphere-connectivity",
@@ -187,33 +276,6 @@
         "coordinates": "n=1,k=0",
         "kind": "synthetic_model_supporting_source",
         "cell_ranges": [{ "n": [1, 1], "k": [0, 0] }]
-      }
-    },
-    {
-      "id": "lean2-hott-spheres",
-      "system": "Lean 2 HoTT",
-      "repository": "leanprover/lean2",
-      "commit": "8072fdf9a0b31abb9d43ab894d7a858639e20ed7",
-      "license": "Apache-2.0",
-      "declarations": [
-        "sphere.homotopy_group_sphere_le",
-        "circle.fundamental_group_of_circle",
-        "circle.homotopy_group_of_circle",
-        "sphere.π2S2",
-        "sphere.πnSn",
-        "sphere.π3S2"
-      ],
-      "result": "lower sphere groups vanish, pi_n(S^n)=Z, pi_3(S^2)=Z, and circle computations",
-      "model_relation": "historical synthetic HoTT/HIT sphere model",
-      "status": "source_audited_historical",
-      "source": "https://github.com/leanprover/lean2/blob/8072fdf9a0b31abb9d43ab894d7a858639e20ed7/hott/homotopy/sphere2.hlean",
-      "lattice_overlay": {
-        "coordinates": "k=0 and (n,k)=(2,1)",
-        "kind": "historical_hott",
-        "cell_ranges": [
-          { "n": [1, 92], "k": [0, 0] },
-          { "n": [2, 2], "k": [1, 1] }
-        ]
       }
     }
   ],
@@ -254,7 +316,7 @@
       "id": "humanfia-diagonal-spheres",
       "result": "pi_n(S^n)=Z",
       "status": "dual_kernel_record_source_unavailable",
-      "reason": "The record passed the later nanoda gate, but its public proof source was deleted. The lattice relies on the auditable Lean 2 source instead."
+      "reason": "The record passed the later nanoda gate, but its public proof source was deleted. It is excluded from the Lean 4-only lattice overlay."
     },
     {
       "id": "lean4-first-stable-wip",

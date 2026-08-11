@@ -38,6 +38,7 @@ type FormalizationRecord = {
   model_relation: string;
   status: string;
   source: string;
+  lattice_kind: string | null;
 };
 type FormalizationCell = { n: number; k: number; record_id: string };
 type FormalizationInventory = {
@@ -93,16 +94,24 @@ function formalizationAt(n: number, k: number): Formalization {
   const record = recordId ? formalizationRecords.get(recordId) : undefined;
   if (!record) return null;
   const dualKernel = record.status === "dual_kernel_verified_reference";
+  const kernelChecked = record.status === "lean_kernel_checked_local_source";
   const historical = record.status === "source_audited_historical";
-  const statusLabel = dualKernel
-    ? "dual-kernel verified"
-    : historical
-      ? "historical · source audited"
-      : "source audited";
+  const exactMetricModel = record.lattice_kind === "lean4_exact_metric_model";
+  const statusLabel = kernelChecked
+    ? "kernel checked · exact metric model"
+    : dualKernel
+      ? "dual-kernel verified"
+      : historical
+        ? "historical · source audited"
+        : "source audited";
   return {
     accessibleLabel: `${statusLabel} in ${record.system}`,
     badge: `${record.system} · ${statusLabel}`,
-    kind: record.system.startsWith("Lean 4") ? "lean4" : "historical",
+    kind: exactMetricModel
+      ? "lean4-exact"
+      : record.system.startsWith("Lean 4")
+        ? "lean4"
+        : "historical",
     note: `${record.result}. ${record.model_relation}.`,
     source: record.source,
   };

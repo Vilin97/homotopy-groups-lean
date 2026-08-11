@@ -241,6 +241,7 @@ class ResearchDataTests(unittest.TestCase):
         entries = inventory["formalizations"]
         self.assertGreaterEqual(len(entries), 5)
         for entry in entries:
+            self.assertTrue(entry["system"].startswith("Lean 4"))
             self.assertTrue(entry["source"])
             self.assertTrue(entry["status"])
             self.assertTrue(entry["license"])
@@ -285,6 +286,36 @@ class ResearchDataTests(unittest.TestCase):
             [row["declaration"] for row in results[1:]],
         )
         self.assertIsNone(suite["lattice_overlay"])
+
+    def test_maintained_twenty_result_set_matches_lean_source(self) -> None:
+        inventory = json.loads((ROOT / "research/formalizations.json").read_text())
+        result_set = inventory["maintained_lean4_twenty_result_set"]
+        results = result_set["results"]
+        self.assertEqual(result_set["system"], "Lean 4")
+        self.assertEqual(result_set["count"], 20)
+        self.assertEqual(len(results), 20)
+        self.assertEqual(len({row["id"] for row in results}), 20)
+        declarations = [row["declaration"] for row in results]
+        self.assertEqual(len(set(declarations)), 20)
+        source = (ROOT / "research" / result_set["source"]).resolve()
+        self.assertTrue(source.is_file())
+        text = source.read_text()
+        self.assertNotIn("sorry", text)
+        self.assertNotIn("admit", text)
+        for declaration in declarations:
+            short_name = declaration.rsplit(".", 1)[-1]
+            self.assertIn(f"theorem {short_name}", text)
+
+        suite = next(
+            item for item in inventory["formalizations"]
+            if item["id"] == "lean4-twenty-result-suite"
+        )
+        self.assertEqual(suite["system"], "Lean 4")
+        self.assertEqual(suite["declarations"], declarations)
+        self.assertEqual(
+            suite["lattice_overlay"]["cell_ranges"],
+            [{"n": [1, 1], "k": [0, 90]}],
+        )
 
 
 if __name__ == "__main__":
