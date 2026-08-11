@@ -115,7 +115,7 @@
       "id": "lean4-twenty-result-suite",
       "system": "Lean 4",
       "repository": "Vilin97/homotopy-groups-lean",
-      "commit": null,
+      "commit": "1f52efd7f4a978bcf965d8c8b4f3bac15346fd0b",
       "license": "Apache-2.0",
       "declarations": [
         "Submission.homotopyGroup_retraction_injective",
@@ -144,7 +144,7 @@
       "status": "lean_kernel_checked_local_source",
       "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Lean4TwentyResults.lean",
       "lattice_overlay": { "coordinates": "n=1,k>=0", "kind": "lean4_exact_metric_model" },
-      "note": "The containing commit is pinned in a provenance follow-up after this source lands."
+      "note": "The complete suite is imported by the maintained SubmissionIndependentResults target."
     },
     {
       "id": "lean4-benchmark-circle-pi1",

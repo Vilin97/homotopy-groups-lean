@@ -286,5 +286,6 @@ class ResearchDataTests(unittest.TestCase):
         )
         self.assertIsNone(suite["lattice_overlay"])
 
+
 if __name__ == "__main__":
     unittest.main()
