@@ -461,7 +461,65 @@
       { "id": "normalized-face-horn-loop-homotopy", "declaration": "Submission.NormalizedSimplexBoundary.faceLoop_homotopic_hornAttachingStickLoop", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SimplexHorn.lean", "lattice_effect": "none directly; identifies each normalized stick face loop with its attaching map through the other faces, relative to the cube boundary" }
     ]
   },
+  "maintained_simplex_horn_region_set": {
+    "count": 8,
+    "system": "Lean 4",
+    "counting_rule": "Closedness and coverage of the minimum regions, regional factorization through the remaining face, overlap collapse to the codimension-two skeleton, the explicit regional homeomorphism, its exact boundary-incidence formula, and the two normalized local-image formulas are eight distinct results. Coordinate formulas, inverse-coordinate bounds and sums, continuity proofs, and inverse identities are supporting declarations and are not counted separately.",
+    "results": [
+      { "id": "simplex-horn-regions-closed", "declaration": "Submission.isClosed_simplexHornRegion", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SimplexHorn.lean", "lattice_effect": "none directly; each least-barycentric-coordinate region is a closed simplex subset" },
+      { "id": "simplex-horn-regions-cover", "declaration": "Submission.exists_mem_simplexHornRegion", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SimplexHorn.lean", "lattice_effect": "none directly; the finitely many minimum regions cover the missing face" },
+      { "id": "simplex-horn-regional-face-factorization", "declaration": "Submission.faceMap_simplexHornRegionFaceMap", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SimplexHorn.lean", "lattice_effect": "none directly; on region j the attaching map factors exactly through remaining face i.succAbove j" },
+      { "id": "simplex-horn-region-overlap-collapse", "declaration": "Submission.simplexHornAttachingMap_mem_codimTwo_of_mem_regions", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SimplexHorn.lean", "lattice_effect": "none directly; distinct regional pieces meet in the codimension-two skeleton" },
+      { "id": "simplex-horn-region-homeomorphism", "declaration": "Submission.simplexHornRegionHomeomorph", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SimplexHorn.lean", "lattice_effect": "none directly; identifies every regional piece explicitly with a full standard simplex" },
+      { "id": "simplex-horn-region-boundary-incidence", "declaration": "Submission.simplexHornRegionFaceMap_mem_bdry_iff", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SimplexHorn.lean", "lattice_effect": "none directly; identifies a chart boundary with the original boundary or an overlap with another region" },
+      { "id": "normalized-horn-regional-face", "declaration": "Submission.NormalizedSimplexBoundary.simplex_hornAttaching_eq_face_on_region", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SimplexHorn.lean", "lattice_effect": "none directly; each normalized regional attaching piece is exactly its corresponding normalized face map" },
+      { "id": "normalized-horn-regional-overlap", "declaration": "Submission.NormalizedSimplexBoundary.simplex_hornAttaching_eq_basepoint_of_mem_regions", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SimplexHorn.lean", "lattice_effect": "none directly; all overlaps of normalized regional pieces map to the chosen basepoint" }
+    ]
+  },
   "formalizations": [
+    {
+      "id": "lean4-simplex-horn-region-atlas",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "210acde189e3b808a17ffe229256a0212a22cf29",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.continuous_simplexHornMin",
+        "Submission.simplexHornRegion",
+        "Submission.isClosed_simplexHornRegion",
+        "Submission.exists_mem_simplexHornRegion",
+        "Submission.simplexHornMin_faceMap_eq_of_le",
+        "Submission.simplexHornAttachingMap_coord_eq_zero_of_mem_region",
+        "Submission.simplexHornRegionFaceMap",
+        "Submission.faceMap_simplexHornRegionFaceMap",
+        "Submission.simplexHornRegionFaceMap_center",
+        "Submission.simplexHornRegionFaceMap_succAbove",
+        "Submission.simplexHornRegionInverseCoords",
+        "Submission.simplexHornRegionInverseCoords_same",
+        "Submission.simplexHornRegionInverseCoords_succAbove",
+        "Submission.simplexHornRegionInverseCoords_nonneg",
+        "Submission.sum_simplexHornRegionInverseCoords",
+        "Submission.simplexHornRegionInverseSimplex",
+        "Submission.simplexHornRegionInverseSimplex_mem",
+        "Submission.simplexHornRegionInverse",
+        "Submission.simplexHornRegionFaceMap_inverse",
+        "Submission.simplexHornRegionInverse_faceMap",
+        "Submission.simplexHornRegionHomeomorph",
+        "Submission.simplexHornRegionFaceMap_mem_bdry_iff",
+        "Submission.simplexHornAttachingMap_mem_codimTwo_of_mem_regions",
+        "Submission.NormalizedSimplexBoundary.simplex_hornAttaching_eq_face_on_region",
+        "Submission.NormalizedSimplexBoundary.simplex_hornAttaching_eq_basepoint_of_mem_regions",
+        "Submission.NormalizedSimplexBoundary.hornAttachingStickMap_eq_face_on_region",
+        "Submission.NormalizedSimplexBoundary.hornAttachingStickMap_eq_basepoint_of_mem_regions"
+      ],
+      "result": "the missing face is covered by finitely many closed minimum-coordinate regions; each region is explicitly homeomorphic to a standard simplex and the horn attaching map on it is exactly one remaining face, while distinct regions overlap only where the normalized map is the basepoint; the chart boundary is precisely the union of the original face boundary and these overlaps",
+      "model_relation": "general standard simplices, specialized through normalized higher singular simplices to the maintained stick-breaking cubical-loop model",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SimplexHorn.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All twenty-seven listed declarations are sorry-free Lean 4. Audited headline axiom closures contain only propext, Classical.choice, and Quot.sound. This gives the complete local atlas needed for homotopy addition. The remaining global step must identify the class of the map glued over this cover with the correctly signed sum of its regional face classes; stick-breaking versus cube-homeomorphism comparison also remains pending, so no lattice cell is recolored."
+    },
     {
       "id": "lean4-simplex-horn-attaching-homotopy",
       "system": "Lean 4",

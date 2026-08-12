@@ -224,6 +224,21 @@ that explicit attaching map into the other face loops. The independent
 stick-breaking versus cube-homeomorphism representative comparison is also
 still needed, so no lattice cell is recolored by this milestone.
 
+The horn attaching map now has a complete finite regional atlas. The missing
+face is covered by the closed regions on which a specified barycentric
+coordinate is least. On the region indexed by `j`, the attaching map factors
+exactly through the remaining face indexed by `i.succAbove j`. Lean constructs
+an explicit inverse-coordinate formula and proves that this regional chart is
+a homeomorphism with a full standard simplex. Its boundary is characterized
+exactly: a chart point is on the simplex boundary precisely when its source is
+on the original missing-face boundary or lies in another minimum region.
+Distinct regions therefore meet in the codimension-two skeleton, and a
+normalized higher simplex sends every such overlap to the basepoint. This is
+the local wedge decomposition required by homotopy addition. The remaining
+global theorem must convert the map glued across the regional cover into the
+correctly signed sum of the regional face classes; the representative
+comparison noted above also remains, so the lattice overlay is unchanged.
+
 Bijectivity of the corresponding relative homotopy map yields the next exact
 diagonal equivalence; bijectivity of the family from `pi_2(S^2)` onward yields
 the full integral diagonal, using the two exact base cases already in Lean. The
