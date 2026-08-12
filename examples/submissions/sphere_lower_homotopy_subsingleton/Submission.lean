@@ -21,6 +21,7 @@ import Submission.SphereGenerator
 import Submission.SphereHomologicalDegree
 import Submission.SphereReducedSuspension
 import Submission.SphereSuspensionExcision
+import Submission.SphereSuspensionHomologyExcision
 import Submission.SphereSuspension
 import Submission.SphereSuspensionPointed
 
