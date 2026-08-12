@@ -6,6 +6,7 @@ Apache-2.0 license and attribution headers.
 -/
 import ChallengeDeps
 import Submission.IndependentResults
+import Submission.DisplayedCircleFrontier
 import Submission.HigherSphereFoundations
 import Submission.Lean4TwentyResults
 import Submission.MetricSpherePiOne
