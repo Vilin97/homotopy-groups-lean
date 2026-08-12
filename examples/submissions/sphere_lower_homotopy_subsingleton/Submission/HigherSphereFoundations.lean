@@ -4,6 +4,7 @@ Released under Apache 2.0 license.
 -/
 import Submission.Homology.SphereOne
 import Submission.Homotopy.HomotopyLesTools
+import Submission.Homotopy.RelMap
 import Submission.Pi2SphereTwo
 
 /-!
@@ -62,5 +63,18 @@ noncomputable def piMulEquiv_of_bijective_relativeHom
     (MulEquiv.ofBijective (RelHomotopyGroup.bdHom n Y C c) hbd).symm |>.trans
     (MulEquiv.ofBijective f hf) |>.trans
     (MulEquiv.ofBijective (RelHomotopyGroup.jStarHom n X B b) hjs).symm
+
+/-- **Functorial contractible-pair comparison.** A based map of pairs whose induced relative
+homotopy homomorphism is bijective yields the absolute equivalence used in the Freudenthal
+argument. Unlike `piMulEquiv_of_bijective_relativeHom`, this version requires the middle map to
+come from an actual continuous map of pairs. -/
+noncomputable def piMulEquiv_of_bijective_relativeMap
+    {Y X L : Type*} [TopologicalSpace Y] [TopologicalSpace X] [TopologicalSpace L]
+    {C : Set Y} {B : Set X} [ContractibleSpace Y] [ContractibleSpace B]
+    (c : C) (b : B) (e : ContinuousMap.HomotopyEquiv C L) (n : ℕ)
+    (f : BasedPairMap C B c b)
+    (hf : Function.Bijective (RelHomotopyGroup.mapHom n f)) :
+    π_ (n + 1) L (e c) ≃* π_ (n + 2) X (b : X) :=
+  piMulEquiv_of_bijective_relativeHom c b e n (RelHomotopyGroup.mapHom n f) hf
 
 end Submission
