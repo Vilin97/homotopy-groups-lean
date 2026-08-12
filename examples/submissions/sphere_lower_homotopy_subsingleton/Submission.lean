@@ -15,7 +15,10 @@ import Submission.Lean4TwentyResults
 import Submission.MetricSpherePiOne
 import Submission.Model.SphereConnected
 import Submission.SphereApproximation
+import Submission.SphereDegreeClassification
+import Submission.SphereGenerator
 import Submission.SphereHomologicalDegree
+import Submission.SphereSuspension
 
 open HomotopyGroups
 open scoped Topology
