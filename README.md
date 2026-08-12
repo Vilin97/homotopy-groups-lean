@@ -195,8 +195,9 @@ diagonal, plus two sphere-diagonal induction results. It includes:
   benchmark without adding a duplicate formalization;
 - `Submission.MetricSpherePiOneGeneric` and
   `Submission.Hurewicz.SphereDiagonalGeneric`, whose arbitrary-basepoint
-  computations now directly close the canonical circle and full positive
-  sphere-diagonal declarations in `HomotopyGroups.Spaces`;
+  computations now directly close the canonical fundamental- and
+  higher-homotopy circle declarations and the full positive sphere-diagonal
+  declaration;
 - `Submission.HigherSphereFoundations`, upgrading the loop-space shift to a
   group equivalence and packaging the contractible-pair comparison needed to
   turn suspension excision into higher diagonal group isomorphisms;

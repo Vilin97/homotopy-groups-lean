@@ -99,6 +99,7 @@ test("ships complete, synchronized benchmark data, reports, and social art", asy
     "pi1_realProjectiveSpace_mulEquiv_zmod_two",
     "realProjectiveSpace_higher_homotopy_mulEquiv_sphere",
     "sphere_diagonal_homotopy_mulEquiv_int",
+    "sphere_one_higher_homotopy_subsingleton",
     "stable_stem_000",
   ]) {
     assert.equal(

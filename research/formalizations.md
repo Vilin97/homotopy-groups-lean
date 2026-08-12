@@ -55,6 +55,12 @@ identical metric-sphere model at arbitrary basepoints; the legacy wrappers and
 canonical declarations are interfaces to the existing circle and diagonal
 formalizations, not additional counted results.
 
+The same independent circle core now proves that every homotopy group above
+degree one vanishes at every basepoint of the metric circle. This directly
+closes the canonical `sphere_one_higher_homotopy_subsingleton` declaration;
+the pre-existing exact theorem, arbitrary-basepoint wrappers, and numerical
+corollaries remain one counted general formalization.
+
 ## Twenty additional Lean 4 results
 
 `maintained_lean4_twenty_result_set` records exactly twenty mathematically

@@ -2155,9 +2155,14 @@
       "id": "lean4-benchmark-metric-circle-higher",
       "system": "Lean 4",
       "repository": "Vilin97/homotopy-groups-lean",
-      "commit": "4e1b19cfc005273996c6a0551208f4d602bd288a",
+      "commit": "bb372606cd4a1670a66b4fd7609a7eee6a3a6b4f",
       "license": "Apache-2.0",
-      "declarations": ["Submission.sphere_one_higher_homotopy_subsingleton"],
+      "declarations": [
+        "Submission.sphere_one_higher_homotopy_subsingleton",
+        "Submission.sph_one_higher_homotopy_subsingleton_at",
+        "Submission.sphere_one_higher_homotopy_subsingleton_at",
+        "HomotopyGroups.sphere_one_higher_homotopy_subsingleton"
+      ],
       "convenience_corollaries": [
         "Submission.pi2_sphere_one_subsingleton",
         "Submission.pi3_sphere_one_subsingleton",
@@ -2170,8 +2175,8 @@
         "Submission.pi10_sphere_one_subsingleton",
         "Submission.pi11_sphere_one_subsingleton"
       ],
-      "result": "pi_m of the metric 1-sphere is trivial for every m at least 2; this is counted as one general result",
-      "model_relation": "exactly the Mathlib metric-sphere model used by SphereSpace 1, via an explicit orthonormal-basis homeomorphism from Circle",
+      "result": "pi_m of the metric 1-sphere is trivial for every m at least 2 and every basepoint, closing the canonical higher-circle benchmark; this is counted as one general result",
+      "model_relation": "exactly the Mathlib metric-sphere model used by SphereSpace 1, at arbitrary or distinguished basepoints, via an explicit orthonormal-basis homeomorphism from Circle",
       "status": "lean_kernel_checked_local_source",
       "source": "../examples/submissions/sphere_one_higher_homotopy_subsingleton/Submission.lean",
       "lattice_overlay": {
@@ -2183,7 +2188,7 @@
         },
         "cell_ranges": [{ "n": [1, 1], "k": [1, 90] }]
       },
-      "note": "The entire higher row is one general theorem; its ten named low-degree corollaries are not counted separately."
+      "note": "The challenge-independent core transports contractible-cover vanishing from the real line through the additive and complex circles to every basepoint of the exact metric sphere. The original exact theorem, arbitrary-basepoint core, maintained wrapper, canonical HomotopyGroups declaration, and ten named low-degree corollaries are interfaces or specializations of one result and are not counted separately. Strict checks, exact module builds, the full aggregate build, and all 104 Python tests pass. Audited axiom closures contain only propext, Classical.choice, and Quot.sound."
     },
     {
       "id": "lean4-homotopy-structural-suite",

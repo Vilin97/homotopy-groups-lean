@@ -331,8 +331,8 @@
         "sphere_one_higher_homotopy_subsingleton"
       ],
       "id": "sphere_one_higher_homotopy_subsingleton",
-      "knowledge_status": "known_result/exact",
-      "notes": "knowledge_status=known_result/exact; states the result for the benchmark's metric SphereSpace 1; the current TauCeti formalization uses an equivalent circle model whose explicit bridge is not yet in Mathlib.",
+      "knowledge_status": "formalized_local",
+      "notes": "knowledge_status=formalized_local; an explicit circle-to-metric-sphere homeomorphism and covering invariance prove the exact canonical declaration in every degree above one.",
       "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
       "title": "All higher homotopy groups of the circle vanish"
     },

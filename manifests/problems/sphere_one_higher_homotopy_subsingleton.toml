@@ -5,4 +5,4 @@ module = "HomotopyGroups.LiteratureReview"
 holes = ["sphere_one_higher_homotopy_subsingleton"]
 submitter = "OpenAI Codex"
 source = "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
-notes = "knowledge_status=known_result/exact; states the result for the benchmark's metric SphereSpace 1; the current TauCeti formalization uses an equivalent circle model whose explicit bridge is not yet in Mathlib."
+notes = "knowledge_status=formalized_local; an explicit circle-to-metric-sphere homeomorphism and covering invariance prove the exact canonical declaration in every degree above one."

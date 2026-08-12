@@ -352,9 +352,30 @@ class ResearchDataTests(unittest.TestCase):
         )
         self.assertEqual(
             circle["declarations"],
-            ["Submission.sphere_one_higher_homotopy_subsingleton"],
+            [
+                "Submission.sphere_one_higher_homotopy_subsingleton",
+                "Submission.sph_one_higher_homotopy_subsingleton_at",
+                "Submission.sphere_one_higher_homotopy_subsingleton_at",
+                "HomotopyGroups.sphere_one_higher_homotopy_subsingleton",
+            ],
+        )
+        self.assertEqual(
+            circle["commit"],
+            "bb372606cd4a1670a66b4fd7609a7eee6a3a6b4f",
         )
         self.assertEqual(len(circle["convenience_corollaries"]), 10)
+        generic = (
+            ROOT
+            / "examples/submissions/sphere_lower_homotopy_subsingleton/Submission"
+            / "MetricSpherePiOneGeneric.lean"
+        )
+        generic_text = generic.read_text()
+        self.assertNotIn("sorry", generic_text)
+        self.assertNotIn("admit", generic_text)
+        canonical_text = (ROOT / "HomotopyGroups/LiteratureReview.lean").read_text()
+        start = canonical_text.index("theorem sphere_one_higher_homotopy_subsingleton")
+        end = canonical_text.index("\n/--", start)
+        self.assertNotIn("sorry", canonical_text[start:end])
         suite = next(
             item for item in inventory["formalizations"]
             if item["id"] == "lean4-homotopy-structural-suite"
