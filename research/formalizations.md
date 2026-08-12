@@ -140,8 +140,13 @@ inclusion and projection maps give a basepoint-preserving homeomorphism from
 the exact metric circle to that fibre. The maintained fibration long exact
 sequence and circle calculation then prove that the induced map on `pi_3` is
 bijective, and consequently that `pi_3(S^2) = Z`, conditional only on proving
-that this concrete Hopf map is a Serre fibration. That last geometric lifting
-property remains open, so `(n,k)=(2,1)` is not colored yet.
+that this concrete Hopf map is a Serre fibration. The Hopf map is now also
+locally trivialized explicitly: two open charts cover `S^2`, a square-root
+section and circle action give the northern product homeomorphism, coordinate
+symmetries give the southern one, and every point has an over-the-base chart
+with fibre `S^1`. The remaining geometric step is the bridge from these local
+product charts to the maintained Serre homotopy-lifting definition, so
+`(n,k)=(2,1)` is not colored yet.
 
 The positive diagonal now has a concrete quotient-level foundation. The
 canonical map `I^n -> S^n` is a quotient map, every cubical diagonal class is
@@ -472,8 +477,9 @@ Stable off-diagonal sphere stems still require a genuine stable-range
 Freudenthal comparison, higher relative Hurewicz or homotopy excision beyond
 the first nonvanishing degree, and completion of the Hopf-fibration argument.
 For the latter, the exact based Hopf map, its circle fibre, and the complete
-long-exact-sequence reduction of `pi_3(S^2) = Z` are checked; the remaining
-input is the Serre lifting property of that concrete map. The exact
+long-exact-sequence reduction of `pi_3(S^2) = Z` are checked, as are explicit
+product trivializations over a two-chart cover of `S^2`; the remaining input
+is the general passage from those charts to the Serre lifting property. The exact
 arbitrary-degree reduced-suspension maps, their finite iteration, fixed-stem
 transport, and the canonical stable-representative specialization are now all
 checked; the unresolved suspension input is bijectivity in the stable range.

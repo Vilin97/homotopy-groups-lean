@@ -636,6 +636,17 @@
       { "id": "pi3-sphere-two-from-hopf-fibration", "declaration": "Submission.pi3_sphere_two_mulEquiv_int_of_hopf_isSerreFibration", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HopfMap.lean", "lattice_effect": "would color exact-model (n,k)=(2,1) once the explicit Hopf map's Serre-fibration hypothesis is proved" }
     ]
   },
+  "maintained_hopf_local_trivialization_set": {
+    "count": 4,
+    "system": "Lean 4",
+    "counting_rule": "The explicit northern local section, invariance under the exact circle action, the northern and southern product homeomorphisms, and the resulting pointwise local-triviality theorem are four distinct results. Coordinate norm identities, continuity lemmas, inverse calculations, chart symmetries, and projection formulas are supporting declarations and are not counted separately.",
+    "results": [
+      { "id": "hopf-northern-local-section", "declaration": "Submission.hopfMap_hopfNorthSection", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HopfLocalTrivialization.lean", "lattice_effect": "none directly; gives a continuous square-root section away from the south pole" },
+      { "id": "hopf-circle-action-invariance", "declaration": "Submission.hopfMap_hopfCircleAction", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HopfLocalTrivialization.lean", "lattice_effect": "none directly; proves simultaneous complex phase rotation preserves the exact Hopf map" },
+      { "id": "hopf-two-product-trivializations", "declaration": "Submission.hopfSouthTrivialization", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HopfLocalTrivialization.lean", "lattice_effect": "none directly; together with the northern chart, trivializes the Hopf preimage over the two open hemispherical charts" },
+      { "id": "hopf-pointwise-local-triviality", "declaration": "Submission.hopfMap_hasCircleLocalTrivializationAt", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HopfLocalTrivialization.lean", "lattice_effect": "none until locally trivial circle bundles are connected to the maintained Serre-fibration API; proves an over-the-base product chart at every point of the exact 2-sphere" }
+    ]
+  },
   "maintained_stick_sphere_coordinate_set": {
     "count": 7,
     "system": "Lean 4",
@@ -668,6 +679,45 @@
     ]
   },
   "formalizations": [
+    {
+      "id": "lean4-exact-hopf-local-trivializations",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "1e052eb5195ea62bbb848cfb8484132e204c58e1",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.hopfNorthChart_union_hopfSouthChart",
+        "Submission.hopfNorthRadius",
+        "Submission.hopfNorthSectionVec",
+        "Submission.norm_hopfNorthSectionVec",
+        "Submission.hopfNorthSection",
+        "Submission.hopfMap_hopfNorthSection",
+        "Submission.continuous_hopfNorthSection",
+        "Submission.hopfCircleActionVec",
+        "Submission.norm_hopfCircleActionVec_sq",
+        "Submission.hopfCircleAction",
+        "Submission.hopfMap_hopfCircleAction",
+        "Submission.hopfNorthPhase",
+        "Submission.hopfNorthTrivialization",
+        "Submission.hopfNorthTrivialization_fst",
+        "Submission.hopfSwapHomeomorph",
+        "Submission.hopfBaseFlipHomeomorph",
+        "Submission.hopfMap_hopfSwapHomeomorph",
+        "Submission.hopfSouthToNorthBaseHomeomorph",
+        "Submission.hopfSouthToNorthTotalHomeomorph",
+        "Submission.hopfSouthTrivialization",
+        "Submission.hopfSouthTrivialization_fst",
+        "Submission.HasCircleLocalTrivializationAt",
+        "Submission.hopfMap_hasCircleLocalTrivializationAt"
+      ],
+      "result": "two explicit open charts cover the exact metric 2-sphere; a square-root section and simultaneous complex circle action give a product homeomorphism from the Hopf preimage of the northern chart to the chart times the exact metric circle, coordinate symmetries give the corresponding southern product homeomorphism, and every base point therefore has an over-the-base local trivialization",
+      "model_relation": "exactly the maintained Euclidean-coordinate Hopf map, metric sphere and circle models, their subtype topologies, and explicit coordinate homeomorphisms",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HopfLocalTrivialization.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All twenty-three listed declarations are sorry-free Lean 4. Strict checks pass for HopfLocalTrivialization and the Submission aggregate; exact builds pass at 8,814 and 8,858 jobs respectively. Audited axiom closures for the chart cover, northern section, circle-action invariance, both product homeomorphisms, and pointwise local triviality contain only propext, Classical.choice, and Quot.sound. All 111 Python tests, generated-data synchronization, site lint, the production static build, and all rendered-HTML tests pass. The remaining bridge from these local product charts to IsSerreFibration is not assumed, so the first off-diagonal lattice cell remains uncolored."
+    },
     {
       "id": "lean4-exact-hopf-map-foundation",
       "system": "Lean 4",

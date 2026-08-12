@@ -68,7 +68,7 @@
       "id": "hopf-kervaire-and-image-j",
       "result": "Hopf invariant one, Kervaire invariant one, image J, and Pontryagin-Thom results",
       "status": "blocked_on_foundations",
-      "missing": ["the Serre-fibration lifting property for the now-formalized exact Hopf map S^3 to S^2; its norm identity, basedness, exact circle fibre, and long-exact-sequence reduction of pi_3(S^2)=Z are formalized", "spectra", "Hopf and Kervaire invariants", "stable J homomorphism", "framed cobordism and Pontryagin-Thom"]
+      "missing": ["the bridge from the now-formalized two-chart local product trivializations of the exact Hopf map to the maintained Serre homotopy-lifting definition; its norm identity, basedness, exact circle fibre, and long-exact-sequence reduction of pi_3(S^2)=Z are formalized", "spectra", "Hopf and Kervaire invariants", "stable J homomorphism", "framed cobordism and Pontryagin-Thom"]
     },
     {
       "id": "chromatic-periodic-families",

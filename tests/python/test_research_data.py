@@ -1050,6 +1050,41 @@ class ResearchDataTests(unittest.TestCase):
         self.assertIsNone(record["lattice_overlay"])
         self.assertIsNone(record["degree_lattice_overlay"])
 
+    def test_exact_hopf_local_trivializations_match_source(self) -> None:
+        inventory = json.loads((ROOT / "research/formalizations.json").read_text())
+        result_set = inventory["maintained_hopf_local_trivialization_set"]
+        results = result_set["results"]
+        self.assertEqual(result_set["system"], "Lean 4")
+        self.assertEqual(result_set["count"], 4)
+        self.assertEqual(len(results), 4)
+        self.assertEqual(len({row["id"] for row in results}), 4)
+        self.assertEqual(len({row["declaration"] for row in results}), 4)
+        for result in results:
+            source = (ROOT / "research" / result["source"]).resolve()
+            self.assertTrue(source.is_file())
+            text = source.read_text()
+            self.assertNotIn("sorry", text)
+            self.assertNotIn("admit", text)
+            self.assertIn(result["declaration"].rsplit(".", 1)[-1], text)
+
+        record = next(
+            item for item in inventory["formalizations"]
+            if item["id"] == "lean4-exact-hopf-local-trivializations"
+        )
+        self.assertEqual(len(record["declarations"]), 23)
+        self.assertEqual(
+            record["commit"],
+            "1e052eb5195ea62bbb848cfb8484132e204c58e1",
+        )
+        source = (ROOT / "research" / record["source"]).resolve()
+        text = source.read_text()
+        self.assertNotIn("sorry", text)
+        self.assertNotIn("admit", text)
+        for declaration in record["declarations"]:
+            self.assertIn(declaration.rsplit(".", 1)[-1], text)
+        self.assertIsNone(record["lattice_overlay"])
+        self.assertIsNone(record["degree_lattice_overlay"])
+
     def test_first_hurewicz_normalization_matches_sorry_free_sources(self) -> None:
         inventory = json.loads((ROOT / "research/formalizations.json").read_text())
         result_set = inventory["maintained_first_hurewicz_normalization_set"]
