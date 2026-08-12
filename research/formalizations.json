@@ -476,7 +476,58 @@
       { "id": "normalized-horn-regional-overlap", "declaration": "Submission.NormalizedSimplexBoundary.simplex_hornAttaching_eq_basepoint_of_mem_regions", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SimplexHorn.lean", "lattice_effect": "none directly; all overlaps of normalized regional pieces map to the chosen basepoint" }
     ]
   },
+  "maintained_singular_kan_set": {
+    "count": 7,
+    "system": "Lean 4",
+    "counting_rule": "Closedness and coverage of the ambient horn-fill regions, the continuous topological filler and its face law, translation of simplicial compatibility to the topological cover, the singular filler morphism face law, and the Kan-complex instance are seven distinct results. Selected minimum indices, local coordinate maps, Yoneda naturality wrappers, and singular-simplex packaging are supporting declarations and are not counted separately.",
+    "results": [
+      { "id": "simplex-horn-fill-regions-closed", "declaration": "Submission.isClosed_simplexHornFillRegion", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SingularKan.lean", "lattice_effect": "none directly; supplies the closed cover used to glue a continuous horn filler" },
+      { "id": "simplex-horn-fill-regions-cover", "declaration": "Submission.exists_mem_simplexHornFillRegion", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SingularKan.lean", "lattice_effect": "none directly; proves every ambient simplex point belongs to a horn-fill region" },
+      { "id": "topological-simplex-horn-filler", "declaration": "Submission.simplexHornFiller", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SingularKan.lean", "lattice_effect": "none directly; extends every compatible family of continuous face maps over the full simplex" },
+      { "id": "topological-simplex-horn-filler-face", "declaration": "Submission.simplexHornFiller_face", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SingularKan.lean", "lattice_effect": "none directly; verifies that the continuous filler restricts to every prescribed horn face" },
+      { "id": "singular-horn-topological-compatibility", "declaration": "Submission.singularHornFaceMap_compatible", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SingularKan.lean", "lattice_effect": "none directly; translates Mathlib simplicial horn compatibility into pointwise agreement on the closed topological cover" },
+      { "id": "singular-horn-filler-face", "declaration": "Submission.δ_singularHornFillerMorphism", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SingularKan.lean", "lattice_effect": "none directly; constructs a simplicial filler and verifies every prescribed face" },
+      { "id": "singular-simplicial-set-kan", "declaration": "Submission.singularKanComplex", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SingularKan.lean", "lattice_effect": "none directly; equips the singular simplicial set of every maintained topological space with Mathlib's Kan-complex structure" }
+    ]
+  },
   "formalizations": [
+    {
+      "id": "lean4-singular-simplicial-set-kan",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "a26d9e13c8c3a5854dde7a563c98b0a07a666ed2",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.simplexHornFillRegion",
+        "Submission.isClosed_simplexHornFillRegion",
+        "Submission.exists_mem_simplexHornFillRegion",
+        "Submission.simplexHornRetract_coord_eq_zero_of_mem_fillRegion",
+        "Submission.simplexHornFillFaceMap",
+        "Submission.faceMap_simplexHornFillFaceMap",
+        "Submission.simplexHornFillIdx",
+        "Submission.simplexHornFillIdx_spec",
+        "Submission.simplexHornFillFun",
+        "Submission.SimplexHornFaceCompatible",
+        "Submission.simplexHornFillFun_eq",
+        "Submission.simplexHornFiller",
+        "Submission.simplexHornFiller_face",
+        "Submission.singularHornFaceMap",
+        "Submission.yonedaEquiv_comp_δ",
+        "Submission.singularHornFaceMap_compatible",
+        "Submission.singularHornFillerSimplex",
+        "Submission.singularHornFillerSimplex_face",
+        "Submission.singularHornFillerMorphism",
+        "Submission.δ_singularHornFillerMorphism",
+        "Submission.singularKanComplex"
+      ],
+      "result": "every compatible family of continuous maps on a simplex horn has an explicit continuous extension over the simplex, and translating this construction through the singular-simplex and Yoneda equivalences proves that the singular simplicial set of every topological space is a Kan complex",
+      "model_relation": "Mathlib's singular simplicial set `TopCat.toSSet` in universe zero and Mathlib's fibrant-object definition of `SSet.KanComplex`, for arbitrary maintained topological spaces",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SingularKan.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All twenty-one listed declarations are sorry-free Lean 4. Audited headline axiom closures contain only propext, Classical.choice, and Quot.sound. This discharges the singular-Kan TODO present in the pinned Mathlib API and supplies horn fillers for the remaining simplicial homotopy-addition construction. It does not itself prove the signed boundary relation or recolor a lattice cell."
+    },
     {
       "id": "lean4-simplex-horn-region-atlas",
       "system": "Lean 4",

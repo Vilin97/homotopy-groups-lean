@@ -239,6 +239,20 @@ global theorem must convert the map glued across the regional cover into the
 correctly signed sum of the regional face classes; the representative
 comparison noted above also remains, so the lattice overlay is unchanged.
 
+The same minimum-coordinate geometry now supplies actual horn fillers. On the
+ambient simplex, the regions where a fixed coordinate away from the missing
+face is least form a finite closed cover. Compatible maps on the horn faces
+are evaluated in the corresponding local coordinates; agreement on overlaps
+and finite closed-cover gluing make the resulting map continuous. The horn
+retraction ensures that this extension restricts to every prescribed face.
+Lean then transports the construction through the singular-simplex and
+Yoneda equivalences, checks Mathlib's simplicial compatibility equations, and
+installs a `KanComplex` instance for the singular simplicial set of every
+topological space in the maintained universe. This resolves the singular-Kan
+gap documented by the pinned Mathlib API and enables Kan horn filling in the
+next simplicial multiplication stage. The signed boundary relation itself is
+not yet complete, so the lattice overlay remains unchanged.
+
 Bijectivity of the corresponding relative homotopy map yields the next exact
 diagonal equivalence; bijectivity of the family from `pi_2(S^2)` onward yields
 the full integral diagonal, using the two exact base cases already in Lean. The
