@@ -263,11 +263,37 @@ class ResearchDataTests(unittest.TestCase):
         )
         self.assertEqual(
             pi2["declarations"],
-            ["Submission.pi2_sphere_two_mulEquiv_int"],
+            [
+                "Submission.pi2_sphere_two_mulEquiv_int",
+                "HomotopyGroups.StableStems.stable_stem_000",
+            ],
+        )
+        self.assertEqual(
+            pi2["commit"],
+            "cf6935bdaa668ad24e2a74f26540236f098dc670",
         )
         self.assertEqual(
             pi2["lattice_overlay"]["cell_ranges"],
             [{"n": [2, 2], "k": [0, 0]}],
+        )
+        self.assertEqual(pi2["lattice_overlay"]["proof"]["line"], 24)
+        wrapper = (
+            ROOT
+            / "examples/submissions/sphere_lower_homotopy_subsingleton/Submission"
+            / "Pi2SphereTwo.lean"
+        )
+        generic = wrapper.with_name("Pi2SphereTwoGeneric.lean")
+        for source in (wrapper, generic):
+            text = source.read_text()
+            self.assertNotIn("sorry", text)
+            self.assertNotIn("admit", text)
+        stable_text = (ROOT / "HomotopyGroups/StableStems.lean").read_text()
+        start = stable_text.index("theorem stable_stem_000")
+        end = stable_text.index("\n/--", start)
+        self.assertNotIn("sorry", stable_text[start:end])
+        self.assertIn(
+            "knowledge_status=formalized_local",
+            (ROOT / "manifests/problems/stable_stem_000.toml").read_text(),
         )
 
     def test_maintained_set_has_ten_independent_results(self) -> None:

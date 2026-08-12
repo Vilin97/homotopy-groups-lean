@@ -1952,11 +1952,14 @@
       "id": "lean4-benchmark-metric-sphere-pi2",
       "system": "Lean 4",
       "repository": "Vilin97/homotopy-groups-lean",
-      "commit": "944300773c164ed95d0ddbc692a1d007e7d3a0fe",
+      "commit": "cf6935bdaa668ad24e2a74f26540236f098dc670",
       "license": "Apache-2.0",
-      "declarations": ["Submission.pi2_sphere_two_mulEquiv_int"],
-      "result": "pi_2 of the exact metric 2-sphere is infinite cyclic",
-      "model_relation": "exactly the Mathlib metric-sphere model and distinguished basepoint used by SphereSpace 2",
+      "declarations": [
+        "Submission.pi2_sphere_two_mulEquiv_int",
+        "HomotopyGroups.StableStems.stable_stem_000"
+      ],
+      "result": "pi_2 of the exact metric 2-sphere is infinite cyclic, closing the canonical stable-stem-zero benchmark",
+      "model_relation": "exactly the Mathlib metric-sphere model and distinguished basepoints used by SphereSpace 2 and the definitionally identical StableSphere 2",
       "status": "lean_kernel_checked_local_source",
       "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Pi2SphereTwo.lean",
       "lattice_overlay": {
@@ -1964,11 +1967,11 @@
         "kind": "lean4_exact_metric_model",
         "proof": {
           "declaration": "Submission.pi2_sphere_two_mulEquiv_int",
-          "line": 53
+          "line": 24
         },
         "cell_ranges": [{ "n": [2, 2], "k": [0, 0] }]
       },
-      "note": "The proof composes the path-fibration connecting isomorphism, degree-one Hurewicz, and the Wang-sequence computation of H_1 of the loop space; its axiom closure contains no sorryAx."
+      "note": "The challenge-independent proof works at every basepoint and composes the path-fibration connecting isomorphism, degree-one Hurewicz, and the Wang-sequence computation of H_1 of the loop space. The legacy exact wrapper and the generated canonical stable_stem_000 declaration reuse that one proof and are not counted separately. Strict checks, exact builds, the full aggregate build, and all 104 Python tests pass. Their audited axiom closures contain only propext, Classical.choice, and Quot.sound."
     },
     {
       "id": "lean4-higher-sphere-foundations",

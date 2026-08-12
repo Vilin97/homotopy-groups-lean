@@ -77,7 +77,12 @@ cardinalities.
 The maintained Lean 4 closure now also contains the path fibration, the
 degree-one Hurewicz theorem, the needed Mayer--Vietoris and Wang machinery, and
 the computation `H_1(ΩS²) = Z`.  Their composition proves `pi_2(S^2) = Z` in
-the exact metric-sphere model and adds `(n,k)=(2,0)` to the overlay. The live
+the exact metric-sphere model and adds `(n,k)=(2,0)` to the overlay. That proof
+is now isolated from the generated challenge declarations, works at every
+basepoint, and directly closes the canonical `stable_stem_000` theorem in
+`HomotopyGroups.StableStems`. The legacy wrapper and canonical theorem are two
+interfaces to one formalization, so this adds no duplicate record or lattice
+cell. The live
 stem display now runs through stem 108 and has 200 purple cells. The default
 absolute-degree display has 4,369 purple cells: 4,186 lower-connectivity cells,
 91 higher-circle cells, and all 92 positive diagonal cells.

@@ -190,7 +190,9 @@ diagonal, plus two sphere-diagonal induction results. It includes:
   coverings, commutativity, and the exact metric circle at arbitrary basepoints;
 - `Submission.Pi2SphereTwo`, proving `π₂(S²) ≅ ℤ` in the benchmark's exact
   metric-sphere model from the path fibration, degree-one Hurewicz, and the
-  integral homology of `ΩS²`;
+  integral homology of `ΩS²`; its challenge-independent core now also closes
+  the generated canonical `HomotopyGroups.StableStems.stable_stem_000`
+  benchmark without adding a duplicate formalization;
 - `Submission.HigherSphereFoundations`, upgrading the loop-space shift to a
   group equivalence and packaging the contractible-pair comparison needed to
   turn suspension excision into higher diagonal group isomorphisms;

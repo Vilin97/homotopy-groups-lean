@@ -97,6 +97,7 @@ test("ships complete, synchronized benchmark data, reports, and social art", asy
     "pi1_hSpace_mul_comm",
     "pi1_realProjectiveSpace_mulEquiv_zmod_two",
     "realProjectiveSpace_higher_homotopy_mulEquiv_sphere",
+    "stable_stem_000",
   ]) {
     assert.equal(
       tracker.entries.find((entry) => entry.id === problemId)?.knowledge_status,
