@@ -265,6 +265,17 @@ theorem exists_mem_simplexHornRegion (i : Fin (d + 2))
   change simplexHornMin i (faceMap i z) = z.1 j
   simpa using hj
 
+/-- A coordinate which is no larger than every other coordinate realizes the horn minimum on
+the missing face. -/
+theorem simplexHornMin_faceMap_eq_of_le (i : Fin (d + 2))
+    (z : stdSimplex ℝ (Fin (d + 1))) (j : Fin (d + 1))
+    (hj : ∀ k, z.1 j ≤ z.1 k) : simplexHornMin i (faceMap i z) = z.1 j := by
+  apply le_antisymm
+  · simpa using simplexHornMin_le i (faceMap i z) j
+  · apply Finset.le_inf' Finset.univ_nonempty
+    intro k hk
+    simpa using hj k
+
 /-- On minimum region `j`, the horn attaching map lies on the remaining face indexed by
 `i.succAbove j`. -/
 theorem simplexHornAttachingMap_coord_eq_zero_of_mem_region
@@ -298,6 +309,233 @@ theorem faceMap_simplexHornRegionFaceMap (i : Fin (d + 2)) (j : Fin (d + 1))
       simplexHornAttachingMap i z.1 :=
   faceMap_dropMap (i.succAbove j)
     (simplexHornAttachingMap_coord_eq_zero_of_mem_region i j z.1 z.2)
+
+/-- The distinguished coordinate of a minimum-region face map records the transferred minimum
+mass. -/
+theorem simplexHornRegionFaceMap_center (i : Fin (d + 2)) (j : Fin (d + 1))
+    (z : {z // z ∈ simplexHornRegion i j}) :
+    (simplexHornRegionFaceMap i j z).1 (j.predAbove i) =
+      (d + 1 : ℝ) * z.1.1 j := by
+  calc
+    _ = (faceMap (i.succAbove j) (simplexHornRegionFaceMap i j z)).1
+        ((i.succAbove j).succAbove (j.predAbove i)) := by
+      rw [faceMap_coe_succAbove]
+    _ = (simplexHornAttachingMap i z.1).1
+        ((i.succAbove j).succAbove (j.predAbove i)) := by
+      rw [faceMap_simplexHornRegionFaceMap]
+    _ = (d + 1 : ℝ) * z.1.1 j := by
+      rw [Fin.succAbove_succAbove_predAbove,
+        simplexHornAttachingMap_apply, simplexHornRetract_apply_coe,
+        simplexHornRetractCoords_same, faceMap_coe_same, zero_add]
+      exact congrArg ((d + 1 : ℝ) * ·) z.2
+
+/-- Every other coordinate of a minimum-region face map is obtained by subtracting the minimum
+from the corresponding source coordinate. -/
+theorem simplexHornRegionFaceMap_succAbove (i : Fin (d + 2)) (j : Fin (d + 1))
+    (z : {z // z ∈ simplexHornRegion i j}) (k : Fin d) :
+    (simplexHornRegionFaceMap i j z).1 ((j.predAbove i).succAbove k) =
+      z.1.1 (j.succAbove k) - z.1.1 j := by
+  calc
+    _ = (faceMap (i.succAbove j) (simplexHornRegionFaceMap i j z)).1
+        ((i.succAbove j).succAbove ((j.predAbove i).succAbove k)) := by
+      rw [faceMap_coe_succAbove]
+    _ = (simplexHornAttachingMap i z.1).1
+        ((i.succAbove j).succAbove ((j.predAbove i).succAbove k)) := by
+      rw [faceMap_simplexHornRegionFaceMap]
+    _ = z.1.1 (j.succAbove k) - z.1.1 j := by
+      rw [Fin.succAbove_succAbove_succAbove_predAbove,
+        simplexHornAttachingMap_apply, simplexHornRetract_apply_coe,
+        simplexHornRetractCoords_succAbove, faceMap_coe_succAbove, z.2]
+
+/-- Barycentric coordinates for the inverse chart from a remaining face to its minimum region.
+The distinguished target coordinate is divided equally among all source coordinates, while the
+other target coordinates are added to their corresponding shares. -/
+def simplexHornRegionInverseCoords (i : Fin (d + 2)) (j : Fin (d + 1))
+    (y : stdSimplex ℝ (Fin (d + 1))) : Fin (d + 1) → ℝ :=
+  j.insertNth (y.1 (j.predAbove i) / (d + 1 : ℝ))
+    (fun k ↦ y.1 ((j.predAbove i).succAbove k) +
+      y.1 (j.predAbove i) / (d + 1 : ℝ))
+
+@[simp]
+theorem simplexHornRegionInverseCoords_same (i : Fin (d + 2)) (j : Fin (d + 1))
+    (y : stdSimplex ℝ (Fin (d + 1))) :
+    simplexHornRegionInverseCoords i j y j = y.1 (j.predAbove i) / (d + 1 : ℝ) := by
+  simp [simplexHornRegionInverseCoords]
+
+@[simp]
+theorem simplexHornRegionInverseCoords_succAbove (i : Fin (d + 2)) (j : Fin (d + 1))
+    (y : stdSimplex ℝ (Fin (d + 1))) (k : Fin d) :
+    simplexHornRegionInverseCoords i j y (j.succAbove k) =
+      y.1 ((j.predAbove i).succAbove k) +
+        y.1 (j.predAbove i) / (d + 1 : ℝ) := by
+  simp [simplexHornRegionInverseCoords]
+
+theorem simplexHornRegionInverseCoords_nonneg (i : Fin (d + 2)) (j : Fin (d + 1))
+    (y : stdSimplex ℝ (Fin (d + 1))) (k : Fin (d + 1)) :
+    0 ≤ simplexHornRegionInverseCoords i j y k := by
+  refine Fin.succAboveCases j ?_ (fun l ↦ ?_) k
+  · rw [simplexHornRegionInverseCoords_same]
+    exact div_nonneg (y.2.1 _) (by positivity)
+  · rw [simplexHornRegionInverseCoords_succAbove]
+    exact add_nonneg (y.2.1 _) (div_nonneg (y.2.1 _) (by positivity))
+
+theorem sum_simplexHornRegionInverseCoords (i : Fin (d + 2)) (j : Fin (d + 1))
+    (y : stdSimplex ℝ (Fin (d + 1))) :
+    ∑ k, simplexHornRegionInverseCoords i j y k = 1 := by
+  rw [Fin.sum_univ_succAbove _ j]
+  simp only [simplexHornRegionInverseCoords_same,
+    simplexHornRegionInverseCoords_succAbove, Finset.sum_add_distrib,
+    Finset.sum_const, Finset.card_univ, Fintype.card_fin, nsmul_eq_mul]
+  have hy := y.2.2
+  rw [Fin.sum_univ_succAbove _ (j.predAbove i)] at hy
+  have hd : (d + 1 : ℝ) ≠ 0 := by positivity
+  change y.1 (j.predAbove i) / (d + 1 : ℝ) +
+      ((∑ k, y.1 ((j.predAbove i).succAbove k)) +
+        d * (y.1 (j.predAbove i) / (d + 1 : ℝ))) = 1
+  calc
+    _ = (d + 1 : ℝ) * (y.1 (j.predAbove i) / (d + 1 : ℝ)) +
+        ∑ k, y.1 ((j.predAbove i).succAbove k) := by ring
+    _ = y.1 (j.predAbove i) +
+        ∑ k, y.1 ((j.predAbove i).succAbove k) := by
+      field_simp [hd]
+    _ = 1 := hy
+
+/-- The simplex-valued inverse chart before recording membership in the minimum region. -/
+def simplexHornRegionInverseSimplex (i : Fin (d + 2)) (j : Fin (d + 1)) :
+    C(stdSimplex ℝ (Fin (d + 1)), stdSimplex ℝ (Fin (d + 1))) where
+  toFun y := ⟨simplexHornRegionInverseCoords i j y,
+    simplexHornRegionInverseCoords_nonneg i j y,
+    sum_simplexHornRegionInverseCoords i j y⟩
+  continuous_toFun := by
+    apply Continuous.subtype_mk
+    apply continuous_pi
+    intro k
+    refine Fin.succAboveCases j ?_ (fun l ↦ ?_) k
+    · simp only [simplexHornRegionInverseCoords, Fin.insertNth_apply_same]
+      exact ((continuous_apply (j.predAbove i)).comp continuous_subtype_val).div_const _
+    · simp only [simplexHornRegionInverseCoords, Fin.insertNth_apply_succAbove]
+      exact ((continuous_apply ((j.predAbove i).succAbove l)).comp continuous_subtype_val).add
+        (((continuous_apply (j.predAbove i)).comp continuous_subtype_val).div_const _)
+
+/-- The inverse chart lands in the prescribed minimum region. -/
+theorem simplexHornRegionInverseSimplex_mem (i : Fin (d + 2)) (j : Fin (d + 1))
+    (y : stdSimplex ℝ (Fin (d + 1))) :
+    simplexHornRegionInverseSimplex i j y ∈ simplexHornRegion i j := by
+  apply simplexHornMin_faceMap_eq_of_le
+  intro k
+  refine Fin.succAboveCases j ?_ (fun l ↦ ?_) k
+  · exact le_rfl
+  · rw [show (simplexHornRegionInverseSimplex i j y).1 j =
+        simplexHornRegionInverseCoords i j y j from rfl,
+      show (simplexHornRegionInverseSimplex i j y).1 (j.succAbove l) =
+        simplexHornRegionInverseCoords i j y (j.succAbove l) from rfl,
+      simplexHornRegionInverseCoords_same, simplexHornRegionInverseCoords_succAbove]
+    linarith [y.2.1 ((j.predAbove i).succAbove l)]
+
+/-- The continuous inverse chart from a remaining face onto its minimum region. -/
+def simplexHornRegionInverse (i : Fin (d + 2)) (j : Fin (d + 1)) :
+    C(stdSimplex ℝ (Fin (d + 1)), {z // z ∈ simplexHornRegion i j}) where
+  toFun y := ⟨simplexHornRegionInverseSimplex i j y,
+    simplexHornRegionInverseSimplex_mem i j y⟩
+  continuous_toFun := Continuous.subtype_mk (simplexHornRegionInverseSimplex i j).continuous _
+
+/-- Applying the minimum-region face chart after its inverse recovers the original simplex. -/
+theorem simplexHornRegionFaceMap_inverse (i : Fin (d + 2)) (j : Fin (d + 1))
+    (y : stdSimplex ℝ (Fin (d + 1))) :
+    simplexHornRegionFaceMap i j (simplexHornRegionInverse i j y) = y := by
+  apply Subtype.ext
+  funext k
+  refine Fin.succAboveCases (j.predAbove i) ?_ (fun l ↦ ?_) k
+  · rw [simplexHornRegionFaceMap_center]
+    change (d + 1 : ℝ) *
+      (simplexHornRegionInverseCoords i j y j) = y.1 (j.predAbove i)
+    rw [simplexHornRegionInverseCoords_same]
+    field_simp
+  · rw [simplexHornRegionFaceMap_succAbove]
+    change simplexHornRegionInverseCoords i j y (j.succAbove l) -
+        simplexHornRegionInverseCoords i j y j =
+      y.1 ((j.predAbove i).succAbove l)
+    rw [simplexHornRegionInverseCoords_succAbove,
+      simplexHornRegionInverseCoords_same]
+    ring
+
+/-- Applying the inverse chart after the minimum-region face chart recovers the region point. -/
+theorem simplexHornRegionInverse_faceMap (i : Fin (d + 2)) (j : Fin (d + 1))
+    (z : {z // z ∈ simplexHornRegion i j}) :
+    simplexHornRegionInverse i j (simplexHornRegionFaceMap i j z) = z := by
+  apply Subtype.ext
+  apply Subtype.ext
+  funext k
+  refine Fin.succAboveCases j ?_ (fun l ↦ ?_) k
+  · rw [show (simplexHornRegionInverse i j (simplexHornRegionFaceMap i j z)).1.1 j =
+        simplexHornRegionInverseCoords i j (simplexHornRegionFaceMap i j z) j from rfl,
+      simplexHornRegionInverseCoords_same]
+    change (simplexHornRegionFaceMap i j z).1 (j.predAbove i) /
+        (d + 1 : ℝ) = z.1.1 j
+    rw [simplexHornRegionFaceMap_center]
+    field_simp
+  · rw [show
+        (simplexHornRegionInverse i j (simplexHornRegionFaceMap i j z)).1.1
+            (j.succAbove l) =
+          simplexHornRegionInverseCoords i j (simplexHornRegionFaceMap i j z)
+            (j.succAbove l) from rfl,
+      simplexHornRegionInverseCoords_succAbove]
+    change (simplexHornRegionFaceMap i j z).1 ((j.predAbove i).succAbove l) +
+        (simplexHornRegionFaceMap i j z).1 (j.predAbove i) /
+          (d + 1 : ℝ) = z.1.1 (j.succAbove l)
+    rw [simplexHornRegionFaceMap_succAbove, simplexHornRegionFaceMap_center]
+    field_simp
+    ring
+
+/-- Each minimum region is canonically homeomorphic to a standard simplex, and under this
+homeomorphism the horn attaching map is the corresponding remaining-face inclusion. -/
+def simplexHornRegionHomeomorph (i : Fin (d + 2)) (j : Fin (d + 1)) :
+    stdSimplex ℝ (Fin (d + 1)) ≃ₜ {z // z ∈ simplexHornRegion i j} where
+  toFun := simplexHornRegionInverse i j
+  invFun := simplexHornRegionFaceMap i j
+  left_inv := simplexHornRegionFaceMap_inverse i j
+  right_inv := simplexHornRegionInverse_faceMap i j
+  continuous_toFun := (simplexHornRegionInverse i j).continuous
+  continuous_invFun := (simplexHornRegionFaceMap i j).continuous
+
+/-- The boundary of a minimum-region chart consists exactly of the original missing-face
+boundary together with its overlaps with the other minimum regions. -/
+theorem simplexHornRegionFaceMap_mem_bdry_iff (i : Fin (d + 2)) (j : Fin (d + 1))
+    (z : {z // z ∈ simplexHornRegion i j}) :
+    simplexHornRegionFaceMap i j z ∈ bdry d ↔
+      z.1 ∈ bdry d ∨
+        ∃ k : Fin (d + 1), k ≠ j ∧ z.1 ∈ simplexHornRegion i k := by
+  constructor
+  · rintro ⟨l, hl⟩
+    by_cases hla : l = j.predAbove i
+    · subst l
+      rw [simplexHornRegionFaceMap_center] at hl
+      have hjzero : z.1.1 j = 0 := by
+        rcases mul_eq_zero.mp hl with h | h
+        · exact False.elim ((by positivity : (d + 1 : ℝ) ≠ 0) h)
+        · exact h
+      exact Or.inl ⟨j, hjzero⟩
+    · obtain ⟨k, hk⟩ := Fin.exists_succAbove_eq hla
+      rw [← hk, simplexHornRegionFaceMap_succAbove] at hl
+      have heq : z.1.1 (j.succAbove k) = z.1.1 j := sub_eq_zero.mp hl
+      refine Or.inr ⟨j.succAbove k, Fin.succAbove_ne j k, ?_⟩
+      exact z.2.trans heq.symm
+  · rintro (hz | ⟨k, hkj, hk⟩)
+    · obtain ⟨l, hl⟩ := hz
+      have hjzero : z.1.1 j = 0 := by
+        apply le_antisymm
+        · calc
+            z.1.1 j = simplexHornMin i (faceMap i z.1) := z.2.symm
+            _ ≤ z.1.1 l := by simpa using simplexHornMin_le i (faceMap i z.1) l
+            _ = 0 := hl
+        · exact z.1.2.1 j
+      refine ⟨j.predAbove i, ?_⟩
+      rw [simplexHornRegionFaceMap_center, hjzero, mul_zero]
+    · obtain ⟨l, hl⟩ := Fin.exists_succAbove_eq hkj
+      refine ⟨(j.predAbove i).succAbove l, ?_⟩
+      rw [simplexHornRegionFaceMap_succAbove, hl]
+      change simplexHornMin i (faceMap i z.1) = z.1.1 k at hk
+      rw [← z.2, hk, sub_self]
 
 /-- The overlap of two distinct minimum regions is sent into the codimension-two skeleton of
 the ambient simplex. -/
