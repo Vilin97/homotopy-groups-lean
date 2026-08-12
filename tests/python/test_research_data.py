@@ -893,6 +893,63 @@ class ResearchDataTests(unittest.TestCase):
         self.assertIsNone(record["lattice_overlay"])
         self.assertIsNone(record["degree_lattice_overlay"])
 
+    def test_diagonal_reduced_suspension_bijectivity_matches_sources(self) -> None:
+        inventory = json.loads((ROOT / "research/formalizations.json").read_text())
+        result_set = inventory[
+            "maintained_diagonal_reduced_suspension_bijectivity_set"
+        ]
+        results = result_set["results"]
+        self.assertEqual(result_set["system"], "Lean 4")
+        self.assertEqual(result_set["count"], 6)
+        self.assertEqual(len(results), 6)
+        self.assertEqual(len({row["id"] for row in results}), 6)
+        self.assertEqual(len({row["declaration"] for row in results}), 6)
+        for result in results:
+            source = (ROOT / "research" / result["source"]).resolve()
+            self.assertTrue(source.is_file())
+            text = source.read_text()
+            self.assertNotIn("sorry", text)
+            self.assertNotIn("admit", text)
+            self.assertIn(result["declaration"].rsplit(".", 1)[-1], text)
+
+        record = next(
+            item for item in inventory["formalizations"]
+            if item["id"] == "lean4-diagonal-reduced-suspension-bijective"
+        )
+        self.assertEqual(
+            record["declarations"],
+            [
+                "Submission.cubeToSphere_eq_sphereBasepoint_iff",
+                "Submission.reducedSuspensionSphereGenerator_collapsed_iff",
+                "Submission.reducedSuspensionSphereGeneratorLoop_eq_iff",
+                "Submission.reducedSuspensionSphereGeneratorLoop_surjective",
+                "Submission.sphereDiagonalReducedSuspensionGeneratorLoop_eq_iff",
+                "Submission.sphereDiagonalReducedSuspensionGeneratorLoop_surjective",
+                "Submission.sphereDiagonalReducedSuspensionGeneratorMap_basepoint",
+                "Submission.sphereDiagonalReducedSuspensionGeneratorMap_bijective",
+                "Submission.sphereDiagonalReducedSuspensionGeneratorHomeomorph",
+                "Submission.forall_mem_zpowers_map_mulEquiv",
+                "Submission.forall_mem_zpowers_of_mulEquiv_int_unit",
+                "Submission.MonoidHom.bijective_of_maps_infinite_cyclic_generators",
+                "Submission.sphereDiagonalHurewiczMulEquiv_generator",
+                "Submission.sphereGeneratorClass_generates_succ",
+                "Submission.sphereOneHurewiczMulEquiv_generator",
+                "Submission.sphereGeneratorClass_generates_one",
+                "Submission.sphereGeneratorClass_generates",
+                "Submission.sphereDiagonalReducedSuspensionHom_generator",
+                "Submission.sphereDiagonalReducedSuspensionHom_generator_generates",
+                "Submission.sphereDiagonalReducedSuspensionHom_bijective",
+                "Submission.sphereDiagonalReducedSuspensionEquiv",
+                "Submission.sphere_diagonal_mulEquiv_int_via_reducedSuspension",
+            ],
+        )
+        self.assertEqual(
+            record["commit"],
+            "68692f8c97791a22da29492ba343304f0358249f",
+        )
+        self.assertIsNone(record["lattice_overlay"])
+        self.assertIsNone(record["degree_lattice_overlay"])
+
     def test_first_hurewicz_normalization_matches_sorry_free_sources(self) -> None:
         inventory = json.loads((ROOT / "research/formalizations.json").read_text())
         result_set = inventory["maintained_first_hurewicz_normalization_set"]

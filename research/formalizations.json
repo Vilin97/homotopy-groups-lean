@@ -601,6 +601,19 @@
       { "id": "sphere-diagonal-via-all-cap-excision", "declaration": "Submission.sphere_diagonal_mulEquiv_int_via_all_capExcision", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspensionHurewicz.lean", "lattice_effect": "gives a full all-index cap-excision proof of the displayed diagonal, whose cells already have a uniform maintained Hurewicz witness" }
     ]
   },
+  "maintained_diagonal_reduced_suspension_bijectivity_set": {
+    "count": 6,
+    "system": "Lean 4",
+    "counting_rule": "The exact suspended-quotient fibre theorem, bijectivity of the descended sphere self-map, uniform generation by the canonical sphere class, generation by its suspension image, bijectivity of the concrete reduced-suspension homomorphism, and the resulting suspension-propagated diagonal theorem are six distinct results. Collapse tests, surjectivity components, homeomorphism and equivalence packaging, Hurewicz coordinate formulas, and general infinite-cyclic algebra are supporting declarations and are not counted separately.",
+    "results": [
+      { "id": "suspended-sphere-generator-quotient-fibres", "declaration": "Submission.reducedSuspensionSphereGeneratorLoop_eq_iff", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereReducedSuspensionBijective.lean", "lattice_effect": "none directly; proves that the reindexed reduced suspension of the cubical sphere generator has exactly the fibres of the next cubical sphere quotient" },
+      { "id": "suspended-generator-sphere-self-map-bijective", "declaration": "Submission.sphereDiagonalReducedSuspensionGeneratorMap_bijective", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereReducedSuspensionBijective.lean", "lattice_effect": "none directly; makes the suspended generator representative a based self-homeomorphism of the next exact metric sphere" },
+      { "id": "canonical-sphere-class-generates", "declaration": "Submission.sphereGeneratorClass_generates", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereReducedSuspensionBijective.lean", "lattice_effect": "none directly; identifies the maintained cubical class as an explicit generator of every positive-dimensional diagonal sphere group" },
+      { "id": "reduced-suspension-image-generates", "declaration": "Submission.sphereDiagonalReducedSuspensionHom_generator_generates", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereReducedSuspensionBijective.lean", "lattice_effect": "none directly; proves that the image of the canonical class generates the next diagonal sphere group" },
+      { "id": "diagonal-reduced-suspension-bijective", "declaration": "Submission.sphereDiagonalReducedSuspensionHom_bijective", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereReducedSuspensionBijective.lean", "lattice_effect": "none directly; upgrades the actual reduced-suspension homomorphism to an equivalence between every pair of successive diagonal groups" },
+      { "id": "sphere-diagonal-via-reduced-suspension", "declaration": "Submission.sphere_diagonal_mulEquiv_int_via_reducedSuspension", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereReducedSuspensionBijective.lean", "lattice_effect": "gives a third proof of the full displayed diagonal using the concrete reduced-suspension maps; the cells already have a uniform maintained Hurewicz witness" }
+    ]
+  },
   "maintained_stick_sphere_coordinate_set": {
     "count": 7,
     "system": "Lean 4",
@@ -633,6 +646,44 @@
     ]
   },
   "formalizations": [
+    {
+      "id": "lean4-diagonal-reduced-suspension-bijective",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "68692f8c97791a22da29492ba343304f0358249f",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.cubeToSphere_eq_sphereBasepoint_iff",
+        "Submission.reducedSuspensionSphereGenerator_collapsed_iff",
+        "Submission.reducedSuspensionSphereGeneratorLoop_eq_iff",
+        "Submission.reducedSuspensionSphereGeneratorLoop_surjective",
+        "Submission.sphereDiagonalReducedSuspensionGeneratorLoop_eq_iff",
+        "Submission.sphereDiagonalReducedSuspensionGeneratorLoop_surjective",
+        "Submission.sphereDiagonalReducedSuspensionGeneratorMap_basepoint",
+        "Submission.sphereDiagonalReducedSuspensionGeneratorMap_bijective",
+        "Submission.sphereDiagonalReducedSuspensionGeneratorHomeomorph",
+        "Submission.forall_mem_zpowers_map_mulEquiv",
+        "Submission.forall_mem_zpowers_of_mulEquiv_int_unit",
+        "Submission.MonoidHom.bijective_of_maps_infinite_cyclic_generators",
+        "Submission.sphereDiagonalHurewiczMulEquiv_generator",
+        "Submission.sphereGeneratorClass_generates_succ",
+        "Submission.sphereOneHurewiczMulEquiv_generator",
+        "Submission.sphereGeneratorClass_generates_one",
+        "Submission.sphereGeneratorClass_generates",
+        "Submission.sphereDiagonalReducedSuspensionHom_generator",
+        "Submission.sphereDiagonalReducedSuspensionHom_generator_generates",
+        "Submission.sphereDiagonalReducedSuspensionHom_bijective",
+        "Submission.sphereDiagonalReducedSuspensionEquiv",
+        "Submission.sphere_diagonal_mulEquiv_int_via_reducedSuspension"
+      ],
+      "result": "the reduced suspension of the canonical cubical sphere quotient has exactly the fibres of the next sphere quotient and descends to a based self-homeomorphism; the maintained Hurewicz coordinates prove that the canonical class and its suspension image generate their diagonal groups, so the actual reduced-suspension homomorphism is bijective in every dimension and supplies a concrete suspension-propagated proof of the integral sphere diagonal",
+      "model_relation": "exactly the maintained cubical homotopy groups and metric spheres, their canonical cube-boundary quotient generators, the explicit reduced-suspension quotient and pointed sphere homeomorphism, and the maintained degree-one and higher first-nonvanishing Hurewicz equivalences",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereReducedSuspensionBijective.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All twenty-two listed declarations are sorry-free Lean 4. Strict checks pass for SphereReducedSuspensionBijective and the Submission aggregate; exact builds pass at 8,836 and 8,855 jobs respectively. Audited axiom closures for the quotient-fibre theorem, descended-map bijectivity, uniform generator theorem, concrete suspension bijectivity and equivalence, and final diagonal theorem contain only propext, Classical.choice, and Quot.sound. All 108 Python tests, generated-data synchronization, site lint, the production static build, and all rendered-HTML tests pass. The bijectivity proof uses the maintained diagonal Hurewicz classifications to recognize both groups as infinite cyclic; it closes the concrete diagonal suspension map, not stable off-diagonal Freudenthal. The final theorem verifies cells already covered by the maintained uniform Hurewicz proof, so this record adds no duplicate lattice overlay."
+    },
     {
       "id": "lean4-cubical-hurewicz-degree-one",
       "system": "Lean 4",

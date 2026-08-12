@@ -159,9 +159,16 @@ projection then gives a basepoint-preserving homeomorphism from the reduced
 suspension of the exact metric `n`-sphere to the exact metric `(n+1)`-sphere.
 Together with a multiplicative cubical-coordinate reindexing equivalence, this
 transports reduced suspension to an actual monoid homomorphism between
-successive exact metric-sphere diagonal groups. Freudenthal bijectivity and a
-complete additive degree classification are still missing. These advances
-therefore add no exact purple cells yet.
+successive exact metric-sphere diagonal groups. The reindexed suspension of the
+canonical cubical generator is now proved to have exactly the fibres of the
+next cube-boundary sphere quotient, so it descends to a based sphere
+self-homeomorphism. Degree-one and higher Hurewicz coordinates show that the
+canonical class and its suspension image generate their respective groups.
+It follows that the concrete reduced-suspension homomorphism is bijective in
+every diagonal dimension and gives a third unconditional diagonal proof. This
+argument uses the maintained diagonal Hurewicz classifications to recognize
+the groups as infinite cyclic; it is not a stable off-diagonal Freudenthal
+theorem and adds no duplicate purple cells.
 
 Relative homotopy groups are now functorial for based maps of pairs, as actual
 monoid homomorphisms in degree at least two. The induced maps commute with all
@@ -456,18 +463,19 @@ from the computed `pi_2(S^2)` case, so its suspension hypotheses begin in the
 actual Freudenthal isomorphism range. This is a checked reduction of the next
 lattice frontier. The earlier unreduced geometric suspension function is
 available, but only its identity-preserving property is currently proved at
-the group level. Independently, the reduced-suspension construction is now
-multiplicative in the exact metric-sphere model. Its checked diagonal reduction
-therefore needs only bijectivity of that concrete monoid homomorphism. The two
-constructions have not been compared, and Freudenthal bijectivity remains
-unproved for those concrete maps. A second checked route uses the canonical
-relative map induced by the two-cap cover. Its connectivity and homological
-excision inputs, both relative Hurewicz comparisons, and the resulting
-all-index cap-map bijectivity are now proved. It therefore supplies every
-abstract successive diagonal equivalence, including the circle-to-two-sphere
-step, and closes the cap-excision diagonal proof. Extending this route to stable
-off-diagonal ranges still needs stronger homotopy excision or relative
-Hurewicz input. No duplicate purple cells are added.
+the group level. Independently, the reduced-suspension construction is
+multiplicative in the exact metric-sphere model, and the canonical-generator
+fibre calculation plus the existing Hurewicz coordinates now prove that its
+actual diagonal homomorphism is bijective. It therefore supplies unconditional
+successive diagonal equivalences, including the circle-to-two-sphere step. The
+unreduced and reduced constructions have not been compared. A second checked
+route uses the canonical relative map induced by the two-cap cover. Its
+connectivity and homological excision inputs, both relative Hurewicz
+comparisons, and the resulting all-index cap-map bijectivity are all proved and
+close the cap-excision diagonal proof as well. Extending either route to stable
+off-diagonal ranges still needs stable-range bijectivity, stronger homotopy
+excision or relative Hurewicz input, and the appropriate comparison of maps.
+No duplicate purple cells are added.
 
 The maintained ten-result set is recorded explicitly in
 `maintained_independent_result_set`.  Besides the metric-circle computation it
