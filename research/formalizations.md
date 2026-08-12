@@ -77,8 +77,12 @@ relative Hurewicz isomorphism whenever the distinguished subspace is
 contractible. This settles the target sphere/upper-cap pair in the canonical
 cap construction. Together with homological excision, it proves that the cap
 homotopy-excision map is bijective exactly when the source lower-cap/overlap
-relative Hurewicz map is bijective. That source-side boundary comparison is the
-remaining bridge; this reduction adds no unsupported lattice cells.
+relative Hurewicz map is bijective. The source comparison is now proved in
+degrees at least three by collapsing the cubical boundary jar to a sphere and
+identifying its Hurewicz class with the maintained absolute map up to a global
+orientation sign. Consequently every positive-index cap-excision map is
+bijective, giving a second proof of the exact sphere diagonal. Those cells
+already have a uniform Hurewicz witness, so no duplicate overlay is added.
 
 ## Twenty additional Lean 4 results
 
@@ -183,6 +187,18 @@ proved natural as well. More generally, including a singleton into a
 contractible based subspace transfers the first absolute Hurewicz isomorphism
 to the corresponding relative group. Applied to the sphere-cap target, this
 supplies its complete relative Hurewicz equivalence.
+
+For the source side, the canonical cubical boundary map collapses the bottom
+face and all side faces of an `(n+2)`-cube to the basepoint while retaining the
+top-face quotient onto `S^(n+1)`. Its fibres are computed exactly, and the
+homotopy extension property for the boundary jar constructs a two-sided
+homotopy inverse. Hence the induced top-homology coordinate is a unit. The same
+is true of the maintained absolute Hurewicz image of the sphere generator;
+naturality and sphere-map representation then identify the two Hurewicz maps
+for every pointed target up to one global sign. Since multiplication by that
+sign is bijective, cancellation against the homotopy and homology boundary maps
+proves the contractible-ambient first relative Hurewicz theorem in degrees at
+least three. This applies uniformly to the lower-cap/overlap source pairs.
 
 The comparison is now also pinned down at the boundary: the connecting map
 sends the chosen cube-pair class to an oriented boundary class, and naturality
@@ -406,13 +422,17 @@ the full integral diagonal, using the two exact base cases already in Lean. The
 absolute Hurewicz map is now bijective and natural, and its contractible-
 subspace form settles the sphere/upper-cap target pair. Naturality plus
 homological excision proves that the cap map is bijective exactly when the
-source lower-cap/overlap relative Hurewicz map is bijective. That source
-comparison (or a direct Blakers--Massey theorem) is the precise remaining
-bridge. This foundation milestone therefore adds no new purple cells.
+source lower-cap/overlap relative Hurewicz map is bijective. The cubical jar
+collapse and universal sign comparison now prove that source map bijective at
+every positive suspension index. Thus the cap-excision route gives an
+unconditional second proof of the exact integral diagonal. This foundation
+milestone adds no new purple cells because the same diagonal was already
+colored by the maintained absolute Hurewicz computation.
 
-Higher exact diagonal and stable sphere stems still require additional degree
-classification, Freudenthal, higher-Hurewicz, and Hopf-fibration
-infrastructure. Incomplete attempts do not color cells.
+Stable off-diagonal sphere stems still require a genuine stable-range
+Freudenthal comparison, higher relative Hurewicz or homotopy excision beyond
+the first nonvanishing degree, and Hopf-fibration infrastructure. Incomplete
+attempts do not color cells.
 
 `DiagonalInduction.lean` now records the exact equivalence between the two
 computed diagonal groups `pi_1(S^1)` and `pi_2(S^2)`, and proves that a uniform
@@ -426,14 +446,14 @@ the group level. Independently, the reduced-suspension construction is now
 multiplicative in the exact metric-sphere model. Its checked diagonal reduction
 therefore needs only bijectivity of that concrete monoid homomorphism. The two
 constructions have not been compared, and Freudenthal bijectivity remains
-unproved. A second checked route now uses the canonical relative map induced by
-the two-cap cover. Its two pair-connectivity hypotheses and the corresponding
-relative-homology excision isomorphism are proved in every required dimension,
-and the target relative Hurewicz comparison is now an isomorphism. The route is
-therefore reduced exactly to the source lower-cap/overlap first-degree relative
-Hurewicz comparison, equivalently its cubical boundary calculation, or to a
-direct Blakers--Massey bijectivity theorem for the cap map. The reductions add
-no unsupported purple cells.
+unproved for those concrete maps. A second checked route uses the canonical
+relative map induced by the two-cap cover. Its connectivity and homological
+excision inputs, both relative Hurewicz comparisons, and the resulting
+positive-index cap-map bijectivity are now all proved. It therefore supplies
+the abstract successive diagonal equivalences needed from `pi_2(S^2)` onward
+and closes the cap-excision diagonal proof. Extending this route to stable
+off-diagonal ranges still needs stronger homotopy excision or relative
+Hurewicz input. No duplicate purple cells are added.
 
 The maintained ten-result set is recorded explicitly in
 `maintained_independent_result_set`.  Besides the metric-circle computation it

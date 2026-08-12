@@ -797,6 +797,54 @@ class ResearchDataTests(unittest.TestCase):
         self.assertIsNone(record["lattice_overlay"])
         self.assertIsNone(record["degree_lattice_overlay"])
 
+    def test_cubical_hurewicz_cap_excision_matches_sources(self) -> None:
+        inventory = json.loads((ROOT / "research/formalizations.json").read_text())
+        result_set = inventory["maintained_cubical_hurewicz_cap_excision_set"]
+        results = result_set["results"]
+        self.assertEqual(result_set["system"], "Lean 4")
+        self.assertEqual(result_set["count"], 8)
+        self.assertEqual(len(results), 8)
+        self.assertEqual(len({row["id"] for row in results}), 8)
+        self.assertEqual(len({row["declaration"] for row in results}), 8)
+        for result in results:
+            source = (ROOT / "research" / result["source"]).resolve()
+            self.assertTrue(source.is_file())
+            text = source.read_text()
+            self.assertNotIn("sorry", text)
+            self.assertNotIn("admit", text)
+            self.assertIn(result["declaration"].rsplit(".", 1)[-1], text)
+
+        record = next(
+            item for item in inventory["formalizations"]
+            if item["id"] == "lean4-cubical-hurewicz-cap-excision"
+        )
+        self.assertEqual(
+            record["declarations"],
+            [
+                "Submission.GenLoop.cubicalBoundaryExtension_map",
+                "Submission.GenLoop.cubicalBoundaryHurewicz_map",
+                "Submission.relativeHurewicz_mk_boundary_cubical",
+                "Submission.cubeBoundaryJarCollapse_eq_iff",
+                "Submission.cubeBoundaryJarCollapseHomotopyEquiv",
+                "Submission.cubicalBoundarySphereGeneratorCoordinate_eq_one_or_neg_one",
+                "Submission.absoluteHurewiczSphereGeneratorCoordinate_eq_one_or_neg_one",
+                "Submission.cubicalBoundaryAbsoluteSign_eq_one_or_neg_one",
+                "Submission.cubicalBoundaryHurewicz_sphereGenerator",
+                "Submission.genLoop_map_sphereGenerator_targetGenLoopSphereMap",
+                "Submission.cubicalBoundaryHurewicz_eq_sign_smul_absolute",
+                "Submission.IsNConnected.relativeHurewiczAdd_bijective_of_contractibleAmbient",
+                "Submission.sphereSuspensionSourceRelativeHurewiczAdd_bijective_succ",
+                "Submission.sphereSuspensionExcisionHom_bijective_succ",
+                "Submission.sphere_diagonal_mulEquiv_int_via_capExcision",
+            ],
+        )
+        self.assertEqual(
+            record["commit"],
+            "041d2ac4d1beaf3d78777c1885f3522b0bb4a3a8",
+        )
+        self.assertIsNone(record["lattice_overlay"])
+        self.assertIsNone(record["degree_lattice_overlay"])
+
     def test_first_hurewicz_normalization_matches_sorry_free_sources(self) -> None:
         inventory = json.loads((ROOT / "research/formalizations.json").read_text())
         result_set = inventory["maintained_first_hurewicz_normalization_set"]

@@ -62,7 +62,7 @@
       "id": "freudenthal-stable-transport",
       "result": "Suspension equivalences transporting a proved stable representative across its full stable diagonal",
       "status": "blocked_on_foundations",
-      "missing": ["the first-nonvanishing relative Hurewicz isomorphism for the source lower-cap/overlap pair (equivalently its cubical boundary comparison), or the full Blakers--Massey homotopy-excision theorem; the target sphere/upper-cap relative Hurewicz isomorphism and sphere-cap homology excision are already formalized"]
+      "missing": ["stable-range homotopy excision or relative Hurewicz beyond the first nonvanishing degree, plus comparison with the concrete suspension homomorphism; the first-nonvanishing source and target cap comparisons and every positive-index diagonal cap-excision equivalence are already formalized"]
     },
     {
       "id": "hopf-kervaire-and-image-j",
