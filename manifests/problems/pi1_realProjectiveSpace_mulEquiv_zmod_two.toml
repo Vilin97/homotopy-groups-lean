@@ -5,4 +5,4 @@ module = "HomotopyGroups.Spaces"
 holes = ["pi1_realProjectiveSpace_mulEquiv_zmod_two"]
 submitter = "OpenAI Codex"
 source = "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
-notes = "knowledge_status=statement_only; RealProjectiveSpace is the genuine quotient-topology Projectivization model; covering-space identification with the sphere is not formalized."
+notes = "knowledge_status=formalized_local; proved for the exact quotient-topology Projectivization model by the audited antipodal sphere-cover construction."

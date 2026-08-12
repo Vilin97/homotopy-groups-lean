@@ -26,7 +26,7 @@ const filters: Array<{ value: "all" | Status; label: string }> = [
 
 function statusFor(entry: Entry): Status {
   if (["comparator_verified", "maintained_test"].includes(entry.formalization_status)) return "verified";
-  if (entry.knowledge_status === "formalized_upstream") return "verified";
+  if (["formalized_local", "formalized_upstream"].includes(entry.knowledge_status)) return "verified";
   if (entry.knowledge_status.startsWith("open_computation")) return "computation";
   if (entry.knowledge_status.includes("conjecture")) return "conjecture";
   if (entry.knowledge_status.includes("provisional")) return "provisional";
@@ -42,6 +42,7 @@ function labelFor(entry: Entry): string {
   if (entry.knowledge_status === "native_consequence") return "Native consequence";
   if (entry.knowledge_status === "derivable_from_pinned_mathlib") return "Reference-solvable";
   if (entry.knowledge_status === "foundation_blocked") return "Foundation blocked";
+  if (entry.knowledge_status === "formalized_local") return "Formalized locally";
   if (entry.knowledge_status === "formalized_upstream") return "Formalized upstream";
   if (entry.knowledge_status === "known_result/exact") return "Exact value · open in Lean";
   return "Known theorem · open in Lean";

@@ -5,4 +5,4 @@ module = "HomotopyGroups.Spaces"
 holes = ["realProjectiveSpace_higher_homotopy_mulEquiv_sphere"]
 submitter = "OpenAI Codex"
 source = "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
-notes = "knowledge_status=foundation_blocked; covers all degrees >=2 and dimensions >=2; the required higher covering-space lifting theorem is absent."
+notes = "knowledge_status=formalized_local; proved in every degree >=2 and dimension >=2 for the exact projective and metric-sphere models by higher covering invariance."

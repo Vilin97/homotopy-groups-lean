@@ -89,6 +89,15 @@ test("ships complete, synchronized benchmark data, reports, and social art", asy
   assert.equal(leaderboard.schema_version, 2);
   assert.equal(tracker.problem_count, tracker.entries.length);
   assert.ok(tracker.problem_count >= 127);
+  for (const problemId of [
+    "pi1_realProjectiveSpace_mulEquiv_zmod_two",
+    "realProjectiveSpace_higher_homotopy_mulEquiv_sphere",
+  ]) {
+    assert.equal(
+      tracker.entries.find((entry) => entry.id === problemId)?.knowledge_status,
+      "formalized_local",
+    );
+  }
   assert.equal(stems.stems.length, 91);
   assert.deepEqual(stems, researchStems);
   assert.deepEqual(stems.stems.filter((row) => !row.is_exact).map((row) => row.stem), [84, 85, 86, 90]);
