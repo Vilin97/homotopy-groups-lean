@@ -378,6 +378,148 @@ theorem stickSimplex_mem_bdry (d : ℕ) (t : I^Fin d)
         rw [hrep, stickSimplex_cubeFace_one]
         exact faceMap_mem_bdry i.castSucc (stickSimplex d (Fin.removeNth i t))
 
+/-- Stick-breaking reflects the boundary: an interior cube point has no vanishing
+barycentric coordinate. -/
+theorem mem_cube_boundary_of_stickSimplex_mem_bdry : ∀ (d : ℕ) (t : I^Fin d),
+    stickSimplex d t ∈ bdry d → t ∈ Cube.boundary (Fin d) := by
+  intro d
+  induction d with
+  | zero =>
+      intro t ht
+      obtain ⟨i, hi⟩ := ht
+      have hi0 : i = 0 := Fin.eq_zero i
+      subst i
+      norm_num [stickSimplex, stdSimplex.vertex] at hi
+  | succ d ih =>
+      intro t ht
+      obtain ⟨i, hi⟩ := ht
+      cases i using Fin.cases with
+      | zero =>
+        change 1 - (t 0 : ℝ) = 0 at hi
+        have ht0 : (t 0 : ℝ) = 1 := by linarith
+        exact ⟨0, Or.inr (Subtype.ext ht0)⟩
+      | succ j =>
+        change (t 0 : ℝ) * stickSimplex d (fun k => t k.succ) j = 0 at hi
+        rcases mul_eq_zero.mp hi with ht0 | htail
+        · exact ⟨0, Or.inl (Subtype.ext ht0)⟩
+        · obtain ⟨k, hk⟩ := ih (fun j => t j.succ) ⟨j, htail⟩
+          exact ⟨k.succ, hk⟩
+
+/-- Stick-breaking identifies precisely the cubical and simplicial boundaries. -/
+theorem stickSimplex_mem_bdry_iff (d : ℕ) (t : I^Fin d) :
+    stickSimplex d t ∈ bdry d ↔ t ∈ Cube.boundary (Fin d) :=
+  ⟨mem_cube_boundary_of_stickSimplex_mem_bdry d t, stickSimplex_mem_bdry d t⟩
+
+/-- Stick-breaking is injective away from the cubical boundary. -/
+theorem stickSimplex_injective_of_not_mem_boundary : ∀ (d : ℕ) (t u : I^Fin d),
+    t ∉ Cube.boundary (Fin d) → u ∉ Cube.boundary (Fin d) →
+      stickSimplex d t = stickSimplex d u → t = u := by
+  intro d
+  induction d with
+  | zero =>
+      intro t u _ _ _
+      funext i
+      exact Fin.elim0 i
+  | succ d ih =>
+      intro t u ht hu hstick
+      have hheadReal : (t 0 : ℝ) = (u 0 : ℝ) := by
+        have hzero := congrArg (fun z : stdSimplex ℝ (Fin (d + 2)) => z 0) hstick
+        simp only [stickSimplex_succ_zero] at hzero
+        linarith
+      have hhead : t 0 = u 0 := Subtype.ext hheadReal
+      have ht0 : (t 0 : ℝ) ≠ 0 := by
+        intro ht0
+        exact ht ⟨0, Or.inl (Subtype.ext ht0)⟩
+      have httail : (fun j : Fin d => t j.succ) ∉ Cube.boundary (Fin d) := by
+        rintro ⟨j, hj⟩
+        exact ht ⟨j.succ, hj⟩
+      have hutail : (fun j : Fin d => u j.succ) ∉ Cube.boundary (Fin d) := by
+        rintro ⟨j, hj⟩
+        exact hu ⟨j.succ, hj⟩
+      have htailStick : stickSimplex d (fun j => t j.succ) =
+          stickSimplex d (fun j => u j.succ) := by
+        apply stdSimplex.ext
+        funext j
+        have hsucc := congrArg (fun z : stdSimplex ℝ (Fin (d + 2)) => z j.succ) hstick
+        simp only [stickSimplex_succ_succ] at hsucc
+        rw [← hheadReal] at hsucc
+        exact mul_left_cancel₀ ht0 hsucc
+      have htail := ih (fun j => t j.succ) (fun j => u j.succ)
+        httail hutail htailStick
+      change Fin.tail t = Fin.tail u at htail
+      rw [← Fin.cons_self_tail t, ← Fin.cons_self_tail u, hhead, htail]
+
+/-- Every point of the standard simplex has stick-breaking coordinates. -/
+theorem stickSimplex_surjective : ∀ d : ℕ, Function.Surjective (stickSimplex d) := by
+  intro d
+  induction d with
+  | zero =>
+      intro z
+      exact ⟨default, Subsingleton.elim _ _⟩
+  | succ d ih =>
+      intro z
+      let a : ℝ := 1 - z.1 0
+      have ha0 : 0 ≤ a := sub_nonneg.mpr (stdSimplex.le_one z 0)
+      have ha1 : a ≤ 1 := by
+        dsimp [a]
+        exact sub_le_self 1 (z.property.1 0)
+      by_cases ha : a = 0
+      · let t : I^Fin (d + 1) := Fin.cons 0 (fun _ => 0)
+        have hz0one : z.1 0 = 1 := by
+          dsimp [a] at ha
+          linarith
+        refine ⟨t, ?_⟩
+        apply stdSimplex.ext
+        funext i
+        cases i using Fin.cases with
+        | zero =>
+            change 1 - (t 0 : ℝ) = z.1 0
+            simp [t, hz0one]
+        | succ j =>
+            change (t 0 : ℝ) * stickSimplex d (fun k => t k.succ) j = z.1 j.succ
+            have hzsum := z.property.2
+            rw [Fin.sum_univ_succ] at hzsum
+            change z.1 0 + ∑ k : Fin (d + 1), z.1 k.succ = 1 at hzsum
+            have hzj_le : z.1 j.succ ≤ ∑ k : Fin (d + 1), z.1 k.succ :=
+              Finset.single_le_sum (fun k _ => z.property.1 k.succ) (Finset.mem_univ j)
+            have htailsum : ∑ k : Fin (d + 1), z.1 k.succ = 0 := by
+              have htailform : ∑ k : Fin (d + 1), z.1 k.succ = 1 - z.1 0 :=
+                (eq_sub_iff_add_eq).2 (by simpa [add_comm] using hzsum)
+              rw [hz0one] at htailform
+              simpa using htailform
+            rw [htailsum] at hzj_le
+            have hzjzero : z.1 j.succ = 0 :=
+              le_antisymm hzj_le (z.property.1 j.succ)
+            simp [t, hzjzero]
+      · let ai : I := ⟨a, ha0, ha1⟩
+        let y : stdSimplex ℝ (Fin (d + 1)) :=
+          ⟨fun i => z.1 i.succ / a,
+            fun i => div_nonneg (z.property.1 i.succ) ha0,
+            by
+              have hzsum := z.property.2
+              rw [Fin.sum_univ_succ] at hzsum
+              change z.1 0 + ∑ i : Fin (d + 1), z.1 i.succ = 1 at hzsum
+              rw [← Finset.sum_div]
+              have hsum : ∑ i : Fin (d + 1), z.1 i.succ = a := by
+                have htailform : ∑ i : Fin (d + 1), z.1 i.succ = 1 - z.1 0 :=
+                  (eq_sub_iff_add_eq).2 (by simpa [add_comm] using hzsum)
+                simpa [a] using htailform
+              rw [hsum, div_self ha]⟩
+        obtain ⟨u, hu⟩ := ih y
+        refine ⟨Fin.cons ai u, ?_⟩
+        apply stdSimplex.ext
+        funext i
+        cases i using Fin.cases with
+        | zero =>
+            change 1 - (ai : ℝ) = z.1 0
+            dsimp [ai, a]
+            ring
+        | succ j =>
+            change (ai : ℝ) * stickSimplex d u j = z.1 j.succ
+            rw [hu]
+            change a * (z.1 j.succ / a) = z.1 j.succ
+            exact mul_div_cancel₀ _ ha
+
 /-- Every parameterized simplex face takes the cubical boundary into the codimension-two
 skeleton of the ambient simplex. -/
 theorem faceMap_stickSimplex_mem_codimTwo {d : ℕ} (i : Fin (d + 2))

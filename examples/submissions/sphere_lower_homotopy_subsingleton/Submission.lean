@@ -33,6 +33,7 @@ import Submission.Hurewicz.SimplicialTelescope
 import Submission.Hurewicz.SingularKan
 import Submission.Hurewicz.SphereLoopBridge
 import Submission.Hurewicz.StickBoundary
+import Submission.Hurewicz.StickSphere
 import Submission.Lean4TwentyResults
 import Submission.MetricSpherePiOne
 import Submission.ReducedSuspensionGroup
