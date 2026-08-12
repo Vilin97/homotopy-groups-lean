@@ -54,6 +54,7 @@ import Submission.SphereDegreeClassification
 import Submission.SphereGenerator
 import Submission.SphereHomologicalDegree
 import Submission.SphereReducedSuspension
+import Submission.SphereReducedSuspensionBijective
 import Submission.SphereSuspensionExcision
 import Submission.SphereSuspensionHomologyExcision
 import Submission.SphereSuspensionHurewicz
