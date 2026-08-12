@@ -52,6 +52,10 @@ theorem sphereBasepoint_mem_sphUpperCap (m : ℕ) :
 def sphCapOverlapInLower (m : ℕ) : Set (sphLowerCap m) :=
   {z | (z.1 : Sph (m + 1)) ∈ sphUpperCap m}
 
+/-- The lower-cap part of the upper cap, regarded as a subset of the upper-cap subtype. -/
+def sphCapOverlapInUpper (m : ℕ) : Set (sphUpperCap m) :=
+  {z | (z.1 : Sph (m + 1)) ∈ sphLowerCap m}
+
 /-- The standard sphere basepoint as a point of the lower cap. -/
 noncomputable def sphLowerCapBase (m : ℕ) : sphLowerCap m :=
   ⟨sphereBasepoint (m + 1), sphereBasepoint_mem_sphLowerCap m⟩
@@ -84,10 +88,89 @@ def sphCapOverlapHomeoBelt (m : ℕ) :
   continuous_toFun := by fun_prop
   continuous_invFun := by fun_prop
 
+/-- Reassociating nested subtypes also identifies the overlap inside the upper cap with the
+ordinary intersection of the two caps. -/
+def sphCapOverlapInUpperHomeoBelt (m : ℕ) :
+    sphCapOverlapInUpper m ≃ₜ sphBelt m where
+  toFun z := ⟨z.1.1, z.2, z.1.2⟩
+  invFun z := ⟨⟨z.1, z.2.2⟩, z.2.1⟩
+  left_inv _ := rfl
+  right_inv _ := rfl
+  continuous_toFun := by fun_prop
+  continuous_invFun := by fun_prop
+
 /-- The overlap in the lower cap is homotopy-equivalent to the equatorial metric sphere. -/
 noncomputable def sphCapOverlapHomotopyEquiv (m : ℕ) :
     ContinuousMap.HomotopyEquiv (sphCapOverlapInLower m) (Sph m) :=
   (sphCapOverlapHomeoBelt m).toHomotopyEquiv.trans (sphBeltHomotopyEquiv m)
+
+/-- The overlap in the upper cap is homotopy-equivalent to the equatorial metric sphere. -/
+noncomputable def sphCapOverlapInUpperHomotopyEquiv (m : ℕ) :
+    ContinuousMap.HomotopyEquiv (sphCapOverlapInUpper m) (Sph m) :=
+  (sphCapOverlapInUpperHomeoBelt m).toHomotopyEquiv.trans (sphBeltHomotopyEquiv m)
+
+/-- For positive-dimensional equators, the overlap inside the lower cap is path connected. -/
+theorem pathConnectedSpace_sphCapOverlapInLower (m : ℕ) (hm : 1 ≤ m) :
+    PathConnectedSpace (sphCapOverlapInLower m) := by
+  letI : PathConnectedSpace (Sph m) := pathConnectedSpace_sph hm
+  letI : ContractibleSpace (Set.Icc (-(1 / 3) : ℝ) (1 / 3)) :=
+    (convex_Icc _ _).contractibleSpace ⟨0, by rw [Set.mem_Icc]; norm_num⟩
+  letI : PathConnectedSpace (sphBelt m) :=
+    Function.Surjective.pathConnectedSpace (f := (sphBeltHomeo m).symm)
+      (sphBeltHomeo m).symm.surjective (sphBeltHomeo m).symm.continuous
+  exact Function.Surjective.pathConnectedSpace (f := (sphCapOverlapHomeoBelt m).symm)
+    (sphCapOverlapHomeoBelt m).symm.surjective (sphCapOverlapHomeoBelt m).symm.continuous
+
+/-- For positive-dimensional equators, the overlap inside the upper cap is path connected. -/
+theorem pathConnectedSpace_sphCapOverlapInUpper (m : ℕ) (hm : 1 ≤ m) :
+    PathConnectedSpace (sphCapOverlapInUpper m) := by
+  letI : PathConnectedSpace (Sph m) := pathConnectedSpace_sph hm
+  letI : ContractibleSpace (Set.Icc (-(1 / 3) : ℝ) (1 / 3)) :=
+    (convex_Icc _ _).contractibleSpace ⟨0, by rw [Set.mem_Icc]; norm_num⟩
+  letI : PathConnectedSpace (sphBelt m) :=
+    Function.Surjective.pathConnectedSpace (f := (sphBeltHomeo m).symm)
+      (sphBeltHomeo m).symm.surjective (sphBeltHomeo m).symm.continuous
+  exact Function.Surjective.pathConnectedSpace (f := (sphCapOverlapInUpperHomeoBelt m).symm)
+    (sphCapOverlapInUpperHomeoBelt m).symm.surjective
+    (sphCapOverlapInUpperHomeoBelt m).symm.continuous
+
+/-- The homotopy groups of the lower-cap overlap vanish below the equator dimension. -/
+theorem subsingleton_pi_sphCapOverlapInLower (m k : ℕ) (hm : 1 ≤ m) (hk : k < m)
+    (c : sphCapOverlapInLower m) :
+    Subsingleton (HomotopyGroup.Pi k (sphCapOverlapInLower m) c) := by
+  rcases Nat.eq_zero_or_pos k with rfl | hkpos
+  · letI : PathConnectedSpace (sphCapOverlapInLower m) :=
+      pathConnectedSpace_sphCapOverlapInLower m hm
+    exact subsingleton_homotopyGroup_zero c
+  · letI : Nonempty (Fin k) := ⟨⟨0, hkpos⟩⟩
+    exact subsingleton_homotopyGroup_of_homotopyEquiv
+      (sphCapOverlapHomotopyEquiv m)
+      (fun z => subsingleton_homotopyGroup_sphere_of_lt k m hk z) c
+
+/-- The homotopy groups of the upper-cap overlap vanish below the equator dimension. -/
+theorem subsingleton_pi_sphCapOverlapInUpper (m k : ℕ) (hm : 1 ≤ m) (hk : k < m)
+    (c : sphCapOverlapInUpper m) :
+    Subsingleton (HomotopyGroup.Pi k (sphCapOverlapInUpper m) c) := by
+  rcases Nat.eq_zero_or_pos k with rfl | hkpos
+  · letI : PathConnectedSpace (sphCapOverlapInUpper m) :=
+      pathConnectedSpace_sphCapOverlapInUpper m hm
+    exact subsingleton_homotopyGroup_zero c
+  · letI : Nonempty (Fin k) := ⟨⟨0, hkpos⟩⟩
+    exact subsingleton_homotopyGroup_of_homotopyEquiv
+      (sphCapOverlapInUpperHomotopyEquiv m)
+      (fun z => subsingleton_homotopyGroup_sphere_of_lt k m hk z) c
+
+/-- The lower-cap/overlap pair is as connected as the equatorial sphere. -/
+theorem isNConnectedPair_sphLowerCap_overlap (m : ℕ) (hm : 1 ≤ m) :
+    IsNConnectedPair m (sphLowerCap m) (sphCapOverlapInLower m) :=
+  isNConnectedPair_of_contractible (sphCapOverlapInLower m) m fun k hk c =>
+    subsingleton_pi_sphCapOverlapInLower m k hm hk c
+
+/-- The upper-cap/overlap pair is as connected as the equatorial sphere. -/
+theorem isNConnectedPair_sphUpperCap_overlap (m : ℕ) (hm : 1 ≤ m) :
+    IsNConnectedPair m (sphUpperCap m) (sphCapOverlapInUpper m) :=
+  isNConnectedPair_of_contractible (sphCapOverlapInUpper m) m fun k hk c =>
+    subsingleton_pi_sphCapOverlapInUpper m k hm hk c
 
 /-- The canonical relative homotopy homomorphism appearing in suspension excision for the
 `(n+1)`-sphere. -/
@@ -128,5 +211,17 @@ theorem sphere_diagonal_mulEquiv_int_of_capExcision
   apply sphere_diagonal_mulEquiv_int_of_suspension_steps
   intro m
   exact nonempty_sphereDiagonalSuspensionMulEquiv_of_capExcision m (hbij m)
+
+/-- The already-computed `π₂(S²)` base case means cap-excision bijectivity is needed only from
+the `S² → S³` suspension step onward, exactly as in the Freudenthal isomorphism range. -/
+theorem sphere_diagonal_mulEquiv_int_of_capExcision_from_two
+    (hbij : ∀ n : ℕ, 1 ≤ n → Function.Bijective (sphereSuspensionExcisionHom n))
+    (n : ℕ) :
+    Nonempty
+      (HomotopyGroup.Pi (n + 1) (Sph (n + 1)) (sphereBasepoint (n + 1)) ≃*
+        Multiplicative ℤ) := by
+  apply sphere_diagonal_mulEquiv_int_of_suspension_steps_from_two
+  intro m hm
+  exact nonempty_sphereDiagonalSuspensionMulEquiv_of_capExcision m (hbij m hm)
 
 end Submission

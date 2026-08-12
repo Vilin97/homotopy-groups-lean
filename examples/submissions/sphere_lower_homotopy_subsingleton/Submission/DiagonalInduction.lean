@@ -51,4 +51,24 @@ theorem sphere_diagonal_mulEquiv_int_of_suspension_steps
       obtain ⟨previous⟩ := ih
       exact ⟨suspension.symm.trans previous⟩
 
+/-- Since both `π₁(S¹)` and `π₂(S²)` are already computed, suspension equivalences are needed
+only from `π₂(S²)` onward. This is the form matching the isomorphism range of Freudenthal. -/
+theorem sphere_diagonal_mulEquiv_int_of_suspension_steps_from_two
+    (step : ∀ n : ℕ, 1 ≤ n → Nonempty
+      (HomotopyGroup.Pi (n + 1) (SphereSpace (n + 1)) (sphereBasepoint (n + 1)) ≃*
+        HomotopyGroup.Pi (n + 2) (SphereSpace (n + 2)) (sphereBasepoint (n + 2))))
+    (n : ℕ) :
+    Nonempty
+      (HomotopyGroup.Pi (n + 1) (SphereSpace (n + 1)) (sphereBasepoint (n + 1)) ≃*
+        Multiplicative ℤ) := by
+  induction n with
+  | zero => simpa using pi1_sphere_one_mulEquiv_int
+  | succ n ih =>
+      cases n with
+      | zero => simpa using pi2_sphere_two_mulEquiv_int
+      | succ n =>
+          obtain ⟨suspension⟩ := step (n + 1) (by omega)
+          obtain ⟨previous⟩ := ih
+          exact ⟨suspension.symm.trans previous⟩
+
 end Submission
