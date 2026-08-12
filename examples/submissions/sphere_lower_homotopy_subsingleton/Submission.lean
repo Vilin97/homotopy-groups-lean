@@ -10,6 +10,7 @@ import Submission.DisplayedLowerConnectivity
 import Submission.IndependentResults
 import Submission.DisplayedCircleFrontier
 import Submission.HigherSphereFoundations
+import Submission.Hurewicz.ConnectedPair
 import Submission.Hurewicz.FirstHomology
 import Submission.Lean4TwentyResults
 import Submission.MetricSpherePiOne
@@ -22,6 +23,7 @@ import Submission.SphereHomologicalDegree
 import Submission.SphereReducedSuspension
 import Submission.SphereSuspensionExcision
 import Submission.SphereSuspensionHomologyExcision
+import Submission.SphereSuspensionHurewicz
 import Submission.SphereSuspension
 import Submission.SphereSuspensionPointed
 
