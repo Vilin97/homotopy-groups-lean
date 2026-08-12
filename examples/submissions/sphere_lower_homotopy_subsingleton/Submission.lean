@@ -13,6 +13,7 @@ import Submission.HigherSphereFoundations
 import Submission.Hurewicz.FirstHomology
 import Submission.Lean4TwentyResults
 import Submission.MetricSpherePiOne
+import Submission.ReducedSuspensionGroup
 import Submission.Model.SphereConnected
 import Submission.SphereApproximation
 import Submission.SphereDegreeClassification
