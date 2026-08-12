@@ -4,7 +4,7 @@ Released under Apache 2.0 license.
 -/
 import Submission.Hurewicz.AbsoluteNaturality
 import Submission.Hurewicz.ConnectedPair
-import Submission.Hurewicz.CubicalCollapse
+import Submission.Hurewicz.CubicalDegreeOne
 import Submission.SphereSuspensionHomologyExcision
 
 /-!
@@ -148,6 +148,47 @@ theorem sphereSuspensionExcisionHom_bijective_succ (n : ℕ) :
   (sphereSuspensionExcisionHom_bijective_iff_sourceRelativeHurewiczAdd (n + 1)).2
     (sphereSuspensionSourceRelativeHurewiczAdd_bijective_succ n)
 
+/-- The circle-shaped overlap in the first cap pair is path connected. -/
+theorem isNConnected_sphCapOverlapInLower_one :
+    IsNConnected 0 (sphCapOverlapInLower 1) :=
+  IsNConnected.zero ⟨sphCapOverlapBase 1⟩
+    (pathConnectedSpace_sphCapOverlapInLower 1 (by omega))
+
+/-- The fundamental group of the circle-shaped cap overlap is commutative. -/
+theorem mul_comm_pi_sphCapOverlapInLower_one
+    (u v : π_ 1 (sphCapOverlapInLower 1) (sphCapOverlapBase 1)) :
+    u * v = v * u := by
+  let e := sphCapOverlapHomotopyEquiv 1
+  obtain ⟨changeSpace⟩ :=
+    nonempty_mulEquiv_of_homotopyEquiv' (N := Fin 1) e (sphCapOverlapBase 1)
+  obtain ⟨circle⟩ := pi1_sph_one_at_mulEquiv_int (e (sphCapOverlapBase 1))
+  let total := changeSpace.trans circle
+  apply total.injective
+  simpa only [map_mul] using mul_comm (total u) (total v)
+
+/-- In the first suspension degree, the source-side relative Hurewicz map is an isomorphism by
+the degree-one Hurewicz theorem for the circle-shaped overlap. -/
+theorem sphereSuspensionSourceRelativeHurewiczAdd_bijective_zero :
+    Function.Bijective
+      (relativeHurewiczAdd 0 (sphCapOverlapInLower 1)
+        (sphCapOverlapBase 1)) :=
+  IsNConnected.relativeHurewiczAdd_bijective_of_contractibleAmbient_one
+    isNConnected_sphCapOverlapInLower_one (sphCapOverlapBase 1)
+    mul_comm_pi_sphCapOverlapInLower_one
+
+/-- The index-zero cap-excision homomorphism is bijective. -/
+theorem sphereSuspensionExcisionHom_bijective_zero :
+    Function.Bijective (sphereSuspensionExcisionHom 0) :=
+  (sphereSuspensionExcisionHom_bijective_iff_sourceRelativeHurewiczAdd 0).2
+    sphereSuspensionSourceRelativeHurewiczAdd_bijective_zero
+
+/-- The canonical cap-excision homomorphism is bijective in every degree. -/
+theorem sphereSuspensionExcisionHom_bijective (n : ℕ) :
+    Function.Bijective (sphereSuspensionExcisionHom n) := by
+  cases n with
+  | zero => exact sphereSuspensionExcisionHom_bijective_zero
+  | succ n => exact sphereSuspensionExcisionHom_bijective_succ n
+
 /-- The cap-excision route now gives an unconditional second proof of the exact integral sphere
 diagonal.  Only positive cap indices are needed because the first two diagonal groups were
 computed separately. -/
@@ -160,5 +201,13 @@ theorem sphere_diagonal_mulEquiv_int_via_capExcision (n : ℕ) :
   cases m with
   | zero => omega
   | succ m => exact sphereSuspensionExcisionHom_bijective_succ m
+
+/-- Full cap-excision diagonal proof, now including the first circle-to-two-sphere step. -/
+theorem sphere_diagonal_mulEquiv_int_via_all_capExcision (n : ℕ) :
+    Nonempty
+      (HomotopyGroup.Pi (n + 1) (Sph (n + 1)) (sphereBasepoint (n + 1)) ≃*
+        Multiplicative ℤ) :=
+  sphere_diagonal_mulEquiv_int_of_capExcision
+    sphereSuspensionExcisionHom_bijective n
 
 end Submission
