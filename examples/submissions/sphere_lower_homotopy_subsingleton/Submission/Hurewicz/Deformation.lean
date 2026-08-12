@@ -117,6 +117,18 @@ theorem incl_comp_selfMap :
   rw [HomologicalComplex.comp_f, CsingMap_f_eq_simpMap, selfMap, faceChainMap_f, simpMap_comp]
   exact congrArg simpMap (funext fun τ => c.ρ_fix τ)
 
+/-- The deformation descends to an endomorphism of the relative singular chain complex. -/
+def relativeSelfMap : relComplex (subIncl A) ⟶ relComplex (subIncl A) :=
+  cokernel.map (CsingMap (subIncl A)) (CsingMap (subIncl A))
+    (𝟙 (Csing (TopCat.of A))) c.selfMap c.incl_comp_selfMap
+
+/-- The descended deformation is compatible with the projection to relative chains. -/
+@[reassoc (attr := simp)]
+theorem relProj_comp_relativeSelfMap :
+    relProj (subIncl A) ≫ c.relativeSelfMap = c.selfMap ≫ relProj (subIncl A) :=
+  π_cokernel_map (CsingMap (subIncl A)) (CsingMap (subIncl A))
+    (𝟙 (Csing (TopCat.of A))) c.selfMap c.incl_comp_selfMap
+
 /-- The face-only homotopy data on singular chains determined by the deformation data. -/
 def faceHomotopy : FaceHomotopy (sngFace (Sng X)) (sngFace (Sng X)) c.selfMap (𝟙 (Csing X)) where
   h i := simpMap (c.h i)
@@ -168,6 +180,26 @@ theorem incl_comp_hom (p q : ℕ) :
     exact gen _ _ _ key
   · rw [FaceHomotopy.hom_eq_zero _ _ _ hpq]
     simp
+
+/-- The descended deformation induces the identity on relative singular homology. -/
+theorem homologyMap_relativeSelfMap_eq_id (k : ℕ) :
+    HomologicalComplex.homologyMap c.relativeSelfMap k = 𝟙 _ := by
+  have hw2 : CsingMap (subIncl A) ≫ 𝟙 (Csing X) =
+      𝟙 (Csing (TopCat.of A)) ≫ CsingMap (subIncl A) := by
+    rw [Category.comp_id, Category.id_comp]
+  have hepi : Epi (cokernel.π (CsingMap (subIncl A))) := coequalizer.π_epi
+  have ho : cokernel.map (CsingMap (subIncl A)) (CsingMap (subIncl A))
+      (𝟙 (Csing (TopCat.of A))) (𝟙 (Csing X)) hw2 = 𝟙 _ := by
+    apply hepi.left_cancellation
+    rw [π_cokernel_map, Category.id_comp, Category.comp_id]
+  have key := (descHomotopy (CsingMap (subIncl A)) (CsingMap (subIncl A))
+    c.incl_comp_selfMap hw2 c.faceHomotopy.toChainHomotopy c.incl_comp_hom).homologyMap_eq k
+  change HomologicalComplex.homologyMap c.relativeSelfMap k =
+    HomologicalComplex.homologyMap
+      (cokernel.map (CsingMap (subIncl A)) (CsingMap (subIncl A))
+        (𝟙 (Csing (TopCat.of A))) (𝟙 (Csing X)) hw2) k at key
+  rw [ho, HomologicalComplex.homologyMap_id] at key
+  exact key
 
 /-- In dimensions at most `M` the deformation lands in `A`, hence dies in the relative complex. -/
 theorem selfMap_comp_relProj (n : ℕ) (hn : n ≤ M) :

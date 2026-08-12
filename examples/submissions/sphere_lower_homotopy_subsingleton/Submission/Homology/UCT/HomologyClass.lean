@@ -47,6 +47,14 @@ def homologyMk {i : ι} (x : K.X i) (hx : K.d i (c.next i) x = 0) : K.homology i
 
 variable {i : ι}
 
+/-- The class constructed by `homologyMk` depends only on the underlying cycle, not on the proof
+that it is a cycle. -/
+theorem homologyMk_congr {x y : K.X i} (hx : K.d i (c.next i) x = 0)
+    (hy : K.d i (c.next i) y = 0) (hxy : x = y) :
+    homologyMk x hx = homologyMk y hy := by
+  subst y
+  rfl
+
 theorem homologyMk_eq_homologyMkHom (z : cyclesSub K i) :
     homologyMk (z : K.X i) z.2 = homologyMkHom K i z := rfl
 
@@ -137,6 +145,16 @@ theorem homologyMap_homologyMk (f : K ⟶ L) (x : K.X i) (hx : K.d i (c.next i) 
   rw [ConcreteCategory.comp_apply, ConcreteCategory.comp_apply, hA] at hnat
   rw [homologyMk_eq_homologyπ, homologyMk_eq_homologyπ]
   exact hnat
+
+/-- A chain map sends the class of a cycle to the class of any equal target cycle. -/
+theorem homologyMap_homologyMk_congr (f : K ⟶ L) (x : K.X i)
+    (hx : K.d i (c.next i) x = 0) (y : L.X i) (hy : L.d i (c.next i) y = 0)
+    (hxy : f.f i x = y) :
+    HomologicalComplex.homologyMap f i (homologyMk x hx) = homologyMk y hy := by
+  have hfx : L.d i (c.next i) (f.f i x) = 0 := by
+    rw [hxy]
+    exact hy
+  exact (homologyMap_homologyMk f x hx hfx).trans (homologyMk_congr hfx hy hxy)
 
 theorem homologyMkHom_surjective : Function.Surjective (homologyMkHom K i) := by
   intro z
