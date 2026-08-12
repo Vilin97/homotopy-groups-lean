@@ -535,7 +535,47 @@
       { "id": "normalized-simplicial-homotopy-addition", "declaration": "Submission.NormalizedSimplexBoundary.alternatingStickFaceClass_eq_zero", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SimplicialTelescope.lean", "lattice_effect": "none directly; proves the full alternating homotopy-addition theorem for stick-parameterized normalized simplex boundaries" }
     ]
   },
+  "maintained_simplicial_descent_set": {
+    "count": 6,
+    "system": "Lean 4",
+    "counting_rule": "The concrete homology-quotient evaluation rule, generic descent through cycles modulo boundaries, normalized stick-chain boundary formula, annihilation of the incoming differential, descended homology map, and its cycle evaluation rule are six distinct results. The stick-coordinate simplex class, generator formula, additive-homomorphism wrapper, and categorification are supporting declarations and are not counted separately.",
+    "results": [
+      { "id": "homology-quotient-generator-evaluation", "declaration": "Submission.homologyQuotEquiv_mk", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Homology/UCT/HomologyClass.lean", "lattice_effect": "none directly; computes the maintained cycles-modulo-boundaries equivalence on every cycle class" },
+      { "id": "homology-descent-evaluation", "declaration": "Submission.homologyDesc_homologyMk", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Homology/UCT/HomologyClass.lean", "lattice_effect": "none directly; proves the universal evaluation rule for any additive chain-group map annihilating incoming boundaries" },
+      { "id": "normalized-stick-chain-boundary-formula", "declaration": "Submission.IsNConnected.normalizedStickClassChain_boundary_gen", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SimplicialDescent.lean", "lattice_effect": "none directly; identifies every generator boundary with the alternating stick-coordinate face class" },
+      { "id": "normalized-stick-chain-annihilates-boundaries", "declaration": "Submission.IsNConnected.normalizedStickClassChain_comp_d", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SimplicialDescent.lean", "lattice_effect": "none directly; applies simplicial homotopy addition to kill the complete incoming differential" },
+      { "id": "normalized-stick-homology-map", "declaration": "Submission.IsNConnected.normalizedStickHomologyMap", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SimplicialDescent.lean", "lattice_effect": "none directly; constructs the stick-coordinate inverse candidate from first-nonvanishing singular homology to homotopy" },
+      { "id": "normalized-stick-homology-map-cycle", "declaration": "Submission.IsNConnected.normalizedStickHomologyMap_homologyMk", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SimplicialDescent.lean", "lattice_effect": "none directly; computes the descended map on the homology class of every cycle" }
+    ]
+  },
   "formalizations": [
+    {
+      "id": "lean4-simplicial-homotopy-class-descent",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "5f82bb15772690852fd3723889ccb89a4542ee67",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.homologyQuotEquiv_mk",
+        "Submission.homologyDescAddHom",
+        "Submission.homologyDesc",
+        "Submission.homologyDesc_homologyMk",
+        "Submission.IsNConnected.normalizedStickSimplexClass",
+        "Submission.IsNConnected.normalizedStickClassChain",
+        "Submission.IsNConnected.normalizedStickClassChain_gen",
+        "Submission.IsNConnected.normalizedStickClassChain_boundary_gen",
+        "Submission.IsNConnected.normalizedStickClassChain_comp_d",
+        "Submission.IsNConnected.normalizedStickHomologyMap",
+        "Submission.IsNConnected.normalizedStickHomologyMap_homologyMk"
+      ],
+      "result": "simplicial homotopy addition makes the normalized stick-coordinate class assignment annihilate every incoming singular boundary, so it descends canonically from chains to a homomorphism from first-nonvanishing singular homology into the corresponding higher homotopy group and computes on every cycle representative",
+      "model_relation": "Mathlib singular homology as cycles modulo boundaries, connected to the maintained coherent point-pair deformation, normalized singular simplices, stick-breaking cubical representatives, and cubical HomotopyGroup in degree n+2",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SimplicialDescent.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All eleven listed declarations are sorry-free Lean 4. Strict source checks, exact module builds, and the 8,838-job submission build pass. Audited axiom closures for the homology quotient computation, generic descent evaluation, chain-level boundary annihilation, and descended cycle formula contain only propext, Classical.choice, and Quot.sound. This closes chain descent after adopting the maintained stick-breaking representatives. Comparing that descended map with the existing cube-homeomorphism relative Hurewicz comparison, and then proving the two composites are identities, remain before any lattice cell is recolored."
+    },
     {
       "id": "lean4-simplicial-homotopy-addition-telescope",
       "system": "Lean 4",

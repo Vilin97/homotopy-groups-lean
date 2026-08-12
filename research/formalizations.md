@@ -300,8 +300,22 @@ zero alternating sum of stick-parameterized face classes. Equivalently, its
 complete stick-breaking cubical shell boundary class vanishes. The remaining
 bridge is now narrower: compare these stick-breaking representatives with the
 cube-homeomorphism representatives used by `normalizedClassChain` (or replace
-that coordinate choice throughout). Until that bridge is closed, the chain
-inverse does not yet descend and the lattice overlay is unchanged.
+that coordinate choice throughout).
+
+The chain inverse now descends after making that coordinate choice explicit.
+Lean defines the normalized top-simplex assignment directly with the
+stick-breaking representatives used by homotopy addition, extends it
+additively to singular `(n+2)`-chains, and proves on each `(n+3)`-simplex
+generator that its boundary is exactly the alternating stick-face class. The
+full telescope makes that value zero, hence the chain map annihilates the
+incoming differential. A reusable cycles-modulo-boundaries universal property
+then constructs a canonical homomorphism
+`H_(n+2)(X) -> pi_(n+2)(X)` for every `(n+1)`-connected space and computes it on
+the class of every cycle. The remaining coordinate comparison is no longer
+needed for well-definedness; it is needed to identify this map with the
+cube-homeomorphism relative Hurewicz comparison already proved surjective and
+to establish the two inverse identities. The lattice overlay is therefore
+still unchanged.
 
 Bijectivity of the corresponding relative homotopy map yields the next exact
 diagonal equivalence; bijectivity of the family from `pi_2(S^2)` onward yields

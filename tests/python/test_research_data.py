@@ -1006,6 +1006,38 @@ class ResearchDataTests(unittest.TestCase):
         self.assertIsNone(record["lattice_overlay"])
         self.assertIsNone(record["degree_lattice_overlay"])
 
+    def test_simplicial_descent_matches_sorry_free_sources(self) -> None:
+        inventory = json.loads((ROOT / "research/formalizations.json").read_text())
+        result_set = inventory["maintained_simplicial_descent_set"]
+        results = result_set["results"]
+        self.assertEqual(result_set["system"], "Lean 4")
+        self.assertEqual(result_set["count"], 6)
+        self.assertEqual(len(results), 6)
+        self.assertEqual(len({row["id"] for row in results}), 6)
+        self.assertEqual(len({row["declaration"] for row in results}), 6)
+        for result in results:
+            source = (ROOT / "research" / result["source"]).resolve()
+            self.assertTrue(source.is_file())
+            text = source.read_text()
+            self.assertNotIn("sorry", text)
+            self.assertNotIn("admit", text)
+            self.assertIn(result["declaration"].rsplit(".", 1)[-1], text)
+
+        record = next(
+            item for item in inventory["formalizations"]
+            if item["id"] == "lean4-simplicial-homotopy-class-descent"
+        )
+        self.assertTrue(
+            {row["declaration"] for row in results}.issubset(record["declarations"])
+        )
+        self.assertEqual(len(record["declarations"]), 11)
+        self.assertEqual(
+            record["commit"],
+            "5f82bb15772690852fd3723889ccb89a4542ee67",
+        )
+        self.assertIsNone(record["lattice_overlay"])
+        self.assertIsNone(record["degree_lattice_overlay"])
+
 
 if __name__ == "__main__":
     unittest.main()
