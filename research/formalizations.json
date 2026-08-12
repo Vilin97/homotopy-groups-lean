@@ -198,7 +198,59 @@
       { "id": "sphere-self-equivalence-degree-sign", "declaration": "Submission.sphereHomologicalDegree_eq_one_or_neg_one_of_homotopyInverse", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereHomologicalDegree.lean", "lattice_effect": "none directly; restricts self-equivalence degree to plus or minus one" }
     ]
   },
+  "maintained_sphere_diagonal_suspension_set": {
+    "count": 10,
+    "system": "Lean 4",
+    "counting_rule": "The quotient-map theorem, self-map representation and classification theorems, two degree normalizations, uniform diagonal nontriviality, and four suspension compatibility theorems are ten distinct results. Definitions and helper continuity or evaluation lemmas are not counted separately.",
+    "results": [
+      { "id": "cube-sphere-quotient-map", "declaration": "Submission.isQuotientMap_cubeToSphere", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereGenerator.lean", "lattice_effect": "none directly; identifies the cubical sphere model as a quotient" },
+      { "id": "diagonal-self-map-representative", "declaration": "Submission.homotopyGroup_exists_sphereSelfMapRepresentative", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereGenerator.lean", "lattice_effect": "none directly; represents every positive diagonal class by a based sphere self-map" },
+      { "id": "diagonal-based-homotopy-classification", "declaration": "Submission.sphereSelfMapClass_eq_iff_basedHomotopic", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereDegreeClassification.lean", "lattice_effect": "none directly; identifies equality of cubical classes with based homotopy" },
+      { "id": "diagonal-generator-degree", "declaration": "Submission.homotopyGroupSphereDegree_generator", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereDegreeClassification.lean", "lattice_effect": "none directly; computes the canonical generator's degree as one" },
+      { "id": "diagonal-null-degree", "declaration": "Submission.homotopyGroupSphereDegree_one", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereDegreeClassification.lean", "lattice_effect": "none directly; computes the null class's degree as zero" },
+      { "id": "positive-diagonal-nontriviality", "declaration": "Submission.sphere_diagonal_nontrivial", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereDegreeClassification.lean", "lattice_effect": "proves every positive diagonal group is nontrivial, but gives no exact group isomorphism and therefore colors no cell" },
+      { "id": "sphere-suspension-composition", "declaration": "Submission.sphereSuspensionSelfMap_comp", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspension.lean", "lattice_effect": "none directly; suspension respects composition of sphere self-maps" },
+      { "id": "sphere-suspension-based-homotopy", "declaration": "Submission.sphereSuspensionSelfMapHomotopy_basepoint", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspension.lean", "lattice_effect": "none directly; suspension preserves based homotopies" },
+      { "id": "diagonal-suspension-self-map-compatibility", "declaration": "Submission.sphereDiagonalSuspension_sphereSelfMapClass", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspension.lean", "lattice_effect": "none directly; identifies quotient-level suspension on self-map representatives" },
+      { "id": "diagonal-suspension-generator", "declaration": "Submission.sphereDiagonalSuspension_generator", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspension.lean", "lattice_effect": "none directly; carries the canonical diagonal generator to the next one" }
+    ]
+  },
   "formalizations": [
+    {
+      "id": "lean4-sphere-diagonal-degree-suspension",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "f8ad650ce52fa023ed0a97c1718bf088203fb3d1",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.closedDiskToSphere_surjective",
+        "Submission.isQuotientMap_cubeToSphere",
+        "Submission.sphereGeneratorClass",
+        "Submission.genLoopSphereMap",
+        "Submission.genLoopSphereMap_homotopic",
+        "Submission.homotopyGroup_exists_sphereSelfMapRepresentative",
+        "Submission.homotopyGroupSphereDegree",
+        "Submission.homotopyGroupSphereDegree_generator",
+        "Submission.sphereSelfMapClass_eq_iff_basedHomotopic",
+        "Submission.homotopyGroupSphereDegree_one",
+        "Submission.sphere_diagonal_nontrivial",
+        "Submission.homotopyGroup_exists_sphereSelfMapRepresentative_with_degree",
+        "Submission.Susp.mapHomotopy",
+        "Submission.sphereSuspensionSelfMap",
+        "Submission.sphereSuspensionSelfMap_comp",
+        "Submission.sphereSuspensionSelfMapHomotopy_basepoint",
+        "Submission.sphereDiagonalSuspension",
+        "Submission.sphereDiagonalSuspension_sphereSelfMapClass",
+        "Submission.sphereDiagonalSuspension_generator"
+      ],
+      "result": "the cubical quotient model of a positive-dimensional sphere class is identified with based sphere self-maps, carries a homological degree detecting the canonical nonzero class in every positive diagonal group, and admits a geometric suspension operation preserving based homotopy and the canonical generators",
+      "model_relation": "exactly the Mathlib cubical HomotopyGroup and metric-sphere models, connected through the explicit cube quotient and unreduced-suspension homeomorphisms",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspension.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All nineteen listed declarations are sorry-free Lean 4, with supporting declarations imported from SphereGenerator.lean and SphereDegreeClassification.lean. Audited axiom closures contain only propext, Classical.choice, and Quot.sound. The suspension is currently a well-defined function on classes, not yet a proved group equivalence, and degree is not yet a complete additive classification; therefore no unsupported exact diagonal cell is recolored."
+    },
     {
       "id": "lean4-sphere-homological-degree",
       "system": "Lean 4",

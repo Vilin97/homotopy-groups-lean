@@ -69,17 +69,33 @@ an explicit `MulEquiv` with `PUnit` at every basepoint and gives named witnesses
 for the eighteen newly displayed cells. Those numerical witnesses remain
 corollaries of one general result.
 
-Higher diagonal and stable sphere stems still require additional
-Freudenthal, higher-Hurewicz, and Hopf-fibration infrastructure.  Incomplete
-attempts do not color cells.
+The positive diagonal now has a concrete quotient-level foundation. The
+canonical map `I^n -> S^n` is a quotient map, every cubical diagonal class is
+represented by a based sphere self-map, and equality of the resulting classes
+is equivalent to based homotopy. Homological degree descends to these classes,
+takes value one on the canonical generator and zero on the null class, and
+therefore proves `pi_n(S^n)` nontrivial for every `n >= 1`.
+
+The same closure constructs the geometric suspension function between
+successive positive diagonal classes using the explicit homeomorphism
+`Susp(S^n) ~= S^(n+1)`. It preserves based homotopies and composition of
+self-maps, agrees with suspended self-map representatives, and sends each
+canonical generator to the next. It is not yet proved to be a group
+homomorphism or an equivalence, and homological degree is not yet proved
+additive or complete. These qualitative diagonal results therefore add no
+exact purple cells.
+
+Higher exact diagonal and stable sphere stems still require additional degree
+classification, Freudenthal, higher-Hurewicz, and Hopf-fibration
+infrastructure. Incomplete attempts do not color cells.
 
 `DiagonalInduction.lean` now records the exact equivalence between the two
 computed diagonal groups `pi_1(S^1)` and `pi_2(S^2)`, and proves that a uniform
 family of successive suspension equivalences propagates the integral
 calculation through the whole diagonal. This is a checked reduction of the
-next lattice frontier, not a claim that the missing geometric suspension
-theorem has already been proved; consequently it adds no unsupported purple
-cells.
+next lattice frontier. A geometric suspension function is now available, but
+its homomorphism and equivalence properties remain unproved; consequently the
+reduction adds no unsupported purple cells.
 
 The maintained ten-result set is recorded explicitly in
 `maintained_independent_result_set`.  Besides the metric-circle computation it
