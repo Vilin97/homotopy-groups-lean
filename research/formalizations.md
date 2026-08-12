@@ -132,6 +132,17 @@ an explicit `MulEquiv` with `PUnit` at every basepoint and gives named witnesses
 for the eighteen newly displayed cells. Those numerical witnesses remain
 corollaries of one general result.
 
+Work on the first off-diagonal cell now includes the explicit Hopf map in the
+same exact metric models. Lean verifies its real quadratic coordinate formula,
+the norm identity restricting it to a continuous based map `S^3 -> S^2`, and
+the exact equation describing its basepoint fibre. Explicit coordinate
+inclusion and projection maps give a basepoint-preserving homeomorphism from
+the exact metric circle to that fibre. The maintained fibration long exact
+sequence and circle calculation then prove that the induced map on `pi_3` is
+bijective, and consequently that `pi_3(S^2) = Z`, conditional only on proving
+that this concrete Hopf map is a Serre fibration. That last geometric lifting
+property remains open, so `(n,k)=(2,1)` is not colored yet.
+
 The positive diagonal now has a concrete quotient-level foundation. The
 canonical map `I^n -> S^n` is a quotient map, every cubical diagonal class is
 represented by a based sphere self-map, and equality of the resulting classes
@@ -459,7 +470,10 @@ colored by the maintained absolute Hurewicz computation.
 
 Stable off-diagonal sphere stems still require a genuine stable-range
 Freudenthal comparison, higher relative Hurewicz or homotopy excision beyond
-the first nonvanishing degree, and Hopf-fibration infrastructure. The exact
+the first nonvanishing degree, and completion of the Hopf-fibration argument.
+For the latter, the exact based Hopf map, its circle fibre, and the complete
+long-exact-sequence reduction of `pi_3(S^2) = Z` are checked; the remaining
+input is the Serre lifting property of that concrete map. The exact
 arbitrary-degree reduced-suspension maps, their finite iteration, fixed-stem
 transport, and the canonical stable-representative specialization are now all
 checked; the unresolved suspension input is bijectivity in the stable range.

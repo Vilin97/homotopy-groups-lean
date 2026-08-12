@@ -624,6 +624,18 @@
       { "id": "fixed-stem-group-transport", "declaration": "Submission.sphere_stem_mulEquiv_of_reduced_suspension", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereReducedSuspensionStable.lean", "lattice_effect": "none until a base computation and the required stable-range bijectivity proofs are supplied; transports an identified group across any finite fixed-stem segment" }
     ]
   },
+  "maintained_hopf_map_foundation_set": {
+    "count": 5,
+    "system": "Lean 4",
+    "counting_rule": "The norm-preserving quadratic Hopf formula, its exact basepoint-fibre equation, the based fibre-circle homeomorphism, bijectivity of the induced third-homotopy map conditional on the Serre property, and the resulting conditional integral computation are five distinct results. Coordinate lemmas, continuity packaging, higher-fibre vanishing, and multiplicative-equivalence packaging are supporting declarations and are not counted separately.",
+    "results": [
+      { "id": "exact-hopf-quadratic-map", "declaration": "Submission.norm_hopfVec_sq", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HopfMap.lean", "lattice_effect": "none directly; proves that the explicit quadratic formula restricts to a continuous based map from the exact metric 3-sphere to the exact metric 2-sphere" },
+      { "id": "hopf-basepoint-fibre-equation", "declaration": "Submission.hopfMap_eq_basepoint_iff", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HopfMap.lean", "lattice_effect": "none directly; identifies the basepoint fibre exactly with the coordinate circle cut out by the last two coordinates" },
+      { "id": "hopf-fibre-circle-homeomorphism", "declaration": "Submission.circleHomeomorphHopfFiber", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HopfMap.lean", "lattice_effect": "none directly; gives an explicit basepoint-preserving homeomorphism from the exact metric circle to the Hopf fibre" },
+      { "id": "hopf-induced-pi3-bijective", "declaration": "Submission.hopfPiThreeHom_bijective", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HopfMap.lean", "lattice_effect": "none until the concrete Hopf map is proved a Serre fibration; all fibre and long-exact-sequence inputs are discharged" },
+      { "id": "pi3-sphere-two-from-hopf-fibration", "declaration": "Submission.pi3_sphere_two_mulEquiv_int_of_hopf_isSerreFibration", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HopfMap.lean", "lattice_effect": "would color exact-model (n,k)=(2,1) once the explicit Hopf map's Serre-fibration hypothesis is proved" }
+    ]
+  },
   "maintained_stick_sphere_coordinate_set": {
     "count": 7,
     "system": "Lean 4",
@@ -656,6 +668,41 @@
     ]
   },
   "formalizations": [
+    {
+      "id": "lean4-exact-hopf-map-foundation",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "5b98ed5aecbe77d95eb754b132c314425a60f473",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.hopfVec",
+        "Submission.norm_hopfVec_sq",
+        "Submission.continuous_hopfVec",
+        "Submission.hopfMap",
+        "Submission.hopfMap_basepoint",
+        "Submission.hopfCircleIncl",
+        "Submission.hopfMap_hopfCircleIncl",
+        "Submission.hopfFiberBasepoint",
+        "Submission.hopfFiber_last_coords",
+        "Submission.hopfMap_eq_basepoint_iff",
+        "Submission.circleToHopfFiber",
+        "Submission.hopfFiberToCircle",
+        "Submission.circleHomeomorphHopfFiber",
+        "Submission.circleHomeomorphHopfFiber_basepoint",
+        "Submission.hopfFiber_higher_homotopy_subsingleton",
+        "Submission.hopfPiThreeHom",
+        "Submission.hopfPiThreeHom_bijective",
+        "Submission.hopfPiThreeEquiv",
+        "Submission.pi3_sphere_two_mulEquiv_int_of_hopf_isSerreFibration"
+      ],
+      "result": "the classical real-coordinate quadratic formula is formalized as a continuous based map from the exact metric 3-sphere to the exact metric 2-sphere; its basepoint fibre is proved exactly equal to the coordinate circle and explicitly homeomorphic to the exact metric 1-sphere with matching basepoints; the existing fibration long exact sequence then proves that this map induces an equivalence on pi_3, and hence pi_3(S^2)=Z, conditional only on the concrete map being a Serre fibration",
+      "model_relation": "exactly the maintained metric sphere and basepoint models, explicit Euclidean coordinates, the exact metric circle computation, and the maintained long exact sequence of a Serre fibration",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HopfMap.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All nineteen listed declarations are sorry-free Lean 4. Strict checks pass for HopfMap and the Submission aggregate; exact builds pass at 8,813 and 8,857 jobs respectively. Audited axiom closures for the norm identity, based-map theorem, exact fibre equation, circle homeomorphism and basepoint equation, fibre homotopy vanishing, induced-map bijectivity, and final conditional computation contain only propext, Classical.choice, and Quot.sound. All 110 Python tests, generated-data synchronization, site lint, the production static build, and all rendered-HTML tests pass. The remaining IsSerreFibration hypothesis is not assumed as a fact and therefore no lattice cell is colored yet."
+    },
     {
       "id": "lean4-reduced-suspension-stable-transport",
       "system": "Lean 4",

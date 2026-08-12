@@ -998,6 +998,58 @@ class ResearchDataTests(unittest.TestCase):
         self.assertIsNone(record["lattice_overlay"])
         self.assertIsNone(record["degree_lattice_overlay"])
 
+    def test_exact_hopf_map_foundation_matches_source(self) -> None:
+        inventory = json.loads((ROOT / "research/formalizations.json").read_text())
+        result_set = inventory["maintained_hopf_map_foundation_set"]
+        results = result_set["results"]
+        self.assertEqual(result_set["system"], "Lean 4")
+        self.assertEqual(result_set["count"], 5)
+        self.assertEqual(len(results), 5)
+        self.assertEqual(len({row["id"] for row in results}), 5)
+        self.assertEqual(len({row["declaration"] for row in results}), 5)
+        for result in results:
+            source = (ROOT / "research" / result["source"]).resolve()
+            self.assertTrue(source.is_file())
+            text = source.read_text()
+            self.assertNotIn("sorry", text)
+            self.assertNotIn("admit", text)
+            self.assertIn(result["declaration"].rsplit(".", 1)[-1], text)
+
+        record = next(
+            item for item in inventory["formalizations"]
+            if item["id"] == "lean4-exact-hopf-map-foundation"
+        )
+        self.assertEqual(
+            record["declarations"],
+            [
+                "Submission.hopfVec",
+                "Submission.norm_hopfVec_sq",
+                "Submission.continuous_hopfVec",
+                "Submission.hopfMap",
+                "Submission.hopfMap_basepoint",
+                "Submission.hopfCircleIncl",
+                "Submission.hopfMap_hopfCircleIncl",
+                "Submission.hopfFiberBasepoint",
+                "Submission.hopfFiber_last_coords",
+                "Submission.hopfMap_eq_basepoint_iff",
+                "Submission.circleToHopfFiber",
+                "Submission.hopfFiberToCircle",
+                "Submission.circleHomeomorphHopfFiber",
+                "Submission.circleHomeomorphHopfFiber_basepoint",
+                "Submission.hopfFiber_higher_homotopy_subsingleton",
+                "Submission.hopfPiThreeHom",
+                "Submission.hopfPiThreeHom_bijective",
+                "Submission.hopfPiThreeEquiv",
+                "Submission.pi3_sphere_two_mulEquiv_int_of_hopf_isSerreFibration",
+            ],
+        )
+        self.assertEqual(
+            record["commit"],
+            "5b98ed5aecbe77d95eb754b132c314425a60f473",
+        )
+        self.assertIsNone(record["lattice_overlay"])
+        self.assertIsNone(record["degree_lattice_overlay"])
+
     def test_first_hurewicz_normalization_matches_sorry_free_sources(self) -> None:
         inventory = json.loads((ROOT / "research/formalizations.json").read_text())
         result_set = inventory["maintained_first_hurewicz_normalization_set"]
