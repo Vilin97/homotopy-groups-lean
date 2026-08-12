@@ -5,6 +5,7 @@ Vilin97/lean-eval-pi-succ-sphere at commit
 Apache-2.0 license and attribution headers.
 -/
 import ChallengeDeps
+import Submission.DiagonalInduction
 import Submission.DisplayedLowerConnectivity
 import Submission.IndependentResults
 import Submission.DisplayedCircleFrontier
