@@ -2,6 +2,7 @@
 Copyright (c) 2026 Vasily Ilin. All rights reserved.
 Released under Apache 2.0 license.
 -/
+import Submission.Hurewicz.AbsoluteNaturality
 import Submission.Hurewicz.ConnectedPair
 import Submission.SphereSuspensionHomologyExcision
 
@@ -50,5 +51,73 @@ theorem isZero_sphSphere_upperCap_relativeHomology (m k : ℕ) (hm : 1 ≤ m) (h
   letI := isIso_sphereCapInclusionHrelMap m k
   exact IsZero.of_iso (isZero_sphLowerCap_overlap_relativeHomology m k hm hk)
     (asIso (sphereCapInclusionHrelMap m k)).symm
+
+/-- The relative Hurewicz map for the target sphere/upper-cap pair is an isomorphism in the top
+suspension degree.  This is the contractible-subspace form of absolute Hurewicz. -/
+theorem sphereSuspensionTargetRelativeHurewiczAdd_bijective (n : ℕ) :
+    Function.Bijective
+      (relativeHurewiczAdd n (sphUpperCap (n + 1)) (sphUpperCapBase (n + 1))) :=
+  (isNConnected_sphere_succ_succ n).relativeHurewiczAdd_bijective_of_contractibleSubspace
+    (sphUpperCap (n + 1)) (sphUpperCapBase (n + 1))
+
+/-- The target relative Hurewicz isomorphism, bundled additively. -/
+noncomputable def sphereSuspensionTargetRelativeHurewiczAddEquiv (n : ℕ) :
+    Additive
+        (π_rel (n + 2) (Sph (n + 2)) (sphUpperCap (n + 1))
+          (sphUpperCapBase (n + 1))) ≃+
+      (HrelSet (Y := TopCat.of (Sph (n + 2))) (n + 2)
+        (sphUpperCap (n + 1)) : Type) :=
+  AddEquiv.ofBijective
+    (relativeHurewiczAdd n (sphUpperCap (n + 1)) (sphUpperCapBase (n + 1)))
+    (sphereSuspensionTargetRelativeHurewiczAdd_bijective n)
+
+/-- The canonical cap inclusion commutes with relative Hurewicz in the top suspension degree. -/
+theorem sphereSuspensionExcision_relativeHurewicz_naturality (n : ℕ)
+    (x : π_rel (n + 2) (sphLowerCap (n + 1))
+      (sphCapOverlapInLower (n + 1)) (sphCapOverlapBase (n + 1))) :
+    sphereSuspensionExcisionHrelMap n
+        (relativeHurewicz n (sphCapOverlapInLower (n + 1))
+          (sphCapOverlapBase (n + 1)) x) =
+      relativeHurewicz n (sphUpperCap (n + 1)) (sphUpperCapBase (n + 1))
+        (sphereSuspensionExcisionHom n x) :=
+  relativeHurewicz_naturality n (sphCapInclusionPairMap (n + 1)) x
+
+/-- After the target-side Hurewicz theorem and homological excision, homotopy excision for the
+canonical sphere caps is equivalent to the single remaining source-side relative Hurewicz
+isomorphism.  This isolates the precise unsolved comparison rather than leaving two relative
+groups and an unspecified map. -/
+theorem sphereSuspensionExcisionHom_bijective_iff_sourceRelativeHurewiczAdd
+    (n : ℕ) :
+    Function.Bijective (sphereSuspensionExcisionHom n) ↔
+      Function.Bijective
+        (relativeHurewiczAdd n (sphCapOverlapInLower (n + 1))
+          (sphCapOverlapBase (n + 1))) := by
+  let f := sphereSuspensionExcisionHom n
+  let fAdd := f.toAdditive
+  let hS := relativeHurewiczAdd n (sphCapOverlapInLower (n + 1))
+    (sphCapOverlapBase (n + 1))
+  let hT := relativeHurewiczAdd n (sphUpperCap (n + 1))
+    (sphUpperCapBase (n + 1))
+  let hRel := sphereSuspensionExcisionHrelMap n
+  have htag : Function.Bijective f ↔ Function.Bijective fAdd := by
+    change Function.Bijective f ↔
+      Function.Bijective (Additive.ofMul ∘ f ∘ Additive.toMul)
+    exact ((Function.Bijective.of_comp_iff' Additive.ofMul.bijective _).trans
+      (Function.Bijective.of_comp_iff _ Additive.toMul.bijective)).symm
+  have hRelBij : Function.Bijective hRel := by
+    letI := isIso_sphereSuspensionExcisionHrelMap n
+    exact (ConcreteCategory.isIso_iff_bijective _).mp inferInstance
+  have hTBij : Function.Bijective hT :=
+    sphereSuspensionTargetRelativeHurewiczAdd_bijective n
+  have hcomm : (hRel ∘ hS) = (hT ∘ fAdd) := by
+    funext z
+    exact sphereSuspensionExcision_relativeHurewicz_naturality n z.toMul
+  refine htag.trans ?_
+  calc
+    Function.Bijective fAdd ↔ Function.Bijective (hT ∘ fAdd) :=
+      (Function.Bijective.of_comp_iff' hTBij fAdd).symm
+    _ ↔ Function.Bijective (hRel ∘ hS) := by rw [hcomm]
+    _ ↔ Function.Bijective hS :=
+      Function.Bijective.of_comp_iff' hRelBij hS
 
 end Submission

@@ -12,6 +12,7 @@ import Submission.DisplayedCircleFrontier
 import Submission.FoundationBenchmarks
 import Submission.HigherSphereFoundations
 import Submission.Hurewicz.AbsoluteIsomorphism
+import Submission.Hurewicz.AbsoluteNaturality
 import Submission.Hurewicz.AbsoluteSurjectivity
 import Submission.Hurewicz.ConnectedPair
 import Submission.Hurewicz.CubicalShell
