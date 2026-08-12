@@ -125,6 +125,19 @@ is computed as `Z`, with a normalized oriented fundamental class. Evaluating on
 that class constructs a natural relative Hurewicz comparison in every degree at
 least two.
 
+The comparison is now also pinned down at the boundary: the connecting map
+sends the chosen cube-pair class to an oriented boundary class, and naturality
+identifies the boundary of every represented relative Hurewicz class with the
+homology class carried by the restricted cubical map. On the absolute side, an
+`(n+1)`-connected space is converted to the singleton pair `(X,{x})`; the
+coherent bounded deformation then makes every face of each deformed
+`(n+2)`-simplex constant at `x`. The simplex--disk--cube homeomorphism turns
+that normalized simplex into a based cubical loop, and the assignment extends
+additively over top-dimensional singular chains. This reaches the generator
+map for the classical chain-level inverse. The remaining descent lemma is the
+alternating-face relation asserting that this additive map kills singular
+boundaries.
+
 Bijectivity of the corresponding relative homotopy map yields the next exact
 diagonal equivalence; bijectivity of the family from `pi_2(S^2)` onward yields
 the full integral diagonal, using the two exact base cases already in Lean. The

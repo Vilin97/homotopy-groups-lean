@@ -334,7 +334,57 @@
       { "id": "relative-hurewicz-naturality", "declaration": "Submission.relativeHurewicz_naturality", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/CubeFundamentalClass.lean", "lattice_effect": "none directly; the relative Hurewicz comparison in every degree at least two commutes with based maps of pairs" }
     ]
   },
+  "maintained_first_hurewicz_normalization_set": {
+    "count": 8,
+    "system": "Lean 4",
+    "counting_rule": "Boundary normalization and compatibility, reduction from absolute connectivity to a singleton pair, the cube-to-simplex boundary correspondence, normalization of a simplex one degree above the compression range, and the resulting additive chain-level generator assignment are eight distinct results. Reparametrization, loop, homotopy-class, and chosen-deformation definitions and their evaluation formulas are not counted separately.",
+    "results": [
+      { "id": "cube-boundary-fundamental-class-normalization", "declaration": "Submission.cubeBoundaryTopHomologyIsoInt_fundamentalClass", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/RelativeBoundary.lean", "lattice_effect": "none directly; normalizes the boundary of the cube-pair fundamental class to 1 in Z" },
+      { "id": "relative-hurewicz-boundary-compatibility", "declaration": "Submission.relativeHurewicz_mk_boundary", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/RelativeBoundary.lean", "lattice_effect": "none directly; identifies the connecting image of a represented relative Hurewicz class with the homology class carried by its boundary restriction" },
+      { "id": "connected-space-singleton-pair", "declaration": "Submission.IsNConnected.singletonPair", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Homotopy/HomotopyLesTools.lean", "lattice_effect": "none directly; feeds absolute connectivity into the relative simplex-compression machinery" },
+      { "id": "cube-simplex-boundary-correspondence", "declaration": "Submission.cubeHomeoSimplex_mem_bdry", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/NormalizedSimplex.lean", "lattice_effect": "none directly; reparametrizes normalized singular simplices as based cubical loops" },
+      { "id": "normalized-simplex-boundary-collapse", "declaration": "Submission.NormalizedSimplex.simplex_boundary", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/NormalizedSimplex.lean", "lattice_effect": "none directly; proves that constant codimension-one faces force constancy on the whole simplex boundary" },
+      { "id": "first-uncompressed-simplex-normalization", "declaration": "Submission.SimplicialDeformation.normalizedTopSimplex", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/NormalizedSimplex.lean", "lattice_effect": "none directly; turns the first layer above a singleton-pair compression range into based homotopy classes" },
+      { "id": "connected-space-point-deformation", "declaration": "Submission.IsNConnected.pointDeformation", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/NormalizedSimplex.lean", "lattice_effect": "none directly; chooses the coherent bounded deformation supplied by connectivity" },
+      { "id": "normalized-simplex-chain-map", "declaration": "Submission.IsNConnected.normalizedClassChain", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/NormalizedSimplex.lean", "lattice_effect": "none directly; extends the normalized-simplex homotopy-class assignment additively over top-dimensional singular chains" }
+    ]
+  },
   "formalizations": [
+    {
+      "id": "lean4-first-hurewicz-normalization",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "18b2027164dd7b82588fbc008656dd65130bff7f",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.cubeBoundaryFundamentalClass",
+        "Submission.cubeBoundaryTopHomologyIsoInt_fundamentalClass",
+        "Submission.relativeHurewicz_mk_boundary",
+        "Submission.IsNConnected.singletonPair",
+        "Submission.cubeHomeoSimplex",
+        "Submission.cubeHomeoSimplex_mem_bdry",
+        "Submission.NormalizedSimplex",
+        "Submission.NormalizedSimplex.cubeMap",
+        "Submission.NormalizedSimplex.simplex_boundary",
+        "Submission.NormalizedSimplex.cubeMap_boundary",
+        "Submission.NormalizedSimplex.toGenLoop",
+        "Submission.NormalizedSimplex.homotopyClass",
+        "Submission.sngIncl_singleton_eq_const",
+        "Submission.SimplicialDeformation.normalizedTopSimplex",
+        "Submission.IsNConnected.pointDeformation",
+        "Submission.IsNConnected.normalizeTopSimplex",
+        "Submission.IsNConnected.normalizedSimplexClass",
+        "Submission.IsNConnected.normalizedClassChain",
+        "Submission.IsNConnected.normalizedClassChain_gen"
+      ],
+      "result": "the relative Hurewicz comparison is compatible with the connecting homomorphism and its source boundary class is oriented; for an (n+1)-connected based space, coherent singleton-pair compression normalizes each singular (n+2)-simplex to one constant on its whole boundary, reparametrizes it as a based cubical loop, and extends this assignment additively to singular chains",
+      "model_relation": "the maintained cubical homotopy groups, singular simplicial chains, bounded coherent simplex deformation, integer relative homology, and standard simplex-disk-cube homeomorphisms",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/NormalizedSimplex.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All nineteen listed declarations are sorry-free Lean 4. Audited axiom closures contain only propext, Classical.choice, and Quot.sound. The construction reaches the chain-level inverse generator assignment for the first-nonvanishing absolute Hurewicz theorem; proving that it annihilates singular boundaries requires the remaining alternating-face relation, so no exact lattice cell is recolored."
+    },
     {
       "id": "lean4-relative-hurewicz-comparison",
       "system": "Lean 4",
