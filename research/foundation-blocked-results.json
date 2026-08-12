@@ -62,7 +62,7 @@
       "id": "freudenthal-stable-transport",
       "result": "Suspension equivalences transporting a proved stable representative across its full stable diagonal",
       "status": "blocked_on_foundations",
-      "missing": ["suspension homomorphism", "Freudenthal connectivity theorem"]
+      "missing": ["comparison of reduced suspension with the metric-sphere suspension", "Freudenthal connectivity theorem"]
     },
     {
       "id": "hopf-kervaire-and-image-j",

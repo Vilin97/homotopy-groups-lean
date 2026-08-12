@@ -83,9 +83,17 @@ self-maps, agrees with suspended self-map representatives, and sends each
 canonical generator to the next. The meridian produced by suspending a
 constant map is now explicitly contracted through based maps, proving that
 diagonal suspension also preserves the group identity and is nonconstant. It
-is not yet proved to preserve multiplication or to be an equivalence, and
-homological degree is not yet proved additive or complete. These qualitative
-diagonal results therefore add no exact purple cells.
+is not yet proved to preserve multiplication or to be an equivalence.
+
+A separate reduced-suspension model now collapses both poles and the complete
+basepoint meridian. On generalized cubical loops, suspension into this quotient
+preserves the constant loop and homotopies relative to the boundary, and it
+commutes strictly with concatenation in every old coordinate. It therefore
+induces an actual monoid homomorphism on every positive-dimensional homotopy
+group. The remaining geometric bridge is to compare this quotient target and
+map with the maintained metric model of the next sphere. Freudenthal
+bijectivity and a complete additive degree classification are also still
+missing. These advances therefore add no exact purple cells yet.
 
 Higher exact diagonal and stable sphere stems still require additional degree
 classification, Freudenthal, higher-Hurewicz, and Hopf-fibration
@@ -97,9 +105,11 @@ family of successive suspension equivalences propagates the integral
 calculation through the whole diagonal. This is a checked reduction of the
 next lattice frontier. A geometric suspension function is now available, but
 only its identity-preserving property is currently proved at the group level.
-`SphereSuspensionPointed.lean` gives a checked reduction from multiplication
-compatibility and bijectivity of this specific function to the exact integral
-diagonal. Those two properties remain unproved, so the reduction adds no
+The new reduced-suspension function is multiplicative, but has not yet been
+identified with that metric-sphere function. `SphereSuspensionPointed.lean`
+gives a checked reduction from multiplication compatibility and bijectivity of
+the specific metric-sphere function to the exact integral diagonal. The
+comparison and bijectivity remain unproved, so the reduction adds no
 unsupported purple cells.
 
 The maintained ten-result set is recorded explicitly in

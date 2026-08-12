@@ -227,7 +227,47 @@
       { "id": "geometric-suspension-diagonal-reduction", "declaration": "Submission.sphere_diagonal_mulEquiv_int_of_geometric_suspension", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspensionPointed.lean", "lattice_effect": "none until multiplication compatibility and Freudenthal bijectivity are supplied for the constructed map" }
     ]
   },
+  "maintained_reduced_suspension_group_set": {
+    "count": 6,
+    "system": "Lean 4",
+    "counting_rule": "The collapsed-cylinder law, quotient-map property, preservation of the constant loop, preservation of relative homotopy, strict concatenation compatibility, and induced monoid homomorphism are six distinct results. Definitions and evaluation lemmas are not counted separately.",
+    "results": [
+      { "id": "reduced-suspension-collapse", "declaration": "Submission.ReducedSusp.mk_eq_base_of_collapsed", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Model/ReducedSuspension.lean", "lattice_effect": "none directly; collapses both poles and the basepoint meridian to the distinguished point" },
+      { "id": "reduced-suspension-quotient-map", "declaration": "Submission.ReducedSusp.isQuotientMap_mk", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Model/ReducedSuspension.lean", "lattice_effect": "none directly; supplies the quotient topology used by suspended loops" },
+      { "id": "reduced-suspension-constant-loop", "declaration": "Submission.GenLoop.reducedSuspension_const", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ReducedSuspensionGroup.lean", "lattice_effect": "none directly; proves strict identity preservation before quotienting" },
+      { "id": "reduced-suspension-relative-homotopy", "declaration": "Submission.GenLoop.reducedSuspension_homotopic", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ReducedSuspensionGroup.lean", "lattice_effect": "none directly; makes suspension well defined on cubical homotopy classes" },
+      { "id": "reduced-suspension-concatenation", "declaration": "Submission.GenLoop.reducedSuspension_transAt", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ReducedSuspensionGroup.lean", "lattice_effect": "none directly; proves strict compatibility with multiplication representatives" },
+      { "id": "reduced-suspension-monoid-hom", "declaration": "Submission.HomotopyGroup.reducedSuspensionHom", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ReducedSuspensionGroup.lean", "lattice_effect": "none until reduced suspension is compared with the next metric sphere and Freudenthal bijectivity is supplied" }
+    ]
+  },
   "formalizations": [
+    {
+      "id": "lean4-reduced-suspension-homomorphism",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "ce178e7aa7adc9fbdc69ac7c356729fa3a2f9e3e",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.ReducedSusp",
+        "Submission.ReducedSusp.mk",
+        "Submission.ReducedSusp.base",
+        "Submission.ReducedSusp.mk_eq_base_of_collapsed",
+        "Submission.ReducedSusp.isQuotientMap_mk",
+        "Submission.GenLoop.reducedSuspension",
+        "Submission.GenLoop.reducedSuspension_const",
+        "Submission.GenLoop.reducedSuspension_homotopic",
+        "Submission.GenLoop.reducedSuspension_transAt",
+        "Submission.HomotopyGroup.reducedSuspension",
+        "Submission.HomotopyGroup.reducedSuspensionHom"
+      ],
+      "result": "for every pointed topological space and every positive cubical dimension, reduced suspension induces a monoid homomorphism on homotopy groups; the construction preserves relative homotopies and commutes strictly with cubical concatenation",
+      "model_relation": "a general quotient model of reduced suspension and Mathlib's cubical HomotopyGroup; it is not yet identified with the maintained metric model of the next sphere",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ReducedSuspensionGroup.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All eleven listed declarations are sorry-free Lean 4. Audited axiom closures contain only propext, Classical.choice, and Quot.sound. Multiplicativity is proved for the reduced-suspension target, but a comparison with the geometric metric-sphere suspension and Freudenthal bijectivity are still missing, so no exact lattice cell is recolored."
+    },
     {
       "id": "lean4-sphere-suspension-pointed",
       "system": "Lean 4",
