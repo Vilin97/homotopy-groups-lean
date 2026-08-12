@@ -5,4 +5,4 @@ module = "HomotopyGroups.Foundations"
 holes = ["homotopyGroup_loop_shift"]
 submitter = "OpenAI Codex"
 source = "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
-notes = "knowledge_status=foundation_blocked; GenLoop.genLoopGenLoopEquiv exists, but descent to quotient homotopy groups and Fin reindexing are not packaged."
+notes = "knowledge_status=formalized_local; a homeomorphism from one-dimensional generalized loops to based paths composes with the path-fibration equivalence to prove the exact shift."

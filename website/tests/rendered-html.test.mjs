@@ -90,6 +90,11 @@ test("ships complete, synchronized benchmark data, reports, and social art", asy
   assert.equal(tracker.problem_count, tracker.entries.length);
   assert.ok(tracker.problem_count >= 127);
   for (const problemId of [
+    "homotopyGroup_change_basepoint",
+    "homotopyGroup_homotopy_invariance",
+    "homotopyGroup_loop_shift",
+    "homotopyGroup_product",
+    "pi1_hSpace_mul_comm",
     "pi1_realProjectiveSpace_mulEquiv_zmod_two",
     "realProjectiveSpace_higher_homotopy_mulEquiv_sphere",
   ]) {
@@ -138,7 +143,7 @@ test("ships complete, synchronized benchmark data, reports, and social art", asy
   assert.ok(leaderboard.accepted_problems.length >= 6);
   assert.ok(leaderboard.accepted_problems.every((problem) => typeof problem.title === "string" && problem.title.length > 0));
   assert.ok(leaderboard.accepted_problems.some((problem) => problem.title === "The fundamental group of the circle is the integers" && problem.score_eligible === false));
-  assert.equal(leaderboard.formalization_inventory.records.length, 44);
+  assert.equal(leaderboard.formalization_inventory.records.length, 45);
   assert.equal(leaderboard.formalization_inventory.lattice.cell_count, 200);
   assert.equal(leaderboard.formalization_inventory.degree_lattice.cell_count, 4369);
   for (const lattice of [

@@ -5,4 +5,4 @@ module = "HomotopyGroups.Foundations"
 holes = ["homotopyGroup_homotopy_invariance"]
 submitter = "OpenAI Codex"
 source = "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
-notes = "knowledge_status=foundation_blocked; HomotopyEquiv exists, but native higher induced maps and their multiplicativity are absent."
+notes = "knowledge_status=formalized_local; the exact benchmark MulEquiv is constructed in every positive degree from the maintained induced-map API."

@@ -38,6 +38,15 @@ fundamental group as `Z/2`.  These are two general results in the formalization
 index, but they color no sphere-lattice cells because their targets are real
 projective spaces.
 
+The canonical `HomotopyGroups.Foundations` benchmark module is now completely
+sorry-free as well.  Its ten exact declarations package path-component and
+fundamental-group comparisons, connectedness vanishing, higher and H-space
+commutativity, homotopy and basepoint invariance, products, and loop-space
+shifting.  The last result uses an explicit homeomorphism from one-dimensional
+generalized loops to ordinary based paths and the group-level connecting
+equivalence of the path fibration.  These structural results add no sphere
+lattice cells directly.
+
 ## Twenty additional Lean 4 results
 
 `maintained_lean4_twenty_result_set` records exactly twenty mathematically

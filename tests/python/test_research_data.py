@@ -1177,6 +1177,33 @@ class ResearchDataTests(unittest.TestCase):
         self.assertIsNone(record["lattice_overlay"])
         self.assertIsNone(record["degree_lattice_overlay"])
 
+    def test_canonical_foundations_match_sorry_free_sources(self) -> None:
+        inventory = json.loads((ROOT / "research/formalizations.json").read_text())
+        record = next(
+            item for item in inventory["formalizations"]
+            if item["id"] == "lean4-canonical-foundational-homotopy-api"
+        )
+        self.assertEqual(len(record["declarations"]), 10)
+        self.assertEqual(
+            record["commit"],
+            "ac36ddfb165ae4b6e339886de473d2637445ef36",
+        )
+        wrapper = (ROOT / "research" / record["source"]).resolve()
+        core = (
+            ROOT
+            / "examples/submissions/sphere_lower_homotopy_subsingleton/Submission"
+            / "FoundationBenchmarks.lean"
+        )
+        for source in (wrapper, core):
+            text = source.read_text()
+            self.assertNotIn("sorry", text)
+            self.assertNotIn("admit", text)
+        wrapper_text = wrapper.read_text()
+        for declaration in record["declarations"]:
+            self.assertIn(f"theorem {declaration.rsplit('.', 1)[-1]}", wrapper_text)
+        self.assertIsNone(record["lattice_overlay"])
+        self.assertIsNone(record["degree_lattice_overlay"])
+
 
 if __name__ == "__main__":
     unittest.main()

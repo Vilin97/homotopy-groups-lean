@@ -5,4 +5,4 @@ module = "HomotopyGroups.Foundations"
 holes = ["pi1_hSpace_mul_comm"]
 submitter = "OpenAI Codex"
 source = "https://doi.org/10.2307/1969485"
-notes = "knowledge_status=statement_only; mathlib defines HSpace but does not connect that structure to FundamentalGroup or HomotopyGroup.Pi 1."
+notes = "knowledge_status=formalized_local; pointwise H-space multiplication and loop concatenation satisfy Eckmann--Hilton, proving the exact benchmark statement."

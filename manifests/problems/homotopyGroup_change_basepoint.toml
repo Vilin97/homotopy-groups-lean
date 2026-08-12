@@ -5,4 +5,4 @@ module = "HomotopyGroups.Foundations"
 holes = ["homotopyGroup_change_basepoint"]
 submitter = "OpenAI Codex"
 source = "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
-notes = "knowledge_status=foundation_blocked; the fundamental-group API has basepoint change, but HomotopyGroup has no higher counterpart."
+notes = "knowledge_status=formalized_local; a path now induces the exact benchmark MulEquiv in every positive homotopy degree."

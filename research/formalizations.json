@@ -593,6 +593,32 @@
   },
   "formalizations": [
     {
+      "id": "lean4-canonical-foundational-homotopy-api",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "ac36ddfb165ae4b6e339886de473d2637445ef36",
+      "license": "Apache-2.0",
+      "declarations": [
+        "HomotopyGroups.pi0_equiv_zerothHomotopy",
+        "HomotopyGroups.pi1_mulEquiv_fundamentalGroup",
+        "HomotopyGroups.pi0_pathConnected_subsingleton",
+        "HomotopyGroups.pi1_simplyConnected_subsingleton",
+        "HomotopyGroups.higher_homotopy_mul_comm",
+        "HomotopyGroups.pi1_hSpace_mul_comm",
+        "HomotopyGroups.homotopyGroup_homotopy_invariance",
+        "HomotopyGroups.homotopyGroup_change_basepoint",
+        "HomotopyGroups.homotopyGroup_product",
+        "HomotopyGroups.homotopyGroup_loop_shift"
+      ],
+      "result": "the canonical benchmark module now provides all ten structural comparisons and operations: pi_0 and pi_1 comparisons, connected and simply-connected vanishing, higher commutativity, H-space pi_1 commutativity, homotopy and basepoint invariance, products, and the positive loop-space shift",
+      "model_relation": "the exact HomotopyGroups benchmark declarations, using Mathlib's cubical HomotopyGroup, ZerothHomotopy, FundamentalGroup, HSpace, product, Path, and GenLoop models",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../HomotopyGroups/Foundations.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "The canonical module contains no sorry, admit, or axiom declarations. The one-dimensional generalized-loop space is explicitly homeomorphic to the ordinary based path space, allowing the group-level path-fibration connecting equivalence to prove the benchmark's exact loop-shift statement. The H-space result is an Eckmann--Hilton argument on ordinary loop concatenation and pointwise H-space multiplication. Strict checks, both exact module builds, the 8,847-job submission build, the full aggregate build, and all 104 Python tests pass. Audited axiom closures contain only propext, Classical.choice, and Quot.sound."
+    },
+    {
       "id": "lean4-real-projective-sphere-cover",
       "system": "Lean 4",
       "repository": "Vilin97/homotopy-groups-lean",

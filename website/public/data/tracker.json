@@ -31,8 +31,8 @@
         "homotopyGroup_change_basepoint"
       ],
       "id": "homotopyGroup_change_basepoint",
-      "knowledge_status": "foundation_blocked",
-      "notes": "knowledge_status=foundation_blocked; the fundamental-group API has basepoint change, but HomotopyGroup has no higher counterpart.",
+      "knowledge_status": "formalized_local",
+      "notes": "knowledge_status=formalized_local; a path now induces the exact benchmark MulEquiv in every positive homotopy degree.",
       "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
       "title": "A path induces change of basepoint on higher homotopy groups"
     },
@@ -43,8 +43,8 @@
         "homotopyGroup_homotopy_invariance"
       ],
       "id": "homotopyGroup_homotopy_invariance",
-      "knowledge_status": "foundation_blocked",
-      "notes": "knowledge_status=foundation_blocked; HomotopyEquiv exists, but native higher induced maps and their multiplicativity are absent.",
+      "knowledge_status": "formalized_local",
+      "notes": "knowledge_status=formalized_local; the exact benchmark MulEquiv is constructed in every positive degree from the maintained induced-map API.",
       "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
       "title": "Higher homotopy groups are invariant under homotopy equivalence"
     },
@@ -55,8 +55,8 @@
         "homotopyGroup_loop_shift"
       ],
       "id": "homotopyGroup_loop_shift",
-      "knowledge_status": "foundation_blocked",
-      "notes": "knowledge_status=foundation_blocked; GenLoop.genLoopGenLoopEquiv exists, but descent to quotient homotopy groups and Fin reindexing are not packaged.",
+      "knowledge_status": "formalized_local",
+      "notes": "knowledge_status=formalized_local; a homeomorphism from one-dimensional generalized loops to based paths composes with the path-fibration equivalence to prove the exact shift.",
       "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
       "title": "Loop-space shifting of homotopy groups"
     },
@@ -67,8 +67,8 @@
         "homotopyGroup_product"
       ],
       "id": "homotopyGroup_product",
-      "knowledge_status": "foundation_blocked",
-      "notes": "knowledge_status=foundation_blocked; coordinatewise loop maps are available to construct, but no quotient-level product MulEquiv is packaged.",
+      "knowledge_status": "formalized_local",
+      "notes": "knowledge_status=formalized_local; the coordinatewise loop maps now descend to the exact quotient-level product MulEquiv.",
       "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
       "title": "Homotopy groups preserve binary products"
     },
@@ -127,8 +127,8 @@
         "pi1_hSpace_mul_comm"
       ],
       "id": "pi1_hSpace_mul_comm",
-      "knowledge_status": "statement_only",
-      "notes": "knowledge_status=statement_only; mathlib defines HSpace but does not connect that structure to FundamentalGroup or HomotopyGroup.Pi 1.",
+      "knowledge_status": "formalized_local",
+      "notes": "knowledge_status=formalized_local; pointwise H-space multiplication and loop concatenation satisfy Eckmann--Hilton, proving the exact benchmark statement.",
       "source": "https://doi.org/10.2307/1969485",
       "title": "The fundamental group of an H-space is commutative"
     },
