@@ -253,6 +253,23 @@ gap documented by the pinned Mathlib API and enables Kan horn filling in the
 next simplicial multiplication stage. The signed boundary relation itself is
 not yet complete, so the lattice overlay remains unchanged.
 
+That simplicial multiplication stage is now connected to the maintained
+cubical homotopy group. Lean proves that normalized singular simplices are
+exactly Mathlib pointed simplices: Yoneda turns the constant-face equations
+into constancy on the complete simplicial boundary, and boundary
+extensionality proves the converse. Given two pointed simplices, their
+multiplication horn places them on the first and last of the final three
+faces and makes every other prescribed face constant. The singular Kan
+instance fills this horn; simplicial identities prove that the omitted middle
+face is itself pointed. The resulting `MulStruct` becomes a normalized
+higher-simplex boundary whose stick-breaking shell has only its final two
+coordinate pairs nonconstant. The previously checked square-shell relation
+then proves that the omitted face represents the ordinary product of the two
+input cubical homotopy classes. The remaining descent argument must iterate
+this three-face multiplication across all faces of an arbitrary normalized
+higher-simplex boundary and compare the resulting alternating product with
+its full attaching map, so this milestone does not yet recolor a lattice cell.
+
 Bijectivity of the corresponding relative homotopy map yields the next exact
 diagonal equivalence; bijectivity of the family from `pi_2(S^2)` onward yields
 the full integral diagonal, using the two exact base cases already in Lean. The
