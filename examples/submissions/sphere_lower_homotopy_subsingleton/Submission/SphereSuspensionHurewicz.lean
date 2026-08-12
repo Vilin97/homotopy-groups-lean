@@ -148,4 +148,17 @@ theorem sphereSuspensionExcisionHom_bijective_succ (n : ℕ) :
   (sphereSuspensionExcisionHom_bijective_iff_sourceRelativeHurewiczAdd (n + 1)).2
     (sphereSuspensionSourceRelativeHurewiczAdd_bijective_succ n)
 
+/-- The cap-excision route now gives an unconditional second proof of the exact integral sphere
+diagonal.  Only positive cap indices are needed because the first two diagonal groups were
+computed separately. -/
+theorem sphere_diagonal_mulEquiv_int_via_capExcision (n : ℕ) :
+    Nonempty
+      (HomotopyGroup.Pi (n + 1) (Sph (n + 1)) (sphereBasepoint (n + 1)) ≃*
+        Multiplicative ℤ) := by
+  apply sphere_diagonal_mulEquiv_int_of_capExcision_from_two
+  intro m hm
+  cases m with
+  | zero => omega
+  | succ m => exact sphereSuspensionExcisionHom_bijective_succ m
+
 end Submission
