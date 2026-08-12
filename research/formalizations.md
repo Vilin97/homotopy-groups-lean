@@ -209,6 +209,21 @@ constancy predicate. The unrestricted theorem is still required because all
 upper faces of a normalized stick shell may remain nonconstant, so this
 milestone does not yet descend the inverse chain map or recolor a lattice cell.
 
+The simplex-side attaching geometry is now explicit as well. For any chosen
+face, Lean takes the least barycentric coordinate away from that face,
+subtracts it from all the other coordinates, and transfers the removed mass
+to the chosen coordinate. This is a continuous retraction onto the
+corresponding horn. Straight-line interpolation gives a strong deformation
+that fixes the horn pointwise. Restricted to the missing face, it therefore
+fixes the complete face boundary and pushes the interior through the union of
+all the other faces. After composing with a normalized higher singular
+simplex and stick-breaking coordinates, this becomes a homotopy relative to
+the cubical boundary from every normalized face loop to its horn attaching
+loop. The remaining homotopy-addition step is now the signed decomposition of
+that explicit attaching map into the other face loops. The independent
+stick-breaking versus cube-homeomorphism representative comparison is also
+still needed, so no lattice cell is recolored by this milestone.
+
 Bijectivity of the corresponding relative homotopy map yields the next exact
 diagonal equivalence; bijectivity of the family from `pi_2(S^2)` onward yields
 the full integral diagonal, using the two exact base cases already in Lean. The
