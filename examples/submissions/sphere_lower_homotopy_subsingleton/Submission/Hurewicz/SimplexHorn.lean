@@ -48,6 +48,12 @@ theorem exists_simplexHornMin_eq (i : Fin (d + 2))
     (fun j ↦ z.1 (i.succAbove j))
   exact ⟨j, hj⟩
 
+/-- The least coordinate away from the chosen face varies continuously. -/
+theorem continuous_simplexHornMin (i : Fin (d + 2)) :
+    Continuous (simplexHornMin i) :=
+  Continuous.finset_inf'_apply Finset.univ_nonempty
+    (fun j _ ↦ (continuous_apply (i.succAbove j)).comp continuous_subtype_val)
+
 /-- Barycentric coordinates of the retraction onto the horn opposite face `i`. -/
 def simplexHornRetractCoords (i : Fin (d + 2))
     (z : stdSimplex ℝ (Fin (d + 2))) : Fin (d + 2) → ℝ :=
@@ -103,12 +109,10 @@ def simplexHornRetract (i : Fin (d + 2)) :
     · simp only [simplexHornRetractCoords_same]
       apply Continuous.add
       · exact (continuous_apply i).comp continuous_subtype_val
-      · exact continuous_const.mul (Continuous.finset_inf'_apply Finset.univ_nonempty
-          (fun j _ ↦ (continuous_apply (i.succAbove j)).comp continuous_subtype_val))
+      · exact continuous_const.mul (continuous_simplexHornMin i)
     · simp only [simplexHornRetractCoords_succAbove]
       exact ((continuous_apply (i.succAbove j)).comp continuous_subtype_val).sub
-        (Continuous.finset_inf'_apply Finset.univ_nonempty
-          (fun k _ ↦ (continuous_apply (i.succAbove k)).comp continuous_subtype_val))
+        (continuous_simplexHornMin i)
 
 @[simp]
 theorem simplexHornRetract_apply_coe (i : Fin (d + 2))
@@ -239,6 +243,74 @@ theorem simplexFaceHornDeformation_eq_faceMap_of_mem_bdry (i : Fin (d + 2))
     simplexFaceHornDeformation i (t, z) = faceMap i z :=
   simplexHornDeformation_eq_self_of_mem i t (faceMap_mem_simplexHorn i z hz)
 
+/-! ### The barycentric regions of the horn attaching map -/
+
+/-- The closed region of the missing face on which coordinate `j` realizes the minimum. -/
+def simplexHornRegion (i : Fin (d + 2)) (j : Fin (d + 1)) :
+    Set (stdSimplex ℝ (Fin (d + 1))) :=
+  {z | simplexHornMin i (faceMap i z) = z.1 j}
+
+theorem isClosed_simplexHornRegion (i : Fin (d + 2)) (j : Fin (d + 1)) :
+    IsClosed (simplexHornRegion i j) := by
+  apply isClosed_eq
+  · exact (continuous_simplexHornMin i).comp (faceCM i).continuous
+  · exact (continuous_apply j).comp continuous_subtype_val
+
+/-- The minimum regions cover the whole missing face. -/
+theorem exists_mem_simplexHornRegion (i : Fin (d + 2))
+    (z : stdSimplex ℝ (Fin (d + 1))) :
+    ∃ j : Fin (d + 1), z ∈ simplexHornRegion i j := by
+  obtain ⟨j, hj⟩ := exists_simplexHornMin_eq i (faceMap i z)
+  refine ⟨j, ?_⟩
+  change simplexHornMin i (faceMap i z) = z.1 j
+  simpa using hj
+
+/-- On minimum region `j`, the horn attaching map lies on the remaining face indexed by
+`i.succAbove j`. -/
+theorem simplexHornAttachingMap_coord_eq_zero_of_mem_region
+    (i : Fin (d + 2)) (j : Fin (d + 1))
+    (z : stdSimplex ℝ (Fin (d + 1))) (hz : z ∈ simplexHornRegion i j) :
+    (simplexHornAttachingMap i z).1 (i.succAbove j) = 0 := by
+  rw [simplexHornAttachingMap_apply, simplexHornRetract_apply_coe,
+    simplexHornRetractCoords_succAbove, faceMap_coe_succAbove]
+  exact sub_eq_zero.mpr hz.symm
+
+/-- The attaching map on minimum region `j`, expressed in the barycentric coordinates of the
+remaining face `i.succAbove j`. -/
+def simplexHornRegionFaceMap (i : Fin (d + 2)) (j : Fin (d + 1)) :
+    C({z // z ∈ simplexHornRegion i j}, stdSimplex ℝ (Fin (d + 1))) where
+  toFun z := dropMap (i.succAbove j)
+    (simplexHornAttachingMap_coord_eq_zero_of_mem_region i j z.1 z.2)
+  continuous_toFun := by
+    apply Continuous.subtype_mk
+    apply continuous_pi
+    intro k
+    change Continuous fun z : {z // z ∈ simplexHornRegion i j} ↦
+      (simplexHornAttachingMap i z.1).1 ((i.succAbove j).succAbove k)
+    exact ((continuous_apply ((i.succAbove j).succAbove k)).comp continuous_subtype_val).comp
+      ((simplexHornAttachingMap i).continuous.comp continuous_subtype_val)
+
+/-- On a minimum region, the attaching map factors exactly through the corresponding remaining
+face. -/
+theorem faceMap_simplexHornRegionFaceMap (i : Fin (d + 2)) (j : Fin (d + 1))
+    (z : {z // z ∈ simplexHornRegion i j}) :
+    faceMap (i.succAbove j) (simplexHornRegionFaceMap i j z) =
+      simplexHornAttachingMap i z.1 :=
+  faceMap_dropMap (i.succAbove j)
+    (simplexHornAttachingMap_coord_eq_zero_of_mem_region i j z.1 z.2)
+
+/-- The overlap of two distinct minimum regions is sent into the codimension-two skeleton of
+the ambient simplex. -/
+theorem simplexHornAttachingMap_mem_codimTwo_of_mem_regions
+    (i : Fin (d + 2)) {j k : Fin (d + 1)} (hjk : j ≠ k)
+    (z : stdSimplex ℝ (Fin (d + 1)))
+    (hj : z ∈ simplexHornRegion i j) (hk : z ∈ simplexHornRegion i k) :
+    simplexHornAttachingMap i z ∈ simplexCodimTwo (d + 1) := by
+  refine ⟨i.succAbove j, i.succAbove k, ?_,
+    simplexHornAttachingMap_coord_eq_zero_of_mem_region i j z hj,
+    simplexHornAttachingMap_coord_eq_zero_of_mem_region i k z hk⟩
+  exact fun h ↦ hjk (Fin.succAbove_right_injective h)
+
 variable {n : ℕ} {X : Type} [TopologicalSpace X] {x : X}
 
 namespace NormalizedSimplexBoundary
@@ -257,6 +329,47 @@ theorem hornAttachingStickMap_apply (b : NormalizedSimplexBoundary n X x)
       sngEquiv (TopCat.of X) (n + 3) b.simplex
         (simplexHornAttachingMap i (stickSimplex (n + 2) t)) :=
   rfl
+
+/-- On one minimum region, the horn attaching map is exactly the corresponding remaining
+normalized simplex face. -/
+theorem simplex_hornAttaching_eq_face_on_region
+    (b : NormalizedSimplexBoundary n X x) (i : Fin (n + 4)) (j : Fin (n + 3))
+    (z : stdSimplex ℝ (Fin (n + 3))) (hz : z ∈ simplexHornRegion i j) :
+    sngEquiv (TopCat.of X) (n + 3) b.simplex (simplexHornAttachingMap i z) =
+      sngEquiv (TopCat.of X) (n + 2) (b.face (i.succAbove j)).simplex
+        (simplexHornRegionFaceMap i j ⟨z, hz⟩) := by
+  rw [← faceMap_simplexHornRegionFaceMap i j ⟨z, hz⟩]
+  rw [← apply_δ, ← b.face_simplex]
+
+/-- Distinct minimum-region pieces of the horn attaching map meet only at the normalized
+basepoint. -/
+theorem simplex_hornAttaching_eq_basepoint_of_mem_regions
+    (b : NormalizedSimplexBoundary n X x) (i : Fin (n + 4))
+    {j k : Fin (n + 3)} (hjk : j ≠ k) (z : stdSimplex ℝ (Fin (n + 3)))
+    (hj : z ∈ simplexHornRegion i j) (hk : z ∈ simplexHornRegion i k) :
+    sngEquiv (TopCat.of X) (n + 3) b.simplex (simplexHornAttachingMap i z) = x := by
+  apply b.simplex_eq_of_mem_codimTwo
+  exact simplexHornAttachingMap_mem_codimTwo_of_mem_regions i hjk z hj hk
+
+/-- In stick-breaking coordinates, every minimum-region piece of the horn loop factors through
+the corresponding remaining normalized face. -/
+theorem hornAttachingStickMap_eq_face_on_region
+    (b : NormalizedSimplexBoundary n X x) (i : Fin (n + 4)) (j : Fin (n + 3))
+    (t : I^Fin (n + 2)) (ht : stickSimplex (n + 2) t ∈ simplexHornRegion i j) :
+    b.hornAttachingStickMap i t =
+      sngEquiv (TopCat.of X) (n + 2) (b.face (i.succAbove j)).simplex
+        (simplexHornRegionFaceMap i j ⟨stickSimplex (n + 2) t, ht⟩) :=
+  b.simplex_hornAttaching_eq_face_on_region i j _ ht
+
+/-- In stick-breaking coordinates, overlaps of distinct minimum regions are collapsed to the
+basepoint. -/
+theorem hornAttachingStickMap_eq_basepoint_of_mem_regions
+    (b : NormalizedSimplexBoundary n X x) (i : Fin (n + 4))
+    {j k : Fin (n + 3)} (hjk : j ≠ k) (t : I^Fin (n + 2))
+    (hj : stickSimplex (n + 2) t ∈ simplexHornRegion i j)
+    (hk : stickSimplex (n + 2) t ∈ simplexHornRegion i k) :
+    b.hornAttachingStickMap i t = x :=
+  b.simplex_hornAttaching_eq_basepoint_of_mem_regions i hjk _ hj hk
 
 /-- The horn attaching map is based on the whole cubical boundary. -/
 theorem hornAttachingStickMap_boundary (b : NormalizedSimplexBoundary n X x)
