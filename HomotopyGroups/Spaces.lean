@@ -5,6 +5,7 @@ import Mathlib.LinearAlgebra.Projectivization.Basic
 import Mathlib.Topology.Category.TopCat.Sphere
 import Mathlib.Topology.Constructions
 import Mathlib.Topology.Homotopy.HomotopyGroup
+import Submission.RealProjectiveSpace
 
 /-!
 # Homotopy groups of standard spaces
@@ -67,8 +68,8 @@ theorem pi1_circle_mulEquiv_int :
 theorem sphere_lower_homotopy_subsingleton
     (n k : ℕ) (hk : k < n) :
     Subsingleton
-      (HomotopyGroup.Pi k (SphereSpace n) (sphereBasepoint n)) := by
-  sorry
+      (HomotopyGroup.Pi k (SphereSpace n) (sphereBasepoint n)) :=
+  Submission.subsingleton_homotopyGroup_sphere_of_lt k n hk (sphereBasepoint n)
 
 @[eval_problem]
 theorem sphere_diagonal_homotopy_mulEquiv_int (n : ℕ) :
@@ -100,17 +101,20 @@ theorem pi1_realProjectiveSpace_mulEquiv_zmod_two
       (HomotopyGroup.Pi 1 (RealProjectiveSpace n)
           (realProjectiveBasepoint n) ≃*
         Multiplicative (ZMod 2)) := by
-  sorry
+  rw [← show Submission.realProjectiveModelBasepoint n = realProjectiveBasepoint n from rfl]
+  exact Submission.piOne_realProjectiveModel_mulEquiv_zmod_two n hn
 
 @[eval_problem]
 theorem realProjectiveSpace_higher_homotopy_mulEquiv_sphere
-    (n k : ℕ) (hn : 2 ≤ n) :
+    (n k : ℕ) (_hn : 2 ≤ n) :
     Nonempty
       (HomotopyGroup.Pi (k + 2) (RealProjectiveSpace n)
           (realProjectiveBasepoint n) ≃*
         HomotopyGroup.Pi (k + 2) (SphereSpace n)
           (sphereBasepoint n)) := by
-  sorry
+  rw [← show Submission.realProjectiveModelBasepoint n = realProjectiveBasepoint n from rfl,
+    ← show Submission.sphereModelBasepoint n = sphereBasepoint n from rfl]
+  exact Submission.realProjectiveModel_higher_homotopy_mulEquiv_sphere n k
 
 @[eval_problem]
 theorem pi1_complexProjectiveSpace_subsingleton
