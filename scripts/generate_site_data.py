@@ -19,7 +19,7 @@ from benchmark_trust import (
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 STATUS_RE = re.compile(r"\bknowledge_status=([^;\s]+)")
-DEFAULT_LATTICE_DOMAIN = {"n_min": 1, "n_max": 92, "k_min": 0, "k_max": 90}
+DEFAULT_LATTICE_DOMAIN = {"n_min": 1, "n_max": 92, "k_min": 0, "k_max": 108}
 FORMALIZATION_STATUS_PRIORITY = {
     "lean_kernel_checked_local_source": 0,
     "dual_kernel_verified_reference": 1,

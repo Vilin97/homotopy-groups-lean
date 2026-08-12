@@ -16,8 +16,8 @@ test("statically exports the benchmark landing page", async () => {
   assert.match(html, /Proof queue/);
   assert.match(html, /manifests\/problems\/complexProjectiveSpace_higher_homotopy_mulEquiv_sphere\.toml/);
   assert.doesNotMatch(html, /manifests\/problems\/[^"]+\.json/);
-  assert.match(html, /4,468(?:<!-- -->)? exact integral/);
-  assert.match(html, /Lean overlay<\/span><strong>92<\/strong>/);
+  assert.match(html, /4,486(?:<!-- -->)? exact integral/);
+  assert.match(html, /Lean overlay<\/span><strong>110<\/strong>/);
   assert.match(html, /Lean 4 · kernel checked · exact metric model/);
   assert.match(html, /research\/open-problems\.md/);
   assert.match(html, /homotopy-groups-of-spheres-literature-review\.pdf/);
@@ -123,8 +123,8 @@ test("ships complete, synchronized benchmark data, reports, and social art", asy
   assert.ok(leaderboard.accepted_problems.length >= 6);
   assert.ok(leaderboard.accepted_problems.every((problem) => typeof problem.title === "string" && problem.title.length > 0));
   assert.ok(leaderboard.accepted_problems.some((problem) => problem.title === "The fundamental group of the circle is the integers" && problem.score_eligible === false));
-  assert.equal(leaderboard.formalization_inventory.records.length, 10);
-  assert.equal(leaderboard.formalization_inventory.lattice.cell_count, 92);
+  assert.equal(leaderboard.formalization_inventory.records.length, 11);
+  assert.equal(leaderboard.formalization_inventory.lattice.cell_count, 110);
   assert.ok(
     leaderboard.formalization_inventory.records.every((record) =>
       record.system.startsWith("Lean 4")),

@@ -51,9 +51,13 @@ cardinalities.
 The maintained Lean 4 closure now also contains the path fibration, the
 degree-one Hurewicz theorem, the needed Mayer--Vietoris and Wang machinery, and
 the computation `H_1(ΩS²) = Z`.  Their composition proves `pi_2(S^2) = Z` in
-the exact metric-sphere model and adds `(n,k)=(2,0)` to the overlay.  The honest
-Lean 4 overlay therefore has 92 cells: the complete 91-cell `n=1` row and this
-first diagonal cell.
+the exact metric-sphere model and adds `(n,k)=(2,0)` to the overlay. The live
+display now runs through stem 108. The honest Lean 4 overlay therefore has 110
+cells: the complete 109-cell `n=1` row and this first diagonal cell.
+`DisplayedCircleFrontier.lean` packages the higher-circle vanishing theorem as
+an explicit `MulEquiv` with `PUnit` at every basepoint and gives named witnesses
+for the eighteen newly displayed cells. Those numerical witnesses remain
+corollaries of one general result.
 
 Higher diagonal and stable sphere stems still require additional
 Freudenthal, higher-Hurewicz, and Hopf-fibration infrastructure.  Incomplete

@@ -10,9 +10,9 @@ This directory now also contains the broader literature audit:
 - [`comprehensive-handoff-2026/`](comprehensive-handoff-2026/) preserves the
   full Markdown report, manifests, checksums, and twelve canonical CSV ledgers;
 - [`literature-review-audit.md`](literature-review-audit.md) records the exact
-  92 by 91 lattice classification and bibliographic corrections;
-- [`lattice-coverage.json`](lattice-coverage.json) is the machine-readable cell
-  rule and audited count;
+  92 by 91 integral-literature core and bibliographic corrections;
+- [`lattice-coverage.json`](lattice-coverage.json) extends the live display to
+  92 by 109 through stem 108, with unsupported added cells left uncharted;
 - [`formalizations.json`](formalizations.json) inventories source-auditable Lean
   4 formalizations with exact commits, models, licenses, and trust qualifications;
 - [`report-data/`](report-data/) contains the CSV and BibTeX companions named in

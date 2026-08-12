@@ -44,19 +44,26 @@ type FormalizationCell = { n: number; k: number; record_id: string };
 type FormalizationInventory = {
   source: string;
   records: FormalizationRecord[];
-  lattice: { cells: FormalizationCell[] };
+  lattice: {
+    n_min: number;
+    n_max: number;
+    k_min: number;
+    k_max: number;
+    cells: FormalizationCell[];
+  };
 };
 type Coordinate = { n: number; k: number };
 type CanvasGeometry = { left: number; top: number; cell: number };
 
 const stems = stableStemData.stems as StableStem[];
 const sources = new Map(stableStemData.sources.map((source) => [source.source_id, source.url]));
-const nMin = 1;
-const nMax = 92;
-const kMax = 90;
-const rowCount = nMax - nMin + 1;
-const columnCount = kMax + 1;
 const formalizationInventory = leaderboardData.formalization_inventory as FormalizationInventory;
+const nMin = formalizationInventory.lattice.n_min;
+const nMax = formalizationInventory.lattice.n_max;
+const kMin = formalizationInventory.lattice.k_min;
+const kMax = formalizationInventory.lattice.k_max;
+const rowCount = nMax - nMin + 1;
+const columnCount = kMax - kMin + 1;
 const formalizationRecords = new Map(
   formalizationInventory.records.map((record) => [record.id, record]),
 );
@@ -81,7 +88,10 @@ function knowledgeAt(n: number, k: number): Knowledge {
   if (n === 1) return "exact";
   // Toda's tables cover stems 0–19 and Mimura–Toda completes stem 20.
   if (k <= 20) return "exact";
-  if (isStable(n, k)) return stems[k]?.is_exact ? "exact" : "partial";
+  if (isStable(n, k)) {
+    const stem = stems[k];
+    return stem ? (stem.is_exact ? "exact" : "partial") : "uncharted";
+  }
   // Published 2-primary unstable computations in the review.
   if (k >= 21 && k <= 32) return "primary";
   if (k === 33 && ((n >= 2 && n <= 9) || (n >= 28 && n <= 34))) return "primary";
@@ -158,7 +168,7 @@ export function Lattice() {
     };
     let formalized = 0;
     for (let n = nMin; n <= nMax; n += 1) {
-      for (let k = 0; k <= kMax; k += 1) {
+      for (let k = kMin; k <= kMax; k += 1) {
         knowledge[knowledgeAt(n, k)] += 1;
         if (formalizationAt(n, k)) formalized += 1;
       }
@@ -200,10 +210,10 @@ export function Lattice() {
     const gap = Math.max(.35, Math.min(1.1, cell * .12));
     for (let row = 0; row < rowCount; row += 1) {
       const n = nMin + row;
-      for (let k = 0; k <= kMax; k += 1) {
+      for (let k = kMin; k <= kMax; k += 1) {
         const status = knowledgeAt(n, k);
         const formalization = formalizationAt(n, k);
-        const x = left + k * cell + gap / 2;
+        const x = left + (k - kMin) * cell + gap / 2;
         const y = top + row * cell + gap / 2;
         context.globalAlpha = shown[status] ? .97 : .08;
         context.fillStyle = knowledgeCopy[status].color;
@@ -228,7 +238,7 @@ export function Lattice() {
       }
     }
     context.globalAlpha = 1;
-    const selectedX = left + selected.k * cell + .5;
+    const selectedX = left + (selected.k - kMin) * cell + .5;
     const selectedY = top + (selected.n - nMin) * cell + .5;
     const selectedSize = Math.max(1, cell - 1);
     context.strokeStyle = "#f3f0e8";
@@ -240,7 +250,9 @@ export function Lattice() {
     context.fillStyle = "#7c899b";
     context.font = "8px ui-monospace, SFMono-Regular, Menlo, monospace";
     context.textAlign = "center";
-    for (let k = 0; k <= kMax; k += 10) context.fillText(String(k), left + (k + .5) * cell, 15);
+    for (let k = kMin; k <= kMax; k += 10) {
+      context.fillText(String(k), left + (k - kMin + .5) * cell, 15);
+    }
     context.textAlign = "right";
     for (let n = 10; n <= nMax; n += 10) context.fillText(String(n), left - 6, top + (n - nMin + .8) * cell);
     context.fillStyle = "#4fdda8";
@@ -259,7 +271,7 @@ export function Lattice() {
   const locate = (event: FormEvent) => {
     event.preventDefault();
     const n = Math.min(nMax, Math.max(nMin, Number.parseInt(jumpN, 10) || nMin));
-    const k = Math.min(kMax, Math.max(0, Number.parseInt(jumpK, 10) || 0));
+    const k = Math.min(kMax, Math.max(kMin, Number.parseInt(jumpK, 10) || kMin));
     selectCoordinate({ n, k });
     canvasRef.current?.focus();
   };
@@ -268,9 +280,10 @@ export function Lattice() {
     const scaleX = canvasWidth / bounds.width;
     const scaleY = Number.parseFloat(event.currentTarget.style.height) / bounds.height;
     const { left, top, cell } = geometryRef.current;
-    const k = Math.floor(((event.clientX - bounds.left) * scaleX - left) / cell);
+    const column = Math.floor(((event.clientX - bounds.left) * scaleX - left) / cell);
+    const k = kMin + column;
     const row = Math.floor(((event.clientY - bounds.top) * scaleY - top) / cell);
-    if (k < 0 || k > kMax || row < 0 || row >= rowCount) return null;
+    if (k < kMin || k > kMax || row < 0 || row >= rowCount) return null;
     return { n: nMin + row, k };
   };
   const inspectPointer = (event: PointerEvent<HTMLCanvasElement>) => {
@@ -281,7 +294,7 @@ export function Lattice() {
     const movement: Record<string, Coordinate> = {
       ArrowUp: { n: Math.max(nMin, selected.n - 1), k: selected.k },
       ArrowDown: { n: Math.min(nMax, selected.n + 1), k: selected.k },
-      ArrowLeft: { n: selected.n, k: Math.max(0, selected.k - 1) },
+      ArrowLeft: { n: selected.n, k: Math.max(kMin, selected.k - 1) },
       ArrowRight: { n: selected.n, k: Math.min(kMax, selected.k + 1) },
     };
     if (!movement[event.key]) return;
@@ -322,7 +335,7 @@ export function Lattice() {
         </div>
         <form className="coordinate-jump" onSubmit={locate}>
           <label><span>n</span><input aria-label="Sphere dimension n" max={nMax} min={nMin} onChange={(event) => setJumpN(event.target.value)} type="number" value={jumpN} /></label>
-          <label><span>k</span><input aria-label="Stem k" max={kMax} min="0" onChange={(event) => setJumpK(event.target.value)} type="number" value={jumpK} /></label>
+          <label><span>k</span><input aria-label="Stem k" max={kMax} min={kMin} onChange={(event) => setJumpK(event.target.value)} type="number" value={jumpK} /></label>
           <button type="submit">Locate</button>
         </form>
       </div>
@@ -338,7 +351,7 @@ export function Lattice() {
               onPointerMove={inspectPointer} ref={canvasRef} tabIndex={0}
             >Use the coordinate form to inspect the evidence lattice.</canvas>
           </div>
-          <div className="k-axis"><span>n = 1…92</span><strong>k = m − n = 0…90</strong></div>
+          <div className="k-axis"><span>n = {nMin}…{nMax}</span><strong>k = m − n = {kMin}…{kMax}</strong></div>
         </div>
         <aside className={`coordinate-detail ${status}`} aria-live="polite">
           <div className="detail-status"><i aria-hidden="true" style={{ background: knowledgeCopy[status].color }} /> {knowledgeCopy[status].label}</div>
@@ -360,7 +373,7 @@ export function Lattice() {
           </div>
         </aside>
       </div>
-      <p className="atlas-scope">Audited 92 × 91 view: <b>{counts.knowledge.exact.toLocaleString()} exact integral</b>, <b>{counts.knowledge.partial.toLocaleString()} published-alternative</b>, <b>{counts.knowledge.primary.toLocaleString()} exact 2-primary-only</b>, <b>{counts.knowledge.disputed.toLocaleString()} disputed</b>, and <b>{counts.knowledge.uncharted.toLocaleString()} not fully tabulated</b> cells. Stability is used exactly when <b>k ≤ n − 2</b>. Purple is a separate source-auditable Lean overlay; bright purple marks the exact benchmark model.</p>
+      <p className="atlas-scope">Audited {rowCount} × {columnCount} view: <b>{counts.knowledge.exact.toLocaleString()} exact integral</b>, <b>{counts.knowledge.partial.toLocaleString()} published-alternative</b>, <b>{counts.knowledge.primary.toLocaleString()} exact 2-primary-only</b>, <b>{counts.knowledge.disputed.toLocaleString()} disputed</b>, and <b>{counts.knowledge.uncharted.toLocaleString()} not fully tabulated</b> cells. Stability is used exactly when <b>k ≤ n − 2</b> and a complete integral stem is in the audited registry. Purple is a separate source-auditable Lean overlay; bright purple marks the exact benchmark model.</p>
     </div>
   );
 }

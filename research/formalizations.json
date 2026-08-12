@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "reviewed_on": "2026-08-11",
+  "reviewed_on": "2026-08-12",
   "scope": "Public, source-auditable Lean 4 formalizations of homotopy-group computations and reusable structural results, plus benchmark records requiring a trust qualification.",
   "maintained_independent_result_set": {
     "count": 10,
@@ -113,6 +113,19 @@
       { "id": "metric-sphere-pi2", "declaration": "Submission.pi2_sphere_two_mulEquiv_int", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Pi2SphereTwo.lean", "lattice_effect": "colors exact-model (n,k)=(2,0)" }
     ]
   },
+  "maintained_displayed_circle_frontier_set": {
+    "count": 1,
+    "system": "Lean 4",
+    "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/DisplayedCircleFrontier.lean",
+    "counting_rule": "The arbitrary-basepoint MulEquiv theorem counts once. Its distinguished-basepoint specialization and eighteen named numerical witnesses are convenience corollaries.",
+    "results": [
+      {
+        "id": "metric-circle-higher-explicit-trivial-group",
+        "declaration": "Submission.sphere_one_higher_homotopy_mulEquiv_punit_at",
+        "lattice_effect": "supplies explicit exact-group witnesses for the displayed n=1 row through k=108"
+      }
+    ]
+  },
   "formalizations": [
     {
       "id": "lean4-benchmark-metric-sphere-pi2",
@@ -156,6 +169,47 @@
       "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HigherSphereFoundations.lean",
       "lattice_overlay": null,
       "note": "All ten declarations have an audited axiom closure containing only propext, Classical.choice, and Quot.sound. The exact pi_2(S^2) cell is recorded by its dedicated formalization entry."
+    },
+    {
+      "id": "lean4-displayed-circle-frontier",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "9bdd7fe5a54e88cfec7bbe59546b30a6d4968456",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.sphere_one_higher_homotopy_mulEquiv_punit_at",
+        "Submission.sphere_one_higher_homotopy_mulEquiv_punit"
+      ],
+      "convenience_corollaries": [
+        "Submission.pi92_sphere_one_mulEquiv_punit",
+        "Submission.pi93_sphere_one_mulEquiv_punit",
+        "Submission.pi94_sphere_one_mulEquiv_punit",
+        "Submission.pi95_sphere_one_mulEquiv_punit",
+        "Submission.pi96_sphere_one_mulEquiv_punit",
+        "Submission.pi97_sphere_one_mulEquiv_punit",
+        "Submission.pi98_sphere_one_mulEquiv_punit",
+        "Submission.pi99_sphere_one_mulEquiv_punit",
+        "Submission.pi100_sphere_one_mulEquiv_punit",
+        "Submission.pi101_sphere_one_mulEquiv_punit",
+        "Submission.pi102_sphere_one_mulEquiv_punit",
+        "Submission.pi103_sphere_one_mulEquiv_punit",
+        "Submission.pi104_sphere_one_mulEquiv_punit",
+        "Submission.pi105_sphere_one_mulEquiv_punit",
+        "Submission.pi106_sphere_one_mulEquiv_punit",
+        "Submission.pi107_sphere_one_mulEquiv_punit",
+        "Submission.pi108_sphere_one_mulEquiv_punit",
+        "Submission.pi109_sphere_one_mulEquiv_punit"
+      ],
+      "result": "every higher homotopy group of the exact metric circle is explicitly multiplicatively equivalent to the trivial group",
+      "model_relation": "exactly the Mathlib metric-sphere model used by SphereSpace 1, at every basepoint",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/DisplayedCircleFrontier.lean",
+      "lattice_overlay": {
+        "coordinates": "n=1,91<=k<=108",
+        "kind": "lean4_exact_metric_model",
+        "cell_ranges": [{ "n": [1, 1], "k": [91, 108] }]
+      },
+      "note": "The axiom closure contains only propext, Classical.choice, and Quot.sound. The eighteen named witnesses make the newly displayed cells directly inspectable without counting specializations as distinct general results."
     },
     {
       "id": "lean4-benchmark-metric-circle-pi1",

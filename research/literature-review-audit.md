@@ -7,7 +7,10 @@ material does not change the integral lattice rules below.
 
 The archived report, [*Homotopy Groups of Spheres: a literature
 review*](../website/public/reports/homotopy-groups-of-spheres-literature-review.pdf),
-is the source for the website's 92 by 91 evidence lattice.  Its SHA-256 digest is
+is the source for the website's 92 by 91 evidence core. The live lattice adds
+eighteen columns through stem 108 so the all-degree Lean circle calculation and
+the repository's 3-primary frontier share a visible range; outside the circle
+row, those added columns remain uncharted. Its SHA-256 digest is
 `749a0686118c9e4454b6166da0966b8097ba7ebaf2177db198bacd1f7953f9e6`.
 The supplied artifact is a 33-page PDF; the CSV and BibTeX companions named in
 Appendix F were not present in the attachment.
@@ -15,7 +18,8 @@ Appendix F were not present in the attachment.
 ## Exact lattice interpretation
 
 A coordinate `(n,k)` denotes `pi_(n+k)(S^n)`, for `1 <= n <= 92` and
-`0 <= k <= 90`.  The machine-readable rule is in
+`0 <= k <= 108`.  The complete integral source registry still ends at stem 90.
+The machine-readable rule is in
 [`lattice-coverage.json`](lattice-coverage.json).  In order of precedence:
 
 1. The `n = 1` row is known integrally: `Z` at `k = 0` and zero thereafter.
@@ -30,11 +34,13 @@ A coordinate `(n,k)` denotes `pi_(n+k)(S^n)`, for `1 <= n <= 92` and
 6. The coordinate `(27,33)` stays disputed.  Yang--Wu's prose and table say the
    range through 27 remains in progress, while a caption and corollary include
    27.  See [arXiv:2406.08621](https://arxiv.org/abs/2406.08621).
-7. Every remaining gray cell means *not fully tabulated by this review*, not
+7. For `91 <= k <= 108`, only the `n = 1` row is assigned a complete integral
+   value; every other newly displayed cell is conservatively uncharted.
+8. Every remaining gray cell means *not fully tabulated by this review*, not
    “nothing is known.”
 
-This yields 4,468 exact-integral cells, 19 cells with published integral
-alternatives, 333 exact-at-2 cells, one disputed cell, and 3,551 cells not fully
+This yields 4,486 exact-integral cells, 19 cells with published integral
+alternatives, 333 exact-at-2 cells, one disputed cell, and 5,189 cells not fully
 tabulated.  Lean proof status is an independent overlay.  In particular, a
 formal proof for one stable representative does not prove every stable cell
 until suspension maps and Freudenthal equivalences have themselves been

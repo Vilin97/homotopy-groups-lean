@@ -163,7 +163,7 @@
   ],
   "formalization_inventory": {
     "lattice": {
-      "cell_count": 92,
+      "cell_count": 110,
       "cells": [
         {
           "k": 0,
@@ -1077,6 +1077,150 @@
           ]
         },
         {
+          "k": 91,
+          "n": 1,
+          "record_id": "lean4-displayed-circle-frontier",
+          "record_ids": [
+            "lean4-displayed-circle-frontier"
+          ]
+        },
+        {
+          "k": 92,
+          "n": 1,
+          "record_id": "lean4-displayed-circle-frontier",
+          "record_ids": [
+            "lean4-displayed-circle-frontier"
+          ]
+        },
+        {
+          "k": 93,
+          "n": 1,
+          "record_id": "lean4-displayed-circle-frontier",
+          "record_ids": [
+            "lean4-displayed-circle-frontier"
+          ]
+        },
+        {
+          "k": 94,
+          "n": 1,
+          "record_id": "lean4-displayed-circle-frontier",
+          "record_ids": [
+            "lean4-displayed-circle-frontier"
+          ]
+        },
+        {
+          "k": 95,
+          "n": 1,
+          "record_id": "lean4-displayed-circle-frontier",
+          "record_ids": [
+            "lean4-displayed-circle-frontier"
+          ]
+        },
+        {
+          "k": 96,
+          "n": 1,
+          "record_id": "lean4-displayed-circle-frontier",
+          "record_ids": [
+            "lean4-displayed-circle-frontier"
+          ]
+        },
+        {
+          "k": 97,
+          "n": 1,
+          "record_id": "lean4-displayed-circle-frontier",
+          "record_ids": [
+            "lean4-displayed-circle-frontier"
+          ]
+        },
+        {
+          "k": 98,
+          "n": 1,
+          "record_id": "lean4-displayed-circle-frontier",
+          "record_ids": [
+            "lean4-displayed-circle-frontier"
+          ]
+        },
+        {
+          "k": 99,
+          "n": 1,
+          "record_id": "lean4-displayed-circle-frontier",
+          "record_ids": [
+            "lean4-displayed-circle-frontier"
+          ]
+        },
+        {
+          "k": 100,
+          "n": 1,
+          "record_id": "lean4-displayed-circle-frontier",
+          "record_ids": [
+            "lean4-displayed-circle-frontier"
+          ]
+        },
+        {
+          "k": 101,
+          "n": 1,
+          "record_id": "lean4-displayed-circle-frontier",
+          "record_ids": [
+            "lean4-displayed-circle-frontier"
+          ]
+        },
+        {
+          "k": 102,
+          "n": 1,
+          "record_id": "lean4-displayed-circle-frontier",
+          "record_ids": [
+            "lean4-displayed-circle-frontier"
+          ]
+        },
+        {
+          "k": 103,
+          "n": 1,
+          "record_id": "lean4-displayed-circle-frontier",
+          "record_ids": [
+            "lean4-displayed-circle-frontier"
+          ]
+        },
+        {
+          "k": 104,
+          "n": 1,
+          "record_id": "lean4-displayed-circle-frontier",
+          "record_ids": [
+            "lean4-displayed-circle-frontier"
+          ]
+        },
+        {
+          "k": 105,
+          "n": 1,
+          "record_id": "lean4-displayed-circle-frontier",
+          "record_ids": [
+            "lean4-displayed-circle-frontier"
+          ]
+        },
+        {
+          "k": 106,
+          "n": 1,
+          "record_id": "lean4-displayed-circle-frontier",
+          "record_ids": [
+            "lean4-displayed-circle-frontier"
+          ]
+        },
+        {
+          "k": 107,
+          "n": 1,
+          "record_id": "lean4-displayed-circle-frontier",
+          "record_ids": [
+            "lean4-displayed-circle-frontier"
+          ]
+        },
+        {
+          "k": 108,
+          "n": 1,
+          "record_id": "lean4-displayed-circle-frontier",
+          "record_ids": [
+            "lean4-displayed-circle-frontier"
+          ]
+        },
+        {
           "k": 0,
           "n": 2,
           "record_id": "lean4-benchmark-metric-sphere-pi2",
@@ -1085,7 +1229,7 @@
           ]
         }
       ],
-      "k_max": 90,
+      "k_max": 108,
       "k_min": 0,
       "n_max": 92,
       "n_min": 1
@@ -1127,6 +1271,22 @@
         "note": "All ten declarations have an audited axiom closure containing only propext, Classical.choice, and Quot.sound. The exact pi_2(S^2) cell is recorded by its dedicated formalization entry.",
         "result": "ten higher-sphere foundations covering path fibrations, loop shifts, Hurewicz, sphere and loop-sphere homology, relative comparison, and pi_2(S^2)",
         "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/ea761e8cbf4d4f645ac35b6abb3bd0b88795801e/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HigherSphereFoundations.lean",
+        "status": "lean_kernel_checked_local_source",
+        "system": "Lean 4"
+      },
+      {
+        "cell_count": 18,
+        "coordinates": "n=1,91<=k<=108",
+        "declarations": [
+          "Submission.sphere_one_higher_homotopy_mulEquiv_punit_at",
+          "Submission.sphere_one_higher_homotopy_mulEquiv_punit"
+        ],
+        "id": "lean4-displayed-circle-frontier",
+        "lattice_kind": "lean4_exact_metric_model",
+        "model_relation": "exactly the Mathlib metric-sphere model used by SphereSpace 1, at every basepoint",
+        "note": "The axiom closure contains only propext, Classical.choice, and Quot.sound. The eighteen named witnesses make the newly displayed cells directly inspectable without counting specializations as distinct general results.",
+        "result": "every higher homotopy group of the exact metric circle is explicitly multiplicatively equivalent to the trivial group",
+        "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/9bdd7fe5a54e88cfec7bbe59546b30a6d4968456/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/DisplayedCircleFrontier.lean",
         "status": "lean_kernel_checked_local_source",
         "system": "Lean 4"
       },
@@ -1281,7 +1441,7 @@
         "system": "Lean 4 HoTT"
       }
     ],
-    "reviewed_on": "2026-08-11",
+    "reviewed_on": "2026-08-12",
     "schema_version": "1.0.0",
     "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/main/research/formalizations.json"
   },

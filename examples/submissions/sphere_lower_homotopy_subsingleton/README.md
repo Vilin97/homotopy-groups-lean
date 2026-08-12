@@ -8,8 +8,9 @@ The proof uses piecewise-affine approximation on a cubical grid. General
 position supplies a point missed by the approximating map, so the map factors
 up to homotopy through the complement of that point; the sphere complement is
 contractible. The sphere proof's original source closure consists of twelve
-modules below `Submission/`. Three further modules now provide the independently
-counted product and covering theorems and the nine-result structural suite.
+modules below `Submission/`. Additional modules now provide the independently
+counted structural suites, higher-sphere foundations, and explicit trivial-group
+witnesses for the displayed metric-circle frontier through stem 108.
 
 The proof and modules are adapted from
 [`Vilin97/lean-eval-pi-succ-sphere`](https://github.com/Vilin97/lean-eval-pi-succ-sphere/tree/1be6cb9b42874415a34defee070f4aa07d6e3193/Submission)

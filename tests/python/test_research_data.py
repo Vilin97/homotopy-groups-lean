@@ -190,11 +190,12 @@ class ResearchDataTests(unittest.TestCase):
             "disputed": 0,
             "not_fully_tabulated": 0,
         }
-        for n in range(1, 93):
-            for k in range(91):
+        domain = coverage["domain"]
+        for n in range(domain["n_min"], domain["n_max"] + 1):
+            for k in range(domain["k_min"], domain["k_max"] + 1):
                 if n == 1 or k <= 20:
                     status = "exact_integral"
-                elif k <= n - 2:
+                elif k <= n - 2 and k in stems:
                     status = (
                         "exact_integral" if stems[k]["is_exact"]
                         else "published_integral_alternatives"
@@ -208,7 +209,7 @@ class ResearchDataTests(unittest.TestCase):
                 else:
                     status = "not_fully_tabulated"
                 counts[status] += 1
-        self.assertEqual(sum(counts.values()), 8372)
+        self.assertEqual(sum(counts.values()), domain["cell_count"])
         self.assertEqual(counts, coverage["counts"])
 
     def test_report_and_companion_files_are_present(self) -> None:
@@ -356,6 +357,29 @@ class ResearchDataTests(unittest.TestCase):
             [row["declaration"] for row in results],
         )
         self.assertIsNone(suite["lattice_overlay"])
+
+    def test_displayed_circle_frontier_is_one_general_lean_result(self) -> None:
+        inventory = json.loads((ROOT / "research/formalizations.json").read_text())
+        result_set = inventory["maintained_displayed_circle_frontier_set"]
+        self.assertEqual(result_set["system"], "Lean 4")
+        self.assertEqual(result_set["count"], 1)
+        self.assertEqual(len(result_set["results"]), 1)
+        source = (ROOT / "research" / result_set["source"]).resolve()
+        text = source.read_text()
+        self.assertNotIn("sorry", text)
+        self.assertNotIn("admit", text)
+        declaration = result_set["results"][0]["declaration"].rsplit(".", 1)[-1]
+        self.assertIn(f"theorem {declaration}", text)
+
+        frontier = next(
+            item for item in inventory["formalizations"]
+            if item["id"] == "lean4-displayed-circle-frontier"
+        )
+        self.assertEqual(
+            frontier["lattice_overlay"]["cell_ranges"],
+            [{"n": [1, 1], "k": [91, 108]}],
+        )
+        self.assertEqual(len(frontier["convenience_corollaries"]), 18)
 
 
 if __name__ == "__main__":

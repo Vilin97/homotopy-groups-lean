@@ -88,7 +88,7 @@ export default function Home() {
           </div>
           <div className="heading-math">
             <span>n = 1…92</span>
-            <span>k = 0…90</span>
+            <span>k = 0…108</span>
             <strong>{exactStemCount} exact stems · {partialStemCount} partial</strong>
             <a href={reportPdf}>earlier low-stem PDF ↗</a>
           </div>

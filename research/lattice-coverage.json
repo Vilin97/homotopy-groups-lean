@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0.0",
-  "reviewed_on": "2026-08-08",
+  "reviewed_on": "2026-08-12",
   "coordinate": "pi_(n+k)(S^n)",
-  "domain": { "n_min": 1, "n_max": 92, "k_min": 0, "k_max": 90, "cell_count": 8372 },
+  "domain": { "n_min": 1, "n_max": 92, "k_min": 0, "k_max": 108, "cell_count": 10028 },
   "classification_precedence": [
     { "when": "n = 1", "status": "exact_integral", "source_scope": "circle is K(Z,1)" },
     { "when": "n >= 2 and k <= 20", "status": "exact_integral", "source_scope": "Toda stems 0-19 and Mimura-Toda stem 20" },
@@ -14,11 +14,11 @@
     { "when": "otherwise", "status": "not_fully_tabulated", "source_scope": "no complete value in the supplied review" }
   ],
   "counts": {
-    "exact_integral": 4468,
+    "exact_integral": 4486,
     "published_integral_alternatives": 19,
     "exact_2_primary_only": 333,
     "disputed": 1,
-    "not_fully_tabulated": 3551
+    "not_fully_tabulated": 5189
   },
   "formalization_overlay": {
     "independent_of_mathematical_status": true,

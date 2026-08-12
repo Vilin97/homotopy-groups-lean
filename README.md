@@ -22,8 +22,11 @@ source-tracked in [`research/open-problems.json`](research/open-problems.json);
 fourteen whose required foundations do not yet exist in Mathlib are recorded as
 blocked instead of being weakened into placeholder propositions.
 
-The audited 92 by 91 knowledge lattice is specified in
-[`research/lattice-coverage.json`](research/lattice-coverage.json). The attached
+The live 92 by 109 knowledge lattice is specified in
+[`research/lattice-coverage.json`](research/lattice-coverage.json). Its integral
+literature core remains the audited 92 by 91 range through stem 90; the added
+columns through stem 108 are conservatively uncharted outside the circle row.
+The attached
 [literature review](website/public/reports/homotopy-groups-of-spheres-literature-review.pdf),
 its [correction log](research/literature-review-audit.md), and the regenerated
 [CSV/BibTeX companions](research/report-data/) distinguish exact integral
@@ -31,8 +34,8 @@ values, published alternatives, 2-primary-only computations, and a disputed
 33-stem entry. The independent purple proof overlay comes from the dated,
 source-auditable [`formalizations.json`](research/formalizations.json) inventory.
 The maintained overlay is Lean 4 only and currently covers the complete
-91-cell exact metric-circle row together with the exact metric-model cell
-`π₂(S²) ≅ ℤ`.
+109-cell exact metric-circle row together with the exact metric-model cell
+`π₂(S²) ≅ ℤ`: 110 purple cells in total.
 
 The [comprehensive 2026 report](website/public/reports/comprehensive-2026/index.html)
 and its [audit](research/comprehensive-handoff-audit.md) extend the source
@@ -150,16 +153,20 @@ the `Evaluate submission` workflow's manual dispatch; reference smoke runs are
 marked ineligible for leaderboard points.
 
 The maintained source-auditable proof suite under
-[`examples/submissions/`](examples/submissions/) currently exposes 40 distinct
+[`examples/submissions/`](examples/submissions/) currently exposes 41 distinct
 Lean 4 results: the original ten, twenty additional structural/exact-circle
-results, and ten higher-sphere foundations culminating in the exact `π₂(S²)`
-calculation. It includes:
+results, ten higher-sphere foundations culminating in the exact `π₂(S²)`
+calculation, and an explicit arbitrary-basepoint trivial-group equivalence for
+all higher homotopy groups of the metric circle. It includes:
 
 - `sphere_lower_homotopy_subsingleton`, proving `π_k(S^n) = 0` for `k < n`
   in the benchmark's exact metric-sphere model;
 - `sphere_one_higher_homotopy_subsingleton`, proving `π_m(S¹) = 0` for
   every `m ≥ 2` in that same metric-sphere model (one general result; its
   degree-specific corollaries are not counted separately);
+- `sphere_one_higher_homotopy_mulEquiv_punit_at`, upgrading that vanishing to
+  an explicit multiplicative equivalence with the trivial group at every
+  basepoint, with named witnesses through the displayed stem 108;
 - `Submission.IndependentResults`, a kernel-checked set of nine distinct
   structural results covering comparison equivalences, basepoint and homotopy
   invariance, functoriality, products, coverings, and contractible vanishing;
