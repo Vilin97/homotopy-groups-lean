@@ -90,10 +90,15 @@ basepoint meridian. On generalized cubical loops, suspension into this quotient
 preserves the constant loop and homotopies relative to the boundary, and it
 commutes strictly with concatenation in every old coordinate. It therefore
 induces an actual monoid homomorphism on every positive-dimensional homotopy
-group. The remaining geometric bridge is to compare this quotient target and
-map with the maintained metric model of the next sphere. Freudenthal
-bijectivity and a complete additive degree classification are also still
-missing. These advances therefore add no exact purple cells yet.
+group. The quotient is now proved compact Hausdorff and identified with the
+one-point compactification of its punctured open cylinder. Stereographic
+projection then gives a basepoint-preserving homeomorphism from the reduced
+suspension of the exact metric `n`-sphere to the exact metric `(n+1)`-sphere.
+Together with a multiplicative cubical-coordinate reindexing equivalence, this
+transports reduced suspension to an actual monoid homomorphism between
+successive exact metric-sphere diagonal groups. Freudenthal bijectivity and a
+complete additive degree classification are still missing. These advances
+therefore add no exact purple cells yet.
 
 Higher exact diagonal and stable sphere stems still require additional degree
 classification, Freudenthal, higher-Hurewicz, and Hopf-fibration
@@ -103,14 +108,13 @@ infrastructure. Incomplete attempts do not color cells.
 computed diagonal groups `pi_1(S^1)` and `pi_2(S^2)`, and proves that a uniform
 family of successive suspension equivalences propagates the integral
 calculation through the whole diagonal. This is a checked reduction of the
-next lattice frontier. A geometric suspension function is now available, but
-only its identity-preserving property is currently proved at the group level.
-The new reduced-suspension function is multiplicative, but has not yet been
-identified with that metric-sphere function. `SphereSuspensionPointed.lean`
-gives a checked reduction from multiplication compatibility and bijectivity of
-the specific metric-sphere function to the exact integral diagonal. The
-comparison and bijectivity remain unproved, so the reduction adds no
-unsupported purple cells.
+next lattice frontier. The earlier unreduced geometric suspension function is
+available, but only its identity-preserving property is currently proved at
+the group level. Independently, the reduced-suspension construction is now
+multiplicative in the exact metric-sphere model. Its checked diagonal reduction
+therefore needs only bijectivity of that concrete monoid homomorphism. The two
+constructions have not been compared, and Freudenthal bijectivity remains
+unproved, so the reductions add no unsupported purple cells.
 
 The maintained ten-result set is recorded explicitly in
 `maintained_independent_result_set`.  Besides the metric-circle computation it

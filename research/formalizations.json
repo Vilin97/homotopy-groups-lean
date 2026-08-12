@@ -237,10 +237,59 @@
       { "id": "reduced-suspension-constant-loop", "declaration": "Submission.GenLoop.reducedSuspension_const", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ReducedSuspensionGroup.lean", "lattice_effect": "none directly; proves strict identity preservation before quotienting" },
       { "id": "reduced-suspension-relative-homotopy", "declaration": "Submission.GenLoop.reducedSuspension_homotopic", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ReducedSuspensionGroup.lean", "lattice_effect": "none directly; makes suspension well defined on cubical homotopy classes" },
       { "id": "reduced-suspension-concatenation", "declaration": "Submission.GenLoop.reducedSuspension_transAt", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ReducedSuspensionGroup.lean", "lattice_effect": "none directly; proves strict compatibility with multiplication representatives" },
-      { "id": "reduced-suspension-monoid-hom", "declaration": "Submission.HomotopyGroup.reducedSuspensionHom", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ReducedSuspensionGroup.lean", "lattice_effect": "none until reduced suspension is compared with the next metric sphere and Freudenthal bijectivity is supplied" }
+      { "id": "reduced-suspension-monoid-hom", "declaration": "Submission.HomotopyGroup.reducedSuspensionHom", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ReducedSuspensionGroup.lean", "lattice_effect": "none until Freudenthal bijectivity is supplied; the separate metric-sphere bridge now provides the target comparison" }
+    ]
+  },
+  "maintained_metric_reduced_suspension_set": {
+    "count": 8,
+    "system": "Lean 4",
+    "counting_rule": "The compact Hausdorff model, one-point compactification identification, punctured-sphere product chart, pointed sphere homeomorphism, coordinate reindexing at representative and group levels, exact metric-sphere suspension homomorphism, and exact-diagonal reduction are eight distinct results. Definitions and helper evaluation lemmas are not counted separately.",
+    "results": [
+      { "id": "reduced-suspension-compact-hausdorff", "declaration": "Submission.ReducedSusp.instT2Space", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Model/ReducedSuspension.lean", "lattice_effect": "none directly; makes the compact quotient suitable for one-point compactification uniqueness" },
+      { "id": "reduced-suspension-one-point-compactification", "declaration": "Submission.ReducedSusp.onePointHomeomorph", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Model/ReducedSuspension.lean", "lattice_effect": "none directly; identifies the quotient with the one-point compactification of its open cylinder" },
+      { "id": "punctured-sphere-product-chart", "declaration": "Submission.ReducedSusp.puncturedSphereHomeomorphProd", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Model/ReducedSuspensionSphere.lean", "lattice_effect": "none directly; identifies the open cylinder over a punctured n-sphere with Euclidean (n+1)-space" },
+      { "id": "pointed-reduced-sphere-homeomorphism", "declaration": "Submission.ReducedSusp.sphereHomeomorph_base", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Model/ReducedSuspensionSphere.lean", "lattice_effect": "none directly; identifies reduced suspension of the exact pointed metric n-sphere with the exact pointed metric (n+1)-sphere" },
+      { "id": "cubical-coordinate-reindexing", "declaration": "Submission.GenLoop.congr_homotopic", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ForMathlib/HomotopyGroup/Congr.lean", "lattice_effect": "none directly; proves coordinate equivalences respect relative cubical homotopy" },
+      { "id": "homotopy-group-coordinate-equivalence", "declaration": "Submission.HomotopyGroup.congrMulEquiv", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ForMathlib/HomotopyGroup/Congr.lean", "lattice_effect": "none directly; packages coordinate reindexing as a multiplicative equivalence" },
+      { "id": "metric-sphere-reduced-suspension-hom", "declaration": "Submission.sphereDiagonalReducedSuspensionHom", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereReducedSuspension.lean", "lattice_effect": "none until bijectivity is proved; gives the actual monoid homomorphism between successive exact metric-sphere diagonal groups" },
+      { "id": "reduced-suspension-diagonal-reduction", "declaration": "Submission.sphere_diagonal_mulEquiv_int_of_reduced_suspension_bijective", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereReducedSuspension.lean", "lattice_effect": "none until Freudenthal bijectivity is supplied; multiplication compatibility is already built into the map" }
     ]
   },
   "formalizations": [
+    {
+      "id": "lean4-metric-sphere-reduced-suspension",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "e7077662065b18fb3e62f5d44f305d27224a168a",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.ReducedSusp.instT2Space",
+        "Submission.ReducedSusp.isOpenEmbedding_puncturedMap",
+        "Submission.ReducedSusp.onePointHomeomorph",
+        "Submission.ReducedSusp.interiorIHomeomorphReal",
+        "Submission.ReducedSusp.sphereComplHomeomorphEuclidean",
+        "Submission.ReducedSusp.puncturedSphereHomeomorphProd",
+        "Submission.ReducedSusp.onePointProdHomeomorphSphere",
+        "Submission.ReducedSusp.sphereHomeomorph",
+        "Submission.ReducedSusp.sphereHomeomorph_base",
+        "Submission.GenLoop.congr_homotopic",
+        "Submission.GenLoop.congr_transAt",
+        "Submission.HomotopyGroup.congr",
+        "Submission.HomotopyGroup.congrHom",
+        "Submission.HomotopyGroup.congrMulEquiv",
+        "Submission.sphereReducedSuspensionHom",
+        "Submission.sphereDiagonalReducedSuspensionHom",
+        "Submission.sphereDiagonalReducedSuspensionMulEquiv",
+        "Submission.sphere_diagonal_mulEquiv_int_of_reduced_suspension_bijective"
+      ],
+      "result": "the reduced suspension of the exact pointed metric n-sphere is pointed-homeomorphic to the exact pointed metric (n+1)-sphere; transporting general reduced suspension and reindexing cubical coordinates gives a monoid homomorphism between successive exact diagonal groups, so integral diagonal induction reduces to bijectivity of this map alone",
+      "model_relation": "exactly the maintained metric-sphere and Mathlib cubical HomotopyGroup models, connected through an explicit reduced quotient, one-point compactification, stereographic projection, and cubical-coordinate reindexing",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereReducedSuspension.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All eighteen listed declarations are sorry-free Lean 4. Audited axiom closures contain only propext, Classical.choice, and Quot.sound. The exact sphere comparison and multiplication compatibility are complete, but Freudenthal bijectivity is not yet proved, so no exact lattice cell is recolored."
+    },
     {
       "id": "lean4-reduced-suspension-homomorphism",
       "system": "Lean 4",
@@ -261,12 +310,12 @@
         "Submission.HomotopyGroup.reducedSuspensionHom"
       ],
       "result": "for every pointed topological space and every positive cubical dimension, reduced suspension induces a monoid homomorphism on homotopy groups; the construction preserves relative homotopies and commutes strictly with cubical concatenation",
-      "model_relation": "a general quotient model of reduced suspension and Mathlib's cubical HomotopyGroup; it is not yet identified with the maintained metric model of the next sphere",
+      "model_relation": "a general quotient model of reduced suspension and Mathlib's cubical HomotopyGroup; the separate lean4-metric-sphere-reduced-suspension entry supplies the exact sphere comparison",
       "status": "lean_kernel_checked_local_source",
       "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ReducedSuspensionGroup.lean",
       "lattice_overlay": null,
       "degree_lattice_overlay": null,
-      "note": "All eleven listed declarations are sorry-free Lean 4. Audited axiom closures contain only propext, Classical.choice, and Quot.sound. Multiplicativity is proved for the reduced-suspension target, but a comparison with the geometric metric-sphere suspension and Freudenthal bijectivity are still missing, so no exact lattice cell is recolored."
+      "note": "All eleven listed declarations are sorry-free Lean 4. Audited axiom closures contain only propext, Classical.choice, and Quot.sound. At this pinned commit the metric-sphere comparison was absent; the later bridge entry supplies it. Freudenthal bijectivity remains missing, so no exact lattice cell is recolored."
     },
     {
       "id": "lean4-sphere-suspension-pointed",
