@@ -184,7 +184,47 @@
       { "id": "finite-sphere-pl-representative", "declaration": "Submission.homotopyGroup_exists_spherePLRepresentative", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereApproximation.lean", "lattice_effect": "none yet; reduces every diagonal class to a finite representative" }
     ]
   },
+  "maintained_sphere_homological_degree_set": {
+    "count": 7,
+    "system": "Lean 4",
+    "counting_rule": "The induced integer endomorphism formula, homotopy invariance, identity and composition laws, the constant-map computation, and the two homotopy-inverse consequences are seven distinct results. The alternate Homotopic wrapper is not counted separately.",
+    "results": [
+      { "id": "sphere-top-homology-action", "declaration": "Submission.sphereHomologyEnd_apply", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereHomologicalDegree.lean", "lattice_effect": "none directly; identifies every induced top-homology endomorphism with multiplication by an integer" },
+      { "id": "sphere-degree-homotopy-invariance", "declaration": "Submission.sphereHomologicalDegree_homotopyInvariant", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereHomologicalDegree.lean", "lattice_effect": "none directly; makes degree an invariant of homotopy classes" },
+      { "id": "sphere-degree-identity", "declaration": "Submission.sphereHomologicalDegree_id", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereHomologicalDegree.lean", "lattice_effect": "none directly; normalizes degree at one" },
+      { "id": "sphere-degree-composition", "declaration": "Submission.sphereHomologicalDegree_comp", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereHomologicalDegree.lean", "lattice_effect": "none directly; proves multiplicativity" },
+      { "id": "sphere-degree-constant", "declaration": "Submission.sphereHomologicalDegree_const", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereHomologicalDegree.lean", "lattice_effect": "none directly; computes null representatives" },
+      { "id": "sphere-degree-homotopy-inverse-product", "declaration": "Submission.sphereHomologicalDegree_mul_eq_one_of_homotopy", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereHomologicalDegree.lean", "lattice_effect": "none directly; detects units from a homotopy inverse" },
+      { "id": "sphere-self-equivalence-degree-sign", "declaration": "Submission.sphereHomologicalDegree_eq_one_or_neg_one_of_homotopyInverse", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereHomologicalDegree.lean", "lattice_effect": "none directly; restricts self-equivalence degree to plus or minus one" }
+    ]
+  },
   "formalizations": [
+    {
+      "id": "lean4-sphere-homological-degree",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "c61663fc19726222f4ab1e5ba7700321c71fd050",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.sphereHomologyEnd_apply",
+        "Submission.sphereHomologicalDegree_homotopyInvariant",
+        "Submission.sphereHomologicalDegree_homotopic",
+        "Submission.sphereHomologicalDegree_id",
+        "Submission.sphereHomologyEnd_comp",
+        "Submission.sphereHomologicalDegree_comp",
+        "Submission.sphereHomologyEnd_const",
+        "Submission.sphereHomologicalDegree_const",
+        "Submission.sphereHomologicalDegree_mul_eq_one_of_homotopy",
+        "Submission.sphereHomologicalDegree_eq_one_or_neg_one_of_homotopyInverse"
+      ],
+      "result": "positive-dimensional sphere self-maps have an integer homological degree; it is homotopy invariant, normalized at the identity, multiplicative, zero on constant maps, and plus or minus one for self-homotopy equivalences",
+      "model_relation": "exactly the Mathlib metric-sphere model, using the maintained Lean proof that top integral homology of every positive-dimensional metric sphere is Z",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereHomologicalDegree.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All ten public declarations are sorry-free Lean 4. Their axiom closures contain only propext, Classical.choice, and Quot.sound. Degree classification still requires proving completeness and constructing every integer degree, so no unsupported diagonal cell is recolored."
+    },
     {
       "id": "lean4-sphere-pl-approximation",
       "system": "Lean 4",
