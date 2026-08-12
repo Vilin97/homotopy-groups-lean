@@ -19,6 +19,7 @@ import Submission.SphereApproximation
 import Submission.SphereDegreeClassification
 import Submission.SphereGenerator
 import Submission.SphereHomologicalDegree
+import Submission.SphereReducedSuspension
 import Submission.SphereSuspension
 import Submission.SphereSuspensionPointed
 
