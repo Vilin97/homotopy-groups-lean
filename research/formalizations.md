@@ -152,19 +152,28 @@ the coefficient to be `1` or `-1`. Thus the two source classes agree up to one
 global orientation sign, and the canonical relative Hurewicz comparison sends
 every normalized simplex to its relative class up to the inverse sign.
 Moreover, these canonical Hurewicz values linearly generate the whole first
-nonvanishing relative homology group. The remaining surjectivity step is to
-prove that cubical concatenation is carried to addition, so each finite linear
-combination is the image of one relative homotopy class. The alternating-face
-relation is still needed for the chain-level inverse and injectivity.
+nonvanishing relative homology group. Cubical concatenation is now replaced by
+a homotopic plateau concatenation and analyzed through an induced two-member
+small-simplices cover of the cube pair. This proves that the canonical relative
+Hurewicz comparison carries multiplication to addition in every degree at
+least two, without assuming that the source relative group is commutative.
+The comparison is consequently packaged as an additive homomorphism. For an
+`(n+1)`-connected space and a chosen point, the normalized top-chain map
+factors through its range, upgrading linear generation to genuine
+surjectivity of `pi_rel_(n+2)(X,{x}) -> H_(n+2)(X,{x})`. The alternating-face
+relation is still needed for the chain-level inverse and injectivity, and the
+cap-excision application still needs the corresponding first-degree theorem
+for general connected pairs.
 
 Bijectivity of the corresponding relative homotopy map yields the next exact
 diagonal equivalence; bijectivity of the family from `pi_2(S^2)` onward yields
 the full integral diagonal, using the two exact base cases already in Lean. The
-remaining bridge is the isomorphism theorem: either first-nonvanishing relative
-Hurewicz bijectivity for the comparison now constructed, or the full
-Blakers--Massey homotopy-excision theorem, must turn the checked connectivity
-and homology-excision inputs into relative-homotopy bijectivity. This foundation
-milestone therefore adds no exact purple cells yet.
+remaining bridge is the isomorphism theorem: the point-pair comparison is now
+surjective in its first potentially nonzero degree, but injectivity and the
+general connected-pair form are still needed to turn the checked connectivity
+and homology-excision inputs into relative-homotopy bijectivity. Alternatively,
+the full Blakers--Massey homotopy-excision theorem would provide that bridge
+directly. This foundation milestone therefore adds no exact purple cells yet.
 
 Higher exact diagonal and stable sphere stems still require additional degree
 classification, Freudenthal, higher-Hurewicz, and Hopf-fibration
