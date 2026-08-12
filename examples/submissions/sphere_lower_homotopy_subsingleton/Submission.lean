@@ -10,16 +10,19 @@ import Submission.DisplayedLowerConnectivity
 import Submission.IndependentResults
 import Submission.DisplayedCircleFrontier
 import Submission.HigherSphereFoundations
+import Submission.Hurewicz.AbsoluteIsomorphism
 import Submission.Hurewicz.AbsoluteSurjectivity
 import Submission.Hurewicz.ConnectedPair
 import Submission.Hurewicz.CubicalShell
 import Submission.Hurewicz.CubeFundamentalClass
+import Submission.Hurewicz.DeformationClass
 import Submission.Hurewicz.FirstHomology
 import Submission.Hurewicz.NormalizedBoundary
 import Submission.Hurewicz.NormalizedSimplex
 import Submission.Hurewicz.RelativeAdditivity
 import Submission.Hurewicz.RelativeBoundary
 import Submission.Hurewicz.RelativeMap
+import Submission.Hurewicz.RelativeSimplicialDescent
 import Submission.Hurewicz.RelativeSimplex
 import Submission.Hurewicz.RelativeSurjectivity
 import Submission.Hurewicz.SimplexCubeClass
@@ -28,6 +31,7 @@ import Submission.Hurewicz.SimplexHorn
 import Submission.Hurewicz.SimplicialAddition
 import Submission.Hurewicz.SimplicialDescent
 import Submission.Hurewicz.SimplicialRelation
+import Submission.Hurewicz.SimplicialRelationAt
 import Submission.Hurewicz.SimplicialIndexShift
 import Submission.Hurewicz.SimplicialTelescope
 import Submission.Hurewicz.SingularKan

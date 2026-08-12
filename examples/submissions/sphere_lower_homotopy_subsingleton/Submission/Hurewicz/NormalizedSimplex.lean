@@ -121,13 +121,45 @@ namespace IsNConnected
 
 variable {M n : ℕ} {X : Type} [TopologicalSpace X]
 
+/-- The truncated tower of simplex homotopies for the point pair supplied by connectivity.  It is
+named separately so that the continuous homotopy underlying `pointDeformation` remains available
+for geometric comparison arguments. -/
+noncomputable def pointTowerLE (hX : IsNConnected M X) (x : X) (j : ℕ) :
+    StepLE (X := TopCat.of X) ({x} : Set X) M j := by
+  let hPair := hX.singletonPair x
+  exact towerLE (X := TopCat.of X) (A := ({x} : Set X)) M ⟨x, rfl⟩
+    hPair.surjective_iStar_zero
+    (fun k hk a => hPair.unique_piRel k (by omega) a) j
+
+/-- Level `j` of the point-pair simplex-homotopy tower. -/
+noncomputable def pointStep (hX : IsNConnected M X) (x : X) (j : ℕ) :
+    Step (X := TopCat.of X) ({x} : Set X) j :=
+  (hX.pointTowerLE x j).step
+
+/-- Consecutive point-pair steps restrict coherently to simplex faces. -/
+theorem pointStep_isNext (hX : IsNConnected M X) (x : X) (j : ℕ) :
+    IsNext (hX.pointStep x j) (hX.pointStep x (j + 1)) := by
+  let hPair := hX.singletonPair x
+  exact towerLE_isNext (X := TopCat.of X) (A := ({x} : Set X)) M ⟨x, rfl⟩
+    hPair.surjective_iStar_zero
+    (fun k hk a => hPair.unique_piRel k (by omega) a) j
+
+/-- Point-pair steps through the connectivity bound compress into the singleton. -/
+theorem pointStep_compresses (hX : IsNConnected M X) (x : X) (j : ℕ) (hj : j ≤ M) :
+    (hX.pointStep x j).Compresses :=
+  (hX.pointTowerLE x j).compresses hj
+
 /-- The coherent bounded simplex deformation of the point pair supplied by connectivity. -/
 noncomputable def pointDeformation (hX : IsNConnected M X) (x : X) :
-    SimplicialDeformation (TopCat.of X) ({x} : Set X) M := by
-  let hPair := hX.singletonPair x
-  exact (exists_simplicialDeformation M (TopCat.of X) ({x} : Set X) ⟨x, rfl⟩
-    hPair.surjective_iStar_zero
-    (fun k hk a => hPair.unique_piRel k (by omega) a)).some
+    SimplicialDeformation (TopCat.of X) ({x} : Set X) M :=
+  deformation (hX.pointStep x) (hX.pointStep_isNext x) M
+    (hX.pointStep_compresses x)
+
+@[simp]
+theorem pointDeformation_rho (hX : IsNConnected M X) (x : X) (j : ℕ)
+    (s : Sng (TopCat.of X) _⦋j⦌) :
+    (hX.pointDeformation x).ρ j s = defRho (hX.pointStep x) j s :=
+  rfl
 
 /-- The normalized `(n+2)`-simplex obtained from a singular simplex in an `(n+1)`-connected
 space. -/
