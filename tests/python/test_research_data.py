@@ -755,6 +755,48 @@ class ResearchDataTests(unittest.TestCase):
         self.assertIsNone(record["lattice_overlay"])
         self.assertIsNone(record["degree_lattice_overlay"])
 
+    def test_hurewicz_naturality_cap_reduction_matches_sources(self) -> None:
+        inventory = json.loads((ROOT / "research/formalizations.json").read_text())
+        result_set = inventory["maintained_hurewicz_naturality_cap_set"]
+        results = result_set["results"]
+        self.assertEqual(result_set["system"], "Lean 4")
+        self.assertEqual(result_set["count"], 4)
+        self.assertEqual(len(results), 4)
+        self.assertEqual(len({row["id"] for row in results}), 4)
+        self.assertEqual(len({row["declaration"] for row in results}), 4)
+        for result in results:
+            source = (ROOT / "research" / result["source"]).resolve()
+            self.assertTrue(source.is_file())
+            text = source.read_text()
+            self.assertNotIn("sorry", text)
+            self.assertNotIn("admit", text)
+            self.assertIn(result["declaration"].rsplit(".", 1)[-1], text)
+
+        record = next(
+            item for item in inventory["formalizations"]
+            if item["id"] == "lean4-hurewicz-naturality-cap-reduction"
+        )
+        self.assertEqual(
+            record["declarations"],
+            [
+                "Submission.singletonBasedPairMap",
+                "Submission.singletonToBasedPair",
+                "Submission.relativeHurewicz_jStar",
+                "Submission.absoluteHurewiczAdd_naturality",
+                "Submission.IsNConnected.relativeHurewiczAdd_bijective_of_contractibleSubspace",
+                "Submission.sphereSuspensionTargetRelativeHurewiczAdd_bijective",
+                "Submission.sphereSuspensionTargetRelativeHurewiczAddEquiv",
+                "Submission.sphereSuspensionExcision_relativeHurewicz_naturality",
+                "Submission.sphereSuspensionExcisionHom_bijective_iff_sourceRelativeHurewiczAdd",
+            ],
+        )
+        self.assertEqual(
+            record["commit"],
+            "158af4d670c9f9a1200d3e45ded978cc15d1949e",
+        )
+        self.assertIsNone(record["lattice_overlay"])
+        self.assertIsNone(record["degree_lattice_overlay"])
+
     def test_first_hurewicz_normalization_matches_sorry_free_sources(self) -> None:
         inventory = json.loads((ROOT / "research/formalizations.json").read_text())
         result_set = inventory["maintained_first_hurewicz_normalization_set"]

@@ -69,6 +69,17 @@ diagonal or circle witnesses in the lattice, so the cross-check does not add a
 duplicate overlay; the remaining 361 entries of the all-400 theorem stay
 explicitly unresolved.
 
+The maintained absolute Hurewicz homomorphism is now natural for every based
+continuous map. Including the singleton basepoint into an arbitrary based
+subspace gives the corresponding absolute-to-relative comparison square, and
+cancellation against the long exact sequences proves the first-nonvanishing
+relative Hurewicz isomorphism whenever the distinguished subspace is
+contractible. This settles the target sphere/upper-cap pair in the canonical
+cap construction. Together with homological excision, it proves that the cap
+homotopy-excision map is bijective exactly when the source lower-cap/overlap
+relative Hurewicz map is bijective. That source-side boundary comparison is the
+remaining bridge; this reduction adds no unsupported lattice cells.
+
 ## Twenty additional Lean 4 results
 
 `maintained_lean4_twenty_result_set` records exactly twenty mathematically
@@ -167,7 +178,11 @@ and its action on relative homology is proved invariant under relative homotopy
 and natural under postcomposition. The top relative homology of the cube pair
 is computed as `Z`, with a normalized oriented fundamental class. Evaluating on
 that class constructs a natural relative Hurewicz comparison in every degree at
-least two.
+least two. The absolute comparison transported through singleton pairs is now
+proved natural as well. More generally, including a singleton into a
+contractible based subspace transfers the first absolute Hurewicz isomorphism
+to the corresponding relative group. Applied to the sphere-cap target, this
+supplies its complete relative Hurewicz equivalence.
 
 The comparison is now also pinned down at the boundary: the connecting map
 sends the chosen cube-pair class to an oriented boundary class, and naturality
@@ -369,8 +384,8 @@ pair identifies `pi_(n+2)(X,x)` multiplicatively with
 these two equivalences and proves its defining comparison square. Combining
 the homotopy equivalence with relative first-nonvanishing surjectivity proves
 that `pi_(n+2)(X,x) -> H_(n+2)(X)` is surjective for every `(n+1)`-connected
-space. Injectivity remains the missing half of the absolute Hurewicz theorem,
-so this milestone does not yet recolor a lattice cell.
+space. The later stick-coordinate inverse supplies injectivity, so this
+maintained absolute map is now an equivalence in the first nonvanishing degree.
 
 The coordinate comparison required by the injectivity argument is now also
 formalized. Stick-breaking maps every cube onto its standard simplex, carries
@@ -381,19 +396,19 @@ descends this map to a based self-homeomorphism of the metric sphere and proves
 that precomposition by it is injective on homotopy classes. For every normalized
 singular simplex, this injective reparameterization sends the cube-coordinate
 class used by relative Hurewicz to the stick-coordinate class used by the
-simplicial homotopy-addition theorem. The remaining work is the deformation
-calculation identifying the descended homology map on Hurewicz representatives;
-the lattice overlay is still unchanged.
+simplicial homotopy-addition theorem. The subsequent deformation calculation
+identifies the descended homology map on these representatives and completes
+the absolute Hurewicz equivalence used by the full diagonal computation.
 
 Bijectivity of the corresponding relative homotopy map yields the next exact
 diagonal equivalence; bijectivity of the family from `pi_2(S^2)` onward yields
 the full integral diagonal, using the two exact base cases already in Lean. The
-remaining bridge is the isomorphism theorem: the point-pair comparison is now
-surjective in its first potentially nonzero degree, but injectivity and the
-general connected-pair form are still needed to turn the checked connectivity
-and homology-excision inputs into relative-homotopy bijectivity. Alternatively,
-the full Blakers--Massey homotopy-excision theorem would provide that bridge
-directly. This foundation milestone therefore adds no exact purple cells yet.
+absolute Hurewicz map is now bijective and natural, and its contractible-
+subspace form settles the sphere/upper-cap target pair. Naturality plus
+homological excision proves that the cap map is bijective exactly when the
+source lower-cap/overlap relative Hurewicz map is bijective. That source
+comparison (or a direct Blakers--Massey theorem) is the precise remaining
+bridge. This foundation milestone therefore adds no new purple cells.
 
 Higher exact diagonal and stable sphere stems still require additional degree
 classification, Freudenthal, higher-Hurewicz, and Hopf-fibration
@@ -413,11 +428,12 @@ therefore needs only bijectivity of that concrete monoid homomorphism. The two
 constructions have not been compared, and Freudenthal bijectivity remains
 unproved. A second checked route now uses the canonical relative map induced by
 the two-cap cover. Its two pair-connectivity hypotheses and the corresponding
-relative-homology excision isomorphism are proved in every required dimension.
-It reduces the same diagonal to the remaining first-degree relative Hurewicz
-bridge, or equivalently to a direct Blakers--Massey bijectivity theorem for that
-map in dimensions at least two. The reductions add no unsupported purple
-cells.
+relative-homology excision isomorphism are proved in every required dimension,
+and the target relative Hurewicz comparison is now an isomorphism. The route is
+therefore reduced exactly to the source lower-cap/overlap first-degree relative
+Hurewicz comparison, equivalently its cubical boundary calculation, or to a
+direct Blakers--Massey bijectivity theorem for the cap map. The reductions add
+no unsupported purple cells.
 
 The maintained ten-result set is recorded explicitly in
 `maintained_independent_result_set`.  Besides the metric-circle computation it

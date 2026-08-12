@@ -46245,6 +46245,34 @@
         "cell_count": 0,
         "coordinates": null,
         "declarations": [
+          "Submission.singletonBasedPairMap",
+          "Submission.singletonToBasedPair",
+          "Submission.relativeHurewicz_jStar",
+          "Submission.absoluteHurewiczAdd_naturality",
+          "Submission.IsNConnected.relativeHurewiczAdd_bijective_of_contractibleSubspace",
+          "Submission.sphereSuspensionTargetRelativeHurewiczAdd_bijective",
+          "Submission.sphereSuspensionTargetRelativeHurewiczAddEquiv",
+          "Submission.sphereSuspensionExcision_relativeHurewicz_naturality",
+          "Submission.sphereSuspensionExcisionHom_bijective_iff_sourceRelativeHurewiczAdd"
+        ],
+        "degree_cell_count": 0,
+        "degree_coordinates": null,
+        "degree_lattice_kind": null,
+        "degree_lattice_proof": null,
+        "id": "lean4-hurewicz-naturality-cap-reduction",
+        "lattice_kind": null,
+        "lattice_proof": null,
+        "model_relation": "the maintained cubical absolute and relative homotopy groups, singular absolute and relative homology, and the exact two-cap cover of the metric sphere used by the Freudenthal reduction",
+        "note": "All nine listed declarations are sorry-free Lean 4. Strict checking of both source modules, the exact sphere-suspension Hurewicz module build, and the 8,831-job Submission aggregate build pass. All 105 Python tests, the site lint, the production static build, and the rendered-HTML tests pass. Audited axiom closures for absolute naturality, j_* compatibility, contractible-subspace relative bijectivity, the target cap theorem, and the final equivalence contain only propext, Classical.choice, and Quot.sound. This resolves the target side of the cap comparison and isolates the source lower-cap/overlap relative Hurewicz isomorphism as the remaining bridge, so no lattice cell is recolored.",
+        "result": "the maintained absolute Hurewicz homomorphism is natural; a sufficiently connected space relative to any contractible distinguished subspace inherits the first-nonvanishing Hurewicz isomorphism; consequently the target sphere/upper-cap comparison is an equivalence and the canonical cap homotopy-excision map is bijective exactly when the source lower-cap/overlap relative Hurewicz map is bijective",
+        "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/158af4d670c9f9a1200d3e45ded978cc15d1949e/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspensionHurewicz.lean",
+        "status": "lean_kernel_checked_local_source",
+        "system": "Lean 4"
+      },
+      {
+        "cell_count": 0,
+        "coordinates": null,
+        "declarations": [
           "HomotopyGroups.toda_unstable_integral_diagonal",
           "HomotopyGroups.toda_unstable_integral_circle_positive"
         ],

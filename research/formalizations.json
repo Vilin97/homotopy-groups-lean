@@ -560,6 +560,17 @@
       { "id": "first-absolute-hurewicz-surjectivity", "declaration": "Submission.IsNConnected.absoluteHurewiczAdd_surjective", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/AbsoluteSurjectivity.lean", "lattice_effect": "none directly; proves surjectivity onto H_(n+2)(X) for every (n+1)-connected space" }
     ]
   },
+  "maintained_hurewicz_naturality_cap_set": {
+    "count": 4,
+    "system": "Lean 4",
+    "counting_rule": "Compatibility of relative Hurewicz with the absolute-to-relative homotopy map, naturality of the absolute Hurewicz homomorphism, the contractible-subspace relative isomorphism theorem, and the exact sphere-cap source-reduction theorem are four distinct results. Singleton pair maps, target specializations, additive-equivalence packaging, and the specialized cap naturality square are supporting declarations and are not counted separately.",
+    "results": [
+      { "id": "relative-hurewicz-jstar-compatibility", "declaration": "Submission.relativeHurewicz_jStar", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/AbsoluteNaturality.lean", "lattice_effect": "none directly; identifies relative Hurewicz after j_* with absolute Hurewicz followed by the absolute-to-relative homology map" },
+      { "id": "absolute-hurewicz-naturality", "declaration": "Submission.absoluteHurewiczAdd_naturality", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/AbsoluteNaturality.lean", "lattice_effect": "none directly; the maintained higher absolute Hurewicz homomorphism commutes with every based continuous map" },
+      { "id": "contractible-subspace-relative-hurewicz", "declaration": "Submission.IsNConnected.relativeHurewiczAdd_bijective_of_contractibleSubspace", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/AbsoluteNaturality.lean", "lattice_effect": "none directly; transfers first-nonvanishing absolute Hurewicz bijectivity to a pair whose distinguished subspace is contractible" },
+      { "id": "sphere-cap-source-hurewicz-reduction", "declaration": "Submission.sphereSuspensionExcisionHom_bijective_iff_sourceRelativeHurewiczAdd", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspensionHurewicz.lean", "lattice_effect": "none until the source lower-cap/overlap relative Hurewicz map is proved bijective; the target comparison and homological excision are already isomorphisms" }
+    ]
+  },
   "maintained_stick_sphere_coordinate_set": {
     "count": 7,
     "system": "Lean 4",
@@ -592,6 +603,31 @@
     ]
   },
   "formalizations": [
+    {
+      "id": "lean4-hurewicz-naturality-cap-reduction",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "158af4d670c9f9a1200d3e45ded978cc15d1949e",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.singletonBasedPairMap",
+        "Submission.singletonToBasedPair",
+        "Submission.relativeHurewicz_jStar",
+        "Submission.absoluteHurewiczAdd_naturality",
+        "Submission.IsNConnected.relativeHurewiczAdd_bijective_of_contractibleSubspace",
+        "Submission.sphereSuspensionTargetRelativeHurewiczAdd_bijective",
+        "Submission.sphereSuspensionTargetRelativeHurewiczAddEquiv",
+        "Submission.sphereSuspensionExcision_relativeHurewicz_naturality",
+        "Submission.sphereSuspensionExcisionHom_bijective_iff_sourceRelativeHurewiczAdd"
+      ],
+      "result": "the maintained absolute Hurewicz homomorphism is natural; a sufficiently connected space relative to any contractible distinguished subspace inherits the first-nonvanishing Hurewicz isomorphism; consequently the target sphere/upper-cap comparison is an equivalence and the canonical cap homotopy-excision map is bijective exactly when the source lower-cap/overlap relative Hurewicz map is bijective",
+      "model_relation": "the maintained cubical absolute and relative homotopy groups, singular absolute and relative homology, and the exact two-cap cover of the metric sphere used by the Freudenthal reduction",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspensionHurewicz.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All nine listed declarations are sorry-free Lean 4. Strict checking of both source modules, the exact sphere-suspension Hurewicz module build, and the 8,831-job Submission aggregate build pass. All 105 Python tests, the site lint, the production static build, and the rendered-HTML tests pass. Audited axiom closures for absolute naturality, j_* compatibility, contractible-subspace relative bijectivity, the target cap theorem, and the final equivalence contain only propext, Classical.choice, and Quot.sound. This resolves the target side of the cap comparison and isolates the source lower-cap/overlap relative Hurewicz isomorphism as the remaining bridge, so no lattice cell is recolored."
+    },
     {
       "id": "lean4-toda-verified-diagonal-and-circle",
       "system": "Lean 4",
