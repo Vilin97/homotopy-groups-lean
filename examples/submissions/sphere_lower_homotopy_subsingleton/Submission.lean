@@ -10,6 +10,7 @@ import Submission.DisplayedLowerConnectivity
 import Submission.IndependentResults
 import Submission.DisplayedCircleFrontier
 import Submission.HigherSphereFoundations
+import Submission.Hurewicz.FirstHomology
 import Submission.Lean4TwentyResults
 import Submission.MetricSpherePiOne
 import Submission.Model.SphereConnected
