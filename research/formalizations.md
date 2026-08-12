@@ -142,11 +142,20 @@ a relative homology class. Evaluation on this explicit source class therefore
 computes definitionally on normalized representatives. In parallel, the
 coherent deformation is descended to the relative chain complex and proved to
 induce the identity on relative homology; on top-dimensional simplex
-generators it produces exactly the normalized relative chain. This isolates
-two remaining steps: identify the explicit cube-simplex class with the
-previously oriented cube fundamental class to transfer the computation to the
-canonical Hurewicz comparison, and prove the alternating-face relation needed
-for the chain-level inverse to annihilate singular boundaries.
+generators it produces exactly the normalized relative chain. The explicit
+cube-simplex class is now compared with the canonical oriented fundamental
+class as well. Its orientation coefficient is an integer; normalization shows
+that multiplication by this coefficient is surjective on the first
+potentially nonzero relative homology of every sufficiently connected space.
+Applying this to a sphere, whose corresponding relative group is `Z`, forces
+the coefficient to be `1` or `-1`. Thus the two source classes agree up to one
+global orientation sign, and the canonical relative Hurewicz comparison sends
+every normalized simplex to its relative class up to the inverse sign.
+Moreover, these canonical Hurewicz values linearly generate the whole first
+nonvanishing relative homology group. The remaining surjectivity step is to
+prove that cubical concatenation is carried to addition, so each finite linear
+combination is the image of one relative homotopy class. The alternating-face
+relation is still needed for the chain-level inverse and injectivity.
 
 Bijectivity of the corresponding relative homotopy map yields the next exact
 diagonal equivalence; bijectivity of the family from `pi_2(S^2)` onward yields

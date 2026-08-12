@@ -366,7 +366,65 @@
       { "id": "connected-relative-generator-normalization", "declaration": "Submission.IsNConnected.pointDeformation_relativeSimplexChain", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SimplexCubeClass.lean", "lattice_effect": "none directly; the connectivity deformation sends every top relative simplex generator to its normalized representative" }
     ]
   },
+  "maintained_first_hurewicz_orientation_set": {
+    "count": 10,
+    "system": "Lean 4",
+    "counting_rule": "The integer comparison of the explicit and canonical cube classes, the corresponding evaluator comparison, its top-chain form and generation consequence, the connectivity and relative top-homology computation for the sphere test, invertibility of the orientation coefficient, the resulting equality up to sign, and the canonical normalized-simplex computation are ten distinct results. Degreewise quotient surjectivity, cycle bookkeeping, chosen points, units, and immediate evaluation formulas are supporting definitions or lemmas and are not counted separately.",
+    "results": [
+      { "id": "cube-simplex-orientation-scalar", "declaration": "Submission.cubeSimplexRelativeClass_eq_degree_smul", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SimplexCubeOrientation.lean", "lattice_effect": "none directly; expresses the explicit simplex class as an integer multiple of the canonical oriented cube-pair class" },
+      { "id": "relative-hurewicz-orientation-scalar", "declaration": "Submission.simplexRelativeHurewicz_eq_degree_smul_relativeHurewicz", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SimplexCubeOrientation.lean", "lattice_effect": "none directly; transfers the source-class comparison to every relative Hurewicz evaluation" },
+      { "id": "top-deformation-hurewicz-chain-comparison", "declaration": "Submission.IsNConnected.pointDeformationTopClassChain_eq_degree_smul", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SimplexCubeOrientation.lean", "lattice_effect": "none directly; identifies the top deformation class map with the orientation coefficient times the linear combination of canonical Hurewicz values" },
+      { "id": "first-relative-homology-hurewicz-generation", "declaration": "Submission.IsNConnected.surjective_normalizedRelativeHurewiczChain", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SimplexCubeOrientation.lean", "lattice_effect": "none directly; canonical relative Hurewicz values of normalized simplices linearly generate the first potentially nonzero relative homology group" },
+      { "id": "sphere-first-connectivity-package", "declaration": "Submission.isNConnected_sphere_succ_succ", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SimplexCubeOrientation.lean", "lattice_effect": "none directly; packages the existing lower homotopy vanishing theorem as the connectivity input for the orientation test" },
+      { "id": "sphere-point-top-relative-homology", "declaration": "Submission.spherePointTopRelativeHomologyIsoInt", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SimplexCubeOrientation.lean", "lattice_effect": "none directly; computes the top relative homology of a sphere modulo a point as Z" },
+      { "id": "cube-simplex-orientation-unit", "declaration": "Submission.isUnit_cubeSimplexOrientationDegree", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SimplexCubeOrientation.lean", "lattice_effect": "none directly; the sphere test forces the global orientation coefficient to be a unit of Z" },
+      { "id": "cube-simplex-orientation-sign", "declaration": "Submission.cubeSimplexOrientationDegree_eq_one_or_neg_one", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SimplexCubeOrientation.lean", "lattice_effect": "none directly; identifies the coefficient as exactly 1 or -1" },
+      { "id": "cube-simplex-fundamental-class-up-to-sign", "declaration": "Submission.cubeSimplexRelativeClass_eq_fundamental_or_neg", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SimplexCubeOrientation.lean", "lattice_effect": "none directly; resolves the source-class comparison obstruction up to the global orientation convention" },
+      { "id": "canonical-relative-hurewicz-normalized-simplex", "declaration": "Submission.NormalizedSimplex.relativeHurewicz_toRelGenLoop", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SimplexCubeOrientation.lean", "lattice_effect": "none directly; computes the canonical relative Hurewicz image of every normalized simplex up to the inverse global orientation sign" }
+    ]
+  },
   "formalizations": [
+    {
+      "id": "lean4-first-hurewicz-orientation",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "88f30fcda997350106a5dcb698f86b1db76f2ebf",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.cubeSimplexOrientationDegree",
+        "Submission.cubeSimplexRelativeClass_eq_degree_smul",
+        "Submission.simplexRelativeHurewicz_eq_degree_smul_relativeHurewicz",
+        "Submission.NormalizedSimplex.degree_smul_relativeHurewicz_toRelGenLoop",
+        "Submission.relProj_f_surjective",
+        "Submission.IsNConnected.pointDeformation_relativeSelfMap_f_prev_eq_zero",
+        "Submission.IsNConnected.pointDeformation_relativeTopCycle",
+        "Submission.IsNConnected.pointDeformationTopClassHom",
+        "Submission.IsNConnected.pointDeformationTopClassChain",
+        "Submission.IsNConnected.pointDeformationTopClassChain_gen",
+        "Submission.IsNConnected.normalizedRelativeHurewiczChain",
+        "Submission.IsNConnected.normalizedRelativeHurewiczChain_gen",
+        "Submission.IsNConnected.pointDeformationTopClassChain_eq_degree_smul",
+        "Submission.IsNConnected.exists_orientationDegree_smul_normalizedRelativeHurewiczChain",
+        "Submission.IsNConnected.surjective_normalizedRelativeHurewiczChain",
+        "Submission.IsNConnected.surjective_orientationDegree_smul",
+        "Submission.isNConnected_sphere_succ_succ",
+        "Submission.cubeOrientationSpherePoint",
+        "Submission.spherePointTopRelativeHomologyIsoInt",
+        "Submission.isUnit_cubeSimplexOrientationDegree",
+        "Submission.cubeSimplexOrientationDegree_eq_one_or_neg_one",
+        "Submission.cubeSimplexRelativeClass_eq_fundamental_or_neg",
+        "Submission.cubeSimplexOrientationUnit",
+        "Submission.cubeSimplexOrientationUnit_coe",
+        "Submission.NormalizedSimplex.relativeHurewicz_toRelGenLoop"
+      ],
+      "result": "the explicit cube-simplex source class differs from the canonical oriented cube-pair fundamental class by a unit of Z, hence by a single global sign; canonical relative Hurewicz values of normalized simplices linearly generate first-nonvanishing relative homology, and each normalized simplex maps to its relative class up to that same inverse sign",
+      "model_relation": "the maintained cubical relative homotopy groups, relative singular homology, coherent singleton-pair normalization deformation, explicit cube-simplex class, canonical cube-pair orientation, and lower connectivity and top homology of metric spheres",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SimplexCubeOrientation.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All twenty-five listed declarations are sorry-free Lean 4. Audited headline axiom closures contain only propext, Classical.choice, and Quot.sound. The orientation comparison obstruction is resolved without a direct chain-level orientation calculation: normalization makes multiplication by the coefficient surjective on the top relative homology of an (n+1)-connected sphere, forcing the coefficient to be 1 or -1. Hurewicz additivity is still needed to combine the generated homology class into one relative homotopy class, and the alternating-face relation is still needed for the chain-level inverse, so no exact lattice cell is recolored."
+    },
     {
       "id": "lean4-first-hurewicz-simplex-class",
       "system": "Lean 4",
