@@ -44441,6 +44441,33 @@
         "cell_count": 0,
         "coordinates": null,
         "declarations": [
+          "Submission.exists_simplicialCompression",
+          "Submission.exists_simplicialDeformation",
+          "Submission.isZero_HrelSet_of_unique_piRel",
+          "Submission.isZero_HrelSet_of_unique_piRel_le",
+          "Submission.isIso_HgrpMap_of_isWeakHomotopyEquiv",
+          "Submission.isIso_HgrpMap_of_isNEquiv",
+          "Submission.epi_HgrpMap_of_isNEquiv",
+          "Submission.isZero_hgrp_one_of_subsingleton_piOne"
+        ],
+        "degree_cell_count": 0,
+        "degree_coordinates": null,
+        "degree_lattice_kind": null,
+        "degree_lattice_proof": null,
+        "id": "lean4-relative-hurewicz-vanishing",
+        "lattice_kind": null,
+        "lattice_proof": null,
+        "model_relation": "general Mathlib topological spaces, relative cube homotopy groups, and integral singular homology; this is the missing geometric bridge needed by higher Hurewicz arguments",
+        "note": "The 6,729-line imported closure is Lean 4 only and contains no sorry, admit, or axiom declarations. The five headline declarations audited with #print axioms depend only on propext, Classical.choice, and Quot.sound. It adds foundations rather than recoloring unsupported cells.",
+        "result": "the geometric relative Hurewicz vanishing theorem, in bounded and unbounded form, plus homology comparison for weak homotopy equivalences and n-equivalences",
+        "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/585e7b8be4b5744dd50048c2131ffcc7e57ee972/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/VanishingSorries.lean",
+        "status": "lean_kernel_checked_local_source",
+        "system": "Lean 4"
+      },
+      {
+        "cell_count": 0,
+        "coordinates": null,
+        "declarations": [
           "Submission.sphere_diagonal_one_two_mulEquiv",
           "Submission.sphere_diagonal_mulEquiv_int_of_suspension_steps"
         ],

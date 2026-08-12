@@ -157,7 +157,47 @@
       }
     ]
   },
+  "maintained_relative_hurewicz_set": {
+    "count": 8,
+    "system": "Lean 4",
+    "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/VanishingSorries.lean",
+    "counting_rule": "The bounded and unbounded geometric compression theorems, their relative-homology consequences, weak-equivalence and n-equivalence comparison theorems, and the H_1 vanishing corollary are counted as eight distinct general results.",
+    "results": [
+      { "id": "simplicial-compression", "declaration": "Submission.exists_simplicialCompression", "lattice_effect": "none directly; geometric core of relative Hurewicz vanishing" },
+      { "id": "bounded-simplicial-deformation", "declaration": "Submission.exists_simplicialDeformation", "lattice_effect": "none directly; bounded geometric core" },
+      { "id": "relative-homology-vanishing", "declaration": "Submission.isZero_HrelSet_of_unique_piRel", "lattice_effect": "none directly; converts relative homotopy vanishing into homology vanishing" },
+      { "id": "bounded-relative-homology-vanishing", "declaration": "Submission.isZero_HrelSet_of_unique_piRel_le", "lattice_effect": "none directly; bounded relative Hurewicz vanishing" },
+      { "id": "weak-equivalence-homology-iso", "declaration": "Submission.isIso_HgrpMap_of_isWeakHomotopyEquiv", "lattice_effect": "none directly; homology invariance under weak homotopy equivalence" },
+      { "id": "n-equivalence-homology-iso", "declaration": "Submission.isIso_HgrpMap_of_isNEquiv", "lattice_effect": "none directly; isomorphism below the n-equivalence range" },
+      { "id": "n-equivalence-homology-epi", "declaration": "Submission.epi_HgrpMap_of_isNEquiv", "lattice_effect": "none directly; epimorphism at the edge of the n-equivalence range" },
+      { "id": "simply-connected-h1-vanishing", "declaration": "Submission.isZero_hgrp_one_of_subsingleton_piOne", "lattice_effect": "none directly; first absolute consequence" }
+    ]
+  },
   "formalizations": [
+    {
+      "id": "lean4-relative-hurewicz-vanishing",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "585e7b8be4b5744dd50048c2131ffcc7e57ee972",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.exists_simplicialCompression",
+        "Submission.exists_simplicialDeformation",
+        "Submission.isZero_HrelSet_of_unique_piRel",
+        "Submission.isZero_HrelSet_of_unique_piRel_le",
+        "Submission.isIso_HgrpMap_of_isWeakHomotopyEquiv",
+        "Submission.isIso_HgrpMap_of_isNEquiv",
+        "Submission.epi_HgrpMap_of_isNEquiv",
+        "Submission.isZero_hgrp_one_of_subsingleton_piOne"
+      ],
+      "result": "the geometric relative Hurewicz vanishing theorem, in bounded and unbounded form, plus homology comparison for weak homotopy equivalences and n-equivalences",
+      "model_relation": "general Mathlib topological spaces, relative cube homotopy groups, and integral singular homology; this is the missing geometric bridge needed by higher Hurewicz arguments",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/VanishingSorries.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "The 6,729-line imported closure is Lean 4 only and contains no sorry, admit, or axiom declarations. The five headline declarations audited with #print axioms depend only on propext, Classical.choice, and Quot.sound. It adds foundations rather than recoloring unsupported cells."
+    },
     {
       "id": "lean4-sphere-diagonal-induction",
       "system": "Lean 4",
