@@ -62,7 +62,7 @@
       "id": "freudenthal-stable-transport",
       "result": "Suspension equivalences transporting a proved stable representative across its full stable diagonal",
       "status": "blocked_on_foundations",
-      "missing": ["Blakers--Massey homotopy-excision bijectivity for the canonical sphere cap-inclusion maps"]
+      "missing": ["Blakers--Massey homotopy-excision theorem for the already-verified connected sphere cap pairs"]
     },
     {
       "id": "hopf-kervaire-and-image-j",

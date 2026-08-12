@@ -272,7 +272,48 @@
       { "id": "sphere-diagonal-cap-excision-reduction", "declaration": "Submission.sphere_diagonal_mulEquiv_int_of_capExcision", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspensionExcision.lean", "lattice_effect": "none until Blakers--Massey bijectivity is proved for the canonical cap-inclusion maps" }
     ]
   },
+  "maintained_sphere_suspension_connectivity_set": {
+    "count": 7,
+    "system": "Lean 4",
+    "counting_rule": "Diagonal induction starting at pi_2(S^2), the upper-overlap equivalence, lower- and upper-overlap homotopy-group vanishing, lower- and upper-cap pair connectivity, and the cap-excision reduction starting at pi_2(S^2) are seven distinct results. Definitions, homeomorphism components, and path-connectedness helpers are not counted separately.",
+    "results": [
+      { "id": "sphere-diagonal-induction-from-two", "declaration": "Submission.sphere_diagonal_mulEquiv_int_of_suspension_steps_from_two", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/DiagonalInduction.lean", "lattice_effect": "none until the successive suspension equivalences from pi_2(S^2) onward are supplied" },
+      { "id": "sphere-upper-cap-overlap-equivalence", "declaration": "Submission.sphCapOverlapInUpperHomotopyEquiv", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspensionExcision.lean", "lattice_effect": "none directly; identifies the overlap inside the upper cap with the equatorial metric sphere" },
+      { "id": "sphere-lower-cap-overlap-vanishing", "declaration": "Submission.subsingleton_pi_sphCapOverlapInLower", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspensionExcision.lean", "lattice_effect": "none directly; proves all overlap homotopy groups below the equatorial dimension are trivial" },
+      { "id": "sphere-upper-cap-overlap-vanishing", "declaration": "Submission.subsingleton_pi_sphCapOverlapInUpper", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspensionExcision.lean", "lattice_effect": "none directly; proves the symmetric upper-overlap vanishing range" },
+      { "id": "sphere-lower-cap-pair-connectivity", "declaration": "Submission.isNConnectedPair_sphLowerCap_overlap", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspensionExcision.lean", "lattice_effect": "none directly; verifies one connectivity hypothesis for sphere homotopy excision" },
+      { "id": "sphere-upper-cap-pair-connectivity", "declaration": "Submission.isNConnectedPair_sphUpperCap_overlap", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspensionExcision.lean", "lattice_effect": "none directly; verifies the symmetric connectivity hypothesis for sphere homotopy excision" },
+      { "id": "sphere-diagonal-cap-excision-from-two", "declaration": "Submission.sphere_diagonal_mulEquiv_int_of_capExcision_from_two", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspensionExcision.lean", "lattice_effect": "none until Blakers--Massey bijectivity is proved for positive-dimensional equators; the pi_1 and pi_2 base cases are already exact" }
+    ]
+  },
   "formalizations": [
+    {
+      "id": "lean4-sphere-suspension-pair-connectivity",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "20f9ed70139eeb16a24186efe9d1aeecbc65e2ca",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.sphere_diagonal_mulEquiv_int_of_suspension_steps_from_two",
+        "Submission.sphCapOverlapInUpper",
+        "Submission.sphCapOverlapInUpperHomeoBelt",
+        "Submission.sphCapOverlapInUpperHomotopyEquiv",
+        "Submission.pathConnectedSpace_sphCapOverlapInLower",
+        "Submission.pathConnectedSpace_sphCapOverlapInUpper",
+        "Submission.subsingleton_pi_sphCapOverlapInLower",
+        "Submission.subsingleton_pi_sphCapOverlapInUpper",
+        "Submission.isNConnectedPair_sphLowerCap_overlap",
+        "Submission.isNConnectedPair_sphUpperCap_overlap",
+        "Submission.sphere_diagonal_mulEquiv_int_of_capExcision_from_two"
+      ],
+      "result": "both contractible cap/overlap pairs in the explicit two-cap cover satisfy the required positive-dimensional connectivity bounds; consequently exact diagonal induction reduces to bijectivity of the canonical cap-excision maps only from pi_2(S^2) to pi_3(S^3) onward",
+      "model_relation": "the exact metric-sphere and cubical relative-homotopy models used by the maintained long exact sequence; both cap overlaps are explicitly compared with the equatorial metric sphere",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspensionExcision.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All eleven listed declarations are sorry-free Lean 4. Audited axiom closures contain only propext, Classical.choice, and Quot.sound. The sphere-cap connectivity hypotheses are now proved; the remaining excision input is the Blakers--Massey theorem giving bijectivity of the canonical relative cap-inclusion maps, so no exact lattice cell is recolored."
+    },
     {
       "id": "lean4-sphere-suspension-excision-map",
       "system": "Lean 4",

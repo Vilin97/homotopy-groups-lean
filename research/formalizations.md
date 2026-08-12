@@ -106,10 +106,13 @@ three homomorphisms in the long exact sequence of a pair. Applying this API to
 the explicit cover of a metric sphere by two enlarged hemispheres gives a
 canonical relative cap-inclusion homomorphism: both caps are contractible, and
 their overlap is explicitly homotopy-equivalent to the equatorial metric
-sphere. Bijectivity of this one map yields the next exact diagonal equivalence;
-bijectivity of the family yields the full integral diagonal. The remaining
-geometric input is precisely the Blakers--Massey homotopy-excision proof of
-that bijectivity, so this reduction also adds no exact purple cells yet.
+sphere. Both cap/overlap pairs are now proved connected through the full range
+required by homotopy excision. Bijectivity of the canonical map yields the next
+exact diagonal equivalence; bijectivity of the family from `pi_2(S^2)` onward
+yields the full integral diagonal, using the two exact base cases already in
+Lean. The remaining geometric input is precisely the Blakers--Massey
+homotopy-excision theorem turning those verified connectivity hypotheses into
+bijectivity, so this reduction also adds no exact purple cells yet.
 
 Higher exact diagonal and stable sphere stems still require additional degree
 classification, Freudenthal, higher-Hurewicz, and Hopf-fibration
@@ -118,16 +121,20 @@ infrastructure. Incomplete attempts do not color cells.
 `DiagonalInduction.lean` now records the exact equivalence between the two
 computed diagonal groups `pi_1(S^1)` and `pi_2(S^2)`, and proves that a uniform
 family of successive suspension equivalences propagates the integral
-calculation through the whole diagonal. This is a checked reduction of the
-next lattice frontier. The earlier unreduced geometric suspension function is
+calculation through the whole diagonal. A strengthened form starts directly
+from the computed `pi_2(S^2)` case, so its suspension hypotheses begin in the
+actual Freudenthal isomorphism range. This is a checked reduction of the next
+lattice frontier. The earlier unreduced geometric suspension function is
 available, but only its identity-preserving property is currently proved at
 the group level. Independently, the reduced-suspension construction is now
 multiplicative in the exact metric-sphere model. Its checked diagonal reduction
 therefore needs only bijectivity of that concrete monoid homomorphism. The two
 constructions have not been compared, and Freudenthal bijectivity remains
 unproved. A second checked route now uses the canonical relative map induced by
-the two-cap cover and reduces the same diagonal to Blakers--Massey bijectivity
-for that map. The reductions add no unsupported purple cells.
+the two-cap cover. Its two pair-connectivity hypotheses are proved, and it
+reduces the same diagonal to the remaining Blakers--Massey bijectivity theorem
+for that map in dimensions at least two. The reductions add no unsupported
+purple cells.
 
 The maintained ten-result set is recorded explicitly in
 `maintained_independent_result_set`.  Besides the metric-circle computation it
