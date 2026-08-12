@@ -19,6 +19,7 @@ import Submission.SphereDegreeClassification
 import Submission.SphereGenerator
 import Submission.SphereHomologicalDegree
 import Submission.SphereSuspension
+import Submission.SphereSuspensionPointed
 
 open HomotopyGroups
 open scoped Topology
