@@ -26,6 +26,21 @@ class ResearchDataTests(unittest.TestCase):
             cwd=ROOT,
             check=True,
         )
+        lean_text = (ROOT / "HomotopyGroups/TodaVerified.lean").read_text()
+        for theorem_name in (
+            "toda_unstable_integral_diagonal",
+            "toda_unstable_integral_circle_positive",
+        ):
+            start = lean_text.index(f"theorem {theorem_name}")
+            end = lean_text.find("\n/--", start)
+            if end == -1:
+                end = len(lean_text)
+            theorem_text = lean_text[start:end]
+            self.assertNotIn("sorry", theorem_text)
+            self.assertNotIn("admit", theorem_text)
+        generated_text = (ROOT / "HomotopyGroups/TodaTable.lean").read_text()
+        full_start = generated_text.index("theorem toda_unstable_integral_table")
+        self.assertIn("sorry", generated_text[full_start:])
 
     def test_comprehensive_frontiers_are_reproducible_and_typed(self) -> None:
         subprocess.run(
