@@ -36,9 +36,10 @@ values, published alternatives, 2-primary-only computations, and a disputed
 source-auditable [`formalizations.json`](research/formalizations.json) inventory.
 The maintained overlay is Lean 4 only. In the default absolute-degree view it
 covers every positive lower group `π_m(S^n) = 0` for `m < n`, the visible
-metric-circle coordinates, and `π₂(S²) ≅ ℤ`: **4,279 purple cells**, including
-4,186 cells spread across the full lower-connectivity triangle. The stem view
-retains the separate 110-cell nonnegative-stem overlay. Selecting any purple
+metric-circle coordinates, and the full positive diagonal `π_n(S^n) ≅ ℤ`:
+**4,369 purple cells**, including 4,186 cells spread across the full
+lower-connectivity triangle. The stem view retains the separate 200-cell
+nonnegative-stem overlay. Selecting any purple
 cell shows the exact Lean declaration and a commit-pinned link to its source
 line; unformalized cells are explicitly labeled as such.
 

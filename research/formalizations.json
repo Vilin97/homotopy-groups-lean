@@ -593,6 +593,24 @@
   },
   "formalizations": [
     {
+      "id": "lean4-real-projective-sphere-cover",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "4ad0ea086e4d77fd530c90c45f92645c509c4fff",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.realProjectiveSpace_higher_homotopy_mulEquiv_sphere",
+        "Submission.pi1_realProjectiveSpace_mulEquiv_zmod_two"
+      ],
+      "result": "for every n at least two, all homotopy groups pi_(k+2) of real projective n-space agree multiplicatively with those of the n-sphere, and the fundamental group of real projective n-space is multiplicatively equivalent to Z/2",
+      "model_relation": "exactly the benchmark's quotient-topology Projectivization model, distinguished projective basepoint, exact metric-sphere model, and distinguished sphere basepoint",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../HomotopyGroups/RealProjectiveSpace.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "The imported sorry-free construction radially normalizes nonzero vectors, proves that the canonical sphere projection is a quotient map, identifies its fibres with the free antipodal action of the two real roots of unity, and obtains a quotient covering. Higher covering invariance gives the first declaration; simple connectivity of spheres in dimensions at least two and the deck-group equivalence give the second. Strict source checks, exact module builds, the full aggregate build, and all 103 Python tests pass. Audited axiom closures contain only propext, Classical.choice, and Quot.sound. This record has no sphere-lattice overlay because its target spaces are real projective spaces rather than spheres."
+    },
+    {
       "id": "lean4-first-nonvanishing-hurewicz-isomorphism",
       "system": "Lean 4",
       "repository": "Vilin97/homotopy-groups-lean",

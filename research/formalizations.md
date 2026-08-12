@@ -30,6 +30,14 @@ covering invariance to show `pi_m(S^1) = 0` for every `m >= 2`.  The higher
 row is one general formalized result.  Its named degree corollaries are
 conveniences and are not counted separately.
 
+The maintained closure also constructs the canonical antipodal covering from
+the exact metric `n`-sphere to the benchmark's quotient-topology model of real
+projective `n`-space.  It proves that every homotopy group in degree at least
+two agrees with the corresponding sphere group and, for `n >= 2`, computes the
+fundamental group as `Z/2`.  These are two general results in the formalization
+index, but they color no sphere-lattice cells because their targets are real
+projective spaces.
+
 ## Twenty additional Lean 4 results
 
 `maintained_lean4_twenty_result_set` records exactly twenty mathematically
@@ -61,9 +69,9 @@ The maintained Lean 4 closure now also contains the path fibration, the
 degree-one Hurewicz theorem, the needed Mayer--Vietoris and Wang machinery, and
 the computation `H_1(ΩS²) = Z`.  Their composition proves `pi_2(S^2) = Z` in
 the exact metric-sphere model and adds `(n,k)=(2,0)` to the overlay. The live
-stem display now runs through stem 108 and has 110 purple cells. The default
-absolute-degree display has 4,279 purple cells: 4,186 lower-connectivity cells,
-92 visible circle cells, and `pi_2(S^2)`.
+stem display now runs through stem 108 and has 200 purple cells. The default
+absolute-degree display has 4,369 purple cells: 4,186 lower-connectivity cells,
+91 higher-circle cells, and all 92 positive diagonal cells.
 `DisplayedCircleFrontier.lean` packages the higher-circle vanishing theorem as
 an explicit `MulEquiv` with `PUnit` at every basepoint and gives named witnesses
 for the eighteen newly displayed cells. Those numerical witnesses remain

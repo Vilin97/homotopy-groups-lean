@@ -1144,6 +1144,39 @@ class ResearchDataTests(unittest.TestCase):
         )
         self.assertIsNone(record["degree_lattice_overlay"])
 
+    def test_real_projective_space_results_match_sorry_free_sources(self) -> None:
+        inventory = json.loads((ROOT / "research/formalizations.json").read_text())
+        record = next(
+            item for item in inventory["formalizations"]
+            if item["id"] == "lean4-real-projective-sphere-cover"
+        )
+        self.assertEqual(
+            record["declarations"],
+            [
+                "Submission.realProjectiveSpace_higher_homotopy_mulEquiv_sphere",
+                "Submission.pi1_realProjectiveSpace_mulEquiv_zmod_two",
+            ],
+        )
+        self.assertEqual(
+            record["commit"],
+            "4ad0ea086e4d77fd530c90c45f92645c509c4fff",
+        )
+        wrapper = (ROOT / "research" / record["source"]).resolve()
+        core = (
+            ROOT
+            / "examples/submissions/sphere_lower_homotopy_subsingleton/Submission"
+            / "RealProjectiveSpace.lean"
+        )
+        for source in (wrapper, core):
+            text = source.read_text()
+            self.assertNotIn("sorry", text)
+            self.assertNotIn("admit", text)
+        wrapper_text = wrapper.read_text()
+        for declaration in record["declarations"]:
+            self.assertIn(f"theorem {declaration.rsplit('.', 1)[-1]}", wrapper_text)
+        self.assertIsNone(record["lattice_overlay"])
+        self.assertIsNone(record["degree_lattice_overlay"])
+
 
 if __name__ == "__main__":
     unittest.main()
