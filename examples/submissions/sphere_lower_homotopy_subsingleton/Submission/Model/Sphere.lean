@@ -17,6 +17,8 @@ suspension direction.
 ## Main results
 
 * `Submission.snocLp` — appending a last coordinate, with its norm, continuity and injectivity;
+* `Submission.SphereSpace`, `Submission.sphereBasepoint` — challenge-independent names for the
+  exact metric model and its distinguished first-coordinate point;
 * `Submission.instNonemptySph` — `Sⁿ` is nonempty;
 * `Submission.instCompactSpaceSph` — `Sⁿ` is compact;
 * `Submission.instPathConnectedSpaceSphSucc` — `S^{n+1}` is path connected;
@@ -107,6 +109,14 @@ end SnocLp
 /-- The `n`-sphere, in the model used by the benchmark statement: the unit sphere of
 `EuclideanSpace ℝ (Fin (n + 1))`. -/
 abbrev Sph (n : ℕ) : Type := Metric.sphere (0 : EuclideanSpace ℝ (Fin (n + 1))) 1
+
+/-- Challenge-independent spelling of the exact metric-sphere model. -/
+abbrev SphereSpace (n : ℕ) := Sph n
+
+/-- The first coordinate vector, used as the distinguished point of the metric sphere. -/
+noncomputable def sphereBasepoint (n : ℕ) : SphereSpace n :=
+  ⟨EuclideanSpace.single 0 1, by
+    rw [Metric.mem_sphere, dist_zero_right, PiLp.norm_single, norm_one]⟩
 
 instance instNonemptySph (n : ℕ) : Nonempty (Sph n) :=
   ⟨⟨EuclideanSpace.single (0 : Fin (n + 1)) (1 : ℝ), by simp⟩⟩

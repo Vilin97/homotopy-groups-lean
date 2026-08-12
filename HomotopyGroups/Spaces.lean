@@ -5,6 +5,7 @@ import Mathlib.LinearAlgebra.Projectivization.Basic
 import Mathlib.Topology.Category.TopCat.Sphere
 import Mathlib.Topology.Constructions
 import Mathlib.Topology.Homotopy.HomotopyGroup
+import Submission.Hurewicz.SphereDiagonalGeneric
 import Submission.RealProjectiveSpace
 
 /-!
@@ -61,8 +62,8 @@ noncomputable def complexProjectiveBasepoint (n : ℕ) : ComplexProjectiveSpace 
 theorem pi1_circle_mulEquiv_int :
     Nonempty
       (HomotopyGroup.Pi 1 Circle (1 : Circle) ≃*
-        Multiplicative ℤ) := by
-  sorry
+        Multiplicative ℤ) :=
+  Submission.pi1_circle_mulEquiv_int
 
 @[eval_problem]
 theorem sphere_lower_homotopy_subsingleton
@@ -76,8 +77,8 @@ theorem sphere_diagonal_homotopy_mulEquiv_int (n : ℕ) :
     Nonempty
       (HomotopyGroup.Pi (n + 1) (SphereSpace (n + 1))
           (sphereBasepoint (n + 1)) ≃*
-        Multiplicative ℤ) := by
-  sorry
+        Multiplicative ℤ) :=
+  Submission.sphere_diagonal_sph_at_mulEquiv_int n (sphereBasepoint (n + 1))
 
 @[eval_problem]
 theorem pi3_sphere_two_mulEquiv_int :

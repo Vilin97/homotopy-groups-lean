@@ -20,8 +20,6 @@ homotopy addition.
 -/
 
 open scoped Topology Topology.Homotopy unitInterval
-open HomotopyGroups
-
 noncomputable section
 
 namespace Submission

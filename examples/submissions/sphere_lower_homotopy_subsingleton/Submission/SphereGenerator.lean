@@ -2,7 +2,6 @@
 Copyright (c) 2026 Vasily Ilin. All rights reserved.
 Released under Apache 2.0 license.
 -/
-import ChallengeDeps
 import Submission.Model.Sphere
 import Submission.WhiteheadTheorem.Shapes.DiskHomeoCube
 
@@ -24,8 +23,6 @@ open scoped Topology Topology.Homotopy TopCat unitInterval
 noncomputable section
 
 namespace Submission
-
-open HomotopyGroups
 
 /-- Prepend one coordinate to a Euclidean vector. -/
 noncomputable def consLp {n : ℕ} (a : ℝ) (v : EuclideanSpace ℝ (Fin n)) :

@@ -2,6 +2,7 @@
 Copyright (c) 2026 Vasily Ilin. All rights reserved.
 Released under Apache 2.0 license.
 -/
+import Mathlib
 import Submission.Model.SuspSphere
 import Submission.SphereDegreeClassification
 
@@ -18,7 +19,6 @@ surjectivity are the remaining geometric content needed to upgrade the map below
 successive equivalences consumed by `Submission.sphere_diagonal_mulEquiv_int_of_suspension_steps`.
 -/
 
-open HomotopyGroups
 open scoped Topology Topology.Homotopy unitInterval
 
 noncomputable section

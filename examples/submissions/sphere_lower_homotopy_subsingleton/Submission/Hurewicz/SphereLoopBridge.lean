@@ -37,8 +37,6 @@ noncomputable section
 
 namespace Submission
 
-open HomotopyGroups
-
 variable {X Y : Type} [TopologicalSpace X] [TopologicalSpace Y]
   {x : X} {y : Y} {m : ℕ}
 

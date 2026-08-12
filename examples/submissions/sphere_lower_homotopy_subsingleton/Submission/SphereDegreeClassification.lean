@@ -15,7 +15,7 @@ bridge with top integral homology to define a well-defined integer degree on eve
 `πₙ(Sⁿ)`.
 -/
 
-open CategoryTheory HomotopyGroups
+open CategoryTheory
 open scoped Topology Topology.Homotopy unitInterval
 
 noncomputable section
