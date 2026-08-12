@@ -316,7 +316,7 @@ namespace IsNConnected
 /-- Contractible-ambient form of the first relative Hurewicz theorem, reduced to the universal
 cubical boundary comparison.  The shift by one keeps the absolute Hurewicz map in degree at
 least two; the fundamental-group case remains a separate low-dimensional comparison. -/
-theorem relativeHurewiczAdd_bijective_of_contractibleAmbient
+theorem relativeHurewiczAdd_bijective_of_contractibleAmbient_of_cubicalBoundaryComparison
     {n : ℕ} {X : Type} [TopologicalSpace X] [ContractibleSpace X]
     {A : Set X} (hA : IsNConnected (n + 1) A) (a : A)
     (hcompare : ∀ q : Ω^ (Fin (n + 2)) A a,

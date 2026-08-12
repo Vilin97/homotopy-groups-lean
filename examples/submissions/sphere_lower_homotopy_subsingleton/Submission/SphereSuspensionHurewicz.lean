@@ -4,7 +4,7 @@ Released under Apache 2.0 license.
 -/
 import Submission.Hurewicz.AbsoluteNaturality
 import Submission.Hurewicz.ConnectedPair
-import Submission.Hurewicz.CubicalBoundary
+import Submission.Hurewicz.CubicalCollapse
 import Submission.SphereSuspensionHomologyExcision
 
 /-!
@@ -131,35 +131,21 @@ theorem isNConnected_sphCapOverlapInLower_succ (n : ℕ) :
   subsingleton_pi k hk c :=
     subsingleton_pi_sphCapOverlapInLower (n + 2) (k + 1) (by omega) (by omega) c
 
-/-- For every suspension degree at least one, the remaining source-side relative Hurewicz
-isomorphism follows from the universal cubical boundary comparison on the cap overlap. -/
-theorem sphereSuspensionSourceRelativeHurewiczAdd_bijective_of_cubicalBoundary_succ
-    (n : ℕ)
-    (hcompare : ∀ q : Ω^ (Fin (n + 2))
-        (sphCapOverlapInLower (n + 2)) (sphCapOverlapBase (n + 2)),
-      GenLoop.cubicalBoundaryHurewicz (n + 1) q =
-        absoluteHurewiczAdd n (sphCapOverlapBase (n + 2))
-          (Additive.ofMul (⟦q⟧ : π_ (n + 2)
-            (sphCapOverlapInLower (n + 2)) (sphCapOverlapBase (n + 2))))) :
+/-- For every suspension degree at least one, the source-side relative Hurewicz map is an
+isomorphism.  The cap is contractible, and the overlap is connected through the required
+degree. -/
+theorem sphereSuspensionSourceRelativeHurewiczAdd_bijective_succ (n : ℕ) :
     Function.Bijective
       (relativeHurewiczAdd (n + 1) (sphCapOverlapInLower (n + 2))
         (sphCapOverlapBase (n + 2))) :=
   IsNConnected.relativeHurewiczAdd_bijective_of_contractibleAmbient
     (isNConnected_sphCapOverlapInLower_succ n)
-    (sphCapOverlapBase (n + 2)) hcompare
+    (sphCapOverlapBase (n + 2))
 
-/-- In suspension degrees at least one, the canonical cap-excision map is bijective once the
-same universal cubical boundary comparison is supplied on the overlap. -/
-theorem sphereSuspensionExcisionHom_bijective_of_cubicalBoundary_succ
-    (n : ℕ)
-    (hcompare : ∀ q : Ω^ (Fin (n + 2))
-        (sphCapOverlapInLower (n + 2)) (sphCapOverlapBase (n + 2)),
-      GenLoop.cubicalBoundaryHurewicz (n + 1) q =
-        absoluteHurewiczAdd n (sphCapOverlapBase (n + 2))
-          (Additive.ofMul (⟦q⟧ : π_ (n + 2)
-            (sphCapOverlapInLower (n + 2)) (sphCapOverlapBase (n + 2))))) :
+/-- In every suspension degree at least one, the canonical cap-excision map is bijective. -/
+theorem sphereSuspensionExcisionHom_bijective_succ (n : ℕ) :
     Function.Bijective (sphereSuspensionExcisionHom (n + 1)) :=
   (sphereSuspensionExcisionHom_bijective_iff_sourceRelativeHurewiczAdd (n + 1)).2
-    (sphereSuspensionSourceRelativeHurewiczAdd_bijective_of_cubicalBoundary_succ n hcompare)
+    (sphereSuspensionSourceRelativeHurewiczAdd_bijective_succ n)
 
 end Submission
