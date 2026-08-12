@@ -128,6 +128,11 @@ h2 { margin: 0; font-size: clamp(34px, 4vw, 56px); font-weight: 520; letter-spac
 .frontier-links a { color: var(--blue); }
 
 .atlas-card { border: 1px solid var(--line); background: var(--panel); box-shadow: 0 24px 70px rgba(0,0,0,.24); }
+.atlas-view-switch { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--line); }
+.atlas-view-switch button { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 13px 16px; border: 0; border-right: 1px solid var(--line); background: #0b0f15; color: var(--muted); cursor: pointer; font-family: var(--mono); font-size: 10px; text-align: left; }
+.atlas-view-switch button:last-child { border-right: 0; }
+.atlas-view-switch button strong { color: #c4afff; font-size: 11px; }
+.atlas-view-switch button[aria-pressed="true"] { background: #171125; color: #f0bfff; box-shadow: inset 0 -2px #c06cf5; }
 .atlas-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 14px; border-bottom: 1px solid var(--line); }
 .knowledge-legend { display: flex; flex-wrap: wrap; gap: 7px; }
 .legend-control { min-height: 38px; display: inline-flex; align-items: center; gap: 8px; padding: 0 10px; border: 1px solid var(--line); border-radius: 3px; background: transparent; color: #bbc3ce; cursor: pointer; font-family: var(--mono); font-size: 9px; }
@@ -331,6 +336,9 @@ footer { border-top: 1px solid var(--line); background: #07090d; }
   .frontier-section, .atlas-section, .workbench, .leaderboard-section { padding-block: 54px; }
   .compact-heading { display: block; }
   .heading-math { justify-content: flex-start; margin-top: 18px; }
+  .atlas-view-switch { grid-template-columns: 1fr; }
+  .atlas-view-switch button { border-right: 0; border-bottom: 1px solid var(--line); }
+  .atlas-view-switch button:last-child { border-bottom: 0; }
   .atlas-toolbar { align-items: stretch; flex-direction: column; }
   .frontier-toolbar { align-items: stretch; flex-direction: column; }
   .frontier-legend { display: grid; grid-template-columns: 1fr 1fr; }

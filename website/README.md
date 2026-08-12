@@ -12,8 +12,8 @@ Generated data under `public/data/` comes only from repository sources of truth:
 - `research/stable-stems.json` for the stable-stem map;
 - `research/open-problems.json` for the conjecture registry;
 - `research/lattice-coverage.json` and `research/formalizations.json` for the
-  audited evidence lattice, formalized-group index, and independent Lean 4
-  proof overlay;
+  audited absolute-degree/stem lattice views, formalized-group index, and
+  independent Lean 4 proof overlay;
 - append-only `results/*.json` for the contributor leaderboard and its
   problem-by-contributor coverage matrix.
 
@@ -55,9 +55,11 @@ There is no hand-maintained website score or lattice table:
    push triggers the Pages deployment.
 2. For an audited proof found outside the hosted evaluator, add one record to
    `research/formalizations.json`. If it covers displayed lattice cells, add
-   one or more inclusive `cell_ranges` rectangles to its `lattice_overlay`.
+   one or more inclusive `cell_ranges` rectangles to its `lattice_overlay`, or
+   use `degree_lattice_overlay` for absolute-degree coordinates. The latter
+   supports the audited `m<n` region predicate used by sphere connectivity.
    The generator validates IDs, source SHAs, range shape, domain bounds, and
-   duplicate range coverage before expanding the cells used by both the lattice and the
-   formalized-group index.
+   duplicate range coverage before expanding the cells used by both lattice
+   views and the formalized-group index.
 3. Run `python3 scripts/generate_site_data.py`; CI runs the same command with
    `--check`, so source records and published JSON cannot drift.

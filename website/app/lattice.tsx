@@ -39,8 +39,10 @@ type FormalizationRecord = {
   status: string;
   source: string;
   lattice_kind: string | null;
+  degree_lattice_kind: string | null;
 };
 type FormalizationCell = { n: number; k: number; record_id: string };
+type DegreeFormalizationCell = { n: number; m: number; record_id: string };
 type FormalizationInventory = {
   source: string;
   records: FormalizationRecord[];
@@ -51,24 +53,31 @@ type FormalizationInventory = {
     k_max: number;
     cells: FormalizationCell[];
   };
+  degree_lattice: {
+    n_min: number;
+    n_max: number;
+    m_min: number;
+    m_max: number;
+    cells: DegreeFormalizationCell[];
+  };
 };
-type Coordinate = { n: number; k: number };
+type ViewMode = "degree" | "stem";
+type Coordinate = { n: number; column: number };
 type CanvasGeometry = { left: number; top: number; cell: number };
 
 const stems = stableStemData.stems as StableStem[];
 const sources = new Map(stableStemData.sources.map((source) => [source.source_id, source.url]));
 const formalizationInventory = leaderboardData.formalization_inventory as FormalizationInventory;
-const nMin = formalizationInventory.lattice.n_min;
-const nMax = formalizationInventory.lattice.n_max;
-const kMin = formalizationInventory.lattice.k_min;
-const kMax = formalizationInventory.lattice.k_max;
-const rowCount = nMax - nMin + 1;
-const columnCount = kMax - kMin + 1;
+const stemLattice = formalizationInventory.lattice;
+const degreeLattice = formalizationInventory.degree_lattice;
 const formalizationRecords = new Map(
   formalizationInventory.records.map((record) => [record.id, record]),
 );
-const formalizationCells = new Map(
-  formalizationInventory.lattice.cells.map((cell) => [`${cell.n}:${cell.k}`, cell.record_id]),
+const stemFormalizationCells = new Map(
+  stemLattice.cells.map((cell) => [`${cell.n}:${cell.k}`, cell.record_id]),
+);
+const degreeFormalizationCells = new Map(
+  degreeLattice.cells.map((cell) => [`${cell.n}:${cell.m}`, cell.record_id]),
 );
 
 const knowledgeCopy: Record<Knowledge, { label: string; short: string; color: string }> = {
@@ -99,14 +108,22 @@ function knowledgeAt(n: number, k: number): Knowledge {
   return "uncharted";
 }
 
-function formalizationAt(n: number, k: number): Formalization {
-  const recordId = formalizationCells.get(`${n}:${k}`);
+function knowledgeAtCoordinate(view: ViewMode, n: number, column: number): Knowledge {
+  if (view === "degree" && column < n) return "exact";
+  return knowledgeAt(n, view === "degree" ? column - n : column);
+}
+
+function formalizationAt(view: ViewMode, n: number, column: number): Formalization {
+  const recordId = (view === "degree" ? degreeFormalizationCells : stemFormalizationCells)
+    .get(`${n}:${column}`);
   const record = recordId ? formalizationRecords.get(recordId) : undefined;
   if (!record) return null;
   const dualKernel = record.status === "dual_kernel_verified_reference";
   const kernelChecked = record.status === "lean_kernel_checked_local_source";
   const historical = record.status === "source_audited_historical";
-  const exactMetricModel = record.lattice_kind === "lean4_exact_metric_model";
+  const exactMetricModel = (view === "degree"
+    ? record.degree_lattice_kind ?? record.lattice_kind
+    : record.lattice_kind) === "lean4_exact_metric_model";
   const statusLabel = kernelChecked
     ? "kernel checked · exact metric model"
     : dualKernel
@@ -150,9 +167,10 @@ function formatGroup(group?: Group): string {
 }
 
 export function Lattice() {
-  const [selected, setSelected] = useState<Coordinate>({ n: 1, k: 0 });
-  const [jumpN, setJumpN] = useState("1");
-  const [jumpK, setJumpK] = useState("0");
+  const [view, setView] = useState<ViewMode>("degree");
+  const [selected, setSelected] = useState<Coordinate>({ n: 2, column: 1 });
+  const [jumpN, setJumpN] = useState("2");
+  const [jumpColumn, setJumpColumn] = useState("1");
   const [canvasWidth, setCanvasWidth] = useState(720);
   const [shown, setShown] = useState<Record<Knowledge, boolean>>({
     exact: true, partial: true, primary: true, disputed: true, uncharted: true,
@@ -161,6 +179,12 @@ export function Lattice() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const canvasFrameRef = useRef<HTMLDivElement>(null);
   const geometryRef = useRef<CanvasGeometry>({ left: 34, top: 25, cell: 7 });
+  const nMin = view === "degree" ? degreeLattice.n_min : stemLattice.n_min;
+  const nMax = view === "degree" ? degreeLattice.n_max : stemLattice.n_max;
+  const columnMin = view === "degree" ? degreeLattice.m_min : stemLattice.k_min;
+  const columnMax = view === "degree" ? degreeLattice.m_max : stemLattice.k_max;
+  const rowCount = nMax - nMin + 1;
+  const columnCount = columnMax - columnMin + 1;
 
   const counts = useMemo(() => {
     const knowledge: Record<Knowledge, number> = {
@@ -168,13 +192,13 @@ export function Lattice() {
     };
     let formalized = 0;
     for (let n = nMin; n <= nMax; n += 1) {
-      for (let k = kMin; k <= kMax; k += 1) {
-        knowledge[knowledgeAt(n, k)] += 1;
-        if (formalizationAt(n, k)) formalized += 1;
+      for (let column = columnMin; column <= columnMax; column += 1) {
+        knowledge[knowledgeAtCoordinate(view, n, column)] += 1;
+        if (formalizationAt(view, n, column)) formalized += 1;
       }
     }
     return { knowledge, formalized };
-  }, []);
+  }, [columnMax, columnMin, nMax, nMin, view]);
 
   useEffect(() => {
     const frame = canvasFrameRef.current;
@@ -210,35 +234,29 @@ export function Lattice() {
     const gap = Math.max(.35, Math.min(1.1, cell * .12));
     for (let row = 0; row < rowCount; row += 1) {
       const n = nMin + row;
-      for (let k = kMin; k <= kMax; k += 1) {
-        const status = knowledgeAt(n, k);
-        const formalization = formalizationAt(n, k);
-        const x = left + (k - kMin) * cell + gap / 2;
+      for (let column = columnMin; column <= columnMax; column += 1) {
+        const status = knowledgeAtCoordinate(view, n, column);
+        const formalization = formalizationAt(view, n, column);
+        const x = left + (column - columnMin) * cell + gap / 2;
         const y = top + row * cell + gap / 2;
         context.globalAlpha = shown[status] ? .97 : .08;
         context.fillStyle = knowledgeCopy[status].color;
         context.fillRect(x, y, cell - gap, cell - gap);
         if (formalization && showFormalizations) {
           context.globalAlpha = 1;
-          const inset = Math.max(.65, cell * .13);
-          const outlineX = x + inset;
-          const outlineY = y + inset;
-          const outlineSize = Math.max(1, cell - gap - 2 * inset);
-          // A dark keyline keeps the purple overlay visible on light evidence cells;
-          // purple itself remains visible on the dark exact-integral cells.
+          const overlayColor = formalization.kind === "lean4-exact"
+            ? "#d890ff"
+            : formalization.kind === "lean4" ? "#9b7cff" : "#bca7ef";
+          context.fillStyle = overlayColor;
+          context.fillRect(x, y, cell - gap, cell - gap);
           context.strokeStyle = "#080b10";
-          context.lineWidth = Math.max(1.6, cell * .28);
-          context.strokeRect(outlineX, outlineY, outlineSize, outlineSize);
-          context.strokeStyle = formalization.kind === "lean4-exact"
-            ? "#f0bfff"
-            : formalization.kind === "lean4" ? "#aa8cff" : "#c4afff";
-          context.lineWidth = Math.max(.8, cell * .12);
-          context.strokeRect(outlineX, outlineY, outlineSize, outlineSize);
+          context.lineWidth = Math.max(.35, cell * .06);
+          context.strokeRect(x, y, cell - gap, cell - gap);
         }
       }
     }
     context.globalAlpha = 1;
-    const selectedX = left + (selected.k - kMin) * cell + .5;
+    const selectedX = left + (selected.column - columnMin) * cell + .5;
     const selectedY = top + (selected.n - nMin) * cell + .5;
     const selectedSize = Math.max(1, cell - 1);
     context.strokeStyle = "#f3f0e8";
@@ -250,8 +268,8 @@ export function Lattice() {
     context.fillStyle = "#7c899b";
     context.font = "8px ui-monospace, SFMono-Regular, Menlo, monospace";
     context.textAlign = "center";
-    for (let k = kMin; k <= kMax; k += 10) {
-      context.fillText(String(k), left + (k - kMin + .5) * cell, 15);
+    for (let column = columnMin; column <= columnMax; column += 10) {
+      context.fillText(String(column), left + (column - columnMin + .5) * cell, 15);
     }
     context.textAlign = "right";
     for (let n = 10; n <= nMax; n += 10) context.fillText(String(n), left - 6, top + (n - nMin + .8) * cell);
@@ -260,19 +278,31 @@ export function Lattice() {
     context.textAlign = "left";
     context.fillText("n", 10, 14);
     context.textAlign = "right";
-    context.fillText("k →", canvasWidth - 8, height - 8);
-  }, [canvasWidth, selected, shown, showFormalizations]);
+    context.fillText(view === "degree" ? "m →" : "k →", canvasWidth - 8, height - 8);
+  }, [canvasWidth, columnCount, columnMax, columnMin, nMax, nMin, rowCount, selected, shown, showFormalizations, view]);
 
   const selectCoordinate = (coordinate: Coordinate) => {
     setSelected(coordinate);
     setJumpN(String(coordinate.n));
-    setJumpK(String(coordinate.k));
+    setJumpColumn(String(coordinate.column));
+  };
+  const selectView = (nextView: ViewMode) => {
+    setView(nextView);
+    const coordinate = nextView === "degree"
+      ? { n: 2, column: 1 }
+      : { n: 1, column: 0 };
+    setSelected(coordinate);
+    setJumpN(String(coordinate.n));
+    setJumpColumn(String(coordinate.column));
   };
   const locate = (event: FormEvent) => {
     event.preventDefault();
     const n = Math.min(nMax, Math.max(nMin, Number.parseInt(jumpN, 10) || nMin));
-    const k = Math.min(kMax, Math.max(kMin, Number.parseInt(jumpK, 10) || kMin));
-    selectCoordinate({ n, k });
+    const column = Math.min(
+      columnMax,
+      Math.max(columnMin, Number.parseInt(jumpColumn, 10) || columnMin),
+    );
+    selectCoordinate({ n, column });
     canvasRef.current?.focus();
   };
   const coordinateFromPointer = (event: PointerEvent<HTMLCanvasElement>): Coordinate | null => {
@@ -280,38 +310,43 @@ export function Lattice() {
     const scaleX = canvasWidth / bounds.width;
     const scaleY = Number.parseFloat(event.currentTarget.style.height) / bounds.height;
     const { left, top, cell } = geometryRef.current;
-    const column = Math.floor(((event.clientX - bounds.left) * scaleX - left) / cell);
-    const k = kMin + column;
+    const columnIndex = Math.floor(((event.clientX - bounds.left) * scaleX - left) / cell);
+    const column = columnMin + columnIndex;
     const row = Math.floor(((event.clientY - bounds.top) * scaleY - top) / cell);
-    if (k < kMin || k > kMax || row < 0 || row >= rowCount) return null;
-    return { n: nMin + row, k };
+    if (column < columnMin || column > columnMax || row < 0 || row >= rowCount) return null;
+    return { n: nMin + row, column };
   };
   const inspectPointer = (event: PointerEvent<HTMLCanvasElement>) => {
     const coordinate = coordinateFromPointer(event);
-    if (coordinate && (coordinate.n !== selected.n || coordinate.k !== selected.k)) selectCoordinate(coordinate);
+    if (coordinate && (coordinate.n !== selected.n || coordinate.column !== selected.column)) selectCoordinate(coordinate);
   };
   const moveWithKeys = (event: KeyboardEvent<HTMLCanvasElement>) => {
     const movement: Record<string, Coordinate> = {
-      ArrowUp: { n: Math.max(nMin, selected.n - 1), k: selected.k },
-      ArrowDown: { n: Math.min(nMax, selected.n + 1), k: selected.k },
-      ArrowLeft: { n: selected.n, k: Math.max(kMin, selected.k - 1) },
-      ArrowRight: { n: selected.n, k: Math.min(kMax, selected.k + 1) },
+      ArrowUp: { n: Math.max(nMin, selected.n - 1), column: selected.column },
+      ArrowDown: { n: Math.min(nMax, selected.n + 1), column: selected.column },
+      ArrowLeft: { n: selected.n, column: Math.max(columnMin, selected.column - 1) },
+      ArrowRight: { n: selected.n, column: Math.min(columnMax, selected.column + 1) },
     };
     if (!movement[event.key]) return;
     event.preventDefault();
     selectCoordinate(movement[event.key]);
   };
 
-  const status = knowledgeAt(selected.n, selected.k);
-  const formalization = formalizationAt(selected.n, selected.k);
-  const stem = stems[selected.k];
-  const stable = isStable(selected.n, selected.k);
+  const degree = view === "degree" ? selected.column : selected.n + selected.column;
+  const stemIndex = degree - selected.n;
+  const status = knowledgeAtCoordinate(view, selected.n, selected.column);
+  const formalization = formalizationAt(view, selected.n, selected.column);
+  const stem = stems[stemIndex];
+  const belowDiagonal = degree < selected.n;
+  const stable = stemIndex >= 0 && isStable(selected.n, stemIndex);
   const sourceUrl = stable
     ? stem?.source_refs.map((ref) => sources.get(ref.source_id)).find(Boolean)
     : siteAsset("/reports/homotopy-groups-of-spheres-literature-review.pdf");
   const obviousGroup = selected.n === 1
-    ? (selected.k === 0 ? "ℤ" : "0")
-    : selected.k === 0 || (selected.n === 2 && selected.k === 1)
+    ? (degree === 1 ? "ℤ" : "0")
+    : belowDiagonal
+      ? "0"
+      : stemIndex === 0 || (selected.n === 2 && stemIndex === 1)
       ? "ℤ"
       : stable && status === "exact"
         ? formatGroup(stem.group)
@@ -319,6 +354,16 @@ export function Lattice() {
 
   return (
     <div className="atlas-card">
+      <div className="atlas-view-switch" aria-label="Lattice coordinate view" role="group">
+        <button aria-pressed={view === "degree"} onClick={() => selectView("degree")} type="button">
+          Lean coverage · π<sub>m</sub>(S<sup>n</sup>)
+          <strong>{degreeLattice.cells.length.toLocaleString()} purple cells</strong>
+        </button>
+        <button aria-pressed={view === "stem"} onClick={() => selectView("stem")} type="button">
+          Stable stems · π<sub>n+k</sub>(S<sup>n</sup>)
+          <strong>{stemLattice.cells.length.toLocaleString()} purple cells</strong>
+        </button>
+      </div>
       <div className="atlas-toolbar">
         <div className="knowledge-legend" aria-label="Toggle lattice evidence classes" role="group">
           {(Object.keys(knowledgeCopy) as Knowledge[]).map((key) => (
@@ -335,31 +380,31 @@ export function Lattice() {
         </div>
         <form className="coordinate-jump" onSubmit={locate}>
           <label><span>n</span><input aria-label="Sphere dimension n" max={nMax} min={nMin} onChange={(event) => setJumpN(event.target.value)} type="number" value={jumpN} /></label>
-          <label><span>k</span><input aria-label="Stem k" max={kMax} min={kMin} onChange={(event) => setJumpK(event.target.value)} type="number" value={jumpK} /></label>
+          <label><span>{view === "degree" ? "m" : "k"}</span><input aria-label={view === "degree" ? "Homotopy degree m" : "Stem k"} max={columnMax} min={columnMin} onChange={(event) => setJumpColumn(event.target.value)} type="number" value={jumpColumn} /></label>
           <button type="submit">Locate</button>
         </form>
       </div>
       <div className="atlas-main">
         <div className="lattice-wrap">
-          <div className="lattice-axis-title"><span className="math-expression">π<sub>n+k</sub>(S<sup>n</sup>)</span><strong>hover · click · arrow keys</strong></div>
-          <p className="sr-only" id="lattice-instructions">Use the arrow keys to inspect adjacent cells, or enter n and k in the locate form.</p>
+          <div className="lattice-axis-title"><span className="math-expression">{view === "degree" ? <>π<sub>m</sub>(S<sup>n</sup>)</> : <>π<sub>n+k</sub>(S<sup>n</sup>)</>}</span><strong>hover · click · arrow keys</strong></div>
+          <p className="sr-only" id="lattice-instructions">Use the arrow keys to inspect adjacent cells, or enter coordinates in the locate form.</p>
           <div className="canvas-frame" ref={canvasFrameRef}>
             <canvas
               aria-describedby="lattice-instructions"
-              aria-label={`Interactive evidence lattice. Selected pi_${selected.n + selected.k}(S^${selected.n}): ${knowledgeCopy[status].short}${formalization ? `, ${formalization.accessibleLabel}` : ""}.`}
+              aria-label={`Interactive evidence lattice. Selected pi_${degree}(S^${selected.n}): ${knowledgeCopy[status].short}${formalization ? `, ${formalization.accessibleLabel}` : ""}.`}
               className="lattice-canvas" onClick={inspectPointer} onKeyDown={moveWithKeys}
               onPointerMove={inspectPointer} ref={canvasRef} tabIndex={0}
             >Use the coordinate form to inspect the evidence lattice.</canvas>
           </div>
-          <div className="k-axis"><span>n = {nMin}…{nMax}</span><strong>k = m − n = {kMin}…{kMax}</strong></div>
+          <div className="k-axis"><span>n = {nMin}…{nMax}</span><strong>{view === "degree" ? `m = ${columnMin}…${columnMax}` : `k = m − n = ${columnMin}…${columnMax}`}</strong></div>
         </div>
         <aside className={`coordinate-detail ${status}`} aria-live="polite">
           <div className="detail-status"><i aria-hidden="true" style={{ background: knowledgeCopy[status].color }} /> {knowledgeCopy[status].label}</div>
           {formalization && <div className="formalization-badge">{formalization.badge}</div>}
-          <h3 className="math-expression">π<sub>{selected.n + selected.k}</sub>(S<sup>{selected.n}</sup>)</h3>
-          <div className="coordinate-pair"><span>n = {selected.n}</span><span>k = {selected.k}</span></div>
+          <h3 className="math-expression">π<sub>{degree}</sub>(S<sup>{selected.n}</sup>)</h3>
+          <div className="coordinate-pair"><span>n = {selected.n}</span><span>m = {degree}</span><span>k = {stemIndex}</span></div>
           {obviousGroup && <div className="group-value"><span>integral group</span><strong>{obviousGroup}</strong></div>}
-          {status === "exact" && !obviousGroup && stable && <div className="group-value"><span className="math-expression">≅ π<sub>{selected.k}</sub>(𝕊)</span><strong>{formatGroup(stem.group)}</strong></div>}
+          {status === "exact" && !obviousGroup && stable && <div className="group-value"><span className="math-expression">≅ π<sub>{stemIndex}</sub>(𝕊)</span><strong>{formatGroup(stem.group)}</strong></div>}
           {status === "exact" && !obviousGroup && !stable && <p>The complete integral group is tabulated in Toda&apos;s 0–19 stem tables or the Mimura–Toda 20-stem computation reproduced in the review.</p>}
           {status === "partial" && <><div className="group-value"><span>published full groups</span><strong>{stem.alternatives?.length ?? 0} alternatives</strong></div><div className="alternatives">{stem.alternatives?.map((alternative, index) => <span key={alternative.alternative_id}><b>{String.fromCharCode(65 + index)}</b>{formatGroup(alternative.group)}</span>)}</div><p>{stem.note}</p></>}
           {status === "primary" && <><div className="group-value"><span>computed component</span><strong>2-primary</strong></div><p>The 2-primary component is tabulated, but this view does not claim a complete integral group.</p></>}
@@ -373,7 +418,7 @@ export function Lattice() {
           </div>
         </aside>
       </div>
-      <p className="atlas-scope">Audited {rowCount} × {columnCount} view: <b>{counts.knowledge.exact.toLocaleString()} exact integral</b>, <b>{counts.knowledge.partial.toLocaleString()} published-alternative</b>, <b>{counts.knowledge.primary.toLocaleString()} exact 2-primary-only</b>, <b>{counts.knowledge.disputed.toLocaleString()} disputed</b>, and <b>{counts.knowledge.uncharted.toLocaleString()} not fully tabulated</b> cells. Stability is used exactly when <b>k ≤ n − 2</b> and a complete integral stem is in the audited registry. Purple is a separate source-auditable Lean overlay; bright purple marks the exact benchmark model.</p>
+      <p className="atlas-scope">Audited {rowCount} × {columnCount} {view === "degree" ? "absolute-degree" : "stem"} view: <b>{counts.knowledge.exact.toLocaleString()} exact integral</b>, <b>{counts.knowledge.partial.toLocaleString()} published-alternative</b>, <b>{counts.knowledge.primary.toLocaleString()} exact 2-primary-only</b>, <b>{counts.knowledge.disputed.toLocaleString()} disputed</b>, and <b>{counts.knowledge.uncharted.toLocaleString()} not fully tabulated</b> cells. {view === "degree" ? <>The purple triangle is the kernel-checked theorem <b>1 ≤ m &lt; n ⟹ πₘ(Sⁿ) = 0</b>; switch to stable stems for the full k = 0…108 audit.</> : <>Stability is used exactly when <b>k ≤ n − 2</b> and a complete integral stem is in the audited registry.</>} Purple is a separate source-auditable Lean overlay; bright purple marks the exact benchmark model.</p>
     </div>
   );
 }

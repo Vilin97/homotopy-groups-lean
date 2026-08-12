@@ -35,6 +35,8 @@ type FormalizationRecord = {
   coordinates: string | null;
   lattice_kind: string | null;
   cell_count: number;
+  degree_coordinates: string | null;
+  degree_cell_count: number;
   note: string | null;
 };
 
@@ -43,6 +45,7 @@ type FormalizationInventory = {
   source: string;
   records: FormalizationRecord[];
   lattice: { cell_count: number };
+  degree_lattice: { cell_count: number };
 };
 
 type LeaderboardPayload = {
@@ -124,7 +127,7 @@ export function Leaderboard() {
         <div><strong>{data.accepted_eligible_results}</strong><span>scored solves</span></div>
         <div><strong>{firstCount}</strong><span>first solves</span></div>
         <div><strong>{data.current_result_count}</strong><span>current records</span></div>
-        <div><strong>{data.formalization_inventory.lattice.cell_count}</strong><span>formalized atlas cells</span></div>
+        <div><strong>{data.formalization_inventory.degree_lattice.cell_count}</strong><span>formalized degree cells</span></div>
       </div>
 
       <section className="leaderboard-card" aria-labelledby="ranked-results-title">
@@ -217,7 +220,11 @@ export function Leaderboard() {
               <h4>{prettifyMath(record.result)}</h4>
               <p>{record.model_relation}</p>
               <div className="formalization-foot">
-                <span>{record.coordinates ? `${record.cell_count} cells · ${record.coordinates}` : "outside the displayed lattice"}</span>
+                <span>{record.degree_coordinates
+                  ? `${record.degree_cell_count.toLocaleString()} degree cells · ${record.degree_coordinates}`
+                  : record.coordinates
+                    ? `${record.cell_count} stem cells · ${record.coordinates}`
+                    : "outside the displayed lattice"}</span>
                 <a href={record.source}>Lean proof ↗</a>
               </div>
             </article>

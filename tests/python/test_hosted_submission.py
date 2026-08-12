@@ -616,11 +616,21 @@ class SiteDataTests(unittest.TestCase):
             inventory = leaderboard["formalization_inventory"]
             self.assertEqual(inventory["records"][0]["id"], "test-circle")
             self.assertEqual(inventory["lattice"]["cell_count"], 1)
+            self.assertEqual(inventory["degree_lattice"]["cell_count"], 1)
             self.assertEqual(
                 inventory["lattice"]["cells"][0],
                 {
                     "n": 1,
                     "k": 0,
+                    "record_id": "test-circle",
+                    "record_ids": ["test-circle"],
+                },
+            )
+            self.assertEqual(
+                inventory["degree_lattice"]["cells"][0],
+                {
+                    "n": 1,
+                    "m": 1,
                     "record_id": "test-circle",
                     "record_ids": ["test-circle"],
                 },

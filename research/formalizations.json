@@ -126,7 +126,44 @@
       }
     ]
   },
+  "maintained_displayed_lower_connectivity_set": {
+    "count": 1,
+    "system": "Lean 4",
+    "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/DisplayedLowerConnectivity.lean",
+    "counting_rule": "The arbitrary-basepoint MulEquiv theorem counts once. Its distinguished-basepoint specialization and all displayed coordinates are instances of that one uniform theorem.",
+    "results": [
+      {
+        "id": "metric-sphere-positive-lower-groups",
+        "declaration": "Submission.sphere_lower_positive_homotopy_mulEquiv_punit_at",
+        "lattice_effect": "colors every exact-model absolute-degree cell 1<=m<n<=92"
+      }
+    ]
+  },
   "formalizations": [
+    {
+      "id": "lean4-displayed-lower-connectivity",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "e088a31c0ce30c51e4677b04e32b363bc1194c88",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.sphere_lower_positive_homotopy_mulEquiv_punit_at",
+        "Submission.sphere_lower_positive_homotopy_mulEquiv_punit"
+      ],
+      "result": "for every positive degree m<n, pi_m of the exact metric n-sphere is explicitly multiplicatively equivalent to the trivial group, uniformly at every basepoint",
+      "model_relation": "exactly the Mathlib metric-sphere model used by SphereSpace n",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/DisplayedLowerConnectivity.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": {
+        "coordinates": "1<=m<n<=92",
+        "kind": "lean4_exact_metric_model",
+        "cell_ranges": [
+          { "n": [2, 92], "m": [1, 91], "where": "m<n" }
+        ]
+      },
+      "note": "This is one uniform geometric theorem, not 4,186 numerical aliases. Its axiom closure contains only propext, Classical.choice, and Quot.sound."
+    },
     {
       "id": "lean4-benchmark-metric-sphere-pi2",
       "system": "Lean 4",
@@ -373,7 +410,7 @@
       "status": "source_audited_imported_submission",
       "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/0119d6355024b9af41fa9dbf09a6cfb96fea6af8/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Model/SphereConnected.lean",
       "lattice_overlay": null,
-      "note": "The website lattice starts at pi_n(S^n), so these lower-dimensional groups fall outside its coordinate domain."
+      "note": "The imported theorem is the geometric source for the maintained explicit-PUnit wrapper that powers the absolute-degree overlay; this older record does not duplicate those cells."
     },
     {
       "id": "lean4-groundzero-circle",

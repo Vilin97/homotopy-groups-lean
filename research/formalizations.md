@@ -9,9 +9,12 @@ commit-pinned.
 The repository includes a sorry-free proof that `pi_k(S^n)` vanishes below the
 sphere dimension.  Its minimal twelve-module closure is vendored under
 [`examples/submissions/sphere_lower_homotopy_subsingleton`](../examples/submissions/sphere_lower_homotopy_subsingleton/)
-and is evaluated against the benchmark-owned statement.  This result does not
-occupy a square in the displayed `(n,k)` lattice, because that lattice begins at
-`pi_n(S^n)` and moves upward.
+and is evaluated against the benchmark-owned statement. The maintained
+`DisplayedLowerConnectivity.lean` wrapper strengthens each positive instance
+to an explicit `MulEquiv` with `PUnit`, uniformly in the sphere dimension,
+degree, and basepoint. The default absolute-degree `(n,m)` view therefore shows
+the full 4,186-cell region `1 <= m < n <= 92` in purple; the nonnegative-stem
+view remains available alongside it.
 
 The metric-circle submissions close the model gap for the first row of the
 lattice by constructing the homeomorphism from Mathlib's complex `Circle` to
@@ -52,8 +55,9 @@ The maintained Lean 4 closure now also contains the path fibration, the
 degree-one Hurewicz theorem, the needed Mayer--Vietoris and Wang machinery, and
 the computation `H_1(ΩS²) = Z`.  Their composition proves `pi_2(S^2) = Z` in
 the exact metric-sphere model and adds `(n,k)=(2,0)` to the overlay. The live
-display now runs through stem 108. The honest Lean 4 overlay therefore has 110
-cells: the complete 109-cell `n=1` row and this first diagonal cell.
+stem display now runs through stem 108 and has 110 purple cells. The default
+absolute-degree display has 4,279 purple cells: 4,186 lower-connectivity cells,
+92 visible circle cells, and `pi_2(S^2)`.
 `DisplayedCircleFrontier.lean` packages the higher-circle vanishing theorem as
 an explicit `MulEquiv` with `PUnit` at every basepoint and gives named witnesses
 for the eighteen newly displayed cells. Those numerical witnesses remain

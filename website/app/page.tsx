@@ -83,12 +83,12 @@ export default function Home() {
       <section className="atlas-section shell" id="atlas" aria-labelledby="atlas-title">
         <div className="compact-heading">
           <div>
-            <span>THE (n,k)-PLANE</span>
+            <span>THE (n,m) AND (n,k) PLANES</span>
             <h2 id="atlas-title">Knowledge lattice</h2>
           </div>
           <div className="heading-math">
             <span>n = 1…92</span>
-            <span>k = 0…108</span>
+            <span>m = 1…92 · k = 0…108</span>
             <strong>{exactStemCount} exact stems · {partialStemCount} partial</strong>
             <a href={reportPdf}>earlier low-stem PDF ↗</a>
           </div>

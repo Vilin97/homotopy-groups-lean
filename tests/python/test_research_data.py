@@ -211,6 +211,12 @@ class ResearchDataTests(unittest.TestCase):
                 counts[status] += 1
         self.assertEqual(sum(counts.values()), domain["cell_count"])
         self.assertEqual(counts, coverage["counts"])
+        degree_domain = coverage["degree_domain"]
+        self.assertEqual(
+            degree_domain["cell_count"],
+            (degree_domain["n_max"] - degree_domain["n_min"] + 1)
+            * (degree_domain["m_max"] - degree_domain["m_min"] + 1),
+        )
 
     def test_report_and_companion_files_are_present(self) -> None:
         report = ROOT / "website/public/reports/homotopy-groups-of-spheres-literature-review.pdf"
@@ -380,6 +386,29 @@ class ResearchDataTests(unittest.TestCase):
             [{"n": [1, 1], "k": [91, 108]}],
         )
         self.assertEqual(len(frontier["convenience_corollaries"]), 18)
+
+    def test_displayed_lower_connectivity_is_one_general_lean_result(self) -> None:
+        inventory = json.loads((ROOT / "research/formalizations.json").read_text())
+        result_set = inventory["maintained_displayed_lower_connectivity_set"]
+        self.assertEqual(result_set["system"], "Lean 4")
+        self.assertEqual(result_set["count"], 1)
+        self.assertEqual(len(result_set["results"]), 1)
+        source = (ROOT / "research" / result_set["source"]).resolve()
+        text = source.read_text()
+        self.assertNotIn("sorry", text)
+        self.assertNotIn("admit", text)
+        declaration = result_set["results"][0]["declaration"].rsplit(".", 1)[-1]
+        self.assertIn(f"theorem {declaration}", text)
+
+        record = next(
+            item for item in inventory["formalizations"]
+            if item["id"] == "lean4-displayed-lower-connectivity"
+        )
+        self.assertIsNone(record["lattice_overlay"])
+        self.assertEqual(
+            record["degree_lattice_overlay"]["cell_ranges"],
+            [{"n": [2, 92], "m": [1, 91], "where": "m<n"}],
+        )
 
 
 if __name__ == "__main__":

@@ -20,6 +20,7 @@ from benchmark_trust import (
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 STATUS_RE = re.compile(r"\bknowledge_status=([^;\s]+)")
 DEFAULT_LATTICE_DOMAIN = {"n_min": 1, "n_max": 92, "k_min": 0, "k_max": 108}
+DEFAULT_DEGREE_LATTICE_DOMAIN = {"n_min": 1, "n_max": 92, "m_min": 1, "m_max": 92}
 FORMALIZATION_STATUS_PRIORITY = {
     "lean_kernel_checked_local_source": 0,
     "dual_kernel_verified_reference": 1,
@@ -179,6 +180,29 @@ def _lattice_domain(root: pathlib.Path) -> dict[str, int]:
     return domain
 
 
+def _degree_lattice_domain(root: pathlib.Path) -> dict[str, int]:
+    coverage_path = root / "research" / "lattice-coverage.json"
+    if not coverage_path.is_file():
+        return dict(DEFAULT_DEGREE_LATTICE_DOMAIN)
+    coverage = json.loads(coverage_path.read_text(encoding="utf-8"))
+    raw_domain = coverage.get("degree_domain") if isinstance(coverage, dict) else None
+    if raw_domain is None:
+        return dict(DEFAULT_DEGREE_LATTICE_DOMAIN)
+    if not isinstance(raw_domain, dict):
+        raise ValueError("research/lattice-coverage.json.degree_domain must be an object")
+    domain: dict[str, int] = {}
+    for key, fallback in DEFAULT_DEGREE_LATTICE_DOMAIN.items():
+        value = raw_domain.get(key, fallback)
+        if not isinstance(value, int):
+            raise ValueError(
+                f"research/lattice-coverage.json.degree_domain.{key} must be an integer"
+            )
+        domain[key] = value
+    if domain["n_min"] > domain["n_max"] or domain["m_min"] > domain["m_max"]:
+        raise ValueError("research/lattice-coverage.json has an inverted degree-lattice domain")
+    return domain
+
+
 def load_formalization_inventory(root: pathlib.Path) -> dict[str, object]:
     """Validate and expand the audited formalization registry for the site.
 
@@ -189,6 +213,7 @@ def load_formalization_inventory(root: pathlib.Path) -> dict[str, object]:
 
     registry_path = root / "research" / "formalizations.json"
     domain = _lattice_domain(root)
+    degree_domain = _degree_lattice_domain(root)
     empty = {
         "schema_version": "1.0.0",
         "reviewed_on": None,
@@ -198,6 +223,7 @@ def load_formalization_inventory(root: pathlib.Path) -> dict[str, object]:
         ),
         "records": [],
         "lattice": {**domain, "cell_count": 0, "cells": []},
+        "degree_lattice": {**degree_domain, "cell_count": 0, "cells": []},
     }
     # Unit-test benchmark fixtures intentionally omit the research audit.
     if not registry_path.is_file():
@@ -213,6 +239,7 @@ def load_formalization_inventory(root: pathlib.Path) -> dict[str, object]:
     records: list[dict[str, object]] = []
     record_by_id: dict[str, dict[str, object]] = {}
     records_for_cell: dict[tuple[int, int], list[str]] = {}
+    degree_records_for_cell: dict[tuple[int, int], list[str]] = {}
     for index, value in enumerate(raw_records):
         if not isinstance(value, dict):
             raise ValueError(f"formalizations[{index}] must be an object")
@@ -282,6 +309,75 @@ def load_formalization_inventory(root: pathlib.Path) -> dict[str, object]:
                             )
                         cells.add(cell)
 
+        degree_overlay = row.get("degree_lattice_overlay")
+        degree_coordinates: str | None = None
+        degree_lattice_kind: str | None = None
+        degree_cells: set[tuple[int, int]] = set()
+        if degree_overlay is not None:
+            if not isinstance(degree_overlay, dict):
+                raise ValueError(
+                    f"{context}.degree_lattice_overlay must be an object or null"
+                )
+            degree_coordinates = _required_string(
+                degree_overlay,
+                "coordinates",
+                context=f"{context}.degree_lattice_overlay",
+            )
+            degree_lattice_kind = _required_string(
+                degree_overlay, "kind", context=f"{context}.degree_lattice_overlay"
+            )
+            ranges = degree_overlay.get("cell_ranges")
+            if not isinstance(ranges, list) or not ranges:
+                raise ValueError(
+                    f"{context}.degree_lattice_overlay.cell_ranges must be a non-empty array"
+                )
+            for range_index, raw_range in enumerate(ranges):
+                range_context = (
+                    f"{context}.degree_lattice_overlay.cell_ranges[{range_index}]"
+                )
+                if not isinstance(raw_range, dict):
+                    raise ValueError(f"{range_context} must be an object")
+                bounds: dict[str, tuple[int, int]] = {}
+                for axis in ("n", "m"):
+                    raw_bounds = raw_range.get(axis)
+                    if (
+                        not isinstance(raw_bounds, list)
+                        or len(raw_bounds) != 2
+                        or not all(isinstance(item, int) for item in raw_bounds)
+                    ):
+                        raise ValueError(f"{range_context}.{axis} must be [min, max]")
+                    lower, upper = raw_bounds
+                    domain_lower = degree_domain[f"{axis}_min"]
+                    domain_upper = degree_domain[f"{axis}_max"]
+                    if lower > upper or lower < domain_lower or upper > domain_upper:
+                        raise ValueError(
+                            f"{range_context}.{axis} lies outside "
+                            f"[{domain_lower}, {domain_upper}]"
+                        )
+                    bounds[axis] = (lower, upper)
+                condition = raw_range.get("where")
+                if condition not in (None, "m<n"):
+                    raise ValueError(f"{range_context}.where must be 'm<n' when present")
+                for n in range(bounds["n"][0], bounds["n"][1] + 1):
+                    for m in range(bounds["m"][0], bounds["m"][1] + 1):
+                        if condition == "m<n" and not m < n:
+                            continue
+                        cell = (n, m)
+                        if cell in degree_cells:
+                            raise ValueError(
+                                f"{range_context} duplicates degree-lattice cell n={n},m={m}"
+                            )
+                        degree_cells.add(cell)
+
+        # Every nonnegative-stem coordinate also has an absolute-degree coordinate m=n+k.
+        for n, k in cells:
+            m = n + k
+            if (
+                degree_domain["n_min"] <= n <= degree_domain["n_max"]
+                and degree_domain["m_min"] <= m <= degree_domain["m_max"]
+            ):
+                degree_cells.add((n, m))
+
         record: dict[str, object] = {
             "id": record_id,
             "system": system,
@@ -293,12 +389,17 @@ def load_formalization_inventory(root: pathlib.Path) -> dict[str, object]:
             "coordinates": coordinates,
             "lattice_kind": lattice_kind,
             "cell_count": len(cells),
+            "degree_coordinates": degree_coordinates,
+            "degree_lattice_kind": degree_lattice_kind,
+            "degree_cell_count": len(degree_cells),
             "note": row.get("note"),
         }
         records.append(record)
         record_by_id[record_id] = record
         for cell in sorted(cells):
             records_for_cell.setdefault(cell, []).append(record_id)
+        for cell in sorted(degree_cells):
+            degree_records_for_cell.setdefault(cell, []).append(record_id)
 
     def record_priority(record_id: str) -> tuple[int, int, str]:
         record = record_by_id[record_id]
@@ -317,6 +418,13 @@ def load_formalization_inventory(root: pathlib.Path) -> dict[str, object]:
             {"n": n, "k": k, "record_id": ordered_ids[0], "record_ids": ordered_ids}
         )
 
+    degree_lattice_cells: list[dict[str, object]] = []
+    for (n, m), record_ids in sorted(degree_records_for_cell.items()):
+        ordered_ids = sorted(record_ids, key=record_priority)
+        degree_lattice_cells.append(
+            {"n": n, "m": m, "record_id": ordered_ids[0], "record_ids": ordered_ids}
+        )
+
     reviewed_on = payload.get("reviewed_on")
     if not isinstance(reviewed_on, str) or not reviewed_on:
         raise ValueError("research/formalizations.json.reviewed_on must be a date string")
@@ -326,6 +434,11 @@ def load_formalization_inventory(root: pathlib.Path) -> dict[str, object]:
         "source": empty["source"],
         "records": records,
         "lattice": {**domain, "cell_count": len(lattice_cells), "cells": lattice_cells},
+        "degree_lattice": {
+            **degree_domain,
+            "cell_count": len(degree_lattice_cells),
+            "cells": degree_lattice_cells,
+        },
     }
 
 

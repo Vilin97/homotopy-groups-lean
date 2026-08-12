@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     template: "%s · Homotopy Groups Lean",
   },
   description:
-    "An interactive (n,k)-lattice of known, partial, disputed, and Lean 4-formalized homotopy groups of spheres.",
+    "Interactive absolute-degree and stem lattices of known, partial, disputed, and Lean 4-formalized homotopy groups of spheres.",
   alternates: { canonical: canonicalUrl },
   openGraph: {
     title: "πₙ₊ₖ(Sⁿ), mapped.",

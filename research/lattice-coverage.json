@@ -3,6 +3,8 @@
   "reviewed_on": "2026-08-12",
   "coordinate": "pi_(n+k)(S^n)",
   "domain": { "n_min": 1, "n_max": 92, "k_min": 0, "k_max": 108, "cell_count": 10028 },
+  "degree_coordinate": "pi_m(S^n)",
+  "degree_domain": { "n_min": 1, "n_max": 92, "m_min": 1, "m_max": 92, "cell_count": 8464 },
   "classification_precedence": [
     { "when": "n = 1", "status": "exact_integral", "source_scope": "circle is K(Z,1)" },
     { "when": "n >= 2 and k <= 20", "status": "exact_integral", "source_scope": "Toda stems 0-19 and Mimura-Toda stem 20" },
@@ -22,7 +24,7 @@
   },
   "formalization_overlay": {
     "independent_of_mathematical_status": true,
-    "rule": "A cell is overlaid only when a source-auditable Lean development proves that coordinate's result; a stable representative is not propagated without formal suspension equivalences.",
+    "rule": "A cell is overlaid only when a source-auditable Lean development proves that coordinate's result. The absolute-degree view includes formally proved positive lower groups; a stable representative is not propagated without formal suspension equivalences.",
     "inventory": "formalizations.json"
   },
   "primary_sources": [
