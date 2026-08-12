@@ -118,16 +118,21 @@ is now connected directly to the `IsNConnectedPair` interface as well: it
 proves zero relative homology through degree `m` for both cap/overlap pairs and,
 after excision, for the sphere/upper-cap target. Thus the complete
 vanishing-plus-first-nonzero homology pattern is checked on both sides of the
-canonical map.
+canonical map. A relative cubical loop is now packaged as a based map of pairs,
+and its action on relative homology is proved invariant under relative homotopy
+and natural under postcomposition. The top relative homology of the cube pair
+is computed as `Z`, with a normalized oriented fundamental class. Evaluating on
+that class constructs a natural relative Hurewicz comparison in every degree at
+least two.
 
 Bijectivity of the corresponding relative homotopy map yields the next exact
 diagonal equivalence; bijectivity of the family from `pi_2(S^2)` onward yields
 the full integral diagonal, using the two exact base cases already in Lean. The
-remaining bridge is homotopical rather than homological: either a natural
-first-nonvanishing relative Hurewicz comparison or the full Blakers--Massey
-homotopy-excision theorem must turn the checked connectivity and homology
-excision inputs into relative-homotopy bijectivity. This foundation milestone
-therefore adds no exact purple cells yet.
+remaining bridge is the isomorphism theorem: either first-nonvanishing relative
+Hurewicz bijectivity for the comparison now constructed, or the full
+Blakers--Massey homotopy-excision theorem, must turn the checked connectivity
+and homology-excision inputs into relative-homotopy bijectivity. This foundation
+milestone therefore adds no exact purple cells yet.
 
 Higher exact diagonal and stable sphere stems still require additional degree
 classification, Freudenthal, higher-Hurewicz, and Hopf-fibration
