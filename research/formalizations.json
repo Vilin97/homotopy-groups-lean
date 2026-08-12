@@ -173,7 +173,38 @@
       { "id": "simply-connected-h1-vanishing", "declaration": "Submission.isZero_hgrp_one_of_subsingleton_piOne", "lattice_effect": "none directly; first absolute consequence" }
     ]
   },
+  "maintained_sphere_approximation_set": {
+    "count": 4,
+    "system": "Lean 4",
+    "counting_rule": "The radial-homotopy projection theorem, close-map criterion, finite approximation theorem, and quotient-level finite-representative theorem are four distinct reusable results.",
+    "results": [
+      { "id": "radial-sphere-homotopy", "declaration": "Submission.genLoopHomotopic_of_radialHomotopy", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereHomotopy.lean", "lattice_effect": "none directly; constructs based sphere homotopies from ambient homotopies" },
+      { "id": "close-sphere-maps-homotopic", "declaration": "Submission.genLoopHomotopic_of_dist_lt_one", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereHomotopy.lean", "lattice_effect": "none directly; quantitative homotopy-invariance input" },
+      { "id": "finite-sphere-pl-approximation", "declaration": "Submission.exists_spherePLApproximation", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereApproximation.lean", "lattice_effect": "none directly; dimension-independent finite-model reduction" },
+      { "id": "finite-sphere-pl-representative", "declaration": "Submission.homotopyGroup_exists_spherePLRepresentative", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereApproximation.lean", "lattice_effect": "none yet; reduces every diagonal class to a finite representative" }
+    ]
+  },
   "formalizations": [
+    {
+      "id": "lean4-sphere-pl-approximation",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "cc7821c1e312c675950bd4cbd061dd9fb3689281",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.genLoopHomotopic_of_radialHomotopy",
+        "Submission.genLoopHomotopic_of_dist_lt_one",
+        "Submission.exists_spherePLApproximation",
+        "Submission.homotopyGroup_exists_spherePLRepresentative"
+      ],
+      "result": "every based map into a metric sphere, and hence every sphere homotopy class, has a finite piecewise-affine ambient representative whose radial projection is based-homotopic to the original map",
+      "model_relation": "exactly the Mathlib metric-sphere and cubical HomotopyGroup models; valid in every source and target dimension without a connectivity inequality",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereApproximation.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All four declarations are sorry-free Lean 4. Their axiom closures contain only propext, Classical.choice, and Quot.sound. This is a finite-model reduction toward degree classification, so it does not recolor unsupported diagonal cells."
+    },
     {
       "id": "lean4-relative-hurewicz-vanishing",
       "system": "Lean 4",

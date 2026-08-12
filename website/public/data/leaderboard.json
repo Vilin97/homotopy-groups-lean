@@ -44441,6 +44441,29 @@
         "cell_count": 0,
         "coordinates": null,
         "declarations": [
+          "Submission.genLoopHomotopic_of_radialHomotopy",
+          "Submission.genLoopHomotopic_of_dist_lt_one",
+          "Submission.exists_spherePLApproximation",
+          "Submission.homotopyGroup_exists_spherePLRepresentative"
+        ],
+        "degree_cell_count": 0,
+        "degree_coordinates": null,
+        "degree_lattice_kind": null,
+        "degree_lattice_proof": null,
+        "id": "lean4-sphere-pl-approximation",
+        "lattice_kind": null,
+        "lattice_proof": null,
+        "model_relation": "exactly the Mathlib metric-sphere and cubical HomotopyGroup models; valid in every source and target dimension without a connectivity inequality",
+        "note": "All four declarations are sorry-free Lean 4. Their axiom closures contain only propext, Classical.choice, and Quot.sound. This is a finite-model reduction toward degree classification, so it does not recolor unsupported diagonal cells.",
+        "result": "every based map into a metric sphere, and hence every sphere homotopy class, has a finite piecewise-affine ambient representative whose radial projection is based-homotopic to the original map",
+        "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/cc7821c1e312c675950bd4cbd061dd9fb3689281/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereApproximation.lean",
+        "status": "lean_kernel_checked_local_source",
+        "system": "Lean 4"
+      },
+      {
+        "cell_count": 0,
+        "coordinates": null,
+        "declarations": [
           "Submission.exists_simplicialCompression",
           "Submission.exists_simplicialDeformation",
           "Submission.isZero_HrelSet_of_unique_piRel",
