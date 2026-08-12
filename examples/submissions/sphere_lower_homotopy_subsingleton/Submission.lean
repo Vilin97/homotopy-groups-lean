@@ -18,6 +18,7 @@ import Submission.Hurewicz.RelativeBoundary
 import Submission.Hurewicz.RelativeMap
 import Submission.Hurewicz.RelativeSimplex
 import Submission.Hurewicz.SimplexCubeClass
+import Submission.Hurewicz.SimplexCubeOrientation
 import Submission.Lean4TwentyResults
 import Submission.MetricSpherePiOne
 import Submission.ReducedSuspensionGroup
