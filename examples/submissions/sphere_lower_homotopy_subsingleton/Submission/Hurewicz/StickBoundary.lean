@@ -2,6 +2,7 @@
 Copyright (c) 2026 Vasily Ilin. All rights reserved.
 Released under Apache 2.0 license.
 -/
+import Submission.Hurewicz.CubicalShell
 import Submission.Hurewicz.NormalizedBoundary
 
 /-!
@@ -62,6 +63,21 @@ noncomputable def stickCubeMap (b : NormalizedSimplexBoundary n X x) :
     C(I^Fin (n + 3), X) :=
   (sngEquiv (TopCat.of X) (n + 3) b.simplex).comp (stickSimplex (n + 3))
 
+/-- The stick-breaking cube of a normalized simplex boundary, packaged as a generic cubical
+shell. -/
+noncomputable def stickShell (b : NormalizedSimplexBoundary n X x) :
+    CubicalShell (n + 2) X x where
+  map := b.stickCubeMap
+  codimTwo t ht := by
+    apply b.simplex_eq_of_mem_codimTwo
+    exact stickSimplex_mem_codimTwo_of_mem_cubeCodimTwo t ht
+
+@[simp]
+theorem stickShell_map_apply (b : NormalizedSimplexBoundary n X x)
+    (t : I^Fin (n + 3)) :
+    b.stickShell.map t = b.stickCubeMap t :=
+  rfl
+
 @[simp]
 theorem stickCubeMap_apply (b : NormalizedSimplexBoundary n X x) (t : I^Fin (n + 3)) :
     b.stickCubeMap t =
@@ -99,6 +115,20 @@ theorem stickCubeMap_lower_face (b : NormalizedSimplexBoundary n X x)
   apply b.simplex_eq_of_mem_codimTwo
   exact stickSimplex_cubeFace_zero_mem_codimTwo i hi t
 
+/-- Every nonfinal lower face is constant in the ambient-face sense used by a generic cubical
+shell. -/
+theorem stickShell_lowerFace_isConstant (b : NormalizedSimplexBoundary n X x)
+    (i : Fin (n + 3)) (hi : i ≠ Fin.last (n + 2)) :
+    b.stickShell.IsConstantFace i 0 := by
+  intro t ht
+  let u : I^Fin (n + 2) := Fin.removeNth i t
+  have hrep : t = cubeFace i 0 u := by
+    change t = i.insertNth 0 u
+    rw [← ht]
+    exact (Fin.insertNth_self_removeNth i t).symm
+  rw [hrep]
+  exact b.stickCubeMap_lower_face i hi u
+
 /-- An upper face of the stick-breaking cube, regarded as a generalized loop. -/
 noncomputable def stickUpperFaceLoop (b : NormalizedSimplexBoundary n X x)
     (i : Fin (n + 3)) : Ω^ (Fin (n + 2)) X x :=
@@ -112,6 +142,24 @@ noncomputable def stickLowerFaceLoop (b : NormalizedSimplexBoundary n X x)
   ⟨b.stickCubeMap.comp (cubeFace i 0), fun t ht ↦ by
     apply b.simplex_eq_of_mem_codimTwo
     exact stickSimplex_cubeFace_mem_codimTwo i 0 (Or.inl rfl) t ht⟩
+
+/-- The specialized upper face loop agrees with the face supplied by the generic shell. -/
+@[simp]
+theorem stickShell_upperFaceLoop (b : NormalizedSimplexBoundary n X x)
+    (i : Fin (n + 3)) :
+    b.stickShell.upperFaceLoop i = b.stickUpperFaceLoop i := by
+  apply GenLoop.ext
+  intro t
+  rfl
+
+/-- The specialized lower face loop agrees with the face supplied by the generic shell. -/
+@[simp]
+theorem stickShell_lowerFaceLoop (b : NormalizedSimplexBoundary n X x)
+    (i : Fin (n + 3)) :
+    b.stickShell.lowerFaceLoop i = b.stickLowerFaceLoop i := by
+  apply GenLoop.ext
+  intro t
+  rfl
 
 /-- The upper cubical face loop is exactly the corresponding normalized simplex loop. -/
 @[simp]
@@ -147,6 +195,18 @@ noncomputable def stickLowerFaceClass (b : NormalizedSimplexBoundary n X x)
   Additive.ofMul (⟦b.stickLowerFaceLoop i⟧ : π_ (n + 2) X x)
 
 @[simp]
+theorem stickShell_upperFaceClass (b : NormalizedSimplexBoundary n X x)
+    (i : Fin (n + 3)) :
+    b.stickShell.upperFaceClass i = b.stickUpperFaceClass i := by
+  rw [CubicalShell.upperFaceClass, stickUpperFaceClass, stickShell_upperFaceLoop]
+
+@[simp]
+theorem stickShell_lowerFaceClass (b : NormalizedSimplexBoundary n X x)
+    (i : Fin (n + 3)) :
+    b.stickShell.lowerFaceClass i = b.stickLowerFaceClass i := by
+  rw [CubicalShell.lowerFaceClass, stickLowerFaceClass, stickShell_lowerFaceLoop]
+
+@[simp]
 theorem stickUpperFaceClass_eq (b : NormalizedSimplexBoundary n X x)
     (i : Fin (n + 3)) :
     b.stickUpperFaceClass i = Additive.ofMul (b.face i.castSucc).stickHomotopyClass := by
@@ -173,6 +233,16 @@ noncomputable def stickCubicalBoundaryClass (b : NormalizedSimplexBoundary n X x
     Additive (π_ (n + 2) X x) :=
   ∑ i : Fin (n + 3),
     (-1 : ℤ) ^ (i : ℕ) • (b.stickUpperFaceClass i - b.stickLowerFaceClass i)
+
+/-- The specialized cubical boundary expression is the boundary class of the generic stick
+shell. -/
+@[simp]
+theorem stickShell_boundaryClass (b : NormalizedSimplexBoundary n X x) :
+    b.stickShell.boundaryClass = b.stickCubicalBoundaryClass := by
+  rw [CubicalShell.boundaryClass, stickCubicalBoundaryClass]
+  apply Finset.sum_congr rfl
+  intro i hi
+  rw [stickShell_upperFaceClass, stickShell_lowerFaceClass]
 
 /-- The alternating sum of the normalized simplex faces in stick-breaking coordinates. -/
 noncomputable def alternatingStickFaceClass (b : NormalizedSimplexBoundary n X x) :
