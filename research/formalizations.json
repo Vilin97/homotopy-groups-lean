@@ -139,7 +139,43 @@
       }
     ]
   },
+  "maintained_diagonal_induction_set": {
+    "count": 2,
+    "system": "Lean 4",
+    "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/DiagonalInduction.lean",
+    "counting_rule": "The exact pi_1(S^1)-to-pi_2(S^2) equivalence and the uniform conditional diagonal induction are distinct results. The latter does not color unproved diagonal cells.",
+    "results": [
+      {
+        "id": "metric-sphere-diagonal-one-two",
+        "declaration": "Submission.sphere_diagonal_one_two_mulEquiv",
+        "lattice_effect": "links the two already colored diagonal cells; no new coordinate"
+      },
+      {
+        "id": "metric-sphere-diagonal-suspension-induction",
+        "declaration": "Submission.sphere_diagonal_mulEquiv_int_of_suspension_steps",
+        "lattice_effect": "none until the required geometric suspension equivalences are formalized"
+      }
+    ]
+  },
   "formalizations": [
+    {
+      "id": "lean4-sphere-diagonal-induction",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "4461b85e309978330841a3e1d0966d208f967e43",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.sphere_diagonal_one_two_mulEquiv",
+        "Submission.sphere_diagonal_mulEquiv_int_of_suspension_steps"
+      ],
+      "result": "the first two exact metric-sphere diagonal groups are equivalent, and a uniform family of successive suspension equivalences propagates the integral computation through the full diagonal",
+      "model_relation": "exactly the benchmark metric-sphere model; the full-diagonal result is conditional on the explicitly stated suspension-step family",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/DiagonalInduction.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "Both declarations have an axiom closure containing only propext, Classical.choice, and Quot.sound. Unsupported diagonal cells remain uncolored."
+    },
     {
       "id": "lean4-displayed-lower-connectivity",
       "system": "Lean 4",
@@ -158,6 +194,10 @@
       "degree_lattice_overlay": {
         "coordinates": "1<=m<n<=92",
         "kind": "lean4_exact_metric_model",
+        "proof": {
+          "declaration": "Submission.sphere_lower_positive_homotopy_mulEquiv_punit",
+          "line": 45
+        },
         "cell_ranges": [
           { "n": [2, 92], "m": [1, 91], "where": "m<n" }
         ]
@@ -178,6 +218,10 @@
       "lattice_overlay": {
         "coordinates": "n=2,k=0",
         "kind": "lean4_exact_metric_model",
+        "proof": {
+          "declaration": "Submission.pi2_sphere_two_mulEquiv_int",
+          "line": 53
+        },
         "cell_ranges": [{ "n": [2, 2], "k": [0, 0] }]
       },
       "note": "The proof composes the path-fibration connecting isomorphism, degree-one Hurewicz, and the Wang-sequence computation of H_1 of the loop space; its axiom closure contains no sorryAx."
@@ -244,6 +288,10 @@
       "lattice_overlay": {
         "coordinates": "n=1,91<=k<=108",
         "kind": "lean4_exact_metric_model",
+        "proof": {
+          "declaration": "Submission.sphere_one_higher_homotopy_mulEquiv_punit",
+          "line": 37
+        },
         "cell_ranges": [{ "n": [1, 1], "k": [91, 108] }]
       },
       "note": "The axiom closure contains only propext, Classical.choice, and Quot.sound. The eighteen named witnesses make the newly displayed cells directly inspectable without counting specializations as distinct general results."
@@ -262,6 +310,10 @@
       "lattice_overlay": {
         "coordinates": "n=1,k=0",
         "kind": "lean4_exact_metric_model",
+        "proof": {
+          "declaration": "Submission.pi1_sphere_one_mulEquiv_int",
+          "line": 87
+        },
         "cell_ranges": [{ "n": [1, 1], "k": [0, 0] }]
       },
       "note": "The proof is built through the maintained SubmissionIndependentResults target."
@@ -370,6 +422,10 @@
       "lattice_overlay": {
         "coordinates": "n=1,k>=1",
         "kind": "lean4_exact_metric_model",
+        "proof": {
+          "declaration": "Submission.sphere_one_higher_homotopy_subsingleton",
+          "line": 258
+        },
         "cell_ranges": [{ "n": [1, 1], "k": [1, 90] }]
       },
       "note": "The entire higher row is one general theorem; its ten named low-degree corollaries are not counted separately."

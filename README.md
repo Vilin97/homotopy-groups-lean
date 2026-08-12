@@ -38,7 +38,9 @@ The maintained overlay is Lean 4 only. In the default absolute-degree view it
 covers every positive lower group `π_m(S^n) = 0` for `m < n`, the visible
 metric-circle coordinates, and `π₂(S²) ≅ ℤ`: **4,279 purple cells**, including
 4,186 cells spread across the full lower-connectivity triangle. The stem view
-retains the separate 110-cell nonnegative-stem overlay.
+retains the separate 110-cell nonnegative-stem overlay. Selecting any purple
+cell shows the exact Lean declaration and a commit-pinned link to its source
+line; unformalized cells are explicitly labeled as such.
 
 The [comprehensive 2026 report](website/public/reports/comprehensive-2026/index.html)
 and its [audit](research/comprehensive-handoff-audit.md) extend the source
@@ -156,18 +158,23 @@ the `Evaluate submission` workflow's manual dispatch; reference smoke runs are
 marked ineligible for leaderboard points.
 
 The maintained source-auditable proof suite under
-[`examples/submissions/`](examples/submissions/) currently exposes 42 distinct
+[`examples/submissions/`](examples/submissions/) currently exposes 44 distinct
 Lean 4 results: the original ten, twenty additional structural/exact-circle
 results, ten higher-sphere foundations culminating in the exact `π₂(S²)`
 calculation, an explicit arbitrary-basepoint trivial-group equivalence for all
 higher homotopy groups of the metric circle, and an explicit arbitrary-basepoint
 trivial-group equivalence for every positive homotopy group below the sphere
-diagonal. It includes:
+diagonal, plus two sphere-diagonal induction results. It includes:
 
 - `sphere_lower_homotopy_subsingleton`, proving `π_k(S^n) = 0` for `k < n`
   in the benchmark's exact metric-sphere model;
 - `sphere_lower_positive_homotopy_mulEquiv_punit_at`, upgrading every positive
   instance `1 ≤ m < n` to an explicit `MulEquiv` with `PUnit` at every basepoint;
+- `sphere_diagonal_one_two_mulEquiv`, identifying the first two computed
+  metric-sphere diagonal groups, and
+  `sphere_diagonal_mulEquiv_int_of_suspension_steps`, which packages the exact
+  induction that will propagate the diagonal once the geometric suspension
+  equivalences are available;
 - `sphere_one_higher_homotopy_subsingleton`, proving `π_m(S¹) = 0` for
   every `m ≥ 2` in that same metric-sphere model (one general result; its
   degree-specific corollaries are not counted separately);

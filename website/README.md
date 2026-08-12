@@ -58,8 +58,12 @@ There is no hand-maintained website score or lattice table:
    one or more inclusive `cell_ranges` rectangles to its `lattice_overlay`, or
    use `degree_lattice_overlay` for absolute-degree coordinates. The latter
    supports the audited `m<n` region predicate used by sphere connectivity.
-   The generator validates IDs, source SHAs, range shape, domain bounds, and
-   duplicate range coverage before expanding the cells used by both lattice
-   views and the formalized-group index.
+   Each coloring overlay must identify its exact witness with a `proof` object
+   containing a declaration and source line. The generator validates IDs,
+   source SHAs, theorem membership, local declaration lines, range shape,
+   domain bounds, and duplicate range coverage before expanding the cells used
+   by both lattice views and the formalized-group index. Every expanded cell
+   receives its own `proof_declaration` and commit-pinned, line-anchored
+   `proof_source` fields.
 3. Run `python3 scripts/generate_site_data.py`; CI runs the same command with
    `--check`, so source records and published JSON cannot drift.

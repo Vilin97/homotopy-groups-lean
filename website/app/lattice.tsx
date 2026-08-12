@@ -27,6 +27,7 @@ type Knowledge = "exact" | "partial" | "primary" | "disputed" | "uncharted";
 type Formalization = {
   accessibleLabel: string;
   badge: string;
+  declaration: string;
   kind: "lean4-exact" | "lean4" | "historical";
   note: string;
   source: string;
@@ -41,8 +42,20 @@ type FormalizationRecord = {
   lattice_kind: string | null;
   degree_lattice_kind: string | null;
 };
-type FormalizationCell = { n: number; k: number; record_id: string };
-type DegreeFormalizationCell = { n: number; m: number; record_id: string };
+type FormalizationCell = {
+  n: number;
+  k: number;
+  record_id: string;
+  proof_declaration: string;
+  proof_source: string;
+};
+type DegreeFormalizationCell = {
+  n: number;
+  m: number;
+  record_id: string;
+  proof_declaration: string;
+  proof_source: string;
+};
 type FormalizationInventory = {
   source: string;
   records: FormalizationRecord[];
@@ -74,10 +87,10 @@ const formalizationRecords = new Map(
   formalizationInventory.records.map((record) => [record.id, record]),
 );
 const stemFormalizationCells = new Map(
-  stemLattice.cells.map((cell) => [`${cell.n}:${cell.k}`, cell.record_id]),
+  stemLattice.cells.map((cell) => [`${cell.n}:${cell.k}`, cell]),
 );
 const degreeFormalizationCells = new Map(
-  degreeLattice.cells.map((cell) => [`${cell.n}:${cell.m}`, cell.record_id]),
+  degreeLattice.cells.map((cell) => [`${cell.n}:${cell.m}`, cell]),
 );
 
 const knowledgeCopy: Record<Knowledge, { label: string; short: string; color: string }> = {
@@ -114,9 +127,9 @@ function knowledgeAtCoordinate(view: ViewMode, n: number, column: number): Knowl
 }
 
 function formalizationAt(view: ViewMode, n: number, column: number): Formalization {
-  const recordId = (view === "degree" ? degreeFormalizationCells : stemFormalizationCells)
+  const cell = (view === "degree" ? degreeFormalizationCells : stemFormalizationCells)
     .get(`${n}:${column}`);
-  const record = recordId ? formalizationRecords.get(recordId) : undefined;
+  const record = cell ? formalizationRecords.get(cell.record_id) : undefined;
   if (!record) return null;
   const dualKernel = record.status === "dual_kernel_verified_reference";
   const kernelChecked = record.status === "lean_kernel_checked_local_source";
@@ -134,6 +147,7 @@ function formalizationAt(view: ViewMode, n: number, column: number): Formalizati
   return {
     accessibleLabel: `${statusLabel} in ${record.system}`,
     badge: `${record.system} · ${statusLabel}`,
+    declaration: cell.proof_declaration,
     kind: exactMetricModel
       ? "lean4-exact"
       : record.system.startsWith("Lean 4")
@@ -398,7 +412,7 @@ export function Lattice() {
           </div>
           <div className="k-axis"><span>n = {nMin}…{nMax}</span><strong>{view === "degree" ? `m = ${columnMin}…${columnMax}` : `k = m − n = ${columnMin}…${columnMax}`}</strong></div>
         </div>
-        <aside className={`coordinate-detail ${status}`} aria-live="polite">
+        <aside className={`coordinate-detail ${status}${formalization ? " formalized" : ""}`} aria-live="polite">
           <div className="detail-status"><i aria-hidden="true" style={{ background: knowledgeCopy[status].color }} /> {knowledgeCopy[status].label}</div>
           {formalization && <div className="formalization-badge">{formalization.badge}</div>}
           <h3 className="math-expression">π<sub>{degree}</sub>(S<sup>{selected.n}</sup>)</h3>
@@ -411,8 +425,10 @@ export function Lattice() {
           {status === "disputed" && <><div className="group-value"><span>33-stem</span><strong>conflicting values</strong></div><p>The literature review records incompatible published values at n = 27. This cell stays visibly disputed.</p></>}
           {status === "uncharted" && <><div className="group-value"><span>review coverage</span><strong>not fully tabulated</strong></div><p>Gray means the attached review does not provide a complete integral value here—not that mathematics knows nothing about the group.</p></>}
           {formalization && <p className="formalization-note">{formalization.note} It does not change the literature evidence class beneath it.</p>}
+          {formalization
+            ? <div className="proof-witness"><span>Exact Lean theorem</span><a href={formalization.source}><code>{formalization.declaration}</code> ↗</a></div>
+            : <div className="proof-witness missing"><span>Lean theorem</span><strong>not formalized yet</strong></div>}
           <div className="detail-links">
-            {formalization && <a href={formalization.source}>Lean source ↗</a>}
             {formalization && <a href={formalizationInventory.source}>full inventory ↗</a>}
             {sourceUrl && <a href={sourceUrl}>mathematical source ↗</a>}
           </div>

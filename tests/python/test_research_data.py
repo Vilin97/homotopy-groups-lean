@@ -410,6 +410,45 @@ class ResearchDataTests(unittest.TestCase):
             [{"n": [2, 92], "m": [1, 91], "where": "m<n"}],
         )
 
+    def test_every_purple_cell_names_and_links_its_exact_lean_witness(self) -> None:
+        published = json.loads(
+            (ROOT / "website/public/data/leaderboard.json").read_text()
+        )["formalization_inventory"]
+        for lattice_name in ("lattice", "degree_lattice"):
+            cells = published[lattice_name]["cells"]
+            self.assertEqual(len(cells), published[lattice_name]["cell_count"])
+            for cell in cells:
+                self.assertRegex(cell["proof_declaration"], r"^Submission\.[A-Za-z0-9_]+$")
+                self.assertRegex(
+                    cell["proof_source"],
+                    r"^https://github\.com/Vilin97/homotopy-groups-lean/"
+                    r"blob/[0-9a-f]{40}/.+\.lean#L[1-9][0-9]*$",
+                )
+
+    def test_diagonal_induction_results_match_sorry_free_lean_source(self) -> None:
+        inventory = json.loads((ROOT / "research/formalizations.json").read_text())
+        result_set = inventory["maintained_diagonal_induction_set"]
+        self.assertEqual(result_set["count"], 2)
+        self.assertEqual(len(result_set["results"]), 2)
+        source = (ROOT / "research" / result_set["source"]).resolve()
+        text = source.read_text()
+        self.assertNotIn("sorry", text)
+        self.assertNotIn("admit", text)
+        for result in result_set["results"]:
+            declaration = result["declaration"].rsplit(".", 1)[-1]
+            self.assertIn(f"theorem {declaration}", text)
+
+        record = next(
+            item for item in inventory["formalizations"]
+            if item["id"] == "lean4-sphere-diagonal-induction"
+        )
+        self.assertEqual(
+            record["declarations"],
+            [result["declaration"] for result in result_set["results"]],
+        )
+        self.assertIsNone(record["lattice_overlay"])
+        self.assertIsNone(record["degree_lattice_overlay"])
+
 
 if __name__ == "__main__":
     unittest.main()

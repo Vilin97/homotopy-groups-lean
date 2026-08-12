@@ -16,6 +16,12 @@ degree, and basepoint. The default absolute-degree `(n,m)` view therefore shows
 the full 4,186-cell region `1 <= m < n <= 92` in purple; the nonnegative-stem
 view remains available alongside it.
 
+Every expanded purple-cell record carries `proof_declaration` and
+`proof_source`. The latter is pinned to the audited commit and anchored at the
+line where the named Lean theorem begins. The cell inspector exposes both
+fields directly. A uniform result therefore appears as the same honest theorem
+at each of its instances instead of being expanded into thousands of aliases.
+
 The metric-circle submissions close the model gap for the first row of the
 lattice by constructing the homeomorphism from Mathlib's complex `Circle` to
 the benchmark's `SphereSpace 1`.  One proof transports the exponential
@@ -66,6 +72,14 @@ corollaries of one general result.
 Higher diagonal and stable sphere stems still require additional
 Freudenthal, higher-Hurewicz, and Hopf-fibration infrastructure.  Incomplete
 attempts do not color cells.
+
+`DiagonalInduction.lean` now records the exact equivalence between the two
+computed diagonal groups `pi_1(S^1)` and `pi_2(S^2)`, and proves that a uniform
+family of successive suspension equivalences propagates the integral
+calculation through the whole diagonal. This is a checked reduction of the
+next lattice frontier, not a claim that the missing geometric suspension
+theorem has already been proved; consequently it adds no unsupported purple
+cells.
 
 The maintained ten-result set is recorded explicitly in
 `maintained_independent_result_set`.  Besides the metric-circle computation it

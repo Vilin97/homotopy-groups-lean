@@ -161,6 +161,56 @@ def _formalization_source_url(
     return f"https://github.com/{repository}/blob/{commit}/{relative.as_posix()}"
 
 
+def _overlay_proof_witness(
+    root: pathlib.Path,
+    registry_path: pathlib.Path,
+    row: dict[str, object],
+    overlay: dict[str, object],
+    source_url: str,
+    declarations: list[str],
+    *,
+    context: str,
+) -> dict[str, str] | None:
+    """Validate the exact declaration used by an overlay and anchor its source link."""
+
+    raw_proof = overlay.get("proof")
+    if raw_proof is None:
+        return None
+    if not isinstance(raw_proof, dict):
+        raise ValueError(f"{context}.proof must be an object")
+    declaration = _required_string(raw_proof, "declaration", context=f"{context}.proof")
+    if declaration not in declarations:
+        raise ValueError(
+            f"{context}.proof.declaration must occur in the formalization declarations"
+        )
+    line = raw_proof.get("line")
+    if not isinstance(line, int) or isinstance(line, bool) or line < 1:
+        raise ValueError(f"{context}.proof.line must be a positive integer")
+
+    raw_source = _required_string(
+        row, "source", context=f"formalization {row.get('id')!r}"
+    )
+    if not raw_source.startswith(("https://", "http://")):
+        try:
+            source_path = (registry_path.parent / raw_source).resolve()
+            source_path.relative_to(root.resolve())
+        except ValueError as exc:
+            raise ValueError(f"{context}.proof source escapes the repository") from exc
+        lines = source_path.read_text(encoding="utf-8").splitlines()
+        short_name = declaration.rsplit(".", 1)[-1]
+        if line > len(lines) or re.search(
+            rf"\b(?:theorem|lemma|def)\s+{re.escape(short_name)}\b", lines[line - 1]
+        ) is None:
+            raise ValueError(
+                f"{context}.proof.line does not point to declaration {declaration}"
+            )
+
+    return {
+        "declaration": declaration,
+        "source": f"{source_url}#L{line}",
+    }
+
+
 def _lattice_domain(root: pathlib.Path) -> dict[str, int]:
     coverage_path = root / "research" / "lattice-coverage.json"
     if not coverage_path.is_file():
@@ -273,6 +323,15 @@ def load_formalization_inventory(root: pathlib.Path) -> dict[str, object]:
             lattice_kind = _required_string(
                 overlay, "kind", context=f"{context}.lattice_overlay"
             )
+            lattice_proof = _overlay_proof_witness(
+                root,
+                registry_path,
+                row,
+                overlay,
+                source,
+                declarations,
+                context=f"{context}.lattice_overlay",
+            )
             ranges = overlay.get("cell_ranges")
             if not isinstance(ranges, list) or not ranges:
                 raise ValueError(
@@ -309,6 +368,9 @@ def load_formalization_inventory(root: pathlib.Path) -> dict[str, object]:
                             )
                         cells.add(cell)
 
+        else:
+            lattice_proof = None
+
         degree_overlay = row.get("degree_lattice_overlay")
         degree_coordinates: str | None = None
         degree_lattice_kind: str | None = None
@@ -325,6 +387,15 @@ def load_formalization_inventory(root: pathlib.Path) -> dict[str, object]:
             )
             degree_lattice_kind = _required_string(
                 degree_overlay, "kind", context=f"{context}.degree_lattice_overlay"
+            )
+            degree_proof = _overlay_proof_witness(
+                root,
+                registry_path,
+                row,
+                degree_overlay,
+                source,
+                declarations,
+                context=f"{context}.degree_lattice_overlay",
             )
             ranges = degree_overlay.get("cell_ranges")
             if not isinstance(ranges, list) or not ranges:
@@ -368,6 +439,8 @@ def load_formalization_inventory(root: pathlib.Path) -> dict[str, object]:
                                 f"{range_context} duplicates degree-lattice cell n={n},m={m}"
                             )
                         degree_cells.add(cell)
+        else:
+            degree_proof = None
 
         # Every nonnegative-stem coordinate also has an absolute-degree coordinate m=n+k.
         for n, k in cells:
@@ -377,6 +450,8 @@ def load_formalization_inventory(root: pathlib.Path) -> dict[str, object]:
                 and degree_domain["m_min"] <= m <= degree_domain["m_max"]
             ):
                 degree_cells.add((n, m))
+        if degree_proof is None:
+            degree_proof = lattice_proof
 
         record: dict[str, object] = {
             "id": record_id,
@@ -389,9 +464,11 @@ def load_formalization_inventory(root: pathlib.Path) -> dict[str, object]:
             "coordinates": coordinates,
             "lattice_kind": lattice_kind,
             "cell_count": len(cells),
+            "lattice_proof": lattice_proof,
             "degree_coordinates": degree_coordinates,
             "degree_lattice_kind": degree_lattice_kind,
             "degree_cell_count": len(degree_cells),
+            "degree_lattice_proof": degree_proof,
             "note": row.get("note"),
         }
         records.append(record)
@@ -414,15 +491,41 @@ def load_formalization_inventory(root: pathlib.Path) -> dict[str, object]:
     lattice_cells: list[dict[str, object]] = []
     for (n, k), record_ids in sorted(records_for_cell.items()):
         ordered_ids = sorted(record_ids, key=record_priority)
+        proof = record_by_id[ordered_ids[0]]["lattice_proof"]
+        if not isinstance(proof, dict):
+            raise ValueError(
+                f"primary lattice record {ordered_ids[0]!r} for n={n},k={k} "
+                "must declare an exact proof witness"
+            )
         lattice_cells.append(
-            {"n": n, "k": k, "record_id": ordered_ids[0], "record_ids": ordered_ids}
+            {
+                "n": n,
+                "k": k,
+                "record_id": ordered_ids[0],
+                "record_ids": ordered_ids,
+                "proof_declaration": proof["declaration"],
+                "proof_source": proof["source"],
+            }
         )
 
     degree_lattice_cells: list[dict[str, object]] = []
     for (n, m), record_ids in sorted(degree_records_for_cell.items()):
         ordered_ids = sorted(record_ids, key=record_priority)
+        proof = record_by_id[ordered_ids[0]]["degree_lattice_proof"]
+        if not isinstance(proof, dict):
+            raise ValueError(
+                f"primary degree-lattice record {ordered_ids[0]!r} for n={n},m={m} "
+                "must declare an exact proof witness"
+            )
         degree_lattice_cells.append(
-            {"n": n, "m": m, "record_id": ordered_ids[0], "record_ids": ordered_ids}
+            {
+                "n": n,
+                "m": m,
+                "record_id": ordered_ids[0],
+                "record_ids": ordered_ids,
+                "proof_declaration": proof["declaration"],
+                "proof_source": proof["source"],
+            }
         )
 
     reviewed_on = payload.get("reviewed_on")

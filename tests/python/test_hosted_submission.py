@@ -111,6 +111,10 @@ def write_formalization_registry(
                 "lattice_overlay": {
                     "coordinates": "n=1,k=0",
                     "kind": "lean4_alternate_model",
+                    "proof": {
+                        "declaration": "Example.circle",
+                        "line": 1,
+                    },
                     "cell_ranges": cell_ranges,
                 },
             }
@@ -624,6 +628,12 @@ class SiteDataTests(unittest.TestCase):
                     "k": 0,
                     "record_id": "test-circle",
                     "record_ids": ["test-circle"],
+                    "proof_declaration": "Example.circle",
+                    "proof_source": (
+                        "https://github.com/example/formalization/blob/"
+                        + "a" * 40
+                        + "/Circle.lean#L1"
+                    ),
                 },
             )
             self.assertEqual(
@@ -633,6 +643,12 @@ class SiteDataTests(unittest.TestCase):
                     "m": 1,
                     "record_id": "test-circle",
                     "record_ids": ["test-circle"],
+                    "proof_declaration": "Example.circle",
+                    "proof_source": (
+                        "https://github.com/example/formalization/blob/"
+                        + "a" * 40
+                        + "/Circle.lean#L1"
+                    ),
                 },
             )
 
