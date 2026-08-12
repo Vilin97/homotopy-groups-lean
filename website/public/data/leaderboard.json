@@ -44441,6 +44441,33 @@
         "cell_count": 0,
         "coordinates": null,
         "declarations": [
+          "Submission.isIso_relJ_singleton",
+          "Submission.homologyIsoRelSingleton",
+          "Submission.homologyIsoRelSingleton_hom_apply",
+          "Submission.homotopyGroupMulEquivRelSingleton",
+          "Submission.homotopyGroupMulEquivRelSingleton_apply",
+          "Submission.absoluteHurewiczAdd",
+          "Submission.relJ_absoluteHurewiczAdd",
+          "Submission.IsNConnected.absoluteHurewiczAdd_surjective"
+        ],
+        "degree_cell_count": 0,
+        "degree_coordinates": null,
+        "degree_lattice_kind": null,
+        "degree_lattice_proof": null,
+        "id": "lean4-first-absolute-hurewicz-surjectivity",
+        "lattice_kind": null,
+        "lattice_proof": null,
+        "model_relation": "The maintained cubical higher homotopy groups and singular homology of a space, compared through the singleton subspace, the homotopy and homology long exact sequences, and the canonical relative cube-pair fundamental class",
+        "note": "All eight listed declarations are sorry-free Lean 4. Strict checking, the exact 8,783-job module build, and the 8,839-job submission build pass. Audited axiom closures for the relative homology isomorphism, homotopy equivalence evaluation, transported comparison formula, and absolute surjectivity theorem contain only propext, Classical.choice, and Quot.sound. Injectivity of the absolute Hurewicz map remains before this becomes the first-nonvanishing Hurewicz isomorphism, so no lattice cell is recolored.",
+        "result": "the singleton-pair long exact sequences identify absolute and relative homotopy and homology in every degree at least two; transporting the maintained relative Hurewicz comparison through these identifications produces an absolute higher Hurewicz homomorphism which is surjective in the first potentially nonzero degree",
+        "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/3b3d214c99369b2fd7b1ae2eb3c2483cd62dc937/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/AbsoluteSurjectivity.lean",
+        "status": "lean_kernel_checked_local_source",
+        "system": "Lean 4"
+      },
+      {
+        "cell_count": 0,
+        "coordinates": null,
+        "declarations": [
           "Submission.homologyQuotEquiv_mk",
           "Submission.homologyDescAddHom",
           "Submission.homologyDesc",

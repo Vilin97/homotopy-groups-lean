@@ -317,6 +317,17 @@ cube-homeomorphism relative Hurewicz comparison already proved surjective and
 to establish the two inverse identities. The lattice overlay is therefore
 still unchanged.
 
+The relative comparison now also yields a canonical absolute Hurewicz
+homomorphism. In every degree `n+2`, the long exact sequence of the singleton
+pair identifies `pi_(n+2)(X,x)` multiplicatively with
+`pi_rel_(n+2)(X,{x},x)` and identifies `H_(n+2)(X)` with
+`H_(n+2)(X,{x})`. Lean transports the additive relative Hurewicz map through
+these two equivalences and proves its defining comparison square. Combining
+the homotopy equivalence with relative first-nonvanishing surjectivity proves
+that `pi_(n+2)(X,x) -> H_(n+2)(X)` is surjective for every `(n+1)`-connected
+space. Injectivity remains the missing half of the absolute Hurewicz theorem,
+so this milestone does not yet recolor a lattice cell.
+
 Bijectivity of the corresponding relative homotopy map yields the next exact
 diagonal equivalence; bijectivity of the family from `pi_2(S^2)` onward yields
 the full integral diagonal, using the two exact base cases already in Lean. The
