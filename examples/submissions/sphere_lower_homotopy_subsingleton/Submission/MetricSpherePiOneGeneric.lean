@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 -/
 import Mathlib
 import Submission.ForMathlib.HomotopyGroup.Basic
+import Submission.ForMathlib.HomotopyGroup.Covering
 import Submission.Model.SphereConnected
 
 /-!
@@ -87,5 +88,34 @@ theorem pi1_sph_one_at_mulEquiv_int (x : Sph 1) :
     (N := Fin 1) circleHomeomorphSphOne.toHomotopyEquiv (1 : Circle)
   obtain ⟨circle⟩ := pi1_circle_mulEquiv_int
   exact ⟨changeBasepoint.trans (changeSpace.symm.trans circle)⟩
+
+private theorem circle_higher_homotopy_subsingleton
+    (k : ℕ) (x : Circle) :
+    Subsingleton (HomotopyGroup.Pi (k + 2) Circle x) := by
+  classical
+  let h : AddCircle (1 : ℝ) ≃ₜ Circle := AddCircle.homeomorphCircle one_ne_zero
+  obtain ⟨t, ht⟩ := QuotientAddGroup.mk_surjective (h.symm x)
+  have htx : h (t : AddCircle (1 : ℝ)) = x := by
+    rw [ht, h.apply_symm_apply]
+  let p : ℝ → Circle := h ∘ ((↑) : ℝ → AddCircle (1 : ℝ))
+  have hp : IsCoveringMap p :=
+    (_root_.AddCircle.isCoveringMap_coe (1 : ℝ)).homeomorph_comp h
+  have hr : Subsingleton (HomotopyGroup.Pi (k + 2) ℝ t) :=
+    subsingleton_homotopyGroup_of_contractible t
+  rw [← htx]
+  exact ((HomotopyGroup.coveringMulEquiv hp t).toEquiv.subsingleton_congr).mp hr
+
+/-- Every homotopy group of the metric circle above degree one is trivial at every basepoint. -/
+theorem sph_one_higher_homotopy_subsingleton_at (k : ℕ) (x : Sph 1) :
+    Subsingleton (HomotopyGroup.Pi (k + 2) (Sph 1) x) := by
+  let e := circleHomeomorphSphOne
+  let z : Circle := e.symm x
+  obtain ⟨h⟩ := nonempty_mulEquiv_of_homotopyEquiv'
+    (N := Fin (k + 2)) e.toHomotopyEquiv z
+  have hx : e z = x := e.apply_symm_apply x
+  change HomotopyGroup.Pi (k + 2) Circle z ≃*
+    HomotopyGroup.Pi (k + 2) (Sph 1) (e z) at h
+  rw [hx] at h
+  exact h.toEquiv.subsingleton_congr.mp (circle_higher_homotopy_subsingleton k z)
 
 end Submission

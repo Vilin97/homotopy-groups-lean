@@ -265,32 +265,11 @@ theorem pi1_sphere_one_mulEquiv_int_at (x : SphereSpace 1) :
   obtain ⟨c⟩ := pi1_sphere_one_mulEquiv_int
   exact ⟨e.trans c⟩
 
-private theorem circle_higher_homotopy_subsingleton
-    (k : ℕ) (x : Circle) :
-    Subsingleton (HomotopyGroup.Pi (k + 2) Circle x) := by
-  classical
-  let h : AddCircle (1 : ℝ) ≃ₜ Circle := AddCircle.homeomorphCircle one_ne_zero
-  obtain ⟨t, ht⟩ := QuotientAddGroup.mk_surjective (h.symm x)
-  have htx : h (t : AddCircle (1 : ℝ)) = x := by
-    rw [ht, h.apply_symm_apply]
-  let p : ℝ → Circle := h ∘ ((↑) : ℝ → AddCircle (1 : ℝ))
-  have hp : IsCoveringMap p :=
-    (_root_.AddCircle.isCoveringMap_coe (1 : ℝ)).homeomorph_comp h
-  have hr : Subsingleton (HomotopyGroup.Pi (k + 2) ℝ t) :=
-    subsingleton_homotopyGroup_of_contractible t
-  rw [← htx]
-  exact ((HomotopyGroup.coveringMulEquiv hp t).toEquiv.subsingleton_congr).mp hr
-
 /-- Result 20: every homotopy group of the exact metric circle above degree one is trivial at
 every basepoint. -/
 theorem sphere_one_higher_homotopy_subsingleton_at
     (k : ℕ) (x : SphereSpace 1) :
-    Subsingleton (HomotopyGroup.Pi (k + 2) (SphereSpace 1) x) := by
-  let e := circleHomeomorphMetricSphereOne
-  let z : Circle := e.symm x
-  obtain ⟨h⟩ := homotopyGroup_homeomorphism_invariance (k + 1) Circle (SphereSpace 1) e z
-  have hx : e z = x := e.apply_symm_apply x
-  rw [hx] at h
-  exact h.toEquiv.subsingleton_congr.mp (circle_higher_homotopy_subsingleton k z)
+    Subsingleton (HomotopyGroup.Pi (k + 2) (SphereSpace 1) x) :=
+  sph_one_higher_homotopy_subsingleton_at k x
 
 end Submission
