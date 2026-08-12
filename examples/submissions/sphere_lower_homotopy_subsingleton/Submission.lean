@@ -14,9 +14,11 @@ import Submission.Hurewicz.ConnectedPair
 import Submission.Hurewicz.CubeFundamentalClass
 import Submission.Hurewicz.FirstHomology
 import Submission.Hurewicz.NormalizedSimplex
+import Submission.Hurewicz.RelativeAdditivity
 import Submission.Hurewicz.RelativeBoundary
 import Submission.Hurewicz.RelativeMap
 import Submission.Hurewicz.RelativeSimplex
+import Submission.Hurewicz.RelativeSurjectivity
 import Submission.Hurewicz.SimplexCubeClass
 import Submission.Hurewicz.SimplexCubeOrientation
 import Submission.Lean4TwentyResults
