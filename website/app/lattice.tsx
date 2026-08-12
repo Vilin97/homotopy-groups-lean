@@ -185,6 +185,7 @@ export function Lattice() {
   const [selected, setSelected] = useState<Coordinate>({ n: 2, column: 1 });
   const [jumpN, setJumpN] = useState("2");
   const [jumpColumn, setJumpColumn] = useState("1");
+  const [selectionPinned, setSelectionPinned] = useState(false);
   const [canvasWidth, setCanvasWidth] = useState(720);
   const [shown, setShown] = useState<Record<Knowledge, boolean>>({
     exact: true, partial: true, primary: true, disputed: true, uncharted: true,
@@ -302,6 +303,7 @@ export function Lattice() {
   };
   const selectView = (nextView: ViewMode) => {
     setView(nextView);
+    setSelectionPinned(false);
     const coordinate = nextView === "degree"
       ? { n: 2, column: 1 }
       : { n: 1, column: 0 };
@@ -317,6 +319,7 @@ export function Lattice() {
       Math.max(columnMin, Number.parseInt(jumpColumn, 10) || columnMin),
     );
     selectCoordinate({ n, column });
+    setSelectionPinned(true);
     canvasRef.current?.focus();
   };
   const coordinateFromPointer = (event: PointerEvent<HTMLCanvasElement>): Coordinate | null => {
@@ -330,9 +333,17 @@ export function Lattice() {
     if (column < columnMin || column > columnMax || row < 0 || row >= rowCount) return null;
     return { n: nMin + row, column };
   };
-  const inspectPointer = (event: PointerEvent<HTMLCanvasElement>) => {
+  const previewPointer = (event: PointerEvent<HTMLCanvasElement>) => {
+    if (selectionPinned) return;
     const coordinate = coordinateFromPointer(event);
     if (coordinate && (coordinate.n !== selected.n || coordinate.column !== selected.column)) selectCoordinate(coordinate);
+  };
+  const pinPointer = (event: PointerEvent<HTMLCanvasElement>) => {
+    const coordinate = coordinateFromPointer(event);
+    if (coordinate) {
+      selectCoordinate(coordinate);
+      setSelectionPinned(true);
+    }
   };
   const moveWithKeys = (event: KeyboardEvent<HTMLCanvasElement>) => {
     const movement: Record<string, Coordinate> = {
@@ -344,6 +355,7 @@ export function Lattice() {
     if (!movement[event.key]) return;
     event.preventDefault();
     selectCoordinate(movement[event.key]);
+    setSelectionPinned(true);
   };
 
   const degree = view === "degree" ? selected.column : selected.n + selected.column;
@@ -400,14 +412,17 @@ export function Lattice() {
       </div>
       <div className="atlas-main">
         <div className="lattice-wrap">
-          <div className="lattice-axis-title"><span className="math-expression">{view === "degree" ? <>π<sub>m</sub>(S<sup>n</sup>)</> : <>π<sub>n+k</sub>(S<sup>n</sup>)</>}</span><strong>hover · click · arrow keys</strong></div>
-          <p className="sr-only" id="lattice-instructions">Use the arrow keys to inspect adjacent cells, or enter coordinates in the locate form.</p>
+          <div className="lattice-axis-title">
+            <span className="math-expression">{view === "degree" ? <>π<sub>m</sub>(S<sup>n</sup>)</> : <>π<sub>n+k</sub>(S<sup>n</sup>)</>}</span>
+            <div className="lattice-mode"><strong>hover to preview · click to pin</strong><button aria-pressed={selectionPinned} disabled={!selectionPinned} onClick={() => setSelectionPinned(false)} type="button">{selectionPinned ? "Pinned · resume hover" : "Hover preview on"}</button></div>
+          </div>
+          <p className="sr-only" id="lattice-instructions">Hover to preview a cell. Click a cell to pin it while following its links. Use the arrow keys to inspect adjacent cells, or enter coordinates in the locate form.</p>
           <div className="canvas-frame" ref={canvasFrameRef}>
             <canvas
               aria-describedby="lattice-instructions"
               aria-label={`Interactive evidence lattice. Selected pi_${degree}(S^${selected.n}): ${knowledgeCopy[status].short}${formalization ? `, ${formalization.accessibleLabel}` : ""}.`}
-              className="lattice-canvas" onClick={inspectPointer} onKeyDown={moveWithKeys}
-              onPointerMove={inspectPointer} ref={canvasRef} tabIndex={0}
+              className="lattice-canvas" onClick={pinPointer} onKeyDown={moveWithKeys}
+              onPointerMove={previewPointer} ref={canvasRef} tabIndex={0}
             >Use the coordinate form to inspect the evidence lattice.</canvas>
           </div>
           <div className="k-axis"><span>n = {nMin}…{nMax}</span><strong>{view === "degree" ? `m = ${columnMin}…${columnMax}` : `k = m − n = ${columnMin}…${columnMax}`}</strong></div>

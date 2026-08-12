@@ -156,6 +156,9 @@ h2 { margin: 0; font-size: clamp(34px, 4vw, 56px); font-weight: 520; letter-spac
 .lattice-axis-title, .k-axis { display: flex; justify-content: space-between; color: var(--muted); font-family: var(--mono); font-size: 9px; text-transform: uppercase; }
 .lattice-axis-title { margin-bottom: 8px; }
 .lattice-axis-title span { color: var(--known); font-family: Georgia, serif; font-size: 14px; font-style: italic; text-transform: none; }
+.lattice-mode { display: flex; align-items: center; gap: 10px; }
+.lattice-mode button { padding: 3px 6px; border: 1px solid rgba(216,144,255,.45); background: rgba(216,144,255,.08); color: var(--formalized); font: inherit; text-transform: uppercase; }
+.lattice-mode button:disabled { border-color: var(--line); background: transparent; color: #6f7b8b; cursor: default; }
 .canvas-frame { width: min(100%, 760px); margin-inline: auto; border: 1px solid var(--line); background: #080b10; }
 .lattice-canvas { width: 100%; display: block; cursor: crosshair; touch-action: pan-y; }
 .lattice-canvas:focus-visible { outline-offset: 2px; }

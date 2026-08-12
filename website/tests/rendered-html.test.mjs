@@ -23,6 +23,8 @@ test("statically exports the benchmark landing page", async () => {
   assert.match(html, /Lean 4 · kernel checked · exact metric model/);
   assert.match(html, /Exact Lean theorem/);
   assert.match(html, /Submission\.sphere_lower_positive_homotopy_mulEquiv_punit/);
+  assert.match(html, /hover to preview · click to pin/i);
+  assert.match(html, /Hover preview on/);
   assert.match(html, /research\/open-problems\.md/);
   assert.match(html, /homotopy-groups-of-spheres-literature-review\.pdf/);
   assert.match(html, /reports\/comprehensive-2026\//);
