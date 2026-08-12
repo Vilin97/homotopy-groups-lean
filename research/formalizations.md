@@ -160,10 +160,24 @@ least two, without assuming that the source relative group is commutative.
 The comparison is consequently packaged as an additive homomorphism. For an
 `(n+1)`-connected space and a chosen point, the normalized top-chain map
 factors through its range, upgrading linear generation to genuine
-surjectivity of `pi_rel_(n+2)(X,{x}) -> H_(n+2)(X,{x})`. The alternating-face
-relation is still needed for the chain-level inverse and injectivity, and the
-cap-excision application still needs the corresponding first-degree theorem
-for general connected pairs.
+surjectivity of `pi_rel_(n+2)(X,{x}) -> H_(n+2)(X,{x})`.
+
+The cubical quotient bridge has now been generalized from sphere self-maps to
+every pointed target: in each positive dimension, generalized cubical loops
+are equivalent to based maps from the exact metric sphere, and relative
+cubical homotopy is equivalent to based homotopy of those sphere maps. A
+coherently deformed `(n+3)`-simplex is packaged together with all of its
+normalized `(n+2)`-faces; every codimension-two face is constant at the
+basepoint. Its actual topological boundary restriction is based-nullhomotopic
+by an explicit affine cone through the higher simplex. On the algebraic side,
+applying the normalized class assignment to the singular boundary is proved
+to be exactly the alternating sum of the homotopy classes carried by those
+faces. Thus descent of the prospective inverse is reduced to one precise
+geometric comparison: the class of the common boundary map must agree with
+the signed product of its individual face sphere maps. That comparison, and
+then the resulting injectivity and general connected-pair theorem, are still
+needed before the cap-excision application; no lattice cell is recolored by
+this boundary-bridge milestone.
 
 Bijectivity of the corresponding relative homotopy map yields the next exact
 diagonal equivalence; bijectivity of the family from `pi_2(S^2)` onward yields

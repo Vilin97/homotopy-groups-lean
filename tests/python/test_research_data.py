@@ -735,6 +735,35 @@ class ResearchDataTests(unittest.TestCase):
         self.assertIsNone(record["lattice_overlay"])
         self.assertIsNone(record["degree_lattice_overlay"])
 
+    def test_normalized_simplex_boundary_matches_sorry_free_sources(self) -> None:
+        inventory = json.loads((ROOT / "research/formalizations.json").read_text())
+        result_set = inventory["maintained_normalized_simplex_boundary_set"]
+        results = result_set["results"]
+        self.assertEqual(result_set["system"], "Lean 4")
+        self.assertEqual(result_set["count"], 9)
+        self.assertEqual(len(results), 9)
+        self.assertEqual(len({row["id"] for row in results}), 9)
+        self.assertEqual(len({row["declaration"] for row in results}), 9)
+        for result in results:
+            source = (ROOT / "research" / result["source"]).resolve()
+            self.assertTrue(source.is_file())
+            text = source.read_text()
+            self.assertNotIn("sorry", text)
+            self.assertNotIn("admit", text)
+            self.assertIn(result["declaration"].rsplit(".", 1)[-1], text)
+
+        record = next(
+            item for item in inventory["formalizations"]
+            if item["id"] == "lean4-normalized-simplex-boundary-bridge"
+        )
+        self.assertTrue(
+            {row["declaration"] for row in results}.issubset(record["declarations"])
+        )
+        self.assertEqual(len(record["declarations"]), 59)
+        self.assertEqual(record["commit"], "27e152aeca158e44b44d67197c045bb6d6d50345")
+        self.assertIsNone(record["lattice_overlay"])
+        self.assertIsNone(record["degree_lattice_overlay"])
+
 
 if __name__ == "__main__":
     unittest.main()
