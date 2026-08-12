@@ -194,6 +194,21 @@ compared with the existing cube-homeomorphism representative (or replace it
 throughout the normalized-chain construction). This coordinate milestone
 therefore adds no unsupported lattice cell.
 
+The cubical homotopy-addition comparison now has a reusable shell abstraction
+and its first two supported cases. A map on a cube that collapses the
+codimension-two skeleton canonically supplies a based loop on every facet and
+an oriented sum of their homotopy classes. Varying one surviving coordinate
+proves the opposite-face relation when every transverse facet is constant. For
+two surviving coordinate pairs, an explicit convex sweep across their square
+relates the bottom-then-right and left-then-top concatenations, giving the
+four-face relation with the correct signs. Lean then proves the entire shell
+sum is zero in either supported case. The normalized stick-breaking boundary
+is packaged as such a shell, its generic and specialized face classes are
+identified, and every nonfinal lower face satisfies the shell's ambient
+constancy predicate. The unrestricted theorem is still required because all
+upper faces of a normalized stick shell may remain nonconstant, so this
+milestone does not yet descend the inverse chain map or recolor a lattice cell.
+
 Bijectivity of the corresponding relative homotopy map yields the next exact
 diagonal equivalence; bijectivity of the family from `pi_2(S^2)` onward yields
 the full integral diagonal, using the two exact base cases already in Lean. The
