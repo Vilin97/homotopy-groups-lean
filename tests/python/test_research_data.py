@@ -950,6 +950,54 @@ class ResearchDataTests(unittest.TestCase):
         self.assertIsNone(record["lattice_overlay"])
         self.assertIsNone(record["degree_lattice_overlay"])
 
+    def test_reduced_suspension_stable_transport_matches_source(self) -> None:
+        inventory = json.loads((ROOT / "research/formalizations.json").read_text())
+        result_set = inventory[
+            "maintained_reduced_suspension_stable_transport_set"
+        ]
+        results = result_set["results"]
+        self.assertEqual(result_set["system"], "Lean 4")
+        self.assertEqual(result_set["count"], 3)
+        self.assertEqual(len(results), 3)
+        self.assertEqual(len({row["id"] for row in results}), 3)
+        self.assertEqual(len({row["declaration"] for row in results}), 3)
+        for result in results:
+            source = (ROOT / "research" / result["source"]).resolve()
+            self.assertTrue(source.is_file())
+            text = source.read_text()
+            self.assertNotIn("sorry", text)
+            self.assertNotIn("admit", text)
+            self.assertIn(result["declaration"].rsplit(".", 1)[-1], text)
+
+        record = next(
+            item for item in inventory["formalizations"]
+            if item["id"] == "lean4-reduced-suspension-stable-transport"
+        )
+        self.assertEqual(
+            record["declarations"],
+            [
+                "Submission.sphereReducedSuspensionPiHom",
+                "Submission.sphereReducedSuspensionPiEquiv",
+                "Submission.sphereReducedSuspensionPiHom_diagonal",
+                "Submission.sphereReducedSuspensionPiHom_bijective_diagonal",
+                "Submission.sphereStemReducedSuspensionHom",
+                "Submission.sphereStemReducedSuspensionEquiv",
+                "Submission.sphereStemReducedSuspensionHom_zero",
+                "Submission.sphereStemReducedSuspensionHom_bijective_zero",
+                "Submission.nonempty_sphereReducedSuspensionPiIterEquiv",
+                "Submission.nonempty_sphereStemReducedSuspensionIterEquiv",
+                "Submission.sphere_stem_mulEquiv_of_reduced_suspension",
+                "Submission.sphere_stable_stem_mulEquiv_of_reduced_suspension",
+                "Submission.nonempty_sphereStemReducedSuspensionIterEquiv_zero",
+            ],
+        )
+        self.assertEqual(
+            record["commit"],
+            "66d9730987fb4b1d1a8fd25737e3922eee479164",
+        )
+        self.assertIsNone(record["lattice_overlay"])
+        self.assertIsNone(record["degree_lattice_overlay"])
+
     def test_first_hurewicz_normalization_matches_sorry_free_sources(self) -> None:
         inventory = json.loads((ROOT / "research/formalizations.json").read_text())
         result_set = inventory["maintained_first_hurewicz_normalization_set"]

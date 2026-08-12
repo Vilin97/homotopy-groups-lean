@@ -168,7 +168,14 @@ It follows that the concrete reduced-suspension homomorphism is bijective in
 every diagonal dimension and gives a third unconditional diagonal proof. This
 argument uses the maintained diagonal Hurewicz classifications to recognize
 the groups as infinite cyclic; it is not a stable off-diagonal Freudenthal
-theorem and adds no duplicate purple cells.
+theorem and adds no duplicate purple cells. The same concrete construction is
+now exposed in every positive numerical degree as
+`pi_(q+1)(S^n) -> pi_(q+2)(S^(n+1))`. Any finite sequence of bijective maps
+composes to an exact multiplicative equivalence, and an identified group can
+be transported along a fixed stem. A dedicated wrapper starts at the canonical
+stable representative `pi_(2k+2)(S^(k+2))`; off-diagonal use still requires
+the stable-range bijectivity hypotheses, so this structural advance does not
+color cells by itself.
 
 Relative homotopy groups are now functorial for based maps of pairs, as actual
 monoid homomorphisms in degree at least two. The induced maps commute with all
@@ -452,8 +459,11 @@ colored by the maintained absolute Hurewicz computation.
 
 Stable off-diagonal sphere stems still require a genuine stable-range
 Freudenthal comparison, higher relative Hurewicz or homotopy excision beyond
-the first nonvanishing degree, and Hopf-fibration infrastructure. Incomplete
-attempts do not color cells.
+the first nonvanishing degree, and Hopf-fibration infrastructure. The exact
+arbitrary-degree reduced-suspension maps, their finite iteration, fixed-stem
+transport, and the canonical stable-representative specialization are now all
+checked; the unresolved suspension input is bijectivity in the stable range.
+Incomplete attempts do not color cells.
 
 `DiagonalInduction.lean` now records the exact equivalence between the two
 computed diagonal groups `pi_1(S^1)` and `pi_2(S^2)`, and proves that a uniform
@@ -468,6 +478,9 @@ multiplicative in the exact metric-sphere model, and the canonical-generator
 fibre calculation plus the existing Hurewicz coordinates now prove that its
 actual diagonal homomorphism is bijective. It therefore supplies unconditional
 successive diagonal equivalences, including the circle-to-two-sphere step. The
+reduced map is also available in arbitrary numerical degree, with checked
+finite iteration and fixed-stem transport from the canonical stable
+representative; only stable-range bijectivity remains hypothetical there. The
 unreduced and reduced constructions have not been compared. A second checked
 route uses the canonical relative map induced by the two-cap cover. Its
 connectivity and homological excision inputs, both relative Hurewicz

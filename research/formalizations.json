@@ -614,6 +614,16 @@
       { "id": "sphere-diagonal-via-reduced-suspension", "declaration": "Submission.sphere_diagonal_mulEquiv_int_via_reducedSuspension", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereReducedSuspensionBijective.lean", "lattice_effect": "gives a third proof of the full displayed diagonal using the concrete reduced-suspension maps; the cells already have a uniform maintained Hurewicz witness" }
     ]
   },
+  "maintained_reduced_suspension_stable_transport_set": {
+    "count": 3,
+    "system": "Lean 4",
+    "counting_rule": "The arbitrary-degree numerical homomorphism, finite iteration of a bijective suspension family, and transport of an identified group along a fixed stem are three reusable structural results. Fixed-stem notation, multiplicative-equivalence packaging, the canonical stable-representative specialization, and the unconditional zero-stem specialization are supporting declarations and are not counted separately.",
+    "results": [
+      { "id": "arbitrary-degree-sphere-reduced-suspension", "declaration": "Submission.sphereReducedSuspensionPiHom", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereReducedSuspensionStable.lean", "lattice_effect": "none until off-diagonal stable-range bijectivity is proved; constructs the actual homomorphism pi_(q+1)(S^n) to pi_(q+2)(S^(n+1)) for every n and q" },
+      { "id": "finite-reduced-suspension-iteration", "declaration": "Submission.nonempty_sphereReducedSuspensionPiIterEquiv", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereReducedSuspensionStable.lean", "lattice_effect": "none until its concrete bijectivity hypotheses are discharged; composes any finite family of successive numerical suspension maps" },
+      { "id": "fixed-stem-group-transport", "declaration": "Submission.sphere_stem_mulEquiv_of_reduced_suspension", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereReducedSuspensionStable.lean", "lattice_effect": "none until a base computation and the required stable-range bijectivity proofs are supplied; transports an identified group across any finite fixed-stem segment" }
+    ]
+  },
   "maintained_stick_sphere_coordinate_set": {
     "count": 7,
     "system": "Lean 4",
@@ -646,6 +656,35 @@
     ]
   },
   "formalizations": [
+    {
+      "id": "lean4-reduced-suspension-stable-transport",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "66d9730987fb4b1d1a8fd25737e3922eee479164",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.sphereReducedSuspensionPiHom",
+        "Submission.sphereReducedSuspensionPiEquiv",
+        "Submission.sphereReducedSuspensionPiHom_diagonal",
+        "Submission.sphereReducedSuspensionPiHom_bijective_diagonal",
+        "Submission.sphereStemReducedSuspensionHom",
+        "Submission.sphereStemReducedSuspensionEquiv",
+        "Submission.sphereStemReducedSuspensionHom_zero",
+        "Submission.sphereStemReducedSuspensionHom_bijective_zero",
+        "Submission.nonempty_sphereReducedSuspensionPiIterEquiv",
+        "Submission.nonempty_sphereStemReducedSuspensionIterEquiv",
+        "Submission.sphere_stem_mulEquiv_of_reduced_suspension",
+        "Submission.sphere_stable_stem_mulEquiv_of_reduced_suspension",
+        "Submission.nonempty_sphereStemReducedSuspensionIterEquiv_zero"
+      ],
+      "result": "reduced suspension is exposed as an actual numerical homomorphism pi_(q+1)(S^n) to pi_(q+2)(S^(n+1)) in every positive homotopy degree; any finite bijective family composes to an equivalence, identified groups transport along fixed stems, and a dedicated specialization starts at the canonical stable representative pi_(2k+2)(S^(k+2)); the diagonal family is recovered definitionally and iterates unconditionally",
+      "model_relation": "exactly the maintained cubical HomotopyGroup, exact metric spheres and basepoints, the quotient model of reduced suspension, the pointed reduced-suspension sphere homeomorphism, and the concrete diagonal suspension equivalences",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereReducedSuspensionStable.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All thirteen listed declarations are sorry-free Lean 4. Strict checks pass for SphereReducedSuspensionStable and the Submission aggregate; exact builds pass at 8,837 and 8,856 jobs respectively. Audited axiom closures for diagonal identification and bijectivity, arbitrary-degree iteration, fixed-stem transport, canonical stable-representative transport, and unconditional zero-stem iteration contain only propext, Classical.choice, and Quot.sound. All 109 Python tests, generated-data synchronization, site lint, the production static build, and all rendered-HTML tests pass. Stable off-diagonal bijectivity remains an explicit hypothesis, so the transport scaffold adds no lattice overlay yet."
+    },
     {
       "id": "lean4-diagonal-reduced-suspension-bijective",
       "system": "Lean 4",

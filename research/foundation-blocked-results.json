@@ -62,7 +62,7 @@
       "id": "freudenthal-stable-transport",
       "result": "Suspension equivalences transporting a proved stable representative across its full stable diagonal",
       "status": "blocked_on_foundations",
-      "missing": ["stable-range bijectivity for concrete reduced suspension, or stable-range homotopy excision or relative Hurewicz beyond the first nonvanishing degree together with comparison of the resulting maps; concrete reduced suspension is now bijective on every diagonal group, and the first-nonvanishing source and target cap comparisons and every diagonal cap-excision equivalence, including index zero, are already formalized"]
+      "missing": ["stable-range bijectivity for the now-formalized arbitrary-degree concrete reduced-suspension maps, or stable-range homotopy excision or relative Hurewicz beyond the first nonvanishing degree together with comparison of the resulting maps; finite fixed-stem iteration and transport from the canonical stable representative are formalized, concrete reduced suspension is bijective on every diagonal group, and the first-nonvanishing source and target cap comparisons and every diagonal cap-excision equivalence, including index zero, are already formalized"]
     },
     {
       "id": "hopf-kervaire-and-image-j",
