@@ -46245,6 +46245,27 @@
         "cell_count": 0,
         "coordinates": null,
         "declarations": [
+          "HomotopyGroups.toda_unstable_integral_diagonal",
+          "HomotopyGroups.toda_unstable_integral_circle_positive"
+        ],
+        "degree_cell_count": 0,
+        "degree_coordinates": null,
+        "degree_lattice_kind": null,
+        "degree_lattice_proof": null,
+        "id": "lean4-toda-verified-diagonal-and-circle",
+        "lattice_kind": null,
+        "lattice_proof": null,
+        "model_relation": "exactly the benchmark's metric SphereSpace, distinguished sphere basepoint, and generated TodaIntegralGroup code; the two finite-indexed theorems cover 39 distinct cells of the 20-by-20 table",
+        "note": "Both theorem bodies are sorry-free and have audited axiom closures containing only propext, Classical.choice, and Quot.sound. They reuse the uniform diagonal calculation and higher metric-circle vanishing while proving that the generated table codes reduce to the corresponding groups. Strict source checking, the exact 8,807-job module build, the 8,837-job aggregate build, and all 104 Python tests pass. These 39 cells already have uniform lattice witnesses, so this cross-check record adds no duplicate overlay. The single all-400 table theorem remains explicitly unresolved for the other 361 entries.",
+        "result": "the generated integral Toda group code is kernel-checked on all 20 diagonal entries and all 19 positive-offset entries in the circle row",
+        "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/6e1b90e9c061eab71bd6ec933c217f301b81395e/HomotopyGroups/TodaVerified.lean",
+        "status": "lean_kernel_checked_local_source",
+        "system": "Lean 4"
+      },
+      {
+        "cell_count": 0,
+        "coordinates": null,
+        "declarations": [
           "HomotopyGroups.pi0_equiv_zerothHomotopy",
           "HomotopyGroups.pi1_mulEquiv_fundamentalGroup",
           "HomotopyGroups.pi0_pathConnected_subsingleton",

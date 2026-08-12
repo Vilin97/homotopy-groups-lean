@@ -41,6 +41,24 @@ class ResearchDataTests(unittest.TestCase):
         generated_text = (ROOT / "HomotopyGroups/TodaTable.lean").read_text()
         full_start = generated_text.index("theorem toda_unstable_integral_table")
         self.assertIn("sorry", generated_text[full_start:])
+        inventory = json.loads((ROOT / "research/formalizations.json").read_text())
+        record = next(
+            item for item in inventory["formalizations"]
+            if item["id"] == "lean4-toda-verified-diagonal-and-circle"
+        )
+        self.assertEqual(
+            record["declarations"],
+            [
+                "HomotopyGroups.toda_unstable_integral_diagonal",
+                "HomotopyGroups.toda_unstable_integral_circle_positive",
+            ],
+        )
+        self.assertEqual(
+            record["commit"],
+            "6e1b90e9c061eab71bd6ec933c217f301b81395e",
+        )
+        self.assertIsNone(record["lattice_overlay"])
+        self.assertIsNone(record["degree_lattice_overlay"])
 
     def test_comprehensive_frontiers_are_reproducible_and_typed(self) -> None:
         subprocess.run(

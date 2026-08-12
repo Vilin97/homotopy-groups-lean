@@ -61,6 +61,14 @@ closes the canonical `sphere_one_higher_homotopy_subsingleton` declaration;
 the pre-existing exact theorem, arbitrary-basepoint wrappers, and numerical
 corollaries remain one counted general formalization.
 
+The generated integral Toda table is now independently kernel-checked on its
+entire diagonal and on every positive-offset entry in its circle row. Two
+finite-indexed theorems target the generated `TodaIntegralGroup` codes
+directly, covering 39 distinct table cells. These cells already have uniform
+diagonal or circle witnesses in the lattice, so the cross-check does not add a
+duplicate overlay; the remaining 361 entries of the all-400 theorem stay
+explicitly unresolved.
+
 ## Twenty additional Lean 4 results
 
 `maintained_lean4_twenty_result_set` records exactly twenty mathematically
