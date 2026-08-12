@@ -163,7 +163,7 @@
   ],
   "formalization_inventory": {
     "degree_lattice": {
-      "cell_count": 4279,
+      "cell_count": 4369,
       "cells": [
         {
           "m": 1,
@@ -173,6 +173,7 @@
           "record_id": "lean4-benchmark-metric-circle-pi1",
           "record_ids": [
             "lean4-benchmark-metric-circle-pi1",
+            "lean4-first-nonvanishing-hurewicz-isomorphism",
             "lean4-twenty-result-suite",
             "lean4-benchmark-circle-pi1",
             "lean4-groundzero-circle"
@@ -1285,7 +1286,8 @@
           "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/944300773c164ed95d0ddbc692a1d007e7d3a0fe/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Pi2SphereTwo.lean#L53",
           "record_id": "lean4-benchmark-metric-sphere-pi2",
           "record_ids": [
-            "lean4-benchmark-metric-sphere-pi2"
+            "lean4-benchmark-metric-sphere-pi2",
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -1306,6 +1308,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 3,
+          "n": 3,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -1336,6 +1348,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 4,
+          "n": 4,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -1376,6 +1398,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 5,
+          "n": 5,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -1426,6 +1458,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 6,
+          "n": 6,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -1486,6 +1528,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 7,
+          "n": 7,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -1556,6 +1608,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 8,
+          "n": 8,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -1636,6 +1698,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 9,
+          "n": 9,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -1726,6 +1798,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 10,
+          "n": 10,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -1826,6 +1908,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 11,
+          "n": 11,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -1936,6 +2028,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 12,
+          "n": 12,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -2056,6 +2158,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 13,
+          "n": 13,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -2186,6 +2298,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 14,
+          "n": 14,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -2326,6 +2448,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 15,
+          "n": 15,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -2476,6 +2608,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 16,
+          "n": 16,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -2636,6 +2778,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 17,
+          "n": 17,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -2806,6 +2958,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 18,
+          "n": 18,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -2986,6 +3148,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 19,
+          "n": 19,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -3176,6 +3348,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 20,
+          "n": 20,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -3376,6 +3558,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 21,
+          "n": 21,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -3586,6 +3778,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 22,
+          "n": 22,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -3806,6 +4008,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 23,
+          "n": 23,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -4036,6 +4248,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 24,
+          "n": 24,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -4276,6 +4498,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 25,
+          "n": 25,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -4526,6 +4758,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 26,
+          "n": 26,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -4786,6 +5028,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 27,
+          "n": 27,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -5056,6 +5308,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 28,
+          "n": 28,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -5336,6 +5598,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 29,
+          "n": 29,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -5626,6 +5898,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 30,
+          "n": 30,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -5926,6 +6208,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 31,
+          "n": 31,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -6236,6 +6528,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 32,
+          "n": 32,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -6556,6 +6858,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 33,
+          "n": 33,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -6886,6 +7198,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 34,
+          "n": 34,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -7226,6 +7548,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 35,
+          "n": 35,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -7576,6 +7908,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 36,
+          "n": 36,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -7936,6 +8278,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 37,
+          "n": 37,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -8306,6 +8658,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 38,
+          "n": 38,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -8686,6 +9048,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 39,
+          "n": 39,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -9076,6 +9448,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 40,
+          "n": 40,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -9476,6 +9858,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 41,
+          "n": 41,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -9886,6 +10278,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 42,
+          "n": 42,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -10306,6 +10708,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 43,
+          "n": 43,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -10736,6 +11148,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 44,
+          "n": 44,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -11176,6 +11598,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 45,
+          "n": 45,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -11626,6 +12058,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 46,
+          "n": 46,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -12086,6 +12528,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 47,
+          "n": 47,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -12556,6 +13008,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 48,
+          "n": 48,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -13036,6 +13498,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 49,
+          "n": 49,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -13526,6 +13998,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 50,
+          "n": 50,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -14026,6 +14508,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 51,
+          "n": 51,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -14536,6 +15028,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 52,
+          "n": 52,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -15056,6 +15558,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 53,
+          "n": 53,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -15586,6 +16098,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 54,
+          "n": 54,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -16126,6 +16648,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 55,
+          "n": 55,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -16676,6 +17208,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 56,
+          "n": 56,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -17236,6 +17778,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 57,
+          "n": 57,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -17806,6 +18358,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 58,
+          "n": 58,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -18386,6 +18948,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 59,
+          "n": 59,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -18976,6 +19548,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 60,
+          "n": 60,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -19576,6 +20158,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 61,
+          "n": 61,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -20186,6 +20778,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 62,
+          "n": 62,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -20806,6 +21408,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 63,
+          "n": 63,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -21436,6 +22048,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 64,
+          "n": 64,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -22076,6 +22698,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 65,
+          "n": 65,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -22726,6 +23358,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 66,
+          "n": 66,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -23386,6 +24028,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 67,
+          "n": 67,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -24056,6 +24708,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 68,
+          "n": 68,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -24736,6 +25398,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 69,
+          "n": 69,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -25426,6 +26098,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 70,
+          "n": 70,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -26126,6 +26808,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 71,
+          "n": 71,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -26836,6 +27528,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 72,
+          "n": 72,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -27556,6 +28258,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 73,
+          "n": 73,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -28286,6 +28998,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 74,
+          "n": 74,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -29026,6 +29748,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 75,
+          "n": 75,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -29776,6 +30508,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 76,
+          "n": 76,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -30536,6 +31278,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 77,
+          "n": 77,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -31306,6 +32058,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 78,
+          "n": 78,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -32086,6 +32848,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 79,
+          "n": 79,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -32876,6 +33648,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 80,
+          "n": 80,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -33676,6 +34458,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 81,
+          "n": 81,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -34486,6 +35278,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 82,
+          "n": 82,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -35306,6 +36108,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 83,
+          "n": 83,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -36136,6 +36948,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 84,
+          "n": 84,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -36976,6 +37798,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 85,
+          "n": 85,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -37826,6 +38658,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 86,
+          "n": 86,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -38686,6 +39528,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 87,
+          "n": 87,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -39556,6 +40408,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 88,
+          "n": 88,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -40436,6 +41298,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 89,
+          "n": 89,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -41326,6 +42198,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 90,
+          "n": 90,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -42226,6 +43108,16 @@
           "record_id": "lean4-displayed-lower-connectivity",
           "record_ids": [
             "lean4-displayed-lower-connectivity"
+          ]
+        },
+        {
+          "m": 91,
+          "n": 91,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         },
         {
@@ -43137,6 +44029,16 @@
           "record_ids": [
             "lean4-displayed-lower-connectivity"
           ]
+        },
+        {
+          "m": 92,
+          "n": 92,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
         }
       ],
       "m_max": 92,
@@ -43145,7 +44047,7 @@
       "n_min": 1
     },
     "lattice": {
-      "cell_count": 110,
+      "cell_count": 200,
       "cells": [
         {
           "k": 0,
@@ -43155,6 +44057,7 @@
           "record_id": "lean4-benchmark-metric-circle-pi1",
           "record_ids": [
             "lean4-benchmark-metric-circle-pi1",
+            "lean4-first-nonvanishing-hurewicz-isomorphism",
             "lean4-twenty-result-suite",
             "lean4-benchmark-circle-pi1",
             "lean4-groundzero-circle"
@@ -44427,7 +45330,908 @@
           "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/944300773c164ed95d0ddbc692a1d007e7d3a0fe/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Pi2SphereTwo.lean#L53",
           "record_id": "lean4-benchmark-metric-sphere-pi2",
           "record_ids": [
-            "lean4-benchmark-metric-sphere-pi2"
+            "lean4-benchmark-metric-sphere-pi2",
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 3,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 4,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 5,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 6,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 7,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 8,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 9,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 10,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 11,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 12,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 13,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 14,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 15,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 16,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 17,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 18,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 19,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 20,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 21,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 22,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 23,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 24,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 25,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 26,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 27,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 28,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 29,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 30,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 31,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 32,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 33,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 34,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 35,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 36,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 37,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 38,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 39,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 40,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 41,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 42,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 43,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 44,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 45,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 46,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 47,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 48,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 49,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 50,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 51,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 52,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 53,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 54,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 55,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 56,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 57,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 58,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 59,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 60,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 61,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 62,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 63,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 64,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 65,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 66,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 67,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 68,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 69,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 70,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 71,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 72,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 73,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 74,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 75,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 76,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 77,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 78,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 79,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 80,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 81,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 82,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 83,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 84,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 85,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 86,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 87,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 88,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 89,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 90,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 91,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "k": 0,
+          "n": 92,
+          "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45",
+          "record_id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+          "record_ids": [
+            "lean4-first-nonvanishing-hurewicz-isomorphism"
           ]
         }
       ],
@@ -44437,6 +46241,66 @@
       "n_min": 1
     },
     "records": [
+      {
+        "cell_count": 92,
+        "coordinates": "1<=n<=92,k=0",
+        "declarations": [
+          "Submission.IsNConnected.pointTowerLE",
+          "Submission.IsNConnected.pointStep",
+          "Submission.IsNConnected.pointStep_isNext",
+          "Submission.IsNConnected.pointStep_compresses",
+          "Submission.IsNConnected.pointDeformation",
+          "Submission.IsNConnected.pointDeformation_rho",
+          "Submission.NormalizedSimplex.const_stickHomotopyClass",
+          "Submission.stickHomotopyClass_ofPtSimplex_rel_at",
+          "Submission.NormalizedSimplex.pointCompHom_boundary",
+          "Submission.NormalizedSimplex.homotopic_normalizeTopSimplex",
+          "Submission.NormalizedSimplex.normalizeTopSimplex_homotopyClass",
+          "Submission.NormalizedSimplex.normalizeTopSimplex_stickHomotopyClass",
+          "Submission.NormalizedSimplex.ofGenLoop",
+          "Submission.NormalizedSimplex.ofGenLoop_cubeMap_apply",
+          "Submission.NormalizedSimplex.ofGenLoop_toGenLoop",
+          "Submission.NormalizedSimplex.ofGenLoop_homotopyClass",
+          "Submission.NormalizedSimplex.normalize_ofGenLoop_stickHomotopyClass",
+          "Submission.IsNConnected.CsingMap_singleton_comp_normalizedStickClassChain",
+          "Submission.IsNConnected.normalizedStickRelativeClassChain",
+          "Submission.IsNConnected.relProj_comp_normalizedStickRelativeClassChain",
+          "Submission.IsNConnected.normalizedStickRelativeClassChain_comp_d",
+          "Submission.IsNConnected.normalizedStickRelativeHomologyMap",
+          "Submission.IsNConnected.normalizedStickRelativeHomologyMap_homologyMk",
+          "Submission.IsNConnected.normalizedStickRelativeHomologyMap_relativeClass",
+          "Submission.IsNConnected.normalizedStickRelativeHomologyMap_relativeClass_eq_stickReparam",
+          "Submission.IsNConnected.normalizedStickRelativeHomologyMap_relJ",
+          "Submission.NormalizedSimplex.ofGenLoop_toRelGenLoop_class",
+          "Submission.IsNConnected.normalizedStickHomologyMap_absoluteHurewiczAdd_ofMul",
+          "Submission.IsNConnected.normalizedStickHomologyMap_absoluteHurewiczAdd",
+          "Submission.IsNConnected.absoluteHurewiczAdd_injective",
+          "Submission.IsNConnected.absoluteHurewiczAdd_bijective",
+          "Submission.IsNConnected.absoluteHurewiczAddEquiv",
+          "Submission.IsNConnected.absoluteHurewiczAddEquiv_apply",
+          "Submission.sphere_diagonal_succ_mulEquiv_int",
+          "Submission.sphere_diagonal_homotopy_mulEquiv_int"
+        ],
+        "degree_cell_count": 92,
+        "degree_coordinates": null,
+        "degree_lattice_kind": null,
+        "degree_lattice_proof": {
+          "declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45"
+        },
+        "id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+        "lattice_kind": "lean4_exact_metric_model",
+        "lattice_proof": {
+          "declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean#L45"
+        },
+        "model_relation": "Mathlib cubical HomotopyGroup and singular homology for arbitrary sufficiently connected spaces, specialized to the benchmark's exact metric-sphere model and distinguished basepoints",
+        "note": "All thirty-five listed declarations are sorry-free Lean 4. Strict checks for every changed source, exact module builds, and the 8,845-job submission build pass. Audited axiom closures for the boundary-fixed deformation, relative-to-absolute descent, inverse formula, absolute Hurewicz equivalence, and uniform sphere-diagonal theorem contain only propext, Classical.choice, and Quot.sound. The record is pinned to the exact source commit and colors the full displayed diagonal; the previously formalized n=1 and n=2 cells retain their dedicated witnesses as additional records.",
+        "result": "the coherent point-pair simplex deformation is boundary-fixed on normalized simplices; the stick-coordinate inverse descends through singleton-relative homology and composes with the absolute Hurewicz map to an orientation unit times an injective sphere reparameterization; consequently the first nonvanishing absolute Hurewicz homomorphism is an equivalence, and pi_d of the exact metric d-sphere is multiplicatively equivalent to the integers for every positive d",
+        "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e040c2a853616f3392709be08b88a70c62d5d3db/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean",
+        "status": "lean_kernel_checked_local_source",
+        "system": "Lean 4"
+      },
       {
         "cell_count": 0,
         "coordinates": null,

@@ -574,7 +574,83 @@
       { "id": "normalized-cube-stick-class-comparison", "declaration": "Submission.NormalizedSimplex.stickReparamClass_homotopyClass", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/StickSphere.lean", "lattice_effect": "none directly; identifies the stick class of every normalized simplex with the injective reparameterization of its cube-homeomorphism class" }
     ]
   },
+  "maintained_first_hurewicz_isomorphism_set": {
+    "count": 10,
+    "system": "Lean 4",
+    "counting_rule": "The explicit point deformation, arbitrary-index relation invariance, boundary-fixed normalization, generalized-loop simplex realization, normalized stick comparison, singleton-relative descent, relative-to-absolute compatibility, inverse formula, absolute Hurewicz equivalence, and uniform sphere-diagonal computation are ten distinct results. Tower levels, generator formulas, quotient triangles, cycle evaluations, bijectivity packaging, and application lemmas are supporting declarations and are not counted separately.",
+    "results": [
+      { "id": "explicit-point-deformation", "declaration": "Submission.IsNConnected.pointDeformation_rho", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/NormalizedSimplex.lean", "lattice_effect": "none directly; exposes the actual continuous homotopy underlying the coherent point-pair normalization" },
+      { "id": "arbitrary-index-relation-invariance", "declaration": "Submission.stickHomotopyClass_ofPtSimplex_rel_at", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SimplicialRelationAt.lean", "lattice_effect": "none directly; extends simplicial relation invariance from the final face to every face index" },
+      { "id": "boundary-fixed-normalization", "declaration": "Submission.NormalizedSimplex.homotopic_normalizeTopSimplex", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/DeformationClass.lean", "lattice_effect": "none directly; proves coherent normalization preserves the cubical homotopy class" },
+      { "id": "generalized-loop-simplex-realization", "declaration": "Submission.NormalizedSimplex.ofGenLoop_toGenLoop", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/DeformationClass.lean", "lattice_effect": "none directly; realizes every cubical generalized loop exactly as a normalized singular simplex" },
+      { "id": "normalized-loop-stick-comparison", "declaration": "Submission.NormalizedSimplex.normalize_ofGenLoop_stickHomotopyClass", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/DeformationClass.lean", "lattice_effect": "none directly; identifies normalized stick coordinates with the injective sphere reparameterization of the input loop class" },
+      { "id": "singleton-relative-stick-descent", "declaration": "Submission.IsNConnected.normalizedStickRelativeHomologyMap", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/RelativeSimplicialDescent.lean", "lattice_effect": "none directly; descends the stick-class evaluator through singleton-pair relative chains and homology" },
+      { "id": "relative-absolute-stick-compatibility", "declaration": "Submission.IsNConnected.normalizedStickRelativeHomologyMap_relJ", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/RelativeSimplicialDescent.lean", "lattice_effect": "none directly; proves the relative evaluator after relJ is the absolute descended evaluator" },
+      { "id": "absolute-hurewicz-inverse-formula", "declaration": "Submission.IsNConnected.normalizedStickHomologyMap_absoluteHurewiczAdd", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/AbsoluteIsomorphism.lean", "lattice_effect": "none directly; computes the inverse candidate after Hurewicz up to an orientation unit and an injective sphere reparameterization" },
+      { "id": "first-absolute-hurewicz-isomorphism", "declaration": "Submission.IsNConnected.absoluteHurewiczAddEquiv", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/AbsoluteIsomorphism.lean", "lattice_effect": "none directly; identifies the first nonvanishing higher homotopy group with singular homology for every sufficiently connected space" },
+      { "id": "uniform-integral-sphere-diagonal", "declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean", "lattice_effect": "colors every displayed exact-model diagonal cell k=0" }
+    ]
+  },
   "formalizations": [
+    {
+      "id": "lean4-first-nonvanishing-hurewicz-isomorphism",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "e040c2a853616f3392709be08b88a70c62d5d3db",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.IsNConnected.pointTowerLE",
+        "Submission.IsNConnected.pointStep",
+        "Submission.IsNConnected.pointStep_isNext",
+        "Submission.IsNConnected.pointStep_compresses",
+        "Submission.IsNConnected.pointDeformation",
+        "Submission.IsNConnected.pointDeformation_rho",
+        "Submission.NormalizedSimplex.const_stickHomotopyClass",
+        "Submission.stickHomotopyClass_ofPtSimplex_rel_at",
+        "Submission.NormalizedSimplex.pointCompHom_boundary",
+        "Submission.NormalizedSimplex.homotopic_normalizeTopSimplex",
+        "Submission.NormalizedSimplex.normalizeTopSimplex_homotopyClass",
+        "Submission.NormalizedSimplex.normalizeTopSimplex_stickHomotopyClass",
+        "Submission.NormalizedSimplex.ofGenLoop",
+        "Submission.NormalizedSimplex.ofGenLoop_cubeMap_apply",
+        "Submission.NormalizedSimplex.ofGenLoop_toGenLoop",
+        "Submission.NormalizedSimplex.ofGenLoop_homotopyClass",
+        "Submission.NormalizedSimplex.normalize_ofGenLoop_stickHomotopyClass",
+        "Submission.IsNConnected.CsingMap_singleton_comp_normalizedStickClassChain",
+        "Submission.IsNConnected.normalizedStickRelativeClassChain",
+        "Submission.IsNConnected.relProj_comp_normalizedStickRelativeClassChain",
+        "Submission.IsNConnected.normalizedStickRelativeClassChain_comp_d",
+        "Submission.IsNConnected.normalizedStickRelativeHomologyMap",
+        "Submission.IsNConnected.normalizedStickRelativeHomologyMap_homologyMk",
+        "Submission.IsNConnected.normalizedStickRelativeHomologyMap_relativeClass",
+        "Submission.IsNConnected.normalizedStickRelativeHomologyMap_relativeClass_eq_stickReparam",
+        "Submission.IsNConnected.normalizedStickRelativeHomologyMap_relJ",
+        "Submission.NormalizedSimplex.ofGenLoop_toRelGenLoop_class",
+        "Submission.IsNConnected.normalizedStickHomologyMap_absoluteHurewiczAdd_ofMul",
+        "Submission.IsNConnected.normalizedStickHomologyMap_absoluteHurewiczAdd",
+        "Submission.IsNConnected.absoluteHurewiczAdd_injective",
+        "Submission.IsNConnected.absoluteHurewiczAdd_bijective",
+        "Submission.IsNConnected.absoluteHurewiczAddEquiv",
+        "Submission.IsNConnected.absoluteHurewiczAddEquiv_apply",
+        "Submission.sphere_diagonal_succ_mulEquiv_int",
+        "Submission.sphere_diagonal_homotopy_mulEquiv_int"
+      ],
+      "result": "the coherent point-pair simplex deformation is boundary-fixed on normalized simplices; the stick-coordinate inverse descends through singleton-relative homology and composes with the absolute Hurewicz map to an orientation unit times an injective sphere reparameterization; consequently the first nonvanishing absolute Hurewicz homomorphism is an equivalence, and pi_d of the exact metric d-sphere is multiplicatively equivalent to the integers for every positive d",
+      "model_relation": "Mathlib cubical HomotopyGroup and singular homology for arbitrary sufficiently connected spaces, specialized to the benchmark's exact metric-sphere model and distinguished basepoints",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean",
+      "lattice_overlay": {
+        "coordinates": "1<=n<=92,k=0",
+        "kind": "lean4_exact_metric_model",
+        "proof": {
+          "declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+          "line": 45
+        },
+        "cell_ranges": [{ "n": [1, 92], "k": [0, 0] }]
+      },
+      "degree_lattice_overlay": null,
+      "note": "All thirty-five listed declarations are sorry-free Lean 4. Strict checks for every changed source, exact module builds, and the 8,845-job submission build pass. Audited axiom closures for the boundary-fixed deformation, relative-to-absolute descent, inverse formula, absolute Hurewicz equivalence, and uniform sphere-diagonal theorem contain only propext, Classical.choice, and Quot.sound. The record is pinned to the exact source commit and colors the full displayed diagonal; the previously formalized n=1 and n=2 cells retain their dedicated witnesses as additional records."
+    },
     {
       "id": "lean4-stick-sphere-coordinate-change",
       "system": "Lean 4",
