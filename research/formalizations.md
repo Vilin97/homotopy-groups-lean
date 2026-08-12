@@ -133,10 +133,20 @@ homology class carried by the restricted cubical map. On the absolute side, an
 coherent bounded deformation then makes every face of each deformed
 `(n+2)`-simplex constant at `x`. The simplex--disk--cube homeomorphism turns
 that normalized simplex into a based cubical loop, and the assignment extends
-additively over top-dimensional singular chains. This reaches the generator
-map for the classical chain-level inverse. The remaining descent lemma is the
-alternating-face relation asserting that this additive map kills singular
-boundaries.
+additively over top-dimensional singular chains. A simplex whose faces lie in
+the subspace is now also packaged as an explicit relative cycle and homology
+class. The inverse simplex--cube reparametrization supplies an explicit top
+simplex of the cube pair, and mapping it along a normalized cubical loop
+recovers the normalized singular simplex exactly, first as a chain and then as
+a relative homology class. Evaluation on this explicit source class therefore
+computes definitionally on normalized representatives. In parallel, the
+coherent deformation is descended to the relative chain complex and proved to
+induce the identity on relative homology; on top-dimensional simplex
+generators it produces exactly the normalized relative chain. This isolates
+two remaining steps: identify the explicit cube-simplex class with the
+previously oriented cube fundamental class to transfer the computation to the
+canonical Hurewicz comparison, and prove the alternating-face relation needed
+for the chain-level inverse to annihilate singular boundaries.
 
 Bijectivity of the corresponding relative homotopy map yields the next exact
 diagonal equivalence; bijectivity of the family from `pi_2(S^2)` onward yields
