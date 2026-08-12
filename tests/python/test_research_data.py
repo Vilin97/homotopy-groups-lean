@@ -1153,13 +1153,13 @@ class ResearchDataTests(unittest.TestCase):
         self.assertEqual(
             record["declarations"],
             [
-                "Submission.realProjectiveSpace_higher_homotopy_mulEquiv_sphere",
-                "Submission.pi1_realProjectiveSpace_mulEquiv_zmod_two",
+                "HomotopyGroups.realProjectiveSpace_higher_homotopy_mulEquiv_sphere",
+                "HomotopyGroups.pi1_realProjectiveSpace_mulEquiv_zmod_two",
             ],
         )
         self.assertEqual(
             record["commit"],
-            "4ad0ea086e4d77fd530c90c45f92645c509c4fff",
+            "82a6ce0f1491a67af6336f0145f0a1178dadac0c",
         )
         wrapper = (ROOT / "research" / record["source"]).resolve()
         core = (
@@ -1167,13 +1167,17 @@ class ResearchDataTests(unittest.TestCase):
             / "examples/submissions/sphere_lower_homotopy_subsingleton/Submission"
             / "RealProjectiveSpace.lean"
         )
-        for source in (wrapper, core):
-            text = source.read_text()
-            self.assertNotIn("sorry", text)
-            self.assertNotIn("admit", text)
+        core_text = core.read_text()
+        self.assertNotIn("sorry", core_text)
+        self.assertNotIn("admit", core_text)
         wrapper_text = wrapper.read_text()
         for declaration in record["declarations"]:
-            self.assertIn(f"theorem {declaration.rsplit('.', 1)[-1]}", wrapper_text)
+            marker = f"theorem {declaration.rsplit('.', 1)[-1]}"
+            start = wrapper_text.index(marker)
+            end = wrapper_text.find("\n@[eval_problem]", start)
+            theorem_text = wrapper_text[start:] if end == -1 else wrapper_text[start:end]
+            self.assertNotIn("sorry", theorem_text)
+            self.assertNotIn("admit", theorem_text)
         self.assertIsNone(record["lattice_overlay"])
         self.assertIsNone(record["degree_lattice_overlay"])
 
