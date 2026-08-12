@@ -16,6 +16,7 @@ import Submission.Hurewicz.AbsoluteNaturality
 import Submission.Hurewicz.AbsoluteSurjectivity
 import Submission.Hurewicz.ConnectedPair
 import Submission.Hurewicz.CubicalShell
+import Submission.Hurewicz.CubicalBoundary
 import Submission.Hurewicz.CubeFundamentalClass
 import Submission.Hurewicz.DeformationClass
 import Submission.Hurewicz.FirstHomology
