@@ -107,12 +107,22 @@ the explicit cover of a metric sphere by two enlarged hemispheres gives a
 canonical relative cap-inclusion homomorphism: both caps are contractible, and
 their overlap is explicitly homotopy-equivalent to the equatorial metric
 sphere. Both cap/overlap pairs are now proved connected through the full range
-required by homotopy excision. Bijectivity of the canonical map yields the next
-exact diagonal equivalence; bijectivity of the family from `pi_2(S^2)` onward
-yields the full integral diagonal, using the two exact base cases already in
-Lean. The remaining geometric input is precisely the Blakers--Massey
-homotopy-excision theorem turning those verified connectivity hypotheses into
-bijectivity, so this reduction also adds no exact purple cells yet.
+required by homotopy excision. Relative singular homology is now functorial for
+the same maps of pairs, with all three long-exact-sequence squares proved
+natural. A Mayer--Vietoris chain pushout and the small-simplices comparison give
+the full excision theorem `H_k(A,A∩B) ≅ H_k(X,B)` for every interior cover and
+every degree. Applied to the sphere caps, it proves that the exact canonical
+cap map is a relative-homology isomorphism in every degree and identifies both
+top relative groups with `Z`.
+
+Bijectivity of the corresponding relative homotopy map yields the next exact
+diagonal equivalence; bijectivity of the family from `pi_2(S^2)` onward yields
+the full integral diagonal, using the two exact base cases already in Lean. The
+remaining bridge is homotopical rather than homological: either a natural
+first-nonvanishing relative Hurewicz comparison or the full Blakers--Massey
+homotopy-excision theorem must turn the checked connectivity and homology
+excision inputs into relative-homotopy bijectivity. This foundation milestone
+therefore adds no exact purple cells yet.
 
 Higher exact diagonal and stable sphere stems still require additional degree
 classification, Freudenthal, higher-Hurewicz, and Hopf-fibration
@@ -131,10 +141,12 @@ multiplicative in the exact metric-sphere model. Its checked diagonal reduction
 therefore needs only bijectivity of that concrete monoid homomorphism. The two
 constructions have not been compared, and Freudenthal bijectivity remains
 unproved. A second checked route now uses the canonical relative map induced by
-the two-cap cover. Its two pair-connectivity hypotheses are proved, and it
-reduces the same diagonal to the remaining Blakers--Massey bijectivity theorem
-for that map in dimensions at least two. The reductions add no unsupported
-purple cells.
+the two-cap cover. Its two pair-connectivity hypotheses and the corresponding
+relative-homology excision isomorphism are proved in every required dimension.
+It reduces the same diagonal to the remaining first-degree relative Hurewicz
+bridge, or equivalently to a direct Blakers--Massey bijectivity theorem for that
+map in dimensions at least two. The reductions add no unsupported purple
+cells.
 
 The maintained ten-result set is recorded explicitly in
 `maintained_independent_result_set`.  Besides the metric-circle computation it
