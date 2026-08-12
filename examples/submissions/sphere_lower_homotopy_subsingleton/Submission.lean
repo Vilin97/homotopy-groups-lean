@@ -23,6 +23,7 @@ import Submission.Hurewicz.RelativeSurjectivity
 import Submission.Hurewicz.SimplexCubeClass
 import Submission.Hurewicz.SimplexCubeOrientation
 import Submission.Hurewicz.SphereLoopBridge
+import Submission.Hurewicz.StickBoundary
 import Submission.Lean4TwentyResults
 import Submission.MetricSpherePiOne
 import Submission.ReducedSuspensionGroup

@@ -4,6 +4,7 @@ Released under Apache 2.0 license.
 -/
 import Submission.Hurewicz.NormalizedSimplex
 import Submission.Hurewicz.SphereLoopBridge
+import Submission.Hurewicz.StickSimplex
 
 /-!
 # Boundaries of normalized singular simplices
@@ -94,6 +95,25 @@ theorem face_face_eq (b : NormalizedSimplexBoundary n X x) (i : Fin (n + 4))
       constSimplex (X := TopCat.of X) (n + 1) x := by
   rw [← b.face_simplex i]
   exact (b.face i).face_eq j
+
+/-- The higher simplex is constant at the basepoint on its entire codimension-two skeleton. -/
+theorem simplex_eq_of_mem_codimTwo (b : NormalizedSimplexBoundary n X x)
+    (z : stdSimplex ℝ (Fin (n + 4))) (hz : z ∈ simplexCodimTwo (n + 3)) :
+    sngEquiv (TopCat.of X) (n + 3) b.simplex z = x := by
+  obtain ⟨i, k, hik, hi, hk⟩ := hz
+  obtain ⟨j, hj⟩ := Fin.exists_succAbove_eq hik.symm
+  let w : stdSimplex ℝ (Fin (n + 3)) := dropMap i hi
+  have hw : w j = 0 := by
+    change z (i.succAbove j) = 0
+    rw [hj]
+    exact hk
+  let y : stdSimplex ℝ (Fin (n + 2)) := dropMap j hw
+  have hwy : faceMap j y = w := faceMap_dropMap j hw
+  have hzw : faceMap i w = z := faceMap_dropMap i hi
+  change sngEquiv (TopCat.of X) (n + 3) b.simplex z = x
+  rw [← hzw, ← hwy, ← apply_δ, ← apply_δ, b.face_face_eq,
+    constSimplex, sngEquiv_sng]
+  rfl
 
 /-- The higher simplex takes the canonical codimension-two boundary point to the chosen
 basepoint. -/
