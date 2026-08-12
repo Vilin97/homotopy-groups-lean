@@ -640,7 +640,7 @@
       "id": "lean4-first-nonvanishing-hurewicz-isomorphism",
       "system": "Lean 4",
       "repository": "Vilin97/homotopy-groups-lean",
-      "commit": "e040c2a853616f3392709be08b88a70c62d5d3db",
+      "commit": "a2578f3038f418a99d89b87691f2abdd60e7c2f2",
       "license": "Apache-2.0",
       "declarations": [
         "Submission.IsNConnected.pointTowerLE",
@@ -676,11 +676,14 @@
         "Submission.IsNConnected.absoluteHurewiczAdd_bijective",
         "Submission.IsNConnected.absoluteHurewiczAddEquiv",
         "Submission.IsNConnected.absoluteHurewiczAddEquiv_apply",
+        "Submission.sphere_diagonal_sph_succ_at_mulEquiv_int",
+        "Submission.sphere_diagonal_sph_at_mulEquiv_int",
         "Submission.sphere_diagonal_succ_mulEquiv_int",
-        "Submission.sphere_diagonal_homotopy_mulEquiv_int"
+        "Submission.sphere_diagonal_homotopy_mulEquiv_int",
+        "HomotopyGroups.sphere_diagonal_homotopy_mulEquiv_int"
       ],
-      "result": "the coherent point-pair simplex deformation is boundary-fixed on normalized simplices; the stick-coordinate inverse descends through singleton-relative homology and composes with the absolute Hurewicz map to an orientation unit times an injective sphere reparameterization; consequently the first nonvanishing absolute Hurewicz homomorphism is an equivalence, and pi_d of the exact metric d-sphere is multiplicatively equivalent to the integers for every positive d",
-      "model_relation": "Mathlib cubical HomotopyGroup and singular homology for arbitrary sufficiently connected spaces, specialized to the benchmark's exact metric-sphere model and distinguished basepoints",
+      "result": "the coherent point-pair simplex deformation is boundary-fixed on normalized simplices; the stick-coordinate inverse descends through singleton-relative homology and composes with the absolute Hurewicz map to an orientation unit times an injective sphere reparameterization; consequently the first nonvanishing absolute Hurewicz homomorphism is an equivalence, and pi_d of the exact metric d-sphere is multiplicatively equivalent to the integers for every positive d and every basepoint, closing the canonical diagonal benchmark",
+      "model_relation": "Mathlib cubical HomotopyGroup and singular homology for arbitrary sufficiently connected spaces, specialized to the benchmark's exact metric-sphere model at every basepoint and to its distinguished canonical basepoint",
       "status": "lean_kernel_checked_local_source",
       "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/SphereDiagonal.lean",
       "lattice_overlay": {
@@ -688,12 +691,12 @@
         "kind": "lean4_exact_metric_model",
         "proof": {
           "declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
-          "line": 45
+          "line": 34
         },
         "cell_ranges": [{ "n": [1, 92], "k": [0, 0] }]
       },
       "degree_lattice_overlay": null,
-      "note": "All thirty-five listed declarations are sorry-free Lean 4. Strict checks for every changed source, exact module builds, and the 8,845-job submission build pass. Audited axiom closures for the boundary-fixed deformation, relative-to-absolute descent, inverse formula, absolute Hurewicz equivalence, and uniform sphere-diagonal theorem contain only propext, Classical.choice, and Quot.sound. The record is pinned to the exact source commit and colors the full displayed diagonal; the previously formalized n=1 and n=2 cells retain their dedicated witnesses as additional records."
+      "note": "All thirty-eight listed declarations are sorry-free Lean 4 theorem bodies. The cubical sphere generator and the full Hurewicz chain now use challenge-independent aliases for the definitionally identical metric sphere and first-coordinate basepoint. The arbitrary-basepoint theorem, legacy exact wrapper, and canonical HomotopyGroups declaration are interfaces to one uniform computation and are not counted separately. Strict checks, exact module builds, the 8,850-job submission build, the full aggregate build, and all 104 Python tests pass. Audited axiom closures contain only propext, Classical.choice, and Quot.sound. The record colors the full displayed diagonal; the previously formalized n=1 and n=2 cells retain their dedicated witnesses as additional records."
     },
     {
       "id": "lean4-stick-sphere-coordinate-change",
@@ -2047,11 +2050,16 @@
       "id": "lean4-benchmark-metric-circle-pi1",
       "system": "Lean 4",
       "repository": "Vilin97/homotopy-groups-lean",
-      "commit": "23f878b04af1d4708730eed35a7ef353c9833841",
+      "commit": "a2578f3038f418a99d89b87691f2abdd60e7c2f2",
       "license": "Apache-2.0",
-      "declarations": ["Submission.pi1_sphere_one_mulEquiv_int"],
-      "result": "pi_1 of the exact metric 1-sphere is infinite cyclic",
-      "model_relation": "exactly the Mathlib metric-sphere model used by SphereSpace 1, via an explicit basepoint-preserving homeomorphism from Circle",
+      "declarations": [
+        "Submission.pi1_circle_mulEquiv_int",
+        "Submission.pi1_sph_one_at_mulEquiv_int",
+        "Submission.pi1_sphere_one_mulEquiv_int",
+        "HomotopyGroups.pi1_circle_mulEquiv_int"
+      ],
+      "result": "the fundamental group of Mathlib's Circle and of the exact metric 1-sphere at every basepoint is infinite cyclic, closing the canonical circle benchmark",
+      "model_relation": "Mathlib's complex unit Circle and the definitionally exact metric-sphere model used by SphereSpace 1, related by an explicit homeomorphism; the canonical declaration uses Circle directly",
       "status": "lean_kernel_checked_local_source",
       "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/MetricSpherePiOne.lean",
       "lattice_overlay": {
@@ -2059,11 +2067,11 @@
         "kind": "lean4_exact_metric_model",
         "proof": {
           "declaration": "Submission.pi1_sphere_one_mulEquiv_int",
-          "line": 87
+          "line": 37
         },
         "cell_ranges": [{ "n": [1, 1], "k": [0, 0] }]
       },
-      "note": "The proof is built through the maintained SubmissionIndependentResults target."
+      "note": "The challenge-independent core computes Circle by its exponential covering and transports the result to every basepoint of the exact metric sphere. The legacy metric wrapper and canonical HomotopyGroups declaration reuse that proof and are not counted separately. Strict checks, exact builds, the 8,850-job submission build, the full aggregate build, and all 104 Python tests pass. Audited axiom closures contain only propext, Classical.choice, and Quot.sound."
     },
     {
       "id": "lean4-twenty-result-suite",

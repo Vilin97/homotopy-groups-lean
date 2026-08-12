@@ -47,6 +47,14 @@ generalized loops to ordinary based paths and the group-level connecting
 equivalence of the path fibration.  These structural results add no sphere
 lattice cells directly.
 
+The canonical spaces module now also exposes the exponential-covering proof of
+`pi_1(Circle) = Z` and the uniform first-Hurewicz computation
+`pi_d(S^d) = Z` for every positive `d`, with no `sorry` in either benchmark
+declaration. Their challenge-independent cores work on the definitionally
+identical metric-sphere model at arbitrary basepoints; the legacy wrappers and
+canonical declarations are interfaces to the existing circle and diagonal
+formalizations, not additional counted results.
+
 ## Twenty additional Lean 4 results
 
 `maintained_lean4_twenty_result_set` records exactly twenty mathematically

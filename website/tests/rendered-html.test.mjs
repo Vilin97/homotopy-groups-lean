@@ -95,8 +95,10 @@ test("ships complete, synchronized benchmark data, reports, and social art", asy
     "homotopyGroup_loop_shift",
     "homotopyGroup_product",
     "pi1_hSpace_mul_comm",
+    "pi1_circle_mulEquiv_int",
     "pi1_realProjectiveSpace_mulEquiv_zmod_two",
     "realProjectiveSpace_higher_homotopy_mulEquiv_sphere",
+    "sphere_diagonal_homotopy_mulEquiv_int",
     "stable_stem_000",
   ]) {
     assert.equal(

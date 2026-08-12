@@ -5,4 +5,4 @@ module = "HomotopyGroups.Spaces"
 holes = ["pi1_circle_mulEquiv_int"]
 submitter = "OpenAI Codex"
 source = "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
-notes = "knowledge_status=derivable_from_pinned_mathlib; a comparator-safe proof uses Circle.exp, its additive quotient covering, and pi1MulEquivFundamentalGroup."
+notes = "knowledge_status=formalized_local; Circle.exp, its additive quotient covering, and pi1MulEquivFundamentalGroup now prove the exact canonical declaration."

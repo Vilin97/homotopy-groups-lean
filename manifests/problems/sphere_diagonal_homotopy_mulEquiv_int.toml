@@ -5,4 +5,4 @@ module = "HomotopyGroups.Spaces"
 holes = ["sphere_diagonal_homotopy_mulEquiv_int"]
 submitter = "OpenAI Codex"
 source = "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
-notes = "knowledge_status=foundation_blocked; this is pi_n(S^n)=Z for n>=1, with positivity encoded by the successor parameter; no Hurewicz bridge exists."
+notes = "knowledge_status=formalized_local; the first-nonvanishing Hurewicz equivalence and integral sphere orientation prove the exact canonical declaration uniformly for every positive dimension."

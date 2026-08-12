@@ -296,6 +296,38 @@ class ResearchDataTests(unittest.TestCase):
             (ROOT / "manifests/problems/stable_stem_000.toml").read_text(),
         )
 
+        circle = next(
+            entry for entry in entries
+            if entry["id"] == "lean4-benchmark-metric-circle-pi1"
+        )
+        self.assertEqual(
+            circle["declarations"],
+            [
+                "Submission.pi1_circle_mulEquiv_int",
+                "Submission.pi1_sph_one_at_mulEquiv_int",
+                "Submission.pi1_sphere_one_mulEquiv_int",
+                "HomotopyGroups.pi1_circle_mulEquiv_int",
+            ],
+        )
+        self.assertEqual(
+            circle["commit"],
+            "a2578f3038f418a99d89b87691f2abdd60e7c2f2",
+        )
+        self.assertEqual(circle["lattice_overlay"]["proof"]["line"], 37)
+        circle_wrapper = (
+            ROOT
+            / "examples/submissions/sphere_lower_homotopy_subsingleton/Submission"
+            / "MetricSpherePiOne.lean"
+        )
+        for source in (circle_wrapper, circle_wrapper.with_name("MetricSpherePiOneGeneric.lean")):
+            text = source.read_text()
+            self.assertNotIn("sorry", text)
+            self.assertNotIn("admit", text)
+        spaces_text = (ROOT / "HomotopyGroups/Spaces.lean").read_text()
+        start = spaces_text.index("theorem pi1_circle_mulEquiv_int")
+        end = spaces_text.index("\n@[eval_problem]", start)
+        self.assertNotIn("sorry", spaces_text[start:end])
+
     def test_maintained_set_has_ten_independent_results(self) -> None:
         inventory = json.loads((ROOT / "research/formalizations.json").read_text())
         result_set = inventory["maintained_independent_result_set"]
@@ -1152,10 +1184,10 @@ class ResearchDataTests(unittest.TestCase):
         self.assertTrue(
             {row["declaration"] for row in results}.issubset(record["declarations"])
         )
-        self.assertEqual(len(record["declarations"]), 35)
+        self.assertEqual(len(record["declarations"]), 38)
         self.assertEqual(
             record["commit"],
-            "e040c2a853616f3392709be08b88a70c62d5d3db",
+            "a2578f3038f418a99d89b87691f2abdd60e7c2f2",
         )
         self.assertEqual(
             record["lattice_overlay"]["cell_ranges"],
@@ -1165,9 +1197,21 @@ class ResearchDataTests(unittest.TestCase):
             record["lattice_overlay"]["proof"],
             {
                 "declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
-                "line": 45,
+                "line": 34,
             },
         )
+        generic = (
+            ROOT
+            / "examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz"
+            / "SphereDiagonalGeneric.lean"
+        )
+        generic_text = generic.read_text()
+        self.assertNotIn("sorry", generic_text)
+        self.assertNotIn("admit", generic_text)
+        spaces_text = (ROOT / "HomotopyGroups/Spaces.lean").read_text()
+        start = spaces_text.index("theorem sphere_diagonal_homotopy_mulEquiv_int")
+        end = spaces_text.index("\n@[eval_problem]", start)
+        self.assertNotIn("sorry", spaces_text[start:end])
         self.assertIsNone(record["degree_lattice_overlay"])
 
     def test_real_projective_space_results_match_sorry_free_sources(self) -> None:
