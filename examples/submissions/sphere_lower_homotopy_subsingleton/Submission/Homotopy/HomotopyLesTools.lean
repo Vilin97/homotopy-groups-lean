@@ -71,6 +71,22 @@ theorem nonempty_unique_relHomotopyGroup (n : ℕ) (a : A)
   rw [hX.elim w default]
   exact (RelHomotopyGroup.jStar_isPointedMap (n + 1) X A a).map_default
 
+/-- An `n`-connected space gives an `n`-connected pair after adjoining any chosen point as its
+subspace.  This is the bridge from absolute connectivity to the relative simplex-compression
+machinery. -/
+theorem IsNConnected.singletonPair {n : ℕ} {Y : Type} [TopologicalSpace Y]
+    (hY : IsNConnected n Y) (y : Y) : IsNConnectedPair n Y ({y} : Set Y) := by
+  letI : PathConnectedSpace Y := hY.pathConnected
+  constructor
+  · intro a z
+    exact ⟨default,
+      ((RelHomotopyGroup.iStar_isPointedMap 0 Y ({y} : Set Y) a).map_default).trans
+        ((subsingleton_homotopyGroup_zero (a : Y)).elim _ z)⟩
+  · intro k hk a
+    exact nonempty_unique_relHomotopyGroup k a
+      (hY.subsingleton_pi k hk (a : Y))
+      (subsingleton_homotopyGroup_of_subsingleton a)
+
 /-- **The boundary map of a pair with weakly contractible ambient space is bijective.**  If
 `π_{n+2}(X)` and `π_{n+1}(X)` are trivial then `∂ : π_{n+2}(X, A) → π_{n+1}(A)` is a bijection. -/
 theorem bijective_bd_of_subsingleton (n : ℕ) (a : A)
