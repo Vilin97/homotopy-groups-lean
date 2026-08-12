@@ -974,6 +974,38 @@ class ResearchDataTests(unittest.TestCase):
             self.assertIsNone(record["lattice_overlay"])
             self.assertIsNone(record["degree_lattice_overlay"])
 
+    def test_simplicial_telescope_matches_sorry_free_source(self) -> None:
+        inventory = json.loads((ROOT / "research/formalizations.json").read_text())
+        result_set = inventory["maintained_simplicial_telescope_set"]
+        results = result_set["results"]
+        self.assertEqual(result_set["system"], "Lean 4")
+        self.assertEqual(result_set["count"], 8)
+        self.assertEqual(len(results), 8)
+        self.assertEqual(len({row["id"] for row in results}), 8)
+        self.assertEqual(len({row["declaration"] for row in results}), 8)
+        for result in results:
+            source = (ROOT / "research" / result["source"]).resolve()
+            self.assertTrue(source.is_file())
+            text = source.read_text()
+            self.assertNotIn("sorry", text)
+            self.assertNotIn("admit", text)
+            self.assertIn(result["declaration"].rsplit(".", 1)[-1], text)
+
+        record = next(
+            item for item in inventory["formalizations"]
+            if item["id"] == "lean4-simplicial-homotopy-addition-telescope"
+        )
+        self.assertTrue(
+            {row["declaration"] for row in results}.issubset(record["declarations"])
+        )
+        self.assertEqual(len(record["declarations"]), 52)
+        self.assertEqual(
+            record["commit"],
+            "e81934358c2157762e078d2ed7862ef6c1fef26c",
+        )
+        self.assertIsNone(record["lattice_overlay"])
+        self.assertIsNone(record["degree_lattice_overlay"])
+
 
 if __name__ == "__main__":
     unittest.main()

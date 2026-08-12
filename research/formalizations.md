@@ -285,6 +285,24 @@ the local relation needed at each stage of the telescoping homotopy-addition
 argument. Constructing and summing that full sequence of horns remains, so
 the lattice overlay is unchanged.
 
+The full simplicial telescope is now formalized. At stage `q`, a compatible
+Kan horn replaces the initial faces by the constant simplex, retains the
+later original faces, and produces a new auxiliary face. A second compatible
+horn compares that auxiliary face with the distinguished face of the
+preceding boundary and the next original face. Its omitted face is proved to
+be a `MulStruct` at index `q`, so arbitrary-index multiplication gives the
+local identity `previous - original + auxiliary = 0`. The first stage starts
+with original face zero, each successor starts with the preceding auxiliary,
+and a final `RelStruct` identifies the last auxiliary with the last original
+face. Lean packages these as adjacent running terms and applies the finite
+alternating-sum telescope to prove that every normalized higher simplex has
+zero alternating sum of stick-parameterized face classes. Equivalently, its
+complete stick-breaking cubical shell boundary class vanishes. The remaining
+bridge is now narrower: compare these stick-breaking representatives with the
+cube-homeomorphism representatives used by `normalizedClassChain` (or replace
+that coordinate choice throughout). Until that bridge is closed, the chain
+inverse does not yet descend and the lattice overlay is unchanged.
+
 Bijectivity of the corresponding relative homotopy map yields the next exact
 diagonal equivalence; bijectivity of the family from `pi_2(S^2)` onward yields
 the full integral diagonal, using the two exact base cases already in Lean. The
