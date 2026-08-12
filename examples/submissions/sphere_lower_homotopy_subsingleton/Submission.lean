@@ -9,6 +9,7 @@ import Submission.DiagonalInduction
 import Submission.DisplayedLowerConnectivity
 import Submission.IndependentResults
 import Submission.DisplayedCircleFrontier
+import Submission.FoundationBenchmarks
 import Submission.HigherSphereFoundations
 import Submission.Hurewicz.AbsoluteIsomorphism
 import Submission.Hurewicz.AbsoluteSurjectivity
