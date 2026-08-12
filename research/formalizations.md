@@ -179,6 +179,21 @@ then the resulting injectivity and general connected-pair theorem, are still
 needed before the cap-excision application; no lattice cell is recolored by
 this boundary-bridge milestone.
 
+The boundary comparison now has explicit coordinates. The recursive
+stick-breaking map from the cube to the simplex takes every upper cube face to
+the simplex face of the same index, takes the final lower cube face to the
+final simplex face, and sends every other lower face into the codimension-two
+skeleton. It also takes the cubical boundary to the simplicial boundary. For a
+normalized higher simplex, that skeleton is proved constant at the basepoint,
+so all cubical faces become genuine generalized loops. Their oriented cubical
+boundary expression is then proved exactly equal to the alternating sum of
+the stick-parameterized simplex-face classes, including the final sign. Two
+geometric comparisons remain: the generic cubical homotopy-addition relation
+must make this shell sum vanish, and the stick-breaking representative must be
+compared with the existing cube-homeomorphism representative (or replace it
+throughout the normalized-chain construction). This coordinate milestone
+therefore adds no unsupported lattice cell.
+
 Bijectivity of the corresponding relative homotopy map yields the next exact
 diagonal equivalence; bijectivity of the family from `pi_2(S^2)` onward yields
 the full integral diagonal, using the two exact base cases already in Lean. The
