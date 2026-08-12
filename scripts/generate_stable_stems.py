@@ -24,6 +24,9 @@ FIRST_STEM = 0
 LAST_STEM = 90
 NON_EXACT_ALTERNATIVE_COUNTS = {84: 2, 85: 4, 86: 2, 90: 2}
 SUPERSEDED_STEMS = {70, 71, 82, 83}
+LEAN_PROOFS = {
+    0: "exact Submission.pi2_sphere_two_at_mulEquiv_int (stableSphereBasepoint 2)",
+}
 
 
 class RegistryError(ValueError):
@@ -246,10 +249,16 @@ def load_and_validate_registry() -> dict[str, Any]:
                 require(alternative_id not in seen_ids, f"{label}: duplicate alternative id")
                 seen_ids.add(alternative_id)
                 summary = validate_group(alternative.get("group"), f"{label} {alternative_id}")
-                require(summary["free_rank"] == 0, f"{label}: unexpected free alternative")
-                signature = (summary["free_rank"], tuple(summary["factors"]))
-                require(signature not in seen_groups, f"{label}: duplicate group alternative")
-                seen_groups.add(signature)
+            require(summary["free_rank"] == 0, f"{label}: unexpected free alternative")
+            signature = (summary["free_rank"], tuple(summary["factors"]))
+            require(signature not in seen_groups, f"{label}: duplicate group alternative")
+            seen_groups.add(signature)
+
+    exact_stems = {row["stem"] for row in rows if row["is_exact"]}
+    require(
+        set(LEAN_PROOFS) <= exact_stems,
+        "every configured Lean proof must target an exact registry stem",
+    )
 
     supersession_rules = registry.get("supersession_rules")
     require(isinstance(supersession_rules, list), "supersession_rules must be a list")
@@ -341,7 +350,13 @@ def row_notes(row: dict[str, Any], registry_version: str) -> str:
     stem = row["stem"]
     sphere_dimension = stem + 2
     homotopy_degree = 2 * stem + 2
-    if row["is_exact"]:
+    if stem in LEAN_PROOFS:
+        status = "knowledge_status=formalized_local"
+        group_text = (
+            f"Integral invariant factors: {human_group(row['group'])}. "
+            "The exact benchmark declaration is Lean-kernel checked."
+        )
+    elif row["is_exact"]:
         status = "knowledge_status=known_result/exact"
         group_text = f"Integral invariant factors: {human_group(row['group'])}."
     else:
@@ -408,7 +423,10 @@ def render_theorem(row: dict[str, Any], sources: dict[str, dict[str, Any]]) -> s
         for index, proposition in enumerate(propositions):
             suffix = " ∨" if index + 1 < len(propositions) else " := by"
             lines.append(f"    ({proposition}){suffix}")
-    lines.append("  sorry")
+    if stem in LEAN_PROOFS:
+        lines.append(f"  {LEAN_PROOFS[stem]}")
+    else:
+        lines.append("  sorry")
     return "\n".join(lines)
 
 
@@ -425,6 +443,7 @@ import Mathlib.Analysis.InnerProductSpace.PiL2
 import Mathlib.Data.ZMod.Basic
 import Mathlib.Topology.Homotopy.HomotopyGroup
 import EvalTools.Markers
+import Submission.Pi2SphereTwoGeneric
 
 open scoped Topology
 

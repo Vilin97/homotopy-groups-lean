@@ -8,6 +8,7 @@ import Mathlib.Analysis.InnerProductSpace.PiL2
 import Mathlib.Data.ZMod.Basic
 import Mathlib.Topology.Homotopy.HomotopyGroup
 import EvalTools.Markers
+import Submission.Pi2SphereTwoGeneric
 
 open scoped Topology
 
@@ -33,7 +34,7 @@ theorem stable_stem_000 :
     Nonempty
       (π_ 2 (StableSphere 2) (stableSphereBasepoint 2) ≃*
         Multiplicative ℤ) := by
-  sorry
+  exact Submission.pi2_sphere_two_at_mulEquiv_int (stableSphereBasepoint 2)
 
 /--
 Stable stem 1, represented by pi_4(S^3).
