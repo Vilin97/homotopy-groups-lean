@@ -2217,16 +2217,19 @@
     {
       "id": "lean4-metric-sphere-connectivity",
       "system": "Lean 4",
-      "repository": "Vilin97/lean-eval-pi-succ-sphere",
-      "commit": "1be6cb9b42874415a34defee070f4aa07d6e3193",
-      "license": "Apache-2.0 headers in every imported source file",
-      "declarations": ["Submission.subsingleton_homotopyGroup_sphere_of_lt"],
-      "result": "pi_k(S^n) is trivial for k<n",
-      "model_relation": "exactly the Mathlib metric-sphere model used by SphereSpace",
-      "status": "source_audited_imported_submission",
-      "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/0119d6355024b9af41fa9dbf09a6cfb96fea6af8/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Model/SphereConnected.lean",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "82a6ce0f1491a67af6336f0145f0a1178dadac0c",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.subsingleton_homotopyGroup_sphere_of_lt",
+        "HomotopyGroups.sphere_lower_homotopy_subsingleton"
+      ],
+      "result": "pi_k(S^n) is trivial for k<n, including the exact canonical benchmark declaration",
+      "model_relation": "exactly the Mathlib metric-sphere model and distinguished basepoints used by SphereSpace",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../HomotopyGroups/Spaces.lean",
       "lattice_overlay": null,
-      "note": "The imported theorem is the geometric source for the maintained explicit-PUnit wrapper that powers the absolute-degree overlay; this older record does not duplicate those cells."
+      "note": "The audited imported geometric theorem supplies the proof term for the canonical declaration. Both declarations are sorry-free, and the canonical axiom closure contains only propext, Classical.choice, and Quot.sound. The separate explicit-PUnit record owns the absolute-degree overlay, so this provenance record does not duplicate those cells."
     },
     {
       "id": "lean4-groundzero-circle",

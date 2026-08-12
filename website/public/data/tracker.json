@@ -19,8 +19,8 @@
         "higher_homotopy_mul_comm"
       ],
       "id": "higher_homotopy_mul_comm",
-      "knowledge_status": "native_consequence",
-      "notes": "knowledge_status=native_consequence; the pinned mathlib already supplies a CommGroup instance for generalized loop dimensions with at least two coordinates.",
+      "knowledge_status": "formalized_local",
+      "notes": "knowledge_status=formalized_local; the exact canonical declaration is proved from the pinned CommGroup instance in every degree at least two.",
       "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
       "title": "Higher homotopy groups are commutative"
     },
@@ -91,8 +91,8 @@
         "pi0_pathConnected_subsingleton"
       ],
       "id": "pi0_pathConnected_subsingleton",
-      "knowledge_status": "native_consequence",
-      "notes": "knowledge_status=native_consequence; follows from mathlib's pi0EquivZerothHomotopy and the path-connected ZerothHomotopy instance.",
+      "knowledge_status": "formalized_local",
+      "notes": "knowledge_status=formalized_local; the exact canonical declaration is proved from Mathlib's pi0EquivZerothHomotopy and the path-connected ZerothHomotopy instance.",
       "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
       "title": "A path-connected space has trivial zeroth homotopy group"
     },
@@ -163,8 +163,8 @@
         "pi1_simplyConnected_subsingleton"
       ],
       "id": "pi1_simplyConnected_subsingleton",
-      "knowledge_status": "native_consequence",
-      "notes": "knowledge_status=native_consequence; uses the native comparison between pi_1 and FundamentalGroup together with SimplyConnectedSpace.",
+      "knowledge_status": "formalized_local",
+      "notes": "knowledge_status=formalized_local; the exact canonical declaration is proved from the native pi_1 comparison and the SimplyConnectedSpace fundamental-group instance.",
       "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
       "title": "A simply connected space has trivial fundamental homotopy group"
     },
@@ -319,8 +319,8 @@
         "sphere_lower_homotopy_subsingleton"
       ],
       "id": "sphere_lower_homotopy_subsingleton",
-      "knowledge_status": "foundation_blocked",
-      "notes": "knowledge_status=foundation_blocked; the concrete metric sphere exists, but sphere connectivity and cellular approximation are absent.",
+      "knowledge_status": "formalized_local",
+      "notes": "knowledge_status=formalized_local; the audited metric-sphere connectivity theorem now proves the exact canonical declaration for every k<n.",
       "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
       "title": "Homotopy groups below the dimension of a sphere vanish"
     },

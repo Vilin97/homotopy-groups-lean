@@ -489,6 +489,30 @@ class ResearchDataTests(unittest.TestCase):
             [{"n": [2, 92], "m": [1, 91], "where": "m<n"}],
         )
 
+        canonical = next(
+            item for item in inventory["formalizations"]
+            if item["id"] == "lean4-metric-sphere-connectivity"
+        )
+        self.assertEqual(
+            canonical["declarations"],
+            [
+                "Submission.subsingleton_homotopyGroup_sphere_of_lt",
+                "HomotopyGroups.sphere_lower_homotopy_subsingleton",
+            ],
+        )
+        self.assertEqual(
+            canonical["commit"],
+            "82a6ce0f1491a67af6336f0145f0a1178dadac0c",
+        )
+        spaces_text = (ROOT / "HomotopyGroups/Spaces.lean").read_text()
+        start = spaces_text.index("theorem sphere_lower_homotopy_subsingleton")
+        end = spaces_text.index("\n@[eval_problem]", start)
+        self.assertNotIn("sorry", spaces_text[start:end])
+        self.assertIn(
+            "knowledge_status=formalized_local",
+            (ROOT / "manifests/problems/sphere_lower_homotopy_subsingleton.toml").read_text(),
+        )
+
     def test_every_purple_cell_names_and_links_its_exact_lean_witness(self) -> None:
         published = json.loads(
             (ROOT / "website/public/data/leaderboard.json").read_text()
@@ -1296,6 +1320,15 @@ class ResearchDataTests(unittest.TestCase):
         wrapper_text = wrapper.read_text()
         for declaration in record["declarations"]:
             self.assertIn(f"theorem {declaration.rsplit('.', 1)[-1]}", wrapper_text)
+        for problem_id in (
+            "pi0_pathConnected_subsingleton",
+            "pi1_simplyConnected_subsingleton",
+            "higher_homotopy_mul_comm",
+        ):
+            self.assertIn(
+                "knowledge_status=formalized_local",
+                (ROOT / f"manifests/problems/{problem_id}.toml").read_text(),
+            )
         self.assertIsNone(record["lattice_overlay"])
         self.assertIsNone(record["degree_lattice_overlay"])
 

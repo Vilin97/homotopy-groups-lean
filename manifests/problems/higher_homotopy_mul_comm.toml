@@ -5,4 +5,4 @@ module = "HomotopyGroups.Foundations"
 holes = ["higher_homotopy_mul_comm"]
 submitter = "OpenAI Codex"
 source = "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
-notes = "knowledge_status=native_consequence; the pinned mathlib already supplies a CommGroup instance for generalized loop dimensions with at least two coordinates."
+notes = "knowledge_status=formalized_local; the exact canonical declaration is proved from the pinned CommGroup instance in every degree at least two."

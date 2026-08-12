@@ -5,4 +5,4 @@ module = "HomotopyGroups.Foundations"
 holes = ["pi1_simplyConnected_subsingleton"]
 submitter = "OpenAI Codex"
 source = "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
-notes = "knowledge_status=native_consequence; uses the native comparison between pi_1 and FundamentalGroup together with SimplyConnectedSpace."
+notes = "knowledge_status=formalized_local; the exact canonical declaration is proved from the native pi_1 comparison and the SimplyConnectedSpace fundamental-group instance."

@@ -5,4 +5,4 @@ module = "HomotopyGroups.Foundations"
 holes = ["pi0_pathConnected_subsingleton"]
 submitter = "OpenAI Codex"
 source = "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
-notes = "knowledge_status=native_consequence; follows from mathlib's pi0EquivZerothHomotopy and the path-connected ZerothHomotopy instance."
+notes = "knowledge_status=formalized_local; the exact canonical declaration is proved from Mathlib's pi0EquivZerothHomotopy and the path-connected ZerothHomotopy instance."

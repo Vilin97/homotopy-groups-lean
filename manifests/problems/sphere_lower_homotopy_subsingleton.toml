@@ -5,4 +5,4 @@ module = "HomotopyGroups.Spaces"
 holes = ["sphere_lower_homotopy_subsingleton"]
 submitter = "OpenAI Codex"
 source = "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
-notes = "knowledge_status=foundation_blocked; the concrete metric sphere exists, but sphere connectivity and cellular approximation are absent."
+notes = "knowledge_status=formalized_local; the audited metric-sphere connectivity theorem now proves the exact canonical declaration for every k<n."
