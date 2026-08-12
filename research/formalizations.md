@@ -113,7 +113,12 @@ natural. A Mayer--Vietoris chain pushout and the small-simplices comparison give
 the full excision theorem `H_k(A,A∩B) ≅ H_k(X,B)` for every interior cover and
 every degree. Applied to the sphere caps, it proves that the exact canonical
 cap map is a relative-homology isomorphism in every degree and identifies both
-top relative groups with `Z`.
+top relative groups with `Z`. The bounded singular-simplex compression theorem
+is now connected directly to the `IsNConnectedPair` interface as well: it
+proves zero relative homology through degree `m` for both cap/overlap pairs and,
+after excision, for the sphere/upper-cap target. Thus the complete
+vanishing-plus-first-nonzero homology pattern is checked on both sides of the
+canonical map.
 
 Bijectivity of the corresponding relative homotopy map yields the next exact
 diagonal equivalence; bijectivity of the family from `pi_2(S^2)` onward yields

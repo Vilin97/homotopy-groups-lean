@@ -306,7 +306,43 @@
       { "id": "sphere-upper-cap-top-relative-homology", "declaration": "Submission.sphSphereUpperCapRelativeTopHomologyIsoInt", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspensionHomologyExcision.lean", "lattice_effect": "none directly; computes the target top relative homology group as Z" }
     ]
   },
+  "maintained_connected_pair_homology_set": {
+    "count": 6,
+    "system": "Lean 4",
+    "counting_rule": "Relative-homology vanishing, the lower-degree inclusion isomorphism, the top-range inclusion epimorphism, and vanishing for the lower-cap, upper-cap, and excised sphere/upper-cap pairs are six distinct results. The explicit upper-overlap basepoint is a definition and is not counted separately.",
+    "results": [
+      { "id": "connected-pair-relative-homology-vanishing", "declaration": "Submission.IsNConnectedPair.isZero_relativeHomology", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/ConnectedPair.lean", "lattice_effect": "none directly; an n-connected nonempty pair has zero relative homology through degree n" },
+      { "id": "connected-pair-inclusion-homology-isomorphism", "declaration": "Submission.IsNConnectedPair.isIso_homologyMap_subIncl", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/ConnectedPair.lean", "lattice_effect": "none directly; inclusion is a homology isomorphism one degree below the connectivity bound" },
+      { "id": "connected-pair-inclusion-homology-epimorphism", "declaration": "Submission.IsNConnectedPair.epi_homologyMap_subIncl", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/ConnectedPair.lean", "lattice_effect": "none directly; inclusion is a homology epimorphism through the connectivity bound" },
+      { "id": "lower-cap-relative-homology-vanishing", "declaration": "Submission.isZero_sphLowerCap_overlap_relativeHomology", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspensionHurewicz.lean", "lattice_effect": "none directly; verifies the complete homology-vanishing range on the source cap pair" },
+      { "id": "upper-cap-relative-homology-vanishing", "declaration": "Submission.isZero_sphUpperCap_overlap_relativeHomology", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspensionHurewicz.lean", "lattice_effect": "none directly; verifies the symmetric cap-pair homology-vanishing range" },
+      { "id": "sphere-upper-cap-relative-homology-vanishing", "declaration": "Submission.isZero_sphSphere_upperCap_relativeHomology", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspensionHurewicz.lean", "lattice_effect": "none directly; transports the vanishing range to the target pair by homological excision" }
+    ]
+  },
   "formalizations": [
+    {
+      "id": "lean4-connected-pair-homology-vanishing",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "846469caceea83cc00a2a4e41a64ae79dc0b7925",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.IsNConnectedPair.isZero_relativeHomology",
+        "Submission.IsNConnectedPair.isIso_homologyMap_subIncl",
+        "Submission.IsNConnectedPair.epi_homologyMap_subIncl",
+        "Submission.sphCapOverlapInUpperBase",
+        "Submission.isZero_sphLowerCap_overlap_relativeHomology",
+        "Submission.isZero_sphUpperCap_overlap_relativeHomology",
+        "Submission.isZero_sphSphere_upperCap_relativeHomology"
+      ],
+      "result": "the bounded singular-simplex compression theorem is packaged directly for n-connected pairs, giving relative-homology vanishing through degree n and the corresponding inclusion isomorphism/epimorphism ranges; the two sphere cap pairs and the excised sphere/upper-cap target satisfy this complete vanishing range",
+      "model_relation": "the maintained IsNConnectedPair structure, coherent singular-simplex compression, relative singular homology, and exact sphere-cap cover used by the suspension-excision route",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspensionHurewicz.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All seven listed declarations are sorry-free Lean 4. Audited axiom closures contain only propext, Classical.choice, and Quot.sound. Combined with the previous top-degree Z computations, this gives the complete vanishing-plus-first-nonzero relative-homology pattern for the cap map; the natural first-nonvanishing relative Hurewicz isomorphism is still required before any exact homotopy-group cell can be recolored."
+    },
     {
       "id": "lean4-relative-homology-excision",
       "system": "Lean 4",

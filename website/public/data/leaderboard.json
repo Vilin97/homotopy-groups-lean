@@ -44441,6 +44441,32 @@
         "cell_count": 0,
         "coordinates": null,
         "declarations": [
+          "Submission.IsNConnectedPair.isZero_relativeHomology",
+          "Submission.IsNConnectedPair.isIso_homologyMap_subIncl",
+          "Submission.IsNConnectedPair.epi_homologyMap_subIncl",
+          "Submission.sphCapOverlapInUpperBase",
+          "Submission.isZero_sphLowerCap_overlap_relativeHomology",
+          "Submission.isZero_sphUpperCap_overlap_relativeHomology",
+          "Submission.isZero_sphSphere_upperCap_relativeHomology"
+        ],
+        "degree_cell_count": 0,
+        "degree_coordinates": null,
+        "degree_lattice_kind": null,
+        "degree_lattice_proof": null,
+        "id": "lean4-connected-pair-homology-vanishing",
+        "lattice_kind": null,
+        "lattice_proof": null,
+        "model_relation": "the maintained IsNConnectedPair structure, coherent singular-simplex compression, relative singular homology, and exact sphere-cap cover used by the suspension-excision route",
+        "note": "All seven listed declarations are sorry-free Lean 4. Audited axiom closures contain only propext, Classical.choice, and Quot.sound. Combined with the previous top-degree Z computations, this gives the complete vanishing-plus-first-nonzero relative-homology pattern for the cap map; the natural first-nonvanishing relative Hurewicz isomorphism is still required before any exact homotopy-group cell can be recolored.",
+        "result": "the bounded singular-simplex compression theorem is packaged directly for n-connected pairs, giving relative-homology vanishing through degree n and the corresponding inclusion isomorphism/epimorphism ranges; the two sphere cap pairs and the excised sphere/upper-cap target satisfy this complete vanishing range",
+        "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/846469caceea83cc00a2a4e41a64ae79dc0b7925/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspensionHurewicz.lean",
+        "status": "lean_kernel_checked_local_source",
+        "system": "Lean 4"
+      },
+      {
+        "cell_count": 0,
+        "coordinates": null,
+        "declarations": [
           "Submission.relShortComplexMap",
           "Submission.relShortComplexMap_τ₁",
           "Submission.relShortComplexMap_τ₂",
