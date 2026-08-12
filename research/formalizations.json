@@ -255,7 +255,62 @@
       { "id": "reduced-suspension-diagonal-reduction", "declaration": "Submission.sphere_diagonal_mulEquiv_int_of_reduced_suspension_bijective", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereReducedSuspension.lean", "lattice_effect": "none until Freudenthal bijectivity is supplied; multiplication compatibility is already built into the map" }
     ]
   },
+  "maintained_sphere_suspension_excision_set": {
+    "count": 10,
+    "system": "Lean 4",
+    "counting_rule": "Preservation of relative homotopy, the induced relative-group homomorphism and its composition law, the three naturality squares, functorial contractible-pair comparison, overlap equivalence, one-step diagonal reduction, and full-diagonal reduction are ten distinct results. Representative maps, basepoint lemmas, and bundling definitions are not counted separately.",
+    "results": [
+      { "id": "relative-map-homotopy-invariance", "declaration": "Submission.RelGenLoop.map_homotopic", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Homotopy/RelMap.lean", "lattice_effect": "none directly; makes postcomposition by a based pair map well defined on relative homotopy classes" },
+      { "id": "relative-homotopy-induced-hom", "declaration": "Submission.RelHomotopyGroup.mapHom", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Homotopy/RelMap.lean", "lattice_effect": "none directly; supplies the group-valued comparison map required by homotopy excision" },
+      { "id": "relative-homotopy-functoriality", "declaration": "Submission.RelHomotopyGroup.mapHom_comp", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Homotopy/RelMap.lean", "lattice_effect": "none directly; proves composition for induced relative homotopy homomorphisms" },
+      { "id": "relative-jstar-naturality", "declaration": "Submission.RelHomotopyGroup.mapHom_comp_jStarHom", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Homotopy/RelMap.lean", "lattice_effect": "none directly; proves naturality at the absolute-to-relative map" },
+      { "id": "relative-boundary-naturality", "declaration": "Submission.RelHomotopyGroup.bdHom_comp_mapHom", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Homotopy/RelMap.lean", "lattice_effect": "none directly; proves naturality of the relative boundary homomorphism" },
+      { "id": "relative-istar-naturality", "declaration": "Submission.RelHomotopyGroup.mapHom_comp_iStarHom", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Homotopy/RelMap.lean", "lattice_effect": "none directly; proves naturality at the subspace-inclusion map" },
+      { "id": "functorial-contractible-pair-comparison", "declaration": "Submission.piMulEquiv_of_bijective_relativeMap", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HigherSphereFoundations.lean", "lattice_effect": "none directly; turns a bijective induced map of contractible pairs into an absolute homotopy-group equivalence" },
+      { "id": "sphere-cap-overlap-equivalence", "declaration": "Submission.sphCapOverlapHomotopyEquiv", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspensionExcision.lean", "lattice_effect": "none directly; identifies the overlap in the lower cap with the equatorial metric sphere" },
+      { "id": "sphere-diagonal-cap-excision-step", "declaration": "Submission.nonempty_sphereDiagonalSuspensionMulEquiv_of_capExcision", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspensionExcision.lean", "lattice_effect": "none until the canonical relative cap-inclusion homomorphism is proved bijective" },
+      { "id": "sphere-diagonal-cap-excision-reduction", "declaration": "Submission.sphere_diagonal_mulEquiv_int_of_capExcision", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspensionExcision.lean", "lattice_effect": "none until Blakers--Massey bijectivity is proved for the canonical cap-inclusion maps" }
+    ]
+  },
   "formalizations": [
+    {
+      "id": "lean4-sphere-suspension-excision-map",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "ba4d7f076a6eceea06ddd1504a7c3f7ff6e82949",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.BasedPairMap",
+        "Submission.BasedPairMap.subspaceMap",
+        "Submission.RelGenLoop.map",
+        "Submission.RelGenLoop.map_homotopic",
+        "Submission.RelGenLoop.map_transAt",
+        "Submission.RelHomotopyGroup.map",
+        "Submission.RelHomotopyGroup.mapHom",
+        "Submission.RelHomotopyGroup.mapHom_comp",
+        "Submission.RelHomotopyGroup.map_jStar",
+        "Submission.RelHomotopyGroup.bd_map",
+        "Submission.RelHomotopyGroup.map_iStar",
+        "Submission.RelHomotopyGroup.mapHom_comp_jStarHom",
+        "Submission.RelHomotopyGroup.bdHom_comp_mapHom",
+        "Submission.RelHomotopyGroup.mapHom_comp_iStarHom",
+        "Submission.piMulEquiv_of_bijective_relativeMap",
+        "Submission.sphHeight_sphereBasepoint_succ",
+        "Submission.sphCapInclusionPairMap",
+        "Submission.sphCapOverlapHomeoBelt",
+        "Submission.sphCapOverlapHomotopyEquiv",
+        "Submission.sphereSuspensionExcisionHom",
+        "Submission.nonempty_sphereDiagonalSuspensionMulEquiv_of_capExcision",
+        "Submission.sphere_diagonal_mulEquiv_int_of_capExcision"
+      ],
+      "result": "based maps of pairs induce functorial relative-homotopy monoid homomorphisms natural with the complete long exact sequence; for the explicit two-cap cover of a metric sphere, this produces a canonical relative excision homomorphism whose bijectivity yields each successive diagonal equivalence and the exact integral diagonal",
+      "model_relation": "exactly the maintained metric-sphere, cubical relative-homotopy, and group-valued long-exact-sequence models; the two enlarged hemispheres are contractible and their overlap is explicitly homotopy-equivalent to the equatorial metric sphere",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspensionExcision.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All twenty-two listed declarations are sorry-free Lean 4. Audited axiom closures contain only propext, Classical.choice, and Quot.sound. The algebraic and sphere-cover comparison is complete; the remaining input is Blakers--Massey bijectivity of the displayed canonical relative cap-inclusion maps, so no exact lattice cell is recolored."
+    },
     {
       "id": "lean4-metric-sphere-reduced-suspension",
       "system": "Lean 4",

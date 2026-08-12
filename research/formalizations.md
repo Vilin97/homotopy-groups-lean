@@ -100,6 +100,17 @@ successive exact metric-sphere diagonal groups. Freudenthal bijectivity and a
 complete additive degree classification are still missing. These advances
 therefore add no exact purple cells yet.
 
+Relative homotopy groups are now functorial for based maps of pairs, as actual
+monoid homomorphisms in degree at least two. The induced maps commute with all
+three homomorphisms in the long exact sequence of a pair. Applying this API to
+the explicit cover of a metric sphere by two enlarged hemispheres gives a
+canonical relative cap-inclusion homomorphism: both caps are contractible, and
+their overlap is explicitly homotopy-equivalent to the equatorial metric
+sphere. Bijectivity of this one map yields the next exact diagonal equivalence;
+bijectivity of the family yields the full integral diagonal. The remaining
+geometric input is precisely the Blakers--Massey homotopy-excision proof of
+that bijectivity, so this reduction also adds no exact purple cells yet.
+
 Higher exact diagonal and stable sphere stems still require additional degree
 classification, Freudenthal, higher-Hurewicz, and Hopf-fibration
 infrastructure. Incomplete attempts do not color cells.
@@ -114,7 +125,9 @@ the group level. Independently, the reduced-suspension construction is now
 multiplicative in the exact metric-sphere model. Its checked diagonal reduction
 therefore needs only bijectivity of that concrete monoid homomorphism. The two
 constructions have not been compared, and Freudenthal bijectivity remains
-unproved, so the reductions add no unsupported purple cells.
+unproved. A second checked route now uses the canonical relative map induced by
+the two-cap cover and reduces the same diagonal to Blakers--Massey bijectivity
+for that map. The reductions add no unsupported purple cells.
 
 The maintained ten-result set is recorded explicitly in
 `maintained_independent_result_set`.  Besides the metric-circle computation it
