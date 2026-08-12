@@ -586,6 +586,21 @@
       { "id": "sphere-diagonal-via-cap-excision", "declaration": "Submission.sphere_diagonal_mulEquiv_int_via_capExcision", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspensionHurewicz.lean", "lattice_effect": "gives a second proof of the full displayed diagonal, whose cells already have a uniform maintained Hurewicz witness" }
     ]
   },
+  "maintained_cubical_hurewicz_degree_one_set": {
+    "count": 8,
+    "system": "Lean 4",
+    "counting_rule": "Naturality of loop homology, represented degree-one Hurewicz naturality, the two circle-generator unit-coordinate theorems, the universal degree-one cubical comparison, the contractible-ambient degree-two relative theorem, uniform cap-excision bijectivity, and the resulting all-index diagonal theorem are eight distinct results. Simplex and edge map formulas, the orientation sign, its bijective action, path/cube representative identities, and the separate zero-index specialization are supporting declarations and are not counted separately.",
+    "results": [
+      { "id": "degree-one-loop-homology-naturality", "declaration": "Submission.HgrpMap_loopH", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/CubicalDegreeOne.lean", "lattice_effect": "none directly; proves that the singular one-cycle carried by a based path is natural under continuous maps" },
+      { "id": "represented-degree-one-hurewicz-naturality", "declaration": "Submission.hurewiczOnePi_of_genLoop_naturality", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/CubicalDegreeOne.lean", "lattice_effect": "none directly; computes naturality of the degree-one Hurewicz equivalence on every cubical loop representative" },
+      { "id": "cubical-circle-boundary-unit", "declaration": "Submission.cubicalBoundarySphereGeneratorOneCoordinate_eq_one_or_neg_one", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/CubicalDegreeOne.lean", "lattice_effect": "none directly; proves that the cubical boundary class of the canonical circle generator is a generator of H_1(S^1)" },
+      { "id": "degree-one-circle-hurewicz-unit", "declaration": "Submission.hurewiczOneSphereGeneratorCoordinate_eq_one_or_neg_one", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/CubicalDegreeOne.lean", "lattice_effect": "none directly; proves that the degree-one Hurewicz image of the canonical circle generator is a generator of H_1(S^1)" },
+      { "id": "universal-cubical-degree-one-comparison", "declaration": "Submission.cubicalBoundaryHurewicz_eq_sign_smul_hurewiczOne", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/CubicalDegreeOne.lean", "lattice_effect": "none directly; identifies cubical-boundary Hurewicz with degree-one Hurewicz through abelianisation up to one global orientation sign" },
+      { "id": "contractible-ambient-relative-hurewicz-degree-two", "declaration": "Submission.IsNConnected.relativeHurewiczAdd_bijective_of_contractibleAmbient_one", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/CubicalDegreeOne.lean", "lattice_effect": "none directly; proves degree-two relative Hurewicz for a path-connected subspace with commutative fundamental group in a contractible ambient space" },
+      { "id": "all-index-sphere-cap-excision", "declaration": "Submission.sphereSuspensionExcisionHom_bijective", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspensionHurewicz.lean", "lattice_effect": "none directly; proves the canonical sphere-cap relative homotopy map bijective at every index" },
+      { "id": "sphere-diagonal-via-all-cap-excision", "declaration": "Submission.sphere_diagonal_mulEquiv_int_via_all_capExcision", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspensionHurewicz.lean", "lattice_effect": "gives a full all-index cap-excision proof of the displayed diagonal, whose cells already have a uniform maintained Hurewicz witness" }
+    ]
+  },
   "maintained_stick_sphere_coordinate_set": {
     "count": 7,
     "system": "Lean 4",
@@ -618,6 +633,37 @@
     ]
   },
   "formalizations": [
+    {
+      "id": "lean4-cubical-hurewicz-degree-one",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "bdaa64166f3ce457864662198e83376760b37103",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.pathSimplex_map",
+        "Submission.CsingMap_edge",
+        "Submission.HgrpMap_loopH",
+        "Submission.hurewiczOnePi_of_genLoop",
+        "Submission.genLoopEquivOfUnique_map",
+        "Submission.hurewiczOnePi_of_genLoop_naturality",
+        "Submission.cubicalBoundarySphereGeneratorOneCoordinate_eq_one_or_neg_one",
+        "Submission.hurewiczOneSphereGeneratorCoordinate_eq_one_or_neg_one",
+        "Submission.cubicalBoundaryHurewiczOneSign_eq_one_or_neg_one",
+        "Submission.cubicalBoundaryHurewicz_sphereGenerator_one",
+        "Submission.cubicalBoundaryHurewicz_eq_sign_smul_hurewiczOne",
+        "Submission.IsNConnected.relativeHurewiczAdd_bijective_of_contractibleAmbient_one",
+        "Submission.sphereSuspensionExcisionHom_bijective_zero",
+        "Submission.sphereSuspensionExcisionHom_bijective",
+        "Submission.sphere_diagonal_mulEquiv_int_via_all_capExcision"
+      ],
+      "result": "the degree-one Hurewicz equivalence through abelianisation is natural on cubical loop representatives; comparison on the canonical circle generator identifies it with cubical-boundary Hurewicz up to a global orientation sign; this proves the remaining degree-two relative Hurewicz theorem for the circle-shaped cap overlap, hence the sphere-cap excision homomorphism is bijective at every index and supplies a full all-index cap-excision proof of the integral sphere diagonal",
+      "model_relation": "the maintained first homotopy group, fundamental group and abelianisation, singular H_1, explicit circle generator and cube-boundary collapse, and the index-zero member of the canonical two-cap sphere family",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/CubicalDegreeOne.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All fifteen listed declarations are sorry-free Lean 4. Strict checks pass for CubicalDegreeOne, SphereSuspensionHurewicz, and the Submission aggregate. Exact builds pass at 3,145, 8,836, and 8,854 jobs respectively. Audited axiom closures for the universal degree-one comparison, contractible-ambient relative theorem, zero-index and uniform cap-excision theorems, and final diagonal theorem contain only propext, Classical.choice, and Quot.sound. All 107 Python tests, generated-data synchronization, site lint, the production static build, and all rendered-HTML tests pass. The all-index diagonal theorem independently verifies cells already covered by the maintained uniform absolute-Hurewicz proof, so this record adds no duplicate lattice overlay."
+    },
     {
       "id": "lean4-cubical-hurewicz-cap-excision",
       "system": "Lean 4",

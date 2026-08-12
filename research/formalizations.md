@@ -81,7 +81,11 @@ relative Hurewicz map is bijective. The source comparison is now proved in
 degrees at least three by collapsing the cubical boundary jar to a sphere and
 identifying its Hurewicz class with the maintained absolute map up to a global
 orientation sign. Consequently every positive-index cap-excision map is
-bijective, giving a second proof of the exact sphere diagonal. Those cells
+bijective. The remaining index-zero comparison is now handled by the
+degree-one Hurewicz equivalence through abelianisation: both its value and the
+cubical boundary value on the canonical circle generator have unit coordinate,
+so they agree universally up to orientation. Thus every cap-excision map is
+bijective and gives a second proof of the exact sphere diagonal. Those cells
 already have a uniform Hurewicz witness, so no duplicate overlay is added.
 
 ## Twenty additional Lean 4 results
@@ -199,6 +203,15 @@ for every pointed target up to one global sign. Since multiplication by that
 sign is bijective, cancellation against the homotopy and homology boundary maps
 proves the contractible-ambient first relative Hurewicz theorem in degrees at
 least three. This applies uniformly to the lower-cap/overlap source pairs.
+
+The separate degree-one construction completes the omitted bottom case. It
+proves naturality of path one-cycles and of the degree-one Hurewicz equivalence
+on cubical representatives, then repeats the circle-generator unit-coordinate
+argument. The resulting universal sign comparison factors through the
+abelianisation of `pi_1`. Since the first cap overlap is homotopy-equivalent to
+the circle, its fundamental group is commutative, and cancellation proves the
+degree-two relative Hurewicz isomorphism for that source pair. Consequently the
+index-zero cap map, and hence the entire cap-excision family, is bijective.
 
 The comparison is now also pinned down at the boundary: the connecting map
 sends the chosen cube-pair class to an oriented boundary class, and naturality
@@ -424,7 +437,8 @@ subspace form settles the sphere/upper-cap target pair. Naturality plus
 homological excision proves that the cap map is bijective exactly when the
 source lower-cap/overlap relative Hurewicz map is bijective. The cubical jar
 collapse and universal sign comparison now prove that source map bijective at
-every positive suspension index. Thus the cap-excision route gives an
+every positive suspension index. The degree-one Hurewicz comparison through
+abelianisation proves the index-zero source map as well. Thus the cap-excision route gives an
 unconditional second proof of the exact integral diagonal. This foundation
 milestone adds no new purple cells because the same diagonal was already
 colored by the maintained absolute Hurewicz computation.
@@ -449,9 +463,9 @@ constructions have not been compared, and Freudenthal bijectivity remains
 unproved for those concrete maps. A second checked route uses the canonical
 relative map induced by the two-cap cover. Its connectivity and homological
 excision inputs, both relative Hurewicz comparisons, and the resulting
-positive-index cap-map bijectivity are now all proved. It therefore supplies
-the abstract successive diagonal equivalences needed from `pi_2(S^2)` onward
-and closes the cap-excision diagonal proof. Extending this route to stable
+all-index cap-map bijectivity are now proved. It therefore supplies every
+abstract successive diagonal equivalence, including the circle-to-two-sphere
+step, and closes the cap-excision diagonal proof. Extending this route to stable
 off-diagonal ranges still needs stronger homotopy excision or relative
 Hurewicz input. No duplicate purple cells are added.
 
