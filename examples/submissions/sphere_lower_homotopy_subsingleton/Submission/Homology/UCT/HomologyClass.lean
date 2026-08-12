@@ -174,6 +174,14 @@ def homologyQuotEquiv :
   (QuotientAddGroup.quotientAddEquivOfEq ker_homologyMkHom.symm).trans
     (QuotientAddGroup.quotientKerEquivOfSurjective _ homologyMkHom_surjective)
 
+@[simp]
+theorem homologyQuotEquiv_mk (z : cyclesSub K i) :
+    homologyQuotEquiv
+        (QuotientAddGroup.mk'
+          ((AddMonoidHom.range (K.d (c.prev i) i).hom).addSubgroupOf (cyclesSub K i)) z) =
+      homologyMk z.1 z.2 := by
+  rfl
+
 /-- Two maps out of `K.homology i` agree as soon as they agree on the classes of cycles. -/
 theorem homology_hom_ext {A : AddCommGrpCat.{0}} {u v : K.homology i ⟶ A}
     (h : ∀ (x : K.X i) (hx : K.d i (c.next i) x = 0), u (homologyMk x hx) = v (homologyMk x hx)) :
@@ -181,5 +189,51 @@ theorem homology_hom_ext {A : AddCommGrpCat.{0}} {u v : K.homology i ⟶ A}
   ext z
   obtain ⟨x, hx, rfl⟩ := homologyMk_surjective z
   exact h x hx
+
+/-- An additive map on one chain group which annihilates the incoming differential descends to
+homology.  This is the concrete cycles-modulo-boundaries universal property, phrased directly in
+terms of `HomologicalComplex.homology`. -/
+noncomputable def homologyDescAddHom {A : AddCommGrpCat.{0}} (f : K.X i ⟶ A)
+    (hf : K.d (c.prev i) i ≫ f = 0) : (K.homology i : Type) →+ (A : Type) :=
+  (QuotientAddGroup.lift
+      ((AddMonoidHom.range (K.d (c.prev i) i).hom).addSubgroupOf (cyclesSub K i))
+      (f.hom.comp (AddSubgroup.subtype (cyclesSub K i))) (by
+        rintro z ⟨y, hy⟩
+        rw [AddMonoidHom.mem_ker]
+        change f z.1 = 0
+        change K.d (c.prev i) i y = z.1 at hy
+        rw [← hy]
+        rw [← ConcreteCategory.comp_apply, hf]
+        simp)).comp
+      (homologyQuotEquiv (K := K) (i := i)).symm.toAddMonoidHom
+
+variable (K i) in
+/-- Categorified form of `homologyDescAddHom`. -/
+noncomputable def homologyDesc {A : AddCommGrpCat.{0}} (f : K.X i ⟶ A)
+    (hf : K.d (c.prev i) i ≫ f = 0) : K.homology i ⟶ A :=
+  AddCommGrpCat.ofHom (homologyDescAddHom f hf)
+
+@[simp]
+theorem homologyDesc_homologyMk {A : AddCommGrpCat.{0}} (f : K.X i ⟶ A)
+    (hf : K.d (c.prev i) i ≫ f = 0) (x : K.X i)
+    (hx : K.d i (c.next i) x = 0) :
+    homologyDesc K i f hf (homologyMk x hx) = f x := by
+  let B := (AddMonoidHom.range (K.d (c.prev i) i).hom).addSubgroupOf (cyclesSub K i)
+  have hq :
+      (homologyQuotEquiv (K := K) (i := i)).symm (homologyMk x hx) =
+        QuotientAddGroup.mk' B ⟨x, hx⟩ := by
+    apply (homologyQuotEquiv (K := K) (i := i)).injective
+    rw [AddEquiv.apply_symm_apply]
+    change homologyMk x hx =
+      homologyQuotEquiv
+        (QuotientAddGroup.mk'
+          ((AddMonoidHom.range (K.d (c.prev i) i).hom).addSubgroupOf (cyclesSub K i))
+          ⟨x, hx⟩)
+    exact (homologyQuotEquiv_mk ⟨x, hx⟩).symm
+  change homologyDescAddHom f hf (homologyMk x hx) = f x
+  rw [homologyDescAddHom, AddMonoidHom.comp_apply]
+  simp only [AddEquiv.toAddMonoidHom_eq_coe, AddMonoidHom.coe_coe]
+  rw [hq]
+  rfl
 
 end Submission

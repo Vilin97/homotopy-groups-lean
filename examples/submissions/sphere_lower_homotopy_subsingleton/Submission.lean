@@ -25,6 +25,7 @@ import Submission.Hurewicz.SimplexCubeClass
 import Submission.Hurewicz.SimplexCubeOrientation
 import Submission.Hurewicz.SimplexHorn
 import Submission.Hurewicz.SimplicialAddition
+import Submission.Hurewicz.SimplicialDescent
 import Submission.Hurewicz.SimplicialRelation
 import Submission.Hurewicz.SimplicialIndexShift
 import Submission.Hurewicz.SimplicialTelescope
