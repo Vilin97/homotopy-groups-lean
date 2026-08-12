@@ -4,7 +4,7 @@ Released under Apache 2.0 license.
 -/
 import Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace
 import Submission.Approximation.Simplex
-import Submission.Model.SphereCompl
+import Submission.SphereHomotopy
 
 /-!
 # `Sⁿ` is `(n-1)`-connected
@@ -276,23 +276,16 @@ theorem homotopyGroup_eq_one_of_lt [Nonempty (Fin k)] (hkn : k < n) (x : Sph n)
         exact radialProj_of_norm_eq_one hxnorm)⟩, fun _ => rfl⟩
   -- the radial projection of the straight-line homotopy is a homotopy rel the cube boundary
   have hhom : _root_.GenLoop.Homotopic f ghat := by
-    refine ⟨⟨⟨⟨fun st => ⟨radialProj (cubeGridAffineApproxHomotopy k N F st),
-        mem_sphere_zero_iff_norm.mpr (norm_radialProj (hHne st))⟩,
-      Continuous.subtype_mk (continuous_radialProj
-        (cubeGridAffineApproxHomotopy k N F).continuous hHne) _⟩,
-      fun y => ?_, fun y => ?_⟩, fun s t ht => ?_⟩⟩
-    · refine Subtype.ext ?_
-      show radialProj (cubeGridAffineApproxHomotopy k N F (0, y)) = _
+    apply genLoopHomotopic_of_radialHomotopy f ghat
+      (cubeGridAffineApproxHomotopy k N F) hHne
+    · intro y
       rw [cubeGridAffineApproxHomotopy_zero]
       exact radialProj_of_norm_eq_one (hFnorm y)
-    · refine Subtype.ext ?_
-      show radialProj (cubeGridAffineApproxHomotopy k N F (1, y)) = _
+    · intro y
       rw [cubeGridAffineApproxHomotopy_one]
       exact (hghat y).symm
-    · refine Subtype.ext ?_
-      show radialProj (cubeGridAffineApproxHomotopy k N F (s, t)) = _
+    · intro s t ht
       rw [hHbd s t ht, radialProj_of_norm_eq_one hxnorm]
-      exact (hFbd t ht).symm
   -- general position: the radial projection of the approximation misses a point of the sphere
   have hdim : k + 2 ≤ finrank ℝ (EuclideanSpace ℝ (Fin (n + 1))) := by
     rw [finrank_euclideanSpace_fin]
