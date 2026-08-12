@@ -42,6 +42,7 @@ import Submission.Hurewicz.StickSphere
 import Submission.Lean4TwentyResults
 import Submission.MetricSpherePiOne
 import Submission.ReducedSuspensionGroup
+import Submission.RealProjectiveSpace
 import Submission.Model.SphereConnected
 import Submission.SphereApproximation
 import Submission.SphereDegreeClassification
