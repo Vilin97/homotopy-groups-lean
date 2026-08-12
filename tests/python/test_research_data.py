@@ -938,6 +938,42 @@ class ResearchDataTests(unittest.TestCase):
         self.assertIsNone(record["lattice_overlay"])
         self.assertIsNone(record["degree_lattice_overlay"])
 
+    def test_simplicial_index_shifts_match_sorry_free_sources(self) -> None:
+        inventory = json.loads((ROOT / "research/formalizations.json").read_text())
+        result_set = inventory["maintained_simplicial_index_set"]
+        results = result_set["results"]
+        self.assertEqual(result_set["system"], "Lean 4")
+        self.assertEqual(result_set["count"], 9)
+        self.assertEqual(len(results), 9)
+        self.assertEqual(len({row["id"] for row in results}), 9)
+        self.assertEqual(len({row["declaration"] for row in results}), 9)
+        for result in results:
+            source = (ROOT / "research" / result["source"]).resolve()
+            self.assertTrue(source.is_file())
+            text = source.read_text()
+            self.assertNotIn("sorry", text)
+            self.assertNotIn("admit", text)
+            self.assertIn(result["declaration"].rsplit(".", 1)[-1], text)
+
+        records = {item["id"]: item for item in inventory["formalizations"]}
+        index_record = records["lean4-simplicial-multiplication-index-shifts"]
+        relation_record = records["lean4-final-simplicial-relation-invariance"]
+        listed = set(index_record["declarations"]) | set(relation_record["declarations"])
+        self.assertTrue({row["declaration"] for row in results}.issubset(listed))
+        self.assertEqual(len(index_record["declarations"]), 35)
+        self.assertEqual(
+            index_record["commit"],
+            "57508be42a5cdfee4b41a790d774d6ff375b8d19",
+        )
+        self.assertEqual(len(relation_record["declarations"]), 9)
+        self.assertEqual(
+            relation_record["commit"],
+            "a80ebea79cf7c856c56419993dee7bf76b3a8235",
+        )
+        for record in (index_record, relation_record):
+            self.assertIsNone(record["lattice_overlay"])
+            self.assertIsNone(record["degree_lattice_overlay"])
+
 
 if __name__ == "__main__":
     unittest.main()

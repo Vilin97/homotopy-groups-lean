@@ -270,6 +270,21 @@ this three-face multiplication across all faces of an arbitrary normalized
 higher-simplex boundary and compare the resulting alternating product with
 its full attaching map, so this milestone does not yet recolor a lattice cell.
 
+The three-face relation is now movable. A final-index two-face `RelStruct`
+first becomes a one-pair cubical shell, proving that its pointed faces have
+the same maintained homotopy class. Lean then reconstructs simplex-index
+reversal at the pinned Mathlib revision, including reversal of pointed
+simplices, compatible horns, and multiplication structures. Reversing an
+arbitrary compatible horn also proves that the opposite of a Kan complex is
+Kan. An explicit four-face horn moves a `MulStruct` one position to the left;
+reversal gives the right shift. Iterating the right shift carries a
+multiplication structure at any face index to the final index, with each step
+swapping the outer factors. Commutativity absorbs those swaps, so the existing
+final-index cubical product theorem now holds at every index. This supplies
+the local relation needed at each stage of the telescoping homotopy-addition
+argument. Constructing and summing that full sequence of horns remains, so
+the lattice overlay is unchanged.
+
 Bijectivity of the corresponding relative homotopy map yields the next exact
 diagonal equivalence; bijectivity of the family from `pi_2(S^2)` onward yields
 the full integral diagonal, using the two exact base cases already in Lean. The
