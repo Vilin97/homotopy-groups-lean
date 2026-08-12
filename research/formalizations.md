@@ -80,10 +80,12 @@ The same closure constructs the geometric suspension function between
 successive positive diagonal classes using the explicit homeomorphism
 `Susp(S^n) ~= S^(n+1)`. It preserves based homotopies and composition of
 self-maps, agrees with suspended self-map representatives, and sends each
-canonical generator to the next. It is not yet proved to be a group
-homomorphism or an equivalence, and homological degree is not yet proved
-additive or complete. These qualitative diagonal results therefore add no
-exact purple cells.
+canonical generator to the next. The meridian produced by suspending a
+constant map is now explicitly contracted through based maps, proving that
+diagonal suspension also preserves the group identity and is nonconstant. It
+is not yet proved to preserve multiplication or to be an equivalence, and
+homological degree is not yet proved additive or complete. These qualitative
+diagonal results therefore add no exact purple cells.
 
 Higher exact diagonal and stable sphere stems still require additional degree
 classification, Freudenthal, higher-Hurewicz, and Hopf-fibration
@@ -94,8 +96,11 @@ computed diagonal groups `pi_1(S^1)` and `pi_2(S^2)`, and proves that a uniform
 family of successive suspension equivalences propagates the integral
 calculation through the whole diagonal. This is a checked reduction of the
 next lattice frontier. A geometric suspension function is now available, but
-its homomorphism and equivalence properties remain unproved; consequently the
-reduction adds no unsupported purple cells.
+only its identity-preserving property is currently proved at the group level.
+`SphereSuspensionPointed.lean` gives a checked reduction from multiplication
+compatibility and bijectivity of this specific function to the exact integral
+diagonal. Those two properties remain unproved, so the reduction adds no
+unsupported purple cells.
 
 The maintained ten-result set is recorded explicitly in
 `maintained_independent_result_set`.  Besides the metric-circle computation it

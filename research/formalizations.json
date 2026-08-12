@@ -215,7 +215,46 @@
       { "id": "diagonal-suspension-generator", "declaration": "Submission.sphereDiagonalSuspension_generator", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspension.lean", "lattice_effect": "none directly; carries the canonical diagonal generator to the next one" }
     ]
   },
+  "maintained_sphere_suspension_pointed_set": {
+    "count": 5,
+    "system": "Lean 4",
+    "counting_rule": "The based meridian nullhomotopy, constant-class computation, identity preservation, nonconstancy on the generator, and concrete exact-diagonal reduction are five distinct results. Construction definitions, continuity lemmas, and bundling helpers are not counted separately.",
+    "results": [
+      { "id": "suspended-constant-based-nullhomotopy", "declaration": "Submission.sphereSuspensionConstHomotopy_basepoint", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspensionPointed.lean", "lattice_effect": "none directly; contracts the meridian produced by unreduced suspension while fixing the basepoint" },
+      { "id": "constant-self-map-null-class", "declaration": "Submission.sphereSelfMapClass_const", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspensionPointed.lean", "lattice_effect": "none directly; identifies the constant based sphere self-map with the group identity" },
+      { "id": "diagonal-suspension-identity", "declaration": "Submission.sphereDiagonalSuspension_one", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspensionPointed.lean", "lattice_effect": "none directly; proves geometric diagonal suspension is identity-preserving" },
+      { "id": "diagonal-suspension-nonconstant", "declaration": "Submission.sphereDiagonalSuspension_generator_ne_one", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspensionPointed.lean", "lattice_effect": "none directly; separates the canonical generator from the identity after suspension" },
+      { "id": "geometric-suspension-diagonal-reduction", "declaration": "Submission.sphere_diagonal_mulEquiv_int_of_geometric_suspension", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspensionPointed.lean", "lattice_effect": "none until multiplication compatibility and Freudenthal bijectivity are supplied for the constructed map" }
+    ]
+  },
   "formalizations": [
+    {
+      "id": "lean4-sphere-suspension-pointed",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "dc8c2e51c9a4cf97fb8c8cfc7bb86e132a156fcb",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.Susp.meridianContraction",
+        "Submission.Susp.meridianContraction_equator",
+        "Submission.sphereSuspensionConstHomotopy",
+        "Submission.sphereSuspensionConstHomotopy_basepoint",
+        "Submission.sphereSelfMapClass_const",
+        "Submission.sphereDiagonalSuspension_one",
+        "Submission.sphereDiagonalSuspensionOneHom",
+        "Submission.sphereDiagonalSuspension_generator_ne_one",
+        "Submission.sphereDiagonalSuspensionMonoidHom",
+        "Submission.sphereDiagonalSuspensionMulEquiv",
+        "Submission.sphere_diagonal_mulEquiv_int_of_geometric_suspension"
+      ],
+      "result": "the meridian obtained by suspending a constant based sphere map contracts through based maps, so geometric diagonal suspension preserves the identity, remains nonconstant on the canonical generator, and yields the exact integral diagonal once its multiplication compatibility and bijectivity are proved",
+      "model_relation": "exactly the explicit unreduced suspension, metric-sphere homeomorphism, and cubical HomotopyGroup models used by the maintained geometric suspension construction",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SphereSuspensionPointed.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All eleven listed declarations are sorry-free Lean 4. Their axiom closures contain only propext, Classical.choice, and Quot.sound. Identity preservation is strictly weaker than multiplication preservation, and the concrete suspension map is not yet proved bijective, so no unsupported exact diagonal cell is recolored."
+    },
     {
       "id": "lean4-sphere-diagonal-degree-suspension",
       "system": "Lean 4",
