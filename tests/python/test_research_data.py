@@ -1070,6 +1070,38 @@ class ResearchDataTests(unittest.TestCase):
         self.assertIsNone(record["lattice_overlay"])
         self.assertIsNone(record["degree_lattice_overlay"])
 
+    def test_stick_sphere_coordinate_change_matches_sorry_free_sources(self) -> None:
+        inventory = json.loads((ROOT / "research/formalizations.json").read_text())
+        result_set = inventory["maintained_stick_sphere_coordinate_set"]
+        results = result_set["results"]
+        self.assertEqual(result_set["system"], "Lean 4")
+        self.assertEqual(result_set["count"], 7)
+        self.assertEqual(len(results), 7)
+        self.assertEqual(len({row["id"] for row in results}), 7)
+        self.assertEqual(len({row["declaration"] for row in results}), 7)
+        for result in results:
+            source = (ROOT / "research" / result["source"]).resolve()
+            self.assertTrue(source.is_file())
+            text = source.read_text()
+            self.assertNotIn("sorry", text)
+            self.assertNotIn("admit", text)
+            self.assertIn(result["declaration"].rsplit(".", 1)[-1], text)
+
+        record = next(
+            item for item in inventory["formalizations"]
+            if item["id"] == "lean4-stick-sphere-coordinate-change"
+        )
+        self.assertTrue(
+            {row["declaration"] for row in results}.issubset(record["declarations"])
+        )
+        self.assertEqual(len(record["declarations"]), 26)
+        self.assertEqual(
+            record["commit"],
+            "1984bff960ebd367faa093238ad898541e2f9493",
+        )
+        self.assertIsNone(record["lattice_overlay"])
+        self.assertIsNone(record["degree_lattice_overlay"])
+
 
 if __name__ == "__main__":
     unittest.main()

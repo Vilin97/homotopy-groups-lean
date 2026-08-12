@@ -560,7 +560,63 @@
       { "id": "first-absolute-hurewicz-surjectivity", "declaration": "Submission.IsNConnected.absoluteHurewiczAdd_surjective", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/AbsoluteSurjectivity.lean", "lattice_effect": "none directly; proves surjectivity onto H_(n+2)(X) for every (n+1)-connected space" }
     ]
   },
+  "maintained_stick_sphere_coordinate_set": {
+    "count": 7,
+    "system": "Lean 4",
+    "counting_rule": "Boundary reflection, interior injectivity, surjectivity, preservation of quotient fibres, the induced sphere homeomorphism, injectivity of its class-level reparameterization, and comparison of normalized cube and stick classes are seven distinct results. Definitions, quotient triangles, pointwise evaluation lemmas, basepoint formulas, and separate injective/surjective components of the homeomorphism are supporting declarations and are not counted separately.",
+    "results": [
+      { "id": "stick-simplex-boundary-equivalence", "declaration": "Submission.stickSimplex_mem_bdry_iff", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/StickSimplex.lean", "lattice_effect": "none directly; identifies the preimage of the simplicial boundary under stick-breaking with the cubical boundary" },
+      { "id": "stick-simplex-interior-injectivity", "declaration": "Submission.stickSimplex_injective_of_not_mem_boundary", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/StickSimplex.lean", "lattice_effect": "none directly; proves uniqueness of stick coordinates away from the collapsed boundary" },
+      { "id": "stick-simplex-surjectivity", "declaration": "Submission.stickSimplex_surjective", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/StickSimplex.lean", "lattice_effect": "none directly; constructs stick-breaking coordinates for every point of every standard simplex" },
+      { "id": "stick-reparameterization-quotient-fibres", "declaration": "Submission.cubeToSphere_stickCubeReparam_eq_iff", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/StickSphere.lean", "lattice_effect": "none directly; proves that cubical stick reparameterization preserves exactly the fibres of the cube-boundary sphere quotient" },
+      { "id": "stick-sphere-homeomorphism", "declaration": "Submission.stickSphereHomeomorph", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/StickSphere.lean", "lattice_effect": "none directly; descends stick coordinates to a based self-homeomorphism of every positive-dimensional sphere" },
+      { "id": "stick-class-reparameterization-injective", "declaration": "Submission.stickReparamClass_injective", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/StickSphere.lean", "lattice_effect": "none directly; proves that precomposition by the stick sphere homeomorphism is injective on every positive-dimensional homotopy group" },
+      { "id": "normalized-cube-stick-class-comparison", "declaration": "Submission.NormalizedSimplex.stickReparamClass_homotopyClass", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/StickSphere.lean", "lattice_effect": "none directly; identifies the stick class of every normalized simplex with the injective reparameterization of its cube-homeomorphism class" }
+    ]
+  },
   "formalizations": [
+    {
+      "id": "lean4-stick-sphere-coordinate-change",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "1984bff960ebd367faa093238ad898541e2f9493",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.stickSimplex_mem_bdry_iff",
+        "Submission.stickSimplex_injective_of_not_mem_boundary",
+        "Submission.stickSimplex_surjective",
+        "Submission.stickCubeReparam",
+        "Submission.stickCubeReparam_mem_boundary_iff",
+        "Submission.stickCubeReparam_surjective",
+        "Submission.cubeToSphere_stickCubeReparam_eq_iff",
+        "Submission.cubeToSphere_stickCubeReparam_factorsThrough",
+        "Submission.stickSphereMap",
+        "Submission.stickSphereMap_comp_cubeToSphere",
+        "Submission.stickSphereMap_cubeToSphere",
+        "Submission.stickSphereMap_basepoint",
+        "Submission.stickSphereMap_injective",
+        "Submission.stickSphereMap_surjective",
+        "Submission.isHomeomorph_stickSphereMap",
+        "Submission.stickSphereHomeomorph",
+        "Submission.stickSphereHomeomorph_basepoint",
+        "Submission.stickReparamGenLoop",
+        "Submission.stickReparamGenLoop_apply",
+        "Submission.stickReparamGenLoop_homotopic",
+        "Submission.stickReparamClass",
+        "Submission.stickReparamClass_mk",
+        "Submission.stickReparamClass_injective",
+        "Submission.NormalizedSimplex.stickMap_eq_cubeMap_comp_stickCubeReparam",
+        "Submission.NormalizedSimplex.targetGenLoopSphereMap_toStickGenLoop",
+        "Submission.NormalizedSimplex.stickReparamClass_homotopyClass"
+      ],
+      "result": "stick-breaking is surjective, reflects the simplex boundary, and is injective off that boundary; after conjugating by the maintained cube-simplex homeomorphism it preserves exactly the fibres of the cube-boundary quotient, descends to a based sphere self-homeomorphism, induces an injective reparameterization on homotopy classes, and carries every normalized cube-coordinate class to its stick-coordinate class",
+      "model_relation": "The maintained standard simplex, unit cube and metric-sphere quotient models, together with normalized singular simplices, cubical generalized loops, and Mathlib homotopy-group quotients in positive dimensions",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Hurewicz/StickSphere.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All twenty-six listed declarations are sorry-free Lean 4. Strict checks for both source modules, the exact 8,734-job coordinate-change module build, and the 8,840-job submission build pass. Audited axiom closures for boundary equivalence, stick surjectivity, the quotient-sphere homeomorphism, class-level injectivity, and the normalized-class comparison contain only propext, Classical.choice, and Quot.sound. This closes the geometric coordinate-change gap between the descended simplicial map and the relative Hurewicz representative; the inverse calculation through the normalization deformation still remains, so no lattice cell is recolored."
+    },
     {
       "id": "lean4-first-absolute-hurewicz-surjectivity",
       "system": "Lean 4",

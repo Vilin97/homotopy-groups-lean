@@ -328,6 +328,19 @@ that `pi_(n+2)(X,x) -> H_(n+2)(X)` is surjective for every `(n+1)`-connected
 space. Injectivity remains the missing half of the absolute Hurewicz theorem,
 so this milestone does not yet recolor a lattice cell.
 
+The coordinate comparison required by the injectivity argument is now also
+formalized. Stick-breaking maps every cube onto its standard simplex, carries
+exactly the cubical boundary to the simplicial boundary, and is injective away
+from that boundary. Conjugating it by the chosen cube--simplex homeomorphism
+therefore preserves exactly the fibres of `I^d -> I^d/partial I^d`. Lean
+descends this map to a based self-homeomorphism of the metric sphere and proves
+that precomposition by it is injective on homotopy classes. For every normalized
+singular simplex, this injective reparameterization sends the cube-coordinate
+class used by relative Hurewicz to the stick-coordinate class used by the
+simplicial homotopy-addition theorem. The remaining work is the deformation
+calculation identifying the descended homology map on Hurewicz representatives;
+the lattice overlay is still unchanged.
+
 Bijectivity of the corresponding relative homotopy map yields the next exact
 diagonal equivalence; bijectivity of the family from `pi_2(S^2)` onward yields
 the full integral diagonal, using the two exact base cases already in Lean. The
