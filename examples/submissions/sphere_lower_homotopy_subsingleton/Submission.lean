@@ -56,6 +56,7 @@ import Submission.ReducedSuspensionGroup
 import Submission.RealProjectiveSpace
 import Submission.Approximation.PairwiseGeneralPosition
 import Submission.Model.SphereConnected
+import Submission.Approximation.BasedPairwiseGeneralPosition
 import Submission.SphereApproximation
 import Submission.SphereDegreeClassification
 import Submission.SphereGenerator
