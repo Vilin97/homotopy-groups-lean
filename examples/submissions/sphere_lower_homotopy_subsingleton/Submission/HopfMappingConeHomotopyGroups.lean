@@ -67,6 +67,22 @@ noncomputable def piTwo_hopfMappingCone_mulEquiv_int :
   e.symm.trans (Classical.choice
     (piTwo_complexProjectiveModel_mulEquiv_int 2 (by omega)))
 
+/-- The second homotopy group of the Hopf mapping cone is nontrivial. -/
+theorem piTwo_hopfMappingCone_not_subsingleton :
+    ¬ Subsingleton (π_ 2 hopfMappingCone hopfMappingConeBasepoint) := by
+  intro h
+  have hZ : Subsingleton (Multiplicative ℤ) :=
+    piTwo_hopfMappingCone_mulEquiv_int.toEquiv.subsingleton_congr.mp h
+  have hz := hZ.elim (Multiplicative.ofAdd (0 : ℤ)) (Multiplicative.ofAdd (1 : ℤ))
+  exact Int.zero_ne_one (congrArg Multiplicative.toAdd hz)
+
+/-- In particular, the concrete Hopf mapping cone is not contractible. -/
+theorem hopfMappingCone_not_contractible : ¬ ContractibleSpace hopfMappingCone := by
+  intro h
+  letI : ContractibleSpace hopfMappingCone := h
+  exact piTwo_hopfMappingCone_not_subsingleton
+    (subsingleton_homotopyGroup_of_contractible (N := Fin 2) hopfMappingConeBasepoint)
+
 /-- In every degree at least three, the Hopf mapping cone has the homotopy group of `S^5`. -/
 theorem hopfMappingCone_higher_homotopy_mulEquiv_sphereFive (k : ℕ) :
     Nonempty
