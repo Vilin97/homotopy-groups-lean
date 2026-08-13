@@ -837,7 +837,7 @@
       "id": "lean4-suspension-model-hopf-comparison",
       "system": "Lean 4",
       "repository": "Vilin97/homotopy-groups-lean",
-      "commit": "2d7a99004a3ecb8f4510860bc014f8192d01fef5",
+      "commit": "2330d358378d7e4fc9721129ddb3c6c2ed7d1c9c",
       "license": "Apache-2.0",
       "declarations": [
         "Submission.Susp.mapHomeomorph",
@@ -848,16 +848,22 @@
         "Submission.diskBoundaryFourSuspensionIsoHopfSource",
         "Submission.complexProjectiveLineSuspensionIsoHopfTarget",
         "Submission.exactHopfSuspension_comparison",
+        "Submission.nullhomotopic_iff_of_iso_square",
+        "Submission.exactHopfSuspension_nullhomotopic_iff",
+        "Submission.hopfSuspension_nullhomotopic_iff_suspendedHopf",
+        "Submission.exactHopfSuspension_nullhomotopic_iff_suspendedHopf",
         "Submission.exactHopfSuspensionMappingConeIso",
-        "Submission.exactHopfSuspensionMappingConeIsoConcrete"
+        "Submission.exactHopfSuspensionMappingConeIsoConcrete",
+        "Submission.exists_exactHopfSuspensionMappingConeIncl_retraction_iff",
+        "Submission.exists_exactHopfSuspensionMappingConeIncl_homotopy_retraction_iff"
       ],
-      "result": "the mapping-cone and quotient models of unreduced suspension are naturally homeomorphic; under the explicit boundary-sphere and projective-line-sphere coordinates, suspending the exact CP^2 attaching map gives the maintained suspended quadratic Hopf map, and the associated mapping cones are isomorphic",
-      "model_relation": "compares the pushout mapping-cone suspension with the maintained quotient suspension using exact interval-coordinate formulas, then transports the exact disk-boundary/projective-line attaching square to the raw and concrete suspended-Hopf mapping cones",
+      "result": "the mapping-cone and quotient models of unreduced suspension are naturally homeomorphic; under the explicit boundary-sphere and projective-line-sphere coordinates, suspending the exact CP^2 attaching map gives the maintained suspended quadratic Hopf map, the associated mapping cones are isomorphic, and nullhomotopies and strict or homotopy retractions of their cone inclusions are equivalent",
+      "model_relation": "compares the pushout mapping-cone suspension with the maintained quotient suspension using exact interval-coordinate formulas, then transports the exact disk-boundary/projective-line attaching square to the raw and concrete suspended-Hopf maps, mapping cones, nullhomotopies, and cone-inclusion retractions",
       "status": "lean_kernel_checked_local_source",
       "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ComplexProjectivePlaneSuspendedHopf.lean",
       "lattice_overlay": null,
       "degree_lattice_overlay": null,
-      "note": "All ten headline declarations and their pole, cylinder, inverse-composite, functoriality, and mapping-cone inclusion formulas are sorry-free Lean 4. Strict autoImplicit=false checks and exact-target builds pass for Suspension, SuspensionComparison, ComplexProjectivePlaneSuspendedHopf, and the 8,932-target Submission aggregate. This closes the point-set coordinate gap but does not assert the remaining nonzero cup-one evaluation, so no lattice cell is recolored."
+      "note": "All sixteen headline declarations and their pole, cylinder, inverse-composite, functoriality, mapping-cone inclusion, and isomorphic-square transport formulas are sorry-free Lean 4. Strict autoImplicit=false checks and exact-target builds pass for Suspension, SuspensionComparison, MappingCone, ComplexProjectivePlaneSuspendedHopf, and the 8,932-target Submission aggregate. This closes the point-set coordinate and nullhomotopy-transport gaps but does not assert the remaining nonzero cup-one evaluation, so no lattice cell is recolored."
     },
     {
       "id": "lean4-degree-three-steenrod-square",
