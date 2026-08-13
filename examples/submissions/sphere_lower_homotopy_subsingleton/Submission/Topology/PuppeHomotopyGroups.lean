@@ -2,7 +2,7 @@
 Copyright (c) 2026 Vasily Ilin. All rights reserved.
 Released under Apache 2.0 license.
 -/
-import Submission.Topology.PuppeComparison
+import Submission.Topology.PuppeFlattening
 import Submission.Lean4TwentyResults
 
 /-!
@@ -90,5 +90,23 @@ theorem topologicalSuspensionToSecondMappingCone_homotopyGroup_injective
     (topologicalSecondMappingConeToSuspension_basepoint f)
   exact congrArg TopCat.Hom.hom
     (topologicalSuspensionToSecondMappingCone_toSuspension f)
+
+/-- The full Puppe comparison homotopy equivalence induces a multiplicative equivalence on
+every positive-dimensional homotopy group at the canonical suspension-point basepoints. -/
+noncomputable def topologicalSecondMappingConeHomotopyGroupMulEquivSuspension
+    (N : Type v) [Fintype N] [Nonempty N] [DecidableEq N]
+    (f : A ⟶ X) :
+    HomotopyGroup N
+        (topologicalMappingCone (topologicalMappingConeCollapse f))
+        (topologicalSecondMappingConeBasepoint f) ≃*
+      HomotopyGroup N (topologicalSuspension X)
+        (topologicalSuspensionBasepoint X) := by
+  let e := topologicalSecondMappingConeHomotopyEquivSuspension f
+  let φ := homotopyGroupMulEquivOfHomotopyEquiv (N := N) e
+    (topologicalSecondMappingConeBasepoint f)
+  have hbase : e (topologicalSecondMappingConeBasepoint f) =
+      topologicalSuspensionBasepoint X :=
+    topologicalSecondMappingConeToSuspension_basepoint f
+  exact hbase ▸ φ
 
 end Submission
