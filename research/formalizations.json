@@ -955,7 +955,7 @@
       "id": "lean4-hopf-mapping-cone-homotopy-groups",
       "system": "Lean 4",
       "repository": "Vilin97/homotopy-groups-lean",
-      "commit": "db90a86dfd7df1bb22e35c1a5258ae7addc0f804",
+      "commit": "8016a8ae73ca82d7faad6dcbd2938e8e8250c812",
       "license": "Apache-2.0",
       "declarations": [
         "Submission.hopfMappingConeBasepoint",
@@ -963,18 +963,20 @@
         "Submission.piZero_hopfMappingCone_subsingleton",
         "Submission.piOne_hopfMappingCone_subsingleton",
         "Submission.piTwo_hopfMappingCone_mulEquiv_int",
+        "Submission.piTwo_hopfMappingCone_not_subsingleton",
+        "Submission.hopfMappingCone_not_contractible",
         "Submission.hopfMappingCone_higher_homotopy_mulEquiv_sphereFive",
         "Submission.piThree_hopfMappingCone_subsingleton",
         "Submission.piFour_hopfMappingCone_subsingleton",
         "Submission.piFive_hopfMappingCone_mulEquiv_int"
       ],
-      "result": "at the bottom-sphere basepoint, the concrete quadratic Hopf mapping cone has one path component, trivial fundamental group, second homotopy group isomorphic to the integers, trivial third and fourth homotopy groups, fifth homotopy group isomorphic to the integers, and uniformly pi_(k+3) isomorphic to pi_(k+3)(S^5) for every k",
+      "result": "at the bottom-sphere basepoint, the concrete quadratic Hopf mapping cone has one path component, trivial fundamental group, second homotopy group isomorphic to the integers and hence is noncontractible, trivial third and fourth homotopy groups, fifth homotopy group isomorphic to the integers, and uniformly pi_(k+3) isomorphic to pi_(k+3)(S^5) for every k",
       "model_relation": "transports the maintained generalized complex Hopf-fibration computations across the explicit basepoint-preserving homeomorphism from geometric CP^2 to the concrete mapping cone of the exact quadratic Hopf map S^3 -> S^2",
       "status": "lean_kernel_checked_local_source",
       "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HopfMappingConeHomotopyGroups.lean",
       "lattice_overlay": null,
       "degree_lattice_overlay": null,
-      "note": "All nine listed declarations are sorry-free Lean 4. Strict autoImplicit=false checks and the exact 8,847-job target build pass for HopfMappingConeHomotopyGroups; the strict aggregate and exact 8,939-job Submission build also pass. The uniform comparison computes all higher homotopy groups of the Hopf cofiber in terms of the maintained sphere-five row. Because the target is a mapping cone rather than a sphere, this adds no sphere-lattice overlay."
+      "note": "All eleven listed declarations are sorry-free Lean 4. Strict autoImplicit=false checks and the exact 8,847-job target build pass for HopfMappingConeHomotopyGroups; the strict aggregate and exact 8,939-job Submission build also pass. The integral second homotopy group gives an explicit noncontractibility obstruction, while the uniform comparison computes all higher homotopy groups of the Hopf cofiber in terms of the maintained sphere-five row. Because the target is a mapping cone rather than a sphere, this adds no sphere-lattice overlay."
     },
     {
       "id": "lean4-suspension-model-hopf-comparison",
