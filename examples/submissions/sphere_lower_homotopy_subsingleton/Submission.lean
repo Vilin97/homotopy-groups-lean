@@ -18,6 +18,7 @@ import Submission.HopfFibration
 import Submission.HopfHigherHomotopy
 import Submission.ComplexHopfFibration
 import Submission.ComplexProjectiveLine
+import Submission.ComplexProjectivePlaneCell
 import Submission.Hurewicz.AbsoluteIsomorphism
 import Submission.Hurewicz.AbsoluteNaturality
 import Submission.Hurewicz.AbsoluteSurjectivity
