@@ -126,6 +126,7 @@ import Submission.Topology.SuspensionComparison
 import Submission.Topology.Puppe
 import Submission.Topology.PuppeComparison
 import Submission.Topology.PuppeDeformation
+import Submission.Topology.PuppeFlattening
 import Submission.Topology.PuppeHomotopyGroups
 import Submission.HopfMappingCone
 import Submission.HopfPuppe
