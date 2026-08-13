@@ -4,7 +4,7 @@ Released under Apache 2.0 license.
 -/
 import Submission.Cohomology.CellAttachmentSqTwo
 import Submission.Cohomology.MappingConePair
-import Submission.Cohomology.Sphere
+import Submission.Cohomology.SphereTop
 import Submission.HopfMap
 import Submission.SphereSuspension
 
@@ -129,6 +129,25 @@ theorem suspendedHopfMappingConeLift_restrict
       (suspendedHopfMappingConeLift x) = x :=
   Classical.choose_spec (suspendedHopfMappingConeIncl_bijective.2 x)
 
+/-- The canonical mapping-cone lift of the distinguished nonzero class in
+`H³(S³; 𝔽₂)`. -/
+noncomputable abbrev suspendedHopfCanonicalLift :
+    Hsing 3 suspendedHopfMappingCone (ZMod 2) :=
+  suspendedHopfMappingConeLift sphereThreeModTwoClass
+
+/-- The canonical mapping-cone lift restricts to the distinguished sphere class. -/
+@[simp]
+theorem suspendedHopfCanonicalLift_restrict :
+    Hsing.map suspendedHopfMappingConeIncl 3 suspendedHopfCanonicalLift =
+      sphereThreeModTwoClass :=
+  suspendedHopfMappingConeLift_restrict sphereThreeModTwoClass
+
+/-- The canonical mapping-cone lift is itself nonzero. -/
+theorem suspendedHopfCanonicalLift_ne_zero : suspendedHopfCanonicalLift ≠ 0 := by
+  intro hzero
+  apply sphereThreeModTwoClass_ne_zero
+  rw [← suspendedHopfCanonicalLift_restrict, hzero, map_zero]
+
 /-- The remaining Steenrod-square calculation for the canonical lift implies that the suspended
 Hopf map is not nullhomotopic. -/
 theorem suspendedHopfMap_not_nullhomotopic_of_lift_sqTwo
@@ -141,5 +160,13 @@ theorem suspendedHopfMap_not_nullhomotopic_of_lift_sqTwo
     (suspendedHopfMappingConeLift x)
     (suspendedHopfMappingConeLift_restrict x)
     suspendedHopfMappingConeIncl_bijective.1 hSq
+
+/-- It now suffices to calculate `Sq²` on one fixed, nonzero mapping-cone class. -/
+theorem suspendedHopfMap_not_nullhomotopic_of_canonical_sqTwo
+    (hSq : sqTwoHsingDegreeThree suspendedHopfCanonicalLift ≠ 0) :
+    ¬ Nonempty
+      (TopCat.Homotopy suspendedHopfTopCat
+        (TopCat.const (sphereBasepoint 3))) :=
+  suspendedHopfMap_not_nullhomotopic_of_lift_sqTwo sphereThreeModTwoClass hSq
 
 end Submission

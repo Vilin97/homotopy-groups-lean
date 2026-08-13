@@ -222,4 +222,75 @@ theorem ev_naturality (f : K ⟶ L) :
 
 end Ev
 
+/-! ### Degree zero -/
+
+/-- The canonical map from degree-zero chains to degree-zero homology. -/
+def homologyMkZero (K : ChainComplex AddCommGrpCat.{0} ℕ) :
+    K.X 0 ⟶ K.homology 0 :=
+  AddCommGrpCat.ofHom
+    { toFun := fun x ↦ homologyMk x (by simp)
+      map_zero' := homologyMk_zero
+      map_add' := fun x y ↦ homologyMk_add x y (by simp) (by simp) }
+
+@[simp]
+theorem homologyMkZero_apply (K : ChainComplex AddCommGrpCat.{0} ℕ) (x : K.X 0) :
+    homologyMkZero K x = homologyMk x (by simp) := rfl
+
+theorem d_comp_homologyMkZero (K : ChainComplex AddCommGrpCat.{0} ℕ) :
+    K.d 1 0 ≫ homologyMkZero K = 0 := by
+  ext x
+  rw [ConcreteCategory.comp_apply, homologyMkZero_apply]
+  change homologyMk (K.d 1 0 x) _ = (0 : K.homology 0)
+  rw [homologyMk_eq_zero_iff]
+  rw [ChainComplex.prev]
+  exact ⟨x, rfl⟩
+
+/-- The degree-zero case of the universal coefficient theorem: every homomorphism out of
+`H₀(K)` is represented by a unique degree-zero cohomology class. -/
+theorem ev_zero_bijective (K : ChainComplex AddCommGrpCat.{0} ℕ)
+    (G : AddCommGrpCat.{0}) : Function.Bijective (ev K G 0) := by
+  constructor
+  · intro Φ Ψ hΦΨ
+    have hzero : ev K G 0 (Φ - Ψ) = 0 := by
+      rw [map_sub, hΦΨ, sub_self]
+    obtain ⟨φ, hφ, hΦψ⟩ := homologyMk_surjective (Φ - Ψ)
+    have hev : evCocycle K G 0 φ hφ = 0 := by
+      have hev' : ev K G 0 (homologyMk φ hφ) = 0 := by rw [hΦψ, hzero]
+      rw [ev_homologyMk] at hev'
+      exact hev'
+    have hφzero : φ = 0 := by
+      change (Opposite.unop ((HomologicalComplex.op K).X 0) ⟶ G) at φ
+      change φ = 0
+      apply AddCommGrpCat.hom_ext
+      apply AddMonoidHom.ext
+      intro x
+      have hx : K.d 0 ((ComplexShape.down ℕ).next 0) x = 0 := by simp
+      have h := ConcreteCategory.congr_hom hev (homologyMk x hx)
+      rw [evCocycle_homologyMk] at h
+      change φ x = 0 at h
+      exact h
+    have : Φ - Ψ = 0 := by
+      rw [← hΦψ]
+      exact (homologyMk_congr hφ (map_zero _) hφzero).trans homologyMk_zero
+    exact sub_eq_zero.mp this
+  · intro f
+    let φ : K.X 0 ⟶ G := homologyMkZero K ≫ f
+    have hφ : K.d 1 0 ≫ φ = 0 := by
+      dsimp only [φ]
+      rw [← Category.assoc, d_comp_homologyMkZero, zero_comp]
+    have hφ' : (homDual K G).d 0 ((ComplexShape.down ℕ).symm.next 0) φ = 0 := by
+      have hn : ((ComplexShape.down ℕ).symm).next 0 = 1 :=
+        ComplexShape.next_eq' _ rfl
+      rw [hn, homDual_d_apply]
+      exact hφ
+    let u : (homDual K G).homology 0 := homologyMk φ hφ'
+    refine ⟨u, ?_⟩
+    change ev K G 0 (homologyMk φ hφ') = f
+    rw [ev_homologyMk]
+    apply homology_hom_ext
+    intro x hx
+    rw [evCocycle_homologyMk]
+    change f (homologyMkZero K x) = f (homologyMk x hx)
+    rw [homologyMkZero_apply]
+
 end Submission

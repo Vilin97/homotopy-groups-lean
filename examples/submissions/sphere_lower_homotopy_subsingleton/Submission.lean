@@ -100,6 +100,7 @@ import Submission.Cohomology.DegreeZero
 import Submission.Cohomology.Point
 import Submission.Cohomology.MayerVietoris
 import Submission.Cohomology.Sphere
+import Submission.Cohomology.SphereTop
 import Submission.Cohomology.Pair
 import Submission.Cohomology.DiskPair
 import Submission.Cohomology.ConePair
