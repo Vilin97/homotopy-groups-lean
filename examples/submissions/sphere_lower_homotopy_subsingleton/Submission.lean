@@ -54,6 +54,7 @@ import Submission.Lean4TwentyResults
 import Submission.MetricSpherePiOne
 import Submission.ReducedSuspensionGroup
 import Submission.RealProjectiveSpace
+import Submission.Approximation.PairwiseGeneralPosition
 import Submission.Model.SphereConnected
 import Submission.SphereApproximation
 import Submission.SphereDegreeClassification
