@@ -120,6 +120,24 @@ theorem complexProjectivePlaneDegreeZeroUnit_ne_zero :
     pathConnectedSpace_complexProjectivePlane
   exact Hsing.one_ne_zero
 
+/-- Normalized additive coordinate on degree-zero mod-two cohomology of geometric `CP²`. -/
+noncomputable def complexProjectivePlaneDegreeZeroCohomologyEquivModTwo :
+    Hsing 0 (TopCat.of (ComplexProjectiveModel 2)) (ZMod 2) ≃+ ZMod 2 := by
+  letI : PathConnectedSpace (TopCat.of (ComplexProjectiveModel 2)) :=
+    pathConnectedSpace_complexProjectivePlane
+  exact degreeZeroCohomologyEquivModTwo
+    (TopCat.of (ComplexProjectiveModel 2))
+
+/-- The degree-zero unit of geometric `CP²` has normalized coordinate one. -/
+@[simp]
+theorem complexProjectivePlaneDegreeZeroCohomologyEquivModTwo_unit :
+    complexProjectivePlaneDegreeZeroCohomologyEquivModTwo
+      (Hsing.one (TopCat.of (ComplexProjectiveModel 2)) (ZMod 2)) = 1 := by
+  letI : PathConnectedSpace (TopCat.of (ComplexProjectiveModel 2)) :=
+    pathConnectedSpace_complexProjectivePlane
+  exact degreeZeroCohomologyEquivModTwo_unit
+    (TopCat.of (ComplexProjectiveModel 2))
+
 /-- The normalized mod-two degree-two class on the geometric projective plane. -/
 noncomputable def complexProjectivePlaneModTwoClass :
     Hsing 2 (TopCat.of (ComplexProjectiveModel 2)) (ZMod 2) :=
@@ -180,6 +198,20 @@ theorem complexProjectivePlaneDegreeTwoClass_eq_zero_or_eq_generator
       Hsing.map_id, LinearMap.id_apply]
     exact htop
 
+/-- Normalized additive coordinate on degree-two mod-two cohomology of geometric `CP²`. -/
+noncomputable def complexProjectivePlaneDegreeTwoCohomologyEquivModTwo :
+    Hsing 2 (TopCat.of (ComplexProjectiveModel 2)) (ZMod 2) ≃+ ZMod 2 :=
+  addEquivZModTwoOfGenerator complexProjectivePlaneModTwoClass
+    complexProjectivePlaneDegreeTwoClass_eq_zero_or_eq_generator
+    complexProjectivePlaneModTwoClass_ne_zero
+
+/-- The normalized projective-plane generator has degree-two coordinate one. -/
+@[simp]
+theorem complexProjectivePlaneDegreeTwoCohomologyEquivModTwo_generator :
+    complexProjectivePlaneDegreeTwoCohomologyEquivModTwo
+      complexProjectivePlaneModTwoClass = 1 :=
+  addEquivZModTwoOfGenerator_apply_generator _ _ _
+
 /-- Degree-three mod-two singular cohomology of the geometric projective plane vanishes. -/
 theorem subsingleton_Hsing_complexProjectivePlane_three :
     Subsingleton
@@ -239,6 +271,20 @@ theorem complexProjectivePlaneDegreeFourClass_eq_zero_or_eq_top
     rw [← LinearMap.comp_apply, ← Hsing.map_comp, Iso.inv_hom_id,
       Hsing.map_id, LinearMap.id_apply]
     exact htop
+
+/-- Normalized additive coordinate on degree-four mod-two cohomology of geometric `CP²`. -/
+noncomputable def complexProjectivePlaneDegreeFourCohomologyEquivModTwo :
+    Hsing 4 (TopCat.of (ComplexProjectiveModel 2)) (ZMod 2) ≃+ ZMod 2 :=
+  addEquivZModTwoOfGenerator complexProjectivePlaneModTwoTopClass
+    complexProjectivePlaneDegreeFourClass_eq_zero_or_eq_top
+    complexProjectivePlaneModTwoTopClass_ne_zero
+
+/-- The normalized projective-plane top class has degree-four coordinate one. -/
+@[simp]
+theorem complexProjectivePlaneDegreeFourCohomologyEquivModTwo_top :
+    complexProjectivePlaneDegreeFourCohomologyEquivModTwo
+      complexProjectivePlaneModTwoTopClass = 1 :=
+  addEquivZModTwoOfGenerator_apply_generator _ _ _
 
 /-- The cup square of the normalized projective-plane degree-two class. -/
 noncomputable def complexProjectivePlaneModTwoSquare :

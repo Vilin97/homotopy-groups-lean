@@ -63,6 +63,22 @@ theorem hopfMappingConeDegreeZeroUnit_ne_zero :
     pathConnectedSpace_hopfMappingCone
   exact Hsing.one_ne_zero
 
+/-- Normalized additive coordinate on degree-zero mod-two cohomology of the Hopf mapping cone. -/
+noncomputable def hopfMappingConeDegreeZeroCohomologyEquivModTwo :
+    Hsing 0 hopfMappingCone (ZMod 2) ≃+ ZMod 2 := by
+  letI : PathConnectedSpace hopfMappingCone :=
+    pathConnectedSpace_hopfMappingCone
+  exact degreeZeroCohomologyEquivModTwo hopfMappingCone
+
+/-- The degree-zero unit has normalized coordinate one. -/
+@[simp]
+theorem hopfMappingConeDegreeZeroCohomologyEquivModTwo_unit :
+    hopfMappingConeDegreeZeroCohomologyEquivModTwo
+      (Hsing.one hopfMappingCone (ZMod 2)) = 1 := by
+  letI : PathConnectedSpace hopfMappingCone :=
+    pathConnectedSpace_hopfMappingCone
+  exact degreeZeroCohomologyEquivModTwo_unit hopfMappingCone
+
 /-! ### The normalized top homology and cohomology classes -/
 
 /-- Degree-one mod-two cohomology of `S²` vanishes. -/
@@ -229,6 +245,19 @@ theorem hopfMappingConeClass_eq_zero_or_eq_top (x : Hsing 4 hopfMappingCone (ZMo
     rw [hopfMappingConeTopClass, AddEquiv.apply_symm_apply]
     exact htop
 
+/-- Normalized additive coordinate on degree-four mod-two cohomology of the Hopf mapping cone. -/
+noncomputable def hopfMappingConeDegreeFourCohomologyEquivModTwo :
+    Hsing 4 hopfMappingCone (ZMod 2) ≃+ ZMod 2 :=
+  addEquivZModTwoOfGenerator hopfMappingConeTopClass
+    hopfMappingConeClass_eq_zero_or_eq_top hopfMappingConeTopClass_ne_zero
+
+/-- The normalized top class has degree-four coordinate one. -/
+@[simp]
+theorem hopfMappingConeDegreeFourCohomologyEquivModTwo_top :
+    hopfMappingConeDegreeFourCohomologyEquivModTwo
+      hopfMappingConeTopClass = 1 :=
+  addEquivZModTwoOfGenerator_apply_generator _ _ _
+
 /-! ### The canonical bottom class and its square -/
 
 /-- Degree-two relative mod-two cohomology of the Hopf mapping-cone pair vanishes. -/
@@ -291,6 +320,20 @@ theorem hopfMappingConeDegreeTwoClass_eq_zero_or_eq_bottom
     apply hopfMappingConeIncl_bijective.1
     rw [hopfMappingConeBottomClass_restrict]
     exact htop
+
+/-- Normalized additive coordinate on degree-two mod-two cohomology of the Hopf mapping cone. -/
+noncomputable def hopfMappingConeDegreeTwoCohomologyEquivModTwo :
+    Hsing 2 hopfMappingCone (ZMod 2) ≃+ ZMod 2 :=
+  addEquivZModTwoOfGenerator hopfMappingConeBottomClass
+    hopfMappingConeDegreeTwoClass_eq_zero_or_eq_bottom
+    hopfMappingConeBottomClass_ne_zero
+
+/-- The normalized bottom class has degree-two coordinate one. -/
+@[simp]
+theorem hopfMappingConeDegreeTwoCohomologyEquivModTwo_bottom :
+    hopfMappingConeDegreeTwoCohomologyEquivModTwo
+      hopfMappingConeBottomClass = 1 :=
+  addEquivZModTwoOfGenerator_apply_generator _ _ _
 
 /-- Degree-three mod-two cohomology of the Hopf mapping cone vanishes. -/
 theorem isZero_hopfMappingConeDualCohomology_three :
