@@ -655,6 +655,41 @@ theorem piFourSphereThreeEdgeGenerator_sq :
       rw [piFourSphereThreeEdgeGenerator_reflection]
     _ = 1 := sphereThreeHopfReflection_map_mul_self piFourSphereThreeEdgeGenerator
 
+/-- The cardinal modulus of `π₄(S³)` divides two. -/
+theorem piFourSphereThreeModulus_dvd_two :
+    piFourSphereThreeModulus ∣ 2 := by
+  rw [← orderOf_piFourSphereThreeEdgeGenerator]
+  exact orderOf_dvd_of_pow_eq_one piFourSphereThreeEdgeGenerator_sq
+
+/-- The only remaining possibilities for the first-stem modulus are one and two. -/
+theorem piFourSphereThreeModulus_eq_one_or_two :
+    piFourSphereThreeModulus = 1 ∨ piFourSphereThreeModulus = 2 :=
+  (Nat.dvd_prime Nat.prime_two).mp piFourSphereThreeModulus_dvd_two
+
+/-- In particular, the first-stem group is finite. -/
+theorem piFourSphereThreeModulus_ne_zero :
+    piFourSphereThreeModulus ≠ 0 := by
+  rcases piFourSphereThreeModulus_eq_one_or_two with h | h <;> omega
+
+/-- The cardinal modulus of the first stable representative is at most two. -/
+theorem piFourSphereThreeModulus_le_two :
+    piFourSphereThreeModulus ≤ 2 := by
+  rcases piFourSphereThreeModulus_eq_one_or_two with h | h <;> omega
+
+/-- Every class of `π₄(S³)` is either the identity or the distinguished edge generator. -/
+theorem piFourSphereThree_eq_one_or_eq_edge
+    (x : π_ 4 (Sph 3) (sphereBasepoint 3)) :
+    x = 1 ∨ x = piFourSphereThreeEdgeGenerator :=
+  piFourSphereThree_eq_one_or_eq_edge_of_edge_square
+    piFourSphereThreeEdgeGenerator_sq x
+
+/-- Every class of `π₄(S³)` has square one. -/
+theorem piFourSphereThree_exponent_two
+    (x : π_ 4 (Sph 3) (sphereBasepoint 3)) : x ^ 2 = 1 := by
+  rcases piFourSphereThree_eq_one_or_eq_edge x with rfl | rfl
+  · simp
+  · exact piFourSphereThreeEdgeGenerator_sq
+
 /-- The geometrically suspended Hopf generator in `π₄(S³)` has square equal to the identity. -/
 theorem piFourSphereThreeGeometricHopfGenerator_sq :
     piFourSphereThreeGeometricHopfGenerator ^ 2 = 1 := by
