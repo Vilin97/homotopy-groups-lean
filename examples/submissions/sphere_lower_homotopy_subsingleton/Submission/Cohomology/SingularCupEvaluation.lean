@@ -30,6 +30,55 @@ noncomputable def cupHsingRepresentativeEvaluation {X : TopCat.{0}} {p q n : ℕ
     (cupCocyclesₗ (TopCat.toSSet.obj X) R h f g :
       Cochain (TopCat.toSSet.obj X) R n) z
 
+/-- Pulling both cocycles back and evaluating on a source chain agrees with evaluating the
+original cup product on the pushed-forward chain. -/
+theorem cupHsingRepresentativeEvaluation_natural {X Y : TopCat.{0}}
+    (F : X ⟶ Y) {p q n : ℕ} (h : p + q = n)
+    (f : cocycles (TopCat.toSSet.obj Y) R p)
+    (g : cocycles (TopCat.toSSet.obj Y) R q)
+    (z : (Csing X).X n) :
+    cupHsingRepresentativeEvaluation h
+        (cocyclesMap R (TopCat.toSSet.map F) p f)
+        (cocyclesMap R (TopCat.toSSet.map F) q g) z =
+      cupHsingRepresentativeEvaluation h f g ((CsingMap F).f n z) := by
+  have hhom :
+      (dualXEquiv (TopCat.toSSet.obj X) R n).symm
+          (cupCocyclesₗ (TopCat.toSSet.obj X) R h
+            (cocyclesMap R (TopCat.toSSet.map F) p f)
+            (cocyclesMap R (TopCat.toSSet.map F) q g) :
+              Cochain (TopCat.toSSet.obj X) R n) =
+        (CsingMap F).f n ≫
+          (dualXEquiv (TopCat.toSSet.obj Y) R n).symm
+            (cupCocyclesₗ (TopCat.toSSet.obj Y) R h f g :
+              Cochain (TopCat.toSSet.obj Y) R n) := by
+    apply chainComplexX_hom_ext
+    intro σ
+    change _ = (dualXEquiv (TopCat.toSSet.obj Y) R n).symm
+      (cupOfEq h (f : Cochain (TopCat.toSSet.obj Y) R p)
+        (g : Cochain (TopCat.toSSet.obj Y) R q))
+      ((CsingMap F).f n (gen σ))
+    rw [dualXEquiv_symm_apply]
+    change cupOfEq h
+        (Cochain.pullback (TopCat.toSSet.map F) p
+          (f : Cochain (TopCat.toSSet.obj Y) R p))
+        (Cochain.pullback (TopCat.toSSet.map F) q
+          (g : Cochain (TopCat.toSSet.obj Y) R q)) σ =
+      (dualXEquiv (TopCat.toSSet.obj Y) R n).symm
+        (cupOfEq h (f : Cochain (TopCat.toSSet.obj Y) R p)
+          (g : Cochain (TopCat.toSSet.obj Y) R q))
+        ((CsingMap F).f n (gen σ))
+    rw [← pullback_cupOfEq, Cochain.pullback_apply]
+    change _ = (dualXEquiv (TopCat.toSSet.obj Y) R n).symm
+      (cupOfEq h (f : Cochain (TopCat.toSSet.obj Y) R p)
+        (g : Cochain (TopCat.toSSet.obj Y) R q))
+      ((CsingMap F).f n (gen σ))
+    have hmap :
+        (CsingMap F).f n (gen σ) =
+          gen ((TopCat.toSSet.map F).app _ σ) :=
+      chainComplexMap_gen (TopCat.toSSet.map F) σ
+    rw [hmap, dualXEquiv_symm_apply]
+  exact ConcreteCategory.congr_hom hhom z
+
 set_option backward.isDefEq.respectTransparency false in
 /-- Evaluation of a represented cup product is its explicit Alexander--Whitney chain
 functional. -/

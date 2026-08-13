@@ -332,4 +332,90 @@ theorem complexProjectivePlaneModTwoSquare_eq_top_iff_representativeEvaluation_e
       exact (zero_ne_one heval).elim
     · exact htop
 
+/-! ### Exact transport of representatives -/
+
+/-- The Hopf-cone bottom cocycle pulled back to the geometric projective plane. -/
+noncomputable def complexProjectivePlaneTransportedModTwoCocycle :
+    cocycles (TopCat.toSSet.obj (TopCat.of (ComplexProjectiveModel 2)))
+      (ZMod 2) 2 :=
+  cocyclesMap (ZMod 2)
+    (TopCat.toSSet.map complexProjectivePlaneIsoHopfMappingCone.hom) 2
+    hopfMappingConeBottomCocycle
+
+@[simp]
+theorem complexProjectivePlaneTransportedModTwoCocycle_mk :
+    Hcoh.mk complexProjectivePlaneTransportedModTwoCocycle =
+      complexProjectivePlaneModTwoClass := by
+  rw [complexProjectivePlaneTransportedModTwoCocycle,
+    ← Hcoh.map_mk, hopfMappingConeBottomCocycle_mk]
+  rfl
+
+/-- The Hopf-cone top cycle transported to the geometric projective plane. -/
+noncomputable def complexProjectivePlaneTransportedFourCycle :
+    (Csing (TopCat.of (ComplexProjectiveModel 2))).X 4 :=
+  (CsingMap complexProjectivePlaneIsoHopfMappingCone.inv).f 4
+    hopfCanonicalFourCycle
+
+/-- The transported projective-plane chain is a cycle. -/
+theorem complexProjectivePlaneTransportedFourCycle_isCycle :
+    (Csing (TopCat.of (ComplexProjectiveModel 2))).d 4
+      ((ComplexShape.down ℕ).next 4)
+      complexProjectivePlaneTransportedFourCycle = 0 := by
+  rw [complexProjectivePlaneTransportedFourCycle,
+    ← ConcreteCategory.comp_apply,
+    (CsingMap complexProjectivePlaneIsoHopfMappingCone.inv).comm]
+  rw [ConcreteCategory.comp_apply, hopfCanonicalFourCycle_isCycle, map_zero]
+
+/-- The transported cycle represents the normalized projective-plane homology generator. -/
+@[simp]
+theorem homologyMk_complexProjectivePlaneTransportedFourCycle :
+    homologyMk complexProjectivePlaneTransportedFourCycle
+        complexProjectivePlaneTransportedFourCycle_isCycle =
+      complexProjectivePlaneHomologyGenerator := by
+  rw [complexProjectivePlaneHomologyGenerator,
+    ← homologyMk_hopfCanonicalFourCycle]
+  exact (homologyMap_homologyMk
+    (CsingMap complexProjectivePlaneIsoHopfMappingCone.inv)
+    hopfCanonicalFourCycle hopfCanonicalFourCycle_isCycle
+    complexProjectivePlaneTransportedFourCycle_isCycle).symm
+
+/-- Transporting the projective-plane cycle back to the Hopf cone recovers the selected cone
+cycle exactly. -/
+@[simp]
+theorem complexProjectivePlaneTransportedFourCycle_map :
+    (CsingMap complexProjectivePlaneIsoHopfMappingCone.hom).f 4
+        complexProjectivePlaneTransportedFourCycle =
+      hopfCanonicalFourCycle := by
+  rw [complexProjectivePlaneTransportedFourCycle,
+    ← ConcreteCategory.comp_apply, ← HomologicalComplex.comp_f,
+    ← CsingMap_comp, Iso.inv_hom_id, CsingMap_id,
+    HomologicalComplex.id_f, ConcreteCategory.id_apply]
+
+/-- The exact transported representatives have the same Alexander--Whitney value as the
+original Hopf-cone representatives. -/
+theorem complexProjectivePlaneTransportedRepresentativeEvaluation :
+    cupHsingRepresentativeEvaluation (by omega : 2 + 2 = 4)
+        complexProjectivePlaneTransportedModTwoCocycle
+        complexProjectivePlaneTransportedModTwoCocycle
+        complexProjectivePlaneTransportedFourCycle =
+      cupHsingRepresentativeEvaluation (by omega : 2 + 2 = 4)
+        hopfMappingConeBottomCocycle hopfMappingConeBottomCocycle
+        hopfCanonicalFourCycle := by
+  unfold complexProjectivePlaneTransportedModTwoCocycle
+  rw [cupHsingRepresentativeEvaluation_natural
+    complexProjectivePlaneIsoHopfMappingCone.hom]
+  rw [complexProjectivePlaneTransportedFourCycle_map]
+
+/-- With exact transported representatives, the projective-plane cup-square identity is the
+original concrete Hopf-cone representative evaluation. -/
+theorem complexProjectivePlaneModTwoSquare_eq_top_iff_transportedEvaluation_eq_one :
+    complexProjectivePlaneModTwoSquare = complexProjectivePlaneModTwoTopClass ↔
+      cupHsingRepresentativeEvaluation (by omega : 2 + 2 = 4)
+        complexProjectivePlaneTransportedModTwoCocycle
+        complexProjectivePlaneTransportedModTwoCocycle
+        complexProjectivePlaneTransportedFourCycle = (1 : ZMod 2) := by
+  rw [complexProjectivePlaneTransportedRepresentativeEvaluation,
+    complexProjectivePlaneModTwoSquare_eq_top_iff,
+    hopfMappingConeBottomSquare_eq_top_iff_representativeEvaluation_eq_one]
+
 end Submission
