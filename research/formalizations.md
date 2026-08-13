@@ -550,7 +550,14 @@ with the cell collapse to `S^4`; the suspension itself is homeomorphic to
 based homotopy section.  This supplies the geometric cofibre, vanishing input,
 and an independent obstruction for the unsuspended cell collapse.  Since a
 cofiber sequence is coexact after mapping *out* of it, this no-section theorem
-does not by itself detect the suspension of the attaching map.  The two
+does not by itself detect the suspension of the attaching map.  The generic
+Puppe development now constructs the canonical map `C_f -> CX`, proves on both
+pushout summands that `C_f -> Sigma A -> Sigma X` factors through this
+contractible cone, and supplies the resulting explicit nullhomotopy. It also
+proves the section-obstruction direction: a homotopy section of the collapse
+would nullhomotope `Sigma f`. The converse sphere-class lifting direction is
+the remaining exactness bridge needed to turn the existing no-section result
+into suspended-Hopf nontriviality.  The two
 point-set suspension models are now naturally homeomorphic, and the suspension
 of the exact `∂D^4 -> CP^1` attaching map is proved to be the maintained
 suspended Hopf map after the explicit sphere-coordinate changes; their mapping
