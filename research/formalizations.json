@@ -899,7 +899,7 @@
       "id": "lean4-topological-puppe-second-comparison",
       "system": "Lean 4",
       "repository": "Vilin97/homotopy-groups-lean",
-      "commit": "212516b2c11e3fefdfdb2a1d3802b872eb9206b4",
+      "commit": "64b870fbed9d761a61754e814beb1722998226a2",
       "license": "Apache-2.0",
       "declarations": [
         "Submission.topologicalMappingConeCollapseSuspensionRadialNullhomotopy",
@@ -959,15 +959,27 @@
         "Submission.topologicalSecondConeHeightRaiseAt_one_incl",
         "Submission.topologicalSecondConeHeightRaiseAt_one_doubleCylinder",
         "Submission.topologicalSecondConeHeightRaiseAt_one_innerApex",
-        "Submission.topologicalSecondConeHeightRaiseHomotopy"
+        "Submission.topologicalSecondConeHeightRaiseHomotopy",
+        "Submission.topologicalSecondInnerHeightShrinkCylinderAt",
+        "Submission.topologicalSecondInnerHeightShrinkCylinderAt_apply",
+        "Submission.topologicalSecondInnerHeightShrinkPoint",
+        "Submission.topologicalSecondInnerHeightShrink_ι₁",
+        "Submission.topologicalSecondInnerHeightShrinkConeAt",
+        "Submission.topologicalConeCylinderIncl_secondInnerHeightShrinkConeAt",
+        "Submission.topologicalConePointIncl_secondInnerHeightShrinkConeAt",
+        "Submission.topologicalSecondOriginalHeightShrinkAt",
+        "Submission.topologicalSecondInnerHeightShrink_base",
+        "Submission.topologicalSecondMappingConeHeightShrinkAt",
+        "Submission.topologicalMappingConeIncl_secondHeightShrinkAt",
+        "Submission.topologicalMappingConeConeIncl_secondHeightShrinkAt"
       ],
-      "result": "for every f : A -> X, the mapping cone of the cofiber collapse C_f -> Sigma A has a canonical comparison to Sigma X extending Sigma f; an explicit map back from Sigma X is a strict section, so the comparison is a split epimorphism with exact formulas on the suspension point and cone summands; at the canonical point-summand basepoints, the comparison is surjective and its section injective on every homotopy group; a quotient-safe homotopy on the entire second mapping cone raises the outer cone coordinate continuously by the inner mapping-cone height",
-      "model_relation": "uses the maintained pushout models of cones, mapping cones, and unreduced suspensions; a radial nullhomotopy traces the original-space summand through the cone cylinder, both comparison maps are defined by the corresponding pushout universal properties, their strict splitting is transported functorially to arbitrary-dimensional homotopy groups, and an explicit max-times-height formula is glued to a compatible bottom-suspension deformation through both pushout quotients",
+      "result": "for every f : A -> X, the mapping cone of the cofiber collapse C_f -> Sigma A has a canonical comparison to Sigma X extending Sigma f; an explicit map back from Sigma X is a strict section, so the comparison is a split epimorphism with exact formulas on the suspension point and cone summands; at the canonical point-summand basepoints, the comparison is surjective and its section injective on every homotopy group; a quotient-safe homotopy on the entire second mapping cone raises the outer cone coordinate continuously by the inner mapping-cone height; the next fixed-height deformation pieces shrink the normalized inner cone coordinate toward its base while retaining the outer maximum height",
+      "model_relation": "uses the maintained pushout models of cones, mapping cones, and unreduced suspensions; a radial nullhomotopy traces the original-space summand through the cone cylinder, both comparison maps are defined by the corresponding pushout universal properties, their strict splitting is transported functorially to arbitrary-dimensional homotopy groups, an explicit max-times-height formula is glued to a compatible bottom-suspension deformation through both pushout quotients, and the subsequent inner-height formula descends through the cone and first mapping-cone quotients at every fixed outer height",
       "status": "lean_kernel_checked_local_source",
-      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Topology/PuppeDeformation.lean",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Topology/PuppeFlattening.lean",
       "lattice_overlay": null,
       "degree_lattice_overlay": null,
-      "note": "All fifty-eight listed declarations are sorry-free Lean 4. Strict autoImplicit=false checks and exact 2,583-job, 8,690-job, and 2,584-job target builds pass for Topology.PuppeComparison, Topology.PuppeHomotopyGroups, and Topology.PuppeDeformation; the strict aggregate and exact 8,940-job Submission build also pass. The comparison is proved split epic on the nose, yielding split induced maps on every homotopy group. The height normalization now extends across the bottom suspension, satisfies the mapping-cone gluing equation, and is jointly continuous, giving a quotient-compatible homotopy of the entire second mapping cone from the identity to its normalized endpoint. That endpoint fixes the original-space cylinder, replaces double-cylinder height by the maximum of the two heights, and sends the inner-apex cylinder to the outer apex. Identifying or further deforming the normalized endpoint to the opposite comparison composite remains separate. Specializing coexactness to the identity also characterizes homotopy retractions of the cofiber collapse, but this structural Puppe milestone does not evaluate the suspended Hopf invariant and therefore recolors no lattice cell."
+      "note": "All seventy listed declarations are sorry-free Lean 4. Strict autoImplicit=false checks and exact 2,583-job, 8,690-job, 2,584-job, and 2,585-job target builds pass for Topology.PuppeComparison, Topology.PuppeHomotopyGroups, Topology.PuppeDeformation, and Topology.PuppeFlattening; the strict aggregate and exact 8,941-job Submission build also pass. The comparison is proved split epic on the nose, yielding split induced maps on every homotopy group. The height normalization extends across the bottom suspension, satisfies the mapping-cone gluing equation, and is jointly continuous, giving a quotient-compatible homotopy of the entire second mapping cone from the identity to its normalized endpoint. That endpoint fixes the original-space cylinder, replaces double-cylinder height by the maximum of the two heights, and sends the inner-apex cylinder to the outer apex. At every fixed outer height, the next formula now descends through both inner quotients: it multiplies the inner height by one minus time and retains the outer maximum height. Gluing those fixed-height pieces into the complete second-stage homotopy and identifying its endpoint with the opposite comparison composite remain separate. Specializing coexactness to the identity also characterizes homotopy retractions of the cofiber collapse, but this structural Puppe milestone does not evaluate the suspended Hopf invariant and therefore recolors no lattice cell."
     },
     {
       "id": "lean4-hopf-cofiber-collapse-retraction-obstruction",
