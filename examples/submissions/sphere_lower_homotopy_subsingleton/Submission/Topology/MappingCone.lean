@@ -21,6 +21,7 @@ cone of `f : A ⟶ X` is the pushout which glues the remaining `0`-end of that c
 
 * `Submission.topologicalCone A` and `Submission.topologicalConeBaseIncl A`;
 * `Submission.topologicalMappingCone f` and `Submission.topologicalMappingConeIncl f`;
+* `Submission.topologicalMappingConeMap` and `Submission.topologicalMappingConeIso`;
 * `Submission.topologicalConeExtensionOfNullhomotopy`;
 * `Submission.topologicalMappingConeRetractOfNullhomotopy`.
 -/
@@ -287,6 +288,128 @@ theorem topologicalConeBaseIncl_extensionOfNullhomotopy
   rw [topologicalConeBaseIncl, Category.assoc,
     topologicalConeExtensionOfNullhomotopy, topologicalConeCylinderIncl_desc, H.ι₀_h]
 
+/-! ### Functoriality of cones -/
+
+/-- Apply a map to the space coordinate of a cone cylinder while preserving its height. -/
+def topologicalConeCylinderMap {A B : TopCat.{u}} (a : A ⟶ B) :
+    A ⊗ TopCat.I ⟶ B ⊗ TopCat.I :=
+  lift (fst A TopCat.I ≫ a) (snd A TopCat.I)
+
+@[simp]
+theorem topologicalConeCylinderMap_apply {A B : TopCat.{u}} (a : A ⟶ B)
+    (x : A) (t : TopCat.I) :
+    topologicalConeCylinderMap a (x, t) = (a x, t) :=
+  rfl
+
+@[simp]
+theorem topologicalConeCylinderMap_id (A : TopCat.{u}) :
+    topologicalConeCylinderMap (𝟙 A) = 𝟙 (A ⊗ TopCat.I) := by
+  apply TopCat.hom_ext
+  ext p
+  rcases p with ⟨x, t⟩
+  rfl
+
+theorem topologicalConeCylinderMap_comp {A B C : TopCat.{u}}
+    (a : A ⟶ B) (b : B ⟶ C) :
+    topologicalConeCylinderMap (a ≫ b) =
+      topologicalConeCylinderMap a ≫ topologicalConeCylinderMap b := by
+  apply TopCat.hom_ext
+  ext p
+  rcases p with ⟨x, t⟩
+  rfl
+
+@[reassoc]
+theorem topologicalCone_ι₀_cylinderMap {A B : TopCat.{u}} (a : A ⟶ B) :
+    TopCat.ι₀ ≫ topologicalConeCylinderMap a = a ≫ TopCat.ι₀ := by
+  apply TopCat.hom_ext
+  ext x
+  rfl
+
+@[reassoc]
+theorem topologicalCone_ι₁_cylinderMap {A B : TopCat.{u}} (a : A ⟶ B) :
+    TopCat.ι₁ ≫ topologicalConeCylinderMap a = a ≫ TopCat.ι₁ := by
+  apply TopCat.hom_ext
+  ext x
+  rfl
+
+/-- The map of topological cones induced by a continuous map. -/
+def topologicalConeMap {A B : TopCat.{u}} (a : A ⟶ B) :
+    topologicalCone A ⟶ topologicalCone B :=
+  topologicalConeDesc A
+    (topologicalConeCylinderMap a ≫ topologicalConeCylinderIncl B)
+    (topologicalConePointIncl B) (by
+      rw [← Category.assoc, topologicalCone_ι₁_cylinderMap]
+      have hB : (TopCat.ι₁ : B ⟶ B ⊗ TopCat.I) ≫
+          topologicalConeCylinderIncl B =
+          toUnit B ≫ topologicalConePointIncl B :=
+        pushout.condition
+      rw [Category.assoc, hB]
+      rfl)
+
+@[reassoc (attr := simp)]
+theorem topologicalConeCylinderIncl_map {A B : TopCat.{u}} (a : A ⟶ B) :
+    topologicalConeCylinderIncl A ≫ topologicalConeMap a =
+      topologicalConeCylinderMap a ≫ topologicalConeCylinderIncl B := by
+  rw [topologicalConeMap, topologicalConeCylinderIncl_desc]
+
+@[reassoc (attr := simp)]
+theorem topologicalConePointIncl_map {A B : TopCat.{u}} (a : A ⟶ B) :
+    topologicalConePointIncl A ≫ topologicalConeMap a =
+      topologicalConePointIncl B := by
+  rw [topologicalConeMap, topologicalConePointIncl_desc]
+
+@[reassoc (attr := simp)]
+theorem topologicalConeBaseIncl_map {A B : TopCat.{u}} (a : A ⟶ B) :
+    topologicalConeBaseIncl A ≫ topologicalConeMap a =
+      a ≫ topologicalConeBaseIncl B := by
+  rw [topologicalConeBaseIncl, Category.assoc, topologicalConeCylinderIncl_map,
+    ← Category.assoc, topologicalCone_ι₀_cylinderMap, Category.assoc]
+  rfl
+
+@[simp]
+theorem topologicalConeMap_id (A : TopCat.{u}) :
+    topologicalConeMap (𝟙 A) = 𝟙 (topologicalCone A) := by
+  apply topologicalCone_hom_ext A
+  · rw [topologicalConeCylinderIncl_map, topologicalConeCylinderMap_id,
+      Category.id_comp, Category.comp_id]
+  · rw [topologicalConePointIncl_map, Category.comp_id]
+
+theorem topologicalConeMap_comp {A B C : TopCat.{u}} (a : A ⟶ B) (b : B ⟶ C) :
+    topologicalConeMap (a ≫ b) = topologicalConeMap a ≫ topologicalConeMap b := by
+  apply topologicalCone_hom_ext A
+  · calc
+      _ = topologicalConeCylinderMap (a ≫ b) ≫
+          topologicalConeCylinderIncl C :=
+        topologicalConeCylinderIncl_map (a ≫ b)
+      _ = (topologicalConeCylinderMap a ≫ topologicalConeCylinderMap b) ≫
+          topologicalConeCylinderIncl C :=
+        congrArg (fun k ↦ k ≫ topologicalConeCylinderIncl C)
+          (topologicalConeCylinderMap_comp a b)
+      _ = topologicalConeCylinderMap a ≫
+          (topologicalConeCylinderMap b ≫ topologicalConeCylinderIncl C) :=
+        Category.assoc _ _ _
+      _ = topologicalConeCylinderMap a ≫
+          (topologicalConeCylinderIncl B ≫ topologicalConeMap b) :=
+        congrArg (fun k ↦ topologicalConeCylinderMap a ≫ k)
+          (topologicalConeCylinderIncl_map b).symm
+      _ = (topologicalConeCylinderMap a ≫ topologicalConeCylinderIncl B) ≫
+          topologicalConeMap b :=
+        (Category.assoc _ _ _).symm
+      _ = (topologicalConeCylinderIncl A ≫ topologicalConeMap a) ≫
+          topologicalConeMap b :=
+        congrArg (fun k ↦ k ≫ topologicalConeMap b)
+          (topologicalConeCylinderIncl_map a).symm
+      _ = _ := Category.assoc _ _ _
+  · calc
+      _ = topologicalConePointIncl C := topologicalConePointIncl_map (a ≫ b)
+      _ = topologicalConePointIncl B ≫ topologicalConeMap b :=
+        (topologicalConePointIncl_map b).symm
+      _ = (topologicalConePointIncl A ≫ topologicalConeMap a) ≫
+          topologicalConeMap b :=
+        congrArg (fun k ↦ k ≫ topologicalConeMap b)
+          (topologicalConePointIncl_map a).symm
+      _ = _ := Category.assoc _ _ _
+
 /-- The topological mapping cone of `f : A ⟶ X`. -/
 def topologicalMappingCone {A X : TopCat.{u}} (f : A ⟶ X) : TopCat.{u} :=
   pushout f (topologicalConeBaseIncl A)
@@ -305,6 +428,16 @@ instance {A X : TopCat.{u}} (f : A ⟶ X) : Mono (topologicalMappingConeIncl f) 
 def topologicalMappingConeConeIncl {A X : TopCat.{u}} (f : A ⟶ X) :
     topologicalCone A ⟶ topologicalMappingCone f :=
   pushout.inr f (topologicalConeBaseIncl A)
+
+/-- Maps out of a mapping cone are determined by their restrictions to the original space and
+the cone summand. -/
+theorem topologicalMappingCone_hom_ext {A X : TopCat.{u}} (f : A ⟶ X)
+    {Y : TopCat.{u}} {p q : topologicalMappingCone f ⟶ Y}
+    (hX : topologicalMappingConeIncl f ≫ p = topologicalMappingConeIncl f ≫ q)
+    (hC : topologicalMappingConeConeIncl f ≫ p =
+      topologicalMappingConeConeIncl f ≫ q) :
+    p = q :=
+  pushout.hom_ext hX hC
 
 /-- The quotient map from the original space, cone cylinder, and cone point onto a mapping cone. -/
 def topologicalMappingConeTripleDesc {A X : TopCat.{u}} (f : A ⟶ X) :
@@ -347,6 +480,124 @@ theorem topologicalMappingCone_condition {A X : TopCat.{u}} (f : A ⟶ X) :
     f ≫ topologicalMappingConeIncl f =
       topologicalConeBaseIncl A ≫ topologicalMappingConeConeIncl f :=
   pushout.condition
+
+/-! ### Functoriality of mapping cones -/
+
+/-- A commutative square of attaching maps induces a map of their topological mapping cones. -/
+def topologicalMappingConeMap {A B X Y : TopCat.{u}}
+    (f : A ⟶ X) (g : B ⟶ Y) (a : A ⟶ B) (x : X ⟶ Y)
+    (h : f ≫ x = a ≫ g) :
+    topologicalMappingCone f ⟶ topologicalMappingCone g :=
+  pushout.desc
+    (x ≫ topologicalMappingConeIncl g)
+    (topologicalConeMap a ≫ topologicalMappingConeConeIncl g) (by
+      rw [← Category.assoc, h, Category.assoc, topologicalMappingCone_condition]
+      exact (topologicalConeBaseIncl_map_assoc a
+        (topologicalMappingConeConeIncl g)).symm)
+
+@[reassoc (attr := simp)]
+theorem topologicalMappingConeIncl_map {A B X Y : TopCat.{u}}
+    (f : A ⟶ X) (g : B ⟶ Y) (a : A ⟶ B) (x : X ⟶ Y)
+    (h : f ≫ x = a ≫ g) :
+    topologicalMappingConeIncl f ≫ topologicalMappingConeMap f g a x h =
+      x ≫ topologicalMappingConeIncl g := by
+  exact pushout.inl_desc _ _ _
+
+@[reassoc (attr := simp)]
+theorem topologicalMappingConeConeIncl_map {A B X Y : TopCat.{u}}
+    (f : A ⟶ X) (g : B ⟶ Y) (a : A ⟶ B) (x : X ⟶ Y)
+    (h : f ≫ x = a ≫ g) :
+    topologicalMappingConeConeIncl f ≫ topologicalMappingConeMap f g a x h =
+      topologicalConeMap a ≫ topologicalMappingConeConeIncl g := by
+  exact pushout.inr_desc _ _ _
+
+@[simp]
+theorem topologicalMappingConeMap_id {A X : TopCat.{u}} (f : A ⟶ X) :
+    topologicalMappingConeMap f f (𝟙 A) (𝟙 X) (by simp) =
+      𝟙 (topologicalMappingCone f) := by
+  apply topologicalMappingCone_hom_ext f
+  · rw [topologicalMappingConeIncl_map, Category.id_comp, Category.comp_id]
+  · rw [topologicalMappingConeConeIncl_map, topologicalConeMap_id,
+      Category.id_comp, Category.comp_id]
+
+theorem topologicalMappingConeMap_comp {A B C X Y Z : TopCat.{u}}
+    (f : A ⟶ X) (g : B ⟶ Y) (k : C ⟶ Z)
+    (a : A ⟶ B) (b : B ⟶ C) (x : X ⟶ Y) (y : Y ⟶ Z)
+    (hfg : f ≫ x = a ≫ g) (hgk : g ≫ y = b ≫ k) :
+    topologicalMappingConeMap f k (a ≫ b) (x ≫ y) (by
+      rw [← Category.assoc, hfg, Category.assoc, hgk, ← Category.assoc]) =
+      topologicalMappingConeMap f g a x hfg ≫
+        topologicalMappingConeMap g k b y hgk := by
+  apply topologicalMappingCone_hom_ext f
+  · calc
+      _ = (x ≫ y) ≫ topologicalMappingConeIncl k :=
+        topologicalMappingConeIncl_map f k (a ≫ b) (x ≫ y) _
+      _ = x ≫ (y ≫ topologicalMappingConeIncl k) := Category.assoc _ _ _
+      _ = x ≫ (topologicalMappingConeIncl g ≫
+          topologicalMappingConeMap g k b y hgk) :=
+        congrArg (fun q ↦ x ≫ q)
+          (topologicalMappingConeIncl_map g k b y hgk).symm
+      _ = (x ≫ topologicalMappingConeIncl g) ≫
+          topologicalMappingConeMap g k b y hgk :=
+        (Category.assoc _ _ _).symm
+      _ = (topologicalMappingConeIncl f ≫
+          topologicalMappingConeMap f g a x hfg) ≫
+          topologicalMappingConeMap g k b y hgk :=
+        congrArg (fun q ↦ q ≫ topologicalMappingConeMap g k b y hgk)
+          (topologicalMappingConeIncl_map f g a x hfg).symm
+      _ = _ := Category.assoc _ _ _
+  · calc
+      _ = topologicalConeMap (a ≫ b) ≫ topologicalMappingConeConeIncl k :=
+        topologicalMappingConeConeIncl_map f k (a ≫ b) (x ≫ y) _
+      _ = (topologicalConeMap a ≫ topologicalConeMap b) ≫
+          topologicalMappingConeConeIncl k :=
+        congrArg (fun q ↦ q ≫ topologicalMappingConeConeIncl k)
+          (topologicalConeMap_comp a b)
+      _ = topologicalConeMap a ≫
+          (topologicalConeMap b ≫ topologicalMappingConeConeIncl k) :=
+        Category.assoc _ _ _
+      _ = topologicalConeMap a ≫
+          (topologicalMappingConeConeIncl g ≫
+            topologicalMappingConeMap g k b y hgk) :=
+        congrArg (fun q ↦ topologicalConeMap a ≫ q)
+          (topologicalMappingConeConeIncl_map g k b y hgk).symm
+      _ = (topologicalConeMap a ≫ topologicalMappingConeConeIncl g) ≫
+          topologicalMappingConeMap g k b y hgk :=
+        (Category.assoc _ _ _).symm
+      _ = (topologicalMappingConeConeIncl f ≫
+          topologicalMappingConeMap f g a x hfg) ≫
+          topologicalMappingConeMap g k b y hgk :=
+        congrArg (fun q ↦ q ≫ topologicalMappingConeMap g k b y hgk)
+          (topologicalMappingConeConeIncl_map f g a x hfg).symm
+      _ = _ := Category.assoc _ _ _
+
+/-- The inverse sides of a commutative square of isomorphisms form the inverse commutative
+square. -/
+theorem topologicalMappingCone_inverse_square {A B X Y : TopCat.{u}}
+    (f : A ⟶ X) (g : B ⟶ Y) (a : A ⟶ B) (x : X ⟶ Y)
+    [IsIso a] [IsIso x] (h : f ≫ x = a ≫ g) :
+    g ≫ inv x = inv a ≫ f := by
+  apply (cancel_mono x).1
+  rw [Category.assoc, IsIso.inv_hom_id, Category.comp_id,
+    Category.assoc, h, ← Category.assoc, IsIso.inv_hom_id, Category.id_comp]
+
+/-- A commutative square whose vertical maps are isomorphisms induces an isomorphism of
+topological mapping cones. -/
+def topologicalMappingConeIso {A B X Y : TopCat.{u}}
+    (f : A ⟶ X) (g : B ⟶ Y) (a : A ⟶ B) (x : X ⟶ Y)
+    [IsIso a] [IsIso x] (h : f ≫ x = a ≫ g) :
+    topologicalMappingCone f ≅ topologicalMappingCone g where
+  hom := topologicalMappingConeMap f g a x h
+  inv := topologicalMappingConeMap g f (inv a) (inv x)
+    (topologicalMappingCone_inverse_square f g a x h)
+  hom_inv_id := by
+    rw [← topologicalMappingConeMap_comp f g f a (inv a) x (inv x) h
+      (topologicalMappingCone_inverse_square f g a x h)]
+    simpa only [IsIso.hom_inv_id] using topologicalMappingConeMap_id f
+  inv_hom_id := by
+    rw [← topologicalMappingConeMap_comp g f g (inv a) a (inv x) x
+      (topologicalMappingCone_inverse_square f g a x h) h]
+    simpa only [IsIso.inv_hom_id] using topologicalMappingConeMap_id g
 
 /-- A nullhomotopy of `f` produces a retraction from its mapping cone to `X`. -/
 def topologicalMappingConeRetractOfNullhomotopy {A X : TopCat.{u}} (f : A ⟶ X)
