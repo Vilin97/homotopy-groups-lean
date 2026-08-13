@@ -600,6 +600,43 @@ def topologicalMappingConeIso {A B X Y : TopCat.{u}}
       (topologicalMappingCone_inverse_square f g a x h) h]
     simpa only [IsIso.inv_hom_id] using topologicalMappingConeMap_id g
 
+/-! ### Suspension and the cofiber collapse -/
+
+/-- The unreduced suspension of `A`, presented as the mapping cone of `A ⟶ *`. -/
+def topologicalSuspension (A : TopCat.{u}) : TopCat.{u} :=
+  topologicalMappingCone (toUnit A)
+
+/-- One distinguished suspension point. -/
+def topologicalSuspensionPointIncl (A : TopCat.{u}) :
+    𝟙_ TopCat.{u} ⟶ topologicalSuspension A :=
+  topologicalMappingConeIncl (toUnit A)
+
+/-- Include the cone cylinder in the suspension. -/
+def topologicalSuspensionConeIncl (A : TopCat.{u}) :
+    topologicalCone A ⟶ topologicalSuspension A :=
+  topologicalMappingConeConeIncl (toUnit A)
+
+/-- Collapse the target summand of a mapping cone to obtain the suspension of its source. -/
+def topologicalMappingConeCollapse {A X : TopCat.{u}} (f : A ⟶ X) :
+    topologicalMappingCone f ⟶ topologicalSuspension A :=
+  topologicalMappingConeMap f (toUnit A) (𝟙 A) (toUnit X) (by
+    apply toUnit_unique)
+
+@[reassoc (attr := simp)]
+theorem topologicalMappingConeIncl_collapse {A X : TopCat.{u}} (f : A ⟶ X) :
+    topologicalMappingConeIncl f ≫ topologicalMappingConeCollapse f =
+      toUnit X ≫ topologicalSuspensionPointIncl A :=
+  topologicalMappingConeIncl_map f (toUnit A) (𝟙 A) (toUnit X) _
+
+@[reassoc (attr := simp)]
+theorem topologicalMappingConeConeIncl_collapse {A X : TopCat.{u}} (f : A ⟶ X) :
+    topologicalMappingConeConeIncl f ≫ topologicalMappingConeCollapse f =
+      topologicalSuspensionConeIncl A := by
+  unfold topologicalSuspensionConeIncl topologicalSuspension
+  rw [topologicalMappingConeCollapse,
+    topologicalMappingConeConeIncl_map, topologicalConeMap_id,
+    Category.id_comp]
+
 /-- A nullhomotopy of `f` produces a retraction from its mapping cone to `X`. -/
 def topologicalMappingConeRetractOfNullhomotopy {A X : TopCat.{u}} (f : A ⟶ X)
     (x : 𝟙_ TopCat.{u} ⟶ X) (H : TopCat.Homotopy f (toUnit A ≫ x)) :

@@ -501,4 +501,57 @@ theorem complexProjectivePlaneMappingConeHomeomorph_cylinder
     rw [diskBoundaryFourConeHomeomorphDisk_cylinder]]
   exact complexProjectivePlaneCellHomeomorph_disk _
 
+/-! ## The cofiber collapse -/
+
+theorem diskBoundaryFourIncl_diskToSphere :
+    TopCat.diskBoundaryIncl 4 ≫ TopCat.ofHom (diskToSphere 4) =
+      TopCat.const (sphereBasepoint 4) := by
+  apply TopCat.hom_ext
+  apply ContinuousMap.ext
+  intro z
+  exact diskToSphere_boundary 4 _
+    (mem_sphere_zero_iff_norm.mp z.down.property)
+
+/-- Identify the suspension of the four-disk boundary with the quotient four-sphere. -/
+noncomputable def diskBoundaryFourSuspensionToSphere :
+    topologicalSuspension (TopCat.diskBoundary.{0} 4) ⟶
+      TopCat.of (Sph 4) :=
+  pushout.desc
+    (TopCat.const (sphereBasepoint 4))
+    (diskBoundaryFourConeIsoDisk.hom ≫ TopCat.ofHom (diskToSphere 4))
+    (by
+      rw [← Category.assoc, diskBoundaryFourConeBaseIncl_isoDisk,
+        diskBoundaryFourIncl_diskToSphere]
+      rfl)
+
+@[reassoc (attr := simp)]
+theorem diskBoundaryFourSuspensionPointIncl_toSphere :
+    topologicalSuspensionPointIncl (TopCat.diskBoundary.{0} 4) ≫
+        diskBoundaryFourSuspensionToSphere =
+      TopCat.const (sphereBasepoint 4) :=
+  pushout.inl_desc _ _ _
+
+@[reassoc (attr := simp)]
+theorem diskBoundaryFourSuspensionConeIncl_toSphere :
+    topologicalSuspensionConeIncl (TopCat.diskBoundary.{0} 4) ≫
+        diskBoundaryFourSuspensionToSphere =
+      diskBoundaryFourConeIsoDisk.hom ≫ TopCat.ofHom (diskToSphere 4) :=
+  pushout.inr_desc _ _ _
+
+/-- Under the cone-to-disk comparison, the abstract mapping-cone collapse is exactly the
+previously constructed collapse of the Hopf cell model to the four-sphere. -/
+theorem complexProjectivePlaneMappingCone_collapse_square :
+    complexProjectivePlaneMappingConeToCell ≫
+        complexProjectivePlaneCellCollapse =
+      topologicalMappingConeCollapse diskBoundaryFourComplexHopfMap ≫
+        diskBoundaryFourSuspensionToSphere := by
+  apply topologicalMappingCone_hom_ext diskBoundaryFourComplexHopfMap
+  · simp
+    apply TopCat.hom_ext
+    apply ContinuousMap.ext
+    intro p
+    rfl
+  · simp
+    rfl
+
 end Submission
