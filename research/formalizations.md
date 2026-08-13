@@ -558,10 +558,14 @@ proves the section-obstruction direction: a homotopy section of the collapse
 would nullhomotope `Sigma f`. More generally, Lean now proves the first
 mapping-out coexactness statement on the nose: `g : X -> Y` extends across
 `C_f` if and only if `f` followed by `g` is nullhomotopic, with mutually
-explicit extension and contraction constructions. No converse section theorem
-is claimed: mapping-out coexactness has the opposite variance from the existing
-no-section result, so that result cannot soundly be inverted into
-suspended-Hopf nontriviality. The genuine lower bound still requires the
+explicit extension and contraction constructions.  At the next Puppe term, an
+explicit lower-cone collar proves that the canonical inclusion `X -> C_f` is a
+cofibration.  The resulting homotopy extension upgrades strict descent through
+`C_f -> Sigma A`: a map `h : C_f -> Y` factors through that collapse up to
+homotopy if and only if its restriction to `X` is nullhomotopic.  No converse
+section theorem is claimed: mapping-out coexactness has the opposite variance
+from the existing no-section result, so that result cannot soundly be inverted
+into suspended-Hopf nontriviality. The genuine lower bound still requires the
 Hopf-invariant or cup-evaluation computation.  The two
 point-set suspension models are now naturally homeomorphic, and the suspension
 of the exact `∂D^4 -> CP^1` attaching map is proved to be the maintained
