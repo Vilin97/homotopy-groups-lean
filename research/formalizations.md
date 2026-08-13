@@ -580,7 +580,8 @@ complex Hopf-fibration calculation to the concrete cofiber: its fundamental
 group is trivial, its second group is `Z`, its third and fourth groups vanish,
 its fifth group is `Z`, and uniformly `pi_(k+3)(C_eta) ≅ pi_(k+3)(S^5)`.
 In particular, its integral second homotopy group proves that the cofiber is not
-contractible.
+contractible.  Path connectedness transports every one of these positive-degree
+computations to arbitrary basepoints.
 These compute a mapping-cone target and therefore do not add sphere-lattice cells.
 No converse section theorem is claimed: mapping-out coexactness has the opposite variance
 from the existing no-section result, so that result cannot soundly be inverted
