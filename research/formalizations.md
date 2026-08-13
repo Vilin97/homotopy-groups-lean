@@ -548,10 +548,15 @@ suspension of `∂D^4` is constructed generically and proved to commute exactly
 with the cell collapse to `S^4`; the suspension itself is homeomorphic to
 `S^4`.  The canonical cofiber collapse is then proved directly to admit no
 based homotopy section.  This supplies the geometric cofibre, vanishing input,
-and final no-section obstruction for a second lower-bound proof; the remaining
-step is the Puppe rotation or cofibration exactness implication from a null
-suspended attaching map to such a section, so the first stable-stem lattice
-cell is not yet recolored.
+and an independent obstruction for the unsuspended cell collapse.  Since a
+cofiber sequence is coexact after mapping *out* of it, this no-section theorem
+does not by itself detect the suspension of the attaching map.  The two
+point-set suspension models are now naturally homeomorphic, and the suspension
+of the exact `∂D^4 -> CP^1` attaching map is proved to be the maintained
+suspended Hopf map after the explicit sphere-coordinate changes; their mapping
+cones are identified as well.  The remaining first-stem lower bound is still
+the nonzero canonical cup-one evaluation (or an equivalent formal Hopf-invariant
+calculation), so the lattice cell is not yet recolored.
 
 `DiagonalInduction.lean` records the exact equivalence between the two computed
 diagonal groups `pi_1(S^1)` and `pi_2(S^2)`, and proves that a uniform family of

@@ -831,7 +831,33 @@
       "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ComplexProjectivePlanePuppe.lean",
       "lattice_overlay": null,
       "degree_lattice_overlay": null,
-      "note": "All twenty-four headline declarations and their quotient, compact-Hausdorff, phase-normalization, pushout-injectivity, radial-cone, mapping-cone comparison, suspension-sphere, cofiber-collapse, surjectivity, basepoint, and induced-homotopy-group helpers are sorry-free Lean 4. Strict autoImplicit=false checks and exact-target builds pass for ComplexProjectiveLine, ComplexProjectivePlaneCell, ComplexProjectivePlanePuppe, MappingCone, CellAttachment, and the Submission aggregate; the exact aggregate contains 8,930 targets. This establishes the geometric CP^2 cofibre model, its pi_4 vanishing input, its exact mapping-cone presentation, the canonical cofiber-collapse square, and a direct no-section obstruction for that canonical collapse, but no sphere-group lower bound is claimed until the remaining Puppe rotation or cofibration exactness implication is formalized, so no lattice cell is recolored."
+      "note": "All twenty-four headline declarations and their quotient, compact-Hausdorff, phase-normalization, pushout-injectivity, radial-cone, mapping-cone comparison, suspension-sphere, cofiber-collapse, surjectivity, basepoint, and induced-homotopy-group helpers are sorry-free Lean 4. Strict autoImplicit=false checks and exact-target builds pass for ComplexProjectiveLine, ComplexProjectivePlaneCell, ComplexProjectivePlanePuppe, MappingCone, CellAttachment, and the Submission aggregate; the exact aggregate contains 8,930 targets. This establishes the geometric CP^2 cofibre model, its pi_4 vanishing input, its exact mapping-cone presentation, the canonical cofiber-collapse square, and a direct no-section obstruction for that canonical collapse. The no-section theorem detects the unsuspended attachment and is not by itself a lower certificate for the suspended Hopf map, so no lattice cell is recolored."
+    },
+    {
+      "id": "lean4-suspension-model-hopf-comparison",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "2d7a99004a3ecb8f4510860bc014f8192d01fef5",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.Susp.mapHomeomorph",
+        "Submission.topologicalSuspensionIsoSusp",
+        "Submission.topologicalSuspensionHomeomorphSusp",
+        "Submission.topologicalSuspensionMap",
+        "Submission.topologicalSuspensionToSusp_natural",
+        "Submission.diskBoundaryFourSuspensionIsoHopfSource",
+        "Submission.complexProjectiveLineSuspensionIsoHopfTarget",
+        "Submission.exactHopfSuspension_comparison",
+        "Submission.exactHopfSuspensionMappingConeIso",
+        "Submission.exactHopfSuspensionMappingConeIsoConcrete"
+      ],
+      "result": "the mapping-cone and quotient models of unreduced suspension are naturally homeomorphic; under the explicit boundary-sphere and projective-line-sphere coordinates, suspending the exact CP^2 attaching map gives the maintained suspended quadratic Hopf map, and the associated mapping cones are isomorphic",
+      "model_relation": "compares the pushout mapping-cone suspension with the maintained quotient suspension using exact interval-coordinate formulas, then transports the exact disk-boundary/projective-line attaching square to the raw and concrete suspended-Hopf mapping cones",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ComplexProjectivePlaneSuspendedHopf.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All ten headline declarations and their pole, cylinder, inverse-composite, functoriality, and mapping-cone inclusion formulas are sorry-free Lean 4. Strict autoImplicit=false checks and exact-target builds pass for Suspension, SuspensionComparison, ComplexProjectivePlaneSuspendedHopf, and the 8,932-target Submission aggregate. This closes the point-set coordinate gap but does not assert the remaining nonzero cup-one evaluation, so no lattice cell is recolored."
     },
     {
       "id": "lean4-degree-three-steenrod-square",
