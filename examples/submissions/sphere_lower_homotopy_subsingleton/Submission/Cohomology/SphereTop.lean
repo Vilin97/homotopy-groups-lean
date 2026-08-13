@@ -24,6 +24,8 @@ class on every positive-dimensional sphere.
   sphere is nonzero;
 * `Submission.sphereTopModTwoDualClass_evaluation` -- every distinguished top class evaluates
   to one on a matching top-dimensional homology class;
+* `Submission.sphereTopCohomologyEquivModTwo` -- top-degree mod-two cohomology of every
+  positive-dimensional sphere is `𝔽₂`;
 * `Submission.sphereThreeModTwoClass_ne_zero` -- the degree-three specialization needed for the
   suspended Hopf map.
 -/
@@ -448,5 +450,261 @@ theorem sphereThreeModTwoDualClass_evaluation :
 /-- The distinguished degree-three class on the `3`-sphere is nonzero. -/
 theorem sphereThreeModTwoClass_ne_zero : sphereThreeModTwoClass ≠ 0 :=
   sphereTopModTwoClass_ne_zero 2
+
+/-! ### Classification of top-degree mod-two classes -/
+
+/-- A mod-two functional on the circle belt that kills the antidiagonal generator factors
+through the augmentation. -/
+theorem beltFunctional_factors_augmentation
+    (l : Hgrp 0 (TopCat.of belt1) ⟶ modTwoCoefficients)
+    (hl : l (beltAntidiag hptGenerator) = 0) :
+    ∃ k : Hpt ⟶ modTwoCoefficients,
+      l = HgrpMap 0 (toPt (TopCat.of belt1)) ≫ k := by
+  let k : Hpt ⟶ modTwoCoefficients :=
+    biprod.inl ≫ beltOneSplitIso.hom ≫ l
+  refine ⟨k, ?_⟩
+  apply (cancel_epi beltOneSplitIso.hom).1
+  rw [← Category.assoc, beltOneSplitIso_hom_comp]
+  refine biprod.hom_ext' _ _ ?_ ?_
+  · simp [k]
+  · have hgen :
+        (biprod.inr ≫ beltOneSplitIso.hom ≫ l) hptGenerator =
+          -(biprod.inl ≫ beltOneSplitIso.hom ≫ l) hptGenerator := by
+      have hvalue := hl
+      change ((biprod.lift (𝟙 Hpt) (𝟙 Hpt) ≫ beltOneSplitIso.hom ≫ l)
+        hptGenerator) = 0 at hvalue
+      rw [biprod.lift_eq, Preadditive.add_comp,
+        _root_.AddCommGrpCat.hom_add_apply] at hvalue
+      simp only [Category.id_comp] at hvalue
+      exact eq_neg_of_add_eq_zero_right hvalue
+    have hmorph :
+        biprod.inr ≫ beltOneSplitIso.hom ≫ l =
+          -(biprod.inl ≫ beltOneSplitIso.hom ≫ l) := by
+      apply (cancel_epi (hgrpZeroIso (TopCat.of PUnit.{1})).inv).1
+      apply intHom_ext
+      change (biprod.inr ≫ beltOneSplitIso.hom ≫ l) hptGenerator =
+        -((biprod.inl ≫ beltOneSplitIso.hom ≫ l) hptGenerator)
+      exact hgen
+    simpa [k] using hmorph
+
+set_option backward.isDefEq.respectTransparency false in
+/-- A degree-zero belt class whose functional kills the antidiagonal generator has zero
+Mayer--Vietoris connecting image. -/
+theorem sphereOneRawCohDelta_eq_zero_of_evaluation
+    (Φ : (homDual (Csing (TopCat.of belt1)) modTwoCoefficients).homology 0)
+    (hΦ : ev (Csing (TopCat.of belt1)) modTwoCoefficients 0 Φ
+      (beltAntidiag hptGenerator) = 0) :
+    sphereOneRawCohDelta Φ = 0 := by
+  let l : Hgrp 0 (TopCat.of belt1) ⟶ modTwoCoefficients :=
+    ev (Csing (TopCat.of belt1)) modTwoCoefficients 0 Φ
+  obtain ⟨k, hk⟩ := beltFunctional_factors_augmentation l hΦ
+  let q : (mvSC (X := TopCat.of (Sph 1))
+      (sphLowerCap 0) (sphUpperCap 0)).X₂.homology 0 ⟶ modTwoCoefficients :=
+    (mvSumIso (X := TopCat.of (Sph 1))
+        (sphLowerCap 0) (sphUpperCap 0) 0).hom ≫
+      biprod.fst ≫
+        (hgrpZeroToPtIso (TopCat.of (sphLowerCap 0))).hom ≫ k
+  have hq :
+      HomologicalComplex.homologyMap
+          (mvSC (X := TopCat.of (Sph 1))
+            (sphLowerCap 0) (sphUpperCap 0)).f 0 ≫ q = l := by
+    dsimp only [q]
+    rw [← Category.assoc, homologyMap_mvSC_f]
+    rw [mvIota_zero_factor (X := TopCat.of (Sph 1))]
+    rw [hk]
+    simp only [Category.assoc, biprod.lift_fst_assoc, Iso.inv_hom_id_assoc]
+  obtain ⟨y, hy⟩ :=
+    (ev_zero_bijective
+      (mvSC (X := TopCat.of (Sph 1))
+        (sphLowerCap 0) (sphUpperCap 0)).X₂ modTwoCoefficients).2 q
+  let Φraw :
+      (homDual
+        (mvSC (X := TopCat.of (Sph 1))
+          (sphLowerCap 0) (sphUpperCap 0)).X₁ modTwoCoefficients).homology 0 := Φ
+  have hgyRaw :
+      HomologicalComplex.homologyMap
+        (homDualMap
+          (mvSC (X := TopCat.of (Sph 1))
+            (sphLowerCap 0) (sphUpperCap 0)).f modTwoCoefficients) 0 y = Φraw := by
+    apply (ev_zero_bijective
+      (mvSC (X := TopCat.of (Sph 1))
+        (sphLowerCap 0) (sphUpperCap 0)).X₁ modTwoCoefficients).1
+    rw [ev_naturality_apply, hy, hq]
+    rfl
+  have hgy :
+      HomologicalComplex.homologyMap
+          (mvCohSC (X := TopCat.of (Sph 1))
+            (sphLowerCap 0) (sphUpperCap 0) (ZMod 2)).g 0 y = Φ := by
+    exact hgyRaw
+  rw [← hgy]
+  change ((mvCohSC_shortExact (X := TopCat.of (Sph 1))
+      (sphLowerCap 0) (sphUpperCap 0) (ZMod 2)).δ 0 1 (mvCohRel 0))
+      (HomologicalComplex.homologyMap
+        (mvCohSC (X := TopCat.of (Sph 1))
+          (sphLowerCap 0) (sphUpperCap 0) (ZMod 2)).g 0 y) = 0
+  rw [← ConcreteCategory.comp_apply,
+    (mvCohSC_shortExact (X := TopCat.of (Sph 1))
+      (sphLowerCap 0) (sphUpperCap 0) (ZMod 2)).comp_δ]
+  rfl
+
+set_option backward.isDefEq.respectTransparency false in
+/-- Evaluation on the normalized homology generator detects the zero degree-one dual
+cohomology class of the circle. -/
+theorem sphereOneDualClass_eq_zero_of_evaluation
+    (Ψ : (homDual (Csing (TopCat.of (Sph 1))) modTwoCoefficients).homology 1)
+    (hΨ : ev (Csing (TopCat.of (Sph 1))) modTwoCoefficients 1 Ψ
+      sphereOneHomologyClass = 0) :
+    Ψ = 0 := by
+  have hzero : IsZero
+      ((mvCohSC (X := TopCat.of (Sph 1))
+        (sphLowerCap 0) (sphUpperCap 0) (ZMod 2)).X₂.homology 1) :=
+    isZero_mvCohSC_X₂_homology_of_contractible
+      (X := TopCat.of (Sph 1)) (sphLowerCap 0) (sphUpperCap 0) (ZMod 2) 1
+      (by omega)
+  haveI : Epi sphereOneRawCohDelta :=
+    ((mvCohSC_shortExact (X := TopCat.of (Sph 1))
+      (sphLowerCap 0) (sphUpperCap 0) (ZMod 2)).homology_exact₁
+        0 1 (mvCohRel 0)).epi_f (hzero.eq_of_tgt _ _)
+  obtain ⟨Φ, hΦ⟩ :=
+    (AddCommGrpCat.epi_iff_surjective sphereOneRawCohDelta).1 inferInstance
+      (sphereOneSmallCohomologyIso.hom Ψ)
+  have hambient :
+      mvCohδ (X := TopCat.of (Sph 1))
+        (sphLowerCap 0) (sphUpperCap 0) (ZMod 2)
+        (sphCap_interior_union 0) 0 Φ = Ψ := by
+    change sphereOneSmallCohomologyIso.inv (sphereOneRawCohDelta Φ) = Ψ
+    rw [hΦ, ← ConcreteCategory.comp_apply,
+      Iso.hom_inv_id, ConcreteCategory.id_apply]
+  have hbelt :
+      ev (Csing (TopCat.of belt1)) modTwoCoefficients 0 Φ
+        (beltAntidiag hptGenerator) = 0 := by
+    have h := mv_delta_adjoint
+      (X := TopCat.of (Sph 1)) (sphLowerCap 0) (sphUpperCap 0) (ZMod 2)
+      (sphCap_interior_union 0) 0 Φ sphereOneHomologyClass
+    rw [hambient, hΨ, mvδ_sphereOneHomologyClass] at h
+    exact h.symm
+  have hraw := sphereOneRawCohDelta_eq_zero_of_evaluation Φ hbelt
+  have hsmall : sphereOneSmallCohomologyIso.hom Ψ = 0 :=
+    hΦ.symm.trans hraw
+  have h := congrArg (fun z ↦ sphereOneSmallCohomologyIso.inv z) hsmall
+  rw [← ConcreteCategory.comp_apply, Iso.hom_inv_id,
+    ConcreteCategory.id_apply, map_zero] at h
+  exact h
+
+/-- Evaluation on the normalized circle homology class is injective in degree one. -/
+theorem sphereOneDualEvaluation_injective :
+    Function.Injective (fun Ψ :
+      (homDual (Csing (TopCat.of (Sph 1))) modTwoCoefficients).homology 1 ↦
+        ev (Csing (TopCat.of (Sph 1))) modTwoCoefficients 1 Ψ
+          sphereOneHomologyClass) := by
+  intro Φ Ψ hΦΨ
+  apply sub_eq_zero.mp
+  apply sphereOneDualClass_eq_zero_of_evaluation
+  rw [map_sub]
+  change ev (Csing (TopCat.of (Sph 1))) modTwoCoefficients 1 Φ
+      sphereOneHomologyClass -
+    ev (Csing (TopCat.of (Sph 1))) modTwoCoefficients 1 Ψ
+      sphereOneHomologyClass = 0
+  exact sub_eq_zero.mpr hΦΨ
+
+/-- Evaluation on the normalized circle generator as an additive homomorphism. -/
+def sphereOneDualEvaluationHom :
+    (homDual (Csing (TopCat.of (Sph 1))) modTwoCoefficients).homology 1 →+
+      ZMod 2 where
+  toFun Ψ := ev (Csing (TopCat.of (Sph 1))) modTwoCoefficients 1 Ψ
+    sphereOneHomologyClass
+  map_zero' := by rw [map_zero]; rfl
+  map_add' Φ Ψ := by rw [map_add]; rfl
+
+/-- Circle evaluation is onto mod-two coefficients. -/
+theorem sphereOneDualEvaluationHom_surjective :
+    Function.Surjective sphereOneDualEvaluationHom := by
+  intro a
+  fin_cases a
+  · exact ⟨0, map_zero sphereOneDualEvaluationHom⟩
+  · exact ⟨sphereOneModTwoDualClass,
+      sphereOneModTwoDualClass_evaluation⟩
+
+/-- Degree-one mod-two cohomology of the circle is canonically `𝔽₂`, normalized by
+evaluation on `sphereOneHomologyClass`. -/
+noncomputable def sphereOneDualCohomologyEquivModTwo :
+    (homDual (Csing (TopCat.of (Sph 1))) modTwoCoefficients).homology 1 ≃+
+      ZMod 2 :=
+  AddEquiv.ofBijective sphereOneDualEvaluationHom
+    ⟨sphereOneDualEvaluation_injective, sphereOneDualEvaluationHom_surjective⟩
+
+/-- The same normalized computation in the concrete singular-cohomology model. -/
+noncomputable def sphereOneCohomologyEquivModTwo :
+    Hsing 1 (TopCat.of (Sph 1)) (ZMod 2) ≃+ ZMod 2 :=
+  (HsingEquivDualHomology (ZMod 2) (TopCat.of (Sph 1)) 1).trans
+    sphereOneDualCohomologyEquivModTwo
+
+/-- Top-degree mod-two cohomology of every positive-dimensional sphere is `𝔽₂`. -/
+noncomputable def sphereTopCohomologyEquivModTwo :
+    (n : ℕ) → Hsing (n + 1) (TopCat.of (Sph (n + 1))) (ZMod 2) ≃+ ZMod 2
+  | 0 => sphereOneCohomologyEquivModTwo
+  | n + 1 =>
+      (hsingSphStepEquiv (ZMod 2) (n + 1) n).symm.trans
+        (sphereTopCohomologyEquivModTwo n)
+
+/-- The distinguished top sphere class is the unit under the normalized computation. -/
+@[simp]
+theorem sphereTopCohomologyEquivModTwo_top :
+    ∀ n : ℕ,
+      sphereTopCohomologyEquivModTwo n (sphereTopModTwoClass n) = 1 := by
+  intro n
+  induction n with
+  | zero =>
+      change sphereOneDualEvaluationHom
+        (HsingEquivDualHomology (ZMod 2) (TopCat.of (Sph 1)) 1
+          sphereOneModTwoClass) = 1
+      rw [sphereOneModTwoClass, AddEquiv.apply_symm_apply]
+      exact sphereOneModTwoDualClass_evaluation
+  | succ n ih =>
+      change sphereTopCohomologyEquivModTwo n
+        ((hsingSphStepEquiv (ZMod 2) (n + 1) n).symm
+          (hsingSphStepEquiv (ZMod 2) (n + 1) n
+            (sphereTopModTwoClass n))) = 1
+      rw [AddEquiv.symm_apply_apply, ih]
+
+/-- Every top-degree mod-two sphere class is either zero or the distinguished unit class. -/
+theorem sphereTopClass_eq_zero_or_eq_top (n : ℕ)
+    (x : Hsing (n + 1) (TopCat.of (Sph (n + 1))) (ZMod 2)) :
+    x = 0 ∨ x = sphereTopModTwoClass n := by
+  have hx : sphereTopCohomologyEquivModTwo n x = 0 ∨
+      sphereTopCohomologyEquivModTwo n x = 1 := by
+    have hcases : ∀ a : ZMod 2, a = 0 ∨ a = 1 := by decide
+    exact hcases _
+  rcases hx with hx | hx
+  · left
+    apply (sphereTopCohomologyEquivModTwo n).injective
+    rw [map_zero]
+    exact hx
+  · right
+    apply (sphereTopCohomologyEquivModTwo n).injective
+    rw [sphereTopCohomologyEquivModTwo_top]
+    exact hx
+
+/-- Every class in the dual-complex model of top sphere cohomology is zero or the normalized
+top class. -/
+theorem sphereTopDualClass_eq_zero_or_eq_top (n : ℕ)
+    (Φ : (homDual (Csing (TopCat.of (Sph (n + 1)))) modTwoCoefficients).homology
+      (n + 1)) :
+    Φ = 0 ∨ Φ = sphereTopModTwoDualClass n := by
+  rcases sphereTopClass_eq_zero_or_eq_top n
+      ((HsingEquivDualHomology (ZMod 2)
+        (TopCat.of (Sph (n + 1))) (n + 1)).symm Φ) with hzero | htop
+  · left
+    have h := congrArg
+      (HsingEquivDualHomology (ZMod 2)
+        (TopCat.of (Sph (n + 1))) (n + 1)) hzero
+    rw [AddEquiv.apply_symm_apply, map_zero] at h
+    exact h
+  · right
+    have h := congrArg
+      (HsingEquivDualHomology (ZMod 2)
+        (TopCat.of (Sph (n + 1))) (n + 1)) htop
+    rw [AddEquiv.apply_symm_apply] at h
+    exact h
 
 end Submission

@@ -15,14 +15,18 @@ import Submission.SphereSuspension
 
 This file suspends the concrete quadratic Hopf map using the explicit reduced-suspension sphere
 homeomorphisms.  It names the resulting continuous map `S⁴ ⟶ S³`, its `TopCat` incarnation,
-and its mapping cone.  The sphere-side square vanishes because `H⁵(S³; F₂) = 0`.  The general
-degree-three `Sq²` obstruction therefore specializes to a precise finite target: produce the
-bottom class on this cone and prove that its square is nonzero.
+and its mapping cone.  The sphere-side square vanishes because `H⁵(S³; F₂) = 0`.  The cone's
+bottom and top classes are normalized against explicit homology generators, and its degree-five
+cohomology is shown to have only zero and that top class.  The general degree-three `Sq²`
+obstruction therefore specializes to one chain-level calculation: the cup-one square must
+evaluate nontrivially on the selected degree-five cycle.
 
 ## Main definitions and results
 
 * `Submission.suspendedHopfMap : C(Sph 4, Sph 3)`;
 * `Submission.suspendedHopfTopCat` and `Submission.suspendedHopfMappingCone`;
+* `Submission.suspendedHopfMappingConeClass_eq_zero_or_eq_top`;
+* `Submission.suspendedHopfCanonicalLift_sqTwo_eq_top_of_cycle_evaluation`;
 * `Submission.suspendedHopfMap_not_nullhomotopic_of_sqTwo`.
 -/
 
@@ -169,6 +173,61 @@ theorem suspendedHopfMappingConeTopClass_ne_zero :
   rw [suspendedHopfMappingConeTopClass, AddEquiv.apply_symm_apply, map_zero] at h
   exact h
 
+/-- A fixed singular cocycle representing the normalized top class. -/
+noncomputable def suspendedHopfMappingConeTopCocycle :
+    cocycles (TopCat.toSSet.obj suspendedHopfMappingCone) (ZMod 2) 5 :=
+  Classical.choose (Hcoh.mk_surjective suspendedHopfMappingConeTopClass)
+
+/-- The fixed top cocycle represents the normalized top class. -/
+@[simp]
+theorem suspendedHopfMappingConeTopCocycle_mk :
+    Hcoh.mk suspendedHopfMappingConeTopCocycle =
+      suspendedHopfMappingConeTopClass :=
+  Classical.choose_spec (Hcoh.mk_surjective suspendedHopfMappingConeTopClass)
+
+/-- Every degree-five dual cohomology class of the suspended-Hopf mapping cone is zero or its
+normalized top class. -/
+theorem suspendedHopfMappingConeDualClass_eq_zero_or_eq_top
+    (Φ : (homDual (Csing suspendedHopfMappingCone) modTwoCoefficients).homology 5) :
+    Φ = 0 ∨ Φ = suspendedHopfMappingConeTopDualClass := by
+  let e := mappingConeCohomologySuspensionIso suspendedHopfTopCat (ZMod 2) 3
+    isZero_sphereThreeDualCohomology_four
+    isZero_sphereThreeDualCohomology_five
+  rcases sphereTopDualClass_eq_zero_or_eq_top 3 (e.inv Φ) with hzero | htop
+  · left
+    have h := congrArg (fun x ↦ e.hom x) hzero
+    rw [← ConcreteCategory.comp_apply, Iso.inv_hom_id,
+      ConcreteCategory.id_apply, map_zero] at h
+    exact h
+  · right
+    have h := congrArg (fun x ↦ e.hom x) htop
+    rw [← ConcreteCategory.comp_apply, Iso.inv_hom_id,
+      ConcreteCategory.id_apply] at h
+    exact h
+
+/-- Every degree-five singular cohomology class of the suspended-Hopf mapping cone is zero or
+its normalized top class. -/
+theorem suspendedHopfMappingConeClass_eq_zero_or_eq_top
+    (x : Hsing 5 suspendedHopfMappingCone (ZMod 2)) :
+    x = 0 ∨ x = suspendedHopfMappingConeTopClass := by
+  rcases suspendedHopfMappingConeDualClass_eq_zero_or_eq_top
+      (HsingEquivDualHomology (ZMod 2) suspendedHopfMappingCone 5 x) with
+    hzero | htop
+  · left
+    apply (HsingEquivDualHomology (ZMod 2) suspendedHopfMappingCone 5).injective
+    rw [map_zero]
+    exact hzero
+  · right
+    apply (HsingEquivDualHomology (ZMod 2) suspendedHopfMappingCone 5).injective
+    rw [suspendedHopfMappingConeTopClass, AddEquiv.apply_symm_apply]
+    exact htop
+
+/-- A nonzero degree-five cone class is necessarily the normalized top class. -/
+theorem suspendedHopfMappingConeClass_eq_top_of_ne_zero
+    {x : Hsing 5 suspendedHopfMappingCone (ZMod 2)} (hx : x ≠ 0) :
+    x = suspendedHopfMappingConeTopClass :=
+  (suspendedHopfMappingConeClass_eq_zero_or_eq_top x).resolve_left hx
+
 /-- A cycle representative of the selected degree-five mapping-cone homology generator. -/
 noncomputable def suspendedHopfCanonicalFiveCycleSub :
     cyclesSub (Csing suspendedHopfMappingCone) 5 :=
@@ -210,6 +269,39 @@ theorem suspendedHopfMappingConeTopDualClass_canonical_cycle_evaluation :
         suspendedHopfCanonicalFiveCycle_isCycle) = (1 : ZMod 2) := by
   rw [homologyMk_suspendedHopfCanonicalFiveCycle,
     suspendedHopfMappingConeTopDualClass_evaluation]
+
+set_option backward.isDefEq.respectTransparency false in
+/-- The fixed top cocycle evaluates to one on the canonical degree-five cycle. -/
+@[simp]
+theorem suspendedHopfMappingConeTopCocycle_canonical_cycle_evaluation :
+    (dualXEquiv (TopCat.toSSet.obj suspendedHopfMappingCone) (ZMod 2) 5).symm
+      (suspendedHopfMappingConeTopCocycle :
+        Cochain (TopCat.toSSet.obj suspendedHopfMappingCone) (ZMod 2) 5)
+      suspendedHopfCanonicalFiveCycle = (1 : ZMod 2) := by
+  have hdual :
+      HsingEquivDualHomology (ZMod 2) suspendedHopfMappingCone 5
+          (Hcoh.mk suspendedHopfMappingConeTopCocycle) =
+        suspendedHopfMappingConeTopDualClass := by
+    rw [suspendedHopfMappingConeTopCocycle_mk,
+      suspendedHopfMappingConeTopClass, AddEquiv.apply_symm_apply]
+  have hvalue := congrArg
+    (fun Φ ↦ ev (Csing suspendedHopfMappingCone) modTwoCoefficients 5 Φ
+      (homologyMk suspendedHopfCanonicalFiveCycle
+        suspendedHopfCanonicalFiveCycle_isCycle)) hdual
+  change ev (Csing suspendedHopfMappingCone) modTwoCoefficients 5
+      (HcohEquivDualHomology
+        (TopCat.toSSet.obj suspendedHopfMappingCone) (ZMod 2) 5
+          (Hcoh.mk suspendedHopfMappingConeTopCocycle))
+      (homologyMk suspendedHopfCanonicalFiveCycle
+        suspendedHopfCanonicalFiveCycle_isCycle) =
+    ev (Csing suspendedHopfMappingCone) modTwoCoefficients 5
+      suspendedHopfMappingConeTopDualClass
+      (homologyMk suspendedHopfCanonicalFiveCycle
+        suspendedHopfCanonicalFiveCycle_isCycle) at hvalue
+  rw [HcohEquivDualHomology_mk, ev_homologyMk,
+    evCocycle_homologyMk,
+    suspendedHopfMappingConeTopDualClass_canonical_cycle_evaluation] at hvalue
+  exact hvalue
 
 /-- The canonical degree-five cycle is nonzero already as a singular chain. -/
 theorem suspendedHopfCanonicalFiveCycle_ne_zero :
@@ -336,6 +428,16 @@ theorem suspendedHopfCanonicalLift_sqTwo_ne_zero_of_cycle
   rw [← suspendedHopfCanonicalCocycle_mk]
   exact sqTwoHsingDegreeThree_mk_ne_zero_of_eval_cycle
     suspendedHopfCanonicalCocycle z hz heval
+
+/-- A nonzero canonical cup-one evaluation identifies `Sq²` with the normalized top class. -/
+theorem suspendedHopfCanonicalLift_sqTwo_eq_top_of_cycle_evaluation
+    (heval : sqTwoHsingDegreeThreeRepresentativeEvaluation
+      suspendedHopfCanonicalCocycle suspendedHopfCanonicalFiveCycle ≠ 0) :
+    sqTwoHsingDegreeThree suspendedHopfCanonicalLift =
+      suspendedHopfMappingConeTopClass :=
+  suspendedHopfMappingConeClass_eq_top_of_ne_zero
+    (suspendedHopfCanonicalLift_sqTwo_ne_zero_of_cycle
+      suspendedHopfCanonicalFiveCycle suspendedHopfCanonicalFiveCycle_isCycle heval)
 
 /-- The remaining Steenrod-square calculation for the canonical lift implies that the suspended
 Hopf map is not nullhomotopic. -/
