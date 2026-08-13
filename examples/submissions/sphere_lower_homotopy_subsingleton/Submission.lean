@@ -75,6 +75,7 @@ import Submission.Approximation.BoundaryRelativeGeneralPosition
 import Submission.Approximation.RelativeSphereHomotopy
 import Submission.Approximation.RelativeSphereGeneralPosition
 import Submission.Approximation.RelativeSphereHomotopyGeneralPosition
+import Submission.Approximation.VaryingJarGeneralPosition
 import Submission.SphereSuspensionPointed
 
 open HomotopyGroups
