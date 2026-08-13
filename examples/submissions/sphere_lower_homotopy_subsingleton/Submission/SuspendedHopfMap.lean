@@ -53,6 +53,15 @@ noncomputable def suspendedHopfTopCat :
     TopCat.of (Sph 4) ⟶ TopCat.of (Sph 3) :=
   TopCat.ofHom suspendedHopfMap
 
+/-- The raw unreduced suspension of the Hopf map as a morphism of topological spaces. -/
+noncomputable def hopfSuspensionTopCat :
+    TopCat.of (Susp (Sph 3)) ⟶ TopCat.of (Susp (Sph 2)) :=
+  TopCat.ofHom (Susp.map hopfMap)
+
+/-- The mapping cone of the raw unreduced suspension of the Hopf map. -/
+noncomputable abbrev hopfSuspensionMappingCone : TopCat.{0} :=
+  topologicalMappingCone hopfSuspensionTopCat
+
 /-- The topological mapping cone of the suspended Hopf map. -/
 noncomputable abbrev suspendedHopfMappingCone : TopCat.{0} :=
   topologicalMappingCone suspendedHopfTopCat
@@ -61,6 +70,15 @@ noncomputable abbrev suspendedHopfMappingCone : TopCat.{0} :=
 noncomputable abbrev suspendedHopfMappingConeIncl :
     TopCat.of (Sph 3) ⟶ suspendedHopfMappingCone :=
   topologicalMappingConeIncl suspendedHopfTopCat
+
+/-- Transporting source and target through the chosen suspension-sphere homeomorphisms
+identifies the raw-suspension mapping cone with the concrete suspended-Hopf mapping cone. -/
+noncomputable def hopfSuspensionMappingConeIso :
+    hopfSuspensionMappingCone ≅ suspendedHopfMappingCone :=
+  topologicalMappingConeIso hopfSuspensionTopCat suspendedHopfTopCat
+    (suspSphTopCatIso 3).hom (suspSphTopCatIso 2).hom (by
+      simpa only [hopfSuspensionTopCat, suspendedHopfTopCat, suspendedHopfMap] using
+        sphereSuspensionMap_naturality 3 2 hopfMap)
 
 /-- The fifth homology of the suspended-Hopf mapping cone is infinite cyclic. -/
 noncomputable def suspendedHopfMappingConeHomologyIsoInt :

@@ -19,6 +19,7 @@ surjectivity are the remaining geometric content needed to upgrade the map below
 successive equivalences consumed by `Submission.sphere_diagonal_mulEquiv_int_of_suspension_steps`.
 -/
 
+open CategoryTheory
 open scoped Topology Topology.Homotopy unitInterval
 
 noncomputable section
@@ -123,6 +124,11 @@ theorem suspSphHomeo_symm_sphereBasepoint (n : ℕ) :
   apply (suspSphHomeo n).injective
   rw [Homeomorph.apply_symm_apply, suspSphHomeo_equator_sphereBasepoint]
 
+/-- The chosen suspension-sphere homeomorphism as an isomorphism in `TopCat`. -/
+noncomputable def suspSphTopCatIso (n : ℕ) :
+    TopCat.of (Susp (Sph n)) ≅ TopCat.of (Sph (n + 1)) :=
+  TopCat.isoOfHomeo (suspSphHomeo n)
+
 /-! ## Suspension of maps between spheres -/
 
 /-- Suspend a map `Sᵐ ⟶ Sⁿ` and transport it across the chosen sphere-suspension
@@ -142,6 +148,16 @@ theorem sphereSuspensionMap_apply_susp (m n : ℕ) (f : C(Sph m, Sph n))
   simp only [ContinuousMap.comp_apply]
   exact congrArg (fun r : Susp (Sph n) ↦ suspSphHomeo n r)
     (congrArg (Susp.map f) ((suspSphHomeo m).symm_apply_apply q))
+
+/-- The transported sphere suspension fits into the expected commutative square with the raw
+map of unreduced suspensions. -/
+theorem sphereSuspensionMap_naturality (m n : ℕ) (f : C(Sph m, Sph n)) :
+    TopCat.ofHom (Susp.map f) ≫ (suspSphTopCatIso n).hom =
+      (suspSphTopCatIso m).hom ≫ TopCat.ofHom (sphereSuspensionMap m n f) := by
+  apply TopCat.hom_ext
+  apply ContinuousMap.ext
+  intro q
+  exact (sphereSuspensionMap_apply_susp m n f q).symm
 
 /-- Suspension carries a based sphere map to a based sphere map. -/
 theorem sphereSuspensionMap_basepoint (m n : ℕ) (f : C(Sph m, Sph n))
