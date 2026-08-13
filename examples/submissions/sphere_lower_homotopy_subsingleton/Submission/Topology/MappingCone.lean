@@ -685,4 +685,18 @@ theorem exists_topologicalMappingConeIncl_retraction_iff_nullhomotopic
     ext a
     rfl
 
+/-- If the target is path connected, the endpoint in the mapping-cone retraction criterion can
+be replaced by any prescribed constant map. -/
+theorem exists_topologicalMappingConeIncl_retraction_iff_homotopy_const
+    {A X : TopCat.{u}} [PathConnectedSpace X] (f : A ⟶ X) (x : X) :
+    (∃ r : topologicalMappingCone f ⟶ X,
+        topologicalMappingConeIncl f ≫ r = 𝟙 X) ↔
+      Nonempty (TopCat.Homotopy f (TopCat.const x)) := by
+  rw [exists_topologicalMappingConeIncl_retraction_iff_nullhomotopic]
+  constructor
+  · rintro ⟨y, ⟨H⟩⟩
+    exact ⟨H.trans (PathConnectedSpace.somePath y x).toHomotopyConst⟩
+  · rintro ⟨H⟩
+    exact ⟨x, ⟨H⟩⟩
+
 end Submission

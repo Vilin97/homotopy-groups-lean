@@ -48,6 +48,7 @@ import Submission.Hurewicz.SimplicialTelescope
 import Submission.Hurewicz.SingularKan
 import Submission.Hurewicz.SphereDiagonal
 import Submission.Hurewicz.SphereLoopBridge
+import Submission.Hurewicz.SphereMappingConeBridge
 import Submission.Hurewicz.StickBoundary
 import Submission.Hurewicz.StickSphere
 import Submission.Homology.HomotopyEquiv
