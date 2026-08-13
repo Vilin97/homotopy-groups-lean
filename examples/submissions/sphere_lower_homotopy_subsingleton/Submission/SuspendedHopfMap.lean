@@ -869,6 +869,24 @@ theorem piFourSphereThreeGeometricHopfGenerator_ne_one_of_canonical_evaluation
   piFourSphereThreeGeometricHopfGenerator_ne_one_of_not_nullhomotopic
     (suspendedHopfMap_not_nullhomotopic_of_canonical_evaluation heval)
 
+/-- Together with the unconditional symmetry upper bound, the canonical cup-one evaluation
+shows that the geometric suspended-Hopf class has exact order two. -/
+theorem orderOf_piFourSphereThreeGeometricHopfGenerator_eq_two_of_canonical_evaluation
+    (heval : sqTwoHsingDegreeThreeRepresentativeEvaluation
+      suspendedHopfCanonicalCocycle suspendedHopfCanonicalFiveCycle ≠ 0) :
+    orderOf piFourSphereThreeGeometricHopfGenerator = 2 :=
+  orderOf_eq_prime_iff.mpr
+    ⟨piFourSphereThreeGeometricHopfGenerator_sq,
+      piFourSphereThreeGeometricHopfGenerator_ne_one_of_canonical_evaluation heval⟩
+
+/-- The explicit suspended quadratic Hopf representative has the same conditional exact order. -/
+theorem orderOf_suspendedHopfMapClass_eq_two_of_canonical_evaluation
+    (heval : sqTwoHsingDegreeThreeRepresentativeEvaluation
+      suspendedHopfCanonicalCocycle suspendedHopfCanonicalFiveCycle ≠ 0) :
+    orderOf suspendedHopfMapClass = 2 := by
+  rw [suspendedHopfMapClass_eq_piFourSphereThreeGeometricHopfGenerator]
+  exact orderOf_piFourSphereThreeGeometricHopfGenerator_eq_two_of_canonical_evaluation heval
+
 /-- The same canonical cup-one evaluation proves that the cap-excision edge generator is
 nonidentity, without requiring an identification of the two named generators. -/
 theorem piFourSphereThreeEdgeGenerator_ne_one_of_canonical_evaluation
@@ -976,5 +994,36 @@ theorem sphere_first_stable_homotopy_mulEquiv_zmod_two_of_edge_square_and_canoni
   apply sphere_first_stable_homotopy_mulEquiv_zmod_two_of_orderOf_edgeGenerator n hn
   exact orderOf_eq_prime_iff.mpr
     ⟨hsquare, piFourSphereThreeEdgeGenerator_ne_one_of_canonical_evaluation heval⟩
+
+/-- Since the geometric generator now has square one unconditionally, a comparison with the
+cap-excision generator plus the canonical lower certificate completes the first representative. -/
+theorem piFourSphereThree_mulEquiv_zmod_two_of_geometric_eq_edge_and_canonical_evaluation
+    (hcompare : piFourSphereThreeGeometricHopfGenerator =
+      piFourSphereThreeEdgeGenerator)
+    (heval : sqTwoHsingDegreeThreeRepresentativeEvaluation
+      suspendedHopfCanonicalCocycle suspendedHopfCanonicalFiveCycle ≠ 0) :
+    Nonempty
+      (π_ 4 (Sph 3) (sphereBasepoint 3) ≃* Multiplicative (ZMod 2)) := by
+  apply piFourSphereThree_mulEquiv_zmod_two_of_edge_square_and_canonical_evaluation
+  · rw [← hcompare]
+    exact piFourSphereThreeGeometricHopfGenerator_sq
+  · exact heval
+
+/-- The same comparison and lower certificate propagate the exact computation throughout the
+first stable stem. -/
+theorem sphere_first_stable_homotopy_mulEquiv_zmod_two_of_geometric_eq_edge_and_canonical_evaluation
+    (n : ℕ) (hn : 3 ≤ n)
+    (hcompare : piFourSphereThreeGeometricHopfGenerator =
+      piFourSphereThreeEdgeGenerator)
+    (heval : sqTwoHsingDegreeThreeRepresentativeEvaluation
+      suspendedHopfCanonicalCocycle suspendedHopfCanonicalFiveCycle ≠ 0) :
+    Nonempty
+      (π_ (n + 1) (Sph n) (sphereBasepoint n) ≃*
+        Multiplicative (ZMod 2)) := by
+  apply sphere_first_stable_homotopy_mulEquiv_zmod_two_of_edge_square_and_canonical_evaluation
+    n hn
+  · rw [← hcompare]
+    exact piFourSphereThreeGeometricHopfGenerator_sq
+  · exact heval
 
 end Submission
