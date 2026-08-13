@@ -2,6 +2,7 @@
 Copyright (c) 2026 Vasily Ilin. All rights reserved.
 Released under Apache 2.0 license.
 -/
+import Submission.Cohomology.CellAttachmentCupSquare
 import Submission.Cohomology.MappingCone
 import Submission.Cohomology.MappingConePair
 import Submission.Cohomology.SingularCupEvaluation
@@ -332,5 +333,58 @@ theorem hopfMappingConeBottomSquare_eq_top_iff_representativeEvaluation_eq_one :
       hopfCanonicalFourCycle at hvalue
   rw [← hvalue]
   exact hopfMappingConeBottomSquare_eq_top_iff_evaluation_eq_one
+
+/-! ### The cup-square obstruction -/
+
+/-- The square of the normalized degree-two class vanishes on `S²` for dimensional reasons. -/
+theorem sphereTwoModTwoClass_cupSquare_eq_zero :
+    cupHsing (by omega : 2 + 2 = 4)
+      (sphereTopModTwoClass 1) (sphereTopModTwoClass 1) = 0 := by
+  letI : Subsingleton (Hsing 4 (TopCat.of (Sph 2)) (ZMod 2)) :=
+    subsingleton_Hsing_sphere (ZMod 2) 4 2 (by omega) (by omega)
+  exact Subsingleton.elim _ _
+
+/-- A nonzero bottom square proves that the concrete quadratic Hopf map is not based
+nullhomotopic. -/
+theorem hopfMap_not_nullhomotopic_of_bottomSquare_ne_zero
+    (hSq : hopfMappingConeBottomSquare ≠ 0) :
+    ¬ Nonempty
+      (TopCat.Homotopy hopfTopCat (TopCat.const (sphereBasepoint 2))) := by
+  intro H
+  apply not_exists_nullhomotopy_of_mappingCone_cupSquareDegreeTwo
+    hopfTopCat (sphereTopModTwoClass 1) hopfMappingConeBottomClass
+    hopfMappingConeBottomClass_restrict hopfMappingConeIncl_bijective.1
+    sphereTwoModTwoClass_cupSquare_eq_zero (by
+      simpa only [hopfMappingConeBottomSquare] using hSq)
+  let p : 𝟙_ TopCat.{0} ⟶ TopCat.of (Sph 2) :=
+    TopCat.const (sphereBasepoint 2)
+  have hp : toUnit (TopCat.of (Sph 3)) ≫ p =
+      TopCat.const (sphereBasepoint 2) := by
+    ext z
+    rfl
+  exact ⟨p, H.map fun K ↦ K.cast rfl
+    (congrArg
+      (fun q : TopCat.of (Sph 3) ⟶ TopCat.of (Sph 2) ↦ q.hom)
+      hp.symm)⟩
+
+/-- Hopf invariant one proves that the concrete quadratic Hopf map is not based nullhomotopic. -/
+theorem hopfMap_not_nullhomotopic_of_bottomSquare_eq_top
+    (hSq : hopfMappingConeBottomSquare = hopfMappingConeTopClass) :
+    ¬ Nonempty
+      (TopCat.Homotopy hopfTopCat (TopCat.const (sphereBasepoint 2))) :=
+  hopfMap_not_nullhomotopic_of_bottomSquare_ne_zero (by
+    rw [hSq]
+    exact hopfMappingConeTopClass_ne_zero)
+
+/-- The explicit Alexander--Whitney evaluation equal to one proves that the concrete quadratic
+Hopf map is not based nullhomotopic. -/
+theorem hopfMap_not_nullhomotopic_of_representativeEvaluation_eq_one
+    (heval : cupHsingRepresentativeEvaluation (by omega : 2 + 2 = 4)
+      hopfMappingConeBottomCocycle hopfMappingConeBottomCocycle
+      hopfCanonicalFourCycle = (1 : ZMod 2)) :
+    ¬ Nonempty
+      (TopCat.Homotopy hopfTopCat (TopCat.const (sphereBasepoint 2))) :=
+  hopfMap_not_nullhomotopic_of_bottomSquare_eq_top
+    (hopfMappingConeBottomSquare_eq_top_iff_representativeEvaluation_eq_one.mpr heval)
 
 end Submission
