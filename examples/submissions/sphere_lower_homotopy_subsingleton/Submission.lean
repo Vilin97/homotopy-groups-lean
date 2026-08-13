@@ -95,9 +95,12 @@ import Submission.Approximation.SphereCapExcisionInjective
 import Submission.Approximation.SphereCapExcisionSurjective
 import Submission.FirstStableStemPresentation
 import Submission.Cohomology.DualShortExact
+import Submission.Cohomology.DegreeZero
 import Submission.Cohomology.Point
 import Submission.Cohomology.MayerVietoris
 import Submission.Cohomology.Sphere
+import Submission.Cohomology.Pair
+import Submission.Cohomology.DiskPair
 import Submission.Cohomology.CellAttachmentSqTwo
 import Submission.SuspendedHopfMap
 import Submission.SphereSuspensionPointed

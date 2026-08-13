@@ -20,6 +20,8 @@ Homotopy invariance then gives the same conclusion for every contractible space.
 * `Submission.subsingleton_Hsing_punit` -- positive cohomology of a point is trivial;
 * `Submission.subsingleton_Hsing_of_contractible` -- positive cohomology of a contractible space
   is trivial;
+* `Submission.isZero_dualHomology_of_subsingleton_Hsing` -- transfer of concrete vanishing to
+  the categorical dual-complex model;
 * `Submission.isZero_dualHomology_of_contractible` -- the corresponding categorical statement
   for the dual singular-chain complex.
 -/
@@ -101,16 +103,33 @@ theorem subsingleton_Hsing_of_contractible {X : TopCat.{0}} [ContractibleSpace X
   letI : Subsingleton (Hsing n cohomologyPoint R) := subsingleton_Hsing_punit R n hn
   exact ⟨fun a b ↦ e.injective (Subsingleton.elim (e a) (e b))⟩
 
+/-- Concrete singular-cohomology vanishing transfers across the bridge to homology of the dual
+singular-chain complex. -/
+theorem isZero_dualHomology_of_subsingleton_Hsing {X : TopCat.{0}} (n : ℕ)
+    [Subsingleton (Hsing n X R)] :
+    IsZero ((homDual (Csing X) (AddCommGrpCat.of R)).homology n) := by
+  let e := HsingEquivDualHomology R X n
+  letI : Subsingleton ((homDual (Csing X) (AddCommGrpCat.of R)).homology n) :=
+    ⟨fun a b ↦ e.symm.injective (Subsingleton.elim (e.symm a) (e.symm b))⟩
+  exact AddCommGrpCat.isZero_iff_subsingleton.mpr inferInstance
+
+/-- Vanishing in the categorical dual-complex model transfers across the bridge to concrete
+singular cohomology. -/
+theorem subsingleton_Hsing_of_isZero_dualHomology {X : TopCat.{0}} (n : ℕ)
+    (h : IsZero ((homDual (Csing X) (AddCommGrpCat.of R)).homology n)) :
+    Subsingleton (Hsing n X R) := by
+  let e := HsingEquivDualHomology R X n
+  letI : Subsingleton ((homDual (Csing X) (AddCommGrpCat.of R)).homology n) :=
+    AddCommGrpCat.isZero_iff_subsingleton.mp h
+  exact ⟨fun a b ↦ e.injective (Subsingleton.elim (e a) (e b))⟩
+
 /-- The cohomology of the dual singular-chain complex of a contractible space vanishes in every
 positive degree. -/
 theorem isZero_dualHomology_of_contractible {X : TopCat.{0}} [ContractibleSpace X]
     (n : ℕ) (hn : n ≠ 0) :
     IsZero ((homDual (Csing X) (AddCommGrpCat.of R)).homology n) := by
-  let e := HsingEquivDualHomology R X n
   letI : Subsingleton (Hsing n X R) := subsingleton_Hsing_of_contractible R n hn
-  letI : Subsingleton ((homDual (Csing X) (AddCommGrpCat.of R)).homology n) :=
-    ⟨fun a b ↦ e.symm.injective (Subsingleton.elim (e.symm a) (e.symm b))⟩
-  exact AddCommGrpCat.isZero_iff_subsingleton.mpr inferInstance
+  exact isZero_dualHomology_of_subsingleton_Hsing R n
 
 /-! ### Totally disconnected spaces -/
 

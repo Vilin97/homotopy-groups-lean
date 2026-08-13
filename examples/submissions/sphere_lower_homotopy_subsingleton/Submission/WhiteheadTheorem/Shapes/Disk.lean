@@ -34,6 +34,13 @@ def diskBoundaryIncl (n : ℕ) : diskBoundary.{u} n ⟶ disk.{u} n :=
         rw [isOpen_induced_iff, ← hst, ← hrs]
         tauto⟩ }
 
+set_option backward.isDefEq.respectTransparency false in
+instance {n : ℕ} : CategoryTheory.Mono (diskBoundaryIncl n) :=
+  TopCat.mono_iff_injective _ |>.mpr <| by
+    intro ⟨x, hx⟩ ⟨y, hy⟩ h
+    obtain rfl : x = y := by simpa [diskBoundaryIncl, disk] using h
+    congr
+
 instance isEmpty_diskBoundary_zero : IsEmpty (diskBoundary.{u} 0) := by
   unfold diskBoundary
   simp_all only [isEmpty_ulift, Set.isEmpty_coe_sort]

@@ -159,6 +159,18 @@ lemma mvSC_g_eq : (mvSC A B).g =
     biprod.desc (SSet.chainComplexMap (mvPa A B) (AddCommGrpCat.of ℤ))
       (-SSet.chainComplexMap (mvPb A B) (AddCommGrpCat.of ℤ)) := rfl
 
+set_option backward.isDefEq.respectTransparency false in
+@[reassoc]
+lemma mvSC_f_fst : (mvSC A B).f ≫
+    (biprod.fst : Csing (TopCat.of A) ⊞ Csing (TopCat.of B) ⟶ Csing (TopCat.of A)) =
+      CsingMap (mvInclLeft A B) := by
+  change (biprod.lift
+      (SSet.chainComplexMap (mvQa A B) (AddCommGrpCat.of ℤ))
+      (SSet.chainComplexMap (mvQb A B) (AddCommGrpCat.of ℤ))) ≫
+        (biprod.fst : Csing (TopCat.of A) ⊞ Csing (TopCat.of B) ⟶ Csing (TopCat.of A)) =
+    SSet.chainComplexMap (mvQa A B) (AddCommGrpCat.of ℤ)
+  exact biprod.lift_fst _ _
+
 lemma mvSmallIncl_def :
     mvSmallIncl A B = SSet.chainComplexMap (mvSubcomplex A B).ι (AddCommGrpCat.of ℤ) := rfl
 

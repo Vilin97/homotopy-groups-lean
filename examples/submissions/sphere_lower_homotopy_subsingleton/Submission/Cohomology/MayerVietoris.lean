@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 -/
 import Submission.Cohomology.DualShortExact
 import Submission.Cohomology.DualBridge
+import Submission.Cohomology.DegreeZero
 import Submission.Cohomology.Point
 import Submission.Homology.MayerVietorisLES
 
@@ -28,6 +29,10 @@ sequence.
 -/
 
 open CategoryTheory Limits AlgebraicTopology
+
+attribute [local implicit_reducible] Limits.Cofan.mk Limits.sigmaConst
+  AlgebraicTopology.alternatingFaceMapComplex AlgebraicTopology.AlternatingFaceMapComplex.obj
+  SSet.chainComplexFunctor
 
 noncomputable section
 
@@ -75,6 +80,44 @@ def mvCohMiddleIso (n : ℕ) :
         (homDual (Csing (TopCat.of A)) (AddCommGrpCat.of R))
         (homDual (Csing (TopCat.of B)) (AddCommGrpCat.of R))
 
+set_option backward.isDefEq.respectTransparency false in
+/-- In degree zero, the Mayer--Vietoris map from the two pieces to their path-connected
+intersection is an epimorphism. -/
+theorem epi_mvCohSC_g_homology_zero [PathConnectedSpace (A ∩ B : Set X)] :
+    Epi (HomologicalComplex.homologyMap (mvCohSC A B R).g 0) := by
+  change Epi (HomologicalComplex.homologyMap
+    (homDualMap (mvSC A B).f (AddCommGrpCat.of R)) 0)
+  let p :
+      (homDual (Csing (TopCat.of A)) (AddCommGrpCat.of R)).homology 0 ⟶
+        (homDual (Csing (TopCat.of A) ⊞ Csing (TopCat.of B))
+          (AddCommGrpCat.of R)).homology 0 :=
+    HomologicalComplex.homologyMap
+      (homDualMap
+        (biprod.fst : Csing (TopCat.of A) ⊞ Csing (TopCat.of B) ⟶ Csing (TopCat.of A))
+        (AddCommGrpCat.of R)) 0
+  let q :
+      (homDual (Csing (TopCat.of A) ⊞ Csing (TopCat.of B))
+        (AddCommGrpCat.of R)).homology 0 ⟶
+        (homDual (Csing (TopCat.of (A ∩ B : Set X)))
+          (AddCommGrpCat.of R)).homology 0 :=
+    HomologicalComplex.homologyMap
+      (homDualMap (mvSC A B).f (AddCommGrpCat.of R)) 0
+  show Epi q
+  have hpq : p ≫ q =
+      HomologicalComplex.homologyMap
+        (homDualMap (CsingMap (mvInclLeft A B)) (AddCommGrpCat.of R)) 0 := by
+    dsimp only [p, q]
+    rw [← HomologicalComplex.homologyMap_comp, ← homDualMap_comp]
+    congr 2
+    exact mvSC_f_fst A B
+  have hsurj := surjective_dualHomologyMap_of_surjective_Hsing_map
+    (R := R) (mvInclLeft A B) 0
+    (surjective_Hsing_map_zero_of_pathConnected (R := R) (mvInclLeft A B))
+  haveI : Epi (p ≫ q) := by
+    rw [hpq, AddCommGrpCat.epi_iff_surjective]
+    exact hsurj
+  exact epi_of_epi p q
+
 /-- If both pieces are contractible, the middle term of the cohomological Mayer--Vietoris
 sequence vanishes in positive degrees. -/
 theorem isZero_mvCohSC_X₂_homology_of_contractible
@@ -84,6 +127,24 @@ theorem isZero_mvCohSC_X₂_homology_of_contractible
   rw [biprod_isZero_iff]
   exact ⟨isZero_dualHomology_of_contractible R n hn,
     isZero_dualHomology_of_contractible R n hn⟩
+
+/-- A space covered by two contractible pieces with path-connected intersection has vanishing
+degree-one cohomology. -/
+theorem isZero_dualHomology_one_of_contractible_cover
+    (h : interior A ∪ interior B = Set.univ)
+    [ContractibleSpace A] [ContractibleSpace B]
+    [PathConnectedSpace (A ∩ B : Set X)] :
+    IsZero ((homDual (Csing X) (AddCommGrpCat.of R)).homology 1) := by
+  haveI : Epi (HomologicalComplex.homologyMap (mvCohSC A B R).g 0) :=
+    epi_mvCohSC_g_homology_zero A B R
+  have hδ : (mvCohSC_shortExact A B R).δ 0 1 (by rfl) = 0 := by
+    rw [← cancel_epi (HomologicalComplex.homologyMap (mvCohSC A B R).g 0)]
+    exact (mvCohSC_shortExact A B R).comp_δ 0 1 (by rfl)
+  have hzMiddle := isZero_mvCohSC_X₂_homology_of_contractible A B R 1 (by omega)
+  have hzSmall : IsZero ((mvCohSC A B R).X₁.homology 1) :=
+    ((mvCohSC_shortExact A B R).homology_exact₁ 0 1 (by rfl)).isZero_X₂
+      hδ (hzMiddle.eq_of_tgt _ _)
+  exact IsZero.of_iso hzSmall (mvSmallCohomologyIso A B R h 1)
 
 /-- The successor relation in the cochain-complex shape. -/
 lemma mvCohRel (n : ℕ) : (ComplexShape.down ℕ).symm.Rel n (n + 1) := rfl

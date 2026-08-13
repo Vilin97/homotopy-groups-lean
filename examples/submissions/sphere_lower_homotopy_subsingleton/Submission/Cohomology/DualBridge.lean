@@ -315,7 +315,19 @@ theorem HsingEquivDualHomology_naturality {X Y : TopCat.{0}} (f : X ⟶ Y) (n : 
     (x : Hsing n Y R) :
     HsingEquivDualHomology R X n (Hsing.map f n x) =
       HomologicalComplex.homologyMap (homDualMap (CsingMap f) (AddCommGrpCat.of R)) n
-        (HsingEquivDualHomology R Y n x) :=
+      (HsingEquivDualHomology R Y n x) :=
   HcohEquivDualHomology_naturality (TopCat.toSSet.map f) n x
+
+/-- Surjectivity of a concrete singular-cohomology pullback transfers across the bridge to the
+corresponding homology map of dual singular-chain complexes. -/
+theorem surjective_dualHomologyMap_of_surjective_Hsing_map {X Y : TopCat.{0}}
+    (f : X ⟶ Y) (n : ℕ) (h : Function.Surjective (Hsing.map (R := R) f n)) :
+    Function.Surjective
+      (HomologicalComplex.homologyMap
+        (homDualMap (CsingMap f) (AddCommGrpCat.of R)) n) := by
+  intro z
+  obtain ⟨x, hx⟩ := h ((HsingEquivDualHomology R X n).symm z)
+  refine ⟨HsingEquivDualHomology R Y n x, ?_⟩
+  rw [← HsingEquivDualHomology_naturality, hx, AddEquiv.apply_symm_apply]
 
 end Submission
