@@ -87,6 +87,50 @@ theorem min_zero_left (s : TopCat.I.{u}) : min (0, s) = 0 := by
   apply homeomorph.injective
   simp
 
+/-- Continuous multiplication on the categorical unit interval. -/
+def mul : TopCat.I.{u} ⊗ TopCat.I ⟶ TopCat.I :=
+  TopCat.ofHom
+    { toFun := fun p ↦ homeomorph.symm ⟨
+        (homeomorph p.1 : ℝ) * (homeomorph p.2 : ℝ), by
+          constructor
+          · exact mul_nonneg (homeomorph p.1).2.1 (homeomorph p.2).2.1
+          · nlinarith [(homeomorph p.1).2.1, (homeomorph p.1).2.2,
+              (homeomorph p.2).2.1, (homeomorph p.2).2.2] ⟩
+      continuous_toFun := by fun_prop }
+
+@[simp]
+theorem mul_apply (s t : TopCat.I.{u}) :
+    (homeomorph (mul (s, t)) : ℝ) =
+      (homeomorph s : ℝ) * (homeomorph t : ℝ) := rfl
+
+@[simp]
+theorem mul_zero_right (s : TopCat.I.{u}) : mul (s, 0) = 0 := by
+  apply homeomorph.injective
+  apply Subtype.ext
+  rw [mul_apply]
+  simp
+
+@[simp]
+theorem mul_zero_left (s : TopCat.I.{u}) : mul (0, s) = 0 := by
+  apply homeomorph.injective
+  apply Subtype.ext
+  rw [mul_apply]
+  simp
+
+@[simp]
+theorem mul_one_right (s : TopCat.I.{u}) : mul (s, 1) = s := by
+  apply homeomorph.injective
+  apply Subtype.ext
+  rw [mul_apply]
+  simp
+
+@[simp]
+theorem mul_one_left (s : TopCat.I.{u}) : mul (1, s) = s := by
+  apply homeomorph.injective
+  apply Subtype.ext
+  rw [mul_apply]
+  simp
+
 /-- The midpoint of the categorical unit interval. -/
 def midpoint : TopCat.I.{u} :=
   homeomorph.symm ⟨1 / 2, by constructor <;> norm_num⟩
