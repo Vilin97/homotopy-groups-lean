@@ -80,6 +80,7 @@ import Submission.Approximation.SpatialJarGeneralPosition
 import Submission.Approximation.CapExcisionClamp
 import Submission.Approximation.NorthPoleGeneralPosition
 import Submission.Approximation.TwoPointCompression
+import Submission.Approximation.ProjectedFiberPrism
 import Submission.SphereSuspensionPointed
 
 open HomotopyGroups

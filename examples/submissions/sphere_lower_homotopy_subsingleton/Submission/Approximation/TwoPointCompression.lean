@@ -175,6 +175,39 @@ theorem mem_cubeLastFiberProjection_iff {X : Type*} [TopologicalSpace X]
       ∃ s : I, g (Cube.splitAtLast.symm (s, r)) = a :=
   Iff.rfl
 
+/-- If the selector vanishes on the projected `a`-fiber, every point which the deformation sends
+into that fiber was fixed by the deformation. -/
+theorem cubeLastCompression_eq_of_image_eq
+    {X : Type*} [TopologicalSpace X]
+    (g : C(I^ Fin (n + 1), X)) (v : C(I^ Fin n, I)) (a : X)
+    (hv : Set.EqOn v 0 (cubeLastFiberProjection g a))
+    (t : I) (y : I^ Fin (n + 1))
+    (ha : g (cubeLastCompression v (t, y)) = a) :
+    cubeLastCompression v (t, y) = y := by
+  have hr : (Cube.splitAtLast y).2 ∈ cubeLastFiberProjection g a := by
+    refine ⟨(Cube.splitAtLast (cubeLastCompression v (t, y))).1, ?_⟩
+    simpa [cubeLastCompression] using ha
+  exact cubeLastCompression_eq_of_v_eq_zero v t y (hv hr)
+
+/-- Vanishing on the projected `a`-fiber makes the deformation preserve that fiber exactly, at
+every time. -/
+theorem cubeLastCompression_image_eq_iff
+    {X : Type*} [TopologicalSpace X]
+    (g : C(I^ Fin (n + 1), X)) (v : C(I^ Fin n, I)) (a : X)
+    (hv : Set.EqOn v 0 (cubeLastFiberProjection g a))
+    (t : I) (y : I^ Fin (n + 1)) :
+    g (cubeLastCompression v (t, y)) = a ↔ g y = a := by
+  constructor
+  · intro ha
+    rw [cubeLastCompression_eq_of_image_eq g v a hv t y ha] at ha
+    exact ha
+  · intro ha
+    have hr : (Cube.splitAtLast y).2 ∈ cubeLastFiberProjection g a := by
+      refine ⟨(Cube.splitAtLast y).1, ?_⟩
+      simpa using ha
+    rw [cubeLastCompression_eq_of_v_eq_zero v t y (hv hr)]
+    exact ha
+
 /-- Projected point fibers are compact: they are projections of closed subsets of a compact
 product cube. -/
 theorem cubeLastFiberProjection_isCompact {X : Type*} [TopologicalSpace X] [T1Space X]
@@ -197,7 +230,7 @@ theorem cubeLastFiberProjection_isClosed {X : Type*} [TopologicalSpace X] [T1Spa
     IsClosed (cubeLastFiberProjection g a) :=
   (cubeLastFiberProjection_isCompact g a).isClosed
 
-/-- Disjoint projected fibers admit a control function which is zero on the first fiber and the
+/-- Disjoint projected fibers have a control function which is zero on the first fiber and the
 cube boundary, and one on the second fiber. -/
 theorem exists_cubeLastFiberSeparator {X : Type*} [TopologicalSpace X] [T1Space X]
     (g : C(I^ Fin (n + 1), X)) (a b : X)
