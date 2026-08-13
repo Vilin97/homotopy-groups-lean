@@ -41,6 +41,18 @@ noncomputable def complexProjectiveLineSuspensionIsoHopfTarget :
     (TopCat.isoOfHomeo
       (Susp.mapHomeomorph complexProjectiveLineHomeomorphSphere))
 
+/-- The suspended projective line in the maintained metric-three-sphere coordinates. -/
+noncomputable def complexProjectiveLineSuspensionIsoSphereThree :
+    topologicalSuspension (TopCat.of (ComplexProjectiveModel 1)) ≅
+      TopCat.of (Sph 3) :=
+  complexProjectiveLineSuspensionIsoHopfTarget.trans (suspSphTopCatIso 2)
+
+/-- The suspended four-disk boundary in the maintained metric-four-sphere coordinates. -/
+noncomputable def diskBoundaryFourSuspensionIsoSphereFour :
+    topologicalSuspension (TopCat.diskBoundary.{0} 4) ≅
+      TopCat.of (Sph 4) :=
+  diskBoundaryFourSuspensionIsoHopfSource.trans (suspSphTopCatIso 3)
+
 /-- Suspending the exact attaching-map square gives the raw quotient-suspension Hopf square. -/
 theorem exactHopfSuspension_raw_square :
     TopCat.ofHom (Susp.map diskBoundaryFourComplexHopfMap.hom) ≫
@@ -93,6 +105,19 @@ theorem exactHopfSuspension_comparison :
   simpa only [Category.assoc] using congrArg
     (fun q ↦ topologicalSuspensionToSusp
       (TopCat.diskBoundary 4) ≫ q) exactHopfSuspension_raw_square
+
+/-- The exact suspended attaching map is the concrete suspended Hopf map in metric-sphere
+coordinates. -/
+theorem exactHopfSuspension_concrete_square :
+    topologicalSuspensionMap (TopCat.diskBoundary 4)
+          diskBoundaryFourComplexHopfMap ≫
+        complexProjectiveLineSuspensionIsoSphereThree.hom =
+      diskBoundaryFourSuspensionIsoSphereFour.hom ≫
+        suspendedHopfTopCat := by
+  rw [complexProjectiveLineSuspensionIsoSphereThree,
+    diskBoundaryFourSuspensionIsoSphereFour, Iso.trans_hom, Iso.trans_hom]
+  rw [← Category.assoc, exactHopfSuspension_comparison, Category.assoc,
+    hopfSuspensionTopCat_naturality, ← Category.assoc]
 
 /-- The exact suspended attaching map is nullhomotopic exactly when the maintained raw
 suspended Hopf map is nullhomotopic. -/
@@ -178,6 +203,126 @@ theorem exactHopfSuspensionMappingConeIso_hom_coneIncl :
     complexProjectiveLineSuspensionIsoHopfTarget.hom
     exactHopfSuspension_comparison
 
+/-- On the bottom summand, the exact-to-concrete mapping-cone isomorphism is the composite
+suspension coordinate. -/
+@[reassoc]
+theorem exactHopfSuspensionMappingConeIsoConcrete_hom_incl :
+    topologicalMappingConeIncl
+          (topologicalSuspensionMap (TopCat.diskBoundary 4)
+            diskBoundaryFourComplexHopfMap) ≫
+        exactHopfSuspensionMappingConeIsoConcrete.hom =
+      complexProjectiveLineSuspensionIsoSphereThree.hom ≫
+        suspendedHopfMappingConeIncl := by
+  rw [exactHopfSuspensionMappingConeIsoConcrete, Iso.trans_hom,
+    complexProjectiveLineSuspensionIsoSphereThree, Iso.trans_hom]
+  rw [← Category.assoc, exactHopfSuspensionMappingConeIso_hom_incl,
+    Category.assoc, hopfSuspensionMappingConeIso_hom_incl, ← Category.assoc]
+
+/-! ### Cohomological transport to the exact projective attaching cone -/
+
+/-- The canonical degree-three suspended-Hopf class pulled back to the exact projective
+attaching cone. -/
+noncomputable def exactHopfSuspensionCanonicalLift :
+    Hsing 3 exactHopfSuspensionMappingCone (ZMod 2) :=
+  Hsing.map exactHopfSuspensionMappingConeIsoConcrete.hom 3
+    suspendedHopfCanonicalLift
+
+/-- The exact-cone class restricts to the pullback of the normalized metric-sphere class. -/
+@[simp]
+theorem exactHopfSuspensionCanonicalLift_restrict :
+    Hsing.map
+        (topologicalMappingConeIncl
+          (topologicalSuspensionMap (TopCat.diskBoundary 4)
+            diskBoundaryFourComplexHopfMap)) 3
+        exactHopfSuspensionCanonicalLift =
+      Hsing.map complexProjectiveLineSuspensionIsoSphereThree.hom 3
+        sphereThreeModTwoClass := by
+  rw [exactHopfSuspensionCanonicalLift, ← LinearMap.comp_apply,
+    ← Hsing.map_comp, exactHopfSuspensionMappingConeIsoConcrete_hom_incl,
+    Hsing.map_comp, LinearMap.comp_apply, suspendedHopfCanonicalLift_restrict]
+
+/-- The exact-cone canonical degree-three class is nonzero. -/
+theorem exactHopfSuspensionCanonicalLift_ne_zero :
+    exactHopfSuspensionCanonicalLift ≠ 0 := by
+  intro hzero
+  apply suspendedHopfCanonicalLift_ne_zero
+  apply (Hsing.map_bijective_of_isIso (R := ZMod 2)
+    exactHopfSuspensionMappingConeIsoConcrete.hom 3).1
+  rw [map_zero]
+  exact hzero
+
+/-- The normalized degree-five class pulled back to the exact projective attaching cone. -/
+noncomputable def exactHopfSuspensionMappingConeTopClass :
+    Hsing 5 exactHopfSuspensionMappingCone (ZMod 2) :=
+  Hsing.map exactHopfSuspensionMappingConeIsoConcrete.hom 5
+    suspendedHopfMappingConeTopClass
+
+/-- The exact-cone normalized top class is nonzero. -/
+theorem exactHopfSuspensionMappingConeTopClass_ne_zero :
+    exactHopfSuspensionMappingConeTopClass ≠ 0 := by
+  intro hzero
+  apply suspendedHopfMappingConeTopClass_ne_zero
+  apply (Hsing.map_bijective_of_isIso (R := ZMod 2)
+    exactHopfSuspensionMappingConeIsoConcrete.hom 5).1
+  rw [map_zero]
+  exact hzero
+
+/-- `Sq²` commutes with the exact-to-concrete mapping-cone coordinate change. -/
+theorem exactHopfSuspensionCanonicalLift_sqTwo_naturality :
+    sqTwoHsingDegreeThree exactHopfSuspensionCanonicalLift =
+      Hsing.map exactHopfSuspensionMappingConeIsoConcrete.hom 5
+        (sqTwoHsingDegreeThree suspendedHopfCanonicalLift) := by
+  exact (sqTwoHsingDegreeThree_natural
+    exactHopfSuspensionMappingConeIsoConcrete.hom
+    suspendedHopfCanonicalLift).symm
+
+/-- The normalized `Sq²` identity is unchanged between the exact projective attaching cone and
+the concrete suspended-Hopf cone. -/
+theorem exactHopfSuspensionCanonicalLift_sqTwo_eq_top_iff :
+    sqTwoHsingDegreeThree exactHopfSuspensionCanonicalLift =
+        exactHopfSuspensionMappingConeTopClass ↔
+      sqTwoHsingDegreeThree suspendedHopfCanonicalLift =
+        suspendedHopfMappingConeTopClass := by
+  rw [exactHopfSuspensionCanonicalLift_sqTwo_naturality]
+  change Hsing.map exactHopfSuspensionMappingConeIsoConcrete.hom 5
+      (sqTwoHsingDegreeThree suspendedHopfCanonicalLift) =
+        Hsing.map exactHopfSuspensionMappingConeIsoConcrete.hom 5
+          suspendedHopfMappingConeTopClass ↔ _
+  constructor
+  · intro h
+    exact (Hsing.map_bijective_of_isIso (R := ZMod 2)
+      exactHopfSuspensionMappingConeIsoConcrete.hom 5).1 h
+  · exact congrArg
+      (Hsing.map (R := ZMod 2)
+        exactHopfSuspensionMappingConeIsoConcrete.hom 5)
+
+/-- Nonvanishing of the canonical square is unchanged by the exact projective mapping-cone
+coordinate change. -/
+theorem exactHopfSuspensionCanonicalLift_sqTwo_ne_zero_iff :
+    sqTwoHsingDegreeThree exactHopfSuspensionCanonicalLift ≠ 0 ↔
+      sqTwoHsingDegreeThree suspendedHopfCanonicalLift ≠ 0 := by
+  rw [exactHopfSuspensionCanonicalLift_sqTwo_naturality]
+  constructor
+  · intro hmapped hzero
+    apply hmapped
+    rw [hzero, map_zero]
+  · intro hconcrete hmapped
+    apply hconcrete
+    apply (Hsing.map_bijective_of_isIso (R := ZMod 2)
+      exactHopfSuspensionMappingConeIsoConcrete.hom 5).1
+    rw [map_zero]
+    exact hmapped
+
+/-- The exact projective-cone `Sq²` identity is equivalent to the single maintained cup-one
+evaluation on the concrete suspended-Hopf cone. -/
+theorem exactHopfSuspensionCanonicalLift_sqTwo_eq_top_iff_evaluation_eq_one :
+    sqTwoHsingDegreeThree exactHopfSuspensionCanonicalLift =
+        exactHopfSuspensionMappingConeTopClass ↔
+      sqTwoHsingDegreeThreeRepresentativeEvaluation
+        suspendedHopfCanonicalCocycle suspendedHopfCanonicalFiveCycle = 1 :=
+  exactHopfSuspensionCanonicalLift_sqTwo_eq_top_iff.trans
+    suspendedHopfCanonicalLift_sqTwo_eq_top_iff_evaluation_eq_one
+
 /-- Retractions of the exact suspended attaching-cone inclusion are equivalent to retractions of
 the concrete suspended-Hopf cone inclusion. -/
 theorem exists_exactHopfSuspensionMappingConeIncl_retraction_iff :
@@ -209,5 +354,48 @@ theorem exists_exactHopfSuspensionMappingConeIncl_homotopy_retraction_iff :
   rw [exists_topologicalMappingConeIncl_homotopy_retraction_iff_nullhomotopic,
     exists_topologicalMappingConeIncl_homotopy_retraction_iff_nullhomotopic,
     exactHopfSuspension_nullhomotopic_iff_suspendedHopf]
+
+/-- A nonzero canonical square on the exact projective attaching cone rules out a strict
+retraction of its bottom inclusion. -/
+theorem not_exists_exactHopfSuspensionMappingConeIncl_retraction_of_sqTwo
+    (hSq : sqTwoHsingDegreeThree exactHopfSuspensionCanonicalLift ≠ 0) :
+    ¬ ∃ r : exactHopfSuspensionMappingCone ⟶
+        topologicalSuspension (TopCat.of (ComplexProjectiveModel 1)),
+      topologicalMappingConeIncl
+          (topologicalSuspensionMap (TopCat.diskBoundary 4)
+            diskBoundaryFourComplexHopfMap) ≫ r =
+        𝟙 (topologicalSuspension (TopCat.of (ComplexProjectiveModel 1))) := by
+  intro hexact
+  have hconcreteSq :
+      sqTwoHsingDegreeThree suspendedHopfCanonicalLift ≠ 0 :=
+    exactHopfSuspensionCanonicalLift_sqTwo_ne_zero_iff.mp hSq
+  have hclass : suspendedHopfMapClass ≠ 1 :=
+    suspendedHopfMapClass_ne_one_of_not_nullhomotopic
+      (suspendedHopfMap_not_nullhomotopic_of_canonical_sqTwo hconcreteSq)
+  exact
+    (suspendedHopfMapClass_ne_one_iff_not_exists_mappingConeIncl_retraction.mp hclass)
+      (exists_exactHopfSuspensionMappingConeIncl_retraction_iff.mp hexact)
+
+/-- The same exact-cone square obstruction rules out a homotopy retraction. -/
+theorem not_exists_exactHopfSuspensionMappingConeIncl_homotopy_retraction_of_sqTwo
+    (hSq : sqTwoHsingDegreeThree exactHopfSuspensionCanonicalLift ≠ 0) :
+    ¬ ∃ r : exactHopfSuspensionMappingCone ⟶
+        topologicalSuspension (TopCat.of (ComplexProjectiveModel 1)),
+      Nonempty (TopCat.Homotopy
+        (topologicalMappingConeIncl
+            (topologicalSuspensionMap (TopCat.diskBoundary 4)
+              diskBoundaryFourComplexHopfMap) ≫ r)
+        (𝟙 (topologicalSuspension
+          (TopCat.of (ComplexProjectiveModel 1))))) := by
+  intro hexact
+  have hconcreteSq :
+      sqTwoHsingDegreeThree suspendedHopfCanonicalLift ≠ 0 :=
+    exactHopfSuspensionCanonicalLift_sqTwo_ne_zero_iff.mp hSq
+  have hclass : suspendedHopfMapClass ≠ 1 :=
+    suspendedHopfMapClass_ne_one_of_not_nullhomotopic
+      (suspendedHopfMap_not_nullhomotopic_of_canonical_sqTwo hconcreteSq)
+  exact
+    (suspendedHopfMapClass_ne_one_iff_not_exists_mappingConeIncl_homotopy_retraction.mp hclass)
+      (exists_exactHopfSuspensionMappingConeIncl_homotopy_retraction_iff.mp hexact)
 
 end Submission
