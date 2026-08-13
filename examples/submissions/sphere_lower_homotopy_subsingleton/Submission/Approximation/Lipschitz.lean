@@ -3,6 +3,7 @@ Copyright (c) 2026 Vasily Ilin. All rights reserved.
 Released under Apache 2.0 license.
 -/
 import Submission.Approximation.Approx
+import Mathlib.Analysis.Calculus.ContDiff.Operations
 import Mathlib.Topology.MetricSpace.HausdorffDimension
 
 /-!
@@ -139,6 +140,16 @@ theorem locallyLipschitz_smul_const
     _ = ((‖c‖₊ * K : NNReal) : ℝ) * dist y z := by
       simp only [NNReal.coe_mul, coe_nnnorm]
       ring
+
+/-- Pointwise scalar multiplication of two locally Lipschitz maps is locally Lipschitz. -/
+theorem locallyLipschitz_smul
+    {β : Type*} [PseudoMetricSpace β]
+    [NormedAddCommGroup E] [NormedSpace ℝ E]
+    {f : β → ℝ} {g : β → E}
+    (hf : LocallyLipschitz f) (hg : LocallyLipschitz g) :
+    LocallyLipschitz fun x => f x • g x := by
+  exact (contDiff_smul (𝕜 := ℝ) (𝕜' := ℝ) (F := E) (n := 1)).locallyLipschitz.comp
+    (hf.prodMk hg)
 
 /-- A finite sum of locally Lipschitz maps into a normed additive group is locally Lipschitz. -/
 theorem locallyLipschitz_finset_sum

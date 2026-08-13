@@ -83,6 +83,7 @@ import Submission.Approximation.TwoPointCompression
 import Submission.Approximation.ProjectedFiberPrism
 import Submission.Approximation.Lipschitz
 import Submission.Approximation.AlignedPairGeneralPosition
+import Submission.Approximation.ScaledAlignedPairGeneralPosition
 import Submission.SphereSuspensionPointed
 
 open HomotopyGroups
