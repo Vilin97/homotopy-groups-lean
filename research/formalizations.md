@@ -564,9 +564,13 @@ nonzero classes in degrees two and four, proves that every degree-four class is
 zero or the selected top class, normalizes a top integral homology generator,
 and identifies the `CP^2` cup-square assertion both with the Hopf-cone
 Hopf-invariant-one assertion and with one explicit Alexander--Whitney
-evaluation on selected projective-plane representatives. This is a checked
-geometric reformulation of the remaining lower-bound target, not yet its
-evaluation, so it does not recolor a lattice cell.
+evaluation on selected projective-plane representatives. The cocycle and cycle
+can moreover be transported directly through the homeomorphism, and Lean proves
+that mapping them back recovers the original Hopf-cone cycle and its evaluation
+exactly. The analogous degree-three cocycle, degree-five cycle, and cup-one
+evaluation are transported onto the exact suspended projective attaching cone.
+These are checked geometric reformulations of the remaining lower-bound target,
+not yet its evaluation, so they do not recolor a lattice cell.
 
 `DiagonalInduction.lean` records the exact equivalence between the two computed
 diagonal groups `pi_1(S^1)` and `pi_2(S^2)`, and proves that a uniform family of
