@@ -74,6 +74,19 @@ theorem homDualMap_id : homDualMap (𝟙 K) G = 𝟙 (homDual K G) := by
   simp
 
 @[simp]
+theorem homDualMap_zero : homDualMap (0 : K ⟶ L) G = 0 := by
+  ext i φ
+  simp
+  rfl
+
+@[simp]
+theorem homDualMap_add (f g : K ⟶ L) :
+    homDualMap (f + g) G = homDualMap f G + homDualMap g G := by
+  ext i φ
+  simp
+  rfl
+
+@[simp]
 theorem homDualMap_comp (f : K ⟶ L) {M : HomologicalComplex AddCommGrpCat.{0} c} (g : L ⟶ M) :
     homDualMap (f ≫ g) G = homDualMap g G ≫ homDualMap f G := by
   ext i φ

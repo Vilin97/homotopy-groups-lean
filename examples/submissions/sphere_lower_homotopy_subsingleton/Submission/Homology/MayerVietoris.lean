@@ -212,4 +212,14 @@ theorem mvSC_shortExact : (mvSC A B).ShortExact :=
   mvShortComplex_shortExact (mvQa_comp_mvPa A B) (injective_mvQb_app A B)
     (injective_mvPa_app A B) (injective_mvPb_app A B) (mvCover A B) (mvInter A B)
 
+/-- The explicit degreewise splitting underlying `mvSC_shortExact`.  Naming this splitting lets
+contravariant additive functors, in particular `Hom(-, G)`, reuse the stronger input rather than
+only the resulting short exactness. -/
+def mvSCSplitting (n : ℕ) : ShortComplex.Splitting
+    ((mvSC A B).map
+      (HomologicalComplex.eval AddCommGrpCat.{0} (ComplexShape.down ℕ) n)) :=
+  mvSplitting (mvQa A B) (mvQb A B) (mvPa A B) (mvPb A B) (mvQa_comp_mvPa A B) n
+    (injective_mvQb_app A B n) (injective_mvPa_app A B n) (injective_mvPb_app A B n)
+    (mvCover A B n) (mvInter A B n)
+
 end Submission

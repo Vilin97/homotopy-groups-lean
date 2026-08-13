@@ -3,6 +3,7 @@ Copyright (c) 2026 Vasily Ilin. All rights reserved.
 Released under Apache 2.0 license.
 -/
 import Submission.Cohomology.CellAttachmentSqTwo
+import Submission.Cohomology.Sphere
 import Submission.HopfMap
 import Submission.SphereSuspension
 
@@ -11,8 +12,9 @@ import Submission.SphereSuspension
 
 This file suspends the concrete quadratic Hopf map using the explicit reduced-suspension sphere
 homeomorphisms.  It names the resulting continuous map `S⁴ ⟶ S³`, its `TopCat` incarnation,
-and its mapping cone.  The general degree-three `Sq²` obstruction then specializes to a precise
-finite target: produce the bottom class on this cone and prove that its square is nonzero.
+and its mapping cone.  The sphere-side square vanishes because `H⁵(S³; F₂) = 0`.  The general
+degree-three `Sq²` obstruction therefore specializes to a precise finite target: produce the
+bottom class on this cone and prove that its square is nonzero.
 
 ## Main definitions and results
 
@@ -60,14 +62,13 @@ theorem suspendedHopfMap_not_nullhomotopic_of_sqTwo
     (hu : Hsing.map suspendedHopfMappingConeIncl 3 u = x)
     (hi : Function.Injective
       (Hsing.map (R := ZMod 2) suspendedHopfMappingConeIncl 3))
-    (hx : sqTwoHsingDegreeThree x = 0)
     (huSq : sqTwoHsingDegreeThree u ≠ 0) :
     ¬ Nonempty
       (TopCat.Homotopy suspendedHopfTopCat
         (TopCat.const (sphereBasepoint 3))) := by
   intro H
   apply not_exists_nullhomotopy_of_mappingCone_sqTwoDegreeThree
-    suspendedHopfTopCat x u hu hi hx huSq
+    suspendedHopfTopCat x u hu hi (sqTwoHsingDegreeThree_sphere_three x) huSq
   let p : 𝟙_ TopCat.{0} ⟶ TopCat.of (Sph 3) :=
     TopCat.const (sphereBasepoint 3)
   have hp : toUnit (TopCat.of (Sph 4)) ≫ p =
