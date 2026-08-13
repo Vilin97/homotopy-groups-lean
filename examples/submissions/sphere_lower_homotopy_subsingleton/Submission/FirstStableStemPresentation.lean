@@ -162,6 +162,35 @@ theorem piFourSphereThreeEdgeGenerator_ne_one_of_element_ne_one
     x = piFourSphereThreeEdgeGenerator ^ k := hk.symm
     _ = 1 := by rw [hedge]; simp
 
+/-- If doubling kills the edge generator, cyclicity leaves only the identity and the edge
+generator as possible elements of `π₄(S³)`. -/
+theorem piFourSphereThree_eq_one_or_eq_edge_of_edge_square
+    (hsquare : piFourSphereThreeEdgeGenerator ^ 2 = 1)
+    (x : π_ 4 (Sph 3) (sphereBasepoint 3)) :
+    x = 1 ∨ x = piFourSphereThreeEdgeGenerator := by
+  obtain ⟨k, hk⟩ := Subgroup.mem_zpowers_iff.mp
+    (by
+      rw [piFourSphereThreeEdgeGenerator_zpowers_eq_top]
+      exact trivial : x ∈ Subgroup.zpowers piFourSphereThreeEdgeGenerator)
+  rw [← hk]
+  have hsquareZ : piFourSphereThreeEdgeGenerator ^ (2 : ℤ) = 1 := by
+    simpa only [Int.reduceOfNat, zpow_ofNat] using hsquare
+  obtain ⟨l, rfl | rfl⟩ := Int.even_or_odd' k
+  · left
+    rw [zpow_mul]
+    rw [hsquareZ, one_zpow]
+  · right
+    rw [zpow_add, zpow_mul]
+    rw [hsquareZ, one_zpow, one_mul, zpow_one]
+
+/-- Under the order-two upper bound, any known nonidentity class must be the distinguished edge
+generator. -/
+theorem eq_piFourSphereThreeEdgeGenerator_of_edge_square_of_ne_one
+    (hsquare : piFourSphereThreeEdgeGenerator ^ 2 = 1)
+    (x : π_ 4 (Sph 3) (sphereBasepoint 3)) (hx : x ≠ 1) :
+    x = piFourSphereThreeEdgeGenerator :=
+  (piFourSphereThree_eq_one_or_eq_edge_of_edge_square hsquare x).resolve_left hx
+
 /-- The order of the edge generator is precisely the previously isolated cardinal modulus. -/
 theorem orderOf_piFourSphereThreeEdgeGenerator :
     orderOf piFourSphereThreeEdgeGenerator = piFourSphereThreeModulus := by

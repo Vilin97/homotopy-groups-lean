@@ -150,6 +150,19 @@ theorem piFourSphereThreeGeometricHopfGenerator_ne_one_of_not_nullhomotopic
   rw [← suspendedHopfMapClass_eq_piFourSphereThreeGeometricHopfGenerator]
   exact suspendedHopfMapClass_ne_one_of_not_nullhomotopic hnull
 
+/-- Once the edge square is known to vanish, any nullhomotopy obstruction for the geometric
+suspended Hopf map also identifies its class with the cap-excision edge generator. -/
+theorem piFourSphereThreeGeometricHopfGenerator_eq_edge_of_edge_square_of_not_nullhomotopic
+    (hsquare : piFourSphereThreeEdgeGenerator ^ 2 = 1)
+    (hnull : ¬ Nonempty
+      (TopCat.Homotopy suspendedHopfTopCat
+        (TopCat.const (sphereBasepoint 3)))) :
+    piFourSphereThreeGeometricHopfGenerator =
+      piFourSphereThreeEdgeGenerator :=
+  eq_piFourSphereThreeEdgeGenerator_of_edge_square_of_ne_one hsquare
+    piFourSphereThreeGeometricHopfGenerator
+    (piFourSphereThreeGeometricHopfGenerator_ne_one_of_not_nullhomotopic hnull)
+
 /-- The raw unreduced suspension of the Hopf map as a morphism of topological spaces. -/
 noncomputable def hopfSuspensionTopCat :
     TopCat.of (Susp (Sph 3)) ⟶ TopCat.of (Susp (Sph 2)) :=
@@ -784,6 +797,31 @@ theorem piFourSphereThreeEdgeGenerator_ne_one_of_canonical_evaluation
   piFourSphereThreeEdgeGenerator_ne_one_of_element_ne_one
     piFourSphereThreeGeometricHopfGenerator
     (piFourSphereThreeGeometricHopfGenerator_ne_one_of_canonical_evaluation heval)
+
+/-- The independent upper and lower certificates also identify the geometric suspended-Hopf
+class with the cap-excision edge generator; no additional coordinate comparison is needed once
+the group has exponent two. -/
+theorem piFourSphereThreeGeometricHopfGenerator_eq_edge_of_edge_square_and_canonical_evaluation
+    (hsquare : piFourSphereThreeEdgeGenerator ^ 2 = 1)
+    (heval : sqTwoHsingDegreeThreeRepresentativeEvaluation
+      suspendedHopfCanonicalCocycle suspendedHopfCanonicalFiveCycle ≠ 0) :
+    piFourSphereThreeGeometricHopfGenerator =
+      piFourSphereThreeEdgeGenerator :=
+  eq_piFourSphereThreeEdgeGenerator_of_edge_square_of_ne_one hsquare
+    piFourSphereThreeGeometricHopfGenerator
+    (piFourSphereThreeGeometricHopfGenerator_ne_one_of_canonical_evaluation heval)
+
+/-- Under the two exact first-stem certificates, the explicit suspended quadratic Hopf map
+itself represents the cap-excision edge generator. -/
+theorem suspendedHopfMapClass_eq_edge_of_edge_square_and_canonical_evaluation
+    (hsquare : piFourSphereThreeEdgeGenerator ^ 2 = 1)
+    (heval : sqTwoHsingDegreeThreeRepresentativeEvaluation
+      suspendedHopfCanonicalCocycle suspendedHopfCanonicalFiveCycle ≠ 0) :
+    suspendedHopfMapClass = piFourSphereThreeEdgeGenerator := by
+  rw [suspendedHopfMapClass_eq_piFourSphereThreeGeometricHopfGenerator]
+  exact
+    piFourSphereThreeGeometricHopfGenerator_eq_edge_of_edge_square_and_canonical_evaluation
+      hsquare heval
 
 /-- The exact first-stem computation now follows from its independent upper and lower halves:
 doubling kills the edge generator, while the fixed cup-one evaluation detects a nonidentity
