@@ -562,8 +562,11 @@ The same exact coordinate change now transports the normalized mod-two
 cohomology of the concrete Hopf cone onto the geometric `CP^2`. Lean defines
 nonzero classes in degrees two and four, proves that every class in either
 degree is zero or the corresponding selected generator, and proves vanishing
-in degrees one, three, and every degree at least five. Thus the entire
-positive-degree additive mod-two cohomology is computed. The degree-one
+in degrees one, three, and every degree at least five. It also transports path
+connectedness through the mapping-cone deformation retractions and the exact
+homeomorphism, proves that the degree-zero unit is nonzero, and classifies every
+degree-zero class as zero or that unit. Thus the entire additive mod-two
+cohomology is computed. The degree-one
 argument comes from a reusable Mayer--Vietoris theorem for covers whose pieces
 have vanishing first cohomology and whose overlap is path connected; the
 standard mapping-cone overlap is proved path connected directly from its
