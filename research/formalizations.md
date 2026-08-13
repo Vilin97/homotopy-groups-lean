@@ -555,7 +555,10 @@ Puppe development now constructs the canonical map `C_f -> CX`, proves on both
 pushout summands that `C_f -> Sigma A -> Sigma X` factors through this
 contractible cone, and supplies the resulting explicit nullhomotopy. It also
 proves the section-obstruction direction: a homotopy section of the collapse
-would nullhomotope `Sigma f`. The converse sphere-class lifting direction is
+would nullhomotope `Sigma f`. More generally, Lean now proves the first
+mapping-out coexactness statement on the nose: `g : X -> Y` extends across
+`C_f` if and only if `f` followed by `g` is nullhomotopic, with mutually
+explicit extension and contraction constructions. The sphere-class lifting direction is
 the remaining exactness bridge needed to turn the existing no-section result
 into suspended-Hopf nontriviality.  The two
 point-set suspension models are now naturally homeomorphic, and the suspension
