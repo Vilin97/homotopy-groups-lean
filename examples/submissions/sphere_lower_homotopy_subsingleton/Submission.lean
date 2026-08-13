@@ -102,8 +102,10 @@ import Submission.Cohomology.MayerVietoris
 import Submission.Cohomology.Sphere
 import Submission.Cohomology.Pair
 import Submission.Cohomology.DiskPair
+import Submission.Cohomology.ConePair
 import Submission.Cohomology.Excision
 import Submission.Cohomology.CellAttachmentSqTwo
+import Submission.Topology.MappingConeCover
 import Submission.SuspendedHopfMap
 import Submission.SphereSuspensionPointed
 

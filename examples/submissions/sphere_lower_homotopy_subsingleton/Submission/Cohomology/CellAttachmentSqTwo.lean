@@ -3,6 +3,7 @@ Copyright (c) 2026 Vasily Ilin. All rights reserved.
 Released under Apache 2.0 license.
 -/
 import Submission.Cohomology.SingularSqTwo
+import Submission.Cohomology.Pair
 import Submission.Topology.CellAttachment
 import Submission.Topology.MappingCone
 
@@ -19,7 +20,7 @@ map is non-null.  The remaining specialization must compute the two mod-two coho
 and the nonzero value of `Sq²` on the Hopf attachment.
 -/
 
-open CategoryTheory MonoidalCategory CartesianMonoidalCategory
+open CategoryTheory Limits MonoidalCategory CartesianMonoidalCategory
 open scoped TopCat
 
 noncomputable section
@@ -81,5 +82,24 @@ theorem not_exists_nullhomotopy_of_mappingCone_sqTwoDegreeThree
   obtain ⟨p, ⟨H⟩⟩ := hH
   exact ⟨topologicalMappingConeRetractOfNullhomotopy f p H,
     topologicalMappingConeIncl_retractOfNullhomotopy f p H⟩
+
+/-- Relative vanishing in degrees three and four supplies the injectivity hypothesis in the
+mapping-cone obstruction automatically. -/
+theorem not_exists_nullhomotopy_of_mappingCone_sqTwoDegreeThree_of_relative_vanishing
+    {A X : TopCat.{0}} (f : A ⟶ X)
+    (x : Hsing 3 X (ZMod 2))
+    (u : Hsing 3 (topologicalMappingCone f) (ZMod 2))
+    (hu : Hsing.map (topologicalMappingConeIncl f) 3 u = x)
+    (h₃ : IsZero (HrelCoh (topologicalMappingConeIncl f)
+      (AddCommGrpCat.of (ZMod 2)) 3))
+    (h₄ : IsZero (HrelCoh (topologicalMappingConeIncl f)
+      (AddCommGrpCat.of (ZMod 2)) 4))
+    (hx : sqTwoHsingDegreeThree x = 0)
+    (huSq : sqTwoHsingDegreeThree u ≠ 0) :
+    ¬ ∃ (p : 𝟙_ TopCat.{0} ⟶ X),
+      Nonempty (TopCat.Homotopy f (toUnit A ≫ p)) :=
+  not_exists_nullhomotopy_of_mappingCone_sqTwoDegreeThree f x u hu
+    (bijective_Hsing_map_of_isZero_HrelCoh
+      (topologicalMappingConeIncl f) (ZMod 2) 3 h₃ h₄).1 hx huSq
 
 end Submission

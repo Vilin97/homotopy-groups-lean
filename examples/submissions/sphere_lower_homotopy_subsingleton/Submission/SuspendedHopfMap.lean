@@ -23,7 +23,7 @@ bottom class on this cone and prove that its square is nonzero.
 * `Submission.suspendedHopfMap_not_nullhomotopic_of_sqTwo`.
 -/
 
-open CategoryTheory MonoidalCategory CartesianMonoidalCategory
+open CategoryTheory Limits MonoidalCategory CartesianMonoidalCategory
 open scoped Topology Topology.Homotopy unitInterval
 
 noncomputable section
@@ -79,5 +79,17 @@ theorem suspendedHopfMap_not_nullhomotopic_of_sqTwo
     (congrArg
       (fun q : TopCat.of (Sph 4) ⟶ TopCat.of (Sph 3) ↦ q.hom)
       hp.symm)⟩
+
+/-- Once the suspended-Hopf mapping-cone pair vanishes in degrees three and four, the bottom
+restriction is bijective. -/
+theorem suspendedHopfMappingConeIncl_bijective_of_relative_vanishing
+    (h₃ : IsZero (HrelCoh suspendedHopfMappingConeIncl
+      (AddCommGrpCat.of (ZMod 2)) 3))
+    (h₄ : IsZero (HrelCoh suspendedHopfMappingConeIncl
+      (AddCommGrpCat.of (ZMod 2)) 4)) :
+    Function.Bijective
+      (Hsing.map (R := ZMod 2) suspendedHopfMappingConeIncl 3) :=
+  bijective_Hsing_map_of_isZero_HrelCoh
+    suspendedHopfMappingConeIncl (ZMod 2) 3 h₃ h₄
 
 end Submission
