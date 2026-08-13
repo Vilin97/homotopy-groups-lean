@@ -58,6 +58,13 @@ noncomputable def hopfSuspensionTopCat :
     TopCat.of (Susp (Sph 3)) ⟶ TopCat.of (Susp (Sph 2)) :=
   TopCat.ofHom (Susp.map hopfMap)
 
+/-- The raw suspension of the Hopf map commutes with the chosen sphere coordinates. -/
+theorem hopfSuspensionTopCat_naturality :
+    hopfSuspensionTopCat ≫ (suspSphTopCatIso 2).hom =
+      (suspSphTopCatIso 3).hom ≫ suspendedHopfTopCat := by
+  simpa only [hopfSuspensionTopCat, suspendedHopfTopCat, suspendedHopfMap] using
+    sphereSuspensionMap_naturality 3 2 hopfMap
+
 /-- The mapping cone of the raw unreduced suspension of the Hopf map. -/
 noncomputable abbrev hopfSuspensionMappingCone : TopCat.{0} :=
   topologicalMappingCone hopfSuspensionTopCat
@@ -76,9 +83,31 @@ identifies the raw-suspension mapping cone with the concrete suspended-Hopf mapp
 noncomputable def hopfSuspensionMappingConeIso :
     hopfSuspensionMappingCone ≅ suspendedHopfMappingCone :=
   topologicalMappingConeIso hopfSuspensionTopCat suspendedHopfTopCat
-    (suspSphTopCatIso 3).hom (suspSphTopCatIso 2).hom (by
-      simpa only [hopfSuspensionTopCat, suspendedHopfTopCat, suspendedHopfMap] using
-        sphereSuspensionMap_naturality 3 2 hopfMap)
+    (suspSphTopCatIso 3).hom (suspSphTopCatIso 2).hom
+    hopfSuspensionTopCat_naturality
+
+/-- On the bottom summand, the suspension-cone coordinate isomorphism is the chosen
+suspension-sphere homeomorphism. -/
+@[reassoc]
+theorem hopfSuspensionMappingConeIso_hom_incl :
+    topologicalMappingConeIncl hopfSuspensionTopCat ≫
+        hopfSuspensionMappingConeIso.hom =
+      (suspSphTopCatIso 2).hom ≫ suspendedHopfMappingConeIncl := by
+  exact topologicalMappingConeIncl_map hopfSuspensionTopCat suspendedHopfTopCat
+    (suspSphTopCatIso 3).hom (suspSphTopCatIso 2).hom
+    hopfSuspensionTopCat_naturality
+
+/-- On the cone summand, the suspension-cone coordinate isomorphism is induced by the chosen
+homeomorphism of attaching spheres. -/
+@[reassoc]
+theorem hopfSuspensionMappingConeIso_hom_coneIncl :
+    topologicalMappingConeConeIncl hopfSuspensionTopCat ≫
+        hopfSuspensionMappingConeIso.hom =
+      topologicalConeMap (suspSphTopCatIso 3).hom ≫
+        topologicalMappingConeConeIncl suspendedHopfTopCat := by
+  exact topologicalMappingConeConeIncl_map hopfSuspensionTopCat suspendedHopfTopCat
+    (suspSphTopCatIso 3).hom (suspSphTopCatIso 2).hom
+    hopfSuspensionTopCat_naturality
 
 /-- The fifth homology of the suspended-Hopf mapping cone is infinite cyclic. -/
 noncomputable def suspendedHopfMappingConeHomologyIsoInt :
