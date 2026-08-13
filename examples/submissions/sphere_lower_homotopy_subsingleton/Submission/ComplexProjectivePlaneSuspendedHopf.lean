@@ -323,6 +323,100 @@ theorem exactHopfSuspensionCanonicalLift_sqTwo_eq_top_iff_evaluation_eq_one :
   exactHopfSuspensionCanonicalLift_sqTwo_eq_top_iff.trans
     suspendedHopfCanonicalLift_sqTwo_eq_top_iff_evaluation_eq_one
 
+/-! ### Exact transport of the cup-one representatives -/
+
+/-- The normalized degree-five homology generator on the exact suspended projective cone. -/
+noncomputable def exactHopfSuspensionMappingConeHomologyGenerator :
+    Hgrp 5 exactHopfSuspensionMappingCone :=
+  HgrpMap 5 exactHopfSuspensionMappingConeIsoConcrete.inv
+    suspendedHopfMappingConeHomologyGenerator
+
+@[simp]
+theorem exactHopfSuspensionMappingConeHomologyGenerator_map :
+    HgrpMap 5 exactHopfSuspensionMappingConeIsoConcrete.hom
+        exactHopfSuspensionMappingConeHomologyGenerator =
+      suspendedHopfMappingConeHomologyGenerator := by
+  rw [exactHopfSuspensionMappingConeHomologyGenerator,
+    ← ConcreteCategory.comp_apply, ← HgrpMap_comp,
+    Iso.inv_hom_id, HgrpMap_id, ConcreteCategory.id_apply]
+
+/-- The canonical suspended-Hopf cocycle pulled back to the exact projective cone. -/
+noncomputable def exactHopfSuspensionTransportedCanonicalCocycle :
+    cocycles (TopCat.toSSet.obj exactHopfSuspensionMappingCone) (ZMod 2) 3 :=
+  cocyclesMap (ZMod 2)
+    (TopCat.toSSet.map exactHopfSuspensionMappingConeIsoConcrete.hom) 3
+    suspendedHopfCanonicalCocycle
+
+@[simp]
+theorem exactHopfSuspensionTransportedCanonicalCocycle_mk :
+    Hcoh.mk exactHopfSuspensionTransportedCanonicalCocycle =
+      exactHopfSuspensionCanonicalLift := by
+  rw [exactHopfSuspensionTransportedCanonicalCocycle,
+    ← Hcoh.map_mk, suspendedHopfCanonicalCocycle_mk]
+  rfl
+
+/-- The canonical suspended-Hopf five-cycle transported to the exact projective cone. -/
+noncomputable def exactHopfSuspensionTransportedFiveCycle :
+    (Csing exactHopfSuspensionMappingCone).X 5 :=
+  (CsingMap exactHopfSuspensionMappingConeIsoConcrete.inv).f 5
+    suspendedHopfCanonicalFiveCycle
+
+/-- The transported degree-five chain is a cycle. -/
+theorem exactHopfSuspensionTransportedFiveCycle_isCycle :
+    (Csing exactHopfSuspensionMappingCone).d 5
+      ((ComplexShape.down ℕ).next 5)
+      exactHopfSuspensionTransportedFiveCycle = 0 := by
+  rw [exactHopfSuspensionTransportedFiveCycle,
+    ← ConcreteCategory.comp_apply,
+    (CsingMap exactHopfSuspensionMappingConeIsoConcrete.inv).comm]
+  rw [ConcreteCategory.comp_apply, suspendedHopfCanonicalFiveCycle_isCycle, map_zero]
+
+/-- The transported cycle represents the normalized exact-cone homology generator. -/
+@[simp]
+theorem homologyMk_exactHopfSuspensionTransportedFiveCycle :
+    homologyMk exactHopfSuspensionTransportedFiveCycle
+        exactHopfSuspensionTransportedFiveCycle_isCycle =
+      exactHopfSuspensionMappingConeHomologyGenerator := by
+  rw [exactHopfSuspensionMappingConeHomologyGenerator,
+    ← homologyMk_suspendedHopfCanonicalFiveCycle]
+  exact (homologyMap_homologyMk
+    (CsingMap exactHopfSuspensionMappingConeIsoConcrete.inv)
+    suspendedHopfCanonicalFiveCycle suspendedHopfCanonicalFiveCycle_isCycle
+    exactHopfSuspensionTransportedFiveCycle_isCycle).symm
+
+/-- Transporting the exact-cone cycle back recovers the selected suspended-Hopf cycle. -/
+@[simp]
+theorem exactHopfSuspensionTransportedFiveCycle_map :
+    (CsingMap exactHopfSuspensionMappingConeIsoConcrete.hom).f 5
+        exactHopfSuspensionTransportedFiveCycle =
+      suspendedHopfCanonicalFiveCycle := by
+  rw [exactHopfSuspensionTransportedFiveCycle,
+    ← ConcreteCategory.comp_apply, ← HomologicalComplex.comp_f,
+    ← CsingMap_comp, Iso.inv_hom_id, CsingMap_id,
+    HomologicalComplex.id_f, ConcreteCategory.id_apply]
+
+/-- The exact transported representatives retain the canonical cup-one value. -/
+theorem exactHopfSuspensionTransportedRepresentativeEvaluation :
+    sqTwoHsingDegreeThreeRepresentativeEvaluation
+        exactHopfSuspensionTransportedCanonicalCocycle
+        exactHopfSuspensionTransportedFiveCycle =
+      sqTwoHsingDegreeThreeRepresentativeEvaluation
+        suspendedHopfCanonicalCocycle suspendedHopfCanonicalFiveCycle := by
+  unfold exactHopfSuspensionTransportedCanonicalCocycle
+  rw [sqTwoHsingDegreeThreeRepresentativeEvaluation_natural
+    exactHopfSuspensionMappingConeIsoConcrete.hom]
+  rw [exactHopfSuspensionTransportedFiveCycle_map]
+
+/-- The exact projective-cone square identity is precisely the transported cup-one evaluation. -/
+theorem exactHopfSuspensionCanonicalLift_sqTwo_eq_top_iff_transportedEvaluation_eq_one :
+    sqTwoHsingDegreeThree exactHopfSuspensionCanonicalLift =
+        exactHopfSuspensionMappingConeTopClass ↔
+      sqTwoHsingDegreeThreeRepresentativeEvaluation
+        exactHopfSuspensionTransportedCanonicalCocycle
+        exactHopfSuspensionTransportedFiveCycle = 1 := by
+  rw [exactHopfSuspensionTransportedRepresentativeEvaluation,
+    exactHopfSuspensionCanonicalLift_sqTwo_eq_top_iff_evaluation_eq_one]
+
 /-- Retractions of the exact suspended attaching-cone inclusion are equivalent to retractions of
 the concrete suspended-Hopf cone inclusion. -/
 theorem exists_exactHopfSuspensionMappingConeIncl_retraction_iff :

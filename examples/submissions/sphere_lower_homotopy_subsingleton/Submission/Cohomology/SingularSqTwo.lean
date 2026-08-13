@@ -65,6 +65,49 @@ theorem sqTwoHsingDegreeThreeRepresentativeEvaluation_gen {X : TopCat.{0}}
   exact dualXEquiv_symm_apply (TopCat.toSSet.obj X) (ZMod 2) 5
     (cupOneThreeSelfCocycle f : Cochain (TopCat.toSSet.obj X) (ZMod 2) 5) σ
 
+/-- Pulling a degree-three cocycle back and evaluating its cup-one square on a source chain
+agrees with evaluating the original square on the pushed-forward chain. -/
+theorem sqTwoHsingDegreeThreeRepresentativeEvaluation_natural
+    {X Y : TopCat.{0}} (F : X ⟶ Y)
+    (f : cocycles (TopCat.toSSet.obj Y) (ZMod 2) 3)
+    (z : (Csing X).X 5) :
+    sqTwoHsingDegreeThreeRepresentativeEvaluation
+        (cocyclesMap (ZMod 2) (TopCat.toSSet.map F) 3 f) z =
+      sqTwoHsingDegreeThreeRepresentativeEvaluation f
+        ((CsingMap F).f 5 z) := by
+  have hhom :
+      (dualXEquiv (TopCat.toSSet.obj X) (ZMod 2) 5).symm
+          (cupOneThreeSelfCocycle
+            (cocyclesMap (ZMod 2) (TopCat.toSSet.map F) 3 f) :
+              Cochain (TopCat.toSSet.obj X) (ZMod 2) 5) =
+        (CsingMap F).f 5 ≫
+          (dualXEquiv (TopCat.toSSet.obj Y) (ZMod 2) 5).symm
+            (cupOneThreeSelfCocycle f :
+              Cochain (TopCat.toSSet.obj Y) (ZMod 2) 5) := by
+    apply chainComplexX_hom_ext
+    intro σ
+    change _ = (dualXEquiv (TopCat.toSSet.obj Y) (ZMod 2) 5).symm
+      (cupOne (by omega : 1 ≤ 3)
+        (f : Cochain (TopCat.toSSet.obj Y) (ZMod 2) 3) f)
+      ((CsingMap F).f 5 (gen σ))
+    rw [dualXEquiv_symm_apply]
+    change cupOne (by omega : 1 ≤ 3)
+        (Cochain.pullback (TopCat.toSSet.map F) 3
+          (f : Cochain (TopCat.toSSet.obj Y) (ZMod 2) 3))
+        (Cochain.pullback (TopCat.toSSet.map F) 3
+          (f : Cochain (TopCat.toSSet.obj Y) (ZMod 2) 3)) σ = _
+    rw [← pullback_cupOne, Cochain.pullback_apply]
+    change _ = (dualXEquiv (TopCat.toSSet.obj Y) (ZMod 2) 5).symm
+      (cupOne (by omega : 1 ≤ 3)
+        (f : Cochain (TopCat.toSSet.obj Y) (ZMod 2) 3) f)
+      ((CsingMap F).f 5 (gen σ))
+    have hmap :
+        (CsingMap F).f 5 (gen σ) =
+          gen ((TopCat.toSSet.map F).app _ σ) :=
+      chainComplexMap_gen (TopCat.toSSet.map F) σ
+    rw [hmap, dualXEquiv_symm_apply]
+  exact ConcreteCategory.congr_hom hhom z
+
 set_option backward.isDefEq.respectTransparency false in
 /-- Evaluation of a represented degree-three square is its explicit cup-one chain
 functional. -/
