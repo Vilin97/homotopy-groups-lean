@@ -4,6 +4,7 @@ Released under Apache 2.0 license.
 -/
 import Submission.Cohomology.MappingCone
 import Submission.Cohomology.MappingConePair
+import Submission.Cohomology.SingularCupEvaluation
 import Submission.Cohomology.SphereTop
 import Submission.Homology.MappingCone
 import Submission.HopfMap
@@ -229,6 +230,17 @@ theorem hopfMappingConeBottomClass_ne_zero : hopfMappingConeBottomClass ≠ 0 :=
   apply sphereTopModTwoClass_ne_zero 1
   rw [← hopfMappingConeBottomClass_restrict, hzero, map_zero]
 
+/-- A fixed singular cocycle representing the canonical bottom class. -/
+noncomputable def hopfMappingConeBottomCocycle :
+    cocycles (TopCat.toSSet.obj hopfMappingCone) (ZMod 2) 2 :=
+  Classical.choose (Hcoh.mk_surjective hopfMappingConeBottomClass)
+
+/-- The chosen bottom cocycle represents the canonical bottom class. -/
+@[simp]
+theorem hopfMappingConeBottomCocycle_mk :
+    Hcoh.mk hopfMappingConeBottomCocycle = hopfMappingConeBottomClass :=
+  Classical.choose_spec (Hcoh.mk_surjective hopfMappingConeBottomClass)
+
 /-- The cup square whose value is the mod-two Hopf invariant of the concrete Hopf map. -/
 noncomputable def hopfMappingConeBottomSquare : Hsing 4 hopfMappingCone (ZMod 2) :=
   cupHsing (by omega : 2 + 2 = 4)
@@ -250,6 +262,35 @@ theorem hopfMappingConeBottomSquare_eq_top_iff_ne_zero :
     rw [← htop, hzero]
   · exact hopfMappingConeBottomSquare_eq_zero_or_eq_top.resolve_left
 
+/-! ### A chain-level Hopf-invariant target -/
+
+/-- A cycle representative of the selected degree-four mapping-cone homology generator. -/
+noncomputable def hopfCanonicalFourCycleSub : cyclesSub (Csing hopfMappingCone) 4 :=
+  Classical.choose
+    (homologyMkHom_surjective
+      (K := Csing hopfMappingCone) (i := 4) hopfMappingConeHomologyGenerator)
+
+/-- The underlying degree-four singular chain of the canonical cycle representative. -/
+noncomputable abbrev hopfCanonicalFourCycle : (Csing hopfMappingCone).X 4 :=
+  hopfCanonicalFourCycleSub
+
+/-- The canonical degree-four chain is a cycle. -/
+theorem hopfCanonicalFourCycle_isCycle :
+    (Csing hopfMappingCone).d 4
+      ((ComplexShape.down ℕ).next 4) hopfCanonicalFourCycle = 0 :=
+  hopfCanonicalFourCycleSub.2
+
+/-- The homology class of the canonical cycle is the selected generator. -/
+@[simp]
+theorem homologyMk_hopfCanonicalFourCycle :
+    homologyMk hopfCanonicalFourCycle hopfCanonicalFourCycle_isCycle =
+      hopfMappingConeHomologyGenerator := by
+  change homologyMkHom (Csing hopfMappingCone) 4 hopfCanonicalFourCycleSub =
+    hopfMappingConeHomologyGenerator
+  exact Classical.choose_spec
+    (homologyMkHom_surjective
+      (K := Csing hopfMappingCone) (i := 4) hopfMappingConeHomologyGenerator)
+
 set_option backward.isDefEq.respectTransparency false in
 /-- The Hopf invariant is one exactly when the bottom square evaluates to one on the normalized
 top homology generator. -/
@@ -268,5 +309,28 @@ theorem hopfMappingConeBottomSquare_eq_top_iff_evaluation_eq_one :
     · rw [hzero, map_zero, map_zero] at heval
       exact (zero_ne_one heval).elim
     · exact htop
+
+set_option backward.isDefEq.respectTransparency false in
+/-- The Hopf-invariant-one assertion is exactly one explicit Alexander--Whitney evaluation on
+the selected degree-four cycle. -/
+theorem hopfMappingConeBottomSquare_eq_top_iff_representativeEvaluation_eq_one :
+    hopfMappingConeBottomSquare = hopfMappingConeTopClass ↔
+      cupHsingRepresentativeEvaluation (by omega : 2 + 2 = 4)
+        hopfMappingConeBottomCocycle hopfMappingConeBottomCocycle
+        hopfCanonicalFourCycle = (1 : ZMod 2) := by
+  have hvalue := cupHsing_evaluation_homologyMk (R := ZMod 2)
+    (by omega : 2 + 2 = 4)
+    hopfMappingConeBottomCocycle hopfMappingConeBottomCocycle
+    hopfCanonicalFourCycle hopfCanonicalFourCycle_isCycle
+  rw [hopfMappingConeBottomCocycle_mk, homologyMk_hopfCanonicalFourCycle] at hvalue
+  change ev (Csing hopfMappingCone) modTwoCoefficients 4
+      (HsingEquivDualHomology (ZMod 2) hopfMappingCone 4
+        hopfMappingConeBottomSquare)
+      hopfMappingConeHomologyGenerator =
+    cupHsingRepresentativeEvaluation (by omega : 2 + 2 = 4)
+      hopfMappingConeBottomCocycle hopfMappingConeBottomCocycle
+      hopfCanonicalFourCycle at hvalue
+  rw [← hvalue]
+  exact hopfMappingConeBottomSquare_eq_top_iff_evaluation_eq_one
 
 end Submission
