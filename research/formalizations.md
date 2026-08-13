@@ -585,8 +585,9 @@ normalized endpoint; Lean identifies its time-one map exactly with comparison
 followed by section.  Concatenating the two explicit homotopies proves the full
 Puppe equivalence
 `C_(C_f -> Sigma A) ≃ₕ Sigma X`, with the canonical comparison as forward map.
-At the canonical suspension-point basepoints this also gives multiplicative
-equivalences in every finite homotopy-group dimension.  Specializing
+At every basepoint this also gives a specified multiplicative equivalence and a
+bijective induced comparison map in every finite homotopy-group dimension; the
+canonical suspension-point formulation is recorded separately.  Specializing
 homotopy coexactness to the identity characterizes a retraction of the cofiber
 collapse by nullhomotopy of the bottom inclusion.  For the exact Hopf mapping
 cone, its normalized nonzero degree-two mod-two class detects that inclusion,
