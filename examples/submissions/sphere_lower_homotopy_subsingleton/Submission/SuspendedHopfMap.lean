@@ -27,6 +27,7 @@ evaluate nontrivially on the selected degree-five cycle.
 * `Submission.suspendedHopfTopCat` and `Submission.suspendedHopfMappingCone`;
 * `Submission.suspendedHopfMappingConeClass_eq_zero_or_eq_top`;
 * `Submission.suspendedHopfCanonicalLift_sqTwo_eq_top_of_cycle_evaluation`;
+* `Submission.suspendedHopfCanonicalLift_sqTwo_eq_top_iff_evaluation_eq_one`;
 * `Submission.suspendedHopfMap_not_nullhomotopic_of_sqTwo`.
 -/
 
@@ -438,6 +439,31 @@ theorem suspendedHopfCanonicalLift_sqTwo_eq_top_of_cycle_evaluation
   suspendedHopfMappingConeClass_eq_top_of_ne_zero
     (suspendedHopfCanonicalLift_sqTwo_ne_zero_of_cycle
       suspendedHopfCanonicalFiveCycle suspendedHopfCanonicalFiveCycle_isCycle heval)
+
+set_option backward.isDefEq.respectTransparency false in
+/-- The remaining cup-one calculation is exactly the assertion that the canonical square is
+the normalized top class. -/
+theorem suspendedHopfCanonicalLift_sqTwo_eq_top_iff_evaluation_eq_one :
+    sqTwoHsingDegreeThree suspendedHopfCanonicalLift =
+        suspendedHopfMappingConeTopClass ↔
+      sqTwoHsingDegreeThreeRepresentativeEvaluation
+        suspendedHopfCanonicalCocycle suspendedHopfCanonicalFiveCycle = 1 := by
+  constructor
+  · intro hSq
+    have hvalue := sqTwoHsingDegreeThree_evaluation_homologyMk
+      suspendedHopfCanonicalCocycle suspendedHopfCanonicalFiveCycle
+      suspendedHopfCanonicalFiveCycle_isCycle
+    rw [suspendedHopfCanonicalCocycle_mk] at hvalue
+    have hdual := congrArg
+      (HsingEquivDualHomology (ZMod 2) suspendedHopfMappingCone 5) hSq
+    rw [suspendedHopfMappingConeTopClass, AddEquiv.apply_symm_apply] at hdual
+    rw [hdual, suspendedHopfMappingConeTopDualClass_canonical_cycle_evaluation]
+      at hvalue
+    exact hvalue.symm
+  · intro heval
+    apply suspendedHopfCanonicalLift_sqTwo_eq_top_of_cycle_evaluation
+    rw [heval]
+    exact one_ne_zero
 
 /-- The remaining Steenrod-square calculation for the canonical lift implies that the suspended
 Hopf map is not nullhomotopic. -/

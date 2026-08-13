@@ -19,6 +19,8 @@ mapping cones.
 
 * `Submission.sqTwoHsingDegreeThree` is `Sq² : H³(X; F₂) → H⁵(X; F₂)`.
 * `Submission.sqTwoHsingDegreeThree_natural` proves naturality under continuous maps.
+* `Submission.sqTwoHsingDegreeThree_evaluation_homologyMk` identifies evaluation of the square
+  with its explicit cup-one representative.
 * `Submission.sqTwoHsingDegreeThree_mk_ne_zero_of_eval_cycle` detects a nonzero square by
   evaluating its representing cocycle on a cycle.
 * `Submission.Hsing.map_congr` proves that homotopic maps induce the same pullback.
@@ -62,6 +64,30 @@ theorem sqTwoHsingDegreeThreeRepresentativeEvaluation_gen {X : TopCat.{0}}
         (f : Cochain (TopCat.toSSet.obj X) (ZMod 2) 3) f σ := by
   exact dualXEquiv_symm_apply (TopCat.toSSet.obj X) (ZMod 2) 5
     (cupOneThreeSelfCocycle f : Cochain (TopCat.toSSet.obj X) (ZMod 2) 5) σ
+
+set_option backward.isDefEq.respectTransparency false in
+/-- Evaluation of a represented degree-three square is its explicit cup-one chain
+functional. -/
+theorem sqTwoHsingDegreeThree_evaluation_homologyMk {X : TopCat.{0}}
+    (f : cocycles (TopCat.toSSet.obj X) (ZMod 2) 3)
+    (z : (Csing X).X 5)
+    (hz : (Csing X).d 5 ((ComplexShape.down ℕ).next 5) z = 0) :
+    ev (Csing X) (AddCommGrpCat.of (ZMod 2)) 5
+        (HsingEquivDualHomology (ZMod 2) X 5
+          (sqTwoHsingDegreeThree (Hcoh.mk f)))
+        (homologyMk z hz) =
+      sqTwoHsingDegreeThreeRepresentativeEvaluation f z := by
+  rw [sqTwoHsingDegreeThree_mk]
+  change ev (Csing X) (AddCommGrpCat.of (ZMod 2)) 5
+      (HcohEquivDualHomology (TopCat.toSSet.obj X) (ZMod 2) 5
+        (Hcoh.mk (cupOneThreeSelfCocycle f)))
+      (homologyMk z hz) =
+    (dualXEquiv (TopCat.toSSet.obj X) (ZMod 2) 5).symm
+      (cupOneThreeSelfCocycle f :
+        Cochain (TopCat.toSSet.obj X) (ZMod 2) 5) z
+  rw [HcohEquivDualHomology_mk, ev_homologyMk, evCocycle_homologyMk,
+    dualCocyclesEquiv_coe]
+  rfl
 
 /-- A nonzero evaluation of the cup-one square on a degree-five cycle proves that the
 corresponding singular `Sq²` class is nonzero. -/
