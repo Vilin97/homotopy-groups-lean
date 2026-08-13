@@ -332,4 +332,119 @@ theorem diskBoundaryFourConeHomeomorphDisk_point (u : PUnit) :
       (topologicalConePointIncl (TopCat.diskBoundary 4) u) = _
   exact diskBoundaryFourConeToDisk_point u
 
+/-! ## Comparison of the Hopf mapping cone and cell attachment -/
+
+noncomputable def diskBoundaryFourConeIsoDisk :
+    topologicalCone (TopCat.diskBoundary.{0} 4) ≅ TopCat.disk.{0} 4 :=
+  TopCat.isoOfHomeo diskBoundaryFourConeHomeomorphDisk
+
+@[reassoc]
+theorem diskBoundaryFourConeBaseIncl_isoDisk :
+    topologicalConeBaseIncl (TopCat.diskBoundary.{0} 4) ≫
+        diskBoundaryFourConeIsoDisk.hom =
+      TopCat.diskBoundaryIncl 4 := by
+  apply TopCat.hom_ext
+  apply ContinuousMap.ext
+  intro z
+  change diskBoundaryFourConeHomeomorphDisk
+      (topologicalConeBaseIncl (TopCat.diskBoundary 4) z) =
+    TopCat.diskBoundaryIncl 4 z
+  rw [topologicalConeBaseIncl]
+  change diskBoundaryFourConeHomeomorphDisk
+      (topologicalConeCylinderIncl (TopCat.diskBoundary 4) (z, 0)) = _
+  rw [diskBoundaryFourConeHomeomorphDisk_cylinder]
+  apply ULift.ext
+  apply Subtype.ext
+  change (1 - (TopCat.I.homeomorph (0 : TopCat.I.{0}) : ℝ)) •
+      z.down.val = z.down.val
+  rw [TopCat.I.homeomorph_zero]
+  norm_num
+
+/-- Replace the cone summand in the Hopf mapping cone by the radially homeomorphic four-disk. -/
+noncomputable def complexProjectivePlaneMappingConeToCell :
+    topologicalMappingCone diskBoundaryFourComplexHopfMap ⟶
+      cellAttachment diskBoundaryFourComplexHopfMap :=
+  pushout.desc
+    (cellAttachmentIncl diskBoundaryFourComplexHopfMap)
+    (diskBoundaryFourConeIsoDisk.hom ≫
+      cellAttachmentDisk diskBoundaryFourComplexHopfMap)
+    (by
+      rw [cellAttachment_condition, ← Category.assoc,
+        diskBoundaryFourConeBaseIncl_isoDisk])
+
+@[reassoc (attr := simp)]
+theorem complexProjectivePlaneMappingConeIncl_toCell :
+    topologicalMappingConeIncl diskBoundaryFourComplexHopfMap ≫
+        complexProjectivePlaneMappingConeToCell =
+      cellAttachmentIncl diskBoundaryFourComplexHopfMap :=
+  pushout.inl_desc _ _ _
+
+@[reassoc (attr := simp)]
+theorem complexProjectivePlaneMappingConeConeIncl_toCell :
+    topologicalMappingConeConeIncl diskBoundaryFourComplexHopfMap ≫
+        complexProjectivePlaneMappingConeToCell =
+      diskBoundaryFourConeIsoDisk.hom ≫
+        cellAttachmentDisk diskBoundaryFourComplexHopfMap :=
+  pushout.inr_desc _ _ _
+
+/-- Replace the disk summand in the Hopf cell attachment by the inverse cone model. -/
+noncomputable def complexProjectivePlaneCellToMappingCone :
+    cellAttachment diskBoundaryFourComplexHopfMap ⟶
+      topologicalMappingCone diskBoundaryFourComplexHopfMap :=
+  cellAttachmentDesc diskBoundaryFourComplexHopfMap
+    (topologicalMappingConeIncl diskBoundaryFourComplexHopfMap)
+    (diskBoundaryFourConeIsoDisk.inv ≫
+      topologicalMappingConeConeIncl diskBoundaryFourComplexHopfMap)
+    (by
+      rw [topologicalMappingCone_condition, ← Category.assoc,
+        ← diskBoundaryFourConeBaseIncl_isoDisk]
+      simp)
+
+@[reassoc (attr := simp)]
+theorem complexProjectivePlaneCellIncl_toMappingCone :
+    cellAttachmentIncl diskBoundaryFourComplexHopfMap ≫
+        complexProjectivePlaneCellToMappingCone =
+      topologicalMappingConeIncl diskBoundaryFourComplexHopfMap :=
+  cellAttachmentIncl_desc _ _ _ _
+
+@[reassoc (attr := simp)]
+theorem complexProjectivePlaneCellDisk_toMappingCone :
+    cellAttachmentDisk diskBoundaryFourComplexHopfMap ≫
+        complexProjectivePlaneCellToMappingCone =
+      diskBoundaryFourConeIsoDisk.inv ≫
+        topologicalMappingConeConeIncl diskBoundaryFourComplexHopfMap :=
+  cellAttachmentDisk_desc _ _ _ _
+
+theorem complexProjectivePlaneMappingConeToCell_comp_toMappingCone :
+    complexProjectivePlaneMappingConeToCell ≫
+        complexProjectivePlaneCellToMappingCone =
+      𝟙 (topologicalMappingCone diskBoundaryFourComplexHopfMap) := by
+  apply topologicalMappingCone_hom_ext diskBoundaryFourComplexHopfMap
+  · simp
+  · simp
+
+theorem complexProjectivePlaneCellToMappingCone_comp_toCell :
+    complexProjectivePlaneCellToMappingCone ≫
+        complexProjectivePlaneMappingConeToCell =
+      𝟙 (cellAttachment diskBoundaryFourComplexHopfMap) := by
+  apply cellAttachment_hom_ext diskBoundaryFourComplexHopfMap
+  · simp
+  · simp
+
+/-- The mapping cone of the exact Hopf attaching map is isomorphic to its four-cell
+attachment. -/
+noncomputable def complexProjectivePlaneMappingConeIsoCell :
+    topologicalMappingCone diskBoundaryFourComplexHopfMap ≅
+      cellAttachment diskBoundaryFourComplexHopfMap where
+  hom := complexProjectivePlaneMappingConeToCell
+  inv := complexProjectivePlaneCellToMappingCone
+  hom_inv_id := complexProjectivePlaneMappingConeToCell_comp_toMappingCone
+  inv_hom_id := complexProjectivePlaneCellToMappingCone_comp_toCell
+
+/-- The mapping cone of the exact Hopf attaching map is homeomorphic to the Hopf cell model. -/
+noncomputable def complexProjectivePlaneMappingConeHomeomorphCell :
+    topologicalMappingCone diskBoundaryFourComplexHopfMap ≃ₜ
+      cellAttachment diskBoundaryFourComplexHopfMap :=
+  TopCat.homeoOfIso complexProjectivePlaneMappingConeIsoCell
+
 end Submission
