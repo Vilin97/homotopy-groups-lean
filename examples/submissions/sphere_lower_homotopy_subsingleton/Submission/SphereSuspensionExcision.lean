@@ -104,6 +104,55 @@ noncomputable def sphCapOverlapHomotopyEquiv (m : ℕ) :
     ContinuousMap.HomotopyEquiv (sphCapOverlapInLower m) (Sph m) :=
   (sphCapOverlapHomeoBelt m).toHomotopyEquiv.trans (sphBeltHomotopyEquiv m)
 
+/-- Zero height as a point of the closed belt interval. -/
+def sphBeltZeroHeight : Set.Icc (-(1 / 3) : ℝ) (1 / 3) :=
+  ⟨0, by constructor <;> norm_num⟩
+
+/-- The belt-coordinate homeomorphism sends the chosen overlap basepoint to the standard sphere
+basepoint at height zero. -/
+theorem sphBeltHomeo_capOverlapBase (m : ℕ) :
+    sphBeltHomeo m (sphCapOverlapHomeoBelt m (sphCapOverlapBase m)) =
+      (sphereBasepoint m, sphBeltZeroHeight) := by
+  apply (sphBeltHomeo m).symm.injective
+  rw [Homeomorph.symm_apply_apply]
+  change sphCapOverlapHomeoBelt m (sphCapOverlapBase m) =
+    beltOfProd (sphereBasepoint m, sphBeltZeroHeight)
+  apply Subtype.ext
+  apply Subtype.ext
+  apply PiLp.ext
+  intro i
+  induction i using Fin.lastCases with
+  | last =>
+      simp [sphCapOverlapHomeoBelt, sphCapOverlapBase, sphLowerCapBase,
+        sphBeltZeroHeight, beltOfProd, beltVec, sphereBasepoint, snocLp, Fin.snoc]
+  | cast j =>
+      have hj : (j : ℕ) ≤ m := Nat.le_of_lt_succ j.isLt
+      by_cases h : j = 0
+      · subst j
+        simp [sphCapOverlapHomeoBelt, sphCapOverlapBase, sphLowerCapBase,
+          sphBeltZeroHeight, beltOfProd, beltVec, sphereBasepoint, snocLp,
+          Fin.snoc, Pi.single_apply]
+        apply Fin.ext
+        rfl
+      · simp [sphCapOverlapHomeoBelt, sphCapOverlapBase, sphLowerCapBase,
+          sphBeltZeroHeight, beltOfProd, beltVec, sphereBasepoint, snocLp, Fin.snoc, hj, h]
+
+/-- The maintained overlap equivalence preserves the chosen sphere basepoint exactly. -/
+@[simp]
+theorem sphCapOverlapHomotopyEquiv_basepoint (m : ℕ) :
+    sphCapOverlapHomotopyEquiv m (sphCapOverlapBase m) = sphereBasepoint m := by
+  change sphBeltHomotopyEquiv m
+      (sphCapOverlapHomeoBelt m (sphCapOverlapBase m)) = sphereBasepoint m
+  change (sphBeltHomeo m
+      (sphCapOverlapHomeoBelt m (sphCapOverlapBase m))).1 = sphereBasepoint m
+  rw [sphBeltHomeo_capOverlapBase]
+
+/-- The constant path, typed using the exact basepoint calculation for the overlap equivalence. -/
+noncomputable def sphCapOverlapBasePath (m : ℕ) :
+    Path (sphereBasepoint m)
+      (sphCapOverlapHomotopyEquiv m (sphCapOverlapBase m)) := by
+  rw [sphCapOverlapHomotopyEquiv_basepoint]
+
 /-- The overlap in the upper cap is homotopy-equivalent to the equatorial metric sphere. -/
 noncomputable def sphCapOverlapInUpperHomotopyEquiv (m : ℕ) :
     ContinuousMap.HomotopyEquiv (sphCapOverlapInUpper m) (Sph m) :=
@@ -200,16 +249,12 @@ theorem sphereSuspensionExcisionHomAt_diagonal (n : ℕ) :
 /-- The absolute sphere homomorphism obtained from cap excision by the two contractible-pair
 long exact sequences.  It is an abstract suspension comparison; identifying it with either
 concrete geometric suspension construction is a separate problem. -/
-noncomputable def sphereCapSuspensionHomAt (m q : ℕ) (hm : 1 ≤ m) :
+noncomputable def sphereCapSuspensionHomAt (m q : ℕ) (_hm : 1 ≤ m) :
     π_ (q + 1) (Sph m) (sphereBasepoint m) →*
       π_ (q + 2) (Sph (m + 1)) (sphereBasepoint (m + 1)) := by
   let e := sphCapOverlapHomotopyEquiv m
-  letI : PathConnectedSpace (Sph m) := pathConnectedSpace_sph hm
-  let p : Path (sphereBasepoint m) (e (sphCapOverlapBase m)) :=
-    PathConnectedSpace.somePath _ _
-  let change := Classical.choice
-    (homotopyGroup_change_basepoint q (Sph m)
-      (sphereBasepoint m) (e (sphCapOverlapBase m)) p)
+  let change := HomotopyGroup.transportMulEquiv (N := Fin (q + 1))
+    (sphCapOverlapBasePath m)
   exact (piHom_of_relativeHom (sphCapOverlapBase m) (sphUpperCapBase m) e q
     (sphereSuspensionExcisionHomAt m q)).comp change.toMonoidHom
 
@@ -219,12 +264,8 @@ theorem sphereCapSuspensionHomAt_surjective_of_capExcision
     (hsurj : Function.Surjective (sphereSuspensionExcisionHomAt m q)) :
     Function.Surjective (sphereCapSuspensionHomAt m q hm) := by
   let e := sphCapOverlapHomotopyEquiv m
-  letI : PathConnectedSpace (Sph m) := pathConnectedSpace_sph hm
-  let p : Path (sphereBasepoint m) (e (sphCapOverlapBase m)) :=
-    PathConnectedSpace.somePath _ _
-  let change := Classical.choice
-    (homotopyGroup_change_basepoint q (Sph m)
-      (sphereBasepoint m) (e (sphCapOverlapBase m)) p)
+  let change := HomotopyGroup.transportMulEquiv (N := Fin (q + 1))
+    (sphCapOverlapBasePath m)
   change Function.Surjective
     ((piHom_of_relativeHom (sphCapOverlapBase m) (sphUpperCapBase m) e q
       (sphereSuspensionExcisionHomAt m q)).comp change.toMonoidHom)
@@ -238,12 +279,8 @@ theorem sphereCapSuspensionHomAt_injective_of_capExcision
     (hinj : Function.Injective (sphereSuspensionExcisionHomAt m q)) :
     Function.Injective (sphereCapSuspensionHomAt m q hm) := by
   let e := sphCapOverlapHomotopyEquiv m
-  letI : PathConnectedSpace (Sph m) := pathConnectedSpace_sph hm
-  let p : Path (sphereBasepoint m) (e (sphCapOverlapBase m)) :=
-    PathConnectedSpace.somePath _ _
-  let change := Classical.choice
-    (homotopyGroup_change_basepoint q (Sph m)
-      (sphereBasepoint m) (e (sphCapOverlapBase m)) p)
+  let change := HomotopyGroup.transportMulEquiv (N := Fin (q + 1))
+    (sphCapOverlapBasePath m)
   change Function.Injective
     ((piHom_of_relativeHom (sphCapOverlapBase m) (sphUpperCapBase m) e q
       (sphereSuspensionExcisionHomAt m q)).comp change.toMonoidHom)
@@ -320,12 +357,8 @@ theorem nonempty_sphereDiagonalSuspensionMulEquiv_of_capExcision
   let raw := piMulEquiv_of_bijective_relativeMap
     (sphCapOverlapBase (n + 1)) (sphUpperCapBase (n + 1)) e n
     (sphCapInclusionPairMap (n + 1)) hbij
-  letI : PathConnectedSpace (Sph (n + 1)) := pathConnectedSpace_sph (Nat.succ_le_succ (Nat.zero_le n))
-  let p : Path (sphereBasepoint (n + 1)) (e (sphCapOverlapBase (n + 1))) :=
-    PathConnectedSpace.somePath _ _
-  let change := Classical.choice
-    (homotopyGroup_change_basepoint n (Sph (n + 1))
-      (sphereBasepoint (n + 1)) (e (sphCapOverlapBase (n + 1))) p)
+  let change := HomotopyGroup.transportMulEquiv (N := Fin (n + 1))
+    (sphCapOverlapBasePath (n + 1))
   exact ⟨change.trans raw⟩
 
 /-- Exact integral diagonal reduced to bijectivity of the canonical relative cap-inclusion maps.
