@@ -71,6 +71,7 @@ import Submission.SphereSuspensionHurewicz
 import Submission.SphereSuspensionExcisionStable
 import Submission.SphereSuspension
 import Submission.Approximation.RelativeSphere
+import Submission.Approximation.RelativeSphereGeneralPosition
 import Submission.SphereSuspensionPointed
 
 open HomotopyGroups
