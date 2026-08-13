@@ -266,4 +266,18 @@ theorem topologicalSuspensionToSecondMappingCone_toSuspension (f : A ⟶ X) :
       Category.comp_id] using
       topologicalSuspensionConeIncl_toSecondMappingCone_toSuspension f
 
+/-- The cofiber collapse has a homotopy retraction precisely when the target summand is itself
+nullhomotopic inside the mapping cone.  This is the identity-map specialization of homotopy
+coexactness at `C_f`. -/
+theorem exists_topologicalMappingConeCollapse_homotopy_retraction_iff_incl_nullhomotopic
+    (f : A ⟶ X) :
+    (∃ r : topologicalSuspension A ⟶ topologicalMappingCone f,
+        Nonempty (TopCat.Homotopy
+          (topologicalMappingConeCollapse f ≫ r)
+          (𝟙 (topologicalMappingCone f)))) ↔
+      (topologicalMappingConeIncl f).hom.Nullhomotopic := by
+  simpa only [Category.comp_id] using
+    (exists_topologicalSuspension_homotopy_factorization_iff_nullhomotopic_restriction
+      f (𝟙 (topologicalMappingCone f)))
+
 end Submission

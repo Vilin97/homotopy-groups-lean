@@ -306,6 +306,18 @@ theorem hopfMappingConeBottomClass_ne_zero : hopfMappingConeBottomClass ≠ 0 :=
   apply sphereTopModTwoClass_ne_zero 1
   rw [← hopfMappingConeBottomClass_restrict, hzero, map_zero]
 
+/-- The bottom-sphere inclusion in the Hopf mapping cone is not nullhomotopic: its pullback
+detects the nonzero normalized degree-two class. -/
+theorem hopfMappingConeIncl_not_nullhomotopic :
+    ¬ hopfMappingConeIncl.hom.Nullhomotopic := by
+  rintro ⟨z, ⟨H⟩⟩
+  change TopCat.Homotopy hopfMappingConeIncl (TopCat.const z) at H
+  have hmaps := LinearMap.congr_fun
+    (Hsing.map_congr (R := ZMod 2) H 2) hopfMappingConeBottomClass
+  rw [hopfMappingConeBottomClass_restrict,
+    Hsing.map_const_eq_zero (ZMod 2) z 2 (by omega), LinearMap.zero_apply] at hmaps
+  exact sphereTopModTwoClass_ne_zero 1 hmaps
+
 /-- Every degree-two class of the Hopf mapping cone is zero or its normalized bottom class. -/
 theorem hopfMappingConeDegreeTwoClass_eq_zero_or_eq_bottom
     (x : Hsing 2 hopfMappingCone (ZMod 2)) :

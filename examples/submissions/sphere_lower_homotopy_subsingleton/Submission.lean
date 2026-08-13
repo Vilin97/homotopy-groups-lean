@@ -126,6 +126,7 @@ import Submission.Topology.SuspensionComparison
 import Submission.Topology.Puppe
 import Submission.Topology.PuppeComparison
 import Submission.HopfMappingCone
+import Submission.HopfPuppe
 import Submission.ComplexProjectivePlaneCohomology
 import Submission.SuspendedHopfMap
 import Submission.ComplexProjectivePlaneSuspendedHopf

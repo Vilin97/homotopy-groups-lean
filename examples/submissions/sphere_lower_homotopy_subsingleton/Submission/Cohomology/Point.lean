@@ -92,6 +92,22 @@ theorem subsingleton_Hsing_punit (n : ℕ) (hn : n ≠ 0) :
   · rw [point_cocycle_eq_zero_of_odd R ho f]
     exact Submodule.zero_mem _
 
+/-- A constant map induces the zero pullback on positive-degree singular cohomology. -/
+theorem Hsing.map_const_eq_zero {X Y : TopCat.{0}} (y : Y)
+    (n : ℕ) (hn : n ≠ 0) :
+    Hsing.map (R := R) (TopCat.const y : X ⟶ Y) n = 0 := by
+  letI : Subsingleton (Hsing n cohomologyPoint R) :=
+    subsingleton_Hsing_punit R n hn
+  have hconst : (TopCat.const y : X ⟶ Y) = toPt X ≫ ptIncl y := by
+    ext x
+    rfl
+  rw [hconst, Hsing.map_comp]
+  ext a
+  rw [LinearMap.comp_apply]
+  have hpoint : Hsing.map (R := R) (ptIncl y) n a = 0 :=
+    Subsingleton.elim _ _
+  simp [hpoint]
+
 /-- The positive-degree singular cohomology of a contractible space is trivial. -/
 theorem subsingleton_Hsing_of_contractible {X : TopCat.{0}} [ContractibleSpace X]
     (n : ℕ) (hn : n ≠ 0) : Subsingleton (Hsing n X R) := by
