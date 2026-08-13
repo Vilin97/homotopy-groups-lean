@@ -72,6 +72,7 @@ import Submission.SphereSuspensionExcisionStable
 import Submission.SphereSuspension
 import Submission.Approximation.RelativeSphere
 import Submission.Approximation.BoundaryRelativeGeneralPosition
+import Submission.Approximation.RelativeSphereHomotopy
 import Submission.Approximation.RelativeSphereGeneralPosition
 import Submission.SphereSuspensionPointed
 
