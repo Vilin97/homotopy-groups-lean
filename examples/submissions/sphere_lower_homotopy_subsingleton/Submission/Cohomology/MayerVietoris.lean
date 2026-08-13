@@ -2,7 +2,7 @@
 Copyright (c) 2026 Vasily Ilin. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 -/
-import Submission.Cohomology.DualShortExact
+import Submission.Cohomology.DualConnecting
 import Submission.Cohomology.DualBridge
 import Submission.Cohomology.DegreeZero
 import Submission.Cohomology.Point
@@ -149,6 +149,19 @@ theorem isZero_dualHomology_one_of_contractible_cover
 /-- The successor relation in the cochain-complex shape. -/
 lemma mvCohRel (n : ℕ) : (ComplexShape.down ℕ).symm.Rel n (n + 1) := rfl
 
+set_option backward.isDefEq.respectTransparency false in
+/-- Before transporting small chains back to the ambient space, the homological and
+cohomological Mayer--Vietoris connecting maps are adjoint under evaluation. -/
+theorem mvCohSC_delta_adjoint (n : ℕ)
+    (Φ : (mvCohSC A B R).X₃.homology n)
+    (z : (mvSC A B).X₃.homology (n + 1)) :
+    ev (mvSC A B).X₃ (AddCommGrpCat.of R) (n + 1)
+        ((mvCohSC_shortExact A B R).δ n (n + 1) (mvCohRel n) Φ) z =
+      ev (mvSC A B).X₁ (AddCommGrpCat.of R) n Φ
+        ((mvSC_shortExact A B).δ (n + 1) n (mvRel n) z) := by
+  exact ev_delta_adjoint_chain (mvSC A B) (AddCommGrpCat.of R)
+    (mvSC_shortExact A B) (mvCohSC_shortExact A B R) n Φ z
+
 /-- The connecting morphism on dual-complex cohomology,
 `Hⁿ(A ∩ B;R) ⟶ Hⁿ⁺¹(X;R)`. -/
 def mvCohδ (h : interior A ∪ interior B = Set.univ) (n : ℕ) :
@@ -156,6 +169,44 @@ def mvCohδ (h : interior A ∪ interior B = Set.univ) (n : ℕ) :
       (homDual (Csing X) (AddCommGrpCat.of R)).homology (n + 1) :=
   (mvCohSC_shortExact A B R).δ n (n + 1) (mvCohRel n) ≫
     (mvSmallCohomologyIso A B R h (n + 1)).inv
+
+set_option backward.isDefEq.respectTransparency false in
+/-- The homological and cohomological Mayer--Vietoris connecting maps are adjoint under the
+evaluation pairing. -/
+theorem mv_delta_adjoint (h : interior A ∪ interior B = Set.univ) (n : ℕ)
+    (Φ : (homDual (Csing (TopCat.of (A ∩ B : Set X)))
+      (AddCommGrpCat.of R)).homology n)
+    (z : Hgrp (n + 1) X) :
+    ev (Csing X) (AddCommGrpCat.of R) (n + 1) (mvCohδ A B R h n Φ) z =
+      ev (Csing (TopCat.of (A ∩ B : Set X))) (AddCommGrpCat.of R) n Φ
+        (mvδ A B h n z) := by
+  let Ψ := (mvCohSC_shortExact A B R).δ n (n + 1) (mvCohRel n) Φ
+  let w := (mvSmallHomologyIso A B h (n + 1)).inv z
+  have hadj := mvCohSC_delta_adjoint A B R n Φ w
+  have hnat := ev_naturality_apply
+    (K := (mvSC A B).X₃) (L := Csing X) (G := AddCommGrpCat.of R)
+    (i := n + 1) (mvSmallIncl A B) ((mvSmallCohomologyIso A B R h (n + 1)).inv Ψ)
+  have hnat' := ConcreteCategory.congr_hom hnat w
+  dsimp only [Ψ, w] at hadj hnat' ⊢
+  change ev (mvSC A B).X₃ (AddCommGrpCat.of R) (n + 1)
+      ((mvSmallCohomologyIso A B R h (n + 1)).hom
+        ((mvSmallCohomologyIso A B R h (n + 1)).inv
+          ((mvCohSC_shortExact A B R).δ n (n + 1) (mvCohRel n) Φ)))
+      ((mvSmallHomologyIso A B h (n + 1)).inv z) =
+    ev (Csing X) (AddCommGrpCat.of R) (n + 1)
+      ((mvSmallCohomologyIso A B R h (n + 1)).inv
+        ((mvCohSC_shortExact A B R).δ n (n + 1) (mvCohRel n) Φ))
+      ((mvSmallHomologyIso A B h (n + 1)).hom
+        ((mvSmallHomologyIso A B h (n + 1)).inv z)) at hnat'
+  simp only [← ConcreteCategory.comp_apply, Iso.inv_hom_id,
+    ConcreteCategory.id_apply] at hnat'
+  change ev (Csing X) (AddCommGrpCat.of R) (n + 1)
+      ((mvSmallCohomologyIso A B R h (n + 1)).inv
+        ((mvCohSC_shortExact A B R).δ n (n + 1) (mvCohRel n) Φ)) z =
+    ev (Csing (TopCat.of (A ∩ B : Set X))) (AddCommGrpCat.of R) n Φ
+      ((mvSC_shortExact A B).δ (n + 1) n (mvRel n)
+        ((mvSmallHomologyIso A B h (n + 1)).inv z))
+  exact hnat'.symm.trans hadj
 
 /-- For a cover by two contractible pieces, the cohomological connecting map is the suspension
 isomorphism `Hⁿ⁺¹(A ∩ B;R) ≅ Hⁿ⁺²(X;R)`. -/
