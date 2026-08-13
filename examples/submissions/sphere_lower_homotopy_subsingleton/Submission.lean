@@ -104,6 +104,7 @@ import Submission.Cohomology.Pair
 import Submission.Cohomology.DiskPair
 import Submission.Cohomology.ConePair
 import Submission.Cohomology.Excision
+import Submission.Cohomology.MappingConePair
 import Submission.Cohomology.CellAttachmentSqTwo
 import Submission.Topology.MappingConeCover
 import Submission.SuspendedHopfMap

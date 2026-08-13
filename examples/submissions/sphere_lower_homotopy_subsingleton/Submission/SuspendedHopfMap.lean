@@ -3,6 +3,7 @@ Copyright (c) 2026 Vasily Ilin. All rights reserved.
 Released under Apache 2.0 license.
 -/
 import Submission.Cohomology.CellAttachmentSqTwo
+import Submission.Cohomology.MappingConePair
 import Submission.Cohomology.Sphere
 import Submission.HopfMap
 import Submission.SphereSuspension
@@ -91,5 +92,54 @@ theorem suspendedHopfMappingConeIncl_bijective_of_relative_vanishing
       (Hsing.map (R := ZMod 2) suspendedHopfMappingConeIncl 3) :=
   bijective_Hsing_map_of_isZero_HrelCoh
     suspendedHopfMappingConeIncl (ZMod 2) 3 h₃ h₄
+
+/-- Degree-three relative mod-two cohomology of the suspended-Hopf mapping-cone pair vanishes. -/
+theorem isZero_HrelCoh_suspendedHopfMappingConeIncl_three :
+    IsZero (HrelCoh suspendedHopfMappingConeIncl
+      (AddCommGrpCat.of (ZMod 2)) 3) := by
+  simpa using isZero_HrelCoh_mappingConeIncl_sphere
+    (ZMod 2) 4 suspendedHopfTopCat 2 (by omega) (by omega)
+
+/-- Degree-four relative mod-two cohomology of the suspended-Hopf mapping-cone pair vanishes. -/
+theorem isZero_HrelCoh_suspendedHopfMappingConeIncl_four :
+    IsZero (HrelCoh suspendedHopfMappingConeIncl
+      (AddCommGrpCat.of (ZMod 2)) 4) := by
+  simpa using isZero_HrelCoh_mappingConeIncl_sphere
+    (ZMod 2) 4 suspendedHopfTopCat 3 (by omega) (by omega)
+
+/-- Restriction from the suspended-Hopf mapping cone to its bottom `S³` is bijective in
+degree three. -/
+theorem suspendedHopfMappingConeIncl_bijective :
+    Function.Bijective
+      (Hsing.map (R := ZMod 2) suspendedHopfMappingConeIncl 3) :=
+  suspendedHopfMappingConeIncl_bijective_of_relative_vanishing
+    isZero_HrelCoh_suspendedHopfMappingConeIncl_three
+    isZero_HrelCoh_suspendedHopfMappingConeIncl_four
+
+/-- The unique degree-three class on the suspended-Hopf mapping cone restricting to `x`. -/
+noncomputable def suspendedHopfMappingConeLift
+    (x : Hsing 3 (TopCat.of (Sph 3)) (ZMod 2)) :
+    Hsing 3 suspendedHopfMappingCone (ZMod 2) :=
+  Classical.choose (suspendedHopfMappingConeIncl_bijective.2 x)
+
+@[simp]
+theorem suspendedHopfMappingConeLift_restrict
+    (x : Hsing 3 (TopCat.of (Sph 3)) (ZMod 2)) :
+    Hsing.map suspendedHopfMappingConeIncl 3
+      (suspendedHopfMappingConeLift x) = x :=
+  Classical.choose_spec (suspendedHopfMappingConeIncl_bijective.2 x)
+
+/-- The remaining Steenrod-square calculation for the canonical lift implies that the suspended
+Hopf map is not nullhomotopic. -/
+theorem suspendedHopfMap_not_nullhomotopic_of_lift_sqTwo
+    (x : Hsing 3 (TopCat.of (Sph 3)) (ZMod 2))
+    (hSq : sqTwoHsingDegreeThree (suspendedHopfMappingConeLift x) ≠ 0) :
+    ¬ Nonempty
+      (TopCat.Homotopy suspendedHopfTopCat
+        (TopCat.const (sphereBasepoint 3))) :=
+  suspendedHopfMap_not_nullhomotopic_of_sqTwo x
+    (suspendedHopfMappingConeLift x)
+    (suspendedHopfMappingConeLift_restrict x)
+    suspendedHopfMappingConeIncl_bijective.1 hSq
 
 end Submission
