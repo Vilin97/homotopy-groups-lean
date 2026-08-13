@@ -21,6 +21,8 @@ sphere representative in the stable dimension range while preserving both homoto
 * `Submission.relativeSpherePLApproximation_approx_homotopic_radialJarInteriorTranslate`
 * `Submission.exists_homotopic_relativeSphereLoop_sphereGenLoop_range_inter_subset_singleton`
 * `Submission.relHomotopyGroup_homotopyGroup_exists_generalPositionRepresentatives`
+* `Submission.exists_homotopic_relativeSphereLoops_range_inter_subset_singleton`
+* `Submission.relHomotopyGroups_exists_generalPositionRepresentatives`
 -/
 
 open MeasureTheory Module Set
@@ -676,5 +678,89 @@ theorem relHomotopyGroup_homotopyGroup_exists_generalPositionRepresentatives
             exists_homotopic_relativeSphereLoop_sphereGenLoop_range_inter_subset_singleton
               hdim p g
           exact ⟨p', g', Quotient.sound hp, Quotient.sound hg, hinter⟩
+
+/-- **Pairwise general position for relative sphere-cap loops.** If the sum of the two source
+dimensions is smaller than the target-sphere dimension, both relative classes have homotopic
+representatives whose images meet only at the distinguished basepoint. -/
+theorem exists_homotopic_relativeSphereLoops_range_inter_subset_singleton
+    {l : ℕ} (hdim : k + l + 2 ≤ d)
+    (p : RelGenLoop (k + 1) (Sph (d + 1)) (sphUpperCap d) (sphUpperCapBase d))
+    (r : RelGenLoop (l + 1) (Sph (d + 1)) (sphUpperCap d) (sphUpperCapBase d)) :
+    ∃ (p' : RelGenLoop (k + 1) (Sph (d + 1))
+          (sphUpperCap d) (sphUpperCapBase d))
+      (r' : RelGenLoop (l + 1) (Sph (d + 1))
+          (sphUpperCap d) (sphUpperCapBase d)),
+      RelGenLoop.Homotopic p p' ∧ RelGenLoop.Homotopic r r' ∧
+      Set.range p'.val ∩ Set.range r'.val ⊆ {sphereBasepoint (d + 1)} := by
+  obtain ⟨q, hq, A, hA⟩ := exists_homotopic_relativeSpherePLApproximation p
+  obtain ⟨s, hs, B, hB⟩ := exists_homotopic_relativeSpherePLApproximation r
+  let E := EuclideanSpace ℝ (Fin (d + 2))
+  have hdimE : (k + 1) + (l + 1) + 2 ≤ finrank ℝ E := by
+    rw [finrank_euclideanSpace_fin]
+    omega
+  obtain ⟨t, htball, hcore, hcollar⟩ :=
+    exists_translation_disjoint_range_gridConeSpan_and_notMem_gridBaseConeSpan
+      (volume : Measure E) A.mesh_pos (by omega) hdimE
+      (relGenLoopToEuclidean q) (relGenLoopToEuclidean s)
+      ((sphereBasepoint (d + 1) : Sph (d + 1)) : E) Metric.isOpen_ball
+      ⟨0, Metric.mem_ball_self (by norm_num : (0 : ℝ) < 1 / 8)⟩
+  have ht : ‖t‖ < 1 / 8 := by
+    simpa [Metric.mem_ball, dist_eq_norm] using htball
+  let hne : ∀ y,
+      jarInteriorTranslate A.mesh (relGenLoopToEuclidean q) t y ≠ 0 :=
+    jarInteriorTranslate_ne_zero_of_dist_le_half A.mesh_pos
+      (relGenLoopToEuclidean q)
+      (fun z hz => by
+        simpa [sphUpperCapBase] using congrArg Subtype.val (q.property.2 z hz))
+      (fun y => norm_coe_sph (q.val y)) A.dist_le_half
+      (norm_coe_sph (sphereBasepoint (d + 1))) (by linarith)
+  let p' := radialJarInteriorTranslateRelGenLoop A.mesh A.mesh_pos q hq A.dist_le_half
+    t ht hne
+  refine ⟨p', B.approx, hA.trans ?_, hB, ?_⟩
+  · exact relativeSpherePLApproximation_approx_homotopic_radialJarInteriorTranslate
+      q hq A ht
+  · have hinter := radialProj_jarInteriorTranslate_inter_subset_singleton
+      A.mesh_pos B.mesh_pos (relGenLoopToEuclidean q) (relGenLoopToEuclidean s)
+      (fun z hz => by
+        simpa [sphUpperCapBase] using congrArg Subtype.val (q.property.2 z hz))
+      (norm_coe_sph (sphereBasepoint (d + 1))) hne hcore hcollar
+    rintro x ⟨hxp, hxr⟩
+    obtain ⟨y, hy⟩ := hxp
+    obtain ⟨z, hz⟩ := hxr
+    apply Set.mem_singleton_iff.mpr
+    apply Subtype.ext
+    apply Set.mem_singleton_iff.mp
+    apply hinter
+    constructor
+    · refine ⟨y, ?_⟩
+      change radialProj (jarInteriorTranslate A.mesh (relGenLoopToEuclidean q) t y) =
+        ((x : Sph (d + 1)) : E)
+      rw [← hy]
+      rfl
+    · refine ⟨z, ?_⟩
+      change radialProj
+          (cubeGridAffineApprox (l + 1) B.mesh (relGenLoopToEuclidean s) z) =
+        ((x : Sph (d + 1)) : E)
+      rw [← hz]
+      exact (B.coe_approx z).symm
+
+/-- Quotient-level pairwise general position for two relative sphere-cap classes. -/
+theorem relHomotopyGroups_exists_generalPositionRepresentatives
+    {l : ℕ} (hdim : k + l + 2 ≤ d)
+    (a : π_rel (k + 1) (Sph (d + 1)) (sphUpperCap d) (sphUpperCapBase d))
+    (b : π_rel (l + 1) (Sph (d + 1)) (sphUpperCap d) (sphUpperCapBase d)) :
+    ∃ (p : RelGenLoop (k + 1) (Sph (d + 1))
+          (sphUpperCap d) (sphUpperCapBase d))
+      (r : RelGenLoop (l + 1) (Sph (d + 1))
+          (sphUpperCap d) (sphUpperCapBase d)),
+      a = ⟦p⟧ ∧ b = ⟦r⟧ ∧
+      Set.range p.val ∩ Set.range r.val ⊆ {sphereBasepoint (d + 1)} := by
+  induction a using Quotient.inductionOn with
+  | h p =>
+      induction b using Quotient.inductionOn with
+      | h r =>
+          obtain ⟨p', r', hp, hr, hinter⟩ :=
+            exists_homotopic_relativeSphereLoops_range_inter_subset_singleton hdim p r
+          exact ⟨p', r', Quotient.sound hp, Quotient.sound hr, hinter⟩
 
 end Submission
