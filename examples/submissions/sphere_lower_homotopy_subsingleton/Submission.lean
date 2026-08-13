@@ -101,6 +101,7 @@ import Submission.Cohomology.DualConnecting
 import Submission.Cohomology.DegreeZero
 import Submission.Cohomology.Point
 import Submission.Cohomology.MayerVietoris
+import Submission.Cohomology.MayerVietorisIso
 import Submission.Cohomology.Sphere
 import Submission.Cohomology.SphereTop
 import Submission.Cohomology.Pair
