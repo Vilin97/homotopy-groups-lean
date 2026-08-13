@@ -46406,7 +46406,12 @@
           "Submission.topologicalMappingConeExtensionPoint",
           "Submission.topologicalMappingConeCompositeNullhomotopyOfExtension",
           "Submission.exists_topologicalMappingCone_extension_iff",
-          "Submission.exists_topologicalMappingCone_extension_iff_nullhomotopic"
+          "Submission.exists_topologicalMappingCone_extension_iff_nullhomotopic",
+          "Submission.topologicalSuspensionDescOfMappingConeConstantRestriction",
+          "Submission.topologicalSuspensionPointIncl_descOfMappingConeConstantRestriction",
+          "Submission.topologicalSuspensionConeIncl_descOfMappingConeConstantRestriction",
+          "Submission.topologicalMappingConeCollapse_descOfMappingConeConstantRestriction",
+          "Submission.exists_topologicalSuspension_factorization_iff_constant_restriction"
         ],
         "degree_cell_count": 0,
         "degree_coordinates": null,
@@ -46416,9 +46421,9 @@
         "lattice_kind": null,
         "lattice_proof": null,
         "model_relation": "uses the maintained pushout definitions of topological cones, mapping cones, unreduced suspensions, the cofiber collapse, and suspension functoriality; the factorization and extension formulas are exact on the original-space and cone summands, while both nullhomotopies are induced by the explicit contraction of the relevant cone",
-        "note": "All fourteen listed declarations are sorry-free Lean 4. Strict autoImplicit=false checks and the exact 1,713-job target build pass for Topology.Puppe; the strict aggregate and exact 8,934-job Submission build also pass. This supplies the first null-composite, section-obstruction, and full mapping-out coexactness portions of the topological Puppe sequence. Coexactness has the opposite variance from the existing projective-plane no-section theorem: the proved implication is section implies suspended nullhomotopy, and no converse is asserted. Consequently this does not replace the remaining Hopf-invariant or cup-evaluation lower bound, and no lattice cell is recolored.",
-        "result": "for every continuous attaching map f : A -> X, the first Puppe composite from its mapping cone through the cofiber collapse to Sigma A and then through Sigma f to Sigma X factors exactly through the cone on X and has a canonical nullhomotopy; any homotopy section of the collapse therefore forces Sigma f to be nullhomotopic; moreover, a map g : X -> Y extends across the mapping cone exactly when f followed by g is nullhomotopic, proving coexactness of the first mapping-cone pair",
-        "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/961e0fde9d4c29361c66b92e3e0fc1250afc084b/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Topology/Puppe.lean",
+        "note": "All nineteen listed declarations are sorry-free Lean 4. Strict autoImplicit=false checks and the exact 1,713-job target build pass for Topology.Puppe; the strict aggregate and exact 8,934-job Submission build also pass. This supplies the first null-composite, section-obstruction, full mapping-out coexactness at X, and strict point-set coexactness at C_f. The latter has not yet been upgraded from a literally constant restriction to a nullhomotopic restriction. Coexactness has the opposite variance from the existing projective-plane no-section theorem: the proved implication is section implies suspended nullhomotopy, and no converse is asserted. Consequently this does not replace the remaining Hopf-invariant or cup-evaluation lower bound, and no lattice cell is recolored.",
+        "result": "for every continuous attaching map f : A -> X, the first Puppe composite from its mapping cone through the cofiber collapse to Sigma A and then through Sigma f to Sigma X factors exactly through the cone on X and has a canonical nullhomotopy; mapping out is coexact at X, since g : X -> Y extends across the mapping cone exactly when f followed by g is nullhomotopic; at the next term, any h : C_f -> Y whose restriction to X is literally constant descends explicitly through the cofiber collapse, and this constant-restriction condition is also necessary",
+        "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/c99f352a3a87de083e07d568b39dd20a8db63120/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Topology/Puppe.lean",
         "status": "lean_kernel_checked_local_source",
         "system": "Lean 4"
       },
