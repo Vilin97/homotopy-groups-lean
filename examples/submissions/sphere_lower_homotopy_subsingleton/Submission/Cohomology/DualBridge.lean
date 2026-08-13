@@ -254,6 +254,24 @@ theorem HcohEquivDualHomology_mk (n : ℕ) (f : cocycles S R n) :
       homologyMk ((dualCocyclesEquiv S R n f : cyclesSub (dualComplex S R) n) :
         (dualComplex S R).X n) (dualCocyclesEquiv S R n f).2 := rfl
 
+/-- A cocycle represents a nonzero cohomology class if its associated homomorphism on chains
+takes a nonzero value on some cycle. -/
+theorem Hcoh.mk_ne_zero_of_eval_cycle {n : ℕ} (f : cocycles S R n)
+    (z : (CsingSSet S).X n)
+    (hz : (CsingSSet S).d n ((ComplexShape.down ℕ).next n) z = 0)
+    (heval : (dualXEquiv S R n).symm (f : Cochain S R n) z ≠ 0) :
+    Hcoh.mk f ≠ 0 := by
+  intro hzero
+  apply heval
+  have hdual : HcohEquivDualHomology S R n (Hcoh.mk f) = 0 := by
+    rw [hzero, map_zero]
+  rw [HcohEquivDualHomology_mk] at hdual
+  have hvalue := congrArg
+    (fun x : (dualComplex S R).homology n ↦
+      ev (CsingSSet S) (AddCommGrpCat.of R) n x (homologyMk z hz)) hdual
+  rw [ev_homologyMk, evCocycle_homologyMk] at hvalue
+  simpa using hvalue
+
 /-! ### Naturality -/
 
 variable {S R}

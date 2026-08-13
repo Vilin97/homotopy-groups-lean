@@ -19,12 +19,14 @@ mapping cones.
 
 * `Submission.sqTwoHsingDegreeThree` is `Sq² : H³(X; F₂) → H⁵(X; F₂)`.
 * `Submission.sqTwoHsingDegreeThree_natural` proves naturality under continuous maps.
+* `Submission.sqTwoHsingDegreeThree_mk_ne_zero_of_eval_cycle` detects a nonzero square by
+  evaluating its representing cocycle on a cycle.
 * `Submission.Hsing.map_congr` proves that homotopic maps induce the same pullback.
 * `Submission.hsingLinearEquivOfHomotopyEquiv` packages homotopy invariance as a linear
   equivalence.
 -/
 
-open CategoryTheory AlgebraicTopology
+open CategoryTheory AlgebraicTopology Simplicial
 
 noncomputable section
 
@@ -40,6 +42,39 @@ theorem sqTwoHsingDegreeThree_mk {X : TopCat.{0}}
     (f : cocycles (TopCat.toSSet.obj X) (ZMod 2) 3) :
     sqTwoHsingDegreeThree (Hcoh.mk f) = Hcoh.mk (cupOneThreeSelfCocycle f) :=
   sqTwoDegreeThree_mk f
+
+/-- The chain functional represented by the cup-one square of a degree-three singular
+cocycle. -/
+def sqTwoHsingDegreeThreeRepresentativeEvaluation {X : TopCat.{0}}
+    (f : cocycles (TopCat.toSSet.obj X) (ZMod 2) 3) :
+    (Csing X).X 5 ⟶ AddCommGrpCat.of (ZMod 2) :=
+  (dualXEquiv (TopCat.toSSet.obj X) (ZMod 2) 5).symm
+    (cupOneThreeSelfCocycle f : Cochain (TopCat.toSSet.obj X) (ZMod 2) 5)
+
+/-- The square representative evaluates on a singular simplex by the explicit cup-one
+formula. -/
+@[simp]
+theorem sqTwoHsingDegreeThreeRepresentativeEvaluation_gen {X : TopCat.{0}}
+    (f : cocycles (TopCat.toSSet.obj X) (ZMod 2) 3)
+    (σ : (TopCat.toSSet.obj X) _⦋5⦌) :
+    sqTwoHsingDegreeThreeRepresentativeEvaluation f (gen σ) =
+      cupOne (by omega : 1 ≤ 3)
+        (f : Cochain (TopCat.toSSet.obj X) (ZMod 2) 3) f σ := by
+  exact dualXEquiv_symm_apply (TopCat.toSSet.obj X) (ZMod 2) 5
+    (cupOneThreeSelfCocycle f : Cochain (TopCat.toSSet.obj X) (ZMod 2) 5) σ
+
+/-- A nonzero evaluation of the cup-one square on a degree-five cycle proves that the
+corresponding singular `Sq²` class is nonzero. -/
+theorem sqTwoHsingDegreeThree_mk_ne_zero_of_eval_cycle {X : TopCat.{0}}
+    (f : cocycles (TopCat.toSSet.obj X) (ZMod 2) 3)
+    (z : (Csing X).X 5)
+    (hz : (Csing X).d 5 ((ComplexShape.down ℕ).next 5) z = 0)
+    (heval : sqTwoHsingDegreeThreeRepresentativeEvaluation f z ≠ 0) :
+    sqTwoHsingDegreeThree (Hcoh.mk f) ≠ 0 := by
+  rw [sqTwoHsingDegreeThree_mk]
+  exact Hcoh.mk_ne_zero_of_eval_cycle
+    (S := TopCat.toSSet.obj X) (R := ZMod 2)
+    (cupOneThreeSelfCocycle f) z hz heval
 
 /-- The singular operation `Sq² : H³ → H⁵` is natural under continuous maps. -/
 theorem sqTwoHsingDegreeThree_natural {X Y : TopCat.{0}} (f : X ⟶ Y)

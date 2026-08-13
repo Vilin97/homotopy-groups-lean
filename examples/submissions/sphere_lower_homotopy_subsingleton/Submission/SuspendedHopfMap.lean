@@ -5,6 +5,7 @@ Released under Apache 2.0 license.
 import Submission.Cohomology.CellAttachmentSqTwo
 import Submission.Cohomology.MappingConePair
 import Submission.Cohomology.SphereTop
+import Submission.Homology.MappingCone
 import Submission.HopfMap
 import Submission.SphereSuspension
 
@@ -54,6 +55,75 @@ noncomputable abbrev suspendedHopfMappingCone : TopCat.{0} :=
 noncomputable abbrev suspendedHopfMappingConeIncl :
     TopCat.of (Sph 3) ⟶ suspendedHopfMappingCone :=
   topologicalMappingConeIncl suspendedHopfTopCat
+
+/-- The fifth homology of the suspended-Hopf mapping cone is infinite cyclic. -/
+noncomputable def suspendedHopfMappingConeHomologyIsoInt :
+    Hgrp 5 suspendedHopfMappingCone ≅ AddCommGrpCat.of ℤ :=
+  mappingConeHomologySuspensionIso suspendedHopfTopCat 3
+      (isZero_Hgrp_sphere 5 3 (by omega) (by omega))
+      (isZero_Hgrp_sphere 4 3 (by omega) (by omega)) ≪≫
+    hgrpSphereSelfIsoZ 3
+
+/-- The degree-five homology generator selected by the mapping-cone suspension isomorphism. -/
+noncomputable def suspendedHopfMappingConeHomologyGenerator :
+    Hgrp 5 suspendedHopfMappingCone :=
+  suspendedHopfMappingConeHomologyIsoInt.inv (1 : ℤ)
+
+@[simp]
+theorem suspendedHopfMappingConeHomologyIsoInt_generator :
+    suspendedHopfMappingConeHomologyIsoInt.hom
+      suspendedHopfMappingConeHomologyGenerator = (1 : ℤ) := by
+  rw [suspendedHopfMappingConeHomologyGenerator,
+    ← ConcreteCategory.comp_apply, Iso.inv_hom_id, ConcreteCategory.id_apply]
+
+/-- The selected degree-five mapping-cone homology generator is nonzero. -/
+theorem suspendedHopfMappingConeHomologyGenerator_ne_zero :
+    suspendedHopfMappingConeHomologyGenerator ≠ 0 := by
+  intro hzero
+  have h := congrArg (fun z ↦ suspendedHopfMappingConeHomologyIsoInt.hom z) hzero
+  rw [suspendedHopfMappingConeHomologyIsoInt_generator, map_zero] at h
+  exact one_ne_zero h
+
+/-- A cycle representative of the selected degree-five mapping-cone homology generator. -/
+noncomputable def suspendedHopfCanonicalFiveCycleSub :
+    cyclesSub (Csing suspendedHopfMappingCone) 5 :=
+  Classical.choose
+    (homologyMkHom_surjective
+      (K := Csing suspendedHopfMappingCone) (i := 5)
+      suspendedHopfMappingConeHomologyGenerator)
+
+/-- The underlying degree-five singular chain of the canonical cycle representative. -/
+noncomputable abbrev suspendedHopfCanonicalFiveCycle :
+    (Csing suspendedHopfMappingCone).X 5 :=
+  suspendedHopfCanonicalFiveCycleSub
+
+/-- The canonical degree-five chain is a cycle. -/
+theorem suspendedHopfCanonicalFiveCycle_isCycle :
+    (Csing suspendedHopfMappingCone).d 5
+      ((ComplexShape.down ℕ).next 5) suspendedHopfCanonicalFiveCycle = 0 :=
+  suspendedHopfCanonicalFiveCycleSub.2
+
+/-- The homology class of the canonical cycle is the selected generator. -/
+@[simp]
+theorem homologyMk_suspendedHopfCanonicalFiveCycle :
+    homologyMk suspendedHopfCanonicalFiveCycle
+      suspendedHopfCanonicalFiveCycle_isCycle =
+        suspendedHopfMappingConeHomologyGenerator := by
+  change homologyMkHom (Csing suspendedHopfMappingCone) 5
+    suspendedHopfCanonicalFiveCycleSub = suspendedHopfMappingConeHomologyGenerator
+  exact Classical.choose_spec
+    (homologyMkHom_surjective
+      (K := Csing suspendedHopfMappingCone) (i := 5)
+      suspendedHopfMappingConeHomologyGenerator)
+
+/-- The canonical degree-five cycle is nonzero already as a singular chain. -/
+theorem suspendedHopfCanonicalFiveCycle_ne_zero :
+    suspendedHopfCanonicalFiveCycle ≠ 0 := by
+  intro hzero
+  apply suspendedHopfMappingConeHomologyGenerator_ne_zero
+  rw [← homologyMk_suspendedHopfCanonicalFiveCycle]
+  exact (homologyMk_congr suspendedHopfCanonicalFiveCycle_isCycle
+    (map_zero _) hzero).trans homologyMk_zero
 
 /-- A degree-three class on the suspended-Hopf cone with nonzero `Sq²` proves that the concrete
 suspended Hopf map is not based-nullhomotopic. -/
@@ -148,6 +218,30 @@ theorem suspendedHopfCanonicalLift_ne_zero : suspendedHopfCanonicalLift ≠ 0 :=
   apply sphereThreeModTwoClass_ne_zero
   rw [← suspendedHopfCanonicalLift_restrict, hzero, map_zero]
 
+/-- A fixed singular cocycle representing the canonical degree-three mapping-cone lift. -/
+noncomputable def suspendedHopfCanonicalCocycle :
+    cocycles (TopCat.toSSet.obj suspendedHopfMappingCone) (ZMod 2) 3 :=
+  Classical.choose (Hcoh.mk_surjective suspendedHopfCanonicalLift)
+
+/-- The chosen cocycle represents the canonical mapping-cone lift. -/
+@[simp]
+theorem suspendedHopfCanonicalCocycle_mk :
+    Hcoh.mk suspendedHopfCanonicalCocycle = suspendedHopfCanonicalLift :=
+  Classical.choose_spec (Hcoh.mk_surjective suspendedHopfCanonicalLift)
+
+/-- It is enough to evaluate the cup-one square of the canonical cocycle nontrivially on one
+degree-five singular cycle. -/
+theorem suspendedHopfCanonicalLift_sqTwo_ne_zero_of_cycle
+    (z : (Csing suspendedHopfMappingCone).X 5)
+    (hz : (Csing suspendedHopfMappingCone).d 5
+      ((ComplexShape.down ℕ).next 5) z = 0)
+    (heval : sqTwoHsingDegreeThreeRepresentativeEvaluation
+      suspendedHopfCanonicalCocycle z ≠ 0) :
+    sqTwoHsingDegreeThree suspendedHopfCanonicalLift ≠ 0 := by
+  rw [← suspendedHopfCanonicalCocycle_mk]
+  exact sqTwoHsingDegreeThree_mk_ne_zero_of_eval_cycle
+    suspendedHopfCanonicalCocycle z hz heval
+
 /-- The remaining Steenrod-square calculation for the canonical lift implies that the suspended
 Hopf map is not nullhomotopic. -/
 theorem suspendedHopfMap_not_nullhomotopic_of_lift_sqTwo
@@ -168,5 +262,30 @@ theorem suspendedHopfMap_not_nullhomotopic_of_canonical_sqTwo
       (TopCat.Homotopy suspendedHopfTopCat
         (TopCat.const (sphereBasepoint 3))) :=
   suspendedHopfMap_not_nullhomotopic_of_lift_sqTwo sphereThreeModTwoClass hSq
+
+/-- A nonzero cup-one-square evaluation on a degree-five cycle is the final chain-level
+certificate needed to prove that the suspended Hopf map is not nullhomotopic. -/
+theorem suspendedHopfMap_not_nullhomotopic_of_canonical_cycle
+    (z : (Csing suspendedHopfMappingCone).X 5)
+    (hz : (Csing suspendedHopfMappingCone).d 5
+      ((ComplexShape.down ℕ).next 5) z = 0)
+    (heval : sqTwoHsingDegreeThreeRepresentativeEvaluation
+      suspendedHopfCanonicalCocycle z ≠ 0) :
+    ¬ Nonempty
+      (TopCat.Homotopy suspendedHopfTopCat
+        (TopCat.const (sphereBasepoint 3))) :=
+  suspendedHopfMap_not_nullhomotopic_of_canonical_sqTwo
+    (suspendedHopfCanonicalLift_sqTwo_ne_zero_of_cycle z hz heval)
+
+/-- The remaining suspended-Hopf obstruction is a single evaluation of the canonical cup-one
+square on the canonical degree-five mapping-cone cycle. -/
+theorem suspendedHopfMap_not_nullhomotopic_of_canonical_evaluation
+    (heval : sqTwoHsingDegreeThreeRepresentativeEvaluation
+      suspendedHopfCanonicalCocycle suspendedHopfCanonicalFiveCycle ≠ 0) :
+    ¬ Nonempty
+      (TopCat.Homotopy suspendedHopfTopCat
+        (TopCat.const (sphereBasepoint 3))) :=
+  suspendedHopfMap_not_nullhomotopic_of_canonical_cycle
+    suspendedHopfCanonicalFiveCycle suspendedHopfCanonicalFiveCycle_isCycle heval
 
 end Submission

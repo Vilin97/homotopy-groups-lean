@@ -51,6 +51,7 @@ import Submission.Hurewicz.SphereLoopBridge
 import Submission.Hurewicz.StickBoundary
 import Submission.Hurewicz.StickSphere
 import Submission.Homology.HomotopyEquiv
+import Submission.Homology.MappingCone
 import Submission.Lean4TwentyResults
 import Submission.MetricSpherePiOne
 import Submission.ReducedSuspensionGroup
