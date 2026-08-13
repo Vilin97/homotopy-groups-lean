@@ -463,6 +463,21 @@ theorem suspendedHopfMappingConeClass_eq_top_of_ne_zero
     x = suspendedHopfMappingConeTopClass :=
   (suspendedHopfMappingConeClass_eq_zero_or_eq_top x).resolve_left hx
 
+/-- Normalized additive coordinate on degree-five mod-two cohomology of the suspended-Hopf
+mapping cone. -/
+noncomputable def suspendedHopfMappingConeDegreeFiveCohomologyEquivModTwo :
+    Hsing 5 suspendedHopfMappingCone (ZMod 2) ≃+ ZMod 2 :=
+  addEquivZModTwoOfGenerator suspendedHopfMappingConeTopClass
+    suspendedHopfMappingConeClass_eq_zero_or_eq_top
+    suspendedHopfMappingConeTopClass_ne_zero
+
+/-- The normalized suspended-Hopf top class has degree-five coordinate one. -/
+@[simp]
+theorem suspendedHopfMappingConeDegreeFiveCohomologyEquivModTwo_top :
+    suspendedHopfMappingConeDegreeFiveCohomologyEquivModTwo
+      suspendedHopfMappingConeTopClass = 1 :=
+  addEquivZModTwoOfGenerator_apply_generator _ _ _
+
 /-- A cycle representative of the selected degree-five mapping-cone homology generator. -/
 noncomputable def suspendedHopfCanonicalFiveCycleSub :
     cyclesSub (Csing suspendedHopfMappingCone) 5 :=
@@ -640,6 +655,26 @@ theorem suspendedHopfCanonicalLift_ne_zero : suspendedHopfCanonicalLift ≠ 0 :=
   apply sphereThreeModTwoClass_ne_zero
   rw [← suspendedHopfCanonicalLift_restrict, hzero, map_zero]
 
+/-- The normalized top-degree coordinate of `Sq²` on the canonical suspended-Hopf cone
+class. -/
+noncomputable def suspendedHopfModTwoSqTwoInvariant : ZMod 2 :=
+  suspendedHopfMappingConeDegreeFiveCohomologyEquivModTwo
+    (sqTwoHsingDegreeThree suspendedHopfCanonicalLift)
+
+/-- The suspended mod-two invariant is one exactly when the canonical `Sq²` is the normalized
+top class. -/
+theorem suspendedHopfModTwoSqTwoInvariant_eq_one_iff :
+    suspendedHopfModTwoSqTwoInvariant = 1 ↔
+      sqTwoHsingDegreeThree suspendedHopfCanonicalLift =
+        suspendedHopfMappingConeTopClass :=
+  addEquivZModTwoOfGenerator_apply_eq_one_iff _ _ _ _
+
+/-- The suspended mod-two invariant is either zero or one. -/
+theorem suspendedHopfModTwoSqTwoInvariant_eq_zero_or_eq_one :
+    suspendedHopfModTwoSqTwoInvariant = 0 ∨
+      suspendedHopfModTwoSqTwoInvariant = 1 := by
+  exact (show ∀ z : ZMod 2, z = 0 ∨ z = 1 by decide) _
+
 /-! ### Transport to the raw suspension cone -/
 
 /-- The canonical degree-three class pulled back to the mapping cone of the raw suspension. -/
@@ -777,6 +812,26 @@ theorem suspendedHopfCanonicalLift_sqTwo_eq_top_iff_evaluation_eq_one :
     rw [heval]
     exact one_ne_zero
 
+/-- The normalized suspended mod-two invariant is exactly the canonical cup-one representative
+evaluation. -/
+theorem suspendedHopfModTwoSqTwoInvariant_eq_representativeEvaluation :
+    suspendedHopfModTwoSqTwoInvariant =
+      sqTwoHsingDegreeThreeRepresentativeEvaluation
+        suspendedHopfCanonicalCocycle suspendedHopfCanonicalFiveCycle := by
+  apply zmodTwo_eq_of_eq_one_iff
+  rw [suspendedHopfModTwoSqTwoInvariant_eq_one_iff,
+    suspendedHopfCanonicalLift_sqTwo_eq_top_iff_evaluation_eq_one]
+
+/-- If the normalized suspended invariant is one, then the canonical cup-one representative
+evaluation is nonzero. -/
+theorem suspendedHopfCanonicalRepresentativeEvaluation_ne_zero_of_modTwoSqTwoInvariant_eq_one
+    (hInvariant : suspendedHopfModTwoSqTwoInvariant = 1) :
+    sqTwoHsingDegreeThreeRepresentativeEvaluation
+      suspendedHopfCanonicalCocycle suspendedHopfCanonicalFiveCycle ≠ 0 := by
+  rw [← suspendedHopfModTwoSqTwoInvariant_eq_representativeEvaluation,
+    hInvariant]
+  exact one_ne_zero
+
 /-- The remaining Steenrod-square calculation for the canonical lift implies that the suspended
 Hopf map is not nullhomotopic. -/
 theorem suspendedHopfMap_not_nullhomotopic_of_lift_sqTwo
@@ -809,6 +864,16 @@ theorem suspendedHopfMap_not_nullhomotopic_of_sqTwo_eq_top
   suspendedHopfMap_not_nullhomotopic_of_canonical_sqTwo (by
     rw [hSq]
     exact suspendedHopfMappingConeTopClass_ne_zero)
+
+/-- A value of one for the normalized suspended invariant proves that the suspended Hopf map
+is not nullhomotopic. -/
+theorem suspendedHopfMap_not_nullhomotopic_of_modTwoSqTwoInvariant_eq_one
+    (hInvariant : suspendedHopfModTwoSqTwoInvariant = 1) :
+    ¬ Nonempty
+      (TopCat.Homotopy suspendedHopfTopCat
+        (TopCat.const (sphereBasepoint 3))) :=
+  suspendedHopfMap_not_nullhomotopic_of_sqTwo_eq_top
+    (suspendedHopfModTwoSqTwoInvariant_eq_one_iff.mp hInvariant)
 
 /-- A nonzero cup-one-square evaluation on a degree-five cycle is the final chain-level
 certificate needed to prove that the suspended Hopf map is not nullhomotopic. -/
@@ -949,6 +1014,14 @@ theorem piFourSphereThreeModulus_eq_two_of_canonical_evaluation
     piFourSphereThreeModulus = 2 :=
   Nat.le_antisymm piFourSphereThreeModulus_le_two
     (two_le_piFourSphereThreeModulus_of_canonical_evaluation heval)
+
+/-- A value of one for the normalized suspended invariant computes the first-stem modulus. -/
+theorem piFourSphereThreeModulus_eq_two_of_modTwoSqTwoInvariant_eq_one
+    (hInvariant : suspendedHopfModTwoSqTwoInvariant = 1) :
+    piFourSphereThreeModulus = 2 :=
+  piFourSphereThreeModulus_eq_two_of_canonical_evaluation
+    (suspendedHopfCanonicalRepresentativeEvaluation_ne_zero_of_modTwoSqTwoInvariant_eq_one
+      hInvariant)
 
 /-- The canonical lower evaluation makes the cap-excision edge generator have exact order two. -/
 theorem orderOf_piFourSphereThreeEdgeGenerator_eq_two_of_canonical_evaluation
@@ -1140,6 +1213,19 @@ theorem sphere_first_stable_homotopy_mulEquiv_zmod_two_of_canonical_evaluation
         Multiplicative (ZMod 2)) :=
   sphere_first_stable_homotopy_mulEquiv_zmod_two_of_edge_square_and_canonical_evaluation
     n hn piFourSphereThreeEdgeGenerator_sq heval
+
+/-- A value of one for the normalized suspended invariant computes every sphere group in the
+first stable stem. -/
+theorem sphere_first_stable_homotopy_mulEquiv_zmod_two_of_modTwoSqTwoInvariant_eq_one
+    (n : ℕ) (hn : 3 ≤ n)
+    (hInvariant : suspendedHopfModTwoSqTwoInvariant = 1) :
+    Nonempty
+      (π_ (n + 1) (Sph n) (sphereBasepoint n) ≃*
+        Multiplicative (ZMod 2)) :=
+  sphere_first_stable_homotopy_mulEquiv_zmod_two_of_canonical_evaluation
+    n hn
+      (suspendedHopfCanonicalRepresentativeEvaluation_ne_zero_of_modTwoSqTwoInvariant_eq_one
+        hInvariant)
 
 /-- Since the geometric generator now has square one unconditionally, a comparison with the
 cap-excision generator plus the canonical lower certificate completes the first representative. -/
