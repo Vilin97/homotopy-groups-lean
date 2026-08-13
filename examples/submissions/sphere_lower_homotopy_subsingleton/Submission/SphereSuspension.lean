@@ -159,6 +159,18 @@ theorem sphereSuspensionMap_naturality (m n : ℕ) (f : C(Sph m, Sph n)) :
   intro q
   exact (sphereSuspensionMap_apply_susp m n f q).symm
 
+/-- Transported suspension preserves composition of sphere maps. -/
+theorem sphereSuspensionMap_comp (l m n : ℕ)
+    (g : C(Sph m, Sph n)) (f : C(Sph l, Sph m)) :
+    sphereSuspensionMap l n (g.comp f) =
+      (sphereSuspensionMap m n g).comp (sphereSuspensionMap l m f) := by
+  apply ContinuousMap.ext
+  intro z
+  obtain ⟨q, rfl⟩ := (suspSphHomeo l).surjective z
+  simp only [ContinuousMap.comp_apply, sphereSuspensionMap_apply_susp]
+  exact congrArg (fun h : C(Susp (Sph l), Susp (Sph n)) ↦ suspSphHomeo n (h q))
+    (Susp.map_comp g f)
+
 /-- Suspension carries a based sphere map to a based sphere map. -/
 theorem sphereSuspensionMap_basepoint (m n : ℕ) (f : C(Sph m, Sph n))
     (hf : f (sphereBasepoint m) = sphereBasepoint n) :

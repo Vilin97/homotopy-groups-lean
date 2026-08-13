@@ -6,7 +6,7 @@ import Submission.Cohomology.CellAttachmentSqTwo
 import Submission.Cohomology.MappingCone
 import Submission.Cohomology.MappingConePair
 import Submission.Cohomology.SphereTop
-import Submission.FirstStableStemPresentation
+import Submission.HopfSymmetry
 import Submission.Homology.MappingCone
 import Submission.Hurewicz.SphereMappingConeBridge
 import Submission.HopfMap
@@ -133,6 +133,11 @@ theorem suspendedHopfMapClass_eq_piFourSphereThreeGeometricHopfGenerator :
       congrArg (sphereGeometricSuspension 2 2)
         piThreeSphereTwoHopfGenerator_eq_hopfMapClass.symm
     _ = piFourSphereThreeGeometricHopfGenerator := rfl
+
+/-- The explicit suspended quadratic Hopf map represents a class whose square is the identity. -/
+theorem suspendedHopfMapClass_sq : suspendedHopfMapClass ^ 2 = 1 := by
+  rw [suspendedHopfMapClass_eq_piFourSphereThreeGeometricHopfGenerator,
+    piFourSphereThreeGeometricHopfGenerator_sq]
 
 /-- The suspended Hopf map as a morphism of topological spaces. -/
 noncomputable def suspendedHopfTopCat :
