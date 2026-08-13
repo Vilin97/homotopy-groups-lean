@@ -129,6 +129,7 @@ import Submission.Topology.PuppeHomotopyGroups
 import Submission.HopfMappingCone
 import Submission.HopfPuppe
 import Submission.ComplexProjectivePlaneCohomology
+import Submission.HopfMappingConeHomotopyGroups
 import Submission.SuspendedHopfMap
 import Submission.ComplexProjectivePlaneSuspendedHopf
 import Submission.SphereSuspensionPointed
