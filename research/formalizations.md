@@ -575,6 +575,11 @@ collapse by nullhomotopy of the bottom inclusion.  For the exact Hopf mapping
 cone, its normalized nonzero degree-two mod-two class detects that inclusion,
 so the collapse has no homotopy retraction recovering the mapping cone.  This is
 the `collapse ≫ r ~ id` direction, distinct from a section on the suspension.
+The geometric homeomorphism `CP^2 ≅ C_eta` now also transports the generalized
+complex Hopf-fibration calculation to the concrete cofiber: its fundamental
+group is trivial, its second group is `Z`, its third and fourth groups vanish,
+its fifth group is `Z`, and uniformly `pi_(k+3)(C_eta) ≅ pi_(k+3)(S^5)`.
+These compute a mapping-cone target and therefore do not add sphere-lattice cells.
 No converse section theorem is claimed: mapping-out coexactness has the opposite variance
 from the existing no-section result, so that result cannot soundly be inverted
 into suspended-Hopf nontriviality. The genuine lower bound still requires the
