@@ -577,12 +577,12 @@ two formulas agree on their shared copy of `C_f`, are jointly continuous through
 both pushout quotients, and give a homotopy from the identity to the normalized
 endpoint.  At that endpoint the map fixes the original-space cylinder, replaces
 the double-cone height by the maximum of its two coordinates, and sends the
-inner-apex cylinder to the outer apex.  The next-stage formula is now proved to
-descend through the inner cone and first mapping-cone quotients at every fixed
-outer height: it multiplies the inner height by `1 - t` while retaining the
-outer maximum height.  Gluing these fixed-height pieces into a jointly
-continuous second-stage homotopy and identifying its endpoint with the opposite
-comparison composite remain separate.  Specializing
+inner-apex cylinder to the outer apex.  The next-stage formula now descends at
+each fixed time through the inner cone, first mapping cone, outer cone, and
+second mapping cone, producing a self-map of the entire iterated cofiber.  It
+multiplies the inner height by `1 - t` while retaining the outer maximum height.
+Joint continuity in this second time parameter and identification of its
+endpoint with the opposite comparison composite remain separate.  Specializing
 homotopy coexactness to the identity characterizes a retraction of the cofiber
 collapse by nullhomotopy of the bottom inclusion.  For the exact Hopf mapping
 cone, its normalized nonzero degree-two mod-two class detects that inclusion,
