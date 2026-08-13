@@ -19,7 +19,7 @@ noncomputable section
 
 namespace Submission
 
-universe u
+universe u v
 
 variable {A X : TopCat.{u}}
 
@@ -1390,24 +1390,52 @@ noncomputable def mappingConeMiddleHomotopyEquiv
       exact mappingConeMiddleRetract_incl f a
     rw [← TopCat.hom_comp, h, TopCat.hom_id]
 
+/-- Path connectedness transfers across a homotopy equivalence. -/
+theorem pathConnectedSpace_of_homotopyEquiv
+    {Y : Type u} {Z : Type v} [TopologicalSpace Y] [TopologicalSpace Z]
+    [PathConnectedSpace Z] (e : ContinuousMap.HomotopyEquiv Y Z) :
+    PathConnectedSpace Y := by
+  let H := e.left_inv.some
+  let pathTo (y : Y) : Path ((e.invFun.comp e.toFun) y) y :=
+    ⟨⟨fun t ↦ H (t, y), H.continuous.comp
+        (continuous_id.prodMk continuous_const)⟩,
+      H.map_zero_left y, H.map_one_left y⟩
+  refine ⟨⟨e.invFun (Classical.choice (inferInstance : Nonempty Z))⟩, ?_⟩
+  intro y z
+  have hyz : Joined (e.invFun (e y)) (e.invFun (e z)) :=
+    ⟨(PathConnectedSpace.somePath (e y) (e z)).map e.invFun.continuous⟩
+  exact (show Joined y ((e.invFun.comp e.toFun) y) from ⟨(pathTo y).symm⟩).trans
+    (hyz.trans (show Joined ((e.invFun.comp e.toFun) z) z from ⟨pathTo z⟩))
+
+/-- The lower collar is path connected when the mapping-cone target is. -/
+theorem pathConnectedSpace_mappingConeLower
+    (f : A ⟶ X) [PathConnectedSpace X] :
+    PathConnectedSpace (mappingConeLower f) :=
+  pathConnectedSpace_of_homotopyEquiv
+    (mappingConeLowerHomotopyEquiv f)
+
 /-- The overlap in the standard mapping-cone cover is path connected when the attaching
 space is. -/
 theorem pathConnectedSpace_mappingConeMiddle
     (f : A ⟶ X) [PathConnectedSpace A] :
-    PathConnectedSpace (mappingConeMiddle f) := by
-  let r := mappingConeMiddleRetract f
-  let i := mappingConeMiddleIncl f
-  let H := mappingConeMiddleDeformation f
-  let pathTo (z : mappingConeMiddle f) :
-      Path ((r ≫ i) z) z :=
-    ⟨⟨fun t ↦ H (t, z), H.continuous.comp
-        (continuous_id.prodMk continuous_const)⟩,
-      H.map_zero_left z, H.map_one_left z⟩
-  refine ⟨⟨i (Classical.choice (inferInstance : Nonempty A))⟩, ?_⟩
-  intro z w
-  have hzw : Joined (i (r z)) (i (r w)) :=
-    ⟨(PathConnectedSpace.somePath (r z) (r w)).map i.hom.continuous⟩
-  exact (show Joined z ((r ≫ i) z) from ⟨(pathTo z).symm⟩).trans
-    (hzw.trans (show Joined ((r ≫ i) w) w from ⟨pathTo w⟩))
+    PathConnectedSpace (mappingConeMiddle f) :=
+  pathConnectedSpace_of_homotopyEquiv
+    (mappingConeMiddleHomotopyEquiv f)
+
+/-- A mapping cone with path-connected target and nonempty attaching space is path connected. -/
+theorem pathConnectedSpace_topologicalMappingCone
+    (f : A ⟶ X) [Nonempty A] [PathConnectedSpace X] :
+    PathConnectedSpace (topologicalMappingCone f) := by
+  letI : PathConnectedSpace (mappingConeLower f) :=
+    pathConnectedSpace_mappingConeLower f
+  have hUpper : IsPathConnected (mappingConeUpper f) :=
+    isPathConnected_iff_pathConnectedSpace.mpr inferInstance
+  have hLower : IsPathConnected (mappingConeLower f) :=
+    isPathConnected_iff_pathConnectedSpace.mpr inferInstance
+  have hMeet : (mappingConeUpper f ∩ mappingConeLower f).Nonempty := by
+    let a := Classical.choice (inferInstance : Nonempty A)
+    exact ⟨(mappingConeMiddleIncl f a).1, (mappingConeMiddleIncl f a).2⟩
+  rw [pathConnectedSpace_iff_univ, ← mappingConeUpper_union_lower f]
+  exact hUpper.union hLower hMeet
 
 end Submission

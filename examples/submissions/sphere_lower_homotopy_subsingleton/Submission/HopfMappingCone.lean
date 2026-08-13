@@ -43,6 +43,26 @@ noncomputable abbrev hopfMappingConeIncl :
     TopCat.of (Sph 2) ⟶ hopfMappingCone :=
   topologicalMappingConeIncl hopfTopCat
 
+/-- The Hopf mapping cone is path connected. -/
+theorem pathConnectedSpace_hopfMappingCone :
+    PathConnectedSpace hopfMappingCone :=
+  pathConnectedSpace_topologicalMappingCone hopfTopCat
+
+/-- Every degree-zero mod-two class of the Hopf mapping cone is zero or the unit. -/
+theorem hopfMappingConeDegreeZeroClass_eq_zero_or_eq_one
+    (x : Hsing 0 hopfMappingCone (ZMod 2)) :
+    x = 0 ∨ x = Hsing.one hopfMappingCone (ZMod 2) := by
+  letI : PathConnectedSpace hopfMappingCone :=
+    pathConnectedSpace_hopfMappingCone
+  exact degreeZeroModTwoClass_eq_zero_or_eq_one x
+
+/-- The degree-zero unit of the Hopf mapping cone is nonzero. -/
+theorem hopfMappingConeDegreeZeroUnit_ne_zero :
+    Hsing.one hopfMappingCone (ZMod 2) ≠ 0 := by
+  letI : PathConnectedSpace hopfMappingCone :=
+    pathConnectedSpace_hopfMappingCone
+  exact Hsing.one_ne_zero
+
 /-! ### The normalized top homology and cohomology classes -/
 
 /-- Degree-one mod-two cohomology of `S²` vanishes. -/

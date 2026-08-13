@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 -/
 import Submission.Cohomology.Singular
 import Mathlib.AlgebraicTopology.SimplicialSet.PiZero
+import Mathlib.Data.ZMod.Basic
 import Mathlib.Topology.Homotopy.TopCat.ZerothHomotopy
 
 /-!
@@ -82,5 +83,40 @@ theorem surjective_Hsing_map_zero_of_pathConnected {X Y : TopCat.{0}}
     [PathConnectedSpace X] (f : X ⟶ Y) :
     Function.Surjective (Hsing.map (R := R) f 0) :=
   surjective_Hcoh_map_zero_of_isConnected (R := R) (TopCat.toSSet.map f)
+
+/-- Every degree-zero mod-two cohomology class of a path-connected space is zero or the unit. -/
+theorem degreeZeroModTwoClass_eq_zero_or_eq_one
+    {X : TopCat.{0}} [PathConnectedSpace X] (x : Hsing 0 X (ZMod 2)) :
+    x = 0 ∨ x = Hsing.one X (ZMod 2) := by
+  refine Hcoh.induction_on x fun f ↦ ?_
+  let S := TopCat.toSSet.obj X
+  let σ : S _⦋0⦌ := Classical.arbitrary _
+  have hf := zeroCocycle_eq_smul_one f σ
+  have hc : (f : Cochain (TopCat.toSSet.obj X) (ZMod 2) 0) σ = 0 ∨
+      (f : Cochain (TopCat.toSSet.obj X) (ZMod 2) 0) σ = 1 := by
+    exact (show ∀ a : ZMod 2, a = 0 ∨ a = 1 by decide) _
+  rcases hc with hc | hc
+  · left
+    rw [hf, hc, zero_smul]
+    rfl
+  · right
+    rw [hf, hc, one_smul]
+    rfl
+
+/-- The degree-zero unit is nonzero on every nonempty space over nontrivial coefficients. -/
+theorem Hsing.one_ne_zero
+    {X : TopCat.{0}} {R : Type} [CommRing R] [Nontrivial R] [Nonempty X] :
+    Hsing.one X R ≠ 0 := by
+  intro hzero
+  have hmem := (Hcoh.mk_eq_zero_iff
+    (oneCocycle (TopCat.toSSet.obj X) R)).mp hzero
+  rw [coboundaries_zero, Submodule.mem_bot] at hmem
+  let S := TopCat.toSSet.obj X
+  let σ : S _⦋0⦌ := TopCat.toSSetObj₀Equiv.symm
+    (Classical.choice (inferInstance : Nonempty X))
+  have hvalue := congrArg
+    (fun f : Cochain (TopCat.toSSet.obj X) R 0 ↦ f σ) hmem
+  change (1 : R) = 0 at hvalue
+  exact _root_.one_ne_zero hvalue
 
 end Submission

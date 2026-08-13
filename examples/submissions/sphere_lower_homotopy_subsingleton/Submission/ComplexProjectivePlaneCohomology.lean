@@ -95,6 +95,31 @@ theorem complexProjectivePlaneIsoHopfMappingCone_hom_bottomIncl :
     complexProjectivePlaneMappingConeIso_inv_bottomIncl,
     diskBoundaryFourHopfMappingConeIso_hom_incl]
 
+/-- The geometric complex projective plane is path connected. -/
+theorem pathConnectedSpace_complexProjectivePlane :
+    PathConnectedSpace (TopCat.of (ComplexProjectiveModel 2)) := by
+  letI : PathConnectedSpace hopfMappingCone :=
+    pathConnectedSpace_hopfMappingCone
+  exact pathConnectedSpace_of_homotopyEquiv
+    (TopCat.homeoOfIso
+      complexProjectivePlaneIsoHopfMappingCone).toHomotopyEquiv
+
+/-- Every degree-zero mod-two class of geometric `CP²` is zero or the unit. -/
+theorem complexProjectivePlaneDegreeZeroClass_eq_zero_or_eq_one
+    (x : Hsing 0 (TopCat.of (ComplexProjectiveModel 2)) (ZMod 2)) :
+    x = 0 ∨
+      x = Hsing.one (TopCat.of (ComplexProjectiveModel 2)) (ZMod 2) := by
+  letI : PathConnectedSpace (TopCat.of (ComplexProjectiveModel 2)) :=
+    pathConnectedSpace_complexProjectivePlane
+  exact degreeZeroModTwoClass_eq_zero_or_eq_one x
+
+/-- The degree-zero unit of geometric `CP²` is nonzero. -/
+theorem complexProjectivePlaneDegreeZeroUnit_ne_zero :
+    Hsing.one (TopCat.of (ComplexProjectiveModel 2)) (ZMod 2) ≠ 0 := by
+  letI : PathConnectedSpace (TopCat.of (ComplexProjectiveModel 2)) :=
+    pathConnectedSpace_complexProjectivePlane
+  exact Hsing.one_ne_zero
+
 /-- The normalized mod-two degree-two class on the geometric projective plane. -/
 noncomputable def complexProjectivePlaneModTwoClass :
     Hsing 2 (TopCat.of (ComplexProjectiveModel 2)) (ZMod 2) :=
