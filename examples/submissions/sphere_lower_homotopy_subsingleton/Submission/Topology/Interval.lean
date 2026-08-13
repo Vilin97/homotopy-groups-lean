@@ -19,6 +19,10 @@ namespace TopCat.I
 
 universe u
 
+/-- The categorical unit interval is compact. -/
+noncomputable instance compactSpace : CompactSpace TopCat.I.{u} :=
+  homeomorph.symm.compactSpace
+
 /-- Continuous maximum on the categorical unit interval. -/
 def max : TopCat.I.{u} ⊗ TopCat.I ⟶ TopCat.I :=
   TopCat.ofHom

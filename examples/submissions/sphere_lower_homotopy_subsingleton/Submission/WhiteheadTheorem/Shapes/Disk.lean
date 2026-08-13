@@ -26,6 +26,16 @@ namespace TopCat
 
 open scoped TopCat
 
+/-- Finite-dimensional closed disks are Hausdorff. -/
+noncomputable instance diskT2Space (n : ℕ) : T2Space (disk.{u} n) := by
+  unfold disk
+  infer_instance
+
+/-- Finite-dimensional disk boundaries are Hausdorff. -/
+noncomputable instance diskBoundaryT2Space (n : ℕ) : T2Space (diskBoundary.{u} n) := by
+  unfold diskBoundary
+  infer_instance
+
 /-- The inclusion `∂𝔻 n ⟶ 𝔻 n` of the boundary of the `n`-disk. -/
 def diskBoundaryIncl (n : ℕ) : diskBoundary.{u} n ⟶ disk.{u} n :=
   ofHom
