@@ -503,9 +503,13 @@ therefore proves both injectivity and surjectivity of the canonical cap map
 whenever `q+3 <= 2d`, and packages the result as the full stable-range sphere
 suspension-excision theorem. This supplies multiplicative equivalences between
 successive sphere homotopy groups throughout the Freudenthal isomorphism range.
-It does not yet compute the initial stable representative on any positive stem,
-so no new exact-value cell is colored by this transport theorem alone. The
-exceptional first off-diagonal computation `pi_3(S^2) = Z` remains complete
+The same dimension calculation gives surjectivity in the sharper edge range
+`q+2 <= 2d`. Transport through the two contractible-pair long exact sequences
+produces a named absolute sphere homomorphism, so in particular Lean now has a
+surjection `pi_3(S^2) -> pi_4(S^3)`. Combining it with the exact Hopf-fibration
+calculation proves that `pi_4(S^3)` is cyclic. Its order and nontriviality are
+not yet established, so no new exact-value cell is colored by this theorem.
+The exceptional first off-diagonal computation `pi_3(S^2) = Z` remains complete
 through the exact Hopf fibration, its circle fibre, and the maintained long
 exact sequence.
 

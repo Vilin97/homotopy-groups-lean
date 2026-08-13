@@ -46271,9 +46271,13 @@
           "Submission.sphereSuspensionExcisionHomAt_injective_of_stableRange",
           "Submission.exists_relativeSpherePLApproximation_cellCompression",
           "Submission.relativeSpherePLApproximation_homotopic_includedSource_stableRange",
+          "Submission.sphereSuspensionExcisionHomAt_surjective_of_freudenthalRange",
           "Submission.sphereSuspensionExcisionHomAt_surjective_of_stableRange",
           "Submission.sphereSuspensionExcisionHomAt_bijective_of_stableRange",
-          "Submission.sphereSuspensionExcisionStableRange_proved"
+          "Submission.sphereCapSuspensionHomAt_surjective_of_freudenthalRange",
+          "Submission.sphereCapSuspensionHomAt_bijective_of_stableRange",
+          "Submission.sphereSuspensionExcisionStableRange_proved",
+          "Submission.isCyclic_pi_four_sphere_three"
         ],
         "degree_cell_count": 0,
         "degree_coordinates": null,
@@ -46283,9 +46287,9 @@
         "lattice_kind": null,
         "lattice_proof": null,
         "model_relation": "exactly the maintained cubical relative homotopy groups, exact metric spheres and enlarged cap cover, and the canonical cap-inclusion homomorphism used by the suspension-excision reduction",
-        "note": "All nine headline declarations are sorry-free Lean 4. Strict autoImplicit=false checks pass for the controlled puncture, stable-surjectivity, and Submission aggregate files; exact-target builds pass all 8,889 aggregate jobs. The theorem supplies stable-range sphere-group equivalences, but no new exact group value follows until a stable representative is computed, so this milestone does not recolor lattice cells.",
-        "result": "finite cubical PL approximation, jar-relative two-cell general position, endpoint cap preparation, collar-controlled compression, and explicit puncture deformations prove that the canonical sphere-cap relative homotopy map is bijective throughout the stable range q+3 <= 2d",
-        "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/cd27889efad78d7b5d5f68eee50e6e48d34f6de1/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Approximation/SphereCapExcisionSurjective.lean",
+        "note": "All thirteen headline declarations are sorry-free Lean 4. Strict autoImplicit=false checks pass for the contractible-pair comparison API, absolute cap-suspension map, controlled puncture, stable-surjectivity, and Submission aggregate files; exact-target builds pass all 8,889 aggregate jobs. The edge theorem proves cyclicity but not yet the order or nontriviality of pi_4(S^3), so this milestone still does not recolor lattice cells.",
+        "result": "finite cubical PL approximation, jar-relative two-cell general position, endpoint cap preparation, collar-controlled compression, and explicit puncture deformations prove that the canonical sphere-cap relative homotopy map is surjective for q+2 <= 2d and bijective for q+3 <= 2d; the induced edge map makes pi_4(S^3) a cyclic quotient of pi_3(S^2)=Z",
+        "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/25be0252302fdb92ed39efdd7cb9b5d3ae59a43b/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Approximation/SphereCapExcisionSurjective.lean",
         "status": "lean_kernel_checked_local_source",
         "system": "Lean 4"
       },
