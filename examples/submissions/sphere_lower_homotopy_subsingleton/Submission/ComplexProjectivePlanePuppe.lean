@@ -831,4 +831,83 @@ theorem diskBoundaryFourSuspensionHomeomorphSphere_apply
         diskBoundaryFourCellSphereMap) x = _
   exact ConcreteCategory.congr_hom diskBoundaryFourSuspension_comparison x
 
+/-! ## The canonical cofiber collapse has no homotopy section -/
+
+noncomputable def complexProjectivePlaneMappingConeBasepoint :
+    topologicalMappingCone diskBoundaryFourComplexHopfMap :=
+  topologicalMappingConeIncl diskBoundaryFourComplexHopfMap
+    (complexProjectiveModelBasepoint 1)
+
+@[simp]
+theorem complexProjectivePlaneMappingConeHomeomorphCell_basepoint :
+    complexProjectivePlaneMappingConeHomeomorphCell
+        complexProjectivePlaneMappingConeBasepoint =
+      complexProjectivePlaneCellBasepoint := by
+  change complexProjectivePlaneMappingConeToCell
+      complexProjectivePlaneMappingConeBasepoint = _
+  exact ConcreteCategory.congr_hom complexProjectivePlaneMappingConeIncl_toCell _
+
+theorem piFour_complexProjectivePlaneMappingCone_subsingleton :
+    Subsingleton
+      (π_ 4 (topologicalMappingCone diskBoundaryFourComplexHopfMap)
+        complexProjectivePlaneMappingConeBasepoint) := by
+  let e := HomotopyGroup.homeomorphMulEquivOfEq (N := Fin 4)
+    complexProjectivePlaneMappingConeHomeomorphCell
+    complexProjectivePlaneMappingConeHomeomorphCell_basepoint
+  exact e.toEquiv.subsingleton_congr.mpr
+    piFour_complexProjectivePlaneCell_subsingleton
+
+noncomputable def diskBoundaryFourSuspensionBasepoint :
+    topologicalSuspension (TopCat.diskBoundary.{0} 4) :=
+  topologicalSuspensionPointIncl (TopCat.diskBoundary 4) PUnit.unit
+
+@[simp]
+theorem diskBoundaryFourSuspensionHomeomorphSphere_basepoint :
+    diskBoundaryFourSuspensionHomeomorphSphere
+        diskBoundaryFourSuspensionBasepoint = sphereBasepoint 4 := by
+  rw [diskBoundaryFourSuspensionHomeomorphSphere_apply]
+  exact ConcreteCategory.congr_hom
+    diskBoundaryFourSuspensionPointIncl_toSphere PUnit.unit
+
+@[simp]
+theorem complexProjectivePlaneMappingConeCollapse_basepoint :
+    topologicalMappingConeCollapse diskBoundaryFourComplexHopfMap
+        complexProjectivePlaneMappingConeBasepoint =
+      diskBoundaryFourSuspensionBasepoint := by
+  exact ConcreteCategory.congr_hom
+    (topologicalMappingConeIncl_collapse diskBoundaryFourComplexHopfMap)
+    (complexProjectiveModelBasepoint 1)
+
+/-- The canonical cofiber collapse from the exact Hopf mapping cone to the suspension of its
+attaching sphere has no based homotopy section. -/
+theorem not_exists_complexProjectivePlaneMappingConeCollapse_homotopy_section :
+    ¬ ∃ (s : C(topologicalSuspension (TopCat.diskBoundary.{0} 4),
+        topologicalMappingCone diskBoundaryFourComplexHopfMap))
+        (_hs : s diskBoundaryFourSuspensionBasepoint =
+          complexProjectivePlaneMappingConeBasepoint),
+      ((topologicalMappingConeCollapse diskBoundaryFourComplexHopfMap).hom.comp s).HomotopicRel
+        (ContinuousMap.id (topologicalSuspension (TopCat.diskBoundary.{0} 4)))
+        {diskBoundaryFourSuspensionBasepoint} := by
+  rintro ⟨s, hs, H⟩
+  letI : Subsingleton
+      (π_ 4 (topologicalMappingCone diskBoundaryFourComplexHopfMap)
+        complexProjectivePlaneMappingConeBasepoint) :=
+    piFour_complexProjectivePlaneMappingCone_subsingleton
+  have hsurj : Function.Surjective
+      (HomotopyGroup.map (N := Fin 4)
+        (topologicalMappingConeCollapse diskBoundaryFourComplexHopfMap).hom
+        complexProjectivePlaneMappingConeCollapse_basepoint) :=
+    homotopyGroup_map_surjective_of_based_homotopy_section
+      (topologicalMappingConeCollapse diskBoundaryFourComplexHopfMap).hom s
+      complexProjectivePlaneMappingConeCollapse_basepoint hs H
+  letI : Subsingleton
+      (π_ 4 (topologicalSuspension (TopCat.diskBoundary.{0} 4))
+        diskBoundaryFourSuspensionBasepoint) := hsurj.subsingleton
+  let e := HomotopyGroup.homeomorphMulEquivOfEq (N := Fin 4)
+    diskBoundaryFourSuspensionHomeomorphSphere
+    diskBoundaryFourSuspensionHomeomorphSphere_basepoint
+  letI : Subsingleton (π_ 4 (Sph 4) (sphereBasepoint 4)) :=
+    e.toEquiv.subsingleton_congr.mp inferInstance
+  exact sphereGeneratorClass_ne_one 3 (Subsingleton.elim _ _)
+
 end Submission
