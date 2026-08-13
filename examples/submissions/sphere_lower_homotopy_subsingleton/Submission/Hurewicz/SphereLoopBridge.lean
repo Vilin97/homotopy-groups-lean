@@ -394,6 +394,51 @@ theorem sphereTargetMapClass_eq_one_of_nullhomotopic (m : ℕ) [Nonempty (Fin m)
   rw [sphereTargetMapClass_eq_of_homotopy m hf rfl H hbase,
     sphereTargetMapClass_const]
 
+/-- Freely homotopic based sphere maps into a simply connected target represent the same
+homotopy-group class.  Simple connectivity fills the loop traced by the basepoint and the
+moved-boundary filling lemma converts the free homotopy into a cubical relative homotopy. -/
+theorem sphereTargetMapClass_eq_of_freelyHomotopic (m : ℕ) [Nonempty (Fin m)]
+    [SimplyConnectedSpace X]
+    {f g : C(SphereSpace m, X)}
+    (hf : f (sphereBasepoint m) = x) (hg : g (sphereBasepoint m) = x)
+    (H : ContinuousMap.Homotopy f g) :
+    sphereTargetMapClass m f hf = sphereTargetMapClass m g hg := by
+  let δ : Path x x :=
+    { toFun := fun t ↦ H (t, sphereBasepoint m)
+      continuous_toFun := H.continuous.comp
+        (continuous_id.prodMk continuous_const)
+      source' := by rw [H.apply_zero, hf]
+      target' := by rw [H.apply_one, hg] }
+  have hδ : Path.Homotopic δ (Path.refl x) :=
+    (simply_connected_iff_loops_nullhomotopic.mp
+      (inferInstance : SimplyConnectedSpace X)).2 x δ
+  have hfree : GenLoop.HomotopicAlong' δ
+      (sphereTargetMapGenLoop m f hf)
+      (sphereTargetMapGenLoop m g hg) := by
+    refine ⟨H.compContinuousMap (cubeToSphere m), ?_⟩
+    intro s u hu
+    change H (s, cubeToSphere m u) = H (s, sphereBasepoint m)
+    rw [cubeToSphere_boundary m u hu]
+  exact Quotient.sound
+    (GenLoop.homotopic_of_homotopicAlong_refl (hfree.homotopicAlong hδ))
+
+/-- For a simply connected target, two positive-dimensional based sphere maps represent the
+same homotopy-group class exactly when their underlying maps are freely homotopic. -/
+theorem sphereTargetMapClass_eq_iff_freelyHomotopic (n : ℕ)
+    [SimplyConnectedSpace X]
+    {f g : C(SphereSpace (n + 1), X)}
+    (hf : f (sphereBasepoint (n + 1)) = x)
+    (hg : g (sphereBasepoint (n + 1)) = x) :
+    sphereTargetMapClass (n + 1) f hf = sphereTargetMapClass (n + 1) g hg ↔
+      Nonempty (ContinuousMap.Homotopy f g) := by
+  constructor
+  · intro hclass
+    obtain ⟨H, _⟩ :=
+      (sphereTargetMapClass_eq_iff_basedHomotopic n hf hg).mp hclass
+    exact ⟨H⟩
+  · rintro ⟨H⟩
+    exact sphereTargetMapClass_eq_of_freelyHomotopic (n + 1) hf hg H
+
 /-- A freely nullhomotopic based sphere map into a simply connected target represents the
 identity class.  Simple connectivity fills the loop traced by the basepoint and converts the
 free homotopy into a cubical homotopy relative to the boundary. -/
@@ -402,27 +447,10 @@ theorem sphereTargetMapClass_eq_one_of_freelyNullhomotopic (m : ℕ) [Nonempty (
     (f : C(SphereSpace m, X)) (hf : f (sphereBasepoint m) = x)
     (H : ContinuousMap.Homotopy f (ContinuousMap.const (SphereSpace m) x)) :
     sphereTargetMapClass m f hf = 1 := by
-  let δ : Path x x :=
-    { toFun := fun t ↦ H (t, sphereBasepoint m)
-      continuous_toFun := H.continuous.comp
-        (continuous_id.prodMk continuous_const)
-      source' := by rw [H.apply_zero, hf]
-      target' := by simp }
-  have hδ : Path.Homotopic δ (Path.refl x) :=
-    (simply_connected_iff_loops_nullhomotopic.mp
-      (inferInstance : SimplyConnectedSpace X)).2 x δ
-  have hfree : GenLoop.HomotopicAlong' δ
-      (sphereTargetMapGenLoop m f hf)
-      (sphereTargetMapGenLoop m (ContinuousMap.const (SphereSpace m) x) rfl) := by
-    refine ⟨H.compContinuousMap (cubeToSphere m), ?_⟩
-    intro s u hu
-    change H (s, cubeToSphere m u) = H (s, sphereBasepoint m)
-    rw [cubeToSphere_boundary m u hu]
   calc
     sphereTargetMapClass m f hf =
         sphereTargetMapClass m (ContinuousMap.const (SphereSpace m) x) rfl :=
-      Quotient.sound
-        (GenLoop.homotopic_of_homotopicAlong_refl (hfree.homotopicAlong hδ))
+      sphereTargetMapClass_eq_of_freelyHomotopic m hf rfl H
     _ = 1 := sphereTargetMapClass_const m
 
 /-- For a simply connected target, a positive-dimensional based sphere map represents the
@@ -435,14 +463,8 @@ theorem sphereTargetMapClass_eq_one_iff_freelyNullhomotopic (n : ℕ)
       Nonempty
         (ContinuousMap.Homotopy f
           (ContinuousMap.const (SphereSpace (n + 1)) x)) := by
-  constructor
-  · intro hclass
-    obtain ⟨H, _⟩ :=
-      (sphereTargetMapClass_eq_one_iff_basedNullhomotopic n f hf).mp hclass
-    exact ⟨H⟩
-  · rintro ⟨H⟩
-    exact sphereTargetMapClass_eq_one_of_freelyNullhomotopic
-      (n + 1) f hf H
+  rw [← sphereTargetMapClass_const (X := X) (x := x) (n + 1)]
+  exact sphereTargetMapClass_eq_iff_freelyHomotopic n hf rfl
 
 /-- Equivalently, in a simply connected target the represented sphere class is nonidentity
 exactly when the underlying sphere map is not freely nullhomotopic. -/
