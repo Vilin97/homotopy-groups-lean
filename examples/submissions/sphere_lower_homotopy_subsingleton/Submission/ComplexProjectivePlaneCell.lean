@@ -675,4 +675,28 @@ theorem complexProjectivePlaneCellHomeomorph_disk
       complexProjectivePlaneCharacteristic z :=
   ConcreteCategory.congr_hom complexProjectivePlaneCellMap_disk z
 
+/-- The fourth homotopy group of complex projective two-space is trivial. -/
+theorem piFour_complexProjectivePlane_subsingleton :
+    Subsingleton
+      (π_ 4 (ComplexProjectiveModel 2) (complexProjectiveModelBasepoint 2)) := by
+  obtain ⟨e⟩ := complexProjectiveModel_higher_homotopy_mulEquiv_sphere 2 1 (by omega)
+  exact e.toEquiv.subsingleton_congr.mpr <|
+    subsingleton_homotopyGroup_sphere_of_lt 4 5 (by omega) (sphereBasepoint 5)
+
+/-- The basepoint on the Hopf cell model corresponding to the standard projective basepoint. -/
+noncomputable def complexProjectivePlaneCellBasepoint :
+    complexProjectivePlaneCell :=
+  complexProjectivePlaneCellHomeomorph.symm (complexProjectiveModelBasepoint 2)
+
+/-- The fourth homotopy group of the exact Hopf cell model is trivial. -/
+theorem piFour_complexProjectivePlaneCell_subsingleton :
+    Subsingleton
+      (π_ 4 complexProjectivePlaneCell complexProjectivePlaneCellBasepoint) := by
+  let e := HomotopyGroup.homeomorphMulEquivOfEq (N := Fin 4)
+    complexProjectivePlaneCellHomeomorph
+    (complexProjectivePlaneCellHomeomorph.apply_symm_apply
+      (complexProjectiveModelBasepoint 2))
+  exact e.toEquiv.subsingleton_congr.mpr
+    piFour_complexProjectivePlane_subsingleton
+
 end Submission
