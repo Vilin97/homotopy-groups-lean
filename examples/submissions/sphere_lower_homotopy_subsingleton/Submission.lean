@@ -124,6 +124,7 @@ import Submission.Cohomology.CellAttachmentSqTwo
 import Submission.Topology.MappingConeCover
 import Submission.Topology.SuspensionComparison
 import Submission.Topology.Puppe
+import Submission.Topology.PuppeComparison
 import Submission.HopfMappingCone
 import Submission.ComplexProjectivePlaneCohomology
 import Submission.SuspendedHopfMap
