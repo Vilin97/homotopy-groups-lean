@@ -118,15 +118,24 @@ theorem epi_mvCohSC_g_homology_zero [PathConnectedSpace (A ∩ B : Set X)] :
     exact hsurj
   exact epi_of_epi p q
 
+/-- The middle term of the cohomological Mayer--Vietoris sequence vanishes whenever the
+cohomology of both pieces vanishes. -/
+theorem isZero_mvCohSC_X₂_homology (n : ℕ)
+    (hA : IsZero ((homDual (Csing (TopCat.of A)) (AddCommGrpCat.of R)).homology n))
+    (hB : IsZero ((homDual (Csing (TopCat.of B)) (AddCommGrpCat.of R)).homology n)) :
+    IsZero ((mvCohSC A B R).X₂.homology n) := by
+  refine IsZero.of_iso ?_ (mvCohMiddleIso A B R n)
+  rw [biprod_isZero_iff]
+  exact ⟨hA, hB⟩
+
 /-- If both pieces are contractible, the middle term of the cohomological Mayer--Vietoris
 sequence vanishes in positive degrees. -/
 theorem isZero_mvCohSC_X₂_homology_of_contractible
     [ContractibleSpace A] [ContractibleSpace B] (n : ℕ) (hn : n ≠ 0) :
-    IsZero ((mvCohSC A B R).X₂.homology n) := by
-  refine IsZero.of_iso ?_ (mvCohMiddleIso A B R n)
-  rw [biprod_isZero_iff]
-  exact ⟨isZero_dualHomology_of_contractible R n hn,
-    isZero_dualHomology_of_contractible R n hn⟩
+    IsZero ((mvCohSC A B R).X₂.homology n) :=
+  isZero_mvCohSC_X₂_homology A B R n
+    (isZero_dualHomology_of_contractible R n hn)
+    (isZero_dualHomology_of_contractible R n hn)
 
 /-- A space covered by two contractible pieces with path-connected intersection has vanishing
 degree-one cohomology. -/
