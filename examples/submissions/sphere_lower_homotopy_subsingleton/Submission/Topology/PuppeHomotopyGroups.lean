@@ -91,6 +91,55 @@ theorem topologicalSuspensionToSecondMappingCone_homotopyGroup_injective
   exact congrArg TopCat.Hom.hom
     (topologicalSuspensionToSecondMappingCone_toSuspension f)
 
+/-- At every basepoint, the Puppe comparison induces a specified multiplicative equivalence
+to the homotopy group of `ΣX` at the image basepoint. -/
+noncomputable def topologicalSecondMappingConeHomotopyGroupMulEquivSuspensionAt
+    (N : Type v) [Fintype N] [Nonempty N] [DecidableEq N]
+    (f : A ⟶ X)
+    (c : topologicalMappingCone (topologicalMappingConeCollapse f)) :
+    HomotopyGroup N
+        (topologicalMappingCone (topologicalMappingConeCollapse f)) c ≃*
+      HomotopyGroup N (topologicalSuspension X)
+        (topologicalSecondMappingConeToSuspension f c) :=
+  homotopyGroupMulEquivOfHomotopyEquiv
+    (topologicalSecondMappingConeHomotopyEquivSuspension f) c
+
+@[simp]
+theorem topologicalSecondMappingConeHomotopyGroupMulEquivSuspensionAt_apply
+    (N : Type v) [Fintype N] [Nonempty N] [DecidableEq N]
+    (f : A ⟶ X)
+    (c : topologicalMappingCone (topologicalMappingConeCollapse f))
+    (a : HomotopyGroup N
+      (topologicalMappingCone (topologicalMappingConeCollapse f)) c) :
+    topologicalSecondMappingConeHomotopyGroupMulEquivSuspensionAt N f c a =
+      HomotopyGroup.map (N := N)
+        (topologicalSecondMappingConeToSuspension f).hom rfl a :=
+  homotopyGroupMulEquivOfHomotopyEquiv_apply
+    (topologicalSecondMappingConeHomotopyEquivSuspension f) c a
+
+/-- At every basepoint, the canonical comparison induces a bijection on every finite positive
+homotopy-group coordinate. -/
+theorem topologicalSecondMappingConeToSuspension_homotopyGroup_bijective_at
+    (N : Type v) [Fintype N] [Nonempty N] [DecidableEq N]
+    (f : A ⟶ X)
+    (c : topologicalMappingCone (topologicalMappingConeCollapse f)) :
+    Function.Bijective
+      (HomotopyGroup.map (N := N)
+        (topologicalSecondMappingConeToSuspension f).hom
+        (rfl : topologicalSecondMappingConeToSuspension f c =
+          topologicalSecondMappingConeToSuspension f c)) := by
+  let e := topologicalSecondMappingConeHomotopyGroupMulEquivSuspensionAt N f c
+  constructor
+  · intro a b hab
+    apply e.injective
+    simpa only [e,
+      topologicalSecondMappingConeHomotopyGroupMulEquivSuspensionAt_apply] using hab
+  · intro b
+    obtain ⟨a, ha⟩ := e.surjective b
+    refine ⟨a, ?_⟩
+    simpa only [e,
+      topologicalSecondMappingConeHomotopyGroupMulEquivSuspensionAt_apply] using ha
+
 /-- The full Puppe comparison homotopy equivalence induces a multiplicative equivalence on
 every positive-dimensional homotopy group at the canonical suspension-point basepoints. -/
 noncomputable def topologicalSecondMappingConeHomotopyGroupMulEquivSuspension
@@ -101,10 +150,10 @@ noncomputable def topologicalSecondMappingConeHomotopyGroupMulEquivSuspension
         (topologicalSecondMappingConeBasepoint f) ≃*
       HomotopyGroup N (topologicalSuspension X)
         (topologicalSuspensionBasepoint X) := by
-  let e := topologicalSecondMappingConeHomotopyEquivSuspension f
-  let φ := homotopyGroupMulEquivOfHomotopyEquiv (N := N) e
+  let φ := topologicalSecondMappingConeHomotopyGroupMulEquivSuspensionAt N f
     (topologicalSecondMappingConeBasepoint f)
-  have hbase : e (topologicalSecondMappingConeBasepoint f) =
+  have hbase : topologicalSecondMappingConeToSuspension f
+        (topologicalSecondMappingConeBasepoint f) =
       topologicalSuspensionBasepoint X :=
     topologicalSecondMappingConeToSuspension_basepoint f
   exact hbase ▸ φ
