@@ -1390,4 +1390,24 @@ noncomputable def mappingConeMiddleHomotopyEquiv
       exact mappingConeMiddleRetract_incl f a
     rw [← TopCat.hom_comp, h, TopCat.hom_id]
 
+/-- The overlap in the standard mapping-cone cover is path connected when the attaching
+space is. -/
+theorem pathConnectedSpace_mappingConeMiddle
+    (f : A ⟶ X) [PathConnectedSpace A] :
+    PathConnectedSpace (mappingConeMiddle f) := by
+  let r := mappingConeMiddleRetract f
+  let i := mappingConeMiddleIncl f
+  let H := mappingConeMiddleDeformation f
+  let pathTo (z : mappingConeMiddle f) :
+      Path ((r ≫ i) z) z :=
+    ⟨⟨fun t ↦ H (t, z), H.continuous.comp
+        (continuous_id.prodMk continuous_const)⟩,
+      H.map_zero_left z, H.map_one_left z⟩
+  refine ⟨⟨i (Classical.choice (inferInstance : Nonempty A))⟩, ?_⟩
+  intro z w
+  have hzw : Joined (i (r z)) (i (r w)) :=
+    ⟨(PathConnectedSpace.somePath (r z) (r w)).map i.hom.continuous⟩
+  exact (show Joined z ((r ≫ i) z) from ⟨(pathTo z).symm⟩).trans
+    (hzw.trans (show Joined ((r ≫ i) w) w from ⟨pathTo w⟩))
+
 end Submission

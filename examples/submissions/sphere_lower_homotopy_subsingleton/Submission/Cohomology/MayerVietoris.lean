@@ -137,6 +137,26 @@ theorem isZero_mvCohSC_X₂_homology_of_contractible
     (isZero_dualHomology_of_contractible R n hn)
     (isZero_dualHomology_of_contractible R n hn)
 
+/-- A path-connected-overlap cover has vanishing degree-one cohomology when both pieces do. -/
+theorem isZero_dualHomology_one_of_cover
+    (h : interior A ∪ interior B = Set.univ)
+    [PathConnectedSpace (A ∩ B : Set X)]
+    (hA : IsZero ((homDual (Csing (TopCat.of A))
+      (AddCommGrpCat.of R)).homology 1))
+    (hB : IsZero ((homDual (Csing (TopCat.of B))
+      (AddCommGrpCat.of R)).homology 1)) :
+    IsZero ((homDual (Csing X) (AddCommGrpCat.of R)).homology 1) := by
+  haveI : Epi (HomologicalComplex.homologyMap (mvCohSC A B R).g 0) :=
+    epi_mvCohSC_g_homology_zero A B R
+  have hδ : (mvCohSC_shortExact A B R).δ 0 1 (by rfl) = 0 := by
+    rw [← cancel_epi (HomologicalComplex.homologyMap (mvCohSC A B R).g 0)]
+    exact (mvCohSC_shortExact A B R).comp_δ 0 1 (by rfl)
+  have hzMiddle := isZero_mvCohSC_X₂_homology A B R 1 hA hB
+  have hzSmall : IsZero ((mvCohSC A B R).X₁.homology 1) :=
+    ((mvCohSC_shortExact A B R).homology_exact₁ 0 1 (by rfl)).isZero_X₂
+      hδ (hzMiddle.eq_of_tgt _ _)
+  exact IsZero.of_iso hzSmall (mvSmallCohomologyIso A B R h 1)
+
 /-- A space covered by two contractible pieces with path-connected intersection has vanishing
 degree-one cohomology. -/
 theorem isZero_dualHomology_one_of_contractible_cover
@@ -144,16 +164,9 @@ theorem isZero_dualHomology_one_of_contractible_cover
     [ContractibleSpace A] [ContractibleSpace B]
     [PathConnectedSpace (A ∩ B : Set X)] :
     IsZero ((homDual (Csing X) (AddCommGrpCat.of R)).homology 1) := by
-  haveI : Epi (HomologicalComplex.homologyMap (mvCohSC A B R).g 0) :=
-    epi_mvCohSC_g_homology_zero A B R
-  have hδ : (mvCohSC_shortExact A B R).δ 0 1 (by rfl) = 0 := by
-    rw [← cancel_epi (HomologicalComplex.homologyMap (mvCohSC A B R).g 0)]
-    exact (mvCohSC_shortExact A B R).comp_δ 0 1 (by rfl)
-  have hzMiddle := isZero_mvCohSC_X₂_homology_of_contractible A B R 1 (by omega)
-  have hzSmall : IsZero ((mvCohSC A B R).X₁.homology 1) :=
-    ((mvCohSC_shortExact A B R).homology_exact₁ 0 1 (by rfl)).isZero_X₂
-      hδ (hzMiddle.eq_of_tgt _ _)
-  exact IsZero.of_iso hzSmall (mvSmallCohomologyIso A B R h 1)
+  exact isZero_dualHomology_one_of_cover A B R h
+    (isZero_dualHomology_of_contractible R 1 (by omega))
+    (isZero_dualHomology_of_contractible R 1 (by omega))
 
 /-- The successor relation in the cochain-complex shape. -/
 lemma mvCohRel (n : ℕ) : (ComplexShape.down ℕ).symm.Rel n (n + 1) := rfl

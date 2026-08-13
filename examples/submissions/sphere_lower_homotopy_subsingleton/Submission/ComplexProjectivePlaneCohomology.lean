@@ -124,6 +124,61 @@ theorem complexProjectivePlaneModTwoClass_ne_zero :
   rw [map_zero]
   exact hzero
 
+/-- Degree-one mod-two singular cohomology of the geometric projective plane vanishes. -/
+theorem subsingleton_Hsing_complexProjectivePlane_one :
+    Subsingleton
+      (Hsing 1 (TopCat.of (ComplexProjectiveModel 2)) (ZMod 2)) := by
+  let e := complexProjectivePlaneIsoHopfMappingCone
+  letI : Subsingleton (Hsing 1 hopfMappingCone (ZMod 2)) :=
+    subsingleton_Hsing_hopfMappingCone_one
+  exact ⟨fun a b ↦
+    (Hsing.map_bijective_of_isIso (R := ZMod 2) e.inv 1).1
+      (Subsingleton.elim _ _)⟩
+
+/-- Every degree-two mod-two class on the projective plane is zero or its normalized
+generator. -/
+theorem complexProjectivePlaneDegreeTwoClass_eq_zero_or_eq_generator
+    (x : Hsing 2 (TopCat.of (ComplexProjectiveModel 2)) (ZMod 2)) :
+    x = 0 ∨ x = complexProjectivePlaneModTwoClass := by
+  let e := complexProjectivePlaneIsoHopfMappingCone
+  let x' := Hsing.map e.inv 2 x
+  rcases hopfMappingConeDegreeTwoClass_eq_zero_or_eq_bottom x' with hzero | htop
+  · left
+    apply (Hsing.map_bijective_of_isIso (R := ZMod 2) e.inv 2).1
+    rw [map_zero]
+    exact hzero
+  · right
+    apply (Hsing.map_bijective_of_isIso (R := ZMod 2) e.inv 2).1
+    change Hsing.map e.inv 2 x =
+      Hsing.map e.inv 2 (Hsing.map e.hom 2 hopfMappingConeBottomClass)
+    rw [← LinearMap.comp_apply, ← Hsing.map_comp, Iso.inv_hom_id,
+      Hsing.map_id, LinearMap.id_apply]
+    exact htop
+
+/-- Degree-three mod-two singular cohomology of the geometric projective plane vanishes. -/
+theorem subsingleton_Hsing_complexProjectivePlane_three :
+    Subsingleton
+      (Hsing 3 (TopCat.of (ComplexProjectiveModel 2)) (ZMod 2)) := by
+  let e := complexProjectivePlaneIsoHopfMappingCone
+  letI : Subsingleton (Hsing 3 hopfMappingCone (ZMod 2)) :=
+    subsingleton_Hsing_hopfMappingCone_three
+  exact ⟨fun a b ↦
+    (Hsing.map_bijective_of_isIso (R := ZMod 2) e.inv 3).1
+      (Subsingleton.elim _ _)⟩
+
+/-- Mod-two singular cohomology of the geometric projective plane vanishes above degree
+four. -/
+theorem subsingleton_Hsing_complexProjectivePlane_of_five_le
+    (k : ℕ) (hk : 5 ≤ k) :
+    Subsingleton
+      (Hsing k (TopCat.of (ComplexProjectiveModel 2)) (ZMod 2)) := by
+  let e := complexProjectivePlaneIsoHopfMappingCone
+  letI : Subsingleton (Hsing k hopfMappingCone (ZMod 2)) :=
+    subsingleton_Hsing_hopfMappingCone_of_five_le k hk
+  exact ⟨fun a b ↦
+    (Hsing.map_bijective_of_isIso (R := ZMod 2) e.inv k).1
+      (Subsingleton.elim _ _)⟩
+
 /-- The normalized mod-two top class on the geometric projective plane. -/
 noncomputable def complexProjectivePlaneModTwoTopClass :
     Hsing 4 (TopCat.of (ComplexProjectiveModel 2)) (ZMod 2) :=

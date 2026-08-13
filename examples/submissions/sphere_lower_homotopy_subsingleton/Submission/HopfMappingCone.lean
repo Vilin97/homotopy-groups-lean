@@ -45,6 +45,32 @@ noncomputable abbrev hopfMappingConeIncl :
 
 /-! ### The normalized top homology and cohomology classes -/
 
+/-- Degree-one mod-two cohomology of `S²` vanishes. -/
+theorem isZero_sphereTwoDualCohomology_one :
+    IsZero ((homDual (Csing (TopCat.of (Sph 2))) modTwoCoefficients).homology 1) := by
+  simpa using isZero_dualHomology_one_sphere (ZMod 2) 0
+
+/-- Degree-one mod-two cohomology of the Hopf mapping cone vanishes. -/
+theorem isZero_hopfMappingConeDualCohomology_one :
+    IsZero ((homDual (Csing hopfMappingCone) modTwoCoefficients).homology 1) := by
+  letI : PathConnectedSpace
+      (mappingConeUpper hopfTopCat ∩ mappingConeLower hopfTopCat :
+        Set (topologicalMappingCone hopfTopCat)) := by
+    change PathConnectedSpace (mappingConeMiddle hopfTopCat)
+    exact pathConnectedSpace_mappingConeMiddle hopfTopCat
+  exact isZero_dualHomology_one_of_cover
+    (mappingConeUpper hopfTopCat) (mappingConeLower hopfTopCat) (ZMod 2)
+    (mappingConeCover_interior_union hopfTopCat)
+    (isZero_dualHomology_of_contractible (ZMod 2) 1 (by omega))
+    (isZero_mappingConeLowerCohomology hopfTopCat (ZMod 2) 1
+      isZero_sphereTwoDualCohomology_one)
+
+/-- Degree-one mod-two singular cohomology of the Hopf mapping cone vanishes. -/
+theorem subsingleton_Hsing_hopfMappingCone_one :
+    Subsingleton (Hsing 1 hopfMappingCone (ZMod 2)) :=
+  subsingleton_Hsing_of_isZero_dualHomology (ZMod 2) 1
+    isZero_hopfMappingConeDualCohomology_one
+
 /-- The fourth homology of the Hopf mapping cone is infinite cyclic. -/
 noncomputable def hopfMappingConeHomologyIsoInt :
     Hgrp 4 hopfMappingCone ≅ AddCommGrpCat.of ℤ :=
@@ -230,6 +256,73 @@ theorem hopfMappingConeBottomClass_ne_zero : hopfMappingConeBottomClass ≠ 0 :=
   intro hzero
   apply sphereTopModTwoClass_ne_zero 1
   rw [← hopfMappingConeBottomClass_restrict, hzero, map_zero]
+
+/-- Every degree-two class of the Hopf mapping cone is zero or its normalized bottom class. -/
+theorem hopfMappingConeDegreeTwoClass_eq_zero_or_eq_bottom
+    (x : Hsing 2 hopfMappingCone (ZMod 2)) :
+    x = 0 ∨ x = hopfMappingConeBottomClass := by
+  rcases sphereTopClass_eq_zero_or_eq_top 1
+      (Hsing.map hopfMappingConeIncl 2 x) with hzero | htop
+  · left
+    apply hopfMappingConeIncl_bijective.1
+    rw [map_zero]
+    exact hzero
+  · right
+    apply hopfMappingConeIncl_bijective.1
+    rw [hopfMappingConeBottomClass_restrict]
+    exact htop
+
+/-- Degree-three mod-two cohomology of the Hopf mapping cone vanishes. -/
+theorem isZero_hopfMappingConeDualCohomology_three :
+    IsZero ((homDual (Csing hopfMappingCone) modTwoCoefficients).homology 3) := by
+  exact (relCoh_exact_relative_absolute_restriction
+      hopfMappingConeIncl modTwoCoefficients 3).isZero_X₂
+    (isZero_HrelCoh_hopfMappingConeIncl_three.eq_of_src _ _)
+    (isZero_sphereTwoDualCohomology_three.eq_of_tgt _ _)
+
+/-- Degree-three mod-two singular cohomology of the Hopf mapping cone vanishes. -/
+theorem subsingleton_Hsing_hopfMappingCone_three :
+    Subsingleton (Hsing 3 hopfMappingCone (ZMod 2)) :=
+  subsingleton_Hsing_of_isZero_dualHomology (ZMod 2) 3
+    isZero_hopfMappingConeDualCohomology_three
+
+/-- Mod-two cohomology of the Hopf mapping cone vanishes above its top cell. -/
+theorem isZero_hopfMappingConeDualCohomology_of_five_le
+    (k : ℕ) (hk : 5 ≤ k) :
+    IsZero ((homDual (Csing hopfMappingCone) modTwoCoefficients).homology k) := by
+  obtain ⟨d, rfl⟩ := Nat.exists_eq_add_of_le hk
+  letI : Subsingleton
+      (Hsing ((d + 3) + 1) (TopCat.of (Sph 2)) (ZMod 2)) :=
+    subsingleton_Hsing_sphere (ZMod 2) ((d + 3) + 1) 2 (by omega) (by omega)
+  letI : Subsingleton
+      (Hsing ((d + 3) + 2) (TopCat.of (Sph 2)) (ZMod 2)) :=
+    subsingleton_Hsing_sphere (ZMod 2) ((d + 3) + 2) 2 (by omega) (by omega)
+  have hX₀ : IsZero
+      ((homDual (Csing (TopCat.of (Sph 2))) modTwoCoefficients).homology
+        ((d + 3) + 1)) :=
+    isZero_dualHomology_of_subsingleton_Hsing (ZMod 2) ((d + 3) + 1)
+  have hX₁ : IsZero
+      ((homDual (Csing (TopCat.of (Sph 2))) modTwoCoefficients).homology
+        ((d + 3) + 2)) :=
+    isZero_dualHomology_of_subsingleton_Hsing (ZMod 2) ((d + 3) + 2)
+  letI : Subsingleton
+      (Hsing ((d + 3) + 1) (TopCat.of (Sph 3)) (ZMod 2)) :=
+    subsingleton_Hsing_sphere (ZMod 2) ((d + 3) + 1) 3 (by omega) (by omega)
+  have hA : IsZero
+      ((homDual (Csing (TopCat.of (Sph 3))) modTwoCoefficients).homology
+        ((d + 3) + 1)) :=
+    isZero_dualHomology_of_subsingleton_Hsing (ZMod 2) ((d + 3) + 1)
+  let e := mappingConeCohomologySuspensionIso hopfTopCat (ZMod 2)
+    (d + 3) hX₀ hX₁
+  exact IsZero.of_iso hA (by
+    simpa [Nat.add_comm, Nat.add_left_comm, Nat.add_assoc] using e.symm)
+
+/-- Mod-two singular cohomology of the Hopf mapping cone vanishes above degree four. -/
+theorem subsingleton_Hsing_hopfMappingCone_of_five_le
+    (k : ℕ) (hk : 5 ≤ k) :
+    Subsingleton (Hsing k hopfMappingCone (ZMod 2)) :=
+  subsingleton_Hsing_of_isZero_dualHomology (ZMod 2) k
+    (isZero_hopfMappingConeDualCohomology_of_five_le k hk)
 
 /-- A fixed singular cocycle representing the canonical bottom class. -/
 noncomputable def hopfMappingConeBottomCocycle :
