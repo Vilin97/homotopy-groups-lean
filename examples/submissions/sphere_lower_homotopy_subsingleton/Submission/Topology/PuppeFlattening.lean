@@ -306,6 +306,141 @@ theorem continuous_topologicalSecondMappingConeHeightShrinkAt
       exact ConcreteCategory.congr_hom
         (topologicalConePointIncl_secondInnerHeightShrinkConeAt f t v) z
 
+/-- The descended first-mapping-cone formula is jointly continuous in deformation time, outer
+height, and the point of `C_f`. -/
+theorem continuous_topologicalSecondMappingConeHeightShrinkAt_joint
+    (f : A ⟶ X) :
+    Continuous fun p :
+        ((TopCat.I.{u} : Type u) × (TopCat.I.{u} : Type u)) ×
+          topologicalMappingCone f ↦
+      topologicalSecondMappingConeHeightShrinkAt f p.1.1 p.1.2 p.2 := by
+  apply (topologicalMappingConeTripleDesc_isQuotientMap f).continuous_lift_prod_right
+  let L :
+      (((TopCat.I.{u} : Type u) × (TopCat.I.{u} : Type u)) ×
+          (A ⊗ TopCat.I : TopCat.{u})) ⊕
+        (((TopCat.I.{u} : Type u) × (TopCat.I.{u} : Type u)) ×
+          (𝟙_ TopCat.{u})) →
+            topologicalMappingCone (topologicalMappingConeCollapse f) :=
+    Sum.elim
+      (fun p ↦ topologicalMappingConeConeIncl (topologicalMappingConeCollapse f)
+        (topologicalConeCylinderIncl (topologicalMappingCone f)
+          (topologicalMappingConeConeIncl f
+              (topologicalConeCylinderIncl A
+                (fst A TopCat.I p.2,
+                  TopCat.I.mul
+                    (snd A TopCat.I p.2, TopCat.I.symm p.1.1))),
+            TopCat.I.max (p.1.2, snd A TopCat.I p.2))))
+      (fun _ ↦ topologicalMappingConeConeIncl (topologicalMappingConeCollapse f)
+        (topologicalConePointIncl (topologicalMappingCone f) PUnit.unit))
+  have hL : Continuous L := by
+    rw [continuous_sum_dom]
+    constructor <;> dsimp [L] <;> fun_prop
+  have hright : Continuous (fun p :
+      ((TopCat.I.{u} : Type u) × (TopCat.I.{u} : Type u)) ×
+        ((A ⊗ TopCat.I : TopCat.{u}) ⊕ (𝟙_ TopCat.{u})) ↦
+      match p.2 with
+      | Sum.inl c => topologicalMappingConeConeIncl
+          (topologicalMappingConeCollapse f)
+            (topologicalConeCylinderIncl (topologicalMappingCone f)
+              (topologicalMappingConeConeIncl f
+                  (topologicalConeCylinderIncl A
+                    (fst A TopCat.I c,
+                      TopCat.I.mul
+                        (snd A TopCat.I c, TopCat.I.symm p.1.1))),
+                TopCat.I.max (p.1.2, snd A TopCat.I c)))
+      | Sum.inr _ => topologicalMappingConeConeIncl
+          (topologicalMappingConeCollapse f)
+            (topologicalConePointIncl (topologicalMappingCone f) PUnit.unit)) := by
+    have hcomp := hL.comp (Homeomorph.prodSumDistrib :
+      ((TopCat.I.{u} : Type u) × (TopCat.I.{u} : Type u)) ×
+        ((A ⊗ TopCat.I : TopCat.{u}) ⊕ (𝟙_ TopCat.{u})) ≃ₜ _).continuous
+    convert hcomp using 1
+    funext p
+    rcases p with ⟨tv, c | z⟩ <;> rfl
+  let K :
+      (((TopCat.I.{u} : Type u) × (TopCat.I.{u} : Type u)) ×
+          (X : Type u)) ⊕
+        (((TopCat.I.{u} : Type u) × (TopCat.I.{u} : Type u)) ×
+          ((A ⊗ TopCat.I : TopCat.{u}) ⊕ (𝟙_ TopCat.{u}))) →
+            topologicalMappingCone (topologicalMappingConeCollapse f) :=
+    Sum.elim
+      (fun p ↦ topologicalMappingConeConeIncl (topologicalMappingConeCollapse f)
+        (topologicalConeCylinderIncl (topologicalMappingCone f)
+          (topologicalMappingConeIncl f p.2, p.1.2)))
+      (fun p ↦ match p.2 with
+        | Sum.inl c => topologicalMappingConeConeIncl
+            (topologicalMappingConeCollapse f)
+              (topologicalConeCylinderIncl (topologicalMappingCone f)
+                (topologicalMappingConeConeIncl f
+                    (topologicalConeCylinderIncl A
+                      (fst A TopCat.I c,
+                        TopCat.I.mul
+                          (snd A TopCat.I c, TopCat.I.symm p.1.1))),
+                  TopCat.I.max (p.1.2, snd A TopCat.I c)))
+        | Sum.inr _ => topologicalMappingConeConeIncl
+            (topologicalMappingConeCollapse f)
+              (topologicalConePointIncl (topologicalMappingCone f) PUnit.unit))
+  have hK : Continuous K := by
+    rw [continuous_sum_dom]
+    exact ⟨by dsimp [K]; fun_prop, by simpa [K] using hright⟩
+  have hcomp := hK.comp (Homeomorph.prodSumDistrib :
+    ((TopCat.I.{u} : Type u) × (TopCat.I.{u} : Type u)) ×
+      ((X : Type u) ⊕ ((A ⊗ TopCat.I : TopCat.{u}) ⊕
+        (𝟙_ TopCat.{u}))) ≃ₜ _).continuous
+  convert hcomp using 1
+  funext p
+  rcases p with ⟨⟨t, v⟩, x | r⟩
+  · change topologicalSecondMappingConeHeightShrinkAt f t v
+        (topologicalMappingConeIncl f x) =
+      K (Homeomorph.prodSumDistrib ((t, v), Sum.inl x))
+    rw [show (Homeomorph.prodSumDistrib ((t, v), Sum.inl x) :
+      ((((TopCat.I.{u} : Type u) × (TopCat.I.{u} : Type u)) ×
+          (X : Type u)) ⊕ _)) = Sum.inl ((t, v), x) from rfl]
+    dsimp [K]
+    exact ConcreteCategory.congr_hom
+      (topologicalMappingConeIncl_secondHeightShrinkAt f t v) x
+  · rcases r with c | z
+    · change topologicalSecondMappingConeHeightShrinkAt f t v
+          (topologicalMappingConeConeIncl f (topologicalConeCylinderIncl A c)) =
+        K (Homeomorph.prodSumDistrib ((t, v), Sum.inr (Sum.inl c)))
+      rw [show (Homeomorph.prodSumDistrib ((t, v), Sum.inr (Sum.inl c)) :
+        ((((TopCat.I.{u} : Type u) × (TopCat.I.{u} : Type u)) ×
+            (X : Type u)) ⊕ _)) =
+          Sum.inr ((t, v), Sum.inl c) from rfl]
+      dsimp [K]
+      rw [show topologicalSecondMappingConeHeightShrinkAt f t v
+          (topologicalMappingConeConeIncl f (topologicalConeCylinderIncl A c)) =
+        topologicalSecondInnerHeightShrinkConeAt f t v
+          (topologicalConeCylinderIncl A c) from
+          ConcreteCategory.congr_hom
+            (topologicalMappingConeConeIncl_secondHeightShrinkAt f t v)
+            (topologicalConeCylinderIncl A c)]
+      rcases c with ⟨a, u⟩
+      rw [show topologicalSecondInnerHeightShrinkConeAt f t v
+          (topologicalConeCylinderIncl A (a, u)) =
+        topologicalSecondInnerHeightShrinkCylinderAt f t v (a, u) from
+          ConcreteCategory.congr_hom
+            (topologicalConeCylinderIncl_secondInnerHeightShrinkConeAt f t v)
+            (a, u)]
+      exact topologicalSecondInnerHeightShrinkCylinderAt_apply f t v a u
+    · change topologicalSecondMappingConeHeightShrinkAt f t v
+          (topologicalMappingConeConeIncl f (topologicalConePointIncl A z)) =
+        K (Homeomorph.prodSumDistrib ((t, v), Sum.inr (Sum.inr z)))
+      rw [show (Homeomorph.prodSumDistrib ((t, v), Sum.inr (Sum.inr z)) :
+        ((((TopCat.I.{u} : Type u) × (TopCat.I.{u} : Type u)) ×
+            (X : Type u)) ⊕ _)) =
+          Sum.inr ((t, v), Sum.inr z) from rfl]
+      dsimp [K]
+      rw [show topologicalSecondMappingConeHeightShrinkAt f t v
+          (topologicalMappingConeConeIncl f (topologicalConePointIncl A z)) =
+        topologicalSecondInnerHeightShrinkConeAt f t v
+          (topologicalConePointIncl A z) from
+          ConcreteCategory.congr_hom
+            (topologicalMappingConeConeIncl_secondHeightShrinkAt f t v)
+            (topologicalConePointIncl A z)]
+      exact ConcreteCategory.congr_hom
+        (topologicalConePointIncl_secondInnerHeightShrinkConeAt f t v) z
+
 /-- Swapping the two product variables gives the continuity statement in outer-cylinder order. -/
 theorem continuous_topologicalSecondMappingConeHeightShrinkAt_swap
     (f : A ⟶ X) (t : TopCat.I) :
@@ -636,5 +771,441 @@ theorem topologicalSecondMappingConeConeIncl_heightShrinkAt
         topologicalSecondHeightShrinkAt f t =
       topologicalSecondHeightShrinkOuterConeAt f t :=
   pushout.inr_desc _ _ _
+
+/-- The outer-cylinder formula is jointly continuous in the second deformation time and the
+outer-cylinder point. -/
+theorem continuous_topologicalSecondHeightShrinkOuterCylinderAt_joint
+    (f : A ⟶ X) :
+    Continuous fun p : (TopCat.I.{u} : Type u) ×
+        (topologicalMappingCone f ⊗ TopCat.I : TopCat.{u}) ↦
+      topologicalSecondHeightShrinkOuterCylinderAt f p.1 p.2 := by
+  have hreorder : Continuous fun p : (TopCat.I.{u} : Type u) ×
+      (topologicalMappingCone f ⊗ TopCat.I : TopCat.{u}) ↦
+        ((p.1, snd (topologicalMappingCone f) TopCat.I p.2),
+          fst (topologicalMappingCone f) TopCat.I p.2) := by
+    fun_prop
+  have hcomp :=
+    (continuous_topologicalSecondMappingConeHeightShrinkAt_joint f).comp hreorder
+  convert hcomp using 1
+  funext p
+  rfl
+
+/-- The outer-cone formula is jointly continuous in the second deformation time and the
+outer-cone point. -/
+theorem continuous_topologicalSecondHeightShrinkOuterConeAt_joint
+    (f : A ⟶ X) :
+    Continuous fun p : (TopCat.I.{u} : Type u) ×
+        topologicalCone (topologicalMappingCone f) ↦
+      topologicalSecondHeightShrinkOuterConeAt f p.1 p.2 := by
+  apply (topologicalConeSumDesc_isQuotientMap
+    (topologicalMappingCone f)).continuous_lift_prod_right
+  let K :
+      (((TopCat.I.{u} : Type u) ×
+          (topologicalMappingCone f ⊗ TopCat.I : TopCat.{u})) ⊕
+        ((TopCat.I.{u} : Type u) × (𝟙_ TopCat.{u}))) →
+          topologicalMappingCone (topologicalMappingConeCollapse f) :=
+    Sum.elim
+      (fun p ↦ topologicalSecondHeightShrinkOuterCylinderAt f p.1 p.2)
+      (fun _ ↦ topologicalSecondInnerHeightShrinkPoint f PUnit.unit)
+  have hK : Continuous K := by
+    rw [continuous_sum_dom]
+    exact ⟨continuous_topologicalSecondHeightShrinkOuterCylinderAt_joint f,
+      by dsimp [K]; fun_prop⟩
+  have hcomp := hK.comp (Homeomorph.prodSumDistrib :
+    (TopCat.I.{u} : Type u) ×
+      ((topologicalMappingCone f ⊗ TopCat.I : TopCat.{u}) ⊕
+        (𝟙_ TopCat.{u})) ≃ₜ _).continuous
+  convert hcomp using 1
+  funext p
+  rcases p with ⟨t, c | z⟩
+  · change topologicalSecondHeightShrinkOuterConeAt f t
+        (topologicalConeCylinderIncl (topologicalMappingCone f) c) =
+      K (Homeomorph.prodSumDistrib (t, Sum.inl c))
+    rw [show (Homeomorph.prodSumDistrib (t, Sum.inl c) :
+      (((TopCat.I.{u} : Type u) ×
+          (topologicalMappingCone f ⊗ TopCat.I : TopCat.{u})) ⊕ _)) =
+        Sum.inl (t, c) from rfl]
+    dsimp [K]
+    exact ConcreteCategory.congr_hom
+      (topologicalSecondConeCylinderIncl_heightShrinkOuterConeAt f t) c
+  · change topologicalSecondHeightShrinkOuterConeAt f t
+        (topologicalConePointIncl (topologicalMappingCone f) z) =
+      K (Homeomorph.prodSumDistrib (t, Sum.inr z))
+    rw [show (Homeomorph.prodSumDistrib (t, Sum.inr z) :
+      (((TopCat.I.{u} : Type u) ×
+          (topologicalMappingCone f ⊗ TopCat.I : TopCat.{u})) ⊕ _)) =
+        Sum.inr (t, z) from rfl]
+    dsimp [K]
+    exact ConcreteCategory.congr_hom
+      (topologicalSecondConePointIncl_heightShrinkOuterConeAt f t) z
+
+/-- The inner-cone formula at outer height zero is jointly continuous in deformation time and
+the inner-cone point. -/
+theorem continuous_topologicalSecondInnerHeightShrinkConeAt_zero_joint
+    (f : A ⟶ X) :
+    Continuous fun p : (TopCat.I.{u} : Type u) × topologicalCone A ↦
+      topologicalSecondInnerHeightShrinkConeAt f p.1 0 p.2 := by
+  have hembed : Continuous fun p :
+      (TopCat.I.{u} : Type u) × topologicalCone A ↦
+        ((p.1, (0 : TopCat.I.{u})), topologicalMappingConeConeIncl f p.2) := by
+    fun_prop
+  have hcomp :=
+    (continuous_topologicalSecondMappingConeHeightShrinkAt_joint f).comp hembed
+  convert hcomp using 1
+  funext p
+  exact (ConcreteCategory.congr_hom
+    (topologicalMappingConeConeIncl_secondHeightShrinkAt f p.1 0) p.2).symm
+
+/-- The bottom-suspension formula is jointly continuous in the second deformation time and the
+suspension point. -/
+theorem continuous_topologicalSecondHeightShrinkBottomAt_joint
+    (f : A ⟶ X) :
+    Continuous fun p : (TopCat.I.{u} : Type u) × topologicalSuspension A ↦
+      topologicalSecondHeightShrinkBottomAt f p.1 p.2 := by
+  apply (pushoutSumDesc_isQuotientMap (toUnit A)
+    (topologicalConeBaseIncl A)).continuous_lift_prod_right
+  let K :
+      (((TopCat.I.{u} : Type u) × (𝟙_ TopCat.{u})) ⊕
+        ((TopCat.I.{u} : Type u) × topologicalCone A)) →
+          topologicalMappingCone (topologicalMappingConeCollapse f) :=
+    Sum.elim
+      (fun p ↦ topologicalMappingConeIncl (topologicalMappingConeCollapse f)
+        (topologicalSuspensionPointIncl A p.2))
+      (fun p ↦ topologicalSecondInnerHeightShrinkConeAt f p.1 0 p.2)
+  have hK : Continuous K := by
+    rw [continuous_sum_dom]
+    exact ⟨by dsimp [K]; fun_prop,
+      continuous_topologicalSecondInnerHeightShrinkConeAt_zero_joint f⟩
+  have hcomp := hK.comp (Homeomorph.prodSumDistrib :
+    (TopCat.I.{u} : Type u) ×
+      ((𝟙_ TopCat.{u} : Type u) ⊕ topologicalCone A) ≃ₜ _).continuous
+  convert hcomp using 1
+  funext p
+  rcases p with ⟨t, z | d⟩
+  · change topologicalSecondHeightShrinkBottomAt f t
+        (topologicalSuspensionPointIncl A z) =
+      K (Homeomorph.prodSumDistrib (t, Sum.inl z))
+    rw [show (Homeomorph.prodSumDistrib (t, Sum.inl z) :
+      (((TopCat.I.{u} : Type u) × (𝟙_ TopCat.{u})) ⊕ _)) =
+        Sum.inl (t, z) from rfl]
+    dsimp [K]
+    exact ConcreteCategory.congr_hom
+      (topologicalSuspensionPointIncl_heightShrinkBottomAt f t) z
+  · change topologicalSecondHeightShrinkBottomAt f t
+        (topologicalSuspensionConeIncl A d) =
+      K (Homeomorph.prodSumDistrib (t, Sum.inr d))
+    rw [show (Homeomorph.prodSumDistrib (t, Sum.inr d) :
+      (((TopCat.I.{u} : Type u) × (𝟙_ TopCat.{u})) ⊕ _)) =
+        Sum.inr (t, d) from rfl]
+    dsimp [K]
+    exact ConcreteCategory.congr_hom
+      (topologicalSuspensionConeIncl_heightShrinkBottomAt f t) d
+
+/-- The second-stage flattening is jointly continuous in deformation time and in the entire
+iterated mapping-cone variable. -/
+theorem continuous_topologicalSecondHeightShrinkAt_joint
+    (f : A ⟶ X) :
+    Continuous fun p : (TopCat.I.{u} : Type u) ×
+        topologicalMappingCone (topologicalMappingConeCollapse f) ↦
+      topologicalSecondHeightShrinkAt f p.1 p.2 := by
+  apply (pushoutSumDesc_isQuotientMap (topologicalMappingConeCollapse f)
+    (topologicalConeBaseIncl (topologicalMappingCone f))).continuous_lift_prod_right
+  let K :
+      (((TopCat.I.{u} : Type u) × topologicalSuspension A) ⊕
+        ((TopCat.I.{u} : Type u) ×
+          topologicalCone (topologicalMappingCone f))) →
+            topologicalMappingCone (topologicalMappingConeCollapse f) :=
+    Sum.elim
+      (fun p ↦ topologicalSecondHeightShrinkBottomAt f p.1 p.2)
+      (fun p ↦ topologicalSecondHeightShrinkOuterConeAt f p.1 p.2)
+  have hK : Continuous K := by
+    rw [continuous_sum_dom]
+    exact ⟨continuous_topologicalSecondHeightShrinkBottomAt_joint f,
+      continuous_topologicalSecondHeightShrinkOuterConeAt_joint f⟩
+  have hcomp := hK.comp (Homeomorph.prodSumDistrib :
+    (TopCat.I.{u} : Type u) ×
+      ((topologicalSuspension A : Type u) ⊕
+        topologicalCone (topologicalMappingCone f)) ≃ₜ _).continuous
+  convert hcomp using 1
+  funext p
+  rcases p with ⟨t, y | d⟩
+  · change topologicalSecondHeightShrinkAt f t
+        (topologicalMappingConeIncl (topologicalMappingConeCollapse f) y) =
+      K (Homeomorph.prodSumDistrib (t, Sum.inl y))
+    rw [show (Homeomorph.prodSumDistrib (t, Sum.inl y) :
+      (((TopCat.I.{u} : Type u) × topologicalSuspension A) ⊕ _)) =
+        Sum.inl (t, y) from rfl]
+    dsimp [K]
+    exact ConcreteCategory.congr_hom
+      (topologicalSecondMappingConeIncl_heightShrinkAt f t) y
+  · change topologicalSecondHeightShrinkAt f t
+        (topologicalMappingConeConeIncl (topologicalMappingConeCollapse f) d) =
+      K (Homeomorph.prodSumDistrib (t, Sum.inr d))
+    rw [show (Homeomorph.prodSumDistrib (t, Sum.inr d) :
+      (((TopCat.I.{u} : Type u) × topologicalSuspension A) ⊕ _)) =
+        Sum.inr (t, d) from rfl]
+    dsimp [K]
+    exact ConcreteCategory.congr_hom
+      (topologicalSecondMappingConeConeIncl_heightShrinkAt f t) d
+
+/-- At time zero, the bottom-suspension part of the flattening is exactly the normalized bottom
+map from the first deformation stage. -/
+theorem topologicalSecondHeightShrinkBottomAt_zero
+    (f : A ⟶ X) :
+    topologicalSecondHeightShrinkBottomAt f 0 =
+      topologicalSecondBottomHeightRaiseAt f 1 := by
+  apply topologicalMappingCone_hom_ext (toUnit A)
+  · simpa only [topologicalSuspensionPointIncl, topologicalSuspension] using
+      (topologicalSuspensionPointIncl_heightShrinkBottomAt f 0).trans
+        (topologicalSuspensionPointIncl_secondBottomHeightRaiseAt f 1).symm
+  · apply topologicalCone_hom_ext A
+    · apply TopCat.hom_ext
+      ext p
+      rcases p with ⟨a, u⟩
+      change topologicalSecondHeightShrinkBottomAt f 0
+          (topologicalSuspensionConeIncl A
+            (topologicalConeCylinderIncl A (a, u))) =
+        topologicalSecondBottomHeightRaiseAt f 1
+          (topologicalSuspensionConeIncl A
+            (topologicalConeCylinderIncl A (a, u)))
+      rw [topologicalSecondHeightShrinkBottomAt_cone,
+        topologicalSecondBottomHeightRaiseAt_cylinder]
+      rw [show topologicalSecondInnerHeightShrinkConeAt f 0 0
+          (topologicalConeCylinderIncl A (a, u)) =
+        topologicalSecondInnerHeightShrinkCylinderAt f 0 0 (a, u) from
+          ConcreteCategory.congr_hom
+            (topologicalConeCylinderIncl_secondInnerHeightShrinkConeAt f 0 0)
+            (a, u)]
+      change topologicalMappingConeConeIncl (topologicalMappingConeCollapse f)
+          (topologicalConeCylinderIncl (topologicalMappingCone f)
+            (topologicalMappingConeConeIncl f
+                (topologicalConeCylinderIncl A
+                  (a, TopCat.I.mul (u, TopCat.I.symm 0))),
+              TopCat.I.max (0, u))) =
+        topologicalMappingConeConeIncl (topologicalMappingConeCollapse f)
+          (topologicalConeCylinderIncl (topologicalMappingCone f)
+            (topologicalMappingConeConeIncl f
+                (topologicalConeCylinderIncl A (a, u)),
+              TopCat.I.mul (u, 1)))
+      simp
+    · apply TopCat.hom_ext
+      ext z
+      change topologicalSecondHeightShrinkBottomAt f 0
+          (topologicalSuspensionConeIncl A (topologicalConePointIncl A z)) =
+        topologicalSecondBottomHeightRaiseAt f 1
+          (topologicalSuspensionConeIncl A (topologicalConePointIncl A z))
+      rw [topologicalSecondHeightShrinkBottomAt_cone,
+        topologicalSecondBottomHeightRaiseAt_apex]
+      rw [show topologicalSecondInnerHeightShrinkConeAt f 0 0
+          (topologicalConePointIncl A z) =
+        topologicalSecondInnerHeightShrinkPoint f z from
+          ConcreteCategory.congr_hom
+            (topologicalConePointIncl_secondInnerHeightShrinkConeAt f 0 0) z]
+      change topologicalMappingConeConeIncl (topologicalMappingConeCollapse f)
+          (topologicalConePointIncl (topologicalMappingCone f) z) =
+        topologicalMappingConeConeIncl (topologicalMappingConeCollapse f)
+          (topologicalConeCylinderIncl (topologicalMappingCone f)
+            (topologicalMappingConeConeIncl f (topologicalConePointIncl A z), 1))
+      exact congrArg
+        (topologicalMappingConeConeIncl (topologicalMappingConeCollapse f))
+        (ConcreteCategory.congr_hom (pushout.condition :
+          (TopCat.ι₁ : topologicalMappingCone f ⟶
+              topologicalMappingCone f ⊗ TopCat.I) ≫
+                topologicalConeCylinderIncl (topologicalMappingCone f) =
+            toUnit (topologicalMappingCone f) ≫
+              topologicalConePointIncl (topologicalMappingCone f))
+          (topologicalMappingConeConeIncl f
+            (topologicalConePointIncl A z))).symm
+
+/-- At time zero, the fixed-outer-height flattening agrees with the first-stage normalization
+on the corresponding outer cylinder. -/
+theorem topologicalSecondMappingConeHeightShrinkAt_zero
+    (f : A ⟶ X) (v : TopCat.I) :
+    topologicalSecondMappingConeHeightShrinkAt f 0 v =
+      lift (𝟙 (topologicalMappingCone f)) (TopCat.const v) ≫
+        topologicalConeCylinderIncl (topologicalMappingCone f) ≫
+          topologicalSecondConeHeightRaiseAt f 1 ≫
+            topologicalMappingConeConeIncl
+              (topologicalMappingConeCollapse f) := by
+  apply topologicalMappingCone_hom_ext f
+  · apply TopCat.hom_ext
+    ext x
+    change topologicalSecondMappingConeHeightShrinkAt f 0 v
+        (topologicalMappingConeIncl f x) =
+      topologicalMappingConeConeIncl (topologicalMappingConeCollapse f)
+        (topologicalSecondConeHeightRaiseAt f 1
+          (topologicalConeCylinderIncl (topologicalMappingCone f)
+            (topologicalMappingConeIncl f x, v)))
+    have horiginal := ConcreteCategory.congr_hom
+      (topologicalMappingConeIncl_secondHeightShrinkAt f 0 v) x
+    change topologicalSecondMappingConeHeightShrinkAt f 0 v
+        (topologicalMappingConeIncl f x) =
+      topologicalSecondOriginalHeightShrinkAt f v x at horiginal
+    rw [horiginal]
+    exact congrArg
+      (topologicalMappingConeConeIncl (topologicalMappingConeCollapse f))
+      (topologicalSecondConeHeightRaiseAt_one_incl f x v).symm
+  · apply topologicalCone_hom_ext A
+    · apply TopCat.hom_ext
+      ext p
+      rcases p with ⟨a, u⟩
+      change topologicalSecondMappingConeHeightShrinkAt f 0 v
+          (topologicalMappingConeConeIncl f
+            (topologicalConeCylinderIncl A (a, u))) =
+        topologicalMappingConeConeIncl (topologicalMappingConeCollapse f)
+          (topologicalSecondConeHeightRaiseAt f 1
+            (topologicalConeCylinderIncl (topologicalMappingCone f)
+              (topologicalMappingConeConeIncl f
+                (topologicalConeCylinderIncl A (a, u)), v)))
+      rw [show topologicalSecondMappingConeHeightShrinkAt f 0 v
+          (topologicalMappingConeConeIncl f
+            (topologicalConeCylinderIncl A (a, u))) =
+        topologicalSecondInnerHeightShrinkConeAt f 0 v
+          (topologicalConeCylinderIncl A (a, u)) from
+          ConcreteCategory.congr_hom
+            (topologicalMappingConeConeIncl_secondHeightShrinkAt f 0 v)
+            (topologicalConeCylinderIncl A (a, u))]
+      rw [show topologicalSecondInnerHeightShrinkConeAt f 0 v
+          (topologicalConeCylinderIncl A (a, u)) =
+        topologicalSecondInnerHeightShrinkCylinderAt f 0 v (a, u) from
+          ConcreteCategory.congr_hom
+            (topologicalConeCylinderIncl_secondInnerHeightShrinkConeAt f 0 v)
+            (a, u)]
+      change topologicalMappingConeConeIncl (topologicalMappingConeCollapse f)
+          (topologicalConeCylinderIncl (topologicalMappingCone f)
+            (topologicalMappingConeConeIncl f
+                (topologicalConeCylinderIncl A
+                  (a, TopCat.I.mul (u, TopCat.I.symm 0))),
+              TopCat.I.max (v, u))) =
+        topologicalMappingConeConeIncl (topologicalMappingConeCollapse f)
+          (topologicalSecondConeHeightRaiseAt f 1
+            (topologicalConeCylinderIncl (topologicalMappingCone f)
+              (topologicalMappingConeConeIncl f
+                (topologicalConeCylinderIncl A (a, u)), v)))
+      rw [TopCat.I.symm_zero, TopCat.I.mul_one_right]
+      exact congrArg
+        (topologicalMappingConeConeIncl (topologicalMappingConeCollapse f))
+        (topologicalSecondConeHeightRaiseAt_one_doubleCylinder f a u v).symm
+    · apply TopCat.hom_ext
+      ext z
+      change topologicalSecondMappingConeHeightShrinkAt f 0 v
+          (topologicalMappingConeConeIncl f (topologicalConePointIncl A z)) =
+        topologicalMappingConeConeIncl (topologicalMappingConeCollapse f)
+          (topologicalSecondConeHeightRaiseAt f 1
+            (topologicalConeCylinderIncl (topologicalMappingCone f)
+              (topologicalMappingConeConeIncl f (topologicalConePointIncl A z), v)))
+      rw [show topologicalSecondMappingConeHeightShrinkAt f 0 v
+          (topologicalMappingConeConeIncl f (topologicalConePointIncl A z)) =
+        topologicalSecondInnerHeightShrinkConeAt f 0 v
+          (topologicalConePointIncl A z) from
+          ConcreteCategory.congr_hom
+            (topologicalMappingConeConeIncl_secondHeightShrinkAt f 0 v)
+            (topologicalConePointIncl A z)]
+      rw [show topologicalSecondInnerHeightShrinkConeAt f 0 v
+          (topologicalConePointIncl A z) =
+        topologicalSecondInnerHeightShrinkPoint f z from
+          ConcreteCategory.congr_hom
+            (topologicalConePointIncl_secondInnerHeightShrinkConeAt f 0 v) z]
+      exact congrArg
+        (topologicalMappingConeConeIncl (topologicalMappingConeCollapse f))
+        (topologicalSecondConeHeightRaiseAt_one_innerApex f z v).symm
+
+/-- At time zero, the outer-cone part of the flattening is the first-stage normalized outer
+cone followed by its inclusion in the second mapping cone. -/
+theorem topologicalSecondHeightShrinkOuterConeAt_zero
+    (f : A ⟶ X) :
+    topologicalSecondHeightShrinkOuterConeAt f 0 =
+      topologicalSecondConeHeightRaiseAt f 1 ≫
+        topologicalMappingConeConeIncl (topologicalMappingConeCollapse f) := by
+  apply topologicalCone_hom_ext (topologicalMappingCone f)
+  · apply TopCat.hom_ext
+    ext p
+    rcases p with ⟨c, v⟩
+    change topologicalSecondHeightShrinkOuterConeAt f 0
+        (topologicalConeCylinderIncl (topologicalMappingCone f) (c, v)) =
+      topologicalMappingConeConeIncl (topologicalMappingConeCollapse f)
+        (topologicalSecondConeHeightRaiseAt f 1
+          (topologicalConeCylinderIncl (topologicalMappingCone f) (c, v)))
+    rw [show topologicalSecondHeightShrinkOuterConeAt f 0
+        (topologicalConeCylinderIncl (topologicalMappingCone f) (c, v)) =
+      topologicalSecondHeightShrinkOuterCylinderAt f 0 (c, v) from
+        ConcreteCategory.congr_hom
+          (topologicalSecondConeCylinderIncl_heightShrinkOuterConeAt f 0) (c, v)]
+    exact ConcreteCategory.congr_hom
+      (topologicalSecondMappingConeHeightShrinkAt_zero f v) c
+  · rw [topologicalSecondConePointIncl_heightShrinkOuterConeAt,
+      ← Category.assoc, topologicalSecondConePointIncl_heightRaiseAt]
+    rfl
+
+/-- The second-stage flattening starts exactly at the normalized endpoint of the first-stage
+height-raising homotopy. -/
+theorem topologicalSecondHeightShrinkAt_zero
+    (f : A ⟶ X) :
+    topologicalSecondHeightShrinkAt f 0 =
+      topologicalSecondHeightRaiseAt f 1 := by
+  apply topologicalMappingCone_hom_ext (topologicalMappingConeCollapse f)
+  · rw [topologicalSecondMappingConeIncl_heightShrinkAt,
+      topologicalSecondMappingConeIncl_heightRaiseAt,
+      topologicalSecondHeightShrinkBottomAt_zero]
+  · rw [topologicalSecondMappingConeConeIncl_heightShrinkAt,
+      topologicalSecondMappingConeConeIncl_heightRaiseAt,
+      topologicalSecondHeightShrinkOuterConeAt_zero]
+
+/-- The underlying two-variable function of the second-stage flattening homotopy. -/
+def topologicalSecondHeightShrinkHomotopyToFun
+    (f : A ⟶ X) :
+    unitInterval ×
+        topologicalMappingCone (topologicalMappingConeCollapse f) →
+      topologicalMappingCone (topologicalMappingConeCollapse f) :=
+  fun p ↦ topologicalSecondHeightShrinkAt f
+    (TopCat.I.homeomorph.symm p.1) p.2
+
+theorem continuous_topologicalSecondHeightShrinkHomotopyToFun
+    (f : A ⟶ X) :
+    Continuous (topologicalSecondHeightShrinkHomotopyToFun f) := by
+  unfold topologicalSecondHeightShrinkHomotopyToFun
+  let e : unitInterval ×
+      topologicalMappingCone (topologicalMappingConeCollapse f) →
+        (TopCat.I.{u} : Type u) ×
+          topologicalMappingCone (topologicalMappingConeCollapse f) :=
+    fun p ↦ (TopCat.I.homeomorph.symm p.1, p.2)
+  have he : Continuous e := by
+    dsimp [e]
+    fun_prop
+  have h := (continuous_topologicalSecondHeightShrinkAt_joint f).comp he
+  convert h using 1
+  funext p
+  rfl
+
+@[simp]
+theorem topologicalSecondHeightShrinkHomotopyToFun_zero
+    (f : A ⟶ X)
+    (z : topologicalMappingCone (topologicalMappingConeCollapse f)) :
+    topologicalSecondHeightShrinkHomotopyToFun f (0, z) =
+      topologicalSecondHeightRaiseAt f 1 z := by
+  change topologicalSecondHeightShrinkAt f 0 z =
+    topologicalSecondHeightRaiseAt f 1 z
+  exact ConcreteCategory.congr_hom
+    (topologicalSecondHeightShrinkAt_zero f) z
+
+@[simp]
+theorem topologicalSecondHeightShrinkHomotopyToFun_one
+    (f : A ⟶ X)
+    (z : topologicalMappingCone (topologicalMappingConeCollapse f)) :
+    topologicalSecondHeightShrinkHomotopyToFun f (1, z) =
+      topologicalSecondHeightShrinkAt f 1 z := by
+  rfl
+
+/-- The second-stage flattening as a homotopy from the first-stage normalized endpoint to its
+time-one flattening. -/
+def topologicalSecondHeightShrinkHomotopy
+    (f : A ⟶ X) :
+    TopCat.Homotopy
+      (topologicalSecondHeightRaiseAt f 1)
+      (topologicalSecondHeightShrinkAt f 1) where
+  toFun := topologicalSecondHeightShrinkHomotopyToFun f
+  continuous_toFun := continuous_topologicalSecondHeightShrinkHomotopyToFun f
+  map_zero_left := topologicalSecondHeightShrinkHomotopyToFun_zero f
+  map_one_left := topologicalSecondHeightShrinkHomotopyToFun_one f
 
 end Submission
