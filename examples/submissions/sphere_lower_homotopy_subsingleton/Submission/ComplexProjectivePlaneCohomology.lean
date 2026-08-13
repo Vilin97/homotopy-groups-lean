@@ -196,4 +196,140 @@ theorem complexProjectivePlaneModTwoSquare_eq_top_iff :
       (Hsing.map (R := ZMod 2)
         complexProjectivePlaneIsoHopfMappingCone.hom 4)
 
+/-! ### A chain-level projective-plane target -/
+
+/-- The normalized degree-four integral homology generator on the geometric projective
+plane. -/
+noncomputable def complexProjectivePlaneHomologyGenerator :
+    Hgrp 4 (TopCat.of (ComplexProjectiveModel 2)) :=
+  HgrpMap 4 complexProjectivePlaneIsoHopfMappingCone.inv
+    hopfMappingConeHomologyGenerator
+
+@[simp]
+theorem complexProjectivePlaneHomologyGenerator_map :
+    HgrpMap 4 complexProjectivePlaneIsoHopfMappingCone.hom
+        complexProjectivePlaneHomologyGenerator =
+      hopfMappingConeHomologyGenerator := by
+  rw [complexProjectivePlaneHomologyGenerator,
+    ← ConcreteCategory.comp_apply, ← HgrpMap_comp,
+    Iso.inv_hom_id, HgrpMap_id, ConcreteCategory.id_apply]
+
+set_option backward.isDefEq.respectTransparency false in
+/-- The normalized projective-plane top cohomology class evaluates to one on the normalized
+homology generator. -/
+theorem complexProjectivePlaneModTwoTopClass_evaluation :
+    ev (Csing (TopCat.of (ComplexProjectiveModel 2))) modTwoCoefficients 4
+        (HsingEquivDualHomology (ZMod 2)
+          (TopCat.of (ComplexProjectiveModel 2)) 4
+          complexProjectivePlaneModTwoTopClass)
+        complexProjectivePlaneHomologyGenerator = (1 : ZMod 2) := by
+  let e := complexProjectivePlaneIsoHopfMappingCone
+  have hbridge := HsingEquivDualHomology_naturality (R := ZMod 2)
+    e.hom 4 hopfMappingConeTopClass
+  have hnat := ev_naturality_apply
+    (K := Csing (TopCat.of (ComplexProjectiveModel 2)))
+    (L := Csing hopfMappingCone)
+    (G := modTwoCoefficients) (i := 4)
+    (CsingMap e.hom)
+    (HsingEquivDualHomology (ZMod 2) hopfMappingCone 4
+      hopfMappingConeTopClass)
+  have hnat' := ConcreteCategory.congr_hom hnat
+    complexProjectivePlaneHomologyGenerator
+  rw [← hbridge] at hnat'
+  change ev (Csing (TopCat.of (ComplexProjectiveModel 2)))
+      modTwoCoefficients 4
+        (HsingEquivDualHomology (ZMod 2)
+          (TopCat.of (ComplexProjectiveModel 2)) 4
+          complexProjectivePlaneModTwoTopClass)
+        complexProjectivePlaneHomologyGenerator =
+    ev (Csing hopfMappingCone) modTwoCoefficients 4
+      (HsingEquivDualHomology (ZMod 2) hopfMappingCone 4
+        hopfMappingConeTopClass)
+      (HgrpMap 4 e.hom complexProjectivePlaneHomologyGenerator) at hnat'
+  rw [complexProjectivePlaneHomologyGenerator_map,
+    hopfMappingConeTopClass, AddEquiv.apply_symm_apply,
+    hopfMappingConeTopDualClass_evaluation] at hnat'
+  exact hnat'
+
+/-- A fixed singular cocycle representing the normalized degree-two class on `CP²`. -/
+noncomputable def complexProjectivePlaneModTwoCocycle :
+    cocycles (TopCat.toSSet.obj (TopCat.of (ComplexProjectiveModel 2)))
+      (ZMod 2) 2 :=
+  Classical.choose (Hcoh.mk_surjective complexProjectivePlaneModTwoClass)
+
+@[simp]
+theorem complexProjectivePlaneModTwoCocycle_mk :
+    Hcoh.mk complexProjectivePlaneModTwoCocycle =
+      complexProjectivePlaneModTwoClass :=
+  Classical.choose_spec (Hcoh.mk_surjective complexProjectivePlaneModTwoClass)
+
+/-- A cycle representative of the normalized projective-plane homology generator. -/
+noncomputable def complexProjectivePlaneCanonicalFourCycleSub :
+    cyclesSub (Csing (TopCat.of (ComplexProjectiveModel 2))) 4 :=
+  Classical.choose
+    (homologyMkHom_surjective
+      (K := Csing (TopCat.of (ComplexProjectiveModel 2))) (i := 4)
+      complexProjectivePlaneHomologyGenerator)
+
+/-- The underlying degree-four singular chain of the normalized projective-plane cycle. -/
+noncomputable abbrev complexProjectivePlaneCanonicalFourCycle :
+    (Csing (TopCat.of (ComplexProjectiveModel 2))).X 4 :=
+  complexProjectivePlaneCanonicalFourCycleSub
+
+/-- The canonical projective-plane chain is a cycle. -/
+theorem complexProjectivePlaneCanonicalFourCycle_isCycle :
+    (Csing (TopCat.of (ComplexProjectiveModel 2))).d 4
+      ((ComplexShape.down ℕ).next 4)
+      complexProjectivePlaneCanonicalFourCycle = 0 :=
+  complexProjectivePlaneCanonicalFourCycleSub.2
+
+/-- The homology class of the canonical cycle is the selected generator. -/
+@[simp]
+theorem homologyMk_complexProjectivePlaneCanonicalFourCycle :
+    homologyMk complexProjectivePlaneCanonicalFourCycle
+        complexProjectivePlaneCanonicalFourCycle_isCycle =
+      complexProjectivePlaneHomologyGenerator := by
+  change homologyMkHom (Csing (TopCat.of (ComplexProjectiveModel 2))) 4
+      complexProjectivePlaneCanonicalFourCycleSub =
+    complexProjectivePlaneHomologyGenerator
+  exact Classical.choose_spec
+    (homologyMkHom_surjective
+      (K := Csing (TopCat.of (ComplexProjectiveModel 2))) (i := 4)
+      complexProjectivePlaneHomologyGenerator)
+
+set_option backward.isDefEq.respectTransparency false in
+/-- The projective-plane cup-square identity is exactly one explicit Alexander--Whitney
+evaluation on the selected projective-plane cycle. -/
+theorem complexProjectivePlaneModTwoSquare_eq_top_iff_representativeEvaluation_eq_one :
+    complexProjectivePlaneModTwoSquare = complexProjectivePlaneModTwoTopClass ↔
+      cupHsingRepresentativeEvaluation (by omega : 2 + 2 = 4)
+        complexProjectivePlaneModTwoCocycle complexProjectivePlaneModTwoCocycle
+        complexProjectivePlaneCanonicalFourCycle = (1 : ZMod 2) := by
+  have hvalue := cupHsing_evaluation_homologyMk (R := ZMod 2)
+    (by omega : 2 + 2 = 4)
+    complexProjectivePlaneModTwoCocycle complexProjectivePlaneModTwoCocycle
+    complexProjectivePlaneCanonicalFourCycle
+    complexProjectivePlaneCanonicalFourCycle_isCycle
+  rw [complexProjectivePlaneModTwoCocycle_mk,
+    homologyMk_complexProjectivePlaneCanonicalFourCycle] at hvalue
+  change ev (Csing (TopCat.of (ComplexProjectiveModel 2)))
+      modTwoCoefficients 4
+        (HsingEquivDualHomology (ZMod 2)
+          (TopCat.of (ComplexProjectiveModel 2)) 4
+          complexProjectivePlaneModTwoSquare)
+        complexProjectivePlaneHomologyGenerator =
+    cupHsingRepresentativeEvaluation (by omega : 2 + 2 = 4)
+      complexProjectivePlaneModTwoCocycle complexProjectivePlaneModTwoCocycle
+      complexProjectivePlaneCanonicalFourCycle at hvalue
+  constructor
+  · intro htop
+    rw [← hvalue, htop]
+    exact complexProjectivePlaneModTwoTopClass_evaluation
+  · intro heval
+    rcases complexProjectivePlaneDegreeFourClass_eq_zero_or_eq_top
+        complexProjectivePlaneModTwoSquare with hzero | htop
+    · rw [← hvalue, hzero, map_zero, map_zero] at heval
+      exact (zero_ne_one heval).elim
+    · exact htop
+
 end Submission
