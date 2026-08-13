@@ -79,6 +79,11 @@ theorem homDualMap_comp (f : K ⟶ L) {M : HomologicalComplex AddCommGrpCat.{0} 
   ext i φ
   simp
 
+/-- A chain homotopy dualizes to a chain homotopy between the induced maps of dual complexes. -/
+def homDualHomotopy {f g : K ⟶ L} (H : Homotopy f g) (G : AddCommGrpCat.{0}) :
+    Homotopy (homDualMap f G) (homDualMap g G) :=
+  (preadditiveYoneda.obj G).mapHomotopy H.op
+
 /-- Precomposition `Hom(B, G) ⟶ Hom(A, G)` along a map `u : A ⟶ B` of abelian groups. -/
 def precompHom {A B : AddCommGrpCat.{0}} (u : A ⟶ B) (G : AddCommGrpCat.{0}) :
     AddCommGrpCat.of (B ⟶ G) ⟶ AddCommGrpCat.of (A ⟶ G) :=
