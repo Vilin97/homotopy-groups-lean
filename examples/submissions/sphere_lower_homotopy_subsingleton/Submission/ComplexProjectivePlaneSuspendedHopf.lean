@@ -94,4 +94,57 @@ theorem exactHopfSuspension_comparison :
     (fun q ↦ topologicalSuspensionToSusp
       (TopCat.diskBoundary 4) ≫ q) exactHopfSuspension_raw_square
 
+/-- The mapping cone of the suspended exact attaching map, before changing sphere coordinates. -/
+noncomputable abbrev exactHopfSuspensionMappingCone : TopCat.{0} :=
+  topologicalMappingCone
+    (topologicalSuspensionMap (TopCat.diskBoundary 4)
+      diskBoundaryFourComplexHopfMap)
+
+/-- Changing the suspension coordinates identifies the mapping cone of the exact attaching map
+with the raw suspended-Hopf mapping cone. -/
+noncomputable def exactHopfSuspensionMappingConeIso :
+    exactHopfSuspensionMappingCone ≅ hopfSuspensionMappingCone :=
+  topologicalMappingConeIso
+    (topologicalSuspensionMap (TopCat.diskBoundary 4)
+      diskBoundaryFourComplexHopfMap)
+    hopfSuspensionTopCat diskBoundaryFourSuspensionIsoHopfSource.hom
+    complexProjectiveLineSuspensionIsoHopfTarget.hom
+    exactHopfSuspension_comparison
+
+/-- The same coordinate change, followed by the chosen suspension-sphere coordinates, identifies
+the exact suspended attaching cone with the concrete suspended-Hopf cone. -/
+noncomputable def exactHopfSuspensionMappingConeIsoConcrete :
+    exactHopfSuspensionMappingCone ≅ suspendedHopfMappingCone :=
+  exactHopfSuspensionMappingConeIso.trans hopfSuspensionMappingConeIso
+
+@[reassoc]
+theorem exactHopfSuspensionMappingConeIso_hom_incl :
+    topologicalMappingConeIncl
+          (topologicalSuspensionMap (TopCat.diskBoundary 4)
+            diskBoundaryFourComplexHopfMap) ≫
+        exactHopfSuspensionMappingConeIso.hom =
+      complexProjectiveLineSuspensionIsoHopfTarget.hom ≫
+        topologicalMappingConeIncl hopfSuspensionTopCat := by
+  exact topologicalMappingConeIncl_map
+    (topologicalSuspensionMap (TopCat.diskBoundary 4)
+      diskBoundaryFourComplexHopfMap)
+    hopfSuspensionTopCat diskBoundaryFourSuspensionIsoHopfSource.hom
+    complexProjectiveLineSuspensionIsoHopfTarget.hom
+    exactHopfSuspension_comparison
+
+@[reassoc]
+theorem exactHopfSuspensionMappingConeIso_hom_coneIncl :
+    topologicalMappingConeConeIncl
+          (topologicalSuspensionMap (TopCat.diskBoundary 4)
+            diskBoundaryFourComplexHopfMap) ≫
+        exactHopfSuspensionMappingConeIso.hom =
+      topologicalConeMap diskBoundaryFourSuspensionIsoHopfSource.hom ≫
+        topologicalMappingConeConeIncl hopfSuspensionTopCat := by
+  exact topologicalMappingConeConeIncl_map
+    (topologicalSuspensionMap (TopCat.diskBoundary 4)
+      diskBoundaryFourComplexHopfMap)
+    hopfSuspensionTopCat diskBoundaryFourSuspensionIsoHopfSource.hom
+    complexProjectiveLineSuspensionIsoHopfTarget.hom
+    exactHopfSuspension_comparison
+
 end Submission
