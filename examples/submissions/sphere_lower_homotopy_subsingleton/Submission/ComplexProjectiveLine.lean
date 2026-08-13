@@ -109,6 +109,124 @@ theorem complexHopfMap_circleAction (n : ℕ)
   apply (Projectivization.mk_eq_mk_iff' ℂ _ _ _ _).2
   exact ⟨(t : ℂ), rfl⟩
 
+/-- Two unit vectors determine the same complex projective point exactly when they differ by a
+unit complex scalar. -/
+theorem complexHopfMap_fiber_iff_exists_circleAction (n : ℕ)
+    (x y : ComplexUnitSphere n) :
+    complexHopfMap n x = complexHopfMap n y ↔
+      ∃ t : Circle, x = complexUnitSphereCircleAction n t y := by
+  constructor
+  · intro hxy
+    change Projectivization.mk ℂ (x : ComplexEuclidean n) _ =
+      Projectivization.mk ℂ (y : ComplexEuclidean n) _ at hxy
+    rw [Projectivization.mk_eq_mk_iff'] at hxy
+    obtain ⟨c, hc⟩ := hxy
+    have hcnorm : ‖c‖ = 1 := by
+      have h := congrArg norm hc
+      rw [norm_smul, norm_coe_complexUnitSphere,
+        norm_coe_complexUnitSphere, mul_one] at h
+      exact h
+    exact ⟨⟨c, mem_sphere_zero_iff_norm.mpr hcnorm⟩, Subtype.ext hc.symm⟩
+  · rintro ⟨t, rfl⟩
+    exact complexHopfMap_circleAction n t y
+
+/-- Multiplication by a fixed unit scalar is a homeomorphism of the complex unit sphere. -/
+noncomputable def complexUnitSphereCircleActionHomeomorph
+    (n : ℕ) (t : Circle) : ComplexUnitSphere n ≃ₜ ComplexUnitSphere n where
+  toFun := complexUnitSphereCircleAction n t
+  invFun := complexUnitSphereCircleAction n t⁻¹
+  left_inv x := by
+    apply Subtype.ext
+    simp [complexUnitSphereCircleAction, smul_smul]
+  right_inv x := by
+    apply Subtype.ext
+    simp [complexUnitSphereCircleAction, smul_smul]
+  continuous_toFun := by
+    apply Continuous.subtype_mk
+    exact (continuous_const_smul _).comp continuous_subtype_val
+  continuous_invFun := by
+    apply Continuous.subtype_mk
+    exact (continuous_const_smul _).comp continuous_subtype_val
+
+/-- The unit-sphere quotient onto finite complex projective space is an open map. -/
+theorem complexHopfMap_isOpenMap (n : ℕ) :
+    IsOpenMap (complexHopfMap n) := by
+  intro U hU
+  rw [← (complexHopfMap_isQuotientMap n).isOpen_preimage]
+  have hsaturation :
+      complexHopfMap n ⁻¹' (complexHopfMap n '' U) =
+        ⋃ t : Circle, complexUnitSphereCircleActionHomeomorph n t '' U := by
+    ext x
+    simp only [Set.mem_preimage, Set.mem_image, Set.mem_iUnion]
+    constructor
+    · rintro ⟨y, hy, hxy⟩
+      obtain ⟨t, ht⟩ :=
+        (complexHopfMap_fiber_iff_exists_circleAction n x y).mp hxy.symm
+      exact ⟨t, y, hy, ht.symm⟩
+    · rintro ⟨t, y, hy, rfl⟩
+      exact ⟨y, hy, (complexHopfMap_circleAction n t y).symm⟩
+  rw [hsaturation]
+  exact isOpen_iUnion fun t ↦
+    (complexUnitSphereCircleActionHomeomorph n t).isOpenMap U hU
+
+/-- The unit-sphere quotient onto finite complex projective space is an open quotient map. -/
+theorem complexHopfMap_isOpenQuotientMap (n : ℕ) :
+    IsOpenQuotientMap (complexHopfMap n) :=
+  ⟨(complexHopfMap_isQuotientMap n).surjective,
+    (complexHopfMap n).continuous, complexHopfMap_isOpenMap n⟩
+
+/-- Equality in finite complex projective space is the closed equality case of the
+Cauchy–Schwarz inequality on unit representatives. -/
+theorem complexHopfMap_fiber_iff_norm_inner_eq_one (n : ℕ)
+    (x y : ComplexUnitSphere n) :
+    complexHopfMap n x = complexHopfMap n y ↔
+      ‖inner ℂ (x : ComplexEuclidean n) (y : ComplexEuclidean n)‖ = 1 := by
+  constructor
+  · intro hxy
+    change Projectivization.mk ℂ (x : ComplexEuclidean n) _ =
+      Projectivization.mk ℂ (y : ComplexEuclidean n) _ at hxy
+    rw [Projectivization.mk_eq_mk_iff'] at hxy
+    obtain ⟨c, hc⟩ := hxy
+    have hcne : c ≠ 0 := by
+      intro hc0
+      rw [hc0, zero_smul] at hc
+      exact complexUnitSphere_ne_zero x hc.symm
+    have hnorm := (norm_inner_eq_norm_iff
+      (complexUnitSphere_ne_zero y) (complexUnitSphere_ne_zero x)).2
+        ⟨c, hcne, hc.symm⟩
+    rw [norm_coe_complexUnitSphere, norm_coe_complexUnitSphere, one_mul] at hnorm
+    rwa [norm_inner_symm] at hnorm
+  · intro hnorm
+    have hdep := (norm_inner_eq_norm_iff
+      (complexUnitSphere_ne_zero x) (complexUnitSphere_ne_zero y)).1 (by
+        simpa [norm_coe_complexUnitSphere] using hnorm)
+    obtain ⟨c, hcne, hc⟩ := hdep
+    change Projectivization.mk ℂ (x : ComplexEuclidean n) _ =
+      Projectivization.mk ℂ (y : ComplexEuclidean n) _
+    apply (Projectivization.mk_eq_mk_iff' ℂ _ _ _ _).2
+    exact ⟨c⁻¹, by rw [hc, inv_smul_smul₀ hcne]⟩
+
+/-- Every finite-dimensional complex projective model is Hausdorff. -/
+theorem complexProjectiveModel_t2Space (n : ℕ) :
+    T2Space (ComplexProjectiveModel n) := by
+  rw [t2Space_iff_of_isOpenQuotientMap (complexHopfMap_isOpenQuotientMap n)]
+  have hcontinuous : Continuous fun q : ComplexUnitSphere n × ComplexUnitSphere n ↦
+      ‖inner ℂ (q.1 : ComplexEuclidean n) (q.2 : ComplexEuclidean n)‖ := by
+    fun_prop
+  convert isClosed_eq hcontinuous continuous_const using 1
+  ext q
+  exact complexHopfMap_fiber_iff_norm_inner_eq_one n q.1 q.2
+
+instance complexProjectiveModelT2Space (n : ℕ) :
+    T2Space (ComplexProjectiveModel n) :=
+  complexProjectiveModel_t2Space n
+
+/-- Every finite-dimensional complex projective model is compact. -/
+noncomputable instance complexProjectiveModelCompactSpace (n : ℕ) :
+    CompactSpace (ComplexProjectiveModel n) :=
+  Function.Surjective.compactSpace (complexHopfMap n).continuous
+    (complexHopfMap_isQuotientMap n).surjective
+
 /-- The concrete Hopf map expressed on the complex unit three-sphere. -/
 noncomputable def complexProjectiveLineSphereCover :
     C(ComplexUnitSphere 1, Sph 2) :=
