@@ -2,6 +2,7 @@
 Copyright (c) 2026 Vasily Ilin. All rights reserved.
 Released under Apache 2.0 license.
 -/
+import Submission.Topology.MappingConeCofibration
 import Submission.Topology.SuspensionComparison
 
 /-!
@@ -295,5 +296,88 @@ theorem exists_topologicalSuspension_factorization_iff_constant_restriction
   · rintro ⟨y, hh⟩
     exact ⟨topologicalSuspensionDescOfMappingConeConstantRestriction f h y hh,
       topologicalMappingConeCollapse_descOfMappingConeConstantRestriction f h y hh⟩
+
+/-! ### Homotopy coexactness at the mapping cone -/
+
+/-- A map out of `C_f` factors through the cofiber collapse up to homotopy exactly when its
+restriction to `X` is nullhomotopic.  This is the homotopy-invariant coexactness statement at the
+mapping-cone term of the Puppe sequence. -/
+theorem exists_topologicalSuspension_homotopy_factorization_iff_nullhomotopic_restriction
+    {A X Y : TopCat.{u}} (f : A ⟶ X)
+    (h : topologicalMappingCone f ⟶ Y) :
+    (∃ k : topologicalSuspension A ⟶ Y,
+        Nonempty (TopCat.Homotopy
+          (topologicalMappingConeCollapse f ≫ k) h)) ↔
+      (topologicalMappingConeIncl f ≫ h).hom.Nullhomotopic := by
+  constructor
+  · rintro ⟨k, ⟨Hfactor⟩⟩
+    let y : 𝟙_ TopCat.{u} ⟶ Y := topologicalSuspensionPointIncl A ≫ k
+    let Hpre := Hfactor.comp
+      (TopCat.Homotopy.refl (topologicalMappingConeIncl f))
+    have hend :
+        topologicalMappingConeIncl f ≫
+            (topologicalMappingConeCollapse f ≫ k) =
+          toUnit X ≫ y := by
+      calc
+        _ = (topologicalMappingConeIncl f ≫
+              topologicalMappingConeCollapse f) ≫ k :=
+          (Category.assoc _ _ _).symm
+        _ = (toUnit X ≫ topologicalSuspensionPointIncl A) ≫ k := by
+          rw [topologicalMappingConeIncl_collapse]
+        _ = toUnit X ≫ (topologicalSuspensionPointIncl A ≫ k) :=
+          Category.assoc _ _ _
+        _ = _ := rfl
+    let Hrestriction : TopCat.Homotopy
+        (topologicalMappingConeIncl f ≫ h) (toUnit X ≫ y) :=
+      Hpre.symm.cast rfl (congrArg TopCat.Hom.hom hend)
+    let z : Y := y
+      (SemiCartesianMonoidalCategory.isTerminalTensorUnit.from
+        (TopCat.of PUnit.{u + 1}) PUnit.unit)
+    refine ⟨z, ⟨Hrestriction.cast rfl ?_⟩⟩
+    ext x
+    change y (toUnit X x) = z
+    let p : TopCat.of PUnit.{u + 1} ⟶ 𝟙_ TopCat.{u} :=
+      TopCat.const (toUnit X x)
+    have hp : p =
+        SemiCartesianMonoidalCategory.isTerminalTensorUnit.from
+          (TopCat.of PUnit.{u + 1}) :=
+      SemiCartesianMonoidalCategory.isTerminalTensorUnit.hom_ext _ _
+    exact congrArg y (ConcreteCategory.congr_hom hp PUnit.unit)
+  · rintro ⟨z, ⟨Hnull⟩⟩
+    let Hwall : C(X × unitInterval, Y) :=
+      Hnull.toContinuousMap.comp
+        ⟨fun p ↦ (p.2, p.1), by fun_prop⟩
+    have hcompat : h.hom ∘ (topologicalMappingConeIncl f).hom =
+        Hwall ∘ (·, 0) := by
+      funext x
+      exact (Hnull.map_zero_left x).symm
+    obtain ⟨G, hGzero, hGwall⟩ :=
+      topologicalMappingConeIncl_hasHomotopyExtensionProperty f Y
+        h.hom Hwall hcompat
+    let h₁ : topologicalMappingCone f ⟶ Y :=
+      TopCat.ofHom (G.comp ⟨fun c ↦ (c, 1), by fun_prop⟩)
+    have hh₁ : topologicalMappingConeIncl f ≫ h₁ =
+        toUnit X ≫ TopCat.const z := by
+      apply TopCat.hom_ext
+      ext x
+      simp only [ConcreteCategory.comp_apply]
+      change G (topologicalMappingConeIncl f x, 1) = z
+      have hwall := congrFun hGwall (x, (1 : unitInterval))
+      change Hnull (1, x) = G (topologicalMappingConeIncl f x, 1) at hwall
+      exact hwall.symm.trans (Hnull.map_one_left x)
+    let k : topologicalSuspension A ⟶ Y :=
+      topologicalSuspensionDescOfMappingConeConstantRestriction
+        f h₁ (TopCat.const z) hh₁
+    have hk : topologicalMappingConeCollapse f ≫ k = h₁ :=
+      topologicalMappingConeCollapse_descOfMappingConeConstantRestriction
+        f h₁ (TopCat.const z) hh₁
+    let HG : TopCat.Homotopy h h₁ := {
+      toFun := fun p ↦ G (p.2, p.1)
+      continuous_toFun := G.continuous.comp
+        (continuous_snd.prodMk continuous_fst)
+      map_zero_left := fun c ↦ (congrFun hGzero c).symm
+      map_one_left := fun _ ↦ rfl }
+    exact ⟨k, ⟨HG.symm.cast
+      (congrArg TopCat.Hom.hom hk.symm) rfl⟩⟩
 
 end Submission
