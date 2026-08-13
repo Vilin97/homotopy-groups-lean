@@ -44,6 +44,12 @@ theorem max_zero_left (s : TopCat.I.{u}) : max (0, s) = s := by
   simp
 
 @[simp]
+theorem max_comm (s t : TopCat.I.{u}) : max (s, t) = max (t, s) := by
+  apply homeomorph.injective
+  simp only [max_apply]
+  exact _root_.max_comm _ _
+
+@[simp]
 theorem max_one_right (s : TopCat.I.{u}) : max (s, 1) = 1 := by
   apply homeomorph.injective
   rw [max_apply, homeomorph_one, max_eq_right]
