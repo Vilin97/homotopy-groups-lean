@@ -562,7 +562,12 @@ explicit extension and contraction constructions.  At the next Puppe term, an
 explicit lower-cone collar proves that the canonical inclusion `X -> C_f` is a
 cofibration.  The resulting homotopy extension upgrades strict descent through
 `C_f -> Sigma A`: a map `h : C_f -> Y` factors through that collapse up to
-homotopy if and only if its restriction to `X` is nullhomotopic.  No converse
+homotopy if and only if its restriction to `X` is nullhomotopic.  The next
+point-set comparison is now constructed too: the mapping cone of
+`C_f -> Sigma A` maps canonically to `Sigma X`, extending `Sigma f`, and an
+explicit map back is a strict section on both suspension pushout summands.  Thus
+this comparison is split epic on the nose; the deformation of the opposite
+composite needed for a full homotopy equivalence remains separate.  No converse
 section theorem is claimed: mapping-out coexactness has the opposite variance
 from the existing no-section result, so that result cannot soundly be inverted
 into suspended-Hopf nontriviality. The genuine lower bound still requires the

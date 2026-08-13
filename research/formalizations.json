@@ -896,6 +896,35 @@
       "note": "All forty-six listed declarations are sorry-free Lean 4. Strict autoImplicit=false checks pass for MappingConeCofibration, Topology.Puppe, and the Submission aggregate; exact 2,579-job, 2,582-job, and 8,935-job builds pass respectively. The explicit collar supplies a general cofibration instance for X -> C_f and upgrades strict point-set descent to full homotopy coexactness at C_f. Coexactness still has the opposite variance from the existing projective-plane no-section theorem: the proved implication is section implies suspended nullhomotopy, and no converse is asserted. Consequently this does not replace the remaining Hopf-invariant or cup-evaluation lower bound, and no lattice cell is recolored."
     },
     {
+      "id": "lean4-topological-puppe-second-comparison",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "03d2590fc56fe5d165557a6e0b335c14d6a4c605",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.topologicalMappingConeCollapseSuspensionRadialNullhomotopy",
+        "Submission.topologicalSecondMappingConeToSuspension",
+        "Submission.topologicalSecondMappingConeIncl_toSuspension",
+        "Submission.topologicalSecondMappingConeConeIncl_toSuspension",
+        "Submission.topologicalConeCylinderIncl_extensionOfNullhomotopy_h",
+        "Submission.topologicalConePointIncl_extensionOfNullhomotopy",
+        "Submission.topologicalConeCylinderMap_incl_collapseSuspensionNullhomotopy_h",
+        "Submission.topologicalSuspensionToSecondMappingCone",
+        "Submission.topologicalSuspensionPointIncl_toSecondMappingCone",
+        "Submission.topologicalSuspensionConeIncl_toSecondMappingCone",
+        "Submission.topologicalSuspensionPointIncl_toSecondMappingCone_toSuspension",
+        "Submission.topologicalSuspensionConeIncl_toSecondMappingCone_toSuspension",
+        "Submission.topologicalSuspensionToSecondMappingCone_toSuspension"
+      ],
+      "result": "for every f : A -> X, the mapping cone of the cofiber collapse C_f -> Sigma A has a canonical comparison to Sigma X extending Sigma f; an explicit map back from Sigma X is a strict section, so the comparison is a split epimorphism with exact formulas on the suspension point and cone summands",
+      "model_relation": "uses the maintained pushout models of cones, mapping cones, and unreduced suspensions; a radial nullhomotopy traces the original-space summand through the cone cylinder, and both comparison maps are defined by the corresponding pushout universal properties",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Topology/PuppeComparison.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All thirteen listed declarations are sorry-free Lean 4. Strict autoImplicit=false checks and the exact 2,583-job target build pass for Topology.PuppeComparison; the strict aggregate and exact 8,936-job Submission build also pass. The comparison is proved split epic on the nose. A homotopy from the opposite composite to the identity, which would complete the expected homotopy equivalence, is not yet asserted. This structural Puppe milestone does not evaluate the suspended Hopf invariant and therefore recolors no lattice cell."
+    },
+    {
       "id": "lean4-suspension-model-hopf-comparison",
       "system": "Lean 4",
       "repository": "Vilin97/homotopy-groups-lean",
