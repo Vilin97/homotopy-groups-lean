@@ -543,8 +543,10 @@ homeomorphism from the cone on `∂D^4` to `D^4`, with exact formulas on the
 cone cylinder and apex, and uses the pushout universal properties in both
 directions to identify the exact Hopf mapping cone homeomorphically with the
 four-cell attachment and therefore with `CP^2`, with exact formulas on the
-bottom and cone-cylinder pieces.  This supplies the geometric cofibre, vanishing input,
-final no-section obstruction, and mapping-cone comparison for a second
+bottom and cone-cylinder pieces.  The canonical mapping-cone collapse to the
+suspension of `∂D^4` is constructed generically and proved to commute exactly
+with the cell collapse to `S^4`.  This supplies the geometric cofibre, vanishing
+input, final no-section obstruction, and collapse comparison for a second
 lower-bound proof; the remaining step is the appropriate cofibration exactness
 bridge, so the first stable-stem lattice cell is not yet recolored.
 
