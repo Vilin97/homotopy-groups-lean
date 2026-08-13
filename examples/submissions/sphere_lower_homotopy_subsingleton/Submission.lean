@@ -50,6 +50,7 @@ import Submission.Hurewicz.SphereDiagonal
 import Submission.Hurewicz.SphereLoopBridge
 import Submission.Hurewicz.StickBoundary
 import Submission.Hurewicz.StickSphere
+import Submission.Homology.HomotopyEquiv
 import Submission.Lean4TwentyResults
 import Submission.MetricSpherePiOne
 import Submission.ReducedSuspensionGroup
@@ -101,6 +102,7 @@ import Submission.Cohomology.MayerVietoris
 import Submission.Cohomology.Sphere
 import Submission.Cohomology.Pair
 import Submission.Cohomology.DiskPair
+import Submission.Cohomology.Excision
 import Submission.Cohomology.CellAttachmentSqTwo
 import Submission.SuspendedHopfMap
 import Submission.SphereSuspensionPointed

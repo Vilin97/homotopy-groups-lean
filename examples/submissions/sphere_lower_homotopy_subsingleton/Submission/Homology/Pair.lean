@@ -49,6 +49,15 @@ abbrev CsingFunctor : TopCat.{0} ⥤ ChainComplex AddCommGrpCat.{0} ℕ :=
 /-- The map of singular chain complexes induced by a continuous map. -/
 def CsingMap {X Y : TopCat.{0}} (f : X ⟶ Y) : Csing X ⟶ Csing Y := CsingFunctor.map f
 
+@[simp]
+theorem CsingMap_id (X : TopCat.{0}) : CsingMap (𝟙 X) = 𝟙 (Csing X) :=
+  CsingFunctor.map_id X
+
+@[simp]
+theorem CsingMap_comp {X Y Z : TopCat.{0}} (f : X ⟶ Y) (g : Y ⟶ Z) :
+    CsingMap (f ≫ g) = CsingMap f ≫ CsingMap g :=
+  CsingFunctor.map_comp f g
+
 instance mono_CsingMap {A X : TopCat.{0}} (i : A ⟶ X) [Mono i] : Mono (CsingMap i) :=
   Functor.map_mono CsingFunctor i
 

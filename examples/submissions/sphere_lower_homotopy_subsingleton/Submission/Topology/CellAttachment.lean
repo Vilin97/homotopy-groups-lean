@@ -3,6 +3,7 @@ Copyright (c) 2026 Vasily Ilin. All rights reserved.
 Released under Apache 2.0 license.
 -/
 import Submission.WhiteheadTheorem.Shapes.Disk
+import Mathlib.CategoryTheory.Limits.Types.Pushouts
 import Mathlib.Topology.Category.TopCat.Limits.Basic
 
 /-!
@@ -41,6 +42,15 @@ def cellAttachment (a : TopCat.diskBoundary n ⟶ X) : TopCat.{u} :=
 /-- The inclusion of the original space into a one-cell attachment. -/
 def cellAttachmentIncl (a : TopCat.diskBoundary n ⟶ X) : X ⟶ cellAttachment a :=
   pushout.inl a (TopCat.diskBoundaryIncl n)
+
+/-- The original space embeds in a one-cell attachment. -/
+instance (a : TopCat.diskBoundary n ⟶ X) : Mono (cellAttachmentIncl a) := by
+  rw [TopCat.mono_iff_injective]
+  have h := ((IsPushout.of_isColimit
+    (pushoutIsPushout a (TopCat.diskBoundaryIncl n))).flip.map (forget TopCat))
+  have hb : Function.Injective (TopCat.diskBoundaryIncl n) :=
+    (TopCat.mono_iff_injective _).mp inferInstance
+  exact Types.pushoutCocone_inr_injective_of_isColimit h.isColimit (by simpa using hb)
 
 /-- The characteristic map of the disk in a one-cell attachment. -/
 def cellAttachmentDisk (a : TopCat.diskBoundary n ⟶ X) :

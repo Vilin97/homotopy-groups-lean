@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 -/
 import Submission.Cohomology.DualShortExact
 import Submission.Cohomology.DualBridge
+import Submission.Homology.HomotopyEquiv
 import Submission.Homology.MayerVietoris
+import Submission.Homology.RelMap
 import Mathlib.Algebra.Category.Grp.EpiMono
 
 /-!
@@ -84,6 +86,59 @@ abbrev HrelCoh (n : ℕ) : AddCommGrpCat.{0} :=
 abbrev relCohRestriction (n : ℕ) :
     (homDual (Csing X) G).homology n ⟶ (homDual (Csing A) G).homology n :=
   HomologicalComplex.homologyMap (homDualMap (CsingMap i) G) n
+
+/-! ### Contravariant functoriality for pairs -/
+
+/-- A map of pairs dualizes to a morphism of their cohomological short complexes, in the
+contravariant direction. -/
+def relCohShortComplexMap {B Y : TopCat.{0}} (j : B ⟶ Y) [Mono j]
+    {fA : A ⟶ B} {f : X ⟶ Y} (w : i ≫ f = fA ≫ j) :
+    relCohSC j G ⟶ relCohSC i G :=
+  homDualShortComplexMap (relShortComplexMap i j w) G
+
+/-- The contravariant map induced on relative cohomology by a map of pairs. -/
+abbrev HrelCohMap {B Y : TopCat.{0}} (j : B ⟶ Y) [Mono j]
+    {fA : A ⟶ B} {f : X ⟶ Y} (w : i ≫ f = fA ≫ j) (n : ℕ) :
+    HrelCoh j G n ⟶ HrelCoh i G n :=
+  HomologicalComplex.homologyMap (homDualMap (relComplexMap i j w) G) n
+
+/-- If the dual maps on the subspaces and ambient spaces are quasi-isomorphisms, then the
+induced relative-cohomology map is an isomorphism in every positive degree. -/
+theorem isIso_HrelCohMap_of_quasiIso {B Y : TopCat.{0}} (j : B ⟶ Y) [Mono j]
+    {fA : A ⟶ B} {f : X ⟶ Y} (w : i ≫ f = fA ≫ j) (n : ℕ)
+    [QuasiIso (homDualMap (CsingMap fA) G)]
+    [QuasiIso (homDualMap (CsingMap f) G)] :
+    IsIso (HrelCohMap i G j w (n + 1)) := by
+  let φ := relCohShortComplexMap i G j w
+  letI : QuasiIso φ.τ₂ := by
+    change QuasiIso (homDualMap (CsingMap f) G)
+    infer_instance
+  letI : QuasiIso φ.τ₃ := by
+    change QuasiIso (homDualMap (CsingMap fA) G)
+    infer_instance
+  have hi := isIso_homologyMap_τ₁_of_rel φ
+    (relCohSC_shortExact j G) (relCohSC_shortExact i G) n (n + 1) (by rfl)
+  change IsIso (HrelCohMap i G j w (n + 1)) at hi
+  exact hi
+
+/-- A map of pairs whose subspace and ambient maps are homotopy equivalences induces an
+isomorphism on relative cohomology in every positive degree. -/
+theorem isIso_HrelCohMap_of_homotopyEquiv {B Y : TopCat.{0}} (j : B ⟶ Y) [Mono j]
+    {fA : A ⟶ B} {f : X ⟶ Y} (w : i ≫ f = fA ≫ j)
+    (gA : B ⟶ A)
+    (HA₁ : TopCat.Homotopy (fA ≫ gA) (𝟙 A))
+    (HA₂ : TopCat.Homotopy (gA ≫ fA) (𝟙 B))
+    (g : Y ⟶ X)
+    (H₁ : TopCat.Homotopy (f ≫ g) (𝟙 X))
+    (H₂ : TopCat.Homotopy (g ≫ f) (𝟙 Y)) (n : ℕ) :
+    IsIso (HrelCohMap i G j w (n + 1)) := by
+  letI : QuasiIso (homDualMap (CsingMap fA) G) :=
+    (homDualHomotopyEquiv
+      (csingHomotopyEquivOfHomotopyEquiv fA gA HA₁ HA₂) G).quasiIso_hom
+  letI : QuasiIso (homDualMap (CsingMap f) G) :=
+    (homDualHomotopyEquiv
+      (csingHomotopyEquivOfHomotopyEquiv f g H₁ H₂) G).quasiIso_hom
+  exact isIso_HrelCohMap_of_quasiIso i G j w n
 
 /-- Exactness at absolute cohomology:
 `Hⁿ(X,A;G) ⟶ Hⁿ(X;G) ⟶ Hⁿ(A;G)`. -/
