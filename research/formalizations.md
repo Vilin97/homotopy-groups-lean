@@ -124,9 +124,10 @@ basepoint, and directly closes the canonical `stable_stem_000` theorem in
 `HomotopyGroups.StableStems`. The legacy wrapper and canonical theorem are two
 interfaces to one formalization, so this adds no duplicate record or lattice
 cell. The live
-stem display now runs through stem 108 and has 200 purple cells. The default
-absolute-degree display has 4,369 purple cells: 4,186 lower-connectivity cells,
-91 higher-circle cells, and all 92 positive diagonal cells.
+stem display now runs through stem 108 and has 201 purple cells. The default
+absolute-degree display has 4,370 purple cells: 4,186 lower-connectivity cells,
+91 higher-circle cells, all 92 positive diagonal cells, and the first
+off-diagonal cell `pi_3(S^2)`.
 `DisplayedCircleFrontier.lean` packages the higher-circle vanishing theorem as
 an explicit `MulEquiv` with `PUnit` at every basepoint and gives named witnesses
 for the eighteen newly displayed cells. Those numerical witnesses remain
@@ -137,16 +138,18 @@ same exact metric models. Lean verifies its real quadratic coordinate formula,
 the norm identity restricting it to a continuous based map `S^3 -> S^2`, and
 the exact equation describing its basepoint fibre. Explicit coordinate
 inclusion and projection maps give a basepoint-preserving homeomorphism from
-the exact metric circle to that fibre. The maintained fibration long exact
-sequence and circle calculation then prove that the induced map on `pi_3` is
-bijective, and consequently that `pi_3(S^2) = Z`, conditional only on proving
-that this concrete Hopf map is a Serre fibration. The Hopf map is now also
-locally trivialized explicitly: two open charts cover `S^2`, a square-root
-section and circle action give the northern product homeomorphism, coordinate
-symmetries give the southern one, and every point has an over-the-base chart
-with fibre `S^1`. The remaining geometric step is the bridge from these local
-product charts to the maintained Serre homotopy-lifting definition, so
-`(n,k)=(2,1)` is not colored yet.
+the exact metric circle to that fibre. The Hopf map is locally trivialized
+explicitly: two open charts cover `S^2`, a square-root section and circle action
+give the northern product homeomorphism, coordinate symmetries give the
+southern one, and every point has an over-the-base chart with fibre `S^1`.
+Independently, a rank-one projector and normalization give continuous transport
+toward every non-antipodal base point. Uniform continuity on a finite cube
+supplies a dyadic time scale, and balanced lower-half/upper-half recursion
+pastes the corresponding short lifts without changing the original time
+parametrization. This proves that the exact Hopf map is a Serre fibration. The
+maintained long exact sequence and circle calculation therefore prove
+unconditionally that `pi_3(S^2) = Z`, close the canonical declaration, and
+color `(n,k)=(2,1)`.
 
 The positive diagonal now has a concrete quotient-level foundation. The
 canonical map `I^n -> S^n` is a quotient map, every cubical diagonal class is
@@ -474,16 +477,14 @@ milestone adds no new purple cells because the same diagonal was already
 colored by the maintained absolute Hurewicz computation.
 
 Stable off-diagonal sphere stems still require a genuine stable-range
-Freudenthal comparison, higher relative Hurewicz or homotopy excision beyond
-the first nonvanishing degree, and completion of the Hopf-fibration argument.
-For the latter, the exact based Hopf map, its circle fibre, and the complete
-long-exact-sequence reduction of `pi_3(S^2) = Z` are checked, as are explicit
-product trivializations over a two-chart cover of `S^2`; the remaining input
-is the general passage from those charts to the Serre lifting property. The exact
-arbitrary-degree reduced-suspension maps, their finite iteration, fixed-stem
-transport, and the canonical stable-representative specialization are now all
-checked; the unresolved suspension input is bijectivity in the stable range.
-Incomplete attempts do not color cells.
+Freudenthal comparison and higher relative Hurewicz or homotopy excision beyond
+the first nonvanishing degree. The exceptional first off-diagonal computation
+`pi_3(S^2) = Z` is now complete through the exact Hopf fibration, its circle
+fibre, and the maintained long exact sequence. The exact arbitrary-degree
+reduced-suspension maps, their finite iteration, fixed-stem transport, and the
+canonical stable-representative specialization are also checked; the
+unresolved suspension input is bijectivity in the stable range. Incomplete
+attempts do not color cells.
 
 `DiagonalInduction.lean` now records the exact equivalence between the two
 computed diagonal groups `pi_1(S^1)` and `pi_2(S^2)`, and proves that a uniform

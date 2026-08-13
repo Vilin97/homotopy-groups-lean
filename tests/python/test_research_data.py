@@ -1085,6 +1085,66 @@ class ResearchDataTests(unittest.TestCase):
         self.assertIsNone(record["lattice_overlay"])
         self.assertIsNone(record["degree_lattice_overlay"])
 
+    def test_exact_hopf_fibration_and_transport_match_sources(self) -> None:
+        inventory = json.loads((ROOT / "research/formalizations.json").read_text())
+        result_set = inventory["maintained_hopf_fibration_set"]
+        results = result_set["results"]
+        self.assertEqual(result_set["system"], "Lean 4")
+        self.assertEqual(result_set["count"], 5)
+        self.assertEqual(len(results), 5)
+        self.assertEqual(len({row["id"] for row in results}), 5)
+        self.assertEqual(len({row["declaration"] for row in results}), 5)
+        for result in results:
+            source = (ROOT / "research" / result["source"]).resolve()
+            self.assertTrue(source.is_file())
+            text = source.read_text()
+            self.assertIn(result["declaration"].rsplit(".", 1)[-1], text)
+            if source.name != "Spaces.lean":
+                self.assertNotIn("sorry", text)
+                self.assertNotIn("admit", text)
+
+        transport_record = next(
+            item for item in inventory["formalizations"]
+            if item["id"] == "lean4-exact-hopf-short-transport"
+        )
+        self.assertEqual(len(transport_record["declarations"]), 23)
+        self.assertEqual(
+            transport_record["commit"],
+            "b10572391470375d6140e5cc64f2fe3baf8e6603",
+        )
+        transport_source = (ROOT / "research" / transport_record["source"]).resolve()
+        transport_text = transport_source.read_text()
+        self.assertNotIn("sorry", transport_text)
+        self.assertNotIn("admit", transport_text)
+        for declaration in transport_record["declarations"]:
+            self.assertIn(declaration.rsplit(".", 1)[-1], transport_text)
+        self.assertIsNone(transport_record["lattice_overlay"])
+        self.assertIsNone(transport_record["degree_lattice_overlay"])
+
+        fibration_record = next(
+            item for item in inventory["formalizations"]
+            if item["id"] == "lean4-exact-hopf-serre-fibration"
+        )
+        self.assertEqual(len(fibration_record["declarations"]), 21)
+        self.assertEqual(
+            fibration_record["commit"],
+            "b10572391470375d6140e5cc64f2fe3baf8e6603",
+        )
+        fibration_source = (ROOT / "research" / fibration_record["source"]).resolve()
+        fibration_text = fibration_source.read_text()
+        self.assertNotIn("sorry", fibration_text)
+        self.assertNotIn("admit", fibration_text)
+        for declaration in fibration_record["declarations"]:
+            self.assertIn(declaration.rsplit(".", 1)[-1], fibration_text)
+        self.assertEqual(
+            fibration_record["lattice_overlay"]["cell_ranges"],
+            [{"n": [2, 2], "k": [1, 1]}],
+        )
+        self.assertIsNone(fibration_record["degree_lattice_overlay"])
+
+        spaces = (ROOT / "HomotopyGroups/Spaces.lean").read_text()
+        self.assertIn("Submission.pi3_sphere_two_mulEquiv_int", spaces)
+
     def test_first_hurewicz_normalization_matches_sorry_free_sources(self) -> None:
         inventory = json.loads((ROOT / "research/formalizations.json").read_text())
         result_set = inventory["maintained_first_hurewicz_normalization_set"]

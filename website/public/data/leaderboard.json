@@ -163,7 +163,7 @@
   ],
   "formalization_inventory": {
     "degree_lattice": {
-      "cell_count": 4369,
+      "cell_count": 4370,
       "cells": [
         {
           "m": 1,
@@ -1288,6 +1288,16 @@
           "record_ids": [
             "lean4-benchmark-metric-sphere-pi2",
             "lean4-first-nonvanishing-hurewicz-isomorphism"
+          ]
+        },
+        {
+          "m": 3,
+          "n": 2,
+          "proof_declaration": "Submission.pi3_sphere_two_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/b10572391470375d6140e5cc64f2fe3baf8e6603/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HopfFibration.lean#L267",
+          "record_id": "lean4-exact-hopf-serre-fibration",
+          "record_ids": [
+            "lean4-exact-hopf-serre-fibration"
           ]
         },
         {
@@ -44047,7 +44057,7 @@
       "n_min": 1
     },
     "lattice": {
-      "cell_count": 200,
+      "cell_count": 201,
       "cells": [
         {
           "k": 0,
@@ -45335,6 +45345,16 @@
           ]
         },
         {
+          "k": 1,
+          "n": 2,
+          "proof_declaration": "Submission.pi3_sphere_two_mulEquiv_int",
+          "proof_source": "https://github.com/Vilin97/homotopy-groups-lean/blob/b10572391470375d6140e5cc64f2fe3baf8e6603/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HopfFibration.lean#L267",
+          "record_id": "lean4-exact-hopf-serre-fibration",
+          "record_ids": [
+            "lean4-exact-hopf-serre-fibration"
+          ]
+        },
+        {
           "k": 0,
           "n": 3,
           "proof_declaration": "Submission.sphere_diagonal_homotopy_mulEquiv_int",
@@ -46242,6 +46262,94 @@
     },
     "records": [
       {
+        "cell_count": 1,
+        "coordinates": "n=2,k=1",
+        "declarations": [
+          "Submission.hopfLowerHalfTime",
+          "Submission.hopfUpperHalfTime",
+          "Submission.continuous_hopfLowerHalfTime",
+          "Submission.continuous_hopfUpperHalfTime",
+          "Submission.hopfLowerHalfTime_one_eq_hopfUpperHalfTime_zero",
+          "Submission.dist_hopfLowerHalfTime",
+          "Submission.dist_hopfUpperHalfTime",
+          "Submission.unitInterval_dist_le_one",
+          "Submission.hopfLowerHalfCylinder",
+          "Submission.hopfUpperHalfCylinder",
+          "Submission.hopfLowerHalf",
+          "Submission.hopfUpperHalf",
+          "Submission.HopfDyadicControl",
+          "Submission.HopfDyadicControl.lowerHalf",
+          "Submission.HopfDyadicControl.upperHalf",
+          "Submission.exists_hopfLift_of_dyadicControl_zero",
+          "Submission.exists_hopfLift_of_dyadicControl",
+          "Submission.exists_hopfDyadicControl",
+          "Submission.hopfMap_hasHLP_cube",
+          "Submission.hopfMap_isSerreFibration",
+          "Submission.pi3_sphere_two_mulEquiv_int"
+        ],
+        "degree_cell_count": 1,
+        "degree_coordinates": null,
+        "degree_lattice_kind": null,
+        "degree_lattice_proof": {
+          "declaration": "Submission.pi3_sphere_two_mulEquiv_int",
+          "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/b10572391470375d6140e5cc64f2fe3baf8e6603/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HopfFibration.lean#L267"
+        },
+        "id": "lean4-exact-hopf-serre-fibration",
+        "lattice_kind": "lean4_exact_metric_model",
+        "lattice_proof": {
+          "declaration": "Submission.pi3_sphere_two_mulEquiv_int",
+          "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/b10572391470375d6140e5cc64f2fe3baf8e6603/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HopfFibration.lean#L267"
+        },
+        "model_relation": "exactly the maintained metric 3-sphere and 2-sphere, their standard basepoints, the explicit real-coordinate Hopf map, the maintained cube-based definition of Serre fibration, the exact circle fibre, and the maintained fibration long exact sequence",
+        "note": "All twenty-one listed declarations are sorry-free Lean 4. Strict checks pass for HopfFibration, HomotopyGroups.Spaces, and the Submission aggregate; exact builds pass at 8,813, 8,816, and 8,860 jobs respectively. Audited axiom closures for controlled lifting, compact dyadic control, the Serre property, the maintained final computation, and the canonical theorem contain only propext, Classical.choice, and Quot.sound. All 112 Python tests, generated-data synchronization, site lint, the production static build, and all three rendered-HTML tests pass. The exact cell (n,k)=(2,1), equivalently (n,m)=(2,3), is now included in both lattice views.",
+        "result": "uniform continuity on each compact finite cube supplies a dyadic time scale on which explicit non-antipodal Hopf transport lifts the base homotopy; balanced lower-half and upper-half recursion pastes these short lifts without changing the time parametrization, proving that the exact Hopf map is a Serre fibration and hence that pi_3(S^2)=Z; the canonical HomotopyGroups.Spaces declaration is closed by this theorem",
+        "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/b10572391470375d6140e5cc64f2fe3baf8e6603/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HopfFibration.lean",
+        "status": "lean_kernel_checked_local_source",
+        "system": "Lean 4"
+      },
+      {
+        "cell_count": 0,
+        "coordinates": null,
+        "declarations": [
+          "Submission.hopfBaseDot",
+          "Submission.hopfProjectVec",
+          "Submission.continuous_hopfProjectVec",
+          "Submission.norm_hopfProjectVec_sq",
+          "Submission.norm_hopfProjectVec_sq_of_sphere",
+          "Submission.hopfProjectVec_hopfMap",
+          "Submission.hopfVec_hopfProjectVec",
+          "Submission.hopfVec_smul",
+          "Submission.hopfVec_hopfProjectVec_eq_norm_sq_smul",
+          "Submission.HopfTransportDomain",
+          "Submission.hopfProjectVec_ne_zero",
+          "Submission.hopfTransportVec",
+          "Submission.norm_hopfTransportVec",
+          "Submission.hopfTransport",
+          "Submission.continuous_hopfTransportVec",
+          "Submission.continuous_hopfTransport",
+          "Submission.hopfVec_hopfTransportVec",
+          "Submission.hopfMap_hopfTransport",
+          "Submission.dist_sq_eq_two_sub_two_mul_hopfBaseDot",
+          "Submission.neg_one_lt_hopfBaseDot_of_dist_lt_two",
+          "Submission.hopfTransportDomainOfDistLtTwo",
+          "Submission.hopfTransportSelf",
+          "Submission.hopfTransport_self"
+        ],
+        "degree_cell_count": 0,
+        "degree_coordinates": null,
+        "degree_lattice_kind": null,
+        "degree_lattice_proof": null,
+        "id": "lean4-exact-hopf-short-transport",
+        "lattice_kind": null,
+        "lattice_proof": null,
+        "model_relation": "exactly the maintained Euclidean-coordinate Hopf map and exact metric sphere models, using their inherited norm, metric, and subtype topologies",
+        "note": "All twenty-three listed declarations are sorry-free Lean 4. Strict and exact checks pass for HopfTransport, with the exact build completing at 8,812 jobs. Audited axiom closures for the projector norm identity, fixed-point identity, normalized direction theorem, continuity, and target projection contain only propext, Classical.choice, and Quot.sound. This transport is the short-step input used by the separately recorded Serre-fibration proof.",
+        "result": "the target point of the exact 2-sphere determines a real-coordinate rank-one projector on the source spinor; its norm, direction, and fixed-point identities are proved exactly, and normalization gives a continuous transport in the exact 3-sphere over every non-antipodal target that projects to that target and fixes the source over its current Hopf image",
+        "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/b10572391470375d6140e5cc64f2fe3baf8e6603/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HopfTransport.lean",
+        "status": "lean_kernel_checked_local_source",
+        "system": "Lean 4"
+      },
+      {
         "cell_count": 0,
         "coordinates": null,
         "declarations": [
@@ -46277,7 +46385,7 @@
         "lattice_kind": null,
         "lattice_proof": null,
         "model_relation": "exactly the maintained Euclidean-coordinate Hopf map, metric sphere and circle models, their subtype topologies, and explicit coordinate homeomorphisms",
-        "note": "All twenty-three listed declarations are sorry-free Lean 4. Strict checks pass for HopfLocalTrivialization and the Submission aggregate; exact builds pass at 8,814 and 8,858 jobs respectively. Audited axiom closures for the chart cover, northern section, circle-action invariance, both product homeomorphisms, and pointwise local triviality contain only propext, Classical.choice, and Quot.sound. All 111 Python tests, generated-data synchronization, site lint, the production static build, and all rendered-HTML tests pass. The remaining bridge from these local product charts to IsSerreFibration is not assumed, so the first off-diagonal lattice cell remains uncolored.",
+        "note": "All twenty-three listed declarations are sorry-free Lean 4. Strict checks pass for HopfLocalTrivialization and the Submission aggregate; exact builds pass at 8,814 and 8,858 jobs respectively. Audited axiom closures for the chart cover, northern section, circle-action invariance, both product homeomorphisms, and pointwise local triviality contain only propext, Classical.choice, and Quot.sound. All 111 Python tests, generated-data synchronization, site lint, the production static build, and all rendered-HTML tests pass. At this pinned milestone the bridge to IsSerreFibration was still open; the later exact Hopf Serre-fibration record closes it and colors the first off-diagonal cell.",
         "result": "two explicit open charts cover the exact metric 2-sphere; a square-root section and simultaneous complex circle action give a product homeomorphism from the Hopf preimage of the northern chart to the chart times the exact metric circle, coordinate symmetries give the corresponding southern product homeomorphism, and every base point therefore has an over-the-base local trivialization",
         "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/1e052eb5195ea62bbb848cfb8484132e204c58e1/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HopfLocalTrivialization.lean",
         "status": "lean_kernel_checked_local_source",
@@ -46315,7 +46423,7 @@
         "lattice_kind": null,
         "lattice_proof": null,
         "model_relation": "exactly the maintained metric sphere and basepoint models, explicit Euclidean coordinates, the exact metric circle computation, and the maintained long exact sequence of a Serre fibration",
-        "note": "All nineteen listed declarations are sorry-free Lean 4. Strict checks pass for HopfMap and the Submission aggregate; exact builds pass at 8,813 and 8,857 jobs respectively. Audited axiom closures for the norm identity, based-map theorem, exact fibre equation, circle homeomorphism and basepoint equation, fibre homotopy vanishing, induced-map bijectivity, and final conditional computation contain only propext, Classical.choice, and Quot.sound. All 110 Python tests, generated-data synchronization, site lint, the production static build, and all rendered-HTML tests pass. The remaining IsSerreFibration hypothesis is not assumed as a fact and therefore no lattice cell is colored yet.",
+        "note": "All nineteen listed declarations are sorry-free Lean 4. Strict checks pass for HopfMap and the Submission aggregate; exact builds pass at 8,813 and 8,857 jobs respectively. Audited axiom closures for the norm identity, based-map theorem, exact fibre equation, circle homeomorphism and basepoint equation, fibre homotopy vanishing, induced-map bijectivity, and final conditional computation contain only propext, Classical.choice, and Quot.sound. All 110 Python tests, generated-data synchronization, site lint, the production static build, and all rendered-HTML tests pass. At this pinned milestone IsSerreFibration was the sole remaining hypothesis; the later exact Hopf Serre-fibration record discharges it and supplies the lattice overlay.",
         "result": "the classical real-coordinate quadratic formula is formalized as a continuous based map from the exact metric 3-sphere to the exact metric 2-sphere; its basepoint fibre is proved exactly equal to the coordinate circle and explicitly homeomorphic to the exact metric 1-sphere with matching basepoints; the existing fibration long exact sequence then proves that this map induces an equivalence on pi_3, and hence pi_3(S^2)=Z, conditional only on the concrete map being a Serre fibration",
         "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/5b98ed5aecbe77d95eb754b132c314425a60f473/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HopfMap.lean",
         "status": "lean_kernel_checked_local_source",
@@ -48256,7 +48364,7 @@
         "system": "Lean 4 HoTT"
       }
     ],
-    "reviewed_on": "2026-08-12",
+    "reviewed_on": "2026-08-13",
     "schema_version": "1.0.0",
     "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/main/research/formalizations.json"
   },

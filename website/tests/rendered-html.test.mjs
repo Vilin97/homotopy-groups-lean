@@ -17,8 +17,8 @@ test("statically exports the benchmark landing page", async () => {
   assert.match(html, /manifests\/problems\/complexProjectiveSpace_higher_homotopy_mulEquiv_sphere\.toml/);
   assert.doesNotMatch(html, /manifests\/problems\/[^"]+\.json/);
   assert.match(html, /6,604(?:<!-- -->)? exact integral/);
-  assert.match(html, /Lean overlay<\/span><strong>4369<\/strong>/);
-  assert.match(html, /4,369(?:<!-- -->)? purple cells/);
+  assert.match(html, /Lean overlay<\/span><strong>4370<\/strong>/);
+  assert.match(html, /4,370(?:<!-- -->)? purple cells/);
   assert.match(html, /1 ≤ m &lt; n/);
   assert.match(html, /Lean 4 · kernel checked · exact metric model/);
   assert.match(html, /Exact Lean theorem/);
@@ -100,6 +100,7 @@ test("ships complete, synchronized benchmark data, reports, and social art", asy
     "pi1_circle_mulEquiv_int",
     "pi1_realProjectiveSpace_mulEquiv_zmod_two",
     "pi1_simplyConnected_subsingleton",
+    "pi3_sphere_two_mulEquiv_int",
     "realProjectiveSpace_higher_homotopy_mulEquiv_sphere",
     "sphere_diagonal_homotopy_mulEquiv_int",
     "sphere_lower_homotopy_subsingleton",
@@ -151,9 +152,9 @@ test("ships complete, synchronized benchmark data, reports, and social art", asy
   assert.ok(leaderboard.accepted_problems.length >= 6);
   assert.ok(leaderboard.accepted_problems.every((problem) => typeof problem.title === "string" && problem.title.length > 0));
   assert.ok(leaderboard.accepted_problems.some((problem) => problem.title === "The fundamental group of the circle is the integers" && problem.score_eligible === false));
-  assert.equal(leaderboard.formalization_inventory.records.length, 53);
-  assert.equal(leaderboard.formalization_inventory.lattice.cell_count, 200);
-  assert.equal(leaderboard.formalization_inventory.degree_lattice.cell_count, 4369);
+  assert.equal(leaderboard.formalization_inventory.records.length, 55);
+  assert.equal(leaderboard.formalization_inventory.lattice.cell_count, 201);
+  assert.equal(leaderboard.formalization_inventory.degree_lattice.cell_count, 4370);
   for (const lattice of [
     leaderboard.formalization_inventory.lattice,
     leaderboard.formalization_inventory.degree_lattice,
@@ -170,7 +171,7 @@ test("ships complete, synchronized benchmark data, reports, and social art", asy
   );
   assert.ok(
     leaderboard.formalization_inventory.lattice.cells.every((cell) =>
-      cell.n === 1 || cell.k === 0),
+      cell.n === 1 || cell.k === 0 || (cell.n === 2 && cell.k === 1)),
   );
   assert.equal(
     leaderboard.formalization_inventory.degree_lattice.cells.filter((cell) => cell.m < cell.n).length,
@@ -189,6 +190,12 @@ test("ships complete, synchronized benchmark data, reports, and social art", asy
     leaderboard.formalization_inventory.lattice.cells.some((cell) =>
       cell.n === 2 && cell.k === 0 &&
       cell.record_id === "lean4-benchmark-metric-sphere-pi2"),
+  );
+  assert.ok(
+    leaderboard.formalization_inventory.lattice.cells.some((cell) =>
+      cell.n === 2 && cell.k === 1 &&
+      cell.record_id === "lean4-exact-hopf-serre-fibration" &&
+      cell.proof_declaration === "Submission.pi3_sphere_two_mulEquiv_int"),
   );
   assert.ok(
     leaderboard.formalization_inventory.lattice.cells.some((cell) =>

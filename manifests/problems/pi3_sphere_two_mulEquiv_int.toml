@@ -5,4 +5,4 @@ module = "HomotopyGroups.Spaces"
 holes = ["pi3_sphere_two_mulEquiv_int"]
 submitter = "OpenAI Codex"
 source = "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
-notes = "knowledge_status=foundation_blocked; the Hopf-fibration computation is meaningful on the concrete sphere, but no fibration long exact sequence exists in the native API."
+notes = "knowledge_status=formalized_local; explicit non-antipodal transport and balanced dyadic homotopy lifting prove that the exact Hopf map is a Serre fibration, and its circle-fibre long exact sequence closes the canonical declaration."
