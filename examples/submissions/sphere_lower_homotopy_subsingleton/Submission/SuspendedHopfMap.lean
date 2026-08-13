@@ -453,6 +453,48 @@ theorem suspendedHopfCanonicalLift_ne_zero : suspendedHopfCanonicalLift ≠ 0 :=
   apply sphereThreeModTwoClass_ne_zero
   rw [← suspendedHopfCanonicalLift_restrict, hzero, map_zero]
 
+/-! ### Transport to the raw suspension cone -/
+
+/-- The canonical degree-three class pulled back to the mapping cone of the raw suspension. -/
+noncomputable def hopfSuspensionCanonicalLift :
+    Hsing 3 hopfSuspensionMappingCone (ZMod 2) :=
+  Hsing.map hopfSuspensionMappingConeIso.hom 3 suspendedHopfCanonicalLift
+
+/-- The raw-suspension cone class restricts to the pullback of the normalized sphere class
+through the chosen suspension coordinate. -/
+@[simp]
+theorem hopfSuspensionCanonicalLift_restrict :
+    Hsing.map (topologicalMappingConeIncl hopfSuspensionTopCat) 3
+        hopfSuspensionCanonicalLift =
+      Hsing.map (suspSphTopCatIso 2).hom 3 sphereThreeModTwoClass := by
+  rw [hopfSuspensionCanonicalLift, ← LinearMap.comp_apply, ← Hsing.map_comp,
+    hopfSuspensionMappingConeIso_hom_incl, Hsing.map_comp,
+    LinearMap.comp_apply, suspendedHopfCanonicalLift_restrict]
+
+/-- The normalized top class pulled back to the mapping cone of the raw suspension. -/
+noncomputable def hopfSuspensionMappingConeTopClass :
+    Hsing 5 hopfSuspensionMappingCone (ZMod 2) :=
+  Hsing.map hopfSuspensionMappingConeIso.hom 5 suspendedHopfMappingConeTopClass
+
+/-- `Sq²` commutes with transport from the concrete suspended-Hopf cone to the raw suspension
+cone. -/
+theorem hopfSuspensionCanonicalLift_sqTwo_naturality :
+    sqTwoHsingDegreeThree hopfSuspensionCanonicalLift =
+      Hsing.map hopfSuspensionMappingConeIso.hom 5
+        (sqTwoHsingDegreeThree suspendedHopfCanonicalLift) := by
+  exact (sqTwoHsingDegreeThree_natural hopfSuspensionMappingConeIso.hom
+    suspendedHopfCanonicalLift).symm
+
+/-- Identifying the concrete suspended-Hopf square with its top class identifies the transported
+raw-suspension square with its transported top class. -/
+theorem hopfSuspensionCanonicalLift_sqTwo_eq_top_of_concrete
+    (hSq : sqTwoHsingDegreeThree suspendedHopfCanonicalLift =
+      suspendedHopfMappingConeTopClass) :
+    sqTwoHsingDegreeThree hopfSuspensionCanonicalLift =
+      hopfSuspensionMappingConeTopClass := by
+  rw [hopfSuspensionCanonicalLift_sqTwo_naturality, hSq]
+  rfl
+
 /-- A fixed singular cocycle representing the canonical degree-three mapping-cone lift. -/
 noncomputable def suspendedHopfCanonicalCocycle :
     cocycles (TopCat.toSSet.obj suspendedHopfMappingCone) (ZMod 2) 3 :=
