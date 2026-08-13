@@ -5,8 +5,8 @@ import Mathlib.LinearAlgebra.Projectivization.Basic
 import Mathlib.Topology.Category.TopCat.Sphere
 import Mathlib.Topology.Constructions
 import Mathlib.Topology.Homotopy.HomotopyGroup
+import Submission.ComplexHopfFibration
 import Submission.Hurewicz.SphereDiagonalGeneric
-import Submission.HopfFibration
 import Submission.RealProjectiveSpace
 
 /-!
@@ -124,7 +124,9 @@ theorem pi1_complexProjectiveSpace_subsingleton
     Subsingleton
       (HomotopyGroup.Pi 1 (ComplexProjectiveSpace n)
         (complexProjectiveBasepoint n)) := by
-  sorry
+  rw [← show Submission.complexProjectiveFunctionBasepoint n =
+    complexProjectiveBasepoint n from rfl]
+  exact Submission.piOne_complexProjectiveFunctionModel_subsingleton n hn
 
 @[eval_problem]
 theorem pi2_complexProjectiveSpace_mulEquiv_int
@@ -133,7 +135,9 @@ theorem pi2_complexProjectiveSpace_mulEquiv_int
       (HomotopyGroup.Pi 2 (ComplexProjectiveSpace n)
           (complexProjectiveBasepoint n) ≃*
         Multiplicative ℤ) := by
-  sorry
+  rw [← show Submission.complexProjectiveFunctionBasepoint n =
+    complexProjectiveBasepoint n from rfl]
+  exact Submission.piTwo_complexProjectiveFunctionModel_mulEquiv_int n hn
 
 @[eval_problem]
 theorem complexProjectiveSpace_higher_homotopy_mulEquiv_sphere
@@ -143,6 +147,10 @@ theorem complexProjectiveSpace_higher_homotopy_mulEquiv_sphere
           (complexProjectiveBasepoint n) ≃*
         HomotopyGroup.Pi (k + 3) (SphereSpace (2 * n + 1))
           (sphereBasepoint (2 * n + 1))) := by
-  sorry
+  rw [← show Submission.complexProjectiveFunctionBasepoint n =
+      complexProjectiveBasepoint n from rfl,
+    ← show Submission.sphereBasepoint (2 * n + 1) =
+      sphereBasepoint (2 * n + 1) from rfl]
+  exact Submission.complexProjectiveFunctionModel_higher_homotopy_mulEquiv_sphere n k hn
 
 end HomotopyGroups

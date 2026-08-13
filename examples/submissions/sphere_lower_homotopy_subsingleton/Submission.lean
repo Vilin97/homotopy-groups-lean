@@ -16,6 +16,7 @@ import Submission.HopfLocalTrivialization
 import Submission.HopfTransport
 import Submission.HopfFibration
 import Submission.HopfHigherHomotopy
+import Submission.ComplexHopfFibration
 import Submission.Hurewicz.AbsoluteIsomorphism
 import Submission.Hurewicz.AbsoluteNaturality
 import Submission.Hurewicz.AbsoluteSurjectivity
