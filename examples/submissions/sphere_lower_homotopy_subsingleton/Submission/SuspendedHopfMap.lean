@@ -887,6 +887,61 @@ theorem orderOf_suspendedHopfMapClass_eq_two_of_canonical_evaluation
   rw [suspendedHopfMapClass_eq_piFourSphereThreeGeometricHopfGenerator]
   exact orderOf_piFourSphereThreeGeometricHopfGenerator_eq_two_of_canonical_evaluation heval
 
+/-- A successful canonical evaluation forces the cyclic first-stem modulus to be even.  This
+uses only the exact order of the geometric suspended-Hopf class, and does not require its
+comparison with the cap-excision generator. -/
+theorem two_dvd_piFourSphereThreeModulus_of_canonical_evaluation
+    (heval : sqTwoHsingDegreeThreeRepresentativeEvaluation
+      suspendedHopfCanonicalCocycle suspendedHopfCanonicalFiveCycle ≠ 0) :
+    2 ∣ piFourSphereThreeModulus := by
+  rw [piFourSphereThreeModulus,
+    ← orderOf_piFourSphereThreeGeometricHopfGenerator_eq_two_of_canonical_evaluation heval]
+  exact orderOf_dvd_natCard piFourSphereThreeGeometricHopfGenerator
+
+/-- A nonidentity geometric involution rules out the zero modulus, which denotes the
+infinite-cyclic case. -/
+theorem piFourSphereThreeModulus_ne_zero_of_geometric_ne_one
+    (hne : piFourSphereThreeGeometricHopfGenerator ≠ 1) :
+    piFourSphereThreeModulus ≠ 0 := by
+  intro hzero
+  obtain ⟨k, hk⟩ := Subgroup.mem_zpowers_iff.mp
+    (by
+      rw [piFourSphereThreeEdgeGenerator_zpowers_eq_top]
+      exact trivial : piFourSphereThreeGeometricHopfGenerator ∈
+        Subgroup.zpowers piFourSphereThreeEdgeGenerator)
+  have hedgeOrder : orderOf piFourSphereThreeEdgeGenerator = 0 := by
+    rw [orderOf_piFourSphereThreeEdgeGenerator, hzero]
+  have hpow : piFourSphereThreeEdgeGenerator ^ (2 * k) = 1 := by
+    rw [mul_comm, zpow_mul, hk]
+    simpa only [zpow_ofNat] using
+      piFourSphereThreeGeometricHopfGenerator_sq
+  have hdiv : (orderOf piFourSphereThreeEdgeGenerator : ℤ) ∣ 2 * k :=
+    orderOf_dvd_iff_zpow_eq_one.mpr hpow
+  rw [hedgeOrder, Nat.cast_zero, zero_dvd_iff] at hdiv
+  have hkzero : k = 0 := by omega
+  apply hne
+  rw [← hk, hkzero, zpow_zero]
+
+/-- Hence the canonical evaluation excludes the infinite-cyclic first-stem presentation. -/
+theorem piFourSphereThreeModulus_ne_zero_of_canonical_evaluation
+    (heval : sqTwoHsingDegreeThreeRepresentativeEvaluation
+      suspendedHopfCanonicalCocycle suspendedHopfCanonicalFiveCycle ≠ 0) :
+    piFourSphereThreeModulus ≠ 0 :=
+  piFourSphereThreeModulus_ne_zero_of_geometric_ne_one
+    (piFourSphereThreeGeometricHopfGenerator_ne_one_of_canonical_evaluation heval)
+
+/-- The lower obstruction therefore proves the numerical lower bound two for the first-stem
+modulus, separately from the remaining upper-bound comparison. -/
+theorem two_le_piFourSphereThreeModulus_of_canonical_evaluation
+    (heval : sqTwoHsingDegreeThreeRepresentativeEvaluation
+      suspendedHopfCanonicalCocycle suspendedHopfCanonicalFiveCycle ≠ 0) :
+    2 ≤ piFourSphereThreeModulus := by
+  have hdvd :=
+    two_dvd_piFourSphereThreeModulus_of_canonical_evaluation heval
+  have hne :=
+    piFourSphereThreeModulus_ne_zero_of_canonical_evaluation heval
+  omega
+
 /-- The same canonical cup-one evaluation proves that the cap-excision edge generator is
 nonidentity, without requiring an identification of the two named generators. -/
 theorem piFourSphereThreeEdgeGenerator_ne_one_of_canonical_evaluation
