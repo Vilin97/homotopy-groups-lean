@@ -1,0 +1,133 @@
+{
+  "schema_version": "1.0.0",
+  "registry_version": "2026-08-12.1",
+  "reviewed_on": "2026-08-12",
+  "title": "Exact integral unstable groups derived from Thomeier's backward-from-stability theorems",
+  "coordinate": "G_r^{-d} = pi_(2r-d+2)(S^(r-d+2)); n=r-d+2; m=2r-d+2",
+  "scope": {
+    "stable_stems": "exact r=21-83 and 87-89",
+    "excluded_stems": [84, 85, 86, 90],
+    "excluded_claims": [
+      "groups already covered by the integral low-stem baseline r<=20",
+      "order-only statements",
+      "equalities between unknown abstract groups",
+      "formulas conditional on Whitehead-product divisibility or nondivisibility"
+    ],
+    "expected_record_count": 307,
+    "expected_degree_window_count": 118,
+    "degree_window": { "n_min": 1, "n_max": 92, "m_min": 1, "m_max": 92 },
+    "expected_prior_status_counts": {
+      "all_records": { "exact_2_primary_only": 57, "integral_group_unclassified": 250 },
+      "degree_window": { "exact_2_primary_only": 57, "integral_group_unclassified": 61 }
+    }
+  },
+  "sources": [
+    {
+      "source_id": "thomeier1966",
+      "title": "Einige Ergebnisse über Homotopiegruppen von Sphären",
+      "citation": "Siegfried Thomeier, Einige Ergebnisse über Homotopiegruppen von Sphären, Mathematische Annalen 164 (1966), 225-250.",
+      "url": "https://eudml.org/doc/161401",
+      "pdf_url": "https://webhomes.maths.ed.ac.uk/~v1ranick/papers/thomeier.pdf",
+      "publication_status": "published",
+      "peer_reviewed": true,
+      "registry_use": "Satz 1.1-1.8, journal pages 227-228; notation on journal page 226."
+    }
+  ],
+  "rules": [
+    {
+      "residue": 0,
+      "theorem": "1.1",
+      "journal_page": 227,
+      "cases": [
+        { "d": 1, "free_rank": 0, "cyclic_orders": [2] },
+        { "d": 2, "free_rank": 0, "cyclic_orders": [2, 2] },
+        { "d": 3, "free_rank": 0, "cyclic_orders": [2] },
+        { "d": 4, "free_rank": 0, "cyclic_orders": [12], "when": "quotient_not_power_of_two" },
+        { "d": 5, "free_rank": 0, "cyclic_orders": [], "when": "quotient_not_power_of_two" },
+        { "d": 6, "free_rank": 0, "cyclic_orders": [], "when": "quotient_not_power_of_two" }
+      ]
+    },
+    {
+      "residue": 1,
+      "theorem": "1.2",
+      "journal_page": 227,
+      "cases": [
+        { "d": 1, "free_rank": 1, "cyclic_orders": [] },
+        { "d": 2, "free_rank": 0, "cyclic_orders": [2] },
+        { "d": 3, "free_rank": 0, "cyclic_orders": [2, 2] },
+        { "d": 4, "free_rank": 0, "cyclic_orders": [2] },
+        { "d": 5, "free_rank": 0, "cyclic_orders": [] },
+        { "d": 6, "free_rank": 0, "cyclic_orders": [] },
+        { "d": 7, "free_rank": 0, "cyclic_orders": [] }
+      ]
+    },
+    {
+      "residue": 2,
+      "theorem": "1.3",
+      "journal_page": 227,
+      "cases": [
+        { "d": 1, "free_rank": 0, "cyclic_orders": [2] },
+        { "d": 2, "free_rank": 0, "cyclic_orders": [4] },
+        { "d": 3, "free_rank": 0, "cyclic_orders": [8] },
+        { "d": 4, "free_rank": 0, "cyclic_orders": [8, 24] },
+        { "d": 5, "free_rank": 0, "cyclic_orders": [8] },
+        { "d": 6, "free_rank": 0, "cyclic_orders": [8], "when": "quotient_at_least_two" }
+      ]
+    },
+    {
+      "residue": 3,
+      "theorem": "1.4",
+      "journal_page": 227,
+      "cases": [
+        { "d": 1, "free_rank": 1, "cyclic_orders": [] },
+        { "d": 2, "free_rank": 0, "cyclic_orders": [] },
+        { "d": 3, "free_rank": 0, "cyclic_orders": [] }
+      ]
+    },
+    {
+      "residue": 4,
+      "theorem": "1.5",
+      "journal_page": 228,
+      "cases": [
+        { "d": 1, "free_rank": 0, "cyclic_orders": [2] },
+        { "d": 2, "free_rank": 0, "cyclic_orders": [2, 2] },
+        { "d": 3, "free_rank": 0, "cyclic_orders": [2] },
+        { "d": 4, "free_rank": 0, "cyclic_orders": [12] },
+        { "d": 5, "free_rank": 0, "cyclic_orders": [] },
+        { "d": 6, "free_rank": 0, "cyclic_orders": [] },
+        { "d": 7, "free_rank": 0, "cyclic_orders": [] }
+      ]
+    },
+    {
+      "residue": 5,
+      "theorem": "1.6",
+      "journal_page": 228,
+      "cases": [
+        { "d": 1, "free_rank": 1, "cyclic_orders": [] },
+        { "d": 2, "free_rank": 0, "cyclic_orders": [2] },
+        { "d": 3, "free_rank": 0, "cyclic_orders": [2, 2] },
+        { "d": 4, "free_rank": 0, "cyclic_orders": [2, 2] },
+        { "d": 5, "free_rank": 0, "cyclic_orders": [2] },
+        { "d": 6, "free_rank": 0, "cyclic_orders": [2] }
+      ]
+    },
+    {
+      "residue": 6,
+      "theorem": "1.7",
+      "journal_page": 228,
+      "cases": [],
+      "exclusion_reason": "The theorem gives only orders and G_r^-5 isomorphic to G_r^-6 unconditionally; its structure formulas require Whitehead-square nondivisibility."
+    },
+    {
+      "residue": 7,
+      "theorem": "1.8",
+      "journal_page": 228,
+      "cases": [
+        { "d": 1, "free_rank": 1, "cyclic_orders": [] },
+        { "d": 2, "free_rank": 0, "cyclic_orders": [] },
+        { "d": 3, "free_rank": 0, "cyclic_orders": [] }
+      ],
+      "exclusion_reason": "The arithmetic clause relates d=4,5,6 and determines their order; G_r plus C_2 requires Whitehead-product nondivisibility. Satz 1.8 has no d=7 formula."
+    }
+  ]
+}

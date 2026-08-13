@@ -23,16 +23,36 @@ fourteen whose required foundations do not yet exist in Mathlib are recorded as
 blocked instead of being weakened into placeholder propositions.
 
 The live atlas exposes both a 92 by 92 absolute-degree lattice and a 92 by 109
-stem lattice, specified in
-[`research/lattice-coverage.json`](research/lattice-coverage.json). Its integral
-literature core remains the audited 92 by 91 range through stem 90; the added
-columns through stem 108 are conservatively uncharted outside the circle row.
+stem lattice. It is **coverage of the current audited registry of complete
+additive groups**, not a claim to visualize everything known about homotopy
+groups of spheres. Its domains and display classes are specified in
+[`research/lattice-coverage.json`](research/lattice-coverage.json); exact
+backward-from-stability groups are generated from the source-audited
+[`research/thomeier-unstable.json`](research/thomeier-unstable.json). The
+integral stable registry ends at stem 90, while the extra stem columns through
+108 remain unclassified outside claims supported by a separate source record.
 The attached
 [literature review](website/public/reports/homotopy-groups-of-spheres-literature-review.pdf),
 its [correction log](research/literature-review-audit.md), and the regenerated
 [CSV/BibTeX companions](research/report-data/) distinguish exact integral
-values, published alternatives, 2-primary-only computations, and a disputed
-33-stem entry. The independent purple proof overlay comes from the dated,
+values, published alternatives, exact 2-primary-only computations, and a
+source-internal scope conflict in the 33-stem. Gray means **full integral group
+not classified in current registry**, not that nothing is known at that
+coordinate.
+
+Thomeier's integral backward theorems add 307 exact cells to the earlier rule
+set: 57 were formerly 2-primary-only and 250 were formerly unclassified. Of
+these, 118 lie in the displayed 92 by 92 absolute-degree window (57 formerly
+2-primary-only and 61 formerly unclassified). The resulting mutually exclusive
+display counts are:
+
+| View | Exact integral | Published alternatives | Exact 2-primary only | Source conflict | Full integral group not classified | Total |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| `1 <= n,m <= 92` | 6,722 | 0 | 276 | 1 | 1,465 | 8,464 |
+| `1 <= n <= 92`, `0 <= k <= 108` | 4,793 | 19 | 276 | 1 | 4,939 | 10,028 |
+
+These are display-domain statistics, not percentages of the subject. The
+independent purple proof border comes from the dated,
 source-auditable [`formalizations.json`](research/formalizations.json) inventory.
 The maintained overlay is Lean 4 only. In the default absolute-degree view it
 covers every positive lower group `π_m(S^n) = 0` for `m < n`, the visible

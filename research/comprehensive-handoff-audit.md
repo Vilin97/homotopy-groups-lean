@@ -33,11 +33,21 @@ to 1000. It adds several different kinds of information:
 - status ledgers for unstable ranges, high-dimensional results, sources, and
   27 conjectural or historical claims.
 
-Accordingly, the existing 92 by 91 integral/unstable lattice remains unchanged.
-The public site displays the new material in a separate stable-frontier atlas.
-A coverage band, a named-class tick, and a periodic-family mark have distinct
-meanings. A missing 5-primary ledger row means "no non-J entry listed," not a
-zero group; a periodic mark proves class existence, not the ambient group.
+Accordingly, those beyond-stem claim types do not automatically recolor the
+complete-integral lattice. The public site displays them in a separate
+stable-frontier atlas. A coverage band, a named-class tick, and a
+periodic-family mark have distinct meanings. A missing 5-primary ledger row
+means "no non-J entry listed," not a zero group; a periodic mark proves class
+existence, not the ambient group.
+
+There is one separate correction to the old lattice baseline. The handoff
+notes Thomeier's backward-from-stability theorem, and a direct audit of Satz
+1.1--1.8 shows that it determines 307 additional complete integral groups from
+the exact stable registry. Exactly 118 lie in the 92 by 92 absolute-degree
+display. This correction is normalized in
+[`thomeier-unstable.json`](thomeier-unstable.json) and explained in
+[`literature-review-audit.md`](literature-review-audit.md); it does not modify
+the checksummed handoff files.
 
 The handoff stable 0--90 table agrees semantically with
 `stable-stems.json` in every row and every published alternative. Its Toda
@@ -185,11 +195,12 @@ URL/DOI, and `lattice_effect: "none"` in
    new additive-group values.
    [Primary preprint and arXiv DOI](https://doi.org/10.48550/arXiv.2606.12046).
 
-None of these six records changes the rule or counts in
-`lattice-coverage.json`: none supplies a new complete integral additive group at
-a lattice coordinate. The website therefore renders them as source cards below
-the stable-frontier atlas rather than recoloring squares or extending the
-consecutive integral ledger.
+None of these six addendum records supplies a new complete integral additive
+group at a lattice coordinate. The website therefore renders them as source
+cards below the stable-frontier atlas rather than recoloring squares or
+extending the consecutive integral ledger. This no-lattice-effect conclusion is
+specific to the six addendum records; it does not apply to the separately
+audited Thomeier formulas described above.
 
 Primary verification links:
 

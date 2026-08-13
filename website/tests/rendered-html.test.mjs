@@ -16,9 +16,13 @@ test("statically exports the benchmark landing page", async () => {
   assert.match(html, /Proof queue/);
   assert.match(html, /manifests\/problems\/complexProjectiveSpace_higher_homotopy_mulEquiv_sphere\.toml/);
   assert.doesNotMatch(html, /manifests\/problems\/[^"]+\.json/);
-  assert.match(html, /6,604(?:<!-- -->)? exact integral/);
+  assert.match(html, /6,722(?:<!-- -->)? exact integral/);
+  assert.match(html, /Published only/);
+  assert.match(html, /Full integral group not classified/);
+  assert.match(html, /source-conflict/);
+  assert.match(html, /Coverage of the current audited registry of complete additive groups/);
   assert.match(html, /Lean overlay<\/span><strong>4370<\/strong>/);
-  assert.match(html, /4,370(?:<!-- -->)? purple cells/);
+  assert.match(html, /4,370(?:<!-- -->)? purple outlines/);
   assert.match(html, /1 ≤ m &lt; n/);
   assert.match(html, /Lean 4 · kernel checked · exact metric model/);
   assert.match(html, /Exact Lean theorem/);

@@ -61,6 +61,8 @@ for (const relative of [
   "reports/comprehensive-2026/data/v1_periodic_image_J_0_1000.csv",
   "data/extended-frontiers.json",
   "data/leaderboard.json",
+  "data/low-stem-exact.json",
+  "data/thomeier-unstable.json",
 ]) {
   await access(new URL(relative, output));
 }

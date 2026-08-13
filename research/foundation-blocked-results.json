@@ -6,9 +6,9 @@
     {
       "id": "unstable-integral-table-20",
       "result": "The complete integral groups pi_(n+20)(S^n)",
-      "status": "blocked_on_registry",
-      "missing": ["versioned structured transcription of the Mimura-Toda 20-stem"],
-      "data_available": "The Toda 0-19 table is now generated as HomotopyGroups.TodaTable; the Mimura-Toda 20-stem is not present in the companion CSV"
+      "status": "blocked_on_lean_statement",
+      "missing": ["generated Lean declaration for the now-versioned Mimura-Toda 20-stem registry"],
+      "data_available": "The Toda 0-19 table is generated as HomotopyGroups.TodaTable; research/report-data/mimura_toda_unstable_stem_20.csv now records the complete stem-20 additive groups for site consumers"
     },
     {
       "id": "unstable-two-primary-21-33",

@@ -3,6 +3,7 @@ from __future__ import annotations
 import csv
 import hashlib
 import json
+import math
 import pathlib
 import subprocess
 import sys
@@ -216,39 +217,210 @@ class ResearchDataTests(unittest.TestCase):
             row["stem"]: row
             for row in json.loads((ROOT / "research/stable-stems.json").read_text())["stems"]
         }
-        counts = {
-            "exact_integral": 0,
-            "published_integral_alternatives": 0,
-            "exact_2_primary_only": 0,
-            "disputed": 0,
-            "not_fully_tabulated": 0,
-        }
+        thomeier = json.loads(
+            (ROOT / "website/public/data/thomeier-unstable.json").read_text()
+        )
+        thomeier_cells = {(row["n"], row["stem"]) for row in thomeier["cells"]}
+
+        def empty_counts() -> dict[str, int]:
+            return {
+                "exact_integral": 0,
+                "published_integral_alternatives": 0,
+                "exact_2_primary_only": 0,
+                "source_conflict": 0,
+                "integral_group_unclassified": 0,
+            }
+
+        def status_at(n: int, k: int) -> str:
+            if n == 1 or k <= 20:
+                return "exact_integral"
+            if k <= n - 2 and k in stems:
+                return (
+                    "exact_integral" if stems[k]["is_exact"]
+                    else "published_integral_alternatives"
+                )
+            if (n, k) in thomeier_cells:
+                return "exact_integral"
+            if (n, k) == (27, 33):
+                return "source_conflict"
+            if 21 <= k <= 32 or (k == 33 and 2 <= n <= 9):
+                return "exact_2_primary_only"
+            return "integral_group_unclassified"
+
+        counts = empty_counts()
         domain = coverage["domain"]
         for n in range(domain["n_min"], domain["n_max"] + 1):
             for k in range(domain["k_min"], domain["k_max"] + 1):
-                if n == 1 or k <= 20:
-                    status = "exact_integral"
-                elif k <= n - 2 and k in stems:
-                    status = (
-                        "exact_integral" if stems[k]["is_exact"]
-                        else "published_integral_alternatives"
-                    )
-                elif 21 <= k <= 32 or (
-                    k == 33 and (2 <= n <= 9 or 28 <= n <= 34)
-                ):
-                    status = "exact_2_primary_only"
-                elif (n, k) == (27, 33):
-                    status = "disputed"
-                else:
-                    status = "not_fully_tabulated"
-                counts[status] += 1
+                counts[status_at(n, k)] += 1
         self.assertEqual(sum(counts.values()), domain["cell_count"])
         self.assertEqual(counts, coverage["counts"])
+
         degree_domain = coverage["degree_domain"]
         self.assertEqual(
             degree_domain["cell_count"],
             (degree_domain["n_max"] - degree_domain["n_min"] + 1)
             * (degree_domain["m_max"] - degree_domain["m_min"] + 1),
+        )
+        degree_counts = empty_counts()
+        for n in range(degree_domain["n_min"], degree_domain["n_max"] + 1):
+            for m in range(degree_domain["m_min"], degree_domain["m_max"] + 1):
+                status = "exact_integral" if m < n else status_at(n, m - n)
+                degree_counts[status] += 1
+        self.assertEqual(sum(degree_counts.values()), degree_domain["cell_count"])
+        self.assertEqual(degree_counts, coverage["degree_counts"])
+
+    def test_thomeier_unstable_registry_is_exact_and_reproducible(self) -> None:
+        subprocess.run(
+            [sys.executable, "scripts/generate_thomeier_unstable.py", "--check"],
+            cwd=ROOT,
+            check=True,
+        )
+        data = json.loads(
+            (ROOT / "website/public/data/thomeier-unstable.json").read_text()
+        )
+        cells = data["cells"]
+        coverage = data["coverage"]
+        self.assertEqual(len(cells), 307)
+        self.assertEqual(coverage["record_count"], 307)
+        self.assertEqual(coverage["degree_window_count"], 118)
+        self.assertEqual(
+            coverage["prior_status_counts"],
+            {
+                "all_records": {
+                    "exact_2_primary_only": 57,
+                    "integral_group_unclassified": 250,
+                },
+                "degree_window": {
+                    "exact_2_primary_only": 57,
+                    "integral_group_unclassified": 61,
+                },
+            },
+        )
+        self.assertEqual(
+            len({(row["n"], row["stem"]) for row in cells}), len(cells)
+        )
+        self.assertTrue(all(row["m"] == row["n"] + row["stem"] for row in cells))
+        self.assertTrue(
+            all(row["n"] == row["stem"] - row["backward_index"] + 2
+                for row in cells)
+        )
+
+        sources = {row["source_id"]: row for row in data["sources"]}
+        self.assertEqual(set(sources), {"iwx2023", "bix2025", "thomeier1966"})
+        self.assertTrue(
+            all(row["publication_status"] == "published" for row in sources.values())
+        )
+        self.assertEqual(sources["thomeier1966"]["url"], "https://eudml.org/doc/161401")
+        for row in cells:
+            self.assertEqual(row["status"], "exact_integral")
+            self.assertTrue(row["source_refs"])
+            self.assertIn("thomeier1966", {
+                ref["source_id"] for ref in row["source_refs"]
+            })
+            self.assertRegex(row["source_refs"][-1]["locator"], r"^Satz 1\.[1-8]")
+            group = row["group"]
+            factors = group["integral_decomposition"]["torsion_invariant_factors"]
+            self.assertTrue(
+                all(right % left == 0 for left, right in zip(factors, factors[1:]))
+            )
+            self.assertEqual(int(group["torsion_order"]), math.prod(factors))
+
+    def test_thomeier_formula_boundaries_and_normalized_groups(self) -> None:
+        cells = json.loads(
+            (ROOT / "website/public/data/thomeier-unstable.json").read_text()
+        )["cells"]
+        by_stem_d = {
+            (row["stem"], row["backward_index"]): row for row in cells
+        }
+
+        self.assertFalse(any(stem in {84, 85, 86, 90} for stem, _ in by_stem_d))
+        self.assertFalse(any(stem % 8 == 6 for stem, _ in by_stem_d))
+        self.assertFalse(any(stem % 8 in {3, 7} and d >= 4
+                             for stem, d in by_stem_d))
+        self.assertFalse(any(stem % 8 == 7 and d == 7 for stem, d in by_stem_d))
+
+        for stem in (32, 64):
+            for d in (4, 5, 6):
+                self.assertNotIn((stem, d), by_stem_d)
+        for stem in (24, 40, 48, 56, 72, 80, 88):
+            for d in (4, 5, 6):
+                self.assertIn((stem, d), by_stem_d)
+
+        pi_49_s25 = by_stem_d[(24, 1)]["group"]["integral_decomposition"]
+        self.assertEqual(
+            pi_49_s25,
+            {"free_rank": 0, "torsion_invariant_factors": [2, 2, 2]},
+        )
+
+        expected_r33 = {
+            28: {"free_rank": 0, "torsion_invariant_factors": [2] * 5},
+            29: {"free_rank": 0, "torsion_invariant_factors": [2] * 5},
+            30: {"free_rank": 0, "torsion_invariant_factors": [2] * 5},
+            31: {"free_rank": 0, "torsion_invariant_factors": [2] * 6},
+            32: {"free_rank": 0, "torsion_invariant_factors": [2] * 7},
+            33: {"free_rank": 0, "torsion_invariant_factors": [2] * 6},
+            34: {"free_rank": 1, "torsion_invariant_factors": [2] * 5},
+        }
+        actual_r33 = {
+            row["n"]: row["group"]["integral_decomposition"]
+            for row in cells if row["stem"] == 33
+        }
+        self.assertEqual(actual_r33, expected_r33)
+
+        # Stable G_29=C3 direct-sum the added C2 is normalized to C6.
+        self.assertEqual(
+            by_stem_d[(29, 2)]["group"],
+            {
+                "primary_decomposition": {"2": [2], "3": [3]},
+                "integral_decomposition": {
+                    "free_rank": 0,
+                    "torsion_invariant_factors": [6],
+                },
+                "torsion_order": "6",
+            },
+        )
+
+    def test_low_stem_lattice_groups_are_exact_and_reproducible(self) -> None:
+        subprocess.run(
+            [sys.executable, "scripts/generate_low_stem_lattice.py", "--check"],
+            cwd=ROOT,
+            check=True,
+        )
+        data = json.loads(
+            (ROOT / "website/public/data/low-stem-exact.json").read_text()
+        )
+        cells = data["cells"]
+        self.assertEqual(data["coverage"]["explicit_cell_count"], 421)
+        self.assertEqual(len(cells), 421)
+        self.assertEqual(len({(row["n"], row["stem"]) for row in cells}), 421)
+        self.assertTrue(all(row["status"] == "exact_integral" for row in cells))
+        self.assertTrue(all(row["source_refs"] for row in cells))
+
+        by_coordinate = {(row["n"], row["stem"]): row for row in cells}
+        expected_stem_20 = {
+            2: [2, 132], 3: [2, 2], 4: [2] * 6, 5: [2, 2, 6],
+            6: [12, 480], 7: [24], 8: [3, 24], 9: [24],
+            10: [24, 504], 11: [2, 2, 24], 12: [2, 2, 2, 2, 2, 24],
+            13: [2, 2, 2, 24], 14: [24, 240], 15: [24], 16: [24],
+            17: [24], 18: [12, 24], 19: [2, 24], 20: [2, 2, 24],
+            21: [2, 24], 22: [24],
+        }
+        for n, factors in expected_stem_20.items():
+            row = by_coordinate[(n, 20)]
+            self.assertEqual(
+                row["group"]["integral_decomposition"],
+                {"free_rank": 0, "torsion_invariant_factors": factors},
+            )
+            self.assertEqual(row["source_refs"][0]["source_id"], "MimuraToda1963")
+
+        # Toda compact notation must be normalized, not merely concatenated.
+        self.assertEqual(
+            by_coordinate[(3, 3)]["group"]["integral_decomposition"],
+            {"free_rank": 0, "torsion_invariant_factors": [12]},
+        )
+        self.assertEqual(
+            by_coordinate[(4, 3)]["group"]["integral_decomposition"],
+            {"free_rank": 1, "torsion_invariant_factors": [12]},
         )
 
     def test_report_and_companion_files_are_present(self) -> None:

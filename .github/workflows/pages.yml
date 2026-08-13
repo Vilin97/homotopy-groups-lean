@@ -6,8 +6,13 @@ on:
     paths:
       - '.github/workflows/pages.yml'
       - 'research/comprehensive-handoff-2026/**'
+      - 'research/lattice-*.json'
       - 'research/open-problems.json'
+      - 'research/report-data/mimura_toda_unstable_stem_20.csv'
+      - 'research/thomeier-*.json'
       - 'scripts/generate_extended_frontiers.py'
+      - 'scripts/generate_thomeier_unstable.py'
+      - 'scripts/*lattice*.py'
       - 'scripts/generate_site_data.py'
       - 'website/**'
   # Commits made by the evaluator's GITHUB_TOKEN do not start push workflows.
@@ -49,6 +54,8 @@ jobs:
         run: |
           /usr/bin/python3 scripts/action_pin_audit.py
           /usr/bin/python3 scripts/generate_extended_frontiers.py --check
+          /usr/bin/python3 scripts/generate_low_stem_lattice.py --check
+          /usr/bin/python3 scripts/generate_thomeier_unstable.py --check
           /usr/bin/python3 scripts/generate_site_data.py --check
 
       - name: Build and validate the static site

@@ -10,7 +10,9 @@ import {
   useState,
 } from "react";
 import leaderboardData from "../public/data/leaderboard.json";
+import lowStemData from "../public/data/low-stem-exact.json";
 import stableStemData from "../public/data/stable-stems.json";
+import thomeierData from "../public/data/thomeier-unstable.json";
 import { siteAsset } from "./site";
 
 type Decomposition = { free_rank: number; torsion_invariant_factors: number[] };
@@ -21,9 +23,54 @@ type StableStem = {
   group?: Group;
   alternatives?: Array<{ alternative_id: string; group: Group }>;
   note?: string;
-  source_refs: Array<{ source_id: string }>;
+  source_refs: MathematicalSourceRef[];
 };
 type Knowledge = "exact" | "partial" | "primary" | "disputed" | "uncharted";
+type EvidenceMode = "published_only" | "include_preprints";
+type PublicationStatus = "published" | "preprint" | string;
+type MathematicalSourceRef = {
+  locator?: string;
+  scope?: string;
+  source_id: string;
+};
+type MathematicalSource = {
+  publication_status?: PublicationStatus;
+  source_id: string;
+  title?: string;
+  url: string;
+};
+type ExactRegistryCell = {
+  group: Group;
+  id: string;
+  m: number;
+  n: number;
+  source_refs: MathematicalSourceRef[];
+  status: "exact_integral";
+  stem: number;
+};
+type ThomeierCell = ExactRegistryCell & {
+  backward_index: number;
+  theorem?: {
+    clause?: string | null;
+    formula_case?: string;
+    journal_page?: number;
+    number?: string;
+  };
+};
+type LowStemRegistry = {
+  cells: ExactRegistryCell[];
+  sources: MathematicalSource[];
+};
+type ThomeierRegistry = {
+  cells: ThomeierCell[];
+  coverage?: { degree_window_count?: number; record_count?: number };
+  sources: MathematicalSource[];
+};
+type ExactCellEvidence = {
+  group: Group;
+  note: string;
+  sourceRefs: Array<MathematicalSourceRef & { source?: MathematicalSource }>;
+};
 type Formalization = {
   accessibleLabel: string;
   badge: string;
@@ -79,7 +126,23 @@ type Coordinate = { n: number; column: number };
 type CanvasGeometry = { left: number; top: number; cell: number };
 
 const stems = stableStemData.stems as StableStem[];
-const sources = new Map(stableStemData.sources.map((source) => [source.source_id, source.url]));
+const stableSources = new Map(
+  stableStemData.sources.map((source) => [source.source_id, source]),
+);
+const lowStemRegistry = lowStemData as LowStemRegistry;
+const lowStemSources = new Map(
+  lowStemRegistry.sources.map((source) => [source.source_id, source]),
+);
+const lowStemCells = new Map(
+  lowStemRegistry.cells.map((cell) => [`${cell.n}:${cell.stem}`, cell]),
+);
+const thomeierRegistry = thomeierData as ThomeierRegistry;
+const thomeierSources = new Map(
+  thomeierRegistry.sources.map((source) => [source.source_id, source]),
+);
+const thomeierCells = new Map(
+  thomeierRegistry.cells.map((cell) => [`${cell.n}:${cell.stem}`, cell]),
+);
 const formalizationInventory = leaderboardData.formalization_inventory as FormalizationInventory;
 const stemLattice = formalizationInventory.lattice;
 const degreeLattice = formalizationInventory.degree_lattice;
@@ -97,15 +160,40 @@ const knowledgeCopy: Record<Knowledge, { label: string; short: string; color: st
   exact: { label: "Exact integral", short: "exact integral group", color: "#4fdda8" },
   partial: { label: "Alternatives", short: "published integral alternatives", color: "#ffb75e" },
   primary: { label: "2-primary", short: "exact 2-primary component only", color: "#5da9d6" },
-  disputed: { label: "Disputed", short: "conflicting published computations", color: "#e36d86" },
-  uncharted: { label: "Not tabulated", short: "not fully tabulated in the review", color: "#303947" },
+  disputed: { label: "Source conflict", short: "source-internal scope conflict", color: "#e36d86" },
+  uncharted: {
+    label: "Full integral group not classified in current registry",
+    short: "full integral group not classified in the current registry",
+    color: "#303947",
+  },
 };
 
 function isStable(n: number, k: number): boolean {
   return k <= n - 2;
 }
 
-function knowledgeAt(n: number, k: number): Knowledge {
+function registryCellAllowed(
+  cell: ExactRegistryCell | undefined,
+  sourceRegistry: Map<string, MathematicalSource>,
+  evidenceMode: EvidenceMode,
+): boolean {
+  if (!cell || evidenceMode === "include_preprints") return Boolean(cell);
+  const hasPreprintSource = cell.source_refs.some((reference) =>
+    sourceRegistry.get(reference.source_id)?.publication_status === "preprint");
+  return !hasPreprintSource;
+}
+
+function thomeierCellAt(n: number, k: number, evidenceMode: EvidenceMode): ThomeierCell | undefined {
+  const cell = thomeierCells.get(`${n}:${k}`);
+  return registryCellAllowed(cell, thomeierSources, evidenceMode) ? cell : undefined;
+}
+
+function lowStemCellAt(n: number, k: number, evidenceMode: EvidenceMode): ExactRegistryCell | undefined {
+  const cell = lowStemCells.get(`${n}:${k}`);
+  return registryCellAllowed(cell, lowStemSources, evidenceMode) ? cell : undefined;
+}
+
+function knowledgeAt(n: number, k: number, evidenceMode: EvidenceMode): Knowledge {
   // S¹ is K(Z,1): the first group is Z and every higher group vanishes.
   if (n === 1) return "exact";
   // Toda's tables cover stems 0–19 and Mimura–Toda completes stem 20.
@@ -114,22 +202,33 @@ function knowledgeAt(n: number, k: number): Knowledge {
     const stem = stems[k];
     return stem ? (stem.is_exact ? "exact" : "partial") : "uncharted";
   }
+  // Thomeier's source-audited integral backward-from-stability formulas take
+  // precedence over broad prime-local table coverage.
+  if (thomeierCellAt(n, k, evidenceMode)) return "exact";
   // Published 2-primary unstable computations in the review.
   if (k >= 21 && k <= 32) return "primary";
   if (k === 33 && ((n >= 2 && n <= 9) || (n >= 28 && n <= 34))) return "primary";
-  if (k === 33 && n === 27) return "disputed";
+  if (k === 33 && n === 27) {
+    return evidenceMode === "include_preprints" ? "disputed" : "uncharted";
+  }
   return "uncharted";
 }
 
-function knowledgeAtCoordinate(view: ViewMode, n: number, column: number): Knowledge {
+function knowledgeAtCoordinate(
+  view: ViewMode,
+  n: number,
+  column: number,
+  evidenceMode: EvidenceMode,
+): Knowledge {
   if (view === "degree" && column < n) return "exact";
-  return knowledgeAt(n, view === "degree" ? column - n : column);
+  return knowledgeAt(n, view === "degree" ? column - n : column, evidenceMode);
 }
 
 function formalizationAt(view: ViewMode, n: number, column: number): Formalization {
   const cell = (view === "degree" ? degreeFormalizationCells : stemFormalizationCells)
     .get(`${n}:${column}`);
-  const record = cell ? formalizationRecords.get(cell.record_id) : undefined;
+  if (!cell) return null;
+  const record = formalizationRecords.get(cell.record_id);
   if (!record) return null;
   const dualKernel = record.status === "dual_kernel_verified_reference";
   const kernelChecked = record.status === "lean_kernel_checked_local_source";
@@ -182,6 +281,7 @@ function formatGroup(group?: Group): string {
 
 export function Lattice() {
   const [view, setView] = useState<ViewMode>("degree");
+  const [evidenceMode, setEvidenceMode] = useState<EvidenceMode>("include_preprints");
   const [selected, setSelected] = useState<Coordinate>({ n: 2, column: 1 });
   const [jumpN, setJumpN] = useState("2");
   const [jumpColumn, setJumpColumn] = useState("1");
@@ -208,12 +308,12 @@ export function Lattice() {
     let formalized = 0;
     for (let n = nMin; n <= nMax; n += 1) {
       for (let column = columnMin; column <= columnMax; column += 1) {
-        knowledge[knowledgeAtCoordinate(view, n, column)] += 1;
+        knowledge[knowledgeAtCoordinate(view, n, column, evidenceMode)] += 1;
         if (formalizationAt(view, n, column)) formalized += 1;
       }
     }
     return { knowledge, formalized };
-  }, [columnMax, columnMin, nMax, nMin, view]);
+  }, [columnMax, columnMin, evidenceMode, nMax, nMin, view]);
 
   useEffect(() => {
     const frame = canvasFrameRef.current;
@@ -250,26 +350,74 @@ export function Lattice() {
     for (let row = 0; row < rowCount; row += 1) {
       const n = nMin + row;
       for (let column = columnMin; column <= columnMax; column += 1) {
-        const status = knowledgeAtCoordinate(view, n, column);
+        const status = knowledgeAtCoordinate(view, n, column, evidenceMode);
         const formalization = formalizationAt(view, n, column);
         const x = left + (column - columnMin) * cell + gap / 2;
         const y = top + row * cell + gap / 2;
         context.globalAlpha = shown[status] ? .97 : .08;
-        context.fillStyle = knowledgeCopy[status].color;
-        context.fillRect(x, y, cell - gap, cell - gap);
+        const evidenceSize = cell - gap;
+        // A 2-primary computation is a component of an integral group, not a
+        // replacement for it. Keep the integral-unclassified base and mark the
+        // computed component with a blue corner.
+        context.fillStyle = status === "primary"
+          ? knowledgeCopy.uncharted.color
+          : knowledgeCopy[status].color;
+        context.fillRect(x, y, evidenceSize, evidenceSize);
+        if (status === "primary") {
+          context.fillStyle = knowledgeCopy.primary.color;
+          context.beginPath();
+          context.moveTo(x + evidenceSize * .42, y);
+          context.lineTo(x + evidenceSize, y);
+          context.lineTo(x + evidenceSize, y + evidenceSize * .58);
+          context.closePath();
+          context.fill();
+        }
         if (formalization && showFormalizations) {
           context.globalAlpha = 1;
           const overlayColor = formalization.kind === "lean4-exact"
             ? "#d890ff"
             : formalization.kind === "lean4" ? "#9b7cff" : "#bca7ef";
-          context.fillStyle = overlayColor;
-          context.fillRect(x, y, cell - gap, cell - gap);
+          const inset = Math.max(.45, cell * .1);
+          const overlayX = x + inset;
+          const overlayY = y + inset;
+          const overlaySize = Math.max(1, cell - gap - 2 * inset);
+          // Formalization is independent metadata: retain the evidence fill and
+          // render Lean coverage as a high-contrast inset outline.
           context.strokeStyle = "#080b10";
-          context.lineWidth = Math.max(.35, cell * .06);
-          context.strokeRect(x, y, cell - gap, cell - gap);
+          context.lineWidth = Math.max(.75, cell * .13);
+          context.strokeRect(overlayX, overlayY, overlaySize, overlaySize);
+          context.strokeStyle = overlayColor;
+          context.lineWidth = Math.max(.45, cell * .075);
+          context.strokeRect(overlayX, overlayY, overlaySize, overlaySize);
         }
       }
     }
+    context.globalAlpha = 1;
+    // The Freudenthal stability boundary is k = n - 2, equivalently m = 2n - 2.
+    // Draw it between the last stable cell and the first unstable one.
+    context.beginPath();
+    let previousBoundaryX: number | null = null;
+    for (let n = nMin; n <= nMax; n += 1) {
+      const boundaryColumn = view === "degree" ? 2 * n - 2 : n - 2;
+      if (boundaryColumn < columnMin || boundaryColumn > columnMax) {
+        previousBoundaryX = null;
+        continue;
+      }
+      const x = left + (boundaryColumn - columnMin + 1) * cell;
+      const yTop = top + (n - nMin) * cell;
+      const yBottom = yTop + cell;
+      if (previousBoundaryX !== null) {
+        context.moveTo(previousBoundaryX, yTop);
+        context.lineTo(x, yTop);
+      }
+      context.moveTo(x, yTop);
+      context.lineTo(x, yBottom);
+      previousBoundaryX = x;
+    }
+    context.globalAlpha = .95;
+    context.strokeStyle = "#f1d88a";
+    context.lineWidth = Math.max(.8, cell * .1);
+    context.stroke();
     context.globalAlpha = 1;
     const selectedX = left + (selected.column - columnMin) * cell + .5;
     const selectedY = top + (selected.n - nMin) * cell + .5;
@@ -294,7 +442,7 @@ export function Lattice() {
     context.fillText("n", 10, 14);
     context.textAlign = "right";
     context.fillText(view === "degree" ? "m →" : "k →", canvasWidth - 8, height - 8);
-  }, [canvasWidth, columnCount, columnMax, columnMin, nMax, nMin, rowCount, selected, shown, showFormalizations, view]);
+  }, [canvasWidth, columnCount, columnMax, columnMin, evidenceMode, nMax, nMin, rowCount, selected, shown, showFormalizations, view]);
 
   const selectCoordinate = (coordinate: Coordinate) => {
     setSelected(coordinate);
@@ -360,14 +508,49 @@ export function Lattice() {
 
   const degree = view === "degree" ? selected.column : selected.n + selected.column;
   const stemIndex = degree - selected.n;
-  const status = knowledgeAtCoordinate(view, selected.n, selected.column);
+  const status = knowledgeAtCoordinate(view, selected.n, selected.column, evidenceMode);
   const formalization = formalizationAt(view, selected.n, selected.column);
   const stem = stems[stemIndex];
   const belowDiagonal = degree < selected.n;
   const stable = stemIndex >= 0 && isStable(selected.n, stemIndex);
+  const thomeierCell = thomeierCellAt(selected.n, stemIndex, evidenceMode);
+  // Stable cells continue to use the stable-stem registry. The low-stem table
+  // supplies direct cell values only in the unstable region.
+  const lowStemCell = stable ? undefined : lowStemCellAt(selected.n, stemIndex, evidenceMode);
+  const thomeierEvidence: ExactCellEvidence | null = thomeierCell
+    ? {
+        group: thomeierCell.group,
+        note: `Derived from the exact stable ${stemIndex}-stem by Thomeier's backward theorem (Satz ${thomeierCell.theorem?.number ?? "—"}${thomeierCell.theorem?.clause ? ` ${thomeierCell.theorem.clause}` : ""}, journal p. ${thomeierCell.theorem?.journal_page ?? "—"}).`,
+        sourceRefs: thomeierCell.source_refs.map((reference) => ({
+          ...reference,
+          source: thomeierSources.get(reference.source_id),
+        })),
+      }
+    : null;
+  const lowStemEvidence: ExactCellEvidence | null = lowStemCell
+    ? {
+        group: lowStemCell.group,
+        note: lowStemCell.source_refs
+          .map((reference) => reference.locator)
+          .filter(Boolean)
+          .join(" · "),
+        sourceRefs: lowStemCell.source_refs.map((reference) => ({
+          ...reference,
+          source: lowStemSources.get(reference.source_id),
+        })),
+      }
+    : null;
+  const exactCellEvidence = thomeierEvidence ?? lowStemEvidence;
+  const stableSourceRefs = stable
+    ? (stem?.source_refs ?? []).map((reference) => ({
+        ...reference,
+        source: stableSources.get(reference.source_id),
+      }))
+    : [];
   const sourceUrl = stable
-    ? stem?.source_refs.map((ref) => sources.get(ref.source_id)).find(Boolean)
-    : siteAsset("/reports/homotopy-groups-of-spheres-literature-review.pdf");
+    ? stableSourceRefs.map((reference) => reference.source?.url).find(Boolean)
+    : exactCellEvidence?.sourceRefs.map((reference) => reference.source?.url).find(Boolean)
+      ?? siteAsset("/reports/homotopy-groups-of-spheres-literature-review.pdf");
   const obviousGroup = selected.n === 1
     ? (degree === 1 ? "ℤ" : "0")
     : belowDiagonal
@@ -376,6 +559,8 @@ export function Lattice() {
       ? "ℤ"
       : stable && status === "exact"
         ? formatGroup(stem.group)
+        : exactCellEvidence
+          ? formatGroup(exactCellEvidence.group)
         : null;
 
   return (
@@ -383,11 +568,11 @@ export function Lattice() {
       <div className="atlas-view-switch" aria-label="Lattice coordinate view" role="group">
         <button aria-pressed={view === "degree"} onClick={() => selectView("degree")} type="button">
           Lean coverage · π<sub>m</sub>(S<sup>n</sup>)
-          <strong>{degreeLattice.cells.length.toLocaleString()} purple cells</strong>
+          <strong>{degreeLattice.cells.length.toLocaleString()} purple outlines</strong>
         </button>
         <button aria-pressed={view === "stem"} onClick={() => selectView("stem")} type="button">
           Stable stems · π<sub>n+k</sub>(S<sup>n</sup>)
-          <strong>{stemLattice.cells.length.toLocaleString()} purple cells</strong>
+          <strong>{stemLattice.cells.length.toLocaleString()} purple outlines</strong>
         </button>
       </div>
       <div className="atlas-toolbar">
@@ -395,7 +580,11 @@ export function Lattice() {
           {(Object.keys(knowledgeCopy) as Knowledge[]).map((key) => (
             <button aria-pressed={shown[key]} className={`legend-control ${key}`} key={key}
               onClick={() => setShown((current) => ({ ...current, [key]: !current[key] }))} type="button">
-              <i aria-hidden="true" style={{ background: knowledgeCopy[key].color }} />
+              <i aria-hidden="true" style={{
+                background: key === "primary"
+                  ? `linear-gradient(135deg, ${knowledgeCopy.uncharted.color} 0 55%, ${knowledgeCopy.primary.color} 55%)`
+                  : knowledgeCopy[key].color,
+              }} />
               <span>{knowledgeCopy[key].label}</span><strong>{counts.knowledge[key].toLocaleString()}</strong>
             </button>
           ))}
@@ -403,6 +592,13 @@ export function Lattice() {
             onClick={() => setShowFormalizations((current) => !current)} type="button">
             <i aria-hidden="true" /><span>Lean overlay</span><strong>{counts.formalized}</strong>
           </button>
+          <span className="boundary-key"><i aria-hidden="true" />stable boundary</span>
+        </div>
+        <div className="evidence-mode" aria-label="Publication evidence mode" role="group">
+          <button aria-pressed={evidenceMode === "published_only"}
+            onClick={() => setEvidenceMode("published_only")} type="button">Published only</button>
+          <button aria-pressed={evidenceMode === "include_preprints"}
+            onClick={() => setEvidenceMode("include_preprints")} type="button">Include preprints</button>
         </div>
         <form className="coordinate-jump" onSubmit={locate}>
           <label><span>n</span><input aria-label="Sphere dimension n" max={nMax} min={nMin} onChange={(event) => setJumpN(event.target.value)} type="number" value={jumpN} /></label>
@@ -420,7 +616,7 @@ export function Lattice() {
           <div className="canvas-frame" ref={canvasFrameRef}>
             <canvas
               aria-describedby="lattice-instructions"
-              aria-label={`Interactive evidence lattice. Selected pi_${degree}(S^${selected.n}): ${knowledgeCopy[status].short}${formalization ? `, ${formalization.accessibleLabel}` : ""}.`}
+              aria-label={`Interactive evidence lattice. Selected pi_${degree}(S^${selected.n}): ${knowledgeCopy[status].short}${obviousGroup ? `, integral group ${obviousGroup}` : ""}${formalization ? `, ${formalization.accessibleLabel}` : ""}.`}
               className="lattice-canvas" onClick={pinPointer} onKeyDown={moveWithKeys}
               onPointerMove={previewPointer} ref={canvasRef} tabIndex={0}
             >Use the coordinate form to inspect the evidence lattice.</canvas>
@@ -434,22 +630,35 @@ export function Lattice() {
           <div className="coordinate-pair"><span>n = {selected.n}</span><span>m = {degree}</span><span>k = {stemIndex}</span></div>
           {obviousGroup && <div className="group-value"><span>integral group</span><strong>{obviousGroup}</strong></div>}
           {status === "exact" && !obviousGroup && stable && <div className="group-value"><span className="math-expression">≅ π<sub>{stemIndex}</sub>(𝕊)</span><strong>{formatGroup(stem.group)}</strong></div>}
-          {status === "exact" && !obviousGroup && !stable && <p>The complete integral group is tabulated in Toda&apos;s 0–19 stem tables or the Mimura–Toda 20-stem computation reproduced in the review.</p>}
+          {status === "exact" && exactCellEvidence && <p className="mathematical-note">{exactCellEvidence.note}</p>}
+          {status === "exact" && !obviousGroup && !stable && !exactCellEvidence && <p>The complete integral group is tabulated in the current audited low-stem registry.</p>}
           {status === "partial" && <><div className="group-value"><span>published full groups</span><strong>{stem.alternatives?.length ?? 0} alternatives</strong></div><div className="alternatives">{stem.alternatives?.map((alternative, index) => <span key={alternative.alternative_id}><b>{String.fromCharCode(65 + index)}</b>{formatGroup(alternative.group)}</span>)}</div><p>{stem.note}</p></>}
-          {status === "primary" && <><div className="group-value"><span>computed component</span><strong>2-primary</strong></div><p>The 2-primary component is tabulated, but this view does not claim a complete integral group.</p></>}
-          {status === "disputed" && <><div className="group-value"><span>33-stem</span><strong>conflicting values</strong></div><p>The literature review records incompatible published values at n = 27. This cell stays visibly disputed.</p></>}
-          {status === "uncharted" && <><div className="group-value"><span>review coverage</span><strong>not fully tabulated</strong></div><p>Gray means the attached review does not provide a complete integral value here—not that mathematics knows nothing about the group.</p></>}
+          {status === "primary" && <><div className="group-value"><span>computed component</span><strong>2-primary</strong></div><p>The blue corner marks a tabulated 2-primary component over the gray integral-unclassified base; this view does not claim a complete integral group.</p></>}
+          {status === "disputed" && <><div className="group-value"><span>33-stem</span><strong>complete value not safely certified</strong></div><p>Yang–Wu has a source-internal scope conflict: its abstract, table caption, and corollary include n ≥ 27; its prose says 10 ≤ n ≤ 27 remained in progress; and its displayed backward range begins at n = 28. No two incompatible group decompositions are being claimed.</p></>}
+          {status === "uncharted" && <><div className="group-value"><span>registry coverage</span><strong>full integral group not classified</strong></div><p>This means the current audited registry does not classify the complete integral additive group here—not that mathematics knows nothing. Prime-local components, summands, named elements, products, Toda brackets, differentials, or periodic families may still be known.</p></>}
           {formalization && <p className="formalization-note">{formalization.note} It does not change the literature evidence class beneath it.</p>}
           {formalization
             ? <div className="proof-witness"><span>Exact Lean theorem</span><a href={formalization.source}><code>{formalization.declaration}</code> ↗</a></div>
             : <div className="proof-witness missing"><span>Lean theorem</span><strong>not formalized yet</strong></div>}
           <div className="detail-links">
             {formalization && <a href={formalizationInventory.source}>full inventory ↗</a>}
-            {sourceUrl && <a href={sourceUrl}>mathematical source ↗</a>}
+            {exactCellEvidence?.sourceRefs.map((reference) => reference.source?.url
+              ? <a href={reference.source.url} key={`${reference.source_id}:${reference.locator ?? "source"}`}>
+                  {reference.locator ?? reference.source.title ?? "mathematical source"} ↗
+                </a>
+              : null)}
+            {stableSourceRefs.map((reference) => reference.source?.url
+              ? <a href={reference.source.url} key={`${reference.source_id}:${reference.locator ?? "source"}`}>
+                  {reference.locator ?? "stable-stem source"} ↗
+                </a>
+              : null)}
+            {status === "primary" && <a href={siteAsset("/reports/homotopy-groups-of-spheres-literature-review.pdf")}>audited review §4.1, Table 2 · 2-primary range ↗</a>}
+            {status === "disputed" && <a href="https://arxiv.org/abs/2406.08621">Yang–Wu arXiv:2406.08621 · abstract/Table 1/Cor. 1.2 vs §1/range ↗</a>}
+            {!exactCellEvidence && stableSourceRefs.length === 0 && status !== "primary" && status !== "disputed" && sourceUrl && <a href={sourceUrl}>mathematical source ↗</a>}
           </div>
         </aside>
       </div>
-      <p className="atlas-scope">Audited {rowCount} × {columnCount} {view === "degree" ? "absolute-degree" : "stem"} view: <b>{counts.knowledge.exact.toLocaleString()} exact integral</b>, <b>{counts.knowledge.partial.toLocaleString()} published-alternative</b>, <b>{counts.knowledge.primary.toLocaleString()} exact 2-primary-only</b>, <b>{counts.knowledge.disputed.toLocaleString()} disputed</b>, and <b>{counts.knowledge.uncharted.toLocaleString()} not fully tabulated</b> cells. {view === "degree" ? <>The purple triangle is the kernel-checked theorem <b>1 ≤ m &lt; n ⟹ πₘ(Sⁿ) = 0</b>; switch to stable stems for the full k = 0…108 audit.</> : <>Stability is used exactly when <b>k ≤ n − 2</b> and a complete integral stem is in the audited registry.</>} Purple is a separate source-auditable Lean overlay; bright purple marks the exact benchmark model.</p>
+      <p className="atlas-scope">Coverage of the current audited registry of complete additive groups in this {rowCount} × {columnCount} {view === "degree" ? "absolute-degree" : "stem"} display, {evidenceMode === "published_only" ? "using published sources only" : "including preprints"}: <b>{counts.knowledge.exact.toLocaleString()} exact integral</b>, <b>{counts.knowledge.partial.toLocaleString()} published-alternative</b>, <b>{counts.knowledge.primary.toLocaleString()} exact 2-primary-only</b>, <b>{counts.knowledge.disputed.toLocaleString()} source-conflict</b>, and <b>{counts.knowledge.uncharted.toLocaleString()} full integral group not classified</b> cells. {view === "degree" ? <>The gold boundary marks <b>m = 2n − 2</b>. The outlined purple triangle records the kernel-checked theorem <b>1 ≤ m &lt; n ⟹ πₘ(Sⁿ) = 0</b>; switch to stable stems for the full k = 0…108 audit.</> : <>The gold boundary marks <b>k = n − 2</b>, equivalently <b>m = 2n − 2</b>; stability is used when <b>k ≤ n − 2</b> and the stable group is in the audited registry.</>} Lean status is an independent border overlay and does not replace mathematical evidence.</p>
     </div>
   );
 }

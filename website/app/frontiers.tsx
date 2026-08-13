@@ -386,8 +386,8 @@ export function Frontiers() {
             <h3 id="frontier-addenda-heading">Six important results, kept in their proper scope</h3>
           </div>
           <p>
-            These additions strengthen the research map without changing a single square in
-            the integral lattice. Every record states why its lattice effect is none.
+            These six scoped additions strengthen the research map without changing a square
+            in the integral lattice. Every record states why its own lattice effect is none.
           </p>
         </header>
         <div className="frontier-addenda-grid">
@@ -411,7 +411,7 @@ export function Frontiers() {
         </div>
       </section>
       <div className="frontier-links">
-        <span>Audited overlay: corrected source metadata and six scoped addenda; lattice colors and counts are unchanged</span>
+        <span>Audited overlay: corrected source metadata; these six scoped addenda do not change lattice colors or counts</span>
         <a href={report}>read the comprehensive report ↗</a>
         <a href={audit}>read the correction log ↗</a>
         <a href={addendaJson}>download addenda JSON ↗</a>
