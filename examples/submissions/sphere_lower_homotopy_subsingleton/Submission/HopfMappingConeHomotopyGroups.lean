@@ -116,4 +116,62 @@ theorem piFive_hopfMappingCone_mulEquiv_int :
   obtain ⟨d⟩ := sphere_diagonal_sph_at_mulEquiv_int 4 (sphereBasepoint 5)
   exact ⟨e.trans d⟩
 
+/-! ### Arbitrary basepoints -/
+
+/-- The Hopf mapping cone has one path component at every basepoint. -/
+theorem piZero_hopfMappingCone_subsingleton_at (x : hopfMappingCone) :
+    Subsingleton (π_ 0 hopfMappingCone x) := by
+  letI : PathConnectedSpace hopfMappingCone := pathConnectedSpace_hopfMappingCone
+  exact subsingleton_piZero x
+
+/-- Its fundamental group is trivial at every basepoint. -/
+theorem piOne_hopfMappingCone_subsingleton_at (x : hopfMappingCone) :
+    Subsingleton (π_ 1 hopfMappingCone x) := by
+  letI : PathConnectedSpace hopfMappingCone := pathConnectedSpace_hopfMappingCone
+  obtain ⟨e⟩ := nonempty_mulEquiv_of_pathConnectedSpace
+    (N := Fin 1) x hopfMappingConeBasepoint
+  exact e.toEquiv.subsingleton_congr.mpr piOne_hopfMappingCone_subsingleton
+
+/-- Its second homotopy group is infinite cyclic at every basepoint. -/
+theorem piTwo_hopfMappingCone_mulEquiv_int_at (x : hopfMappingCone) :
+    Nonempty (π_ 2 hopfMappingCone x ≃* Multiplicative ℤ) := by
+  letI : PathConnectedSpace hopfMappingCone := pathConnectedSpace_hopfMappingCone
+  obtain ⟨e⟩ := nonempty_mulEquiv_of_pathConnectedSpace
+    (N := Fin 2) x hopfMappingConeBasepoint
+  exact ⟨e.trans piTwo_hopfMappingCone_mulEquiv_int⟩
+
+/-- Uniformly at every basepoint, its homotopy groups in degrees at least three agree with
+those of the metric five-sphere. -/
+theorem hopfMappingCone_higher_homotopy_mulEquiv_sphereFive_at
+    (k : ℕ) (x : hopfMappingCone) :
+    Nonempty
+      (π_ (k + 3) hopfMappingCone x ≃*
+        π_ (k + 3) (Sph 5) (sphereBasepoint 5)) := by
+  letI : PathConnectedSpace hopfMappingCone := pathConnectedSpace_hopfMappingCone
+  obtain ⟨e⟩ := nonempty_mulEquiv_of_pathConnectedSpace
+    (N := Fin (k + 3)) x hopfMappingConeBasepoint
+  obtain ⟨h⟩ := hopfMappingCone_higher_homotopy_mulEquiv_sphereFive k
+  exact ⟨e.trans h⟩
+
+/-- Its third homotopy group vanishes at every basepoint. -/
+theorem piThree_hopfMappingCone_subsingleton_at (x : hopfMappingCone) :
+    Subsingleton (π_ 3 hopfMappingCone x) := by
+  obtain ⟨e⟩ := hopfMappingCone_higher_homotopy_mulEquiv_sphereFive_at 0 x
+  exact e.toEquiv.subsingleton_congr.mpr
+    (subsingleton_homotopyGroup_sphere_of_lt 3 5 (by omega) (sphereBasepoint 5))
+
+/-- Its fourth homotopy group vanishes at every basepoint. -/
+theorem piFour_hopfMappingCone_subsingleton_at (x : hopfMappingCone) :
+    Subsingleton (π_ 4 hopfMappingCone x) := by
+  obtain ⟨e⟩ := hopfMappingCone_higher_homotopy_mulEquiv_sphereFive_at 1 x
+  exact e.toEquiv.subsingleton_congr.mpr
+    (subsingleton_homotopyGroup_sphere_of_lt 4 5 (by omega) (sphereBasepoint 5))
+
+/-- Its fifth homotopy group is infinite cyclic at every basepoint. -/
+theorem piFive_hopfMappingCone_mulEquiv_int_at (x : hopfMappingCone) :
+    Nonempty (π_ 5 hopfMappingCone x ≃* Multiplicative ℤ) := by
+  obtain ⟨e⟩ := hopfMappingCone_higher_homotopy_mulEquiv_sphereFive_at 2 x
+  obtain ⟨d⟩ := sphere_diagonal_sph_at_mulEquiv_int 4 (sphereBasepoint 5)
+  exact ⟨e.trans d⟩
+
 end Submission
