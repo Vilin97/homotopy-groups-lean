@@ -38,6 +38,18 @@ fundamental group as `Z/2`.  These are two general results in the formalization
 index, but they color no sphere-lattice cells because their targets are real
 projective spaces.
 
+The generalized complex Hopf map is now formalized in every dimension as well.
+A normalized rank-one projector on each complex line gives continuous short
+transport, and uniform continuity plus dyadic subdivision proves directly that
+`S^(2n+1) -> CP^n` is a Serre fibration.  Its chosen fibre is explicitly
+homeomorphic to the circle.  The long exact sequence therefore closes all
+three canonical complex-projective declarations: `pi_1(CP^n) = 0`,
+`pi_2(CP^n) = Z`, and `pi_d(CP^n) = pi_d(S^(2n+1))` for every `d >= 3` and
+`n >= 1`.  Explicit homeomorphisms compare both the total sphere and the
+intrinsic projective model with the benchmark's exact models.  These results
+also color no sphere-lattice cells because their targets are complex
+projective spaces.
+
 The canonical `HomotopyGroups.Foundations` benchmark module is now completely
 sorry-free as well.  Its ten exact declarations package path-component and
 fundamental-group comparisons, connectedness vanishing, higher and H-space

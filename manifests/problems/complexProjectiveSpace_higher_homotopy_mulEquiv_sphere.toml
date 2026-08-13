@@ -5,4 +5,4 @@ module = "HomotopyGroups.Spaces"
 holes = ["complexProjectiveSpace_higher_homotopy_mulEquiv_sphere"]
 submitter = "OpenAI Codex"
 source = "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
-notes = "knowledge_status=foundation_blocked; states pi_k(CP^n)=pi_k(S^(2n+1)) for k>=3 and n>=1 via the Hopf fibration."
+notes = "knowledge_status=formalized_local; the generalized complex Hopf Serre fibration and circle-fibre vanishing identify every pi_(k+3) of the exact projective model with the corresponding odd-sphere group."

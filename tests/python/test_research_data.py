@@ -1741,6 +1741,42 @@ class ResearchDataTests(unittest.TestCase):
         self.assertIsNone(record["lattice_overlay"])
         self.assertIsNone(record["degree_lattice_overlay"])
 
+    def test_complex_projective_hopf_results_match_sorry_free_sources(self) -> None:
+        inventory = json.loads((ROOT / "research/formalizations.json").read_text())
+        result_set = inventory["maintained_complex_projective_hopf_set"]
+        self.assertEqual(result_set["system"], "Lean 4")
+        self.assertEqual(result_set["count"], 7)
+        self.assertEqual(len(result_set["results"]), 7)
+        self.assertEqual(len({row["id"] for row in result_set["results"]}), 7)
+        self.assertEqual(len({row["declaration"] for row in result_set["results"]}), 7)
+
+        record = next(
+            item for item in inventory["formalizations"]
+            if item["id"] == "lean4-generalized-complex-hopf-fibration"
+        )
+        self.assertEqual(len(record["declarations"]), 13)
+        self.assertEqual(
+            record["commit"],
+            "a1835a3b87f0d695acd0f2b7879a8c79d64afd93",
+        )
+        core = (ROOT / "research" / record["source"]).resolve()
+        core_text = core.read_text()
+        self.assertNotIn("sorry", core_text)
+        self.assertNotIn("admit", core_text)
+        for declaration in record["declarations"][:10]:
+            self.assertIn(declaration.rsplit(".", 1)[-1], core_text)
+
+        spaces_text = (ROOT / "HomotopyGroups/Spaces.lean").read_text()
+        for declaration in record["declarations"][10:]:
+            marker = f"theorem {declaration.rsplit('.', 1)[-1]}"
+            start = spaces_text.index(marker)
+            end = spaces_text.find("\n@[eval_problem]", start)
+            theorem_text = spaces_text[start:] if end == -1 else spaces_text[start:end]
+            self.assertNotIn("sorry", theorem_text)
+            self.assertNotIn("admit", theorem_text)
+        self.assertIsNone(record["lattice_overlay"])
+        self.assertIsNone(record["degree_lattice_overlay"])
+
     def test_canonical_foundations_match_sorry_free_sources(self) -> None:
         inventory = json.loads((ROOT / "research/formalizations.json").read_text())
         record = next(

@@ -5,4 +5,4 @@ module = "HomotopyGroups.Spaces"
 holes = ["pi2_complexProjectiveSpace_mulEquiv_int"]
 submitter = "OpenAI Codex"
 source = "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
-notes = "knowledge_status=foundation_blocked; valid for complex dimension at least one; requires the Hopf-fibration long exact sequence or Hurewicz."
+notes = "knowledge_status=formalized_local; the circle-fibre connecting equivalence for the generalized complex Hopf fibration identifies pi_2 of the exact quotient-topology model with the integers."

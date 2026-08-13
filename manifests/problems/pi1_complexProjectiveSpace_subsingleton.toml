@@ -5,4 +5,4 @@ module = "HomotopyGroups.Spaces"
 holes = ["pi1_complexProjectiveSpace_subsingleton"]
 submitter = "OpenAI Codex"
 source = "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
-notes = "knowledge_status=statement_only; ComplexProjectiveSpace is the genuine quotient-topology Projectivization model; its Hopf-fibration connectivity proof is absent."
+notes = "knowledge_status=formalized_local; the generalized complex Hopf map is proved to be a Serre fibration with circle fibre, and its long exact sequence gives the exact canonical simply-connectedness theorem."

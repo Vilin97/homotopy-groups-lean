@@ -7,8 +7,8 @@
         "complexProjectiveSpace_higher_homotopy_mulEquiv_sphere"
       ],
       "id": "complexProjectiveSpace_higher_homotopy_mulEquiv_sphere",
-      "knowledge_status": "foundation_blocked",
-      "notes": "knowledge_status=foundation_blocked; states pi_k(CP^n)=pi_k(S^(2n+1)) for k>=3 and n>=1 via the Hopf fibration.",
+      "knowledge_status": "formalized_local",
+      "notes": "knowledge_status=formalized_local; the generalized complex Hopf Serre fibration and circle-fibre vanishing identify every pi_(k+3) of the exact projective model with the corresponding odd-sphere group.",
       "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
       "title": "Higher homotopy groups of complex projective space agree with an odd sphere"
     },
@@ -115,8 +115,8 @@
         "pi1_complexProjectiveSpace_subsingleton"
       ],
       "id": "pi1_complexProjectiveSpace_subsingleton",
-      "knowledge_status": "statement_only",
-      "notes": "knowledge_status=statement_only; ComplexProjectiveSpace is the genuine quotient-topology Projectivization model; its Hopf-fibration connectivity proof is absent.",
+      "knowledge_status": "formalized_local",
+      "notes": "knowledge_status=formalized_local; the generalized complex Hopf map is proved to be a Serre fibration with circle fibre, and its long exact sequence gives the exact canonical simply-connectedness theorem.",
       "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
       "title": "Positive-dimensional complex projective space is simply connected"
     },
@@ -175,8 +175,8 @@
         "pi2_complexProjectiveSpace_mulEquiv_int"
       ],
       "id": "pi2_complexProjectiveSpace_mulEquiv_int",
-      "knowledge_status": "foundation_blocked",
-      "notes": "knowledge_status=foundation_blocked; valid for complex dimension at least one; requires the Hopf-fibration long exact sequence or Hurewicz.",
+      "knowledge_status": "formalized_local",
+      "notes": "knowledge_status=formalized_local; the circle-fibre connecting equivalence for the generalized complex Hopf fibration identifies pi_2 of the exact quotient-topology model with the integers.",
       "source": "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf",
       "title": "The second homotopy group of complex projective space is the integers"
     },

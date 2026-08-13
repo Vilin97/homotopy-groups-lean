@@ -43,6 +43,12 @@ nonnegative-stem overlay. Selecting any purple
 cell shows the exact Lean declaration and a commit-pinned link to its source
 line; unformalized cells are explicitly labeled as such.
 
+Outside the sphere lattice, the maintained Lean closure now computes the
+fundamental and all higher homotopy groups of real projective space via its
+antipodal sphere cover, and proves the generalized complex Hopf fibration
+`S^(2n+1) -> CP^n`.  The latter gives `pi_1(CP^n) = 0`, `pi_2(CP^n) = Z`, and
+all higher groups from the odd-sphere cover in the benchmark's exact models.
+
 The [comprehensive 2026 report](website/public/reports/comprehensive-2026/index.html)
 and its [audit](research/comprehensive-handoff-audit.md) extend the source
 registry beyond stem 90 without overstating complete integral knowledge. A

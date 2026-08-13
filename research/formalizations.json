@@ -668,6 +668,20 @@
       { "id": "sphere-three-to-sphere-two-group-transport", "declaration": "Submission.sphereTwo_higher_mulEquiv_of_sphereThree", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HopfHigherHomotopy.lean", "lattice_effect": "none until its input computation is supplied; transports any concrete group identification from pi_(k+3)(S^3) to pi_(k+3)(S^2)" }
     ]
   },
+  "maintained_complex_projective_hopf_set": {
+    "count": 7,
+    "system": "Lean 4",
+    "counting_rule": "The descended projective-line projector, continuous short transport, generalized Serre-fibration theorem, circle-fibre homeomorphism, and the three resulting complex-projective homotopy computations are seven distinct results. Dyadic control lemmas, realification of the total sphere, long-exact-sequence packaging, and comparison of the intrinsic L2 and plain function-space models are supporting declarations and are not counted separately.",
+    "results": [
+      { "id": "complex-projective-line-projector", "declaration": "Submission.complexLineProjector", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ComplexHopfFibration.lean", "lattice_effect": "none directly; assigns each complex projective line its normalized rank-one orthogonal projector continuously and independently of a representative" },
+      { "id": "complex-hopf-short-transport", "declaration": "Submission.complexHopfMap_complexHopfTransport", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ComplexHopfFibration.lean", "lattice_effect": "none directly; continuously transports a unit vector to every target line whose projector is within operator-norm distance one" },
+      { "id": "generalized-complex-hopf-serre-fibration", "declaration": "Submission.complexHopfMap_isSerreFibration", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ComplexHopfFibration.lean", "lattice_effect": "none directly; proves S^(2n+1) -> CP^n has the homotopy lifting property for every finite cube" },
+      { "id": "generalized-complex-hopf-circle-fibre", "declaration": "Submission.circleHomeomorphComplexHopfFiber", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ComplexHopfFibration.lean", "lattice_effect": "none directly; identifies the chosen fibre of the generalized complex Hopf map with the unit circle" },
+      { "id": "complex-projective-fundamental-group", "declaration": "HomotopyGroups.pi1_complexProjectiveSpace_subsingleton", "source": "../HomotopyGroups/Spaces.lean", "lattice_effect": "none; closes the canonical simply-connectedness declaration for every positive complex dimension" },
+      { "id": "complex-projective-second-homotopy", "declaration": "HomotopyGroups.pi2_complexProjectiveSpace_mulEquiv_int", "source": "../HomotopyGroups/Spaces.lean", "lattice_effect": "none; closes the canonical pi_2(CP^n)=Z declaration for every positive complex dimension" },
+      { "id": "complex-projective-higher-homotopy", "declaration": "HomotopyGroups.complexProjectiveSpace_higher_homotopy_mulEquiv_sphere", "source": "../HomotopyGroups/Spaces.lean", "lattice_effect": "none; closes the canonical equivalence pi_(k+3)(CP^n)=pi_(k+3)(S^(2n+1)) uniformly" }
+    ]
+  },
   "maintained_stick_sphere_coordinate_set": {
     "count": 7,
     "system": "Lean 4",
@@ -700,6 +714,35 @@
     ]
   },
   "formalizations": [
+    {
+      "id": "lean4-generalized-complex-hopf-fibration",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "a1835a3b87f0d695acd0f2b7879a8c79d64afd93",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.complexLineProjector",
+        "Submission.complexHopfMap_complexHopfTransport",
+        "Submission.exists_complexHopfLift_of_dyadicControl",
+        "Submission.complexHopfMap_isSerreFibration",
+        "Submission.circleHomeomorphComplexHopfFiber",
+        "Submission.complexUnitSphereHomeomorphSphere",
+        "Submission.piOne_complexProjectiveModel_subsingleton",
+        "Submission.piTwo_complexProjectiveModel_mulEquiv_int",
+        "Submission.complexProjectiveModel_higher_homotopy_mulEquiv_sphere",
+        "Submission.complexProjectiveModelHomeomorphFunction",
+        "HomotopyGroups.pi1_complexProjectiveSpace_subsingleton",
+        "HomotopyGroups.pi2_complexProjectiveSpace_mulEquiv_int",
+        "HomotopyGroups.complexProjectiveSpace_higher_homotopy_mulEquiv_sphere"
+      ],
+      "result": "for every positive complex dimension n, the quotient map from the unit sphere in C^(n+1) to complex projective n-space is a Serre fibration with circle fibre; its long exact sequence proves pi_1(CP^n) trivial, pi_2(CP^n) multiplicatively equivalent to Z, and pi_(k+3)(CP^n) multiplicatively equivalent to pi_(k+3)(S^(2n+1)) for every k",
+      "model_relation": "exactly the benchmark's quotient-topology Projectivization of the plain complex function space and distinguished coordinate-line basepoint, compared by an explicit quotient homeomorphism with the intrinsic L2 projective model; the total space is explicitly real-linearly isometric to the benchmark's exact metric odd sphere",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ComplexHopfFibration.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All thirteen listed declarations are sorry-free Lean 4. A normalized rank-one projector descends through projectivization, gives local transport by projection and normalization, and compact-cube uniform continuity supplies the dyadic scale for a direct Serre lifting proof. The chosen fibre is explicitly homeomorphic to the circle; the maintained fibration long exact sequence yields all three canonical computations. Strict checks pass for the new source, Spaces, Submission, and HomotopyGroups aggregates; exact builds pass at 8,814, 8,817, 8,863, and 8,842 jobs respectively. All audited axiom closures contain only propext, Classical.choice, and Quot.sound. This record has no sphere-lattice overlay because its target spaces are complex projective spaces rather than spheres."
+    },
     {
       "id": "lean4-hopf-higher-homotopy-equivalences",
       "system": "Lean 4",
