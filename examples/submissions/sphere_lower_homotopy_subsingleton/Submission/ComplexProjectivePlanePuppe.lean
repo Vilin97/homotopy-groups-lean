@@ -554,4 +554,281 @@ theorem complexProjectivePlaneMappingCone_collapse_square :
   · simp
     rfl
 
+/-! ## The suspension of the disk boundary is the quotient sphere -/
+
+theorem diskToSphereFour_eq_iff
+    (x y : TopCat.disk.{0} 4) :
+    diskToSphere 4 x = diskToSphere 4 y ↔
+      x = y ∨ (‖x.down.val‖ = 1 ∧ ‖y.down.val‖ = 1) := by
+  rw [diskToSphere]
+  constructor
+  · intro h
+    rcases (closedDiskToSphere_eq_iff 4 x.down y.down).mp h with hxy | hbd
+    · left
+      apply ULift.ext
+      exact hxy
+    · exact Or.inr hbd
+  · rintro (rfl | hbd)
+    · rfl
+    · exact (closedDiskToSphere_eq_iff 4 x.down y.down).mpr (Or.inr hbd)
+
+theorem diskToSphereFour_eq_basepoint_iff
+    (x : TopCat.disk.{0} 4) :
+    diskToSphere 4 x = sphereBasepoint 4 ↔ ‖x.down.val‖ = 1 := by
+  let z : TopCat.diskBoundary.{0} 4 :=
+    ULift.up ⟨EuclideanSpace.single 0 1, by simp⟩
+  have hz : ‖(TopCat.diskBoundaryIncl 4 z).down.val‖ = 1 := by
+    change ‖EuclideanSpace.single 0 1‖ = 1
+    simp
+  have hbase : diskToSphere 4 (TopCat.diskBoundaryIncl 4 z) =
+      sphereBasepoint 4 := diskToSphere_boundary 4 _ hz
+  constructor
+  · intro hx
+    have hEq : diskToSphere 4 x =
+        diskToSphere 4 (TopCat.diskBoundaryIncl 4 z) := hx.trans hbase.symm
+    rcases (diskToSphereFour_eq_iff x
+      (TopCat.diskBoundaryIncl 4 z)).mp hEq with h | h
+    · rw [h]
+      exact hz
+    · exact h.1
+  · intro hx
+    exact diskToSphere_boundary 4 x hx
+
+/-- The quotient map from a four-cell attached to a point onto the four-sphere. -/
+noncomputable def diskBoundaryFourCellSphereMap :
+    cellAttachment (toUnit (TopCat.diskBoundary.{0} 4)) ⟶
+      TopCat.of (Sph 4) :=
+  cellAttachmentDesc (toUnit (TopCat.diskBoundary 4))
+    (TopCat.const (sphereBasepoint 4))
+    (TopCat.ofHom (diskToSphere 4)) (by
+      rw [diskBoundaryFourIncl_diskToSphere]
+      rfl)
+
+@[reassoc (attr := simp)]
+theorem diskBoundaryFourCellSphereMap_incl :
+    cellAttachmentIncl (toUnit (TopCat.diskBoundary.{0} 4)) ≫
+        diskBoundaryFourCellSphereMap =
+      TopCat.const (sphereBasepoint 4) :=
+  cellAttachmentIncl_desc _ _ _ _
+
+@[reassoc (attr := simp)]
+theorem diskBoundaryFourCellSphereMap_disk :
+    cellAttachmentDisk (toUnit (TopCat.diskBoundary.{0} 4)) ≫
+        diskBoundaryFourCellSphereMap =
+      TopCat.ofHom (diskToSphere 4) :=
+  cellAttachmentDisk_desc _ _ _ _
+
+@[simp]
+theorem diskBoundaryFourCellSphereMap_incl_apply (u : PUnit) :
+    diskBoundaryFourCellSphereMap
+        (cellAttachmentIncl (toUnit (TopCat.diskBoundary 4)) u) =
+      sphereBasepoint 4 :=
+  ConcreteCategory.congr_hom diskBoundaryFourCellSphereMap_incl u
+
+@[simp]
+theorem diskBoundaryFourCellSphereMap_disk_apply
+    (x : TopCat.disk.{0} 4) :
+    diskBoundaryFourCellSphereMap
+        (cellAttachmentDisk (toUnit (TopCat.diskBoundary 4)) x) =
+      diskToSphere 4 x :=
+  ConcreteCategory.congr_hom diskBoundaryFourCellSphereMap_disk x
+
+@[simp]
+theorem diskBoundaryFourCellSumDesc_inl (u : PUnit) :
+    pushoutSumDesc (toUnit (TopCat.diskBoundary 4))
+        (TopCat.diskBoundaryIncl 4) (Sum.inl u) =
+      cellAttachmentIncl (toUnit (TopCat.diskBoundary 4)) u :=
+  rfl
+
+@[simp]
+theorem diskBoundaryFourCellSumDesc_inr (x : TopCat.disk.{0} 4) :
+    pushoutSumDesc (toUnit (TopCat.diskBoundary 4))
+        (TopCat.diskBoundaryIncl 4) (Sum.inr x) =
+      cellAttachmentDisk (toUnit (TopCat.diskBoundary 4)) x :=
+  rfl
+
+theorem diskBoundaryFourCellSphereMap_surjective :
+    Function.Surjective diskBoundaryFourCellSphereMap := by
+  intro y
+  obtain ⟨x, rfl⟩ := diskToSphere_surjective 3 y
+  exact ⟨cellAttachmentDisk (toUnit (TopCat.diskBoundary 4)) x,
+    ConcreteCategory.congr_hom diskBoundaryFourCellSphereMap_disk x⟩
+
+theorem diskBoundaryFourCellDisk_eq_incl_of_norm_eq_one
+    (x : TopCat.disk.{0} 4) (hx : ‖x.down.val‖ = 1) :
+    cellAttachmentDisk (toUnit (TopCat.diskBoundary 4)) x =
+      cellAttachmentIncl (toUnit (TopCat.diskBoundary 4)) PUnit.unit := by
+  let z : TopCat.diskBoundary.{0} 4 :=
+    ULift.up ⟨x.down.val, mem_sphere_zero_iff_norm.mpr hx⟩
+  have hz : TopCat.diskBoundaryIncl 4 z = x := by
+    apply ULift.ext
+    apply Subtype.ext
+    rfl
+  have hc := ConcreteCategory.congr_hom
+    (cellAttachment_condition (toUnit (TopCat.diskBoundary 4))) z
+  change cellAttachmentIncl (toUnit (TopCat.diskBoundary 4)) PUnit.unit =
+    cellAttachmentDisk (toUnit (TopCat.diskBoundary 4))
+      (TopCat.diskBoundaryIncl 4 z) at hc
+  rw [hz] at hc
+  exact hc.symm
+
+theorem diskBoundaryFourCellSphereMap_injective :
+    Function.Injective diskBoundaryFourCellSphereMap := by
+  intro p q h
+  obtain ⟨sp, rfl⟩ :=
+    (pushoutSumDesc_isQuotientMap
+      (toUnit (TopCat.diskBoundary 4)) (TopCat.diskBoundaryIncl 4)).surjective p
+  obtain ⟨sq, rfl⟩ :=
+    (pushoutSumDesc_isQuotientMap
+      (toUnit (TopCat.diskBoundary 4)) (TopCat.diskBoundaryIncl 4)).surjective q
+  rcases sp with u | x <;> rcases sq with v | y
+  · change PUnit at u v
+    cases u
+    cases v
+    rfl
+  · have hy : diskToSphere 4 y = sphereBasepoint 4 := by
+      have hcell : diskBoundaryFourCellSphereMap
+          (cellAttachmentIncl (toUnit (TopCat.diskBoundary 4)) u) =
+        diskBoundaryFourCellSphereMap
+          (cellAttachmentDisk (toUnit (TopCat.diskBoundary 4)) y) := by
+        simpa only [diskBoundaryFourCellSumDesc_inl,
+          diskBoundaryFourCellSumDesc_inr] using h
+      exact (diskBoundaryFourCellSphereMap_disk_apply y).symm.trans
+        (hcell.symm.trans (diskBoundaryFourCellSphereMap_incl_apply u))
+    have hynorm := (diskToSphereFour_eq_basepoint_iff y).mp hy
+    change PUnit at u
+    cases u
+    exact (diskBoundaryFourCellDisk_eq_incl_of_norm_eq_one y hynorm).symm
+  · have hx : diskToSphere 4 x = sphereBasepoint 4 := by
+      have hcell : diskBoundaryFourCellSphereMap
+          (cellAttachmentDisk (toUnit (TopCat.diskBoundary 4)) x) =
+        diskBoundaryFourCellSphereMap
+          (cellAttachmentIncl (toUnit (TopCat.diskBoundary 4)) v) := by
+        simpa only [diskBoundaryFourCellSumDesc_inl,
+          diskBoundaryFourCellSumDesc_inr] using h
+      exact (diskBoundaryFourCellSphereMap_disk_apply x).symm.trans
+        (hcell.trans (diskBoundaryFourCellSphereMap_incl_apply v))
+    have hxnorm := (diskToSphereFour_eq_basepoint_iff x).mp hx
+    change PUnit at v
+    cases v
+    exact diskBoundaryFourCellDisk_eq_incl_of_norm_eq_one x hxnorm
+  · have hxy : diskToSphere 4 x = diskToSphere 4 y := by
+      have hcell : diskBoundaryFourCellSphereMap
+          (cellAttachmentDisk (toUnit (TopCat.diskBoundary 4)) x) =
+        diskBoundaryFourCellSphereMap
+          (cellAttachmentDisk (toUnit (TopCat.diskBoundary 4)) y) := by
+        simpa only [diskBoundaryFourCellSumDesc_inr] using h
+      exact (diskBoundaryFourCellSphereMap_disk_apply x).symm.trans
+        (hcell.trans (diskBoundaryFourCellSphereMap_disk_apply y))
+    rcases (diskToSphereFour_eq_iff x y).mp hxy with hxy | ⟨hx, hy⟩
+    · subst y
+      rfl
+    · exact (diskBoundaryFourCellDisk_eq_incl_of_norm_eq_one x hx).trans
+        (diskBoundaryFourCellDisk_eq_incl_of_norm_eq_one y hy).symm
+
+noncomputable instance diskBoundaryFourCellCompactSpace :
+    CompactSpace (cellAttachment (toUnit (TopCat.diskBoundary.{0} 4))) := by
+  letI : CompactSpace ((𝟙_ TopCat.{0} : TopCat.{0}) : Type) := by
+    change CompactSpace PUnit
+    infer_instance
+  exact cellAttachmentCompactSpace (toUnit (TopCat.diskBoundary 4))
+
+/-- Attaching a four-disk to a point along its whole boundary gives the four-sphere. -/
+noncomputable def diskBoundaryFourCellHomeomorphSphere :
+    cellAttachment (toUnit (TopCat.diskBoundary.{0} 4)) ≃ₜ Sph 4 :=
+  IsHomeomorph.homeomorph diskBoundaryFourCellSphereMap <|
+    isHomeomorph_iff_continuous_bijective.mpr
+      ⟨diskBoundaryFourCellSphereMap.hom.continuous,
+        diskBoundaryFourCellSphereMap_injective,
+        diskBoundaryFourCellSphereMap_surjective⟩
+
+/-- Replace a cone on `∂D⁴` by the radially homeomorphic disk in any mapping cone. -/
+noncomputable def diskBoundaryFourMappingConeToCell
+    {X : TopCat.{0}} (a : TopCat.diskBoundary 4 ⟶ X) :
+    topologicalMappingCone a ⟶ cellAttachment a :=
+  pushout.desc (cellAttachmentIncl a)
+    (diskBoundaryFourConeIsoDisk.hom ≫ cellAttachmentDisk a) (by
+      rw [cellAttachment_condition, ← Category.assoc,
+        diskBoundaryFourConeBaseIncl_isoDisk])
+
+noncomputable def diskBoundaryFourCellToMappingCone
+    {X : TopCat.{0}} (a : TopCat.diskBoundary 4 ⟶ X) :
+    cellAttachment a ⟶ topologicalMappingCone a :=
+  cellAttachmentDesc a (topologicalMappingConeIncl a)
+    (diskBoundaryFourConeIsoDisk.inv ≫ topologicalMappingConeConeIncl a) (by
+      rw [topologicalMappingCone_condition, ← Category.assoc,
+        ← diskBoundaryFourConeBaseIncl_isoDisk]
+      simp)
+
+@[reassoc (attr := simp)]
+theorem diskBoundaryFourMappingConeIncl_toCell
+    {X : TopCat.{0}} (a : TopCat.diskBoundary 4 ⟶ X) :
+    topologicalMappingConeIncl a ≫ diskBoundaryFourMappingConeToCell a =
+      cellAttachmentIncl a :=
+  pushout.inl_desc _ _ _
+
+@[reassoc (attr := simp)]
+theorem diskBoundaryFourMappingConeConeIncl_toCell
+    {X : TopCat.{0}} (a : TopCat.diskBoundary 4 ⟶ X) :
+    topologicalMappingConeConeIncl a ≫ diskBoundaryFourMappingConeToCell a =
+      diskBoundaryFourConeIsoDisk.hom ≫ cellAttachmentDisk a :=
+  pushout.inr_desc _ _ _
+
+@[reassoc (attr := simp)]
+theorem diskBoundaryFourCellIncl_toMappingCone
+    {X : TopCat.{0}} (a : TopCat.diskBoundary 4 ⟶ X) :
+    cellAttachmentIncl a ≫ diskBoundaryFourCellToMappingCone a =
+      topologicalMappingConeIncl a :=
+  cellAttachmentIncl_desc _ _ _ _
+
+@[reassoc (attr := simp)]
+theorem diskBoundaryFourCellDisk_toMappingCone
+    {X : TopCat.{0}} (a : TopCat.diskBoundary 4 ⟶ X) :
+    cellAttachmentDisk a ≫ diskBoundaryFourCellToMappingCone a =
+      diskBoundaryFourConeIsoDisk.inv ≫ topologicalMappingConeConeIncl a :=
+  cellAttachmentDisk_desc _ _ _ _
+
+noncomputable def diskBoundaryFourMappingConeIsoCell
+    {X : TopCat.{0}} (a : TopCat.diskBoundary 4 ⟶ X) :
+    topologicalMappingCone a ≅ cellAttachment a where
+  hom := diskBoundaryFourMappingConeToCell a
+  inv := diskBoundaryFourCellToMappingCone a
+  hom_inv_id := by
+    apply topologicalMappingCone_hom_ext a
+    · simp
+    · simp
+  inv_hom_id := by
+    apply cellAttachment_hom_ext a
+    · simp
+    · simp
+
+/-- The suspension of the boundary of the four-disk is the four-sphere. -/
+noncomputable def diskBoundaryFourSuspensionHomeomorphSphere :
+    topologicalSuspension (TopCat.diskBoundary.{0} 4) ≃ₜ Sph 4 :=
+  (TopCat.homeoOfIso
+    (diskBoundaryFourMappingConeIsoCell
+      (toUnit (TopCat.diskBoundary 4)))).trans
+    diskBoundaryFourCellHomeomorphSphere
+
+theorem diskBoundaryFourSuspension_comparison :
+    diskBoundaryFourMappingConeToCell
+          (toUnit (TopCat.diskBoundary 4)) ≫
+        diskBoundaryFourCellSphereMap =
+      diskBoundaryFourSuspensionToSphere := by
+  apply topologicalMappingCone_hom_ext (toUnit (TopCat.diskBoundary 4))
+  · simp
+    exact diskBoundaryFourSuspensionPointIncl_toSphere.symm
+  · simp
+    exact diskBoundaryFourSuspensionConeIncl_toSphere.symm
+
+@[simp]
+theorem diskBoundaryFourSuspensionHomeomorphSphere_apply
+    (x : topologicalSuspension (TopCat.diskBoundary.{0} 4)) :
+    diskBoundaryFourSuspensionHomeomorphSphere x =
+      diskBoundaryFourSuspensionToSphere x := by
+  change (diskBoundaryFourMappingConeToCell
+      (toUnit (TopCat.diskBoundary 4)) ≫
+        diskBoundaryFourCellSphereMap) x = _
+  exact ConcreteCategory.congr_hom diskBoundaryFourSuspension_comparison x
+
 end Submission
