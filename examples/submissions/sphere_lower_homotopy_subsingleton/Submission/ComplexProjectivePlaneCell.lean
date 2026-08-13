@@ -3,6 +3,8 @@ Copyright (c) 2026 Vasily Ilin. All rights reserved.
 Released under Apache 2.0 license.
 -/
 import Submission.ComplexProjectiveLine
+import Submission.SphereDegreeClassification
+import Submission.SphereGenerator
 import Submission.Topology.CellAttachment
 
 /-!
@@ -145,6 +147,22 @@ theorem complexProjectivePlaneBottomIncl_mk
           apply complexProjectivePlaneBottomInclVec_injective
           simpa [complexProjectivePlaneBottomInclVec] using hzero) :=
   rfl
+
+@[simp]
+theorem complexProjectivePlaneBottomIncl_basepoint :
+    complexProjectivePlaneBottomIncl (complexProjectiveModelBasepoint 1) =
+      complexProjectiveModelBasepoint 2 := by
+  change complexProjectivePlaneBottomIncl
+      (Projectivization.mk ℂ
+        (EuclideanSpace.single 0 1 : ComplexEuclidean 1) _) =
+    Projectivization.mk ℂ
+      (EuclideanSpace.single 0 1 : ComplexEuclidean 2) _
+  rw [complexProjectivePlaneBottomIncl_mk]
+  apply (Projectivization.mk_eq_mk_iff' ℂ _ _ _ _).2
+  refine ⟨1, ?_⟩
+  apply PiLp.ext
+  intro i
+  fin_cases i <;> simp [complexProjectivePlaneBottomInclVec]
 
 theorem continuous_complexProjectivePlaneBottomIncl :
     Continuous complexProjectivePlaneBottomIncl := by
@@ -675,6 +693,38 @@ theorem complexProjectivePlaneCellHomeomorph_disk
       complexProjectivePlaneCharacteristic z :=
   ConcreteCategory.congr_hom complexProjectivePlaneCellMap_disk z
 
+/-- Collapse the bottom projective line in the Hopf cell model to obtain the quotient
+four-sphere. -/
+noncomputable def complexProjectivePlaneCellCollapse :
+    complexProjectivePlaneCell ⟶ TopCat.of (Sph 4) :=
+  cellAttachmentDesc diskBoundaryFourComplexHopfMap
+    (TopCat.const (sphereBasepoint 4))
+    (TopCat.ofHom (diskToSphere 4))
+    (by
+      apply TopCat.hom_ext
+      apply ContinuousMap.ext
+      intro z
+      change sphereBasepoint 4 =
+        diskToSphere 4 (TopCat.diskBoundaryIncl 4 z)
+      symm
+      apply diskToSphere_boundary
+      exact mem_sphere_zero_iff_norm.mp z.down.property)
+
+@[simp]
+theorem complexProjectivePlaneCellCollapse_incl :
+    cellAttachmentIncl diskBoundaryFourComplexHopfMap ≫
+        complexProjectivePlaneCellCollapse =
+      TopCat.const (sphereBasepoint 4) := by
+  rw [complexProjectivePlaneCellCollapse, cellAttachmentIncl_desc]
+
+@[simp]
+theorem complexProjectivePlaneCellCollapse_disk :
+    cellAttachmentDisk diskBoundaryFourComplexHopfMap ≫
+        complexProjectivePlaneCellCollapse =
+      TopCat.ofHom (diskToSphere 4) := by
+  rw [complexProjectivePlaneCellCollapse, cellAttachmentDisk_desc]
+  rfl
+
 /-- The fourth homotopy group of complex projective two-space is trivial. -/
 theorem piFour_complexProjectivePlane_subsingleton :
     Subsingleton
@@ -686,7 +736,16 @@ theorem piFour_complexProjectivePlane_subsingleton :
 /-- The basepoint on the Hopf cell model corresponding to the standard projective basepoint. -/
 noncomputable def complexProjectivePlaneCellBasepoint :
     complexProjectivePlaneCell :=
-  complexProjectivePlaneCellHomeomorph.symm (complexProjectiveModelBasepoint 2)
+  cellAttachmentIncl diskBoundaryFourComplexHopfMap
+    (complexProjectiveModelBasepoint 1)
+
+@[simp]
+theorem complexProjectivePlaneCellHomeomorph_basepoint :
+    complexProjectivePlaneCellHomeomorph complexProjectivePlaneCellBasepoint =
+      complexProjectiveModelBasepoint 2 := by
+  rw [complexProjectivePlaneCellBasepoint,
+    complexProjectivePlaneCellHomeomorph_incl,
+    complexProjectivePlaneBottomIncl_basepoint]
 
 /-- The fourth homotopy group of the exact Hopf cell model is trivial. -/
 theorem piFour_complexProjectivePlaneCell_subsingleton :
@@ -694,9 +753,51 @@ theorem piFour_complexProjectivePlaneCell_subsingleton :
       (π_ 4 complexProjectivePlaneCell complexProjectivePlaneCellBasepoint) := by
   let e := HomotopyGroup.homeomorphMulEquivOfEq (N := Fin 4)
     complexProjectivePlaneCellHomeomorph
-    (complexProjectivePlaneCellHomeomorph.apply_symm_apply
-      (complexProjectiveModelBasepoint 2))
+    complexProjectivePlaneCellHomeomorph_basepoint
   exact e.toEquiv.subsingleton_congr.mpr
     piFour_complexProjectivePlane_subsingleton
+
+@[simp]
+theorem complexProjectivePlaneCellCollapse_basepoint :
+    complexProjectivePlaneCellCollapse complexProjectivePlaneCellBasepoint =
+      sphereBasepoint 4 := by
+  exact ConcreteCategory.congr_hom complexProjectivePlaneCellCollapse_incl
+    (complexProjectiveModelBasepoint 1)
+
+/-- A based homotopy section makes the induced map on every homotopy group surjective. -/
+theorem homotopyGroup_map_surjective_of_based_homotopy_section
+    {N X Y : Type*} [TopologicalSpace X] [TopologicalSpace Y]
+    {x : X} {y : Y} (f : C(X, Y)) (g : C(Y, X))
+    (hf : f x = y) (hg : g y = x)
+    (H : (f.comp g).HomotopicRel (ContinuousMap.id Y) {y}) :
+    Function.Surjective (HomotopyGroup.map (N := N) f hf) := by
+  intro b
+  refine ⟨HomotopyGroup.map g hg b, ?_⟩
+  rw [HomotopyGroup.map_comp_apply]
+  have hcomp : (f.comp g) y = y := by simp [hf, hg]
+  have hmaps := HomotopyGroup.map_eq_of_homotopicRel
+    (N := N) (x := y) (y := y) hcomp (Set.mem_singleton y) H
+  exact (congrFun hmaps b).trans (HomotopyGroup.map_id_apply b)
+
+/-- The collapse from the Hopf cell model to its quotient four-sphere has no based homotopy
+section. -/
+theorem not_exists_complexProjectivePlaneCellCollapse_homotopy_section :
+    ¬ ∃ (s : C(Sph 4, complexProjectivePlaneCell))
+        (_hs : s (sphereBasepoint 4) = complexProjectivePlaneCellBasepoint),
+      (complexProjectivePlaneCellCollapse.hom.comp s).HomotopicRel
+        (ContinuousMap.id (Sph 4)) {sphereBasepoint 4} := by
+  rintro ⟨s, hs, H⟩
+  letI : Subsingleton
+      (π_ 4 complexProjectivePlaneCell complexProjectivePlaneCellBasepoint) :=
+    piFour_complexProjectivePlaneCell_subsingleton
+  have hsurj : Function.Surjective
+      (HomotopyGroup.map (N := Fin 4)
+        complexProjectivePlaneCellCollapse.hom
+        complexProjectivePlaneCellCollapse_basepoint) :=
+    homotopyGroup_map_surjective_of_based_homotopy_section
+      complexProjectivePlaneCellCollapse.hom s
+      complexProjectivePlaneCellCollapse_basepoint hs H
+  letI : Subsingleton (π_ 4 (Sph 4) (sphereBasepoint 4)) := hsurj.subsingleton
+  exact sphereGeneratorClass_ne_one 3 (Subsingleton.elim _ _)
 
 end Submission
