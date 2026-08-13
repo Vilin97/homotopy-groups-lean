@@ -419,6 +419,25 @@ theorem hopfMappingConeBottomSquare_eq_top_iff_ne_zero :
     rw [← htop, hzero]
   · exact hopfMappingConeBottomSquare_eq_zero_or_eq_top.resolve_left
 
+/-- The mod-two Hopf invariant: the normalized top-degree coordinate of the bottom cup
+square. -/
+noncomputable def hopfMappingConeModTwoHopfInvariant : ZMod 2 :=
+  hopfMappingConeDegreeFourCohomologyEquivModTwo
+    hopfMappingConeBottomSquare
+
+/-- The normalized mod-two Hopf invariant is one exactly when the bottom square is the top
+class. -/
+theorem hopfMappingConeModTwoHopfInvariant_eq_one_iff :
+    hopfMappingConeModTwoHopfInvariant = 1 ↔
+      hopfMappingConeBottomSquare = hopfMappingConeTopClass :=
+  addEquivZModTwoOfGenerator_apply_eq_one_iff _ _ _ _
+
+/-- The mod-two Hopf invariant is either zero or one. -/
+theorem hopfMappingConeModTwoHopfInvariant_eq_zero_or_eq_one :
+    hopfMappingConeModTwoHopfInvariant = 0 ∨
+      hopfMappingConeModTwoHopfInvariant = 1 := by
+  exact (show ∀ z : ZMod 2, z = 0 ∨ z = 1 by decide) _
+
 /-! ### A chain-level Hopf-invariant target -/
 
 /-- A cycle representative of the selected degree-four mapping-cone homology generator. -/
@@ -489,6 +508,17 @@ theorem hopfMappingConeBottomSquare_eq_top_iff_representativeEvaluation_eq_one :
       hopfCanonicalFourCycle at hvalue
   rw [← hvalue]
   exact hopfMappingConeBottomSquare_eq_top_iff_evaluation_eq_one
+
+/-- The normalized mod-two Hopf invariant is exactly the Alexander--Whitney evaluation of
+the selected cocycle square on the selected top cycle. -/
+theorem hopfMappingConeModTwoHopfInvariant_eq_representativeEvaluation :
+    hopfMappingConeModTwoHopfInvariant =
+      cupHsingRepresentativeEvaluation (by omega : 2 + 2 = 4)
+        hopfMappingConeBottomCocycle hopfMappingConeBottomCocycle
+        hopfCanonicalFourCycle := by
+  apply zmodTwo_eq_of_eq_one_iff
+  rw [hopfMappingConeModTwoHopfInvariant_eq_one_iff,
+    hopfMappingConeBottomSquare_eq_top_iff_representativeEvaluation_eq_one]
 
 /-! ### The cup-square obstruction -/
 

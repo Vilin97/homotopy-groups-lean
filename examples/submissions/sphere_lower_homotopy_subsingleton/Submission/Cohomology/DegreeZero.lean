@@ -73,6 +73,41 @@ theorem addEquivZModTwoOfGenerator_apply_generator
     addEquivZModTwoOfGenerator g hcases hg g = 1 := by
   simp [addEquivZModTwoOfGenerator, hg]
 
+/-- A class has normalized coordinate one exactly when it is the chosen generator. -/
+theorem addEquivZModTwoOfGenerator_apply_eq_one_iff
+    {A : Type*} [AddCommGroup A] (g : A)
+    (hcases : ∀ x : A, x = 0 ∨ x = g) (hg : g ≠ 0) (x : A) :
+    addEquivZModTwoOfGenerator g hcases hg x = 1 ↔ x = g := by
+  constructor
+  · intro hx
+    apply (addEquivZModTwoOfGenerator g hcases hg).injective
+    rw [addEquivZModTwoOfGenerator_apply_generator]
+    exact hx
+  · rintro rfl
+    exact addEquivZModTwoOfGenerator_apply_generator _ _ _
+
+/-- Normalized two-element coordinates commute with an additive map that carries the chosen
+generator to the chosen generator. -/
+theorem addEquivZModTwoOfGenerator_natural
+    {A B : Type*} [AddCommGroup A] [AddCommGroup B]
+    (gA : A) (gB : B)
+    (hcasesA : ∀ x : A, x = 0 ∨ x = gA) (hgA : gA ≠ 0)
+    (hcasesB : ∀ x : B, x = 0 ∨ x = gB) (hgB : gB ≠ 0)
+    (f : A →+ B) (hfg : f gA = gB) (x : A) :
+    addEquivZModTwoOfGenerator gB hcasesB hgB (f x) =
+      addEquivZModTwoOfGenerator gA hcasesA hgA x := by
+  rcases hcasesA x with rfl | rfl
+  · simp
+  · rw [hfg, addEquivZModTwoOfGenerator_apply_generator,
+      addEquivZModTwoOfGenerator_apply_generator]
+
+/-- Two elements of `ZMod 2` agree when they are simultaneously equal to one. -/
+theorem zmodTwo_eq_of_eq_one_iff (a b : ZMod 2)
+    (h : a = 1 ↔ b = 1) : a = b := by
+  have hcases : ∀ z : ZMod 2, z = 0 ∨ z = 1 := by decide
+  rcases hcases a with rfl | rfl <;>
+    rcases hcases b with rfl | rfl <;> simp_all
+
 /-- A zero-cocycle takes equal values at the ends of every edge. -/
 theorem zeroCocycle_eq_of_edge {S : SSet.{0}} (f : cocycles S R 0)
     {x y : S _⦋0⦌} (e : S.Edge x y) :

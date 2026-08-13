@@ -322,6 +322,39 @@ theorem complexProjectivePlaneModTwoSquare_eq_top_iff :
       (Hsing.map (R := ZMod 2)
         complexProjectivePlaneIsoHopfMappingCone.hom 4)
 
+/-- The normalized top-degree coordinate of the geometric projective-plane cup square. -/
+noncomputable def complexProjectivePlaneModTwoCupSquareCoefficient : ZMod 2 :=
+  complexProjectivePlaneDegreeFourCohomologyEquivModTwo
+    complexProjectivePlaneModTwoSquare
+
+/-- The projective-plane cup-square coefficient is one exactly when the square is the
+normalized top class. -/
+theorem complexProjectivePlaneModTwoCupSquareCoefficient_eq_one_iff :
+    complexProjectivePlaneModTwoCupSquareCoefficient = 1 ↔
+      complexProjectivePlaneModTwoSquare =
+        complexProjectivePlaneModTwoTopClass :=
+  addEquivZModTwoOfGenerator_apply_eq_one_iff _ _ _ _
+
+/-- Exact geometric transport preserves the normalized cup-square coefficient. -/
+theorem complexProjectivePlaneModTwoCupSquareCoefficient_eq_hopfInvariant :
+    complexProjectivePlaneModTwoCupSquareCoefficient =
+      hopfMappingConeModTwoHopfInvariant := by
+  rw [complexProjectivePlaneModTwoCupSquareCoefficient,
+    complexProjectivePlaneModTwoSquare_naturality,
+    hopfMappingConeModTwoHopfInvariant]
+  let f : Hsing 4 hopfMappingCone (ZMod 2) →+
+      Hsing 4 (TopCat.of (ComplexProjectiveModel 2)) (ZMod 2) :=
+    (Hsing.map (R := ZMod 2)
+      complexProjectivePlaneIsoHopfMappingCone.hom 4).toAddHom
+  have htop : f hopfMappingConeTopClass =
+      complexProjectivePlaneModTwoTopClass := rfl
+  exact addEquivZModTwoOfGenerator_natural
+    hopfMappingConeTopClass complexProjectivePlaneModTwoTopClass
+    hopfMappingConeClass_eq_zero_or_eq_top hopfMappingConeTopClass_ne_zero
+    complexProjectivePlaneDegreeFourClass_eq_zero_or_eq_top
+    complexProjectivePlaneModTwoTopClass_ne_zero
+    f htop hopfMappingConeBottomSquare
+
 /-! ### A chain-level projective-plane target -/
 
 /-- The normalized degree-four integral homology generator on the geometric projective
@@ -543,5 +576,17 @@ theorem complexProjectivePlaneModTwoSquare_eq_top_iff_transportedEvaluation_eq_o
   rw [complexProjectivePlaneTransportedRepresentativeEvaluation,
     complexProjectivePlaneModTwoSquare_eq_top_iff,
     hopfMappingConeBottomSquare_eq_top_iff_representativeEvaluation_eq_one]
+
+/-- The geometric projective-plane cup-square coefficient is exactly the Alexander--Whitney
+value of the transported Hopf-cone representatives. -/
+theorem complexProjectivePlaneModTwoCupSquareCoefficient_eq_transportedEvaluation :
+    complexProjectivePlaneModTwoCupSquareCoefficient =
+      cupHsingRepresentativeEvaluation (by omega : 2 + 2 = 4)
+        complexProjectivePlaneTransportedModTwoCocycle
+        complexProjectivePlaneTransportedModTwoCocycle
+        complexProjectivePlaneTransportedFourCycle := by
+  exact complexProjectivePlaneModTwoCupSquareCoefficient_eq_hopfInvariant.trans
+    (hopfMappingConeModTwoHopfInvariant_eq_representativeEvaluation.trans
+      complexProjectivePlaneTransportedRepresentativeEvaluation.symm)
 
 end Submission
