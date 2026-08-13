@@ -330,19 +330,11 @@ theorem hopfTargetReflection_map_transport_sphCapOverlapBasePath
       HomotopyGroup.transport (sphCapOverlapBasePath 2)
         (HomotopyGroup.map hopfTargetReflection
           hopfTargetReflection_basepoint a) := by
-  induction a using Quotient.ind with
-  | _ p =>
-      rw [HomotopyGroup.transport_mk, HomotopyGroup.map_mk,
-        HomotopyGroup.map_mk, HomotopyGroup.transport_mk]
-      apply congrArg Quotient.mk'
-      apply GenLoop.ext
-      intro t
-      simp only [GenLoop.map_apply, GenLoop.transport_apply]
-      unfold transportFun
-      split_ifs
-      · rfl
-      · rw [sphCapOverlapBasePath_apply]
-        exact hopfTargetReflection_basepoint
+  exact HomotopyGroup.map_transport_of_path_fixed
+    hopfTargetReflection hopfTargetReflection_basepoint (by simp)
+    (sphCapOverlapBasePath 2) (fun t ↦ by
+      rw [sphCapOverlapBasePath_apply]
+      exact hopfTargetReflection_basepoint) a
 
 /-- The based cap suspension comparison commutes with Hopf-target reflection. -/
 theorem sphereCapSuspensionHomAt_hopfTargetReflection

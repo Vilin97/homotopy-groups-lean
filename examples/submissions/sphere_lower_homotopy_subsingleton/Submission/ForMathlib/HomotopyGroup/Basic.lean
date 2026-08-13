@@ -207,6 +207,21 @@ theorem GenLoop.transport_apply (γ : Path x y) (p : Ω^ N X x) (t : I^N) :
     GenLoop.transport γ p t = transportFun γ p (1, t) :=
   rfl
 
+/-- Postcomposition by a self-map commutes with transport along a path fixed pointwise by that
+self-map. -/
+theorem GenLoop.map_transport_of_path_fixed
+    (f : C(X, X)) (hx : f x = x) (hy : f y = y)
+    (γ : Path x y) (hγ : ∀ t, f (γ t) = γ t) (p : Ω^ N X x) :
+    GenLoop.map f hy (GenLoop.transport γ p) =
+      GenLoop.transport γ (GenLoop.map f hx p) := by
+  apply GenLoop.ext
+  intro t
+  simp only [GenLoop.map_apply, GenLoop.transport_apply]
+  unfold transportFun
+  split_ifs
+  · rfl
+  · exact hγ _
+
 /-- The homotopy from `p` to its transport along `γ`, which moves the cube boundary along
 `γ`. -/
 noncomputable def transportHomotopy (γ : Path x y) (p : Ω^ N X x) :
@@ -473,6 +488,30 @@ theorem HomotopyGroup.transport_mk (γ : Path x y) (p : Ω^ N X x) :
     HomotopyGroup.transport γ (⟦p⟧ : HomotopyGroup N X x) =
       (⟦GenLoop.transport γ p⟧ : HomotopyGroup N X y) :=
   rfl
+
+omit [DecidableEq N] in
+/-- Induced self-maps commute with change of basepoint along paths they fix pointwise. -/
+theorem HomotopyGroup.map_transport_of_path_fixed
+    (f : C(X, X)) (hx : f x = x) (hy : f y = y)
+    (γ : Path x y) (hγ : ∀ t, f (γ t) = γ t)
+    (a : HomotopyGroup N X x) :
+    HomotopyGroup.map f hy (HomotopyGroup.transport γ a) =
+      HomotopyGroup.transport γ (HomotopyGroup.map f hx a) := by
+  induction a using Quotient.ind with
+  | _ p =>
+      rw [HomotopyGroup.transport_mk, HomotopyGroup.map_mk,
+        HomotopyGroup.map_mk, HomotopyGroup.transport_mk,
+        GenLoop.map_transport_of_path_fixed f hx hy γ hγ p]
+
+omit [DecidableEq N] in
+/-- Transport along the constant path acts trivially on homotopy classes. -/
+@[simp]
+theorem HomotopyGroup.transport_refl (x : X) (a : HomotopyGroup N X x) :
+    HomotopyGroup.transport (Path.refl x) a = a := by
+  induction a using Quotient.ind with
+  | _ p =>
+      rw [HomotopyGroup.transport_mk]
+      exact Quotient.sound (GenLoop.homotopic_transport_refl p).symm
 
 /-- Transporting homotopy classes along a path is a group homomorphism. -/
 noncomputable def HomotopyGroup.transportHom (γ : Path x y) :
