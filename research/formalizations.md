@@ -560,9 +560,15 @@ calculation), so the lattice cell is not yet recolored.
 
 The same exact coordinate change now transports the normalized mod-two
 cohomology of the concrete Hopf cone onto the geometric `CP^2`. Lean defines
-nonzero classes in degrees two and four, proves that every degree-four class is
-zero or the selected top class, normalizes a top integral homology generator,
-and identifies the `CP^2` cup-square assertion both with the Hopf-cone
+nonzero classes in degrees two and four, proves that every class in either
+degree is zero or the corresponding selected generator, and proves vanishing
+in degrees one, three, and every degree at least five. Thus the entire
+positive-degree additive mod-two cohomology is computed. The degree-one
+argument comes from a reusable Mayer--Vietoris theorem for covers whose pieces
+have vanishing first cohomology and whose overlap is path connected; the
+standard mapping-cone overlap is proved path connected directly from its
+maintained deformation retraction. Lean also normalizes a top integral homology
+generator and identifies the `CP^2` cup-square assertion both with the Hopf-cone
 Hopf-invariant-one assertion and with one explicit Alexander--Whitney
 evaluation on selected projective-plane representatives. The cocycle and cycle
 can moreover be transported directly through the homeomorphism, and Lean proves
