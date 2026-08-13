@@ -600,6 +600,30 @@ def topologicalMappingConeIso {A B X Y : TopCat.{u}}
       (topologicalMappingCone_inverse_square f g a x h) h]
     simpa only [IsIso.inv_hom_id] using topologicalMappingConeMap_id g
 
+/-- Nullhomotopy is invariant under changing both sides of a commutative square by
+isomorphisms. -/
+theorem nullhomotopic_iff_of_iso_square {A B X Y : TopCat.{u}}
+    (f : A ⟶ X) (g : B ⟶ Y) (a : A ≅ B) (x : X ≅ Y)
+    (h : f ≫ x.hom = a.hom ≫ g) :
+    f.hom.Nullhomotopic ↔ g.hom.Nullhomotopic := by
+  constructor
+  · intro hf
+    have hfx : (f ≫ x.hom).hom.Nullhomotopic :=
+      hf.comp_right x.hom.hom
+    rw [h] at hfx
+    have hpre := hfx.comp_left a.inv.hom
+    have heq : a.inv ≫ (a.hom ≫ g) = g := by simp
+    rw [← heq]
+    exact hpre
+  · intro hg
+    have hag : (a.hom ≫ g).hom.Nullhomotopic :=
+      hg.comp_left a.hom.hom
+    rw [← h] at hag
+    have hpost := hag.comp_right x.inv.hom
+    have heq : (f ≫ x.hom) ≫ x.inv = f := by simp
+    rw [← heq]
+    exact hpost
+
 /-! ### Suspension and the cofiber collapse -/
 
 /-- The unreduced suspension of `A`, presented as the mapping cone of `A ⟶ *`. -/

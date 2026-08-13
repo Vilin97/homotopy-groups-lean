@@ -94,6 +94,37 @@ theorem exactHopfSuspension_comparison :
     (fun q ↦ topologicalSuspensionToSusp
       (TopCat.diskBoundary 4) ≫ q) exactHopfSuspension_raw_square
 
+/-- The exact suspended attaching map is nullhomotopic exactly when the maintained raw
+suspended Hopf map is nullhomotopic. -/
+theorem exactHopfSuspension_nullhomotopic_iff :
+    (topologicalSuspensionMap (TopCat.diskBoundary 4)
+        diskBoundaryFourComplexHopfMap).hom.Nullhomotopic ↔
+      hopfSuspensionTopCat.hom.Nullhomotopic :=
+  nullhomotopic_iff_of_iso_square
+    (topologicalSuspensionMap (TopCat.diskBoundary 4)
+      diskBoundaryFourComplexHopfMap)
+    hopfSuspensionTopCat diskBoundaryFourSuspensionIsoHopfSource
+    complexProjectiveLineSuspensionIsoHopfTarget
+    exactHopfSuspension_comparison
+
+/-- The raw quotient-model suspension of the Hopf map is nullhomotopic exactly when its concrete
+sphere-coordinate representative is. -/
+theorem hopfSuspension_nullhomotopic_iff_suspendedHopf :
+    hopfSuspensionTopCat.hom.Nullhomotopic ↔
+      suspendedHopfTopCat.hom.Nullhomotopic :=
+  nullhomotopic_iff_of_iso_square hopfSuspensionTopCat suspendedHopfTopCat
+    (suspSphTopCatIso 3) (suspSphTopCatIso 2)
+    hopfSuspensionTopCat_naturality
+
+/-- Nullhomotopy of the exact suspended projective attaching map is equivalent to nullhomotopy
+of the concrete suspended quadratic Hopf map. -/
+theorem exactHopfSuspension_nullhomotopic_iff_suspendedHopf :
+    (topologicalSuspensionMap (TopCat.diskBoundary 4)
+        diskBoundaryFourComplexHopfMap).hom.Nullhomotopic ↔
+      suspendedHopfTopCat.hom.Nullhomotopic :=
+  exactHopfSuspension_nullhomotopic_iff.trans
+    hopfSuspension_nullhomotopic_iff_suspendedHopf
+
 /-- The mapping cone of the suspended exact attaching map, before changing sphere coordinates. -/
 noncomputable abbrev exactHopfSuspensionMappingCone : TopCat.{0} :=
   topologicalMappingCone
@@ -146,5 +177,37 @@ theorem exactHopfSuspensionMappingConeIso_hom_coneIncl :
     hopfSuspensionTopCat diskBoundaryFourSuspensionIsoHopfSource.hom
     complexProjectiveLineSuspensionIsoHopfTarget.hom
     exactHopfSuspension_comparison
+
+/-- Retractions of the exact suspended attaching-cone inclusion are equivalent to retractions of
+the concrete suspended-Hopf cone inclusion. -/
+theorem exists_exactHopfSuspensionMappingConeIncl_retraction_iff :
+    (∃ r : exactHopfSuspensionMappingCone ⟶
+        topologicalSuspension (TopCat.of (ComplexProjectiveModel 1)),
+      topologicalMappingConeIncl
+          (topologicalSuspensionMap (TopCat.diskBoundary 4)
+            diskBoundaryFourComplexHopfMap) ≫ r =
+        𝟙 (topologicalSuspension (TopCat.of (ComplexProjectiveModel 1)))) ↔
+      ∃ r : suspendedHopfMappingCone ⟶ TopCat.of (Sph 3),
+        suspendedHopfMappingConeIncl ≫ r = 𝟙 (TopCat.of (Sph 3)) := by
+  rw [exists_topologicalMappingConeIncl_retraction_iff_nullhomotopic,
+    exists_topologicalMappingConeIncl_retraction_iff_nullhomotopic,
+    exactHopfSuspension_nullhomotopic_iff_suspendedHopf]
+
+/-- The same equivalence holds for retractions in the homotopy category. -/
+theorem exists_exactHopfSuspensionMappingConeIncl_homotopy_retraction_iff :
+    (∃ r : exactHopfSuspensionMappingCone ⟶
+        topologicalSuspension (TopCat.of (ComplexProjectiveModel 1)),
+      Nonempty (TopCat.Homotopy
+        (topologicalMappingConeIncl
+            (topologicalSuspensionMap (TopCat.diskBoundary 4)
+              diskBoundaryFourComplexHopfMap) ≫ r)
+        (𝟙 (topologicalSuspension
+          (TopCat.of (ComplexProjectiveModel 1)))))) ↔
+      ∃ r : suspendedHopfMappingCone ⟶ TopCat.of (Sph 3),
+        Nonempty (TopCat.Homotopy
+          (suspendedHopfMappingConeIncl ≫ r) (𝟙 (TopCat.of (Sph 3)))) := by
+  rw [exists_topologicalMappingConeIncl_homotopy_retraction_iff_nullhomotopic,
+    exists_topologicalMappingConeIncl_homotopy_retraction_iff_nullhomotopic,
+    exactHopfSuspension_nullhomotopic_iff_suspendedHopf]
 
 end Submission
