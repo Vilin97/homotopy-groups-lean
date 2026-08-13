@@ -222,4 +222,78 @@ theorem exists_topologicalMappingCone_extension_iff_nullhomotopic
     ext a
     rfl
 
+/-! ### Strict coexactness at the mapping cone -/
+
+/-- A map out of a mapping cone whose restriction to the target summand is constant descends
+through the cofiber collapse. -/
+def topologicalSuspensionDescOfMappingConeConstantRestriction
+    {A X Y : TopCat.{u}} (f : A ⟶ X)
+    (h : topologicalMappingCone f ⟶ Y) (y : 𝟙_ TopCat.{u} ⟶ Y)
+    (hh : topologicalMappingConeIncl f ≫ h = toUnit X ≫ y) :
+    topologicalSuspension A ⟶ Y :=
+  pushout.desc y (topologicalMappingConeConeIncl f ≫ h) (by
+    calc
+      toUnit A ≫ y = (f ≫ toUnit X) ≫ y := by
+        rw [toUnit_unique (toUnit A) (f ≫ toUnit X)]
+      _ = f ≫ (toUnit X ≫ y) := Category.assoc _ _ _
+      _ = f ≫ (topologicalMappingConeIncl f ≫ h) := by rw [hh]
+      _ = (f ≫ topologicalMappingConeIncl f) ≫ h :=
+        (Category.assoc _ _ _).symm
+      _ = (topologicalConeBaseIncl A ≫
+          topologicalMappingConeConeIncl f) ≫ h := by
+        rw [topologicalMappingCone_condition]
+      _ = topologicalConeBaseIncl A ≫
+          (topologicalMappingConeConeIncl f ≫ h) := Category.assoc _ _ _)
+
+@[reassoc (attr := simp)]
+theorem topologicalSuspensionPointIncl_descOfMappingConeConstantRestriction
+    {A X Y : TopCat.{u}} (f : A ⟶ X)
+    (h : topologicalMappingCone f ⟶ Y) (y : 𝟙_ TopCat.{u} ⟶ Y)
+    (hh : topologicalMappingConeIncl f ≫ h = toUnit X ≫ y) :
+    topologicalSuspensionPointIncl A ≫
+        topologicalSuspensionDescOfMappingConeConstantRestriction f h y hh = y :=
+  pushout.inl_desc _ _ _
+
+@[reassoc (attr := simp)]
+theorem topologicalSuspensionConeIncl_descOfMappingConeConstantRestriction
+    {A X Y : TopCat.{u}} (f : A ⟶ X)
+    (h : topologicalMappingCone f ⟶ Y) (y : 𝟙_ TopCat.{u} ⟶ Y)
+    (hh : topologicalMappingConeIncl f ≫ h = toUnit X ≫ y) :
+    topologicalSuspensionConeIncl A ≫
+        topologicalSuspensionDescOfMappingConeConstantRestriction f h y hh =
+      topologicalMappingConeConeIncl f ≫ h :=
+  pushout.inr_desc _ _ _
+
+/-- The descended map recovers the original mapping-cone map after the cofiber collapse. -/
+@[reassoc (attr := simp)]
+theorem topologicalMappingConeCollapse_descOfMappingConeConstantRestriction
+    {A X Y : TopCat.{u}} (f : A ⟶ X)
+    (h : topologicalMappingCone f ⟶ Y) (y : 𝟙_ TopCat.{u} ⟶ Y)
+    (hh : topologicalMappingConeIncl f ≫ h = toUnit X ≫ y) :
+    topologicalMappingConeCollapse f ≫
+        topologicalSuspensionDescOfMappingConeConstantRestriction f h y hh = h := by
+  apply topologicalMappingCone_hom_ext f
+  · rw [← Category.assoc, topologicalMappingConeIncl_collapse, Category.assoc,
+      topologicalSuspensionPointIncl_descOfMappingConeConstantRestriction]
+    exact hh.symm
+  · rw [← Category.assoc, topologicalMappingConeConeIncl_collapse,
+      topologicalSuspensionConeIncl_descOfMappingConeConstantRestriction]
+
+/-- A map out of `C_f` factors through the cofiber collapse exactly when its restriction to
+`X` is constant. -/
+theorem exists_topologicalSuspension_factorization_iff_constant_restriction
+    {A X Y : TopCat.{u}} (f : A ⟶ X)
+    (h : topologicalMappingCone f ⟶ Y) :
+    (∃ k : topologicalSuspension A ⟶ Y,
+        topologicalMappingConeCollapse f ≫ k = h) ↔
+      ∃ y : 𝟙_ TopCat.{u} ⟶ Y,
+        topologicalMappingConeIncl f ≫ h = toUnit X ≫ y := by
+  constructor
+  · rintro ⟨k, rfl⟩
+    refine ⟨topologicalSuspensionPointIncl A ≫ k, ?_⟩
+    rw [← Category.assoc, topologicalMappingConeIncl_collapse, Category.assoc]
+  · rintro ⟨y, hh⟩
+    exact ⟨topologicalSuspensionDescOfMappingConeConstantRestriction f h y hh,
+      topologicalMappingConeCollapse_descOfMappingConeConstantRestriction f h y hh⟩
+
 end Submission
