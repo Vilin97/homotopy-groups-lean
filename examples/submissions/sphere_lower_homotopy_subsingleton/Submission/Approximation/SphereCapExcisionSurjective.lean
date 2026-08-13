@@ -4,6 +4,8 @@ Released under Apache 2.0 license.
 -/
 import Submission.Approximation.SphereCapExcisionInjective
 import Submission.SphereSuspensionExcisionStable
+import Submission.HopfFibration
+import Mathlib.GroupTheory.SpecificGroups.Cyclic
 
 /-!
 # Stable surjectivity of spherical cap excision
@@ -23,8 +25,8 @@ inclusion.
 ## Main results
 
 * `Submission.exists_relativeSpherePLApproximation_cellCompression`
-* `Submission.relativeSpherePLApproximation_homotopic_includedSource_stableRange`
-* `Submission.sphereSuspensionExcisionHomAt_surjective_of_stableRange`
+* `Submission.relativeSpherePLApproximation_homotopic_includedSource_surjectiveRange`
+* `Submission.sphereSuspensionExcisionHomAt_surjective_of_freudenthalRange`
 * `Submission.sphereSuspensionExcisionStableRange_proved`
 -/
 
@@ -65,15 +67,15 @@ theorem RelativeSpherePLApproximation.approx_boundaryHeightNonneg
   exact radialProj_last_nonneg
     (cubeGridAffineApprox_relGenLoop_last_nonneg A.mesh_pos p hp hz)
 
-/-- A stable-range finite PL target representative admits two-cell compression relative to its
-boundary jar.  The compressed map avoids an upper-cell point everywhere and a lower-cell point
-on its boundary lid. -/
+/-- A finite PL target representative in the Freudenthal epimorphism range admits two-cell
+compression relative to its boundary jar.  The compressed map avoids an upper-cell point
+everywhere and a lower-cell point on its boundary lid. -/
 theorem exists_relativeSpherePLApproximation_cellCompression
     (p : RelGenLoop (q + 2) (Sph (d + 1))
       (sphUpperCap d) (sphUpperCapBase d))
     (hp : RelGenLoop.BoundaryHeightNonneg p)
     (A : RelativeSpherePLApproximation p hp)
-    (hrange : q + 3 ≤ 2 * d) :
+    (hrange : q + 2 ≤ 2 * d) :
     ∃ x y : Sph (d + 1),
       x ∉ sphUpperCap d ∧ y ∉ sphLowerCap d ∧
       ∃ g' : C(I^ Fin (q + 2), Sph (d + 1)),
@@ -561,14 +563,14 @@ theorem relGenLoopHomotopic_upperCellPunctureLowerSource
 
 /-! ### Stable representative-level surjectivity -/
 
-/-- Every finite PL target representative in the stable two-cell range is relatively homotopic
-to the inclusion of a source representative. -/
-theorem relativeSpherePLApproximation_homotopic_includedSource_stableRange
+/-- Every finite PL target representative in the Freudenthal epimorphism range is relatively
+homotopic to the inclusion of a source representative. -/
+theorem relativeSpherePLApproximation_homotopic_includedSource_surjectiveRange
     (p : RelGenLoop (q + 2) (Sph (d + 1))
       (sphUpperCap d) (sphUpperCapBase d))
     (hp : RelGenLoop.BoundaryHeightNonneg p)
     (A : RelativeSpherePLApproximation p hp)
-    (hrange : q + 3 ≤ 2 * d) :
+    (hrange : q + 2 ≤ 2 * d) :
     ∃ r : RelGenLoop (q + 2) (sphLowerCap d)
         (sphCapOverlapInLower d) (sphCapOverlapBase d),
       RelGenLoop.Homotopic A.approx
@@ -607,18 +609,32 @@ theorem relativeSpherePLApproximation_homotopic_includedSource_stableRange
   exact hcollar.trans <| hcompression.trans <| by
     simpa only [r] using hlowering
 
+/-- Stable-range specialization of the sharper representative-level surjectivity theorem. -/
+theorem relativeSpherePLApproximation_homotopic_includedSource_stableRange
+    (p : RelGenLoop (q + 2) (Sph (d + 1))
+      (sphUpperCap d) (sphUpperCapBase d))
+    (hp : RelGenLoop.BoundaryHeightNonneg p)
+    (A : RelativeSpherePLApproximation p hp)
+    (hrange : q + 3 ≤ 2 * d) :
+    ∃ r : RelGenLoop (q + 2) (sphLowerCap d)
+        (sphCapOverlapInLower d) (sphCapOverlapBase d),
+      RelGenLoop.Homotopic A.approx
+        (RelGenLoop.map (sphCapInclusionPairMap d) r) :=
+  relativeSpherePLApproximation_homotopic_includedSource_surjectiveRange
+    p hp A (by omega)
+
 /-! ### Quotient-level stable cap excision -/
 
-/-- Stable two-cell compression makes the cap-inclusion map surjective on relative homotopy
-classes. -/
-theorem sphereSuspensionExcisionHomAt_surjective_of_stableRange
-    (d q : ℕ) (hrange : q + 3 ≤ 2 * d) :
+/-- Two-cell compression makes the cap-inclusion map surjective throughout the full Freudenthal
+epimorphism range, one degree wider than its isomorphism range. -/
+theorem sphereSuspensionExcisionHomAt_surjective_of_freudenthalRange
+    (d q : ℕ) (hrange : q + 2 ≤ 2 * d) :
     Function.Surjective (sphereSuspensionExcisionHomAt d q) := by
   intro a
   obtain ⟨p, hp, A, ha⟩ :=
     relHomotopyGroup_exists_relativeSpherePLRepresentative a
   obtain ⟨r, hAr⟩ :=
-    relativeSpherePLApproximation_homotopic_includedSource_stableRange
+    relativeSpherePLApproximation_homotopic_includedSource_surjectiveRange
       p hp A hrange
   refine ⟨⟦r⟧, ?_⟩
   change (⟦RelGenLoop.map (sphCapInclusionPairMap d) r⟧ :
@@ -627,12 +643,48 @@ theorem sphereSuspensionExcisionHomAt_surjective_of_stableRange
   rw [ha]
   exact (Quotient.sound hAr).symm
 
+/-- Stable-range surjectivity as a direct corollary of the sharper epimorphism-range theorem. -/
+theorem sphereSuspensionExcisionHomAt_surjective_of_stableRange
+    (d q : ℕ) (hrange : q + 3 ≤ 2 * d) :
+    Function.Surjective (sphereSuspensionExcisionHomAt d q) :=
+  sphereSuspensionExcisionHomAt_surjective_of_freudenthalRange d q (by omega)
+
+/-- The induced absolute sphere comparison is surjective throughout the Freudenthal
+epimorphism range. -/
+theorem sphereCapSuspensionHomAt_surjective_of_freudenthalRange
+    (d q : ℕ) (hd : 1 ≤ d) (hrange : q + 2 ≤ 2 * d) :
+    Function.Surjective (sphereCapSuspensionHomAt d q hd) :=
+  sphereCapSuspensionHomAt_surjective_of_capExcision d q hd
+    (sphereSuspensionExcisionHomAt_surjective_of_freudenthalRange d q hrange)
+
+/-- The first edge case is a concrete surjection from `pi_3(S^2)` onto `pi_4(S^3)`. -/
+theorem sphereCapSuspensionHomAt_two_two_surjective :
+    Function.Surjective (sphereCapSuspensionHomAt 2 2 (by omega)) :=
+  sphereCapSuspensionHomAt_surjective_of_freudenthalRange 2 2 (by omega) (by omega)
+
+/-- Consequently `pi_4(S^3)` is cyclic: the edge comparison is a quotient of the already
+computed infinite-cyclic group `pi_3(S^2)`. -/
+theorem isCyclic_pi_four_sphere_three :
+    IsCyclic (π_ 4 (Sph 3) (sphereBasepoint 3)) := by
+  obtain ⟨e⟩ := pi3_sphere_two_mulEquiv_int
+  let f : Multiplicative ℤ →* π_ 4 (Sph 3) (sphereBasepoint 3) :=
+    (sphereCapSuspensionHomAt 2 2 (by omega)).comp e.symm.toMonoidHom
+  exact isCyclic_of_surjective f
+    (sphereCapSuspensionHomAt_two_two_surjective.comp e.symm.surjective)
+
 /-- Cap excision is bijective throughout the complete stable range. -/
 theorem sphereSuspensionExcisionHomAt_bijective_of_stableRange
     (d q : ℕ) (hrange : q + 3 ≤ 2 * d) :
     Function.Bijective (sphereSuspensionExcisionHomAt d q) :=
   ⟨sphereSuspensionExcisionHomAt_injective_of_stableRange d q hrange,
-    sphereSuspensionExcisionHomAt_surjective_of_stableRange d q hrange⟩
+    sphereSuspensionExcisionHomAt_surjective_of_freudenthalRange d q (by omega)⟩
+
+/-- The named absolute cap-suspension comparison is bijective throughout the stable range. -/
+theorem sphereCapSuspensionHomAt_bijective_of_stableRange
+    (d q : ℕ) (hd : 1 ≤ d) (hrange : q + 3 ≤ 2 * d) :
+    Function.Bijective (sphereCapSuspensionHomAt d q hd) :=
+  sphereCapSuspensionHomAt_bijective_of_capExcision d q hd
+    (sphereSuspensionExcisionHomAt_bijective_of_stableRange d q hrange)
 
 /-- The stable-range sphere suspension excision assertion is now proved. -/
 theorem sphereSuspensionExcisionStableRange_proved :

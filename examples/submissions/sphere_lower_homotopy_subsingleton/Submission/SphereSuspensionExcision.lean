@@ -197,6 +197,68 @@ theorem sphereSuspensionExcisionHomAt_diagonal (n : ℕ) :
     sphereSuspensionExcisionHomAt (n + 1) n = sphereSuspensionExcisionHom n :=
   rfl
 
+/-- The absolute sphere homomorphism obtained from cap excision by the two contractible-pair
+long exact sequences.  It is an abstract suspension comparison; identifying it with either
+concrete geometric suspension construction is a separate problem. -/
+noncomputable def sphereCapSuspensionHomAt (m q : ℕ) (hm : 1 ≤ m) :
+    π_ (q + 1) (Sph m) (sphereBasepoint m) →*
+      π_ (q + 2) (Sph (m + 1)) (sphereBasepoint (m + 1)) := by
+  let e := sphCapOverlapHomotopyEquiv m
+  letI : PathConnectedSpace (Sph m) := pathConnectedSpace_sph hm
+  let p : Path (sphereBasepoint m) (e (sphCapOverlapBase m)) :=
+    PathConnectedSpace.somePath _ _
+  let change := Classical.choice
+    (homotopyGroup_change_basepoint q (Sph m)
+      (sphereBasepoint m) (e (sphCapOverlapBase m)) p)
+  exact (piHom_of_relativeHom (sphCapOverlapBase m) (sphUpperCapBase m) e q
+    (sphereSuspensionExcisionHomAt m q)).comp change.toMonoidHom
+
+/-- A surjective cap-excision map induces a surjective absolute sphere comparison. -/
+theorem sphereCapSuspensionHomAt_surjective_of_capExcision
+    (m q : ℕ) (hm : 1 ≤ m)
+    (hsurj : Function.Surjective (sphereSuspensionExcisionHomAt m q)) :
+    Function.Surjective (sphereCapSuspensionHomAt m q hm) := by
+  let e := sphCapOverlapHomotopyEquiv m
+  letI : PathConnectedSpace (Sph m) := pathConnectedSpace_sph hm
+  let p : Path (sphereBasepoint m) (e (sphCapOverlapBase m)) :=
+    PathConnectedSpace.somePath _ _
+  let change := Classical.choice
+    (homotopyGroup_change_basepoint q (Sph m)
+      (sphereBasepoint m) (e (sphCapOverlapBase m)) p)
+  change Function.Surjective
+    ((piHom_of_relativeHom (sphCapOverlapBase m) (sphUpperCapBase m) e q
+      (sphereSuspensionExcisionHomAt m q)).comp change.toMonoidHom)
+  exact (piHom_of_relativeHom_surjective
+    (sphCapOverlapBase m) (sphUpperCapBase m) e q
+      (sphereSuspensionExcisionHomAt m q) hsurj).comp change.surjective
+
+/-- An injective cap-excision map induces an injective absolute sphere comparison. -/
+theorem sphereCapSuspensionHomAt_injective_of_capExcision
+    (m q : ℕ) (hm : 1 ≤ m)
+    (hinj : Function.Injective (sphereSuspensionExcisionHomAt m q)) :
+    Function.Injective (sphereCapSuspensionHomAt m q hm) := by
+  let e := sphCapOverlapHomotopyEquiv m
+  letI : PathConnectedSpace (Sph m) := pathConnectedSpace_sph hm
+  let p : Path (sphereBasepoint m) (e (sphCapOverlapBase m)) :=
+    PathConnectedSpace.somePath _ _
+  let change := Classical.choice
+    (homotopyGroup_change_basepoint q (Sph m)
+      (sphereBasepoint m) (e (sphCapOverlapBase m)) p)
+  change Function.Injective
+    ((piHom_of_relativeHom (sphCapOverlapBase m) (sphUpperCapBase m) e q
+      (sphereSuspensionExcisionHomAt m q)).comp change.toMonoidHom)
+  exact (piHom_of_relativeHom_injective
+    (sphCapOverlapBase m) (sphUpperCapBase m) e q
+      (sphereSuspensionExcisionHomAt m q) hinj).comp change.injective
+
+/-- A bijective cap-excision map induces a bijective named absolute sphere comparison. -/
+theorem sphereCapSuspensionHomAt_bijective_of_capExcision
+    (m q : ℕ) (hm : 1 ≤ m)
+    (hbij : Function.Bijective (sphereSuspensionExcisionHomAt m q)) :
+    Function.Bijective (sphereCapSuspensionHomAt m q hm) :=
+  ⟨sphereCapSuspensionHomAt_injective_of_capExcision m q hm hbij.1,
+    sphereCapSuspensionHomAt_surjective_of_capExcision m q hm hbij.2⟩
+
 /-- Bijectivity of cap excision in any relative degree gives the corresponding absolute
 equivalence between the equatorial sphere and its suspension. -/
 theorem nonempty_sphereSuspensionMulEquiv_of_capExcisionAt
@@ -205,17 +267,8 @@ theorem nonempty_sphereSuspensionMulEquiv_of_capExcisionAt
     Nonempty
       (HomotopyGroup.Pi (q + 1) (Sph m) (sphereBasepoint m) ≃*
         HomotopyGroup.Pi (q + 2) (Sph (m + 1)) (sphereBasepoint (m + 1))) := by
-  let e := sphCapOverlapHomotopyEquiv m
-  let raw := piMulEquiv_of_bijective_relativeMap
-    (sphCapOverlapBase m) (sphUpperCapBase m) e q
-    (sphCapInclusionPairMap m) hbij
-  letI : PathConnectedSpace (Sph m) := pathConnectedSpace_sph hm
-  let p : Path (sphereBasepoint m) (e (sphCapOverlapBase m)) :=
-    PathConnectedSpace.somePath _ _
-  let change := Classical.choice
-    (homotopyGroup_change_basepoint q (Sph m)
-      (sphereBasepoint m) (e (sphCapOverlapBase m)) p)
-  exact ⟨change.trans raw⟩
+  exact ⟨MulEquiv.ofBijective (sphereCapSuspensionHomAt m q hm)
+    (sphereCapSuspensionHomAt_bijective_of_capExcision m q hm hbij)⟩
 
 /-- The sphere/upper-cap target pair has the same connectivity as the lower-cap/overlap source
 pair.  This records the elementary range of cap excision independently of Hurewicz. -/
