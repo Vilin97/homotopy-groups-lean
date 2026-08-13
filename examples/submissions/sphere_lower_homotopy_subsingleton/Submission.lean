@@ -88,6 +88,7 @@ import Submission.Approximation.SphereCellPairGeneralPosition
 import Submission.Approximation.SphereCellCompression
 import Submission.Approximation.RelativeSphereHomotopyCompression
 import Submission.Approximation.EndpointCapSqueeze
+import Submission.Approximation.EndpointCapSqueezeSource
 import Submission.SphereSuspensionPointed
 
 open HomotopyGroups

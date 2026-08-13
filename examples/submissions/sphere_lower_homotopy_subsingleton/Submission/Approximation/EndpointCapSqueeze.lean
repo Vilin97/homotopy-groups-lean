@@ -35,6 +35,62 @@ namespace Submission
 
 variable {d q : ℕ}
 
+/-! ### The upper-cap squeeze also preserves the lower cap -/
+
+theorem upperCapSqueezeCoord_le_two_thirds {t : I}
+    (ht : (t : ℝ) ≤ 2 / 3) :
+    (upperCapSqueezeCoord t : ℝ) ≤ 2 / 3 := by
+  change max (t : ℝ) (min ((3 / 2 : ℝ) * t) (1 / 2)) ≤ 2 / 3
+  exact max_le ht (le_trans (min_le_right _ _) (by norm_num))
+
+/-- Height reparametrization towards the upper half-sphere does not leave the enlarged lower
+cap. -/
+theorem upperCapSqueezeSphere_mem_lowerCap
+    {z : Sph (d + 1)} (hz : z ∈ sphLowerCap d) :
+    upperCapSqueezeSphere d z ∈ sphLowerCap d := by
+  let w := (suspSphHomeo d).symm z
+  have hw : (Susp.height w : ℝ) ≤ 2 / 3 := by
+    rw [mem_sphLowerCap, sphHeight_eq] at hz
+    dsimp only [w]
+    linarith
+  rw [mem_sphLowerCap]
+  change sphHeight (suspSphHomeo d
+    (Susp.reparam ⟨upperCapSqueezeCoord, continuous_upperCapSqueezeCoord⟩
+      upperCapSqueezeCoord_zero upperCapSqueezeCoord_one w)) ≤ 1 / 3
+  rw [suspSphHomeo_apply, sphHeight_suspSphLift, Susp.height_reparam]
+  have hsqueeze := upperCapSqueezeCoord_le_two_thirds hw
+  calc
+    2 * (upperCapSqueezeCoord (Susp.height w) : ℝ) - 1 ≤
+        2 * (2 / 3 : ℝ) - 1 := by linarith
+    _ = 1 / 3 := by norm_num
+
+/-- The whole upper-cap squeeze homotopy, not only its endpoint, preserves the enlarged lower
+cap. -/
+theorem upperCapSqueezeSphereHomotopy_mem_lowerCap
+    {z : Sph (d + 1)} (hz : z ∈ sphLowerCap d) (s : I) :
+    upperCapSqueezeSphereHomotopy d (s, z) ∈ sphLowerCap d := by
+  let w := (suspSphHomeo d).symm z
+  have hw : (Susp.height w : ℝ) ≤ 2 / 3 := by
+    rw [mem_sphLowerCap, sphHeight_eq] at hz
+    dsimp only [w]
+    linarith
+  rw [mem_sphLowerCap]
+  change sphHeight (suspSphHomeo d
+    (Susp.reparamHomotopy
+      ⟨upperCapSqueezeCoord, continuous_upperCapSqueezeCoord⟩
+      upperCapSqueezeCoord_zero upperCapSqueezeCoord_one (s, w))) ≤ 1 / 3
+  rw [suspSphHomeo_apply, sphHeight_suspSphLift,
+    Susp.height_reparamHomotopy]
+  have hle : Susp.height w ≤ upperCapSqueezeCoord (Susp.height w) :=
+    le_upperCapSqueezeCoord (Susp.height w)
+  have hinterp := Set.Icc.convexComb_le hle s
+  rw [← Subtype.coe_le_coe] at hinterp
+  have hsqueeze := upperCapSqueezeCoord_le_two_thirds hw
+  change 2 *
+    (Set.Icc.convexComb (Susp.height w)
+      (upperCapSqueezeCoord (Susp.height w)) s : ℝ) - 1 ≤ 1 / 3
+  linarith
+
 /-- Full strength at both time endpoints and smaller strength in the interior. -/
 def endpointCapSqueezeWeight (t : I) : I :=
   ⟨|2 * (t : ℝ) - 1|, abs_nonneg _, by
@@ -284,5 +340,69 @@ theorem exists_endpointCapSqueezed_relativeSpherePLHomotopy_cellCompression
     exists_relativeSpherePLHomotopy_cellCompression
       H' hheight' hjar' hend' A hrange
   exact ⟨H', hheight', hjar', hend', A, x, y, hx, hy, g', K, hK⟩
+
+/-! ### Homotopies between included lower-cap representatives -/
+
+/-- After the standard upper-cap squeeze, both endpoints of a target homotopy between included
+lower-cap representatives still lie in the lower cap. -/
+theorem upperCapSqueezeIncludedSourceHomotopy_endpoints_mem_lowerCap
+    {p r : RelGenLoop (q + 2) (sphLowerCap d)
+      (sphCapOverlapInLower d) (sphCapOverlapBase d)}
+    (H₀ : ContinuousMap.HomotopyWith
+      (RelGenLoop.map (sphCapInclusionPairMap d) p).val
+      (RelGenLoop.map (sphCapInclusionPairMap d) r).val
+      (fun f => f ∈ RelGenLoop (q + 2) (Sph (d + 1))
+        (sphUpperCap d) (sphUpperCapBase d))) :
+    (∀ y, upperCapSqueezeRelativeSphereHomotopyMap H₀ (0, y) ∈ sphLowerCap d) ∧
+      ∀ y, upperCapSqueezeRelativeSphereHomotopyMap H₀ (1, y) ∈ sphLowerCap d := by
+  constructor
+  · intro y
+    rw [upperCapSqueezeRelativeSphereHomotopyMap_apply]
+    have hzero := H₀.toHomotopy.apply_zero y
+    change H₀ (0, y) = (p.val y).1 at hzero
+    rw [hzero]
+    exact upperCapSqueezeSphere_mem_lowerCap (p.val y).2
+  · intro y
+    rw [upperCapSqueezeRelativeSphereHomotopyMap_apply]
+    have hone := H₀.toHomotopy.apply_one y
+    change H₀ (1, y) = (r.val y).1 at hone
+    rw [hone]
+    exact upperCapSqueezeSphere_mem_lowerCap (r.val y).2
+
+/-- The stable two-cell compression construction applies to every target homotopy between
+included lower-cap representatives.  No auxiliary height-margin hypotheses remain. -/
+theorem exists_includedSourceHomotopy_cellCompression
+    {p r : RelGenLoop (q + 2) (sphLowerCap d)
+      (sphCapOverlapInLower d) (sphCapOverlapBase d)}
+    (H₀ : ContinuousMap.HomotopyWith
+      (RelGenLoop.map (sphCapInclusionPairMap d) p).val
+      (RelGenLoop.map (sphCapInclusionPairMap d) r).val
+      (fun f => f ∈ RelGenLoop (q + 2) (Sph (d + 1))
+        (sphUpperCap d) (sphUpperCapBase d)))
+    (hrange : q + 3 ≤ 2 * d) :
+    ∃ (H' : C(I × I^ Fin (q + 2), Sph (d + 1)))
+      (hheight' : RelativeSphereHomotopy.BoundaryHeightNonneg H')
+      (hjar' : RelativeSphereHomotopy.JarBased H')
+      (_hend' : RelativeSphereHomotopy.EndpointHeightNonpos H')
+      (A : RelativeSpherePLHomotopyApproximation H' hheight' hjar')
+      (x y : Sph (d + 1)),
+      x ∉ sphUpperCap d ∧ y ∉ sphLowerCap d ∧
+      ∃ g' : C(I^ Fin (q + 3), Sph (d + 1)),
+        ∃ K : ContinuousMap.HomotopyRel
+            (radialSphereCubeMap
+              (cubeGridAffineApprox (q + 3) A.mesh
+                (relativeSphereHomotopyToEuclidean H')) A.approx_ne_zero)
+            g' (⊔I^(q + 3)),
+          (∀ t z, z ∈ relativeSphereHomotopyLid q →
+            K.toHomotopy (t, z) ≠ x) ∧
+          ∀ z, g' z ≠ y := by
+  let H := upperCapSqueezeRelativeSphereHomotopyMap H₀
+  let hheight : RelativeSphereHomotopy.BoundaryHeightNonneg H :=
+    upperCapSqueezeRelativeSphereHomotopy_boundaryHeightNonneg H₀
+  let hjar : RelativeSphereHomotopy.JarBased H :=
+    upperCapSqueezeRelativeSphereHomotopy_jarBased H₀
+  have hend := upperCapSqueezeIncludedSourceHomotopy_endpoints_mem_lowerCap H₀
+  exact exists_endpointCapSqueezed_relativeSpherePLHomotopy_cellCompression
+    H hheight hjar hend.1 hend.2 hrange
 
 end Submission
