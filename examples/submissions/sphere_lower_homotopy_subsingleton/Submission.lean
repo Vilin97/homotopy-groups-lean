@@ -81,6 +81,8 @@ import Submission.Approximation.CapExcisionClamp
 import Submission.Approximation.NorthPoleGeneralPosition
 import Submission.Approximation.TwoPointCompression
 import Submission.Approximation.ProjectedFiberPrism
+import Submission.Approximation.Lipschitz
+import Submission.Approximation.AlignedPairGeneralPosition
 import Submission.SphereSuspensionPointed
 
 open HomotopyGroups
