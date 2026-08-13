@@ -507,8 +507,21 @@ The same dimension calculation gives surjectivity in the sharper edge range
 `q+2 <= 2d`. Transport through the two contractible-pair long exact sequences
 produces a named absolute sphere homomorphism, so in particular Lean now has a
 surjection `pi_3(S^2) -> pi_4(S^3)`. Combining it with the exact Hopf-fibration
-calculation proves that `pi_4(S^3)` is cyclic. Its order and nontriviality are
-not yet established, so no new exact-value cell is colored by this theorem.
+calculation proves that `pi_4(S^3)` is cyclic. The cap construction is now also
+proved natural under suspension of based sphere self-maps. Reflection in the
+last coordinate of `S^2` fixes the Hopf generator by its explicit conjugation
+symmetry, while the suspended reflection on `S^3` is based-homotopic to
+quaternionic inversion. Naturality therefore fixes the cap-edge generator and
+simultaneously identifies its reflected image with its inverse. Lean concludes
+that the edge generator squares to one, every element of `pi_4(S^3)` has
+exponent two, and the cardinal modulus is either one or two. This closes the
+first-stem upper bound without comparing cap suspension to the geometric or
+reduced suspension maps. Nontriviality is not yet established, so no new
+exact-value cell is colored by this theorem. The maintained suspended-Hopf
+mapping-cone development reduces that remaining lower bound to one explicit
+canonical cup-one evaluation; once this value is nonzero, Lean now derives
+`pi_4(S^3) = Z/2` and propagates it through every `pi_(n+1)(S^n)`, `n >= 3`,
+with no further upper-bound hypothesis.
 The exceptional first off-diagonal computation `pi_3(S^2) = Z` remains complete
 through the exact Hopf fibration, its circle fibre, and the maintained long
 exact sequence.
@@ -542,9 +555,10 @@ connectivity and homological excision inputs, both relative Hurewicz
 comparisons, and the resulting all-index cap-map bijectivity are all proved and
 close the cap-excision diagonal proof as well. The separate PL compression
 argument now extends this cap route through the full stable off-diagonal range.
-The next exact-value frontier is therefore the computation of canonical stable
-representatives, together with a comparison if the concrete reduced-suspension
-homomorphism itself is to be certified. No duplicate purple cells are added.
+The next exact-value frontier is therefore the canonical cup-one evaluation
+detecting the suspended Hopf class. A separate comparison is needed only if the
+concrete reduced-suspension homomorphism itself is to be identified with cap
+suspension. No duplicate purple cells are added.
 
 The maintained ten-result set is recorded explicitly in
 `maintained_independent_result_set`.  Besides the metric-circle computation it
