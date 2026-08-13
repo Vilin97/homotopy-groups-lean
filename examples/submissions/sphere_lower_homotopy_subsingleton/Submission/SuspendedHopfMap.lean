@@ -779,6 +779,17 @@ theorem suspendedHopfMap_not_nullhomotopic_of_canonical_evaluation
   suspendedHopfMap_not_nullhomotopic_of_canonical_cycle
     suspendedHopfCanonicalFiveCycle suspendedHopfCanonicalFiveCycle_isCycle heval
 
+/-- The canonical cup-one evaluation can equivalently be consumed as a no-retraction
+certificate for the suspended-Hopf mapping cone. -/
+theorem not_exists_suspendedHopfMappingConeIncl_retraction_of_canonical_evaluation
+    (heval : sqTwoHsingDegreeThreeRepresentativeEvaluation
+      suspendedHopfCanonicalCocycle suspendedHopfCanonicalFiveCycle ≠ 0) :
+    ¬ ∃ r : suspendedHopfMappingCone ⟶ TopCat.of (Sph 3),
+      suspendedHopfMappingConeIncl ≫ r = 𝟙 (TopCat.of (Sph 3)) := by
+  apply suspendedHopfMapClass_ne_one_iff_not_exists_mappingConeIncl_retraction.mp
+  exact suspendedHopfMapClass_ne_one_of_not_nullhomotopic
+    (suspendedHopfMap_not_nullhomotopic_of_canonical_evaluation heval)
+
 /-- A nonzero value of the remaining canonical cup-one calculation proves that the geometric
 first-stem generator is a nonidentity element of `π₄(S³)`. -/
 theorem piFourSphereThreeGeometricHopfGenerator_ne_one_of_canonical_evaluation
@@ -822,6 +833,36 @@ theorem suspendedHopfMapClass_eq_edge_of_edge_square_and_canonical_evaluation
   exact
     piFourSphereThreeGeometricHopfGenerator_eq_edge_of_edge_square_and_canonical_evaluation
       hsquare heval
+
+/-- The exact first stem follows from an order-two upper bound together with any proof that the
+suspended-Hopf mapping-cone inclusion does not retract. -/
+theorem piFourSphereThree_mulEquiv_zmod_two_of_edge_square_and_no_mappingCone_retraction
+    (hsquare : piFourSphereThreeEdgeGenerator ^ 2 = 1)
+    (hnoret : ¬ ∃ r : suspendedHopfMappingCone ⟶ TopCat.of (Sph 3),
+      suspendedHopfMappingConeIncl ≫ r = 𝟙 (TopCat.of (Sph 3))) :
+    Nonempty
+      (π_ 4 (Sph 3) (sphereBasepoint 3) ≃* Multiplicative (ZMod 2)) := by
+  apply piFourSphereThree_mulEquiv_zmod_two_iff_edge_square_and_nontrivial.mpr
+  refine ⟨hsquare, piFourSphereThreeEdgeGenerator_ne_one_of_element_ne_one
+    suspendedHopfMapClass ?_⟩
+  exact
+    suspendedHopfMapClass_ne_one_iff_not_exists_mappingConeIncl_retraction.mpr hnoret
+
+/-- The same upper bound and mapping-cone no-retraction certificate compute every group in the
+first stable stem. -/
+theorem sphere_first_stable_homotopy_mulEquiv_zmod_two_of_edge_square_and_no_mappingCone_retraction
+    (n : ℕ) (hn : 3 ≤ n)
+    (hsquare : piFourSphereThreeEdgeGenerator ^ 2 = 1)
+    (hnoret : ¬ ∃ r : suspendedHopfMappingCone ⟶ TopCat.of (Sph 3),
+      suspendedHopfMappingConeIncl ≫ r = 𝟙 (TopCat.of (Sph 3))) :
+    Nonempty
+      (π_ (n + 1) (Sph n) (sphereBasepoint n) ≃*
+        Multiplicative (ZMod 2)) := by
+  apply sphere_first_stable_homotopy_mulEquiv_zmod_two_of_orderOf_edgeGenerator n hn
+  exact orderOf_eq_prime_iff.mpr
+    ⟨hsquare, piFourSphereThreeEdgeGenerator_ne_one_of_element_ne_one
+      suspendedHopfMapClass
+      (suspendedHopfMapClass_ne_one_iff_not_exists_mappingConeIncl_retraction.mpr hnoret)⟩
 
 /-- The exact first-stem computation now follows from its independent upper and lower halves:
 doubling kills the edge generator, while the fixed cup-one evaluation detects a nonidentity
