@@ -121,4 +121,105 @@ theorem topologicalSuspensionMap_nullhomotopic_of_collapse_homotopy_section
   refine ⟨z, ?_⟩
   exact ⟨Hpost'.symm.trans hz.some⟩
 
+/-! ### Coexactness of the first mapping-cone pair -/
+
+/-- A nullhomotopy of `f ≫ g` extends `g` across the mapping cone of `f`. -/
+def topologicalMappingConeExtensionOfNullhomotopy
+    {A X Y : TopCat.{u}} (f : A ⟶ X) (g : X ⟶ Y)
+    (y : 𝟙_ TopCat.{u} ⟶ Y)
+    (H : TopCat.Homotopy (f ≫ g) (toUnit A ≫ y)) :
+    topologicalMappingCone f ⟶ Y :=
+  pushout.desc g
+    (topologicalConeExtensionOfNullhomotopy (f ≫ g) y H) (by
+      rw [topologicalConeBaseIncl_extensionOfNullhomotopy])
+
+@[reassoc (attr := simp)]
+theorem topologicalMappingConeIncl_extensionOfNullhomotopy
+    {A X Y : TopCat.{u}} (f : A ⟶ X) (g : X ⟶ Y)
+    (y : 𝟙_ TopCat.{u} ⟶ Y)
+    (H : TopCat.Homotopy (f ≫ g) (toUnit A ≫ y)) :
+    topologicalMappingConeIncl f ≫
+        topologicalMappingConeExtensionOfNullhomotopy f g y H = g :=
+  pushout.inl_desc _ _ _
+
+@[reassoc (attr := simp)]
+theorem topologicalMappingConeConeIncl_extensionOfNullhomotopy
+    {A X Y : TopCat.{u}} (f : A ⟶ X) (g : X ⟶ Y)
+    (y : 𝟙_ TopCat.{u} ⟶ Y)
+    (H : TopCat.Homotopy (f ≫ g) (toUnit A ≫ y)) :
+    topologicalMappingConeConeIncl f ≫
+        topologicalMappingConeExtensionOfNullhomotopy f g y H =
+      topologicalConeExtensionOfNullhomotopy (f ≫ g) y H :=
+  pushout.inr_desc _ _ _
+
+/-- The image of the cone point under a proposed extension across a mapping cone. -/
+def topologicalMappingConeExtensionPoint
+    {A X Y : TopCat.{u}} (f : A ⟶ X)
+    (h : topologicalMappingCone f ⟶ Y) : 𝟙_ TopCat.{u} ⟶ Y :=
+  topologicalConePointIncl A ≫ topologicalMappingConeConeIncl f ≫ h
+
+/-- Any extension of `g` across the mapping cone supplies a nullhomotopy of `f ≫ g`. -/
+def topologicalMappingConeCompositeNullhomotopyOfExtension
+    {A X Y : TopCat.{u}} (f : A ⟶ X) (g : X ⟶ Y)
+    (h : topologicalMappingCone f ⟶ Y)
+    (hh : topologicalMappingConeIncl f ≫ h = g) :
+    TopCat.Homotopy (f ≫ g)
+      (toUnit A ≫ topologicalMappingConeExtensionPoint f h) := by
+  let k : topologicalCone A ⟶ Y := topologicalMappingConeConeIncl f ≫ h
+  let Hcone : TopCat.Homotopy k
+      ((toUnit (topologicalCone A) ≫ topologicalConePointIncl A) ≫ k) :=
+    (TopCat.Homotopy.refl k).comp (topologicalConeContractHomotopy A)
+  have Hbase := Hcone.comp
+    (TopCat.Homotopy.refl (topologicalConeBaseIncl A))
+  rw [← topologicalMappingCone_condition_assoc, hh] at Hbase
+  have hunit : topologicalConeBaseIncl A ≫ toUnit (topologicalCone A) =
+      toUnit A :=
+    Subsingleton.elim _ _
+  simpa only [k, topologicalMappingConeExtensionPoint, Category.id_comp,
+    Category.comp_id, ← Category.assoc, hunit] using Hbase
+
+/-- A map out of `X` extends across `C_f` exactly when its composite with `f` contracts to
+some point. -/
+theorem exists_topologicalMappingCone_extension_iff
+    {A X Y : TopCat.{u}} (f : A ⟶ X) (g : X ⟶ Y) :
+    (∃ h : topologicalMappingCone f ⟶ Y,
+        topologicalMappingConeIncl f ≫ h = g) ↔
+      ∃ y : 𝟙_ TopCat.{u} ⟶ Y,
+        Nonempty (TopCat.Homotopy (f ≫ g) (toUnit A ≫ y)) := by
+  constructor
+  · rintro ⟨h, hh⟩
+    exact ⟨topologicalMappingConeExtensionPoint f h,
+      ⟨topologicalMappingConeCompositeNullhomotopyOfExtension f g h hh⟩⟩
+  · rintro ⟨y, ⟨H⟩⟩
+    exact ⟨topologicalMappingConeExtensionOfNullhomotopy f g y H,
+      topologicalMappingConeIncl_extensionOfNullhomotopy f g y H⟩
+
+/-- Equivalently, extension across a mapping cone detects ordinary unbased nullhomotopy of the
+composite. -/
+theorem exists_topologicalMappingCone_extension_iff_nullhomotopic
+    {A X Y : TopCat.{u}} (f : A ⟶ X) (g : X ⟶ Y) :
+    (∃ h : topologicalMappingCone f ⟶ Y,
+        topologicalMappingConeIncl f ≫ h = g) ↔
+      (f ≫ g).hom.Nullhomotopic := by
+  rw [exists_topologicalMappingCone_extension_iff]
+  constructor
+  · rintro ⟨y, ⟨H⟩⟩
+    let z : Y := y
+      (SemiCartesianMonoidalCategory.isTerminalTensorUnit.from
+        (TopCat.of PUnit.{u + 1}) PUnit.unit)
+    refine ⟨z, ⟨H.cast rfl ?_⟩⟩
+    ext a
+    change y (toUnit A a) = z
+    let p : TopCat.of PUnit.{u + 1} ⟶ 𝟙_ TopCat.{u} :=
+      TopCat.const (toUnit A a)
+    have hp : p =
+        SemiCartesianMonoidalCategory.isTerminalTensorUnit.from
+          (TopCat.of PUnit.{u + 1}) :=
+      SemiCartesianMonoidalCategory.isTerminalTensorUnit.hom_ext _ _
+    exact congrArg y (ConcreteCategory.congr_hom hp PUnit.unit)
+  · rintro ⟨z, ⟨H⟩⟩
+    refine ⟨TopCat.const z, ⟨H.cast rfl ?_⟩⟩
+    ext a
+    rfl
+
 end Submission
