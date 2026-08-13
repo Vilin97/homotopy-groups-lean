@@ -262,6 +262,17 @@ def lowerCellPunctureRaisePoint
       radialProj (lowerCellPunctureRaiseAmbient x u z) :=
   rfl
 
+@[simp] theorem lowerCellPunctureRaisePoint_zero
+    (x : Sph (d + 1)) (hx : sphHeight x < 0)
+    (z : Sph (d + 1)) (havoid : (0 : I) = 1 → z ≠ x) :
+    lowerCellPunctureRaisePoint x hx 0 z havoid = z := by
+  apply Subtype.ext
+  change radialProj (lowerCellPunctureRaiseAmbient x 0 z) = z.1
+  have hamb : lowerCellPunctureRaiseAmbient x 0 z = z.1 := by
+    rw [lowerCellPunctureRaiseAmbient]
+    norm_num
+  rw [hamb, radialProj_of_norm_eq_one (norm_coe_sph z)]
+
 /-- The raising operation preserves the lower cap at every control value. -/
 theorem lowerCellPunctureRaisePoint_mem_lowerCap
     (x : Sph (d + 1)) (hx : sphHeight x < 0)

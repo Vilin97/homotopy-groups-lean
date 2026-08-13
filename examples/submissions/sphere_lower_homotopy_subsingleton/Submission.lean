@@ -90,6 +90,8 @@ import Submission.Approximation.RelativeSphereHomotopyCompression
 import Submission.Approximation.EndpointCapSqueeze
 import Submission.Approximation.EndpointCapSqueezeSource
 import Submission.Approximation.SphereCellPuncture
+import Submission.Approximation.SphereCellCompressionSource
+import Submission.Approximation.SphereCapExcisionInjective
 import Submission.SphereSuspensionPointed
 
 open HomotopyGroups
