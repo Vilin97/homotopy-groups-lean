@@ -558,6 +558,16 @@ cones are identified as well.  The remaining first-stem lower bound is still
 the nonzero canonical cup-one evaluation (or an equivalent formal Hopf-invariant
 calculation), so the lattice cell is not yet recolored.
 
+The same exact coordinate change now transports the normalized mod-two
+cohomology of the concrete Hopf cone onto the geometric `CP^2`. Lean defines
+nonzero classes in degrees two and four, proves that every degree-four class is
+zero or the selected top class, normalizes a top integral homology generator,
+and identifies the `CP^2` cup-square assertion both with the Hopf-cone
+Hopf-invariant-one assertion and with one explicit Alexander--Whitney
+evaluation on selected projective-plane representatives. This is a checked
+geometric reformulation of the remaining lower-bound target, not yet its
+evaluation, so it does not recolor a lattice cell.
+
 `DiagonalInduction.lean` records the exact equivalence between the two computed
 diagonal groups `pi_1(S^1)` and `pi_2(S^2)`, and proves that a uniform family of
 successive suspension equivalences propagates the integral calculation through
