@@ -125,6 +125,7 @@ import Submission.Topology.MappingConeCover
 import Submission.Topology.SuspensionComparison
 import Submission.HopfMappingCone
 import Submission.SuspendedHopfMap
+import Submission.ComplexProjectivePlaneSuspendedHopf
 import Submission.SphereSuspensionPointed
 
 open HomotopyGroups

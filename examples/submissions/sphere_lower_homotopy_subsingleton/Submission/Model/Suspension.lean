@@ -228,6 +228,25 @@ theorem map_comp (g : C(Y, Z)) (f : C(X, Y)) : map (g.comp f) = (map g).comp (ma
   induction q using Susp.ind with
   | h p => rfl
 
+/-- A homeomorphism induces a homeomorphism of unreduced suspensions. -/
+noncomputable def mapHomeomorph (e : X ≃ₜ Y) : Susp X ≃ₜ Susp Y where
+  toFun := map (e : C(X, Y))
+  invFun := map (e.symm : C(Y, X))
+  left_inv q := by
+    induction q using Susp.ind with
+    | h p =>
+        rcases p with ⟨t, x⟩
+        simp only [map_mk]
+        exact congrArg (fun z ↦ (mk (t, z) : Susp X)) (e.symm_apply_apply x)
+  right_inv q := by
+    induction q using Susp.ind with
+    | h p =>
+        rcases p with ⟨t, y⟩
+        simp only [map_mk]
+        exact congrArg (fun z ↦ (mk (t, z) : Susp Y)) (e.apply_symm_apply y)
+  continuous_toFun := (map (e : C(X, Y))).continuous
+  continuous_invFun := (map (e.symm : C(Y, X))).continuous
+
 end Susp
 
 end Submission
