@@ -425,6 +425,37 @@ theorem sphereTargetMapClass_eq_one_of_freelyNullhomotopic (m : ℕ) [Nonempty (
         (GenLoop.homotopic_of_homotopicAlong_refl (hfree.homotopicAlong hδ))
     _ = 1 := sphereTargetMapClass_const m
 
+/-- For a simply connected target, a positive-dimensional based sphere map represents the
+identity class exactly when it is freely nullhomotopic. -/
+theorem sphereTargetMapClass_eq_one_iff_freelyNullhomotopic (n : ℕ)
+    [SimplyConnectedSpace X]
+    (f : C(SphereSpace (n + 1), X))
+    (hf : f (sphereBasepoint (n + 1)) = x) :
+    sphereTargetMapClass (n + 1) f hf = 1 ↔
+      Nonempty
+        (ContinuousMap.Homotopy f
+          (ContinuousMap.const (SphereSpace (n + 1)) x)) := by
+  constructor
+  · intro hclass
+    obtain ⟨H, _⟩ :=
+      (sphereTargetMapClass_eq_one_iff_basedNullhomotopic n f hf).mp hclass
+    exact ⟨H⟩
+  · rintro ⟨H⟩
+    exact sphereTargetMapClass_eq_one_of_freelyNullhomotopic
+      (n + 1) f hf H
+
+/-- Equivalently, in a simply connected target the represented sphere class is nonidentity
+exactly when the underlying sphere map is not freely nullhomotopic. -/
+theorem sphereTargetMapClass_ne_one_iff_not_freelyNullhomotopic (n : ℕ)
+    [SimplyConnectedSpace X]
+    (f : C(SphereSpace (n + 1), X))
+    (hf : f (sphereBasepoint (n + 1)) = x) :
+    sphereTargetMapClass (n + 1) f hf ≠ 1 ↔
+      ¬ Nonempty
+        (ContinuousMap.Homotopy f
+          (ContinuousMap.const (SphereSpace (n + 1)) x)) :=
+  not_congr (sphereTargetMapClass_eq_one_iff_freelyNullhomotopic n f hf)
+
 /-- A based sphere map represents the image of the canonical sphere generator under its induced
 map on homotopy groups. -/
 theorem sphereTargetMapClass_eq_map_generator (m : ℕ) [Nonempty (Fin m)]

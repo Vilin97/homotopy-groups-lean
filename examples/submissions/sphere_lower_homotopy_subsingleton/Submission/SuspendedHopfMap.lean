@@ -102,6 +102,18 @@ theorem suspendedHopfMapClass_ne_one_of_not_nullhomotopic
   obtain ⟨H, _⟩ := hbased
   exact hnull ⟨H⟩
 
+/-- Because the target `S³` is simply connected, nontriviality of the explicit suspended-Hopf
+class is equivalent to the absence of any free nullhomotopy of its representing map. -/
+theorem suspendedHopfMapClass_ne_one_iff_not_nullhomotopic :
+    suspendedHopfMapClass ≠ 1 ↔
+      ¬ Nonempty
+        (TopCat.Homotopy suspendedHopfTopCat
+          (TopCat.const (sphereBasepoint 3))) := by
+  letI : SimplyConnectedSpace (Sph 3) :=
+    simplyConnectedSpace_sph_of_two_le (by omega)
+  exact sphereTargetMapClass_ne_one_iff_not_freelyNullhomotopic
+    3 suspendedHopfMap suspendedHopfMap_basepoint
+
 /-- The same nullhomotopy obstruction proves that the named geometric first-stem generator is
 nontrivial. -/
 theorem piFourSphereThreeGeometricHopfGenerator_ne_one_of_not_nullhomotopic
