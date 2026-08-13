@@ -28,6 +28,14 @@ noncomputable def piThreeSphereTwoHopfGenerator :
     π_ 3 (Sph 2) (sphereBasepoint 2) :=
   hopfPiThreeHom (sphereGeneratorClass 3)
 
+/-- This chosen generator is exactly the cubical class represented by the concrete quadratic
+Hopf map. -/
+theorem piThreeSphereTwoHopfGenerator_eq_hopfMapClass :
+    piThreeSphereTwoHopfGenerator =
+      sphereTargetMapClass 3 hopfMap hopfMap_basepoint := by
+  rw [sphereTargetMapClass_eq_map_generator]
+  rfl
+
 /-- The Hopf-map image is indeed a generator of `pi_3(S^2)`. -/
 theorem piThreeSphereTwoHopfGenerator_generates :
     ∀ x : π_ 3 (Sph 2) (sphereBasepoint 2),
@@ -140,6 +148,16 @@ theorem orderOf_piFourSphereThreeEdgeGenerator_eq_two_iff :
         (π_ 4 (Sph 3) (sphereBasepoint 3) ≃* Multiplicative (ZMod 2)) := by
   rw [orderOf_piFourSphereThreeEdgeGenerator]
   exact piFourSphereThreeModulus_eq_two_iff
+
+/-- The exact benchmark splits into its two geometric halves: the edge generator is killed by
+doubling, but is not itself null. -/
+theorem piFourSphereThree_mulEquiv_zmod_two_iff_edge_square_and_nontrivial :
+    Nonempty
+        (π_ 4 (Sph 3) (sphereBasepoint 3) ≃* Multiplicative (ZMod 2)) ↔
+      piFourSphereThreeEdgeGenerator ^ 2 = 1 ∧
+        piFourSphereThreeEdgeGenerator ≠ 1 := by
+  rw [← orderOf_piFourSphereThreeEdgeGenerator_eq_two_iff]
+  exact orderOf_eq_prime_iff
 
 /-- Once the edge generator is shown to have order two, the proved stable cap-excision theorem
 propagates the computation through the entire first stable stem. -/
