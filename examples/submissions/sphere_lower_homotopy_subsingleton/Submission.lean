@@ -58,6 +58,7 @@ import Submission.ReducedSuspensionGroup
 import Submission.RealProjectiveSpace
 import Submission.Approximation.PairwiseGeneralPosition
 import Submission.Model.SphereConnected
+import Submission.Model.SuspensionReduction
 import Submission.Approximation.BasedPairwiseGeneralPosition
 import Submission.SphereApproximation
 import Submission.Approximation.SpherePairwiseGeneralPosition
@@ -74,6 +75,8 @@ import Submission.SphereSuspensionExcisionStable
 import Submission.SphereSuspension
 import Submission.SphereSuspensionConst
 import Submission.SphereSuspensionGeneral
+import Submission.SphereSuspensionReduction
+import Submission.SphereSuspensionReducedComparison
 import Submission.Approximation.RelativeSphere
 import Submission.Approximation.BoundaryRelativeGeneralPosition
 import Submission.Approximation.RelativeSphereHomotopy
