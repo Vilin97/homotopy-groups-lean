@@ -571,6 +571,11 @@ turns these classifications into explicit normalized equivalences
 `H^0(CP^2; F_2) ~= F_2`, `H^2(CP^2; F_2) ~= F_2`, and
 `H^4(CP^2; F_2) ~= F_2`, sending the selected unit, bottom generator, and top
 generator to one; the same coordinates are exposed on the concrete Hopf cone.
+The normalized degree-four coordinate now packages the remaining cup square as
+a canonical `F_2`-valued coefficient. Lean proves that this coefficient is the
+concrete mod-two Hopf invariant, that it is one exactly when the square is the
+top class, and that it equals the selected Alexander--Whitney cocycle
+evaluation after exact transport to geometric `CP^2`.
 The degree-one
 argument comes from a reusable Mayer--Vietoris theorem for covers whose pieces
 have vanishing first cohomology and whose overlap is path connected; the
