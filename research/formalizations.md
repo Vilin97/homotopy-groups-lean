@@ -513,26 +513,31 @@ The exceptional first off-diagonal computation `pi_3(S^2) = Z` remains complete
 through the exact Hopf fibration, its circle fibre, and the maintained long
 exact sequence.
 
-`DiagonalInduction.lean` now records the exact equivalence between the two
-computed diagonal groups `pi_1(S^1)` and `pi_2(S^2)`, and proves that a uniform
-family of successive suspension equivalences propagates the integral
-calculation through the whole diagonal. A strengthened form starts directly
-from the computed `pi_2(S^2)` case, so its suspension hypotheses begin in the
-actual Freudenthal isomorphism range. This is a checked reduction of the next
-lattice frontier. The earlier unreduced geometric suspension function is
-available, but only its identity-preserving property is currently proved at
-the group level. Independently, the reduced-suspension construction is
-multiplicative in the exact metric-sphere model, and the canonical-generator
-fibre calculation plus the existing Hurewicz coordinates now prove that its
-actual diagonal homomorphism is bijective. It therefore supplies unconditional
-successive diagonal equivalences, including the circle-to-two-sphere step. The
-reduced map is also available in arbitrary numerical degree, with checked
-finite iteration and fixed-stem transport from the canonical stable
-representative; off-diagonal bijectivity of that concrete map remains
-hypothetical. The
-unreduced and reduced constructions have not been compared, and neither has
-yet been identified with the now-bijective cap-excision transport. A second
-checked route uses the canonical relative map induced by the two-cap cover. Its
+`DiagonalInduction.lean` records the exact equivalence between the two computed
+diagonal groups `pi_1(S^1)` and `pi_2(S^2)`, and proves that a uniform family of
+successive suspension equivalences propagates the integral calculation through
+the whole diagonal. A strengthened form starts directly from the computed
+`pi_2(S^2)` case, so its suspension hypotheses begin in the actual Freudenthal
+isomorphism range. The geometric unreduced construction now acts on arbitrary
+positive-dimensional sphere classes, is homotopy invariant, preserves the
+identity class, and recovers the proved diagonal suspension formula. The
+reduced-suspension construction is multiplicative in the exact metric-sphere
+model, and the canonical-generator fibre calculation plus the existing
+Hurewicz coordinates prove that its actual diagonal homomorphism is bijective.
+It therefore supplies unconditional successive diagonal equivalences,
+including the circle-to-two-sphere step. The reduced map is also available in
+arbitrary numerical degree, with checked finite iteration and fixed-stem
+transport from the canonical stable representative; off-diagonal bijectivity
+of that concrete map remains hypothetical.
+
+The unreduced-to-reduced quotient has now been constructed explicitly. Its
+naturality square with every based sphere map commutes on the nose, and the
+induced reduced-suspension class has an exact representative formula in terms
+of the geometric construction. Identifying the two numerical suspension maps
+is reduced to equality of two explicit diagonal source-coordinate classes;
+that equality, and comparison with the now-bijective cap-excision transport,
+remain open. A second checked route uses the canonical relative map induced by
+the two-cap cover. Its
 connectivity and homological excision inputs, both relative Hurewicz
 comparisons, and the resulting all-index cap-map bijectivity are all proved and
 close the cap-excision diagonal proof as well. The separate PL compression

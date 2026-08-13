@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "reviewed_on": "2026-08-08",
+  "reviewed_on": "2026-08-13",
   "purpose": "Published or source-audited results in the literature review and post-handoff addendum that cannot yet be stated faithfully using the pinned Mathlib foundations.",
   "targets": [
     {
@@ -59,16 +59,11 @@
       "data_warning": "The handoff supplies a coverage claim only and incorrectly says the source PDF is included"
     },
     {
-      "id": "freudenthal-stable-transport",
-      "result": "Suspension equivalences transporting a proved stable representative across its full stable diagonal",
-      "status": "blocked_on_foundations",
-      "missing": ["stable-range bijectivity for the now-formalized arbitrary-degree concrete reduced-suspension maps, or stable-range homotopy excision or relative Hurewicz beyond the first nonvanishing degree together with comparison of the resulting maps; finite fixed-stem iteration and transport from the canonical stable representative are formalized, concrete reduced suspension is bijective on every diagonal group, and the first-nonvanishing source and target cap comparisons and every diagonal cap-excision equivalence, including index zero, are already formalized"]
-    },
-    {
       "id": "hopf-kervaire-and-image-j",
       "result": "Hopf invariant one, Kervaire invariant one, image J, and Pontryagin-Thom results",
       "status": "blocked_on_foundations",
-      "missing": ["the bridge from the now-formalized two-chart local product trivializations of the exact Hopf map to the maintained Serre homotopy-lifting definition; its norm identity, basedness, exact circle fibre, and long-exact-sequence reduction of pi_3(S^2)=Z are formalized", "spectra", "Hopf and Kervaire invariants", "stable J homomorphism", "framed cobordism and Pontryagin-Thom"]
+      "missing": ["spectra", "Hopf and Kervaire invariants", "stable J homomorphism", "framed cobordism and Pontryagin-Thom"],
+      "available_foundation": "The exact complex Hopf map is a proved Serre fibration with circle fibre, and its long exact sequence computes pi_3(S^2)=Z; a concrete nontrivial Hopf class and its geometric suspension are connected to the first stable stem, while the remaining lower-bound obstruction is one explicit cup-one evaluation"
     },
     {
       "id": "chromatic-periodic-families",
