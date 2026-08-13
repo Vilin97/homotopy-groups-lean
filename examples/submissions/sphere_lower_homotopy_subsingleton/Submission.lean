@@ -64,6 +64,7 @@ import Submission.SphereReducedSuspensionStable
 import Submission.SphereSuspensionExcision
 import Submission.SphereSuspensionHomologyExcision
 import Submission.SphereSuspensionHurewicz
+import Submission.SphereSuspensionExcisionStable
 import Submission.SphereSuspension
 import Submission.SphereSuspensionPointed
 

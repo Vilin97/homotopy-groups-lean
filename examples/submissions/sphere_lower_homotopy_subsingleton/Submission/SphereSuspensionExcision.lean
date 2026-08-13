@@ -172,14 +172,89 @@ theorem isNConnectedPair_sphUpperCap_overlap (m : ℕ) (hm : 1 ≤ m) :
   isNConnectedPair_of_contractible (sphCapOverlapInUpper m) m fun k hk c =>
     subsingleton_pi_sphCapOverlapInUpper m k hm hk c
 
+/-- The canonical relative homotopy homomorphism appearing in suspension excision, in an
+arbitrary relative degree.  The cap index `m` is the dimension of the equatorial sphere, while
+`q + 2` is the relative homotopy degree. -/
+noncomputable def sphereSuspensionExcisionHomAt (m q : ℕ) :
+    π_rel (q + 2) (sphLowerCap m) (sphCapOverlapInLower m)
+        (sphCapOverlapBase m) →*
+      π_rel (q + 2) (Sph (m + 1)) (sphUpperCap m)
+        (sphUpperCapBase m) :=
+  RelHomotopyGroup.mapHom q (sphCapInclusionPairMap m)
+
 /-- The canonical relative homotopy homomorphism appearing in suspension excision for the
-`(n+1)`-sphere. -/
+`(n+1)`-sphere, specialized to the first nonzero relative degree. -/
 noncomputable def sphereSuspensionExcisionHom (n : ℕ) :
     π_rel (n + 2) (sphLowerCap (n + 1)) (sphCapOverlapInLower (n + 1))
         (sphCapOverlapBase (n + 1)) →*
       π_rel (n + 2) (Sph (n + 2)) (sphUpperCap (n + 1))
         (sphUpperCapBase (n + 1)) :=
   RelHomotopyGroup.mapHom n (sphCapInclusionPairMap (n + 1))
+
+/-- The original diagonal cap-excision map is exactly the corresponding specialization of the
+arbitrary-degree construction. -/
+theorem sphereSuspensionExcisionHomAt_diagonal (n : ℕ) :
+    sphereSuspensionExcisionHomAt (n + 1) n = sphereSuspensionExcisionHom n :=
+  rfl
+
+/-- Bijectivity of cap excision in any relative degree gives the corresponding absolute
+equivalence between the equatorial sphere and its suspension. -/
+theorem nonempty_sphereSuspensionMulEquiv_of_capExcisionAt
+    (m q : ℕ) (hm : 1 ≤ m)
+    (hbij : Function.Bijective (sphereSuspensionExcisionHomAt m q)) :
+    Nonempty
+      (HomotopyGroup.Pi (q + 1) (Sph m) (sphereBasepoint m) ≃*
+        HomotopyGroup.Pi (q + 2) (Sph (m + 1)) (sphereBasepoint (m + 1))) := by
+  let e := sphCapOverlapHomotopyEquiv m
+  let raw := piMulEquiv_of_bijective_relativeMap
+    (sphCapOverlapBase m) (sphUpperCapBase m) e q
+    (sphCapInclusionPairMap m) hbij
+  letI : PathConnectedSpace (Sph m) := pathConnectedSpace_sph hm
+  let p : Path (sphereBasepoint m) (e (sphCapOverlapBase m)) :=
+    PathConnectedSpace.somePath _ _
+  let change := Classical.choice
+    (homotopyGroup_change_basepoint q (Sph m)
+      (sphereBasepoint m) (e (sphCapOverlapBase m)) p)
+  exact ⟨change.trans raw⟩
+
+/-- The sphere/upper-cap target pair has the same connectivity as the lower-cap/overlap source
+pair.  This records the elementary range of cap excision independently of Hurewicz. -/
+theorem isNConnectedPair_sphSphere_upperCap (m : ℕ) :
+    IsNConnectedPair m (Sph (m + 1)) (sphUpperCap m) := by
+  letI : PathConnectedSpace (Sph (m + 1)) := pathConnectedSpace_sph (by omega)
+  constructor
+  · intro a z
+    exact ⟨default,
+      ((RelHomotopyGroup.iStar_isPointedMap 0 (Sph (m + 1)) (sphUpperCap m) a).map_default).trans
+        ((subsingleton_homotopyGroup_zero (a : Sph (m + 1))).elim _ z)⟩
+  · intro k hk a
+    apply nonempty_unique_relHomotopyGroup k a
+    · exact subsingleton_homotopyGroup_sphere_of_lt (k + 1) (m + 1) (by omega) _
+    · cases k with
+      | zero =>
+          letI : PathConnectedSpace (sphUpperCap m) := inferInstance
+          exact subsingleton_homotopyGroup_zero a
+      | succ k =>
+          exact subsingleton_homotopyGroup_of_contractible (N := Fin (k + 1)) a
+
+/-- In relative degrees at most the cap connectivity, both sides of cap excision are trivial, so
+the arbitrary-degree cap map is automatically bijective. -/
+theorem sphereSuspensionExcisionHomAt_bijective_below
+    (m q : ℕ) (hm : 1 ≤ m) (hq : q + 2 ≤ m) :
+    Function.Bijective (sphereSuspensionExcisionHomAt m q) := by
+  obtain ⟨sourceUnique⟩ :=
+    (isNConnectedPair_sphLowerCap_overlap m hm).unique_piRel (q + 1) (by omega)
+      (sphCapOverlapBase m)
+  obtain ⟨targetUnique⟩ :=
+    (isNConnectedPair_sphSphere_upperCap m).unique_piRel (q + 1) (by omega)
+      (sphUpperCapBase m)
+  letI := sourceUnique
+  letI := targetUnique
+  constructor
+  · intro x y _
+    exact Subsingleton.elim x y
+  · intro y
+    exact ⟨1, Subsingleton.elim _ y⟩
 
 /-- Bijectivity of the canonical cap-excision map yields the equivalence between successive
 metric-sphere diagonal groups. -/
