@@ -861,7 +861,7 @@
       "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Topology/Puppe.lean",
       "lattice_overlay": null,
       "degree_lattice_overlay": null,
-      "note": "All fourteen listed declarations are sorry-free Lean 4. Strict autoImplicit=false checks and the exact 1,713-job target build pass for Topology.Puppe; the strict aggregate and exact 8,934-job Submission build also pass. This supplies the first null-composite, section-obstruction, and full mapping-out coexactness portions of the topological Puppe sequence. The sphere-class lifting direction needed to infer suspended-Hopf nontriviality from the existing projective-plane no-section theorem remains open, so no lattice cell is recolored."
+      "note": "All fourteen listed declarations are sorry-free Lean 4. Strict autoImplicit=false checks and the exact 1,713-job target build pass for Topology.Puppe; the strict aggregate and exact 8,934-job Submission build also pass. This supplies the first null-composite, section-obstruction, and full mapping-out coexactness portions of the topological Puppe sequence. Coexactness has the opposite variance from the existing projective-plane no-section theorem: the proved implication is section implies suspended nullhomotopy, and no converse is asserted. Consequently this does not replace the remaining Hopf-invariant or cup-evaluation lower bound, and no lattice cell is recolored."
     },
     {
       "id": "lean4-suspension-model-hopf-comparison",
