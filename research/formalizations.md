@@ -208,8 +208,11 @@ now exposed in every positive numerical degree as
 composes to an exact multiplicative equivalence, and an identified group can
 be transported along a fixed stem. A dedicated wrapper starts at the canonical
 stable representative `pi_(2k+2)(S^(k+2))`; off-diagonal use still requires
-the stable-range bijectivity hypotheses, so this structural advance does not
-color cells by itself.
+bijectivity of these particular reduced-suspension homomorphisms. Independently,
+stable cap excision now supplies abstract multiplicative equivalences between
+the same successive sphere groups; the two constructions have not yet been
+identified. Neither transport theorem computes a new stable representative,
+so this structural advance does not color cells by itself.
 
 Relative homotopy groups are now functorial for based maps of pairs, as actual
 monoid homomorphisms in degree at least two. The induced maps commute with all
@@ -491,15 +494,20 @@ unconditional second proof of the exact integral diagonal. This foundation
 milestone adds no new purple cells because the same diagonal was already
 colored by the maintained absolute Hurewicz computation.
 
-Stable off-diagonal sphere stems still require a genuine stable-range
-Freudenthal comparison and higher relative Hurewicz or homotopy excision beyond
-the first nonvanishing degree. The exceptional first off-diagonal computation
-`pi_3(S^2) = Z` is now complete through the exact Hopf fibration, its circle
-fibre, and the maintained long exact sequence. The exact arbitrary-degree
-reduced-suspension maps, their finite iteration, fixed-stem transport, and the
-canonical stable-representative specialization are also checked; the
-unresolved suspension input is bijectivity in the stable range. Incomplete
-attempts do not color cells.
+Stable off-diagonal cap excision is now complete. Finite radial PL
+approximation and jar-relative two-cell general position choose one puncture in
+each open cap cell. A collar-controlled lower-puncture deformation keeps the
+boundary lid in the target cap through compression, and controlled
+upper-puncture lowering turns the endpoint into a source relative loop. Lean
+therefore proves both injectivity and surjectivity of the canonical cap map
+whenever `q+3 <= 2d`, and packages the result as the full stable-range sphere
+suspension-excision theorem. This supplies multiplicative equivalences between
+successive sphere homotopy groups throughout the Freudenthal isomorphism range.
+It does not yet compute the initial stable representative on any positive stem,
+so no new exact-value cell is colored by this transport theorem alone. The
+exceptional first off-diagonal computation `pi_3(S^2) = Z` remains complete
+through the exact Hopf fibration, its circle fibre, and the maintained long
+exact sequence.
 
 `DiagonalInduction.lean` now records the exact equivalence between the two
 computed diagonal groups `pi_1(S^1)` and `pi_2(S^2)`, and proves that a uniform
@@ -516,15 +524,18 @@ actual diagonal homomorphism is bijective. It therefore supplies unconditional
 successive diagonal equivalences, including the circle-to-two-sphere step. The
 reduced map is also available in arbitrary numerical degree, with checked
 finite iteration and fixed-stem transport from the canonical stable
-representative; only stable-range bijectivity remains hypothetical there. The
-unreduced and reduced constructions have not been compared. A second checked
-route uses the canonical relative map induced by the two-cap cover. Its
+representative; off-diagonal bijectivity of that concrete map remains
+hypothetical. The
+unreduced and reduced constructions have not been compared, and neither has
+yet been identified with the now-bijective cap-excision transport. A second
+checked route uses the canonical relative map induced by the two-cap cover. Its
 connectivity and homological excision inputs, both relative Hurewicz
 comparisons, and the resulting all-index cap-map bijectivity are all proved and
-close the cap-excision diagonal proof as well. Extending either route to stable
-off-diagonal ranges still needs stable-range bijectivity, stronger homotopy
-excision or relative Hurewicz input, and the appropriate comparison of maps.
-No duplicate purple cells are added.
+close the cap-excision diagonal proof as well. The separate PL compression
+argument now extends this cap route through the full stable off-diagonal range.
+The next exact-value frontier is therefore the computation of canonical stable
+representatives, together with a comparison if the concrete reduced-suspension
+homomorphism itself is to be certified. No duplicate purple cells are added.
 
 The maintained ten-result set is recorded explicitly in
 `maintained_independent_result_set`.  Besides the metric-circle computation it
