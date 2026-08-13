@@ -682,6 +682,35 @@ theorem piFourSphereThree_exponent_two
   · simp
   · exact piFourSphereThreeEdgeGenerator_sq
 
+/-- Any nonidentity class forces the first-stem modulus to be exactly two. -/
+theorem piFourSphereThreeModulus_eq_two_of_element_ne_one
+    (x : π_ 4 (Sph 3) (sphereBasepoint 3)) (hx : x ≠ 1) :
+    piFourSphereThreeModulus = 2 := by
+  rw [← orderOf_piFourSphereThreeEdgeGenerator]
+  exact orderOf_eq_prime_iff.mpr
+    ⟨piFourSphereThreeEdgeGenerator_sq,
+      piFourSphereThreeEdgeGenerator_ne_one_of_element_ne_one x hx⟩
+
+/-- Any explicitly detected nonidentity class computes `π₄(S³)` as `Z/2`. -/
+theorem piFourSphereThree_mulEquiv_zmod_two_of_element_ne_one
+    (x : π_ 4 (Sph 3) (sphereBasepoint 3)) (hx : x ≠ 1) :
+    Nonempty
+      (π_ 4 (Sph 3) (sphereBasepoint 3) ≃* Multiplicative (ZMod 2)) :=
+  piFourSphereThree_mulEquiv_zmod_two_of_modulus_eq
+    (piFourSphereThreeModulus_eq_two_of_element_ne_one x hx)
+
+/-- Any nonidentity class in the first stable representative propagates the `Z/2` computation
+through the entire first stable stem. -/
+theorem sphere_first_stable_homotopy_mulEquiv_zmod_two_of_element_ne_one
+    (n : ℕ) (hn : 3 ≤ n)
+    (x : π_ 4 (Sph 3) (sphereBasepoint 3)) (hx : x ≠ 1) :
+    Nonempty
+      (π_ (n + 1) (Sph n) (sphereBasepoint n) ≃*
+        Multiplicative (ZMod 2)) := by
+  apply sphere_first_stable_homotopy_mulEquiv_zmod_two_of_orderOf_edgeGenerator n hn
+  rw [orderOf_piFourSphereThreeEdgeGenerator,
+    piFourSphereThreeModulus_eq_two_of_element_ne_one x hx]
+
 /-- The geometrically suspended Hopf generator in `π₄(S³)` has square equal to the identity. -/
 theorem piFourSphereThreeGeometricHopfGenerator_sq :
     piFourSphereThreeGeometricHopfGenerator ^ 2 = 1 := by

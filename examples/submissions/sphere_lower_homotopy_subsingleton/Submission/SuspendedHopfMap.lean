@@ -1026,6 +1026,16 @@ theorem piFourSphereThree_mulEquiv_zmod_two_of_edge_square_and_no_mappingCone_re
   exact
     suspendedHopfMapClass_ne_one_iff_not_exists_mappingConeIncl_retraction.mpr hnoret
 
+/-- A no-retraction certificate for the suspended-Hopf cone now computes the first stable
+representative without any separate upper-bound hypothesis. -/
+theorem piFourSphereThree_mulEquiv_zmod_two_of_no_mappingCone_retraction
+    (hnoret : ¬ ∃ r : suspendedHopfMappingCone ⟶ TopCat.of (Sph 3),
+      suspendedHopfMappingConeIncl ≫ r = 𝟙 (TopCat.of (Sph 3))) :
+    Nonempty
+      (π_ 4 (Sph 3) (sphereBasepoint 3) ≃* Multiplicative (ZMod 2)) :=
+  piFourSphereThree_mulEquiv_zmod_two_of_edge_square_and_no_mappingCone_retraction
+    piFourSphereThreeEdgeGenerator_sq hnoret
+
 /-- The same upper bound and mapping-cone no-retraction certificate compute every group in the
 first stable stem. -/
 theorem sphere_first_stable_homotopy_mulEquiv_zmod_two_of_edge_square_and_no_mappingCone_retraction
@@ -1041,6 +1051,18 @@ theorem sphere_first_stable_homotopy_mulEquiv_zmod_two_of_edge_square_and_no_map
     ⟨hsquare, piFourSphereThreeEdgeGenerator_ne_one_of_element_ne_one
       suspendedHopfMapClass
       (suspendedHopfMapClass_ne_one_iff_not_exists_mappingConeIncl_retraction.mpr hnoret)⟩
+
+/-- The same no-retraction certificate propagates the exact computation through the first
+stable stem. -/
+theorem sphere_first_stable_homotopy_mulEquiv_zmod_two_of_no_mappingCone_retraction
+    (n : ℕ) (hn : 3 ≤ n)
+    (hnoret : ¬ ∃ r : suspendedHopfMappingCone ⟶ TopCat.of (Sph 3),
+      suspendedHopfMappingConeIncl ≫ r = 𝟙 (TopCat.of (Sph 3))) :
+    Nonempty
+      (π_ (n + 1) (Sph n) (sphereBasepoint n) ≃*
+        Multiplicative (ZMod 2)) :=
+  sphere_first_stable_homotopy_mulEquiv_zmod_two_of_edge_square_and_no_mappingCone_retraction
+    n hn piFourSphereThreeEdgeGenerator_sq hnoret
 
 /-- The homotopy-category no-retraction formulation also supplies the lower half of the exact
 first-stem computation. -/
@@ -1058,6 +1080,18 @@ theorem piFourSphereThree_mulEquiv_zmod_two_of_edge_square_and_no_mappingCone_ho
   exact
     suspendedHopfMapClass_ne_one_iff_not_exists_mappingConeIncl_homotopy_retraction.mpr
       hnoret
+
+/-- A homotopy-category no-retraction certificate alone computes the first stable
+representative. -/
+theorem piFourSphereThree_mulEquiv_zmod_two_of_no_mappingCone_homotopy_retraction
+    (hnoret : ¬ ∃ r : suspendedHopfMappingCone ⟶ TopCat.of (Sph 3),
+      Nonempty
+        (TopCat.Homotopy (suspendedHopfMappingConeIncl ≫ r)
+          (𝟙 (TopCat.of (Sph 3))))) :
+    Nonempty
+      (π_ 4 (Sph 3) (sphereBasepoint 3) ≃* Multiplicative (ZMod 2)) :=
+  piFourSphereThree_mulEquiv_zmod_two_of_edge_square_and_no_mappingCone_homotopy_retraction
+    piFourSphereThreeEdgeGenerator_sq hnoret
 
 /-- The exact first-stem computation now follows from its independent upper and lower halves:
 doubling kills the edge generator, while the fixed cup-one evaluation detects a nonidentity
