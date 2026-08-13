@@ -78,6 +78,7 @@ import Submission.Approximation.RelativeSphereHomotopyGeneralPosition
 import Submission.Approximation.VaryingJarGeneralPosition
 import Submission.Approximation.SpatialJarGeneralPosition
 import Submission.Approximation.CapExcisionClamp
+import Submission.Approximation.NorthPoleGeneralPosition
 import Submission.SphereSuspensionPointed
 
 open HomotopyGroups
