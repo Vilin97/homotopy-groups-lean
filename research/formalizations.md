@@ -568,8 +568,11 @@ point-set comparison is now constructed too: the mapping cone of
 explicit map back is a strict section on both suspension pushout summands.  Thus
 this comparison is split epic on the nose.  At the canonical point-summand
 basepoints, it is consequently surjective on every homotopy group and its
-explicit section is injective in every dimension.  The deformation of the
-opposite composite needed for a full homotopy equivalence remains separate.  Specializing
+explicit section is injective in every dimension.  The first quotient-safe
+stage of the opposite deformation is now explicit: on the outer cone over
+`C_f`, it continuously raises the outer coordinate by the inner mapping-cone
+height while respecting both apex identifications.  Completing that deformation
+to a full homotopy equivalence remains separate.  Specializing
 homotopy coexactness to the identity characterizes a retraction of the cofiber
 collapse by nullhomotopy of the bottom inclusion.  For the exact Hopf mapping
 cone, its normalized nonzero degree-two mod-two class detects that inclusion,
