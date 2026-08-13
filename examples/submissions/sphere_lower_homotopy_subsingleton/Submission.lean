@@ -84,6 +84,8 @@ import Submission.Approximation.ProjectedFiberPrism
 import Submission.Approximation.Lipschitz
 import Submission.Approximation.AlignedPairGeneralPosition
 import Submission.Approximation.ScaledAlignedPairGeneralPosition
+import Submission.Approximation.SphereCellPairGeneralPosition
+import Submission.Approximation.SphereCellCompression
 import Submission.SphereSuspensionPointed
 
 open HomotopyGroups
