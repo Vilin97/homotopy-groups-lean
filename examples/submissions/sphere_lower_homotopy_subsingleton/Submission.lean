@@ -122,6 +122,7 @@ import Submission.Cohomology.MappingCone
 import Submission.Cohomology.MappingConePair
 import Submission.Cohomology.CellAttachmentSqTwo
 import Submission.Topology.MappingConeCover
+import Submission.Topology.SuspensionComparison
 import Submission.HopfMappingCone
 import Submission.SuspendedHopfMap
 import Submission.SphereSuspensionPointed

@@ -207,6 +207,16 @@ def map (f : C(X, Y)) : C(Susp X, Susp Y) :=
 theorem map_mk (f : C(X, Y)) (p : I × X) : map f (mk p) = mk (p.1, f p.2) := rfl
 
 @[simp]
+theorem map_south [Nonempty X] [Nonempty Y] (f : C(X, Y)) :
+    map f (south X) = south Y := by
+  rw [south, map_mk, mk_zero]
+
+@[simp]
+theorem map_north [Nonempty X] [Nonempty Y] (f : C(X, Y)) :
+    map f (north X) = north Y := by
+  rw [north, map_mk, mk_one]
+
+@[simp]
 theorem map_id : map (ContinuousMap.id X) = ContinuousMap.id (Susp X) := by
   ext q
   induction q using Susp.ind with
