@@ -260,48 +260,8 @@ theorem sphCapOverlapHomotopyEquiv_hopfTargetReflection
         ((sphCapSourcePairMap 2 hopfTargetReflection
           hopfTargetReflection_basepoint).subspaceMap z) =
       hopfTargetReflection (sphCapOverlapHomotopyEquiv 2 z) := by
-  change
-    (sphBeltHomeo 2
-      (sphCapOverlapHomeoBelt 2
-        ((sphCapSourcePairMap 2 hopfTargetReflection
-          hopfTargetReflection_basepoint).subspaceMap z))).1 =
-      hopfTargetReflection
-        (sphBeltHomeo 2 (sphCapOverlapHomeoBelt 2 z)).1
-  let p := sphBeltHomeo 2 (sphCapOverlapHomeoBelt 2 z)
-  have hpair :
-      sphBeltHomeo 2
-          (sphCapOverlapHomeoBelt 2
-            ((sphCapSourcePairMap 2 hopfTargetReflection
-              hopfTargetReflection_basepoint).subspaceMap z)) =
-        (hopfTargetReflection p.1, p.2) := by
-    apply (sphBeltHomeo 2).symm.injective
-    rw [Homeomorph.symm_apply_apply]
-    change sphCapOverlapHomeoBelt 2
-        ((sphCapSourcePairMap 2 hopfTargetReflection
-          hopfTargetReflection_basepoint).subspaceMap z) =
-      beltOfProd (hopfTargetReflection p.1, p.2)
-    apply Subtype.ext
-    apply Subtype.ext
-    apply PiLp.ext
-    intro i
-    have hz : sphCapOverlapHomeoBelt 2 z = beltOfProd p := by
-      change sphCapOverlapHomeoBelt 2 z = (sphBeltHomeo 2).symm p
-      exact ((sphBeltHomeo 2).symm_apply_apply
-        (sphCapOverlapHomeoBelt 2 z)).symm
-    have hzval := congrArg
-      (fun w : sphBelt 2 ↦ (((w : Sph 3) : EuclideanSpace ℝ (Fin 4)) i)) hz
-    change
-      (((sphereSuspensionMap 2 2 hopfTargetReflection z.1.1 : Sph 3) :
-        EuclideanSpace ℝ (Fin 4)) i) =
-      (((beltOfProd (hopfTargetReflection p.1, p.2) : sphBelt 2) : Sph 3) :
-        EuclideanSpace ℝ (Fin 4)) i
-    rw [sphereSuspensionMap_hopfTargetReflection]
-    fin_cases i <;>
-      simp [sphCapOverlapHomeoBelt, sphereThreeHopfReflection,
-        sphereThreeHopfReflectionVec, beltOfProd, beltVec,
-        hopfTargetReflection, hopfTargetReflectionVec, snocLp, Fin.snoc] at hzval ⊢ <;>
-      exact hzval
-  exact congrArg Prod.fst hpair
+  exact sphCapOverlapHomotopyEquiv_natural 2 hopfTargetReflection
+    hopfTargetReflection_basepoint z
 
 /-- The raw cap suspension comparison commutes with Hopf-target reflection. -/
 theorem sphereCapSuspensionRawHomAt_hopfTargetReflection
@@ -312,15 +272,9 @@ theorem sphereCapSuspensionRawHomAt_hopfTargetReflection
         (sphereCapSuspensionRawHomAt 2 2 a) =
       sphereCapSuspensionRawHomAt 2 2
         (HomotopyGroup.map hopfTargetReflection (by simp) a) := by
-  have hsource : (sphCapOverlapHomotopyEquiv 2).toFun.comp
-        (sphCapSourcePairMap 2 hopfTargetReflection
-          hopfTargetReflection_basepoint).subspaceMap =
-      hopfTargetReflection.comp (sphCapOverlapHomotopyEquiv 2).toFun := by
-    apply ContinuousMap.ext
-    exact sphCapOverlapHomotopyEquiv_hopfTargetReflection
   simpa only [sphereSuspensionMap_hopfTargetReflection] using
     sphereCapSuspensionRawHomAt_natural 2 2 hopfTargetReflection
-      hopfTargetReflection_basepoint hsource a
+      hopfTargetReflection_basepoint a
 
 /-- Reflection commutes with transport along the explicitly constant overlap basepoint path. -/
 theorem hopfTargetReflection_map_transport_sphCapOverlapBasePath
@@ -345,17 +299,9 @@ theorem sphereCapSuspensionHomAt_hopfTargetReflection
       sphereCapSuspensionHomAt 2 2 (by omega)
         (HomotopyGroup.map hopfTargetReflection
           hopfTargetReflection_basepoint a) := by
-  change HomotopyGroup.map sphereThreeHopfReflection
-      sphereThreeHopfReflection_basepoint
-      (sphereCapSuspensionRawHomAt 2 2
-        (HomotopyGroup.transportMulEquiv (sphCapOverlapBasePath 2) a)) =
-    sphereCapSuspensionRawHomAt 2 2
-      (HomotopyGroup.transportMulEquiv (sphCapOverlapBasePath 2)
-        (HomotopyGroup.map hopfTargetReflection
-          hopfTargetReflection_basepoint a))
-  rw [sphereCapSuspensionRawHomAt_hopfTargetReflection]
-  exact congrArg (sphereCapSuspensionRawHomAt 2 2)
-    (hopfTargetReflection_map_transport_sphCapOverlapBasePath a)
+  simpa only [sphereSuspensionMap_hopfTargetReflection] using
+    sphereCapSuspensionHomAt_natural 2 2 (by omega)
+      hopfTargetReflection hopfTargetReflection_basepoint a
 
 /-- Quaternionic inversion as a continuous based self-map of the exact three-sphere. -/
 noncomputable def sphereThreeInversion : C(Sph 3, Sph 3) where

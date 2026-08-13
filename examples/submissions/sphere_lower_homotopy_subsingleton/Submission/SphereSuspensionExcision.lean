@@ -175,6 +175,39 @@ theorem sphHeight_sphereSuspensionMap (m n : ℕ)
   induction q using Susp.ind with
   | h p => rfl
 
+/-- Suspension acts on the sphere coordinate of the belt product parametrization. -/
+theorem sphereSuspensionMap_beltOfProd (m n : ℕ)
+    (f : C(Sph m, Sph n))
+    (p : Sph m × Set.Icc (-(1 / 3) : ℝ) (1 / 3)) :
+    sphereSuspensionMap m n f (beltOfProd p).1 =
+      (beltOfProd (f p.1, p.2)).1 := by
+  let t : unitInterval :=
+    ⟨((p.2 : ℝ) + 1) / 2, by
+      have hp : -(1 / 3 : ℝ) ≤ (p.2 : ℝ) ∧ (p.2 : ℝ) ≤ 1 / 3 := p.2.2
+      constructor <;> nlinarith [hp.1, hp.2]⟩
+  have ht : 2 * (t : ℝ) - 1 = (p.2 : ℝ) := by
+    dsimp [t]
+    ring
+  have harg : 0 ≤ 1 - (p.2 : ℝ) ^ 2 := by
+    have hp : -(1 / 3 : ℝ) ≤ (p.2 : ℝ) ∧ (p.2 : ℝ) ≤ 1 / 3 := p.2.2
+    nlinarith [hp.1, hp.2]
+  have hmer : merCoeff (t : ℝ) = Real.sqrt (1 - (p.2 : ℝ) ^ 2) := by
+    apply eq_of_sq_eq_sq_of_nonneg (merCoeff_nonneg _) (Real.sqrt_nonneg _)
+    rw [merCoeff_sq t.2.1 t.2.2, Real.sq_sqrt harg]
+    dsimp [t]
+    ring
+  have hsource :
+      suspSphHomeo m (Susp.mk (t, p.1)) = (beltOfProd p).1 := by
+    apply Subtype.ext
+    rw [suspSphHomeo_apply, suspSphLift_mk]
+    change suspSphFun (t, p.1) = beltVec p
+    rw [suspSphFun, beltVec, hmer, ht]
+  rw [← hsource, sphereSuspensionMap_apply_susp, Susp.map_mk]
+  apply Subtype.ext
+  rw [suspSphHomeo_apply, suspSphLift_mk]
+  change suspSphFun (t, f p.1) = beltVec (f p.1, p.2)
+  rw [suspSphFun, beltVec, hmer, ht]
+
 /-- A sphere self-map suspends to a self-map of the enlarged lower cap. -/
 noncomputable def sphLowerCapSuspensionMap (m : ℕ)
     (f : C(Sph m, Sph m)) : C(sphLowerCap m, sphLowerCap m) where
@@ -220,6 +253,42 @@ theorem sphCapPairMap_square (m : ℕ)
     (sphCapTargetPairMap m f hf).comp (sphCapInclusionPairMap m) =
       (sphCapInclusionPairMap m).comp (sphCapSourcePairMap m f hf) := by
   rfl
+
+/-- The chosen cap-overlap equivalence is natural under suspended sphere self-maps. -/
+theorem sphCapOverlapHomotopyEquiv_natural (m : ℕ)
+    (f : C(Sph m, Sph m))
+    (hf : f (sphereBasepoint m) = sphereBasepoint m)
+    (z : sphCapOverlapInLower m) :
+    sphCapOverlapHomotopyEquiv m
+        ((sphCapSourcePairMap m f hf).subspaceMap z) =
+      f (sphCapOverlapHomotopyEquiv m z) := by
+  change
+    (sphBeltHomeo m
+      (sphCapOverlapHomeoBelt m
+        ((sphCapSourcePairMap m f hf).subspaceMap z))).1 =
+      f (sphBeltHomeo m (sphCapOverlapHomeoBelt m z)).1
+  let p := sphBeltHomeo m (sphCapOverlapHomeoBelt m z)
+  have hpair :
+      sphBeltHomeo m
+          (sphCapOverlapHomeoBelt m
+            ((sphCapSourcePairMap m f hf).subspaceMap z)) =
+        (f p.1, p.2) := by
+    apply (sphBeltHomeo m).symm.injective
+    rw [Homeomorph.symm_apply_apply]
+    change sphCapOverlapHomeoBelt m
+        ((sphCapSourcePairMap m f hf).subspaceMap z) =
+      beltOfProd (f p.1, p.2)
+    apply Subtype.ext
+    change sphereSuspensionMap m m f z.1.1 =
+      (beltOfProd (f p.1, p.2)).1
+    have hz : sphCapOverlapHomeoBelt m z = beltOfProd p := by
+      change sphCapOverlapHomeoBelt m z = (sphBeltHomeo m).symm p
+      exact ((sphBeltHomeo m).symm_apply_apply
+        (sphCapOverlapHomeoBelt m z)).symm
+    have hzval : z.1.1 = (beltOfProd p).1 := congrArg Subtype.val hz
+    rw [hzval]
+    exact sphereSuspensionMap_beltOfProd m m f p
+  exact congrArg Prod.fst hpair
 
 /-- The overlap in the upper cap is homotopy-equivalent to the equatorial metric sphere. -/
 noncomputable def sphCapOverlapInUpperHomotopyEquiv (m : ℕ) :
@@ -319,14 +388,10 @@ noncomputable def sphereCapSuspensionRawHomAt (m q : ℕ) :
   piHom_of_relativeHom (sphCapOverlapBase m) (sphUpperCapBase m)
     (sphCapOverlapHomotopyEquiv m) q (sphereSuspensionExcisionHomAt m q)
 
-/-- Naturality of the raw absolute cap comparison, assuming the chosen overlap equivalence
-intertwines the induced overlap map with the original sphere self-map. -/
+/-- Naturality of the raw absolute cap comparison under suspension of a based sphere self-map. -/
 theorem sphereCapSuspensionRawHomAt_natural (m q : ℕ)
     (f : C(Sph m, Sph m))
     (hf : f (sphereBasepoint m) = sphereBasepoint m)
-    (hsource : (sphCapOverlapHomotopyEquiv m).toFun.comp
-        (sphCapSourcePairMap m f hf).subspaceMap =
-      f.comp (sphCapOverlapHomotopyEquiv m).toFun)
     (a : π_ (q + 1) (Sph m)
       (sphCapOverlapHomotopyEquiv m (sphCapOverlapBase m))) :
     HomotopyGroup.map (sphereSuspensionMap m m f)
@@ -334,6 +399,11 @@ theorem sphereCapSuspensionRawHomAt_natural (m q : ℕ)
         (sphereCapSuspensionRawHomAt m q a) =
       sphereCapSuspensionRawHomAt m q
         (HomotopyGroup.map f (by simpa using hf) a) := by
+  have hsource : (sphCapOverlapHomotopyEquiv m).toFun.comp
+        (sphCapSourcePairMap m f hf).subspaceMap =
+      f.comp (sphCapOverlapHomotopyEquiv m).toFun := by
+    apply ContinuousMap.ext
+    exact sphCapOverlapHomotopyEquiv_natural m f hf
   exact piHom_of_relativeHom_natural
     (sphCapOverlapBase m) (sphCapOverlapBase m)
     (sphUpperCapBase m) (sphUpperCapBase m)
@@ -367,6 +437,35 @@ noncomputable def sphereCapSuspensionHomAt (m q : ℕ) (_hm : 1 ≤ m) :
   let change := HomotopyGroup.transportMulEquiv (N := Fin (q + 1))
     (sphCapOverlapBasePath m)
   exact (sphereCapSuspensionRawHomAt m q).comp change.toMonoidHom
+
+/-- The based cap suspension comparison is natural under every based sphere self-map. -/
+theorem sphereCapSuspensionHomAt_natural (m q : ℕ) (hm : 1 ≤ m)
+    (f : C(Sph m, Sph m))
+    (hf : f (sphereBasepoint m) = sphereBasepoint m)
+    (a : π_ (q + 1) (Sph m) (sphereBasepoint m)) :
+    HomotopyGroup.map (sphereSuspensionMap m m f)
+        (sphereSuspensionMap_basepoint m m f hf)
+        (sphereCapSuspensionHomAt m q hm a) =
+      sphereCapSuspensionHomAt m q hm
+        (HomotopyGroup.map f hf a) := by
+  change HomotopyGroup.map (sphereSuspensionMap m m f)
+      (sphereSuspensionMap_basepoint m m f hf)
+      (sphereCapSuspensionRawHomAt m q
+        (HomotopyGroup.transportMulEquiv (sphCapOverlapBasePath m) a)) =
+    sphereCapSuspensionRawHomAt m q
+      (HomotopyGroup.transportMulEquiv (sphCapOverlapBasePath m)
+        (HomotopyGroup.map f hf a))
+  calc
+    _ = sphereCapSuspensionRawHomAt m q
+        (HomotopyGroup.map f (by simpa using hf)
+          (HomotopyGroup.transportMulEquiv (sphCapOverlapBasePath m) a)) :=
+      sphereCapSuspensionRawHomAt_natural m q f hf _
+    _ = _ := congrArg (sphereCapSuspensionRawHomAt m q)
+      (HomotopyGroup.map_transport_of_path_fixed
+        f hf (by simpa [sphCapOverlapHomotopyEquiv_basepoint] using hf)
+        (sphCapOverlapBasePath m) (fun t ↦ by
+          rw [sphCapOverlapBasePath_apply]
+          exact hf) a)
 
 /-- A surjective cap-excision map induces a surjective absolute sphere comparison. -/
 theorem sphereCapSuspensionHomAt_surjective_of_capExcision
