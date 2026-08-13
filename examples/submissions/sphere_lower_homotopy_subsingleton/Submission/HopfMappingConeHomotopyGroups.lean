@@ -43,6 +43,12 @@ theorem complexProjectivePlaneIsoHopfMappingCone_basepoint :
   rw [complexProjectiveLineHomeomorphSphere_basepoint]
   rfl
 
+/-- The Hopf mapping cone has one path component. -/
+theorem piZero_hopfMappingCone_subsingleton :
+    Subsingleton (π_ 0 hopfMappingCone hopfMappingConeBasepoint) := by
+  letI : PathConnectedSpace hopfMappingCone := pathConnectedSpace_hopfMappingCone
+  exact subsingleton_piZero hopfMappingConeBasepoint
+
 /-- The concrete Hopf mapping cone is simply connected. -/
 theorem piOne_hopfMappingCone_subsingleton :
     Subsingleton (π_ 1 hopfMappingCone hopfMappingConeBasepoint) := by
