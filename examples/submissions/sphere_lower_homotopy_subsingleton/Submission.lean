@@ -93,6 +93,7 @@ import Submission.Approximation.SphereCellPuncture
 import Submission.Approximation.SphereCellCompressionSource
 import Submission.Approximation.SphereCapExcisionInjective
 import Submission.Approximation.SphereCapExcisionSurjective
+import Submission.FirstStableStemPresentation
 import Submission.SphereSuspensionPointed
 
 open HomotopyGroups

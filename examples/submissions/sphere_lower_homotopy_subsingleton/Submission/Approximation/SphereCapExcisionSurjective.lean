@@ -672,6 +672,43 @@ theorem isCyclic_pi_four_sphere_three :
   exact isCyclic_of_surjective f
     (sphereCapSuspensionHomAt_two_two_surjective.comp e.symm.surjective)
 
+/-- The single natural-number modulus left by the cyclic quotient description of
+`pi_4(S^3)`.  Value zero denotes the infinite-cyclic possibility, as usual for `ZMod 0`. -/
+noncomputable def piFourSphereThreeModulus : ℕ :=
+  Nat.card (π_ 4 (Sph 3) (sphereBasepoint 3))
+
+/-- Without any further topology, the first stable representative is already classified as the
+cyclic group with its canonical cardinal modulus. -/
+noncomputable def piFourSphereThreeMulEquivZMod :
+    π_ 4 (Sph 3) (sphereBasepoint 3) ≃*
+      Multiplicative (ZMod piFourSphereThreeModulus) :=
+  (zmodCyclicMulEquiv isCyclic_pi_four_sphere_three).symm
+
+/-- Computing the remaining modulus as two is exactly enough to close the first stable-stem
+benchmark. -/
+theorem piFourSphereThree_mulEquiv_zmod_two_of_modulus_eq
+    (hmod : piFourSphereThreeModulus = 2) :
+    Nonempty
+      (π_ 4 (Sph 3) (sphereBasepoint 3) ≃* Multiplicative (ZMod 2)) := by
+  exact ⟨piFourSphereThreeMulEquivZMod.trans
+    (ZMod.ringEquivCongr hmod).toAddEquiv.toMultiplicative⟩
+
+/-- Thus the first stable-stem benchmark is equivalent to the one remaining numerical
+calculation: the cardinal modulus of `pi_4(S^3)` is two. -/
+theorem piFourSphereThreeModulus_eq_two_iff :
+    piFourSphereThreeModulus = 2 ↔
+      Nonempty
+        (π_ 4 (Sph 3) (sphereBasepoint 3) ≃* Multiplicative (ZMod 2)) := by
+  constructor
+  · exact piFourSphereThree_mulEquiv_zmod_two_of_modulus_eq
+  · rintro ⟨e⟩
+    rw [piFourSphereThreeModulus]
+    calc
+      Nat.card (π_ 4 (Sph 3) (sphereBasepoint 3)) =
+          Nat.card (Multiplicative (ZMod 2)) := Nat.card_congr e.toEquiv
+      _ = Nat.card (ZMod 2) := Nat.card_congr Multiplicative.toAdd
+      _ = 2 := Nat.card_zmod 2
+
 /-- Cap excision is bijective throughout the complete stable range. -/
 theorem sphereSuspensionExcisionHomAt_bijective_of_stableRange
     (d q : ℕ) (hrange : q + 3 ≤ 2 * d) :
