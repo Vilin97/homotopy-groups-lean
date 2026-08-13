@@ -447,4 +447,58 @@ noncomputable def complexProjectivePlaneMappingConeHomeomorphCell :
       cellAttachment diskBoundaryFourComplexHopfMap :=
   TopCat.homeoOfIso complexProjectivePlaneMappingConeIsoCell
 
+/-- The mapping cone of the exact Hopf attaching map is complex projective two-space. -/
+noncomputable def complexProjectivePlaneMappingConeHomeomorph :
+    topologicalMappingCone diskBoundaryFourComplexHopfMap ≃ₜ
+      ComplexProjectiveModel 2 :=
+  complexProjectivePlaneMappingConeHomeomorphCell.trans
+    complexProjectivePlaneCellHomeomorph
+
+@[simp]
+theorem complexProjectivePlaneMappingConeHomeomorph_incl
+    (p : ComplexProjectiveModel 1) :
+    complexProjectivePlaneMappingConeHomeomorph
+        (topologicalMappingConeIncl diskBoundaryFourComplexHopfMap p) =
+      complexProjectivePlaneBottomIncl p := by
+  change complexProjectivePlaneCellHomeomorph
+      (complexProjectivePlaneMappingConeToCell
+        (topologicalMappingConeIncl diskBoundaryFourComplexHopfMap p)) = _
+  rw [show complexProjectivePlaneMappingConeToCell
+      (topologicalMappingConeIncl diskBoundaryFourComplexHopfMap p) =
+      cellAttachmentIncl diskBoundaryFourComplexHopfMap p from
+    ConcreteCategory.congr_hom complexProjectivePlaneMappingConeIncl_toCell p]
+  exact complexProjectivePlaneCellHomeomorph_incl p
+
+@[simp]
+theorem complexProjectivePlaneMappingConeHomeomorph_cylinder
+    (c : TopCat.diskBoundary.{0} 4 × TopCat.I.{0}) :
+    complexProjectivePlaneMappingConeHomeomorph
+        (topologicalMappingConeConeIncl diskBoundaryFourComplexHopfMap
+          (topologicalConeCylinderIncl (TopCat.diskBoundary 4) c)) =
+      complexProjectivePlaneCharacteristic
+        (diskBoundaryFourConeCylinderToDisk c) := by
+  change complexProjectivePlaneCellHomeomorph
+      (complexProjectivePlaneMappingConeToCell
+        (topologicalMappingConeConeIncl diskBoundaryFourComplexHopfMap
+          (topologicalConeCylinderIncl (TopCat.diskBoundary 4) c))) = _
+  rw [show complexProjectivePlaneMappingConeToCell
+      (topologicalMappingConeConeIncl diskBoundaryFourComplexHopfMap
+        (topologicalConeCylinderIncl (TopCat.diskBoundary 4) c)) =
+      cellAttachmentDisk diskBoundaryFourComplexHopfMap
+        (diskBoundaryFourConeCylinderToDisk c) by
+    rw [show complexProjectivePlaneMappingConeToCell
+        (topologicalMappingConeConeIncl diskBoundaryFourComplexHopfMap
+          (topologicalConeCylinderIncl (TopCat.diskBoundary 4) c)) =
+        (diskBoundaryFourConeIsoDisk.hom ≫
+          cellAttachmentDisk diskBoundaryFourComplexHopfMap)
+            (topologicalConeCylinderIncl (TopCat.diskBoundary 4) c) from
+      ConcreteCategory.congr_hom
+        complexProjectivePlaneMappingConeConeIncl_toCell
+        (topologicalConeCylinderIncl (TopCat.diskBoundary 4) c)]
+    change cellAttachmentDisk diskBoundaryFourComplexHopfMap
+      (diskBoundaryFourConeHomeomorphDisk
+        (topologicalConeCylinderIncl (TopCat.diskBoundary 4) c)) = _
+    rw [diskBoundaryFourConeHomeomorphDisk_cylinder]]
+  exact complexProjectivePlaneCellHomeomorph_disk _
+
 end Submission
