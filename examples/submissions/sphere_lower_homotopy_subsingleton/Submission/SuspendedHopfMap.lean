@@ -25,6 +25,8 @@ evaluate nontrivially on the selected degree-five cycle.
 
 * `Submission.suspendedHopfMap : C(Sph 4, Sph 3)`;
 * `Submission.suspendedHopfTopCat` and `Submission.suspendedHopfMappingCone`;
+* `Submission.hopfSuspensionMappingConeIso`;
+* `Submission.hopfSuspensionCanonicalLift_sqTwo_eq_top_iff`;
 * `Submission.suspendedHopfMappingConeClass_eq_zero_or_eq_top`;
 * `Submission.suspendedHopfCanonicalLift_sqTwo_eq_top_of_cycle_evaluation`;
 * `Submission.suspendedHopfCanonicalLift_sqTwo_eq_top_iff_evaluation_eq_one`;
