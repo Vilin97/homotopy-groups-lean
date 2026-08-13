@@ -676,6 +676,115 @@ theorem HomotopyGroup.transport_map_homotopy {u v : C(X, Y)} (G : ContinuousMap.
 
 end HomotopyInvariance
 
+/-! ### A concrete homotopy-equivalence coordinate -/
+
+/-- A selected left-inverse homotopy for a bundled homotopy equivalence. -/
+noncomputable def homotopyEquivLeftHomotopy
+    {X Y : Type*} [TopologicalSpace X] [TopologicalSpace Y]
+    (e : ContinuousMap.HomotopyEquiv X Y) :
+    ContinuousMap.Homotopy (e.invFun.comp e.toFun) (ContinuousMap.id X) :=
+  Classical.choice e.left_inv
+
+/-- A selected right-inverse homotopy for a bundled homotopy equivalence. -/
+noncomputable def homotopyEquivRightHomotopy
+    {X Y : Type*} [TopologicalSpace X] [TopologicalSpace Y]
+    (e : ContinuousMap.HomotopyEquiv X Y) :
+    ContinuousMap.Homotopy (e.toFun.comp e.invFun) (ContinuousMap.id Y) :=
+  Classical.choice e.right_inv
+
+/-- The inverse of the concrete homotopy-group equivalence induced by a homotopy equivalence.
+It is packaged first because its forward map is postcomposition by the homotopy inverse followed
+by the basepoint transport traced by the selected left-inverse homotopy. -/
+private noncomputable def homotopyGroupBackwardMulEquivOfHomotopyEquiv
+    {N : Type*} [Fintype N] [Nonempty N] [DecidableEq N]
+    {X Y : Type*} [TopologicalSpace X] [TopologicalSpace Y]
+    (e : ContinuousMap.HomotopyEquiv X Y) (x : X) :
+    HomotopyGroup N Y (e x) ≃* HomotopyGroup N X x := by
+  let G := homotopyEquivLeftHomotopy e
+  let G' := homotopyEquivRightHomotopy e
+  have key1 : ∀ a : HomotopyGroup N X x,
+      HomotopyGroup.transport (G.evalAt x)
+        (HomotopyGroup.map e.invFun rfl (HomotopyGroup.map e.toFun rfl a)) = a := by
+    intro a
+    have h := HomotopyGroup.transport_map_homotopy (N := N) G x a
+    rw [HomotopyGroup.map_id_apply] at h
+    rw [HomotopyGroup.map_comp_apply]
+    exact h
+  have key2 : ∀ b : HomotopyGroup N Y (e x),
+      HomotopyGroup.transport (G'.evalAt (e x))
+        (HomotopyGroup.map e.toFun rfl (HomotopyGroup.map e.invFun rfl b)) = b := by
+    intro b
+    have h := HomotopyGroup.transport_map_homotopy (N := N) G' (e x) b
+    rw [HomotopyGroup.map_id_apply] at h
+    rw [HomotopyGroup.map_comp_apply]
+    exact h
+  have hinj : Function.Injective
+      (HomotopyGroup.map (N := N) e.invFun
+        (rfl : e.invFun (e x) = e.invFun (e x))) :=
+    Function.LeftInverse.injective (g := fun c =>
+      HomotopyGroup.transport (G'.evalAt (e x))
+        (HomotopyGroup.map e.toFun rfl c)) key2
+  have hsurj : Function.Surjective
+      (HomotopyGroup.map (N := N) e.invFun
+        (rfl : e.invFun (e x) = e.invFun (e x))) := by
+    intro c
+    refine ⟨HomotopyGroup.map e.toFun rfl
+      (HomotopyGroup.transportMulEquiv (G.evalAt x) c), ?_⟩
+    exact (HomotopyGroup.transportMulEquiv (G.evalAt x)).injective
+      (key1 (HomotopyGroup.transportMulEquiv (G.evalAt x) c))
+  exact (MulEquiv.ofBijective
+      (HomotopyGroup.mapHom (N := N) e.invFun
+        (rfl : e.invFun (e x) = e.invFun (e x))) ⟨hinj, hsurj⟩).trans
+    (HomotopyGroup.transportMulEquiv (G.evalAt x))
+
+/-- A homotopy equivalence induces a specified multiplicative equivalence on every positive
+finite-dimensional homotopy group.  Unlike the older existential interface, its forward map is
+definitionally tied to the supplied continuous map. -/
+noncomputable def homotopyGroupMulEquivOfHomotopyEquiv
+    {N : Type*} [Fintype N] [Nonempty N] [DecidableEq N]
+    {X Y : Type*} [TopologicalSpace X] [TopologicalSpace Y]
+    (e : ContinuousMap.HomotopyEquiv X Y) (x : X) :
+    HomotopyGroup N X x ≃* HomotopyGroup N Y (e x) :=
+  (homotopyGroupBackwardMulEquivOfHomotopyEquiv e x).symm
+
+/-- The forward map of the specified equivalence is exactly postcomposition by the maintained
+homotopy equivalence. -/
+@[simp]
+theorem homotopyGroupMulEquivOfHomotopyEquiv_apply
+    {N : Type*} [Fintype N] [Nonempty N] [DecidableEq N]
+    {X Y : Type*} [TopologicalSpace X] [TopologicalSpace Y]
+    (e : ContinuousMap.HomotopyEquiv X Y) (x : X)
+    (a : HomotopyGroup N X x) :
+    homotopyGroupMulEquivOfHomotopyEquiv e x a =
+      HomotopyGroup.map e.toFun rfl a := by
+  apply (homotopyGroupBackwardMulEquivOfHomotopyEquiv e x).injective
+  rw [homotopyGroupMulEquivOfHomotopyEquiv,
+    MulEquiv.apply_symm_apply]
+  symm
+  change HomotopyGroup.transport
+      ((homotopyEquivLeftHomotopy e).evalAt x)
+      (HomotopyGroup.map e.invFun rfl
+        (HomotopyGroup.map e.toFun rfl a)) = a
+  have h := HomotopyGroup.transport_map_homotopy (N := N)
+    (homotopyEquivLeftHomotopy e) x a
+  rw [HomotopyGroup.map_id_apply] at h
+  rw [HomotopyGroup.map_comp_apply]
+  exact h
+
+/-- The inverse map is postcomposition by the supplied homotopy inverse followed by transport
+along the selected left-inverse homotopy's basepoint path. -/
+@[simp]
+theorem homotopyGroupMulEquivOfHomotopyEquiv_symm_apply
+    {N : Type*} [Fintype N] [Nonempty N] [DecidableEq N]
+    {X Y : Type*} [TopologicalSpace X] [TopologicalSpace Y]
+    (e : ContinuousMap.HomotopyEquiv X Y) (x : X)
+    (b : HomotopyGroup N Y (e x)) :
+    (homotopyGroupMulEquivOfHomotopyEquiv e x).symm b =
+      HomotopyGroup.transport
+        ((homotopyEquivLeftHomotopy e).evalAt x)
+        (HomotopyGroup.map e.invFun rfl b) :=
+  rfl
+
 /-- Auxiliary form of `Submission.nonempty_mulEquiv_of_homotopyEquiv` for a finite index
 type, where the collar construction is available. -/
 private theorem nonempty_mulEquiv_of_homotopyEquiv_aux {N : Type*} [DecidableEq N] [Nonempty N]
@@ -683,37 +792,13 @@ private theorem nonempty_mulEquiv_of_homotopyEquiv_aux {N : Type*} [DecidableEq 
     (hgf : (g.comp f).Homotopic (ContinuousMap.id X))
     (hfg : (f.comp g).Homotopic (ContinuousMap.id Y)) (x : X) :
     Nonempty (HomotopyGroup N X x ≃* HomotopyGroup N Y (f x)) := by
-  have : Fintype N := Fintype.ofFinite N
-  obtain ⟨G⟩ := hgf
-  obtain ⟨G'⟩ := hfg
-  have key1 : ∀ a : HomotopyGroup N X x,
-      HomotopyGroup.transport (G.evalAt x)
-        (HomotopyGroup.map g rfl (HomotopyGroup.map f rfl a)) = a := by
-    intro a
-    have h := HomotopyGroup.transport_map_homotopy (N := N) G x a
-    rw [HomotopyGroup.map_id_apply] at h
-    rw [HomotopyGroup.map_comp_apply]
-    exact h
-  have key2 : ∀ b : HomotopyGroup N Y (f x),
-      HomotopyGroup.transport (G'.evalAt (f x))
-        (HomotopyGroup.map f rfl (HomotopyGroup.map g rfl b)) = b := by
-    intro b
-    have h := HomotopyGroup.transport_map_homotopy (N := N) G' (f x) b
-    rw [HomotopyGroup.map_id_apply] at h
-    rw [HomotopyGroup.map_comp_apply]
-    exact h
-  have hinj : Function.Injective
-      (HomotopyGroup.map (N := N) g (rfl : g (f x) = g (f x))) :=
-    Function.LeftInverse.injective (g := fun c =>
-      HomotopyGroup.transport (G'.evalAt (f x)) (HomotopyGroup.map f rfl c)) key2
-  have hsurj : Function.Surjective
-      (HomotopyGroup.map (N := N) g (rfl : g (f x) = g (f x))) := by
-    intro c
-    refine ⟨HomotopyGroup.map f rfl (HomotopyGroup.transportMulEquiv (G.evalAt x) c), ?_⟩
-    exact (HomotopyGroup.transportMulEquiv (G.evalAt x)).injective
-      (key1 (HomotopyGroup.transportMulEquiv (G.evalAt x) c))
-  exact ⟨((MulEquiv.ofBijective (HomotopyGroup.mapHom (N := N) g (rfl : g (f x) = g (f x)))
-    ⟨hinj, hsurj⟩).trans (HomotopyGroup.transportMulEquiv (G.evalAt x))).symm⟩
+  letI : Fintype N := Fintype.ofFinite N
+  let e : ContinuousMap.HomotopyEquiv X Y := {
+    toFun := f
+    invFun := g
+    left_inv := hgf
+    right_inv := hfg }
+  exact ⟨homotopyGroupMulEquivOfHomotopyEquiv e x⟩
 
 /-- **Homotopy invariance of the higher homotopy groups.** If `f : C(X, Y)` and `g : C(Y, X)`
 are mutually inverse up to free homotopy, then `f` induces an isomorphism on every

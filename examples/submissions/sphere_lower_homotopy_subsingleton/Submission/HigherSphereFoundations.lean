@@ -35,21 +35,46 @@ theorem nonempty_piSucc_mulEquiv_pi_loopSpace
     (HomotopyGroup.homeomorphMulEquivOfEq (N := Fin (k + 1))
       (fibreEv₁Homeomorph X x₀) rfl)⟩
 
-/-- For a contractible ambient source, the boundary map identifies its relative homotopy group
-with the homotopy group of the distinguished subspace (transported across `e`). -/
-noncomputable def piRelativeSourceEquiv
-    {Y L : Type*} [TopologicalSpace Y] [TopologicalSpace L]
-    {C : Set Y} [ContractibleSpace Y]
-    (c : C) (e : ContinuousMap.HomotopyEquiv C L) (n : ℕ) :
-    π_ (n + 1) L (e c) ≃* π_rel (n + 2) Y C c := by
+/-- For a contractible ambient space, the boundary map of its pair is a multiplicative
+equivalence from relative homotopy to the homotopy of the distinguished subspace. -/
+noncomputable def piRelativeBoundaryEquiv
+    {Y : Type*} [TopologicalSpace Y] {C : Set Y} [ContractibleSpace Y]
+    (c : C) (n : ℕ) :
+    π_rel (n + 2) Y C c ≃* π_ (n + 1) C c := by
   have hbd : Function.Bijective (RelHomotopyGroup.bd (n + 1) Y C c) :=
     bijective_bd_of_subsingleton n c
       (subsingleton_homotopyGroup_of_contractible (N := Fin (n + 2)) _)
       (subsingleton_homotopyGroup_of_contractible (N := Fin (n + 1)) _)
-  let changeSpace := Classical.choice
-    (nonempty_mulEquiv_of_homotopyEquiv' (N := Fin (n + 1)) e c)
-  exact changeSpace.symm.trans
-    (MulEquiv.ofBijective (RelHomotopyGroup.bdHom n Y C c) hbd).symm
+  exact MulEquiv.ofBijective (RelHomotopyGroup.bdHom n Y C c) hbd
+
+/-- For a contractible ambient source, the boundary map identifies its relative homotopy group
+with the homotopy group of the distinguished subspace, transported across the supplied
+homotopy equivalence by its actual forward map. -/
+noncomputable def piRelativeSourceEquiv
+    {Y L : Type*} [TopologicalSpace Y] [TopologicalSpace L]
+    {C : Set Y} [ContractibleSpace Y]
+    (c : C) (e : ContinuousMap.HomotopyEquiv C L) (n : ℕ) :
+    π_ (n + 1) L (e c) ≃* π_rel (n + 2) Y C c :=
+  (homotopyGroupMulEquivOfHomotopyEquiv (N := Fin (n + 1)) e c).symm.trans
+    (piRelativeBoundaryEquiv c n).symm
+
+/-- Applying the source coordinate means postcomposing by the maintained homotopy inverse,
+transporting along its selected left-inverse homotopy, and then inverting the pair boundary
+map.  In particular no anonymous homotopy-group equivalence remains in this construction. -/
+@[simp]
+theorem piRelativeSourceEquiv_apply
+    {Y L : Type*} [TopologicalSpace Y] [TopologicalSpace L]
+    {C : Set Y} [ContractibleSpace Y]
+    (c : C) (e : ContinuousMap.HomotopyEquiv C L) (n : ℕ)
+    (a : π_ (n + 1) L (e c)) :
+    piRelativeSourceEquiv c e n a =
+      (piRelativeBoundaryEquiv c n).symm
+        (HomotopyGroup.transport
+          ((homotopyEquivLeftHomotopy e).evalAt c)
+          (HomotopyGroup.map e.invFun rfl a)) := by
+  rw [piRelativeSourceEquiv, MulEquiv.trans_apply,
+    homotopyGroupMulEquivOfHomotopyEquiv_symm_apply]
+  rfl
 
 /-- For a contractible target subspace, the relative target group is identified with the
 absolute homotopy group of its ambient space. -/
@@ -122,20 +147,12 @@ noncomputable def piMulEquiv_of_bijective_relativeHom
     (f : π_rel (n + 2) Y C c →* π_rel (n + 2) X B b)
     (hf : Function.Bijective f) :
     π_ (n + 1) L (e c) ≃* π_ (n + 2) X (b : X) := by
-  have hbd : Function.Bijective (RelHomotopyGroup.bd (n + 1) Y C c) :=
-    bijective_bd_of_subsingleton n c
-      (subsingleton_homotopyGroup_of_contractible (N := Fin (n + 2)) _)
-      (subsingleton_homotopyGroup_of_contractible (N := Fin (n + 1)) _)
-  have hjs : Function.Bijective (RelHomotopyGroup.jStar (n + 2) X B b) :=
-    bijective_jStar_of_subsingleton n b
-      (subsingleton_homotopyGroup_of_contractible (N := Fin (n + 2)) _)
-      (subsingleton_homotopyGroup_of_contractible (N := Fin (n + 1)) _)
-  let changeSpace := Classical.choice
-    (nonempty_mulEquiv_of_homotopyEquiv' (N := Fin (n + 1)) e c)
+  let changeSpace :=
+    homotopyGroupMulEquivOfHomotopyEquiv (N := Fin (n + 1)) e c
   exact changeSpace.symm |>.trans
-    (MulEquiv.ofBijective (RelHomotopyGroup.bdHom n Y C c) hbd).symm |>.trans
+    (piRelativeBoundaryEquiv c n).symm |>.trans
     (MulEquiv.ofBijective f hf) |>.trans
-    (MulEquiv.ofBijective (RelHomotopyGroup.jStarHom n X B b) hjs).symm
+    (piRelativeTargetEquiv b n)
 
 /-- **Functorial contractible-pair comparison.** A based map of pairs whose induced relative
 homotopy homomorphism is bijective yields the absolute equivalence used in the Freudenthal
