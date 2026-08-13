@@ -623,6 +623,116 @@ theorem hopfSouthTrivialization_fst (x : HopfSouthTotal) :
   rw [hopfMap_hopfSwapHomeomorph]
   exact hopfBaseFlipHomeomorph.left_inv (hopfMap (x : Sph 3))
 
+/-! ## Global description of the fibres -/
+
+/-- The phase carrying `u` to `t` under complex multiplication. -/
+noncomputable def hopfCirclePhaseQuotient (t u : Sph 1) : Sph 1 :=
+  ⟨WithLp.toLp 2 ![
+      (t : EuclideanSpace ℝ (Fin 2)) 0 * (u : EuclideanSpace ℝ (Fin 2)) 0 +
+        (t : EuclideanSpace ℝ (Fin 2)) 1 * (u : EuclideanSpace ℝ (Fin 2)) 1,
+      (t : EuclideanSpace ℝ (Fin 2)) 1 * (u : EuclideanSpace ℝ (Fin 2)) 0 -
+        (t : EuclideanSpace ℝ (Fin 2)) 0 * (u : EuclideanSpace ℝ (Fin 2)) 1],
+    mem_sphere_zero_iff_norm.mpr <| by
+      apply norm_eq_one_of_norm_sq_eq_one
+      rw [EuclideanSpace.real_norm_sq_eq]
+      have ht := congrArg (fun a : ℝ => a ^ 2) (norm_coe_sph t)
+      have hu := congrArg (fun a : ℝ => a ^ 2) (norm_coe_sph u)
+      rw [EuclideanSpace.real_norm_sq_eq] at ht hu
+      simp [Fin.sum_univ_succ] at ht hu ⊢
+      nlinarith⟩
+
+/-- Acting by the quotient of two phases carries the second orbit point to the first. -/
+theorem hopfCircleAction_phaseQuotient (t u : Sph 1) (x : Sph 3) :
+    hopfCircleAction (hopfCirclePhaseQuotient t u) (hopfCircleAction u x) =
+      hopfCircleAction t x := by
+  have hu := congrArg (fun a : ℝ => a ^ 2) (norm_coe_sph u)
+  rw [EuclideanSpace.real_norm_sq_eq] at hu
+  have hu' : (u : EuclideanSpace ℝ (Fin 2)) 0 ^ 2 +
+      (u : EuclideanSpace ℝ (Fin 2)) 1 ^ 2 = 1 := by
+    simpa [Fin.sum_univ_succ] using hu
+  apply Subtype.ext
+  apply PiLp.ext
+  intro i
+  fin_cases i
+  · simp [hopfCircleAction, hopfCirclePhaseQuotient]
+    linear_combination
+      (((t : EuclideanSpace ℝ (Fin 2)) 0 * (x : EuclideanSpace ℝ (Fin 4)) 0 -
+        (t : EuclideanSpace ℝ (Fin 2)) 1 * (x : EuclideanSpace ℝ (Fin 4)) 1) * hu')
+  · simp [hopfCircleAction, hopfCirclePhaseQuotient]
+    linear_combination
+      (((t : EuclideanSpace ℝ (Fin 2)) 1 * (x : EuclideanSpace ℝ (Fin 4)) 0 +
+        (t : EuclideanSpace ℝ (Fin 2)) 0 * (x : EuclideanSpace ℝ (Fin 4)) 1) * hu')
+  · simp [hopfCircleAction, hopfCirclePhaseQuotient]
+    linear_combination
+      (((t : EuclideanSpace ℝ (Fin 2)) 0 * (x : EuclideanSpace ℝ (Fin 4)) 2 -
+        (t : EuclideanSpace ℝ (Fin 2)) 1 * (x : EuclideanSpace ℝ (Fin 4)) 3) * hu')
+  · simp [hopfCircleAction, hopfCirclePhaseQuotient]
+    linear_combination
+      (((t : EuclideanSpace ℝ (Fin 2)) 1 * (x : EuclideanSpace ℝ (Fin 4)) 2 +
+        (t : EuclideanSpace ℝ (Fin 2)) 0 * (x : EuclideanSpace ℝ (Fin 4)) 3) * hu')
+
+/-- Swapping the two complex coordinates commutes with the circle action. -/
+theorem hopfSwapHomeomorph_hopfCircleAction (t : Sph 1) (x : Sph 3) :
+    hopfSwapHomeomorph (hopfCircleAction t x) =
+      hopfCircleAction t (hopfSwapHomeomorph x) := by
+  apply Subtype.ext
+  apply PiLp.ext
+  intro i
+  fin_cases i <;>
+    simp [hopfSwapHomeomorph, hopfSwapVec, hopfCircleAction, hopfCircleActionVec]
+
+private theorem exists_hopfCircleAction_of_hopfMap_eq_of_mem_north
+    (x y : Sph 3) (hxy : hopfMap x = hopfMap y)
+    (hx : hopfMap x ∈ hopfNorthChart) :
+    ∃ t : Sph 1, x = hopfCircleAction t y := by
+  let xN : HopfNorthTotal := ⟨x, hx⟩
+  let yN : HopfNorthTotal := ⟨y, by
+    change hopfMap y ∈ hopfNorthChart
+    rw [← hxy]
+    exact hx⟩
+  let tx : Sph 1 := hopfNorthPhase xN
+  let ty : Sph 1 := hopfNorthPhase yN
+  refine ⟨hopfCirclePhaseQuotient tx ty, ?_⟩
+  have hxrec := congrArg (fun z : HopfNorthTotal ↦ (z : Sph 3))
+    (hopfNorthTrivializationFrom_to xN)
+  have hyrec := congrArg (fun z : HopfNorthTotal ↦ (z : Sph 3))
+    (hopfNorthTrivializationFrom_to yN)
+  have hbase : hopfNorthBaseOfTotal xN = hopfNorthBaseOfTotal yN := by
+    apply Subtype.ext
+    exact hxy
+  change hopfCircleAction tx (hopfNorthSection (hopfNorthBaseOfTotal xN)) = x at hxrec
+  change hopfCircleAction ty (hopfNorthSection (hopfNorthBaseOfTotal yN)) = y at hyrec
+  change x = hopfCircleAction (hopfCirclePhaseQuotient tx ty) y
+  rw [← hxrec, ← hyrec, hbase, hopfCircleAction_phaseQuotient]
+
+/-- Two points of the exact Hopf total sphere have the same image exactly when they lie in one
+circle orbit. -/
+theorem hopfMap_eq_iff_exists_hopfCircleAction (x y : Sph 3) :
+    hopfMap x = hopfMap y ↔ ∃ t : Sph 1, x = hopfCircleAction t y := by
+  constructor
+  · intro hxy
+    have hcover : hopfMap x ∈ hopfNorthChart ∨ hopfMap x ∈ hopfSouthChart := by
+      have h := Set.ext_iff.mp hopfNorthChart_union_hopfSouthChart (hopfMap x)
+      simpa only [Set.mem_union, Set.mem_univ, iff_true] using h
+    rcases hcover with hnorth | hsouth
+    · exact exists_hopfCircleAction_of_hopfMap_eq_of_mem_north x y hxy hnorth
+    · let sx := hopfSwapHomeomorph x
+      let sy := hopfSwapHomeomorph y
+      have hsxy : hopfMap sx = hopfMap sy := by
+        simp only [sx, sy, hopfMap_hopfSwapHomeomorph, hxy]
+      have hsnorth : hopfMap sx ∈ hopfNorthChart := by
+        dsimp [sx]
+        rw [hopfMap_hopfSwapHomeomorph]
+        exact (hopfSouthToNorthBaseHomeomorph ⟨hopfMap x, hsouth⟩).property
+      obtain ⟨t, ht⟩ :=
+        exists_hopfCircleAction_of_hopfMap_eq_of_mem_north sx sy hsxy hsnorth
+      refine ⟨t, ?_⟩
+      apply hopfSwapHomeomorph.injective
+      rw [hopfSwapHomeomorph_hopfCircleAction]
+      exact ht
+  · rintro ⟨t, rfl⟩
+    exact hopfMap_hopfCircleAction t y
+
 /-- A circle local trivialization of a continuous map at a point of its base. -/
 def HasCircleLocalTrivializationAt {E B : Type*} [TopologicalSpace E] [TopologicalSpace B]
     (p : C(E, B)) (b : B) : Prop :=
