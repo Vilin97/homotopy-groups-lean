@@ -76,6 +76,62 @@ theorem piRelativeSourceEquiv_apply
     homotopyGroupMulEquivOfHomotopyEquiv_symm_apply]
   rfl
 
+/-- The source coordinate is natural for a map of contractible pairs whose distinguished
+subspace map commutes with the supplied homotopy-equivalence coordinates. -/
+theorem piRelativeSourceEquiv_natural
+    {Y Y' L L' : Type*}
+    [TopologicalSpace Y] [TopologicalSpace Y']
+    [TopologicalSpace L] [TopologicalSpace L']
+    {C : Set Y} {C' : Set Y'} [ContractibleSpace Y] [ContractibleSpace Y']
+    (c : C) (c' : C')
+    (e : ContinuousMap.HomotopyEquiv C L)
+    (e' : ContinuousMap.HomotopyEquiv C' L') (n : ℕ)
+    (f : BasedPairMap C C' c c') (g : C(L, L'))
+    (hg : g (e c) = e' c')
+    (hsquare : e'.toFun.comp f.subspaceMap = g.comp e.toFun)
+    (a : π_ (n + 1) L (e c)) :
+    piRelativeSourceEquiv c' e' n (HomotopyGroup.map g hg a) =
+      RelHomotopyGroup.mapHom n f (piRelativeSourceEquiv c e n a) := by
+  apply (piRelativeBoundaryEquiv c' n).injective
+  rw [piRelativeSourceEquiv, MulEquiv.trans_apply,
+    MulEquiv.apply_symm_apply]
+  change
+    (homotopyGroupMulEquivOfHomotopyEquiv (N := Fin (n + 1)) e' c').symm
+        (HomotopyGroup.map g hg a) =
+      RelHomotopyGroup.bdHom n Y' C' c'
+        (RelHomotopyGroup.mapHom n f (piRelativeSourceEquiv c e n a))
+  rw [← MonoidHom.comp_apply, RelHomotopyGroup.bdHom_comp_mapHom,
+    MonoidHom.comp_apply]
+  change
+    (homotopyGroupMulEquivOfHomotopyEquiv (N := Fin (n + 1)) e' c').symm
+        (HomotopyGroup.map g hg a) =
+      HomotopyGroup.map f.subspaceMap f.subspaceMap_basepoint
+        ((piRelativeBoundaryEquiv c n) (piRelativeSourceEquiv c e n a))
+  rw [piRelativeSourceEquiv, MulEquiv.trans_apply,
+    MulEquiv.apply_symm_apply]
+  apply (homotopyGroupMulEquivOfHomotopyEquiv
+    (N := Fin (n + 1)) e' c').injective
+  rw [MulEquiv.apply_symm_apply,
+    homotopyGroupMulEquivOfHomotopyEquiv_apply]
+  let E := homotopyGroupMulEquivOfHomotopyEquiv
+    (N := Fin (n + 1)) e c
+  calc
+    HomotopyGroup.map g hg a =
+        HomotopyGroup.map g hg (E (E.symm a)) := by
+      rw [E.apply_symm_apply]
+    _ = HomotopyGroup.map g hg
+        (HomotopyGroup.map e.toFun rfl (E.symm a)) := by
+      rw [homotopyGroupMulEquivOfHomotopyEquiv_apply]
+    _ = HomotopyGroup.map (g.comp e.toFun) (by simp [hg]) (E.symm a) :=
+      HomotopyGroup.map_comp_apply g hg e.toFun rfl (E.symm a)
+    _ = HomotopyGroup.map (e'.toFun.comp f.subspaceMap)
+        (by rw [ContinuousMap.comp_apply, f.subspaceMap_basepoint]) (E.symm a) :=
+      HomotopyGroup.map_congr hsquare.symm _ _ (E.symm a)
+    _ = HomotopyGroup.map e'.toFun rfl
+        (HomotopyGroup.map f.subspaceMap f.subspaceMap_basepoint (E.symm a)) :=
+      (HomotopyGroup.map_comp_apply e'.toFun rfl f.subspaceMap
+        f.subspaceMap_basepoint (E.symm a)).symm
+
 /-- For a contractible target subspace, the relative target group is identified with the
 absolute homotopy group of its ambient space. -/
 noncomputable def piRelativeTargetEquiv
@@ -88,6 +144,29 @@ noncomputable def piRelativeTargetEquiv
       (subsingleton_homotopyGroup_of_contractible (N := Fin (n + 1)) _)
   exact (MulEquiv.ofBijective (RelHomotopyGroup.jStarHom n X B b) hjs).symm
 
+/-- The target coordinate is natural for based maps of pairs with contractible distinguished
+subspaces. -/
+theorem piRelativeTargetEquiv_natural
+    {X X' : Type*} [TopologicalSpace X] [TopologicalSpace X']
+    {B : Set X} {B' : Set X'} [ContractibleSpace B] [ContractibleSpace B']
+    (b : B) (b' : B') (n : ℕ) (f : BasedPairMap B B' b b')
+    (a : π_rel (n + 2) X B b) :
+    HomotopyGroup.map f.toContinuousMap f.map_basepoint'
+        (piRelativeTargetEquiv b n a) =
+      piRelativeTargetEquiv b' n (RelHomotopyGroup.mapHom n f a) := by
+  apply (piRelativeTargetEquiv b' n).symm.injective
+  rw [MulEquiv.symm_apply_apply]
+  change RelHomotopyGroup.jStar (n + 2) X' B' b'
+      (HomotopyGroup.map f.toContinuousMap f.map_basepoint'
+        (piRelativeTargetEquiv b n a)) =
+    RelHomotopyGroup.mapHom n f a
+  rw [← RelHomotopyGroup.map_jStar]
+  change RelHomotopyGroup.map f
+      ((piRelativeTargetEquiv b n).symm (piRelativeTargetEquiv b n a)) =
+    RelHomotopyGroup.mapHom n f a
+  rw [MulEquiv.symm_apply_apply]
+  rfl
+
 /-- The absolute homomorphism obtained from a relative homomorphism between a contractible
 ambient source pair and a contractible-subspace target pair.  Unlike the equivalence below, this
 construction retains useful information when the middle map is only surjective. -/
@@ -99,6 +178,49 @@ noncomputable def piHom_of_relativeHom
     π_ (n + 1) L (e c) →* π_ (n + 2) X (b : X) :=
   (piRelativeTargetEquiv b n).toMonoidHom.comp
     (f.comp (piRelativeSourceEquiv c e n).toMonoidHom)
+
+/-- The absolute comparison induced from a relative homomorphism is natural whenever the maps
+of source and target pairs form a commuting relative square. -/
+theorem piHom_of_relativeHom_natural
+    {Y Y' X X' L L' : Type*}
+    [TopologicalSpace Y] [TopologicalSpace Y']
+    [TopologicalSpace X] [TopologicalSpace X']
+    [TopologicalSpace L] [TopologicalSpace L']
+    {C : Set Y} {C' : Set Y'} {B : Set X} {B' : Set X'}
+    [ContractibleSpace Y] [ContractibleSpace Y']
+    [ContractibleSpace B] [ContractibleSpace B']
+    (c : C) (c' : C') (b : B) (b' : B')
+    (e : ContinuousMap.HomotopyEquiv C L)
+    (e' : ContinuousMap.HomotopyEquiv C' L') (n : ℕ)
+    (sourceMap : BasedPairMap C C' c c')
+    (targetMap : BasedPairMap B B' b b')
+    (g : C(L, L')) (hg : g (e c) = e' c')
+    (hsource : e'.toFun.comp sourceMap.subspaceMap = g.comp e.toFun)
+    (f : π_rel (n + 2) Y C c →* π_rel (n + 2) X B b)
+    (f' : π_rel (n + 2) Y' C' c' →* π_rel (n + 2) X' B' b')
+    (hrelative : (RelHomotopyGroup.mapHom n targetMap).comp f =
+      f'.comp (RelHomotopyGroup.mapHom n sourceMap))
+    (a : π_ (n + 1) L (e c)) :
+    HomotopyGroup.map targetMap.toContinuousMap targetMap.map_basepoint'
+        (piHom_of_relativeHom c b e n f a) =
+      piHom_of_relativeHom c' b' e' n f'
+        (HomotopyGroup.map g hg a) := by
+  change HomotopyGroup.map targetMap.toContinuousMap targetMap.map_basepoint'
+      (piRelativeTargetEquiv b n
+        (f (piRelativeSourceEquiv c e n a))) =
+    piRelativeTargetEquiv b' n
+      (f' (piRelativeSourceEquiv c' e' n (HomotopyGroup.map g hg a)))
+  rw [piRelativeTargetEquiv_natural]
+  change piRelativeTargetEquiv b' n
+      (RelHomotopyGroup.mapHom n targetMap
+        (f (piRelativeSourceEquiv c e n a))) =
+    piRelativeTargetEquiv b' n
+      (f' (piRelativeSourceEquiv c' e' n (HomotopyGroup.map g hg a)))
+  have hrel := DFunLike.congr_fun hrelative (piRelativeSourceEquiv c e n a)
+  rw [MonoidHom.comp_apply, MonoidHom.comp_apply] at hrel
+  apply congrArg (piRelativeTargetEquiv b' n)
+  rw [hrel,
+    piRelativeSourceEquiv_natural c c' e e' n sourceMap g hg hsource]
 
 /-- Surjectivity of the relative comparison passes to its absolute homomorphism. -/
 theorem piHom_of_relativeHom_surjective
