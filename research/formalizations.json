@@ -806,7 +806,7 @@
       "id": "lean4-suspended-hopf-sq-two-obstruction",
       "system": "Lean 4",
       "repository": "Vilin97/homotopy-groups-lean",
-      "commit": "5ef4d67c15dab99199d79556ccb7e51e9e82bce0",
+      "commit": "10f50f0209f4a79c276135dd1aa526c2f8bebeba",
       "license": "Apache-2.0",
       "declarations": [
         "Submission.Hsing.map_congr",
@@ -818,7 +818,15 @@
         "Submission.sphereTopModTwoDualClass_evaluation",
         "Submission.sphereTopCohomologyEquivModTwo",
         "Submission.sphereTopClass_eq_zero_or_eq_top",
+        "Submission.cupHsing_evaluation_homologyMk",
+        "Submission.topologicalMappingConeMap",
+        "Submission.topologicalMappingConeIso",
+        "Submission.hopfMappingConeTopDualClass_evaluation",
+        "Submission.hopfMappingConeBottomSquare_eq_top_iff_representativeEvaluation_eq_one",
+        "Submission.hopfMap_not_nullhomotopic_of_representativeEvaluation_eq_one",
         "Submission.suspendedHopfMap",
+        "Submission.sphereSuspensionMap_naturality",
+        "Submission.hopfSuspensionMappingConeIso",
         "Submission.suspendedHopfMappingConeLift",
         "Submission.suspendedHopfCanonicalFiveCycle",
         "Submission.suspendedHopfMappingConeTopClass",
@@ -827,13 +835,13 @@
         "Submission.suspendedHopfCanonicalLift_sqTwo_eq_top_of_cycle_evaluation",
         "Submission.suspendedHopfMap_not_nullhomotopic_of_canonical_evaluation"
       ],
-      "result": "homotopy-invariant singular cohomology, dual Mayer--Vietoris adjointness, relative cohomology excision, and explicit mapping-cone collars compute a cohomological suspension for mapping cones; normalized top mod-two sphere classes evaluate to one and are the unique nonzero classes; for the mapping cone of the concrete suspended Hopf map this produces normalized degree-three and degree-five classes and a canonical degree-five cycle, reducing non-nullhomotopy and the exact identity Sq^2(bottom)=top to one explicit nonzero cup-one evaluation on that cycle",
-      "model_relation": "exactly the maintained singular simplicial set, exact metric 3- and 4-spheres, concrete suspension of the quadratic Hopf map, topological mapping cone, and explicit mod-two cup-one operation",
+      "result": "homotopy-invariant singular cohomology, dual Mayer--Vietoris adjointness, relative cohomology excision, and explicit mapping-cone collars compute cohomological suspension classes; normalized top mod-two sphere classes evaluate to one and are the unique nonzero classes; the original Hopf cone now has normalized degree-two and degree-four classes whose cup-square identity is equivalent to one explicit Alexander--Whitney evaluation and implies non-nullhomotopy; topological mapping cones are functorial and preserve isomorphisms, identifying the raw suspension cone with the concrete suspended-Hopf cone; on the latter, normalized degree-three and degree-five classes reduce Sq^2(bottom)=top and non-nullhomotopy to one explicit cup-one evaluation",
+      "model_relation": "exactly the maintained singular simplicial set, exact metric 2-, 3-, and 4-spheres, concrete quadratic Hopf map and its unreduced suspension, topological mapping cones, Alexander--Whitney cup product, and explicit mod-two cup-one operation",
       "status": "lean_kernel_checked_local_source",
       "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/SuspendedHopfMap.lean",
       "lattice_overlay": null,
       "degree_lattice_overlay": null,
-      "note": "All seventeen listed declarations and their supporting chain-level comparison theorems are sorry-free Lean 4. Strict autoImplicit=false checks pass for the affected source files and the Submission aggregate; the exact aggregate build passes all 8,915 jobs. The cone's degree-five cohomology is now formally a two-element set with a normalized nonzero generator, but the remaining explicit cup-one evaluation has not yet been computed, so this milestone does not recolor a homotopy-group lattice cell."
+      "note": "All twenty-five listed declarations and their supporting chain-level and mapping-cone comparison theorems are sorry-free Lean 4. Strict autoImplicit=false checks pass for every affected source file and the Submission aggregate; the exact aggregate build passes all 8,918 jobs. The original and suspended cones have normalized two-element top mod-two cohomology groups, and both remaining obstruction statements are isolated as explicit chain evaluations. The Alexander--Whitney value for the original Hopf invariant and the cup-one value for its suspension have not yet been computed, so this milestone does not recolor a homotopy-group lattice cell."
     },
     {
       "id": "lean4-generalized-complex-hopf-fibration",
