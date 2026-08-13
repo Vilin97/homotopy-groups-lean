@@ -566,7 +566,12 @@ in degrees one, three, and every degree at least five. It also transports path
 connectedness through the mapping-cone deformation retractions and the exact
 homeomorphism, proves that the degree-zero unit is nonzero, and classifies every
 degree-zero class as zero or that unit. Thus the entire additive mod-two
-cohomology is computed. The degree-one
+cohomology is computed. A reusable two-element additive-group coordinate now
+turns these classifications into explicit normalized equivalences
+`H^0(CP^2; F_2) ~= F_2`, `H^2(CP^2; F_2) ~= F_2`, and
+`H^4(CP^2; F_2) ~= F_2`, sending the selected unit, bottom generator, and top
+generator to one; the same coordinates are exposed on the concrete Hopf cone.
+The degree-one
 argument comes from a reusable Mayer--Vietoris theorem for covers whose pieces
 have vanishing first cohomology and whose overlap is path connected; the
 standard mapping-cone overlap is proved path connected directly from its
