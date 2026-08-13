@@ -123,11 +123,67 @@ theorem suspSphHomeo_symm_sphereBasepoint (n : ℕ) :
   apply (suspSphHomeo n).injective
   rw [Homeomorph.apply_symm_apply, suspSphHomeo_equator_sphereBasepoint]
 
+/-! ## Suspension of maps between spheres -/
+
+/-- Suspend a map `Sᵐ ⟶ Sⁿ` and transport it across the chosen sphere-suspension
+homeomorphisms. -/
+noncomputable def sphereSuspensionMap (m n : ℕ) (f : C(Sph m, Sph n)) :
+    C(Sph (m + 1), Sph (n + 1)) :=
+  (suspSphHomeo n : C(Susp (Sph n), Sph (n + 1))).comp
+    ((Susp.map f).comp (suspSphHomeo m).symm)
+
+/-- Evaluation of the suspension of a sphere map in suspension coordinates. -/
+@[simp]
+theorem sphereSuspensionMap_apply_susp (m n : ℕ) (f : C(Sph m, Sph n))
+    (q : Susp (Sph m)) :
+    sphereSuspensionMap m n f (suspSphHomeo m q) =
+      suspSphHomeo n (Susp.map f q) := by
+  unfold sphereSuspensionMap
+  simp only [ContinuousMap.comp_apply]
+  exact congrArg (fun r : Susp (Sph n) ↦ suspSphHomeo n r)
+    (congrArg (Susp.map f) ((suspSphHomeo m).symm_apply_apply q))
+
+/-- Suspension carries a based sphere map to a based sphere map. -/
+theorem sphereSuspensionMap_basepoint (m n : ℕ) (f : C(Sph m, Sph n))
+    (hf : f (sphereBasepoint m) = sphereBasepoint n) :
+    sphereSuspensionMap m n f (sphereBasepoint (m + 1)) = sphereBasepoint (n + 1) := by
+  rw [← suspSphHomeo_equator_sphereBasepoint m,
+    sphereSuspensionMap_apply_susp, Susp.map_mk, hf,
+    suspSphHomeo_equator_sphereBasepoint]
+
+/-- Suspending a homotopy and transporting both ends gives a homotopy of sphere maps. -/
+noncomputable def sphereSuspensionMapHomotopy (m n : ℕ) {f g : C(Sph m, Sph n)}
+    (H : ContinuousMap.Homotopy f g) :
+    ContinuousMap.Homotopy (sphereSuspensionMap m n f) (sphereSuspensionMap m n g) :=
+  (ContinuousMap.Homotopy.refl
+    (suspSphHomeo n : C(Susp (Sph n), Sph (n + 1)))).comp
+      ((Susp.mapHomotopy H).compContinuousMap
+        ((suspSphHomeo m).symm : C(Sph (m + 1), Susp (Sph m))))
+
+/-- A suspended based homotopy remains based. -/
+theorem sphereSuspensionMapHomotopy_basepoint (m n : ℕ) {f g : C(Sph m, Sph n)}
+    (H : ContinuousMap.Homotopy f g)
+    (hbase : ∀ t : I, H (t, sphereBasepoint m) = sphereBasepoint n) (t : I) :
+    sphereSuspensionMapHomotopy m n H (t, sphereBasepoint (m + 1)) =
+      sphereBasepoint (n + 1) := by
+  dsimp [sphereSuspensionMapHomotopy, ContinuousMap.Homotopy.compContinuousMap,
+    ContinuousMap.Homotopy.comp]
+  change suspSphHomeo n
+    (Susp.mapHomotopy H (t, (suspSphHomeo m).symm (sphereBasepoint (m + 1)))) = _
+  rw [suspSphHomeo_symm_sphereBasepoint,
+    Susp.mapHomotopy_equator H (sphereBasepoint m) (sphereBasepoint n) hbase,
+    suspSphHomeo_equator_sphereBasepoint]
+
 /-- Suspend a self-map of `Sⁿ` and transport it across `Susp(Sⁿ) ≅ Sⁿ⁺¹`. -/
 noncomputable def sphereSuspensionSelfMap (n : ℕ) (f : C(Sph n, Sph n)) :
     C(Sph (n + 1), Sph (n + 1)) :=
   (suspSphHomeo n : C(Susp (Sph n), Sph (n + 1))).comp
     ((Susp.map f).comp (suspSphHomeo n).symm)
+
+/-- The earlier self-map construction is the equal-dimension case of `sphereSuspensionMap`. -/
+theorem sphereSuspensionSelfMap_eq_sphereSuspensionMap (n : ℕ) (f : C(Sph n, Sph n)) :
+    sphereSuspensionSelfMap n f = sphereSuspensionMap n n f :=
+  rfl
 
 /-- Evaluation of a suspended sphere self-map in suspension coordinates. -/
 @[simp]

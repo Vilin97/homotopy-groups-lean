@@ -94,7 +94,8 @@ import Submission.Approximation.SphereCellCompressionSource
 import Submission.Approximation.SphereCapExcisionInjective
 import Submission.Approximation.SphereCapExcisionSurjective
 import Submission.FirstStableStemPresentation
-import Submission.Cohomology.SingularSqTwo
+import Submission.Cohomology.CellAttachmentSqTwo
+import Submission.SuspendedHopfMap
 import Submission.SphereSuspensionPointed
 
 open HomotopyGroups
