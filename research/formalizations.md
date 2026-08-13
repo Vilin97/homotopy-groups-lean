@@ -571,7 +571,9 @@ basepoints, it is consequently surjective on every homotopy group and its
 explicit section is injective in every dimension.  The first quotient-safe
 stage of the opposite deformation is now explicit: on the outer cone over
 `C_f`, it continuously raises the outer coordinate by the inner mapping-cone
-height while respecting both apex identifications.  Completing that deformation
+height while respecting both apex identifications.  At the endpoint it fixes the
+original-space cylinder, replaces the double-cone height by the maximum of its
+two coordinates, and sends the inner-apex cylinder to the outer apex.  Completing that deformation
 to a full homotopy equivalence remains separate.  Specializing
 homotopy coexactness to the identity characterizes a retraction of the cofiber
 collapse by nullhomotopy of the bottom inclusion.  For the exact Hopf mapping
