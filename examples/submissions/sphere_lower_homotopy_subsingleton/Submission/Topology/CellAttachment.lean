@@ -39,6 +39,13 @@ variable {X : TopCat.{u}} {n : ℕ}
 def cellAttachment (a : TopCat.diskBoundary n ⟶ X) : TopCat.{u} :=
   pushout a (TopCat.diskBoundaryIncl n)
 
+/-- A cell attachment to a compact space is compact. -/
+noncomputable instance cellAttachmentCompactSpace [CompactSpace X]
+    (a : TopCat.diskBoundary n ⟶ X) : CompactSpace (cellAttachment a) :=
+  Function.Surjective.compactSpace
+    (pushoutSumDesc_isQuotientMap a (TopCat.diskBoundaryIncl n)).continuous
+    (pushoutSumDesc_isQuotientMap a (TopCat.diskBoundaryIncl n)).surjective
+
 /-- The inclusion of the original space into a one-cell attachment. -/
 def cellAttachmentIncl (a : TopCat.diskBoundary n ⟶ X) : X ⟶ cellAttachment a :=
   pushout.inl a (TopCat.diskBoundaryIncl n)
