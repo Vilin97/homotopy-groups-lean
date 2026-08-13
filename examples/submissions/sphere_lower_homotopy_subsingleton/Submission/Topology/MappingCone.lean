@@ -699,4 +699,51 @@ theorem exists_topologicalMappingConeIncl_retraction_iff_homotopy_const
   · rintro ⟨H⟩
     exact ⟨x, ⟨H⟩⟩
 
+/-- A homotopy retraction of the mapping-cone inclusion also contracts the attaching map. -/
+noncomputable def topologicalMappingConeNullhomotopyOfHomotopyRetract
+    {A X : TopCat.{u}} (f : A ⟶ X) (r : topologicalMappingCone f ⟶ X)
+    (Hr : TopCat.Homotopy (topologicalMappingConeIncl f ≫ r) (𝟙 X)) :
+    TopCat.Homotopy f
+      (toUnit A ≫ topologicalMappingConeRetractPoint f r) := by
+  let g : topologicalCone A ⟶ X := topologicalMappingConeConeIncl f ≫ r
+  let Hcone : TopCat.Homotopy g
+      ((toUnit (topologicalCone A) ≫ topologicalConePointIncl A) ≫ g) :=
+    (TopCat.Homotopy.refl g).comp (topologicalConeContractHomotopy A)
+  have Hbase := Hcone.comp (TopCat.Homotopy.refl (topologicalConeBaseIncl A))
+  rw [← topologicalMappingCone_condition_assoc] at Hbase
+  have hunit : topologicalConeBaseIncl A ≫ toUnit (topologicalCone A) = toUnit A :=
+    Subsingleton.elim _ _
+  have Hbase' : TopCat.Homotopy
+      (f ≫ (topologicalMappingConeIncl f ≫ r))
+      (toUnit A ≫ topologicalMappingConeRetractPoint f r) := by
+    simpa only [g, topologicalMappingConeRetractPoint, Category.id_comp,
+      Category.comp_id, ← Category.assoc, hunit] using Hbase
+  have Hret : TopCat.Homotopy
+      (f ≫ (topologicalMappingConeIncl f ≫ r)) f := by
+    simpa only [Category.comp_id] using
+      Hr.comp (TopCat.Homotopy.refl f)
+  exact Hret.symm.trans Hbase'
+
+/-- The mapping-cone inclusion has a homotopy retraction exactly when its attaching map is
+nullhomotopic. -/
+theorem exists_topologicalMappingConeIncl_homotopy_retraction_iff_nullhomotopic
+    {A X : TopCat.{u}} (f : A ⟶ X) :
+    (∃ r : topologicalMappingCone f ⟶ X,
+        Nonempty
+          (TopCat.Homotopy (topologicalMappingConeIncl f ≫ r) (𝟙 X))) ↔
+      f.hom.Nullhomotopic := by
+  constructor
+  · rintro ⟨r, ⟨Hr⟩⟩
+    rw [← exists_topologicalMappingConeIncl_retraction_iff_nullhomotopic]
+    let x := topologicalMappingConeRetractPoint f r
+    let H := topologicalMappingConeNullhomotopyOfHomotopyRetract f r Hr
+    exact ⟨topologicalMappingConeRetractOfNullhomotopy f x H,
+      topologicalMappingConeIncl_retractOfNullhomotopy f x H⟩
+  · intro hf
+    obtain ⟨r, hr⟩ :=
+      (exists_topologicalMappingConeIncl_retraction_iff_nullhomotopic f).2 hf
+    exact ⟨r, ⟨(TopCat.Homotopy.refl
+      (topologicalMappingConeIncl f ≫ r)).cast rfl
+        (congrArg TopCat.Hom.hom hr)⟩⟩
+
 end Submission

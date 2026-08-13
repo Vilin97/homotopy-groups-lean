@@ -60,6 +60,21 @@ theorem exists_hopfMappingConeIncl_retraction_iff_class_eq_one :
       (exists_sphereTargetMappingConeIncl_retraction_iff_class_eq_one
         2 (sphereBasepoint 2) hopfMap hopfMap_basepoint)
 
+/-- The Hopf mapping-cone inclusion admits a homotopy retraction exactly when the concrete Hopf
+class is trivial. -/
+theorem exists_hopfMappingConeIncl_homotopy_retraction_iff_class_eq_one :
+    (∃ r : hopfMappingCone ⟶ TopCat.of (Sph 2),
+        Nonempty
+          (TopCat.Homotopy (hopfMappingConeIncl ≫ r)
+            (𝟙 (TopCat.of (Sph 2))))) ↔
+      piThreeSphereTwoHopfGenerator = 1 := by
+  letI : SimplyConnectedSpace (Sph 2) :=
+    simplyConnectedSpace_sph_of_two_le (by omega)
+  simpa only [hopfMappingCone, hopfMappingConeIncl, hopfTopCat,
+    piThreeSphereTwoHopfGenerator_eq_hopfMapClass] using
+      (exists_sphereTargetMappingConeIncl_homotopy_retraction_iff_class_eq_one
+        2 (sphereBasepoint 2) hopfMap hopfMap_basepoint)
+
 /-- The bottom sphere in the Hopf mapping cone is not a retract.  Otherwise the general
 mapping-cone converse would make the concrete Hopf attaching map nullhomotopic, contradicting
 its computed nontrivial class in `π₃(S²)`. -/
@@ -68,6 +83,16 @@ theorem not_exists_hopfMappingConeIncl_retraction :
       hopfMappingConeIncl ≫ r = 𝟙 (TopCat.of (Sph 2)) := by
   exact fun h ↦ piThreeSphereTwoHopfGenerator_ne_one
     (exists_hopfMappingConeIncl_retraction_iff_class_eq_one.mp h)
+
+/-- More strongly, the bottom sphere of the Hopf mapping cone is not a retract even in the
+homotopy category. -/
+theorem not_exists_hopfMappingConeIncl_homotopy_retraction :
+    ¬ ∃ r : hopfMappingCone ⟶ TopCat.of (Sph 2),
+      Nonempty
+        (TopCat.Homotopy (hopfMappingConeIncl ≫ r)
+          (𝟙 (TopCat.of (Sph 2)))) := by
+  exact fun h ↦ piThreeSphereTwoHopfGenerator_ne_one
+    (exists_hopfMappingConeIncl_homotopy_retraction_iff_class_eq_one.mp h)
 
 /-- The geometric suspension `S⁴ ⟶ S³` of the concrete quadratic Hopf map. -/
 noncomputable def suspendedHopfMap : C(Sph 4, Sph 3) :=
@@ -201,6 +226,21 @@ theorem exists_suspendedHopfMappingConeIncl_retraction_iff_class_eq_one :
       (exists_sphereTargetMappingConeIncl_retraction_iff_class_eq_one
         3 (sphereBasepoint 3) suspendedHopfMap suspendedHopfMap_basepoint)
 
+/-- Homotopy retraction of the suspended-Hopf mapping-cone inclusion is likewise exactly
+triviality of its explicit geometric homotopy class. -/
+theorem exists_suspendedHopfMappingConeIncl_homotopy_retraction_iff_class_eq_one :
+    (∃ r : suspendedHopfMappingCone ⟶ TopCat.of (Sph 3),
+        Nonempty
+          (TopCat.Homotopy (suspendedHopfMappingConeIncl ≫ r)
+            (𝟙 (TopCat.of (Sph 3))))) ↔
+      suspendedHopfMapClass = 1 := by
+  letI : SimplyConnectedSpace (Sph 3) :=
+    simplyConnectedSpace_sph_of_two_le (by omega)
+  simpa only [suspendedHopfMappingCone, suspendedHopfMappingConeIncl,
+    suspendedHopfTopCat, suspendedHopfMapClass, Nat.reduceAdd] using
+      (exists_sphereTargetMappingConeIncl_homotopy_retraction_iff_class_eq_one
+        3 (sphereBasepoint 3) suspendedHopfMap suspendedHopfMap_basepoint)
+
 /-- Equivalently, the suspended-Hopf class is nontrivial exactly when its mapping-cone bottom
 sphere admits no retraction. -/
 theorem suspendedHopfMapClass_ne_one_iff_not_exists_mappingConeIncl_retraction :
@@ -208,6 +248,17 @@ theorem suspendedHopfMapClass_ne_one_iff_not_exists_mappingConeIncl_retraction :
       ¬ ∃ r : suspendedHopfMappingCone ⟶ TopCat.of (Sph 3),
         suspendedHopfMappingConeIncl ≫ r = 𝟙 (TopCat.of (Sph 3)) :=
   (not_congr exists_suspendedHopfMappingConeIncl_retraction_iff_class_eq_one).symm
+
+/-- Equivalently, the suspended-Hopf class is nontrivial exactly when its mapping-cone bottom
+sphere has no homotopy retraction. -/
+theorem suspendedHopfMapClass_ne_one_iff_not_exists_mappingConeIncl_homotopy_retraction :
+    suspendedHopfMapClass ≠ 1 ↔
+      ¬ ∃ r : suspendedHopfMappingCone ⟶ TopCat.of (Sph 3),
+        Nonempty
+          (TopCat.Homotopy (suspendedHopfMappingConeIncl ≫ r)
+            (𝟙 (TopCat.of (Sph 3)))) :=
+  (not_congr
+    exists_suspendedHopfMappingConeIncl_homotopy_retraction_iff_class_eq_one).symm
 
 /-- Transporting source and target through the chosen suspension-sphere homeomorphisms
 identifies the raw-suspension mapping cone with the concrete suspended-Hopf mapping cone. -/
@@ -790,6 +841,20 @@ theorem not_exists_suspendedHopfMappingConeIncl_retraction_of_canonical_evaluati
   exact suspendedHopfMapClass_ne_one_of_not_nullhomotopic
     (suspendedHopfMap_not_nullhomotopic_of_canonical_evaluation heval)
 
+/-- In fact the canonical cup-one evaluation rules out a retraction of the suspended-Hopf cone
+in the homotopy category. -/
+theorem not_exists_suspendedHopfMappingConeIncl_homotopy_retraction_of_canonical_evaluation
+    (heval : sqTwoHsingDegreeThreeRepresentativeEvaluation
+      suspendedHopfCanonicalCocycle suspendedHopfCanonicalFiveCycle ≠ 0) :
+    ¬ ∃ r : suspendedHopfMappingCone ⟶ TopCat.of (Sph 3),
+      Nonempty
+        (TopCat.Homotopy (suspendedHopfMappingConeIncl ≫ r)
+          (𝟙 (TopCat.of (Sph 3)))) := by
+  apply
+    suspendedHopfMapClass_ne_one_iff_not_exists_mappingConeIncl_homotopy_retraction.mp
+  exact suspendedHopfMapClass_ne_one_of_not_nullhomotopic
+    (suspendedHopfMap_not_nullhomotopic_of_canonical_evaluation heval)
+
 /-- A nonzero value of the remaining canonical cup-one calculation proves that the geometric
 first-stem generator is a nonidentity element of `π₄(S³)`. -/
 theorem piFourSphereThreeGeometricHopfGenerator_ne_one_of_canonical_evaluation
@@ -863,6 +928,23 @@ theorem sphere_first_stable_homotopy_mulEquiv_zmod_two_of_edge_square_and_no_map
     ⟨hsquare, piFourSphereThreeEdgeGenerator_ne_one_of_element_ne_one
       suspendedHopfMapClass
       (suspendedHopfMapClass_ne_one_iff_not_exists_mappingConeIncl_retraction.mpr hnoret)⟩
+
+/-- The homotopy-category no-retraction formulation also supplies the lower half of the exact
+first-stem computation. -/
+theorem piFourSphereThree_mulEquiv_zmod_two_of_edge_square_and_no_mappingCone_homotopy_retraction
+    (hsquare : piFourSphereThreeEdgeGenerator ^ 2 = 1)
+    (hnoret : ¬ ∃ r : suspendedHopfMappingCone ⟶ TopCat.of (Sph 3),
+      Nonempty
+        (TopCat.Homotopy (suspendedHopfMappingConeIncl ≫ r)
+          (𝟙 (TopCat.of (Sph 3))))) :
+    Nonempty
+      (π_ 4 (Sph 3) (sphereBasepoint 3) ≃* Multiplicative (ZMod 2)) := by
+  apply piFourSphereThree_mulEquiv_zmod_two_iff_edge_square_and_nontrivial.mpr
+  refine ⟨hsquare, piFourSphereThreeEdgeGenerator_ne_one_of_element_ne_one
+    suspendedHopfMapClass ?_⟩
+  exact
+    suspendedHopfMapClass_ne_one_iff_not_exists_mappingConeIncl_homotopy_retraction.mpr
+      hnoret
 
 /-- The exact first-stem computation now follows from its independent upper and lower halves:
 doubling kills the edge generator, while the fixed cup-one evaluation detects a nonidentity

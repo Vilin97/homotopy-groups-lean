@@ -33,4 +33,20 @@ theorem exists_sphereTargetMappingConeIncl_retraction_iff_class_eq_one
   rw [exists_topologicalMappingConeIncl_retraction_iff_homotopy_const]
   exact (sphereTargetMapClass_eq_one_iff_freelyNullhomotopic n f hf).symm
 
+/-- The homotopy-invariant version: the mapping-cone inclusion admits a homotopy retraction
+exactly when the represented sphere class is the identity. -/
+theorem exists_sphereTargetMappingConeIncl_homotopy_retraction_iff_class_eq_one
+    {X : Type} [TopologicalSpace X] [SimplyConnectedSpace X]
+    (n : ℕ) (x : X) (f : C(SphereSpace (n + 1), X))
+    (hf : f (sphereBasepoint (n + 1)) = x) :
+    (∃ r : topologicalMappingCone (TopCat.ofHom f) ⟶ TopCat.of X,
+        Nonempty
+          (TopCat.Homotopy
+            (topologicalMappingConeIncl (TopCat.ofHom f) ≫ r)
+            (𝟙 (TopCat.of X)))) ↔
+      sphereTargetMapClass (n + 1) f hf = 1 := by
+  rw [exists_topologicalMappingConeIncl_homotopy_retraction_iff_nullhomotopic,
+    ← exists_topologicalMappingConeIncl_retraction_iff_nullhomotopic]
+  exact exists_sphereTargetMappingConeIncl_retraction_iff_class_eq_one n x f hf
+
 end Submission
