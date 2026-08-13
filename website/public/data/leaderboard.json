@@ -46368,7 +46368,8 @@
           "Submission.complexProjectivePlaneCellCollapse",
           "Submission.not_exists_complexProjectivePlaneCellCollapse_homotopy_section",
           "Submission.diskBoundaryFourConeHomeomorphDisk",
-          "Submission.complexProjectivePlaneMappingConeHomeomorphCell"
+          "Submission.complexProjectivePlaneMappingConeHomeomorphCell",
+          "Submission.complexProjectivePlaneMappingConeHomeomorph"
         ],
         "degree_cell_count": 0,
         "degree_coordinates": null,
@@ -46378,9 +46379,9 @@
         "lattice_kind": null,
         "lattice_proof": null,
         "model_relation": "uses the maintained exact metric 3- and 2-spheres, concrete quadratic Hopf map, quotient-topology finite complex projective models, standard four-disk and boundary inclusion, topological cone, and maintained pushout cell attachment; all comparison maps commute exactly on the CP^1, cone-cylinder, cone-point, and disk pieces",
-        "note": "All nineteen headline declarations and their quotient, compact-Hausdorff, phase-normalization, pushout-injectivity, radial-cone, mapping-cone comparison, surjectivity, basepoint, and induced-homotopy-group helpers are sorry-free Lean 4. Strict autoImplicit=false checks and exact-target builds pass for ComplexProjectiveLine, ComplexProjectivePlaneCell, ComplexProjectivePlanePuppe, CellAttachment, and the Submission aggregate; the exact aggregate contains 8,930 targets. This establishes the geometric CP^2 cofibre model, its pi_4 vanishing input, the resulting no-section obstruction for the collapse to S^4, and its exact mapping-cone presentation, but no sphere-group lower bound is claimed until the required cofibration exactness bridge is formalized, so no lattice cell is recolored.",
-        "result": "the exact quadratic Hopf map has precisely the explicit circle-action fibres; its projective quotient identifies CP^1 homeomorphically with the exact metric 2-sphere, and the quotient-topology CP^2 is homeomorphic to the one-cell attachment CP^1 union_eta D^4 whose attaching map is exactly the concrete Hopf map; the generalized Hopf fibration proves pi_4(CP^2) and the corresponding Hopf cell model trivial, while the explicit collapse to S^4 therefore admits no based homotopy section; the radial homeomorphism from the cone on the four-disk boundary to D^4 transports the exact Hopf mapping cone homeomorphically onto this cell attachment",
-        "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/1a25a5f0d1dd32fab2afa696eebeb535f7a0ef0a/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ComplexProjectivePlaneCell.lean",
+        "note": "All twenty headline declarations and their quotient, compact-Hausdorff, phase-normalization, pushout-injectivity, radial-cone, mapping-cone comparison, surjectivity, basepoint, and induced-homotopy-group helpers are sorry-free Lean 4. Strict autoImplicit=false checks and exact-target builds pass for ComplexProjectiveLine, ComplexProjectivePlaneCell, ComplexProjectivePlanePuppe, CellAttachment, and the Submission aggregate; the exact aggregate contains 8,930 targets. This establishes the geometric CP^2 cofibre model, its pi_4 vanishing input, the resulting no-section obstruction for the collapse to S^4, and its exact mapping-cone presentation, but no sphere-group lower bound is claimed until the required cofibration exactness bridge is formalized, so no lattice cell is recolored.",
+        "result": "the exact quadratic Hopf map has precisely the explicit circle-action fibres; its projective quotient identifies CP^1 homeomorphically with the exact metric 2-sphere, and the quotient-topology CP^2 is homeomorphic to the one-cell attachment CP^1 union_eta D^4 whose attaching map is exactly the concrete Hopf map; the generalized Hopf fibration proves pi_4(CP^2) and the corresponding Hopf cell model trivial, while the explicit collapse to S^4 therefore admits no based homotopy section; the radial homeomorphism from the cone on the four-disk boundary to D^4 transports the exact Hopf mapping cone homeomorphically onto this cell attachment and hence onto CP^2, with exact formulas on its bottom and cone-cylinder pieces",
+        "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/914d8bd08b40982ea2c4870ae5dc507e635efff9/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ComplexProjectivePlaneCell.lean",
         "status": "lean_kernel_checked_local_source",
         "system": "Lean 4"
       },
