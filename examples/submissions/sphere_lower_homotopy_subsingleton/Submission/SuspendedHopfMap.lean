@@ -471,10 +471,27 @@ theorem hopfSuspensionCanonicalLift_restrict :
     hopfSuspensionMappingConeIso_hom_incl, Hsing.map_comp,
     LinearMap.comp_apply, suspendedHopfCanonicalLift_restrict]
 
+/-- The transported canonical class on the raw suspension cone is nonzero. -/
+theorem hopfSuspensionCanonicalLift_ne_zero : hopfSuspensionCanonicalLift ≠ 0 := by
+  intro hzero
+  apply suspendedHopfCanonicalLift_ne_zero
+  apply (Hsing.map_bijective_of_isIso hopfSuspensionMappingConeIso.hom 3).1
+  rw [map_zero]
+  exact hzero
+
 /-- The normalized top class pulled back to the mapping cone of the raw suspension. -/
 noncomputable def hopfSuspensionMappingConeTopClass :
     Hsing 5 hopfSuspensionMappingCone (ZMod 2) :=
   Hsing.map hopfSuspensionMappingConeIso.hom 5 suspendedHopfMappingConeTopClass
+
+/-- The transported top class on the raw suspension cone is nonzero. -/
+theorem hopfSuspensionMappingConeTopClass_ne_zero :
+    hopfSuspensionMappingConeTopClass ≠ 0 := by
+  intro hzero
+  apply suspendedHopfMappingConeTopClass_ne_zero
+  apply (Hsing.map_bijective_of_isIso hopfSuspensionMappingConeIso.hom 5).1
+  rw [map_zero]
+  exact hzero
 
 /-- `Sq²` commutes with transport from the concrete suspended-Hopf cone to the raw suspension
 cone. -/
@@ -494,6 +511,25 @@ theorem hopfSuspensionCanonicalLift_sqTwo_eq_top_of_concrete
       hopfSuspensionMappingConeTopClass := by
   rw [hopfSuspensionCanonicalLift_sqTwo_naturality, hSq]
   rfl
+
+/-- The top-square identity is unchanged by passing between the raw suspension cone and the
+concrete suspended-Hopf cone. -/
+theorem hopfSuspensionCanonicalLift_sqTwo_eq_top_iff :
+    sqTwoHsingDegreeThree hopfSuspensionCanonicalLift =
+        hopfSuspensionMappingConeTopClass ↔
+      sqTwoHsingDegreeThree suspendedHopfCanonicalLift =
+        suspendedHopfMappingConeTopClass := by
+  rw [hopfSuspensionCanonicalLift_sqTwo_naturality]
+  change Hsing.map hopfSuspensionMappingConeIso.hom 5
+      (sqTwoHsingDegreeThree suspendedHopfCanonicalLift) =
+        Hsing.map hopfSuspensionMappingConeIso.hom 5
+          suspendedHopfMappingConeTopClass ↔ _
+  constructor
+  · intro h
+    exact (Hsing.map_bijective_of_isIso (R := ZMod 2)
+      hopfSuspensionMappingConeIso.hom 5).1 h
+  · intro h
+    exact congrArg (Hsing.map (R := ZMod 2) hopfSuspensionMappingConeIso.hom 5) h
 
 /-- A fixed singular cocycle representing the canonical degree-three mapping-cone lift. -/
 noncomputable def suspendedHopfCanonicalCocycle :

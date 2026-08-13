@@ -80,6 +80,30 @@ theorem Hsing.map_comp {X Y Z : TopCat.{0}} (f : X ⟶ Y) (g : Y ⟶ Z) (n : ℕ
   rw [Hsing.map, TopCat.toSSet.map_comp, Hcoh.map_comp]
   rfl
 
+/-- An isomorphism of topological spaces induces a linear equivalence on singular cohomology,
+contravariantly. -/
+noncomputable def Hsing.linearEquivOfIso {X Y : TopCat.{0}} (f : X ⟶ Y) [IsIso f]
+    (n : ℕ) : Hsing n Y R ≃ₗ[R] Hsing n X R where
+  toLinearMap := Hsing.map f n
+  invFun := Hsing.map (inv f) n
+  left_inv x := by
+    change Hsing.map (inv f) n (Hsing.map f n x) = x
+    have hcomp := LinearMap.congr_fun (Hsing.map_comp (R := R) (inv f) f n) x
+    rw [LinearMap.comp_apply] at hcomp
+    rw [← hcomp, IsIso.inv_hom_id, Hsing.map_id]
+    rfl
+  right_inv x := by
+    change Hsing.map f n (Hsing.map (inv f) n x) = x
+    have hcomp := LinearMap.congr_fun (Hsing.map_comp (R := R) f (inv f) n) x
+    rw [LinearMap.comp_apply] at hcomp
+    rw [← hcomp, IsIso.hom_inv_id, Hsing.map_id]
+    rfl
+
+/-- Pullback along an isomorphism of topological spaces is bijective on singular cohomology. -/
+theorem Hsing.map_bijective_of_isIso {X Y : TopCat.{0}} (f : X ⟶ Y) [IsIso f]
+    (n : ℕ) : Function.Bijective (Hsing.map (R := R) f n) :=
+  (Hsing.linearEquivOfIso f n).bijective
+
 /-- The cup product on singular cohomology. -/
 def cupHsing {X : TopCat.{0}} {p q n : ℕ} (h : p + q = n) :
     Hsing p X R →ₗ[R] Hsing q X R →ₗ[R] Hsing n X R :=
