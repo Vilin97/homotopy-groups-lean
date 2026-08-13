@@ -120,6 +120,23 @@ theorem targetGenLoopSphereMap_const (n : ℕ) :
       (GenLoop.const : Ω^ (Fin (n + 1)) X x))
   exact h
 
+/-- For a sphere target of the same dimension as the source, the arbitrary-target descent is
+the earlier sphere-self-map descent. -/
+@[simp]
+theorem targetGenLoopSphereMap_eq_genLoopSphereMap (n : ℕ)
+    (α : Ω^ (Fin (n + 1)) (SphereSpace (n + 1)) (sphereBasepoint (n + 1))) :
+    targetGenLoopSphereMap n α = genLoopSphereMap n α := by
+  apply ContinuousMap.ext
+  intro z
+  obtain ⟨u, rfl⟩ := cubeToSphere_surjective n z
+  have htarget := congrArg
+    (fun f : C(I^ Fin (n + 1), SphereSpace (n + 1)) ↦ f u)
+    (targetGenLoopSphereMap_comp_cubeToSphere n α)
+  have hself := congrArg
+    (fun f : C(I^ Fin (n + 1), SphereSpace (n + 1)) ↦ f u)
+    (genLoopSphereMap_comp_cubeToSphere n α)
+  exact htarget.trans hself.symm
+
 /-- The based sphere map obtained by descending a positive-dimensional generalized loop. -/
 noncomputable def targetGenLoopBasedSphereMap (n : ℕ) (α : Ω^ (Fin (n + 1)) X x) :
     BasedSphereMap (n + 1) X x :=
@@ -290,6 +307,14 @@ pointed target. -/
 noncomputable def sphereTargetMapClass (m : ℕ) (f : C(SphereSpace m, X))
     (hf : f (sphereBasepoint m) = x) : π_ m X x :=
   ⟦sphereTargetMapGenLoop m f hf⟧
+
+/-- For sphere self-maps, the arbitrary-target represented class is the earlier diagonal
+self-map class. -/
+theorem sphereTargetMapClass_eq_sphereSelfMapClass (m : ℕ)
+    (f : C(SphereSpace m, SphereSpace m))
+    (hf : f (sphereBasepoint m) = sphereBasepoint m) :
+    sphereTargetMapClass m f hf = sphereSelfMapClass m f hf :=
+  rfl
 
 /-- Based-homotopic sphere maps determine the same cubical homotopy class. -/
 theorem sphereTargetMapClass_eq_of_homotopy (m : ℕ)

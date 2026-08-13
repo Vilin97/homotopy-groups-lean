@@ -101,6 +101,38 @@ theorem sphereGeometricSuspension_sphereTargetMapClass (m q : ℕ)
     exact hA
   exact sphereSuspensionTargetMapClass_eq_of_homotopy q m hA hf H hbase
 
+/-- In equal source and target dimensions, the arbitrary-target suspended class is the earlier
+suspended self-map class. -/
+theorem sphereSuspensionTargetMapClass_diagonal (n : ℕ)
+    (f : C(Sph (n + 1), Sph (n + 1)))
+    (hf : f (sphereBasepoint (n + 1)) = sphereBasepoint (n + 1)) :
+    sphereSuspensionTargetMapClass n (n + 1) f hf =
+      sphereSuspensionSelfMapClass (n + 1) f hf :=
+  rfl
+
+/-- The arbitrary-degree geometric suspension genuinely extends the previously defined
+diagonal geometric suspension. -/
+theorem sphereGeometricSuspension_diagonal (n : ℕ) :
+    sphereGeometricSuspension (n + 1) n = sphereDiagonalSuspension n := by
+  funext a
+  induction a using Quotient.ind with
+  | _ α =>
+      rw [sphereGeometricSuspension_mk, sphereDiagonalSuspension_mk]
+      change sphereSuspensionTargetMapClass n (n + 1)
+          (targetGenLoopSphereMap n α) _ =
+        sphereSuspensionSelfMapClass (n + 1) (genLoopSphereMap n α) _
+      simp only [targetGenLoopSphereMap_eq_genLoopSphereMap]
+      exact sphereSuspensionTargetMapClass_diagonal n
+        (genLoopSphereMap n α) (genLoopSphereMap_basepoint n α)
+
+/-- On the diagonal, arbitrary-degree geometric suspension carries the canonical sphere
+generator to the next canonical generator. -/
+@[simp]
+theorem sphereGeometricSuspension_diagonal_generator (n : ℕ) :
+    sphereGeometricSuspension (n + 1) n (sphereGeneratorClass (n + 1)) =
+      sphereGeneratorClass (n + 2) := by
+  rw [sphereGeometricSuspension_diagonal, sphereDiagonalSuspension_generator]
+
 /-- Geometric suspension preserves the identity element in every positive source dimension. -/
 @[simp]
 theorem sphereGeometricSuspension_one (m q : ℕ) :
