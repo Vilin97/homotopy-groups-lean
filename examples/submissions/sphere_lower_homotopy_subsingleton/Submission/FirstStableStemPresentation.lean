@@ -4,6 +4,7 @@ Released under Apache 2.0 license.
 -/
 import Submission.Approximation.SphereCapExcisionSurjective
 import Submission.SphereReducedSuspensionBijective
+import Submission.SphereSuspensionGeneral
 import Mathlib.Algebra.Group.Subgroup.ZPowers.Lemmas
 
 /-!
@@ -58,6 +59,21 @@ theorem hopfMap_not_based_nullhomotopic :
   apply piThreeSphereTwoHopfGenerator_ne_one
   rw [piThreeSphereTwoHopfGenerator_eq_hopfMapClass]
   exact sphereTargetMapClass_eq_one_of_nullhomotopic 3 hopfMap hopfMap_basepoint H hbase
+
+/-- The first-stem class obtained by geometrically suspending the concrete Hopf generator. -/
+noncomputable def piFourSphereThreeGeometricHopfGenerator :
+    π_ 4 (Sph 3) (sphereBasepoint 3) :=
+  sphereGeometricSuspension 2 2 piThreeSphereTwoHopfGenerator
+
+/-- The geometric suspension of the concrete Hopf generator is represented by the explicit
+suspended quadratic Hopf map `S⁴ ⟶ S³`. -/
+theorem piFourSphereThreeGeometricHopfGenerator_eq_suspensionMapClass :
+    piFourSphereThreeGeometricHopfGenerator =
+      sphereTargetMapClass 4 (sphereSuspensionMap 3 2 hopfMap)
+        (sphereSuspensionMap_basepoint 3 2 hopfMap hopfMap_basepoint) := by
+  rw [piFourSphereThreeGeometricHopfGenerator,
+    piThreeSphereTwoHopfGenerator_eq_hopfMapClass]
+  exact sphereGeometricSuspension_sphereTargetMapClass 2 2 hopfMap hopfMap_basepoint
 
 /-- The Hopf-map image is indeed a generator of `pi_3(S^2)`. -/
 theorem piThreeSphereTwoHopfGenerator_generates :

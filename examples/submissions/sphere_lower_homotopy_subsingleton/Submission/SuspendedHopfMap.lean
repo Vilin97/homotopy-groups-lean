@@ -8,7 +8,7 @@ import Submission.Cohomology.MappingConePair
 import Submission.Cohomology.SphereTop
 import Submission.Homology.MappingCone
 import Submission.HopfMap
-import Submission.SphereSuspension
+import Submission.SphereSuspensionGeneral
 
 /-!
 # The suspended Hopf map and its mapping cone
@@ -49,6 +49,22 @@ noncomputable def suspendedHopfMap : C(Sph 4, Sph 3) :=
 theorem suspendedHopfMap_basepoint :
     suspendedHopfMap (sphereBasepoint 4) = sphereBasepoint 3 :=
   sphereSuspensionMap_basepoint 3 2 hopfMap hopfMap_basepoint
+
+/-- The positive-dimensional homotopy class represented by the explicit suspended Hopf map. -/
+noncomputable def suspendedHopfMapClass :
+    π_ 4 (Sph 3) (sphereBasepoint 3) :=
+  sphereTargetMapClass 4 suspendedHopfMap suspendedHopfMap_basepoint
+
+/-- The explicit suspended Hopf map represents the geometric suspension of the original Hopf
+map's cubical homotopy class. -/
+theorem suspendedHopfMapClass_eq_geometricSuspension :
+    suspendedHopfMapClass =
+      sphereGeometricSuspension 2 2
+        (sphereTargetMapClass 3 hopfMap hopfMap_basepoint) := by
+  symm
+  simpa only [suspendedHopfMapClass, suspendedHopfMap,
+    sphereSuspensionTargetMapClass] using
+      sphereGeometricSuspension_sphereTargetMapClass 2 2 hopfMap hopfMap_basepoint
 
 /-- The suspended Hopf map as a morphism of topological spaces. -/
 noncomputable def suspendedHopfTopCat :
