@@ -107,6 +107,19 @@ theorem targetGenLoopSphereMap_basepoint (n : ℕ) (α : Ω^ (Fin (n + 1)) X x) 
       exact h
     _ = x := α.property u hu
 
+/-- The constant cubical loop descends to the constant map into an arbitrary pointed target. -/
+@[simp]
+theorem targetGenLoopSphereMap_const (n : ℕ) :
+    targetGenLoopSphereMap n (GenLoop.const : Ω^ (Fin (n + 1)) X x) =
+      ContinuousMap.const (SphereSpace (n + 1)) x := by
+  apply ContinuousMap.ext
+  intro z
+  obtain ⟨u, rfl⟩ := cubeToSphere_surjective n z
+  have h := congrArg (fun f : C(I^ Fin (n + 1), X) ↦ f u)
+    (targetGenLoopSphereMap_comp_cubeToSphere n
+      (GenLoop.const : Ω^ (Fin (n + 1)) X x))
+  exact h
+
 /-- The based sphere map obtained by descending a positive-dimensional generalized loop. -/
 noncomputable def targetGenLoopBasedSphereMap (n : ℕ) (α : Ω^ (Fin (n + 1)) X x) :
     BasedSphereMap (n + 1) X x :=

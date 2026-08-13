@@ -3,15 +3,13 @@ Copyright (c) 2026 Vasily Ilin. All rights reserved.
 Released under Apache 2.0 license.
 -/
 import Submission.DiagonalInduction
-import Submission.SphereSuspension
+import Submission.SphereSuspensionConst
 
 /-!
 # Pointed and group-level properties of diagonal sphere suspension
 
-The unreduced suspension of a constant map is not literally constant: its image is the meridian
-through the suspended value.  This file contracts that meridian explicitly, while fixing its
-equatorial midpoint.  Consequently the geometric diagonal suspension constructed in
-`Submission.SphereSuspension` preserves the identity element of the homotopy group.
+The explicit meridian contraction from `Submission.SphereSuspensionConst` shows that geometric
+diagonal suspension preserves the identity element of the homotopy group.
 
 We then bundle diagonal suspension as a `OneHom` and isolate the two remaining facts needed for
 the exact diagonal calculation on the actual geometric map: multiplication compatibility and
@@ -26,104 +24,19 @@ noncomputable section
 
 namespace Submission
 
-namespace Susp
-
-universe u v
-
-variable {X : Type u} [TopologicalSpace X] {Y : Type v} [TopologicalSpace Y]
-
-/-- Contract the meridian obtained by suspending a constant map to its equatorial value. -/
-def meridianContractionToFun (y : Y) (p : I × Susp X) : Susp Y :=
-  Quotient.lift
-    (fun q : I × X => Susp.mk (Set.Icc.convexComb q.1 midpoint p.1, y))
-    (by
-      intro a b hab
-      rcases hab with h | ⟨ha, hb⟩ | ⟨ha, hb⟩
-      · exact congrArg
-          (fun q : I × X => Susp.mk (Set.Icc.convexComb q.1 midpoint p.1, y)) h
-      · exact congrArg (fun t : I => Susp.mk (t, y)) (by simp [ha, hb])
-      · exact congrArg (fun t : I => Susp.mk (t, y)) (by simp [ha, hb]))
-    p.2
-
-@[simp]
-theorem meridianContractionToFun_mk (y : Y) (s : I) (p : I × X) :
-    meridianContractionToFun y (s, Susp.mk p) =
-      Susp.mk (Set.Icc.convexComb p.1 midpoint s, y) :=
-  rfl
-
-/-- The meridian contraction is jointly continuous in time and in the suspension variable. -/
-theorem continuous_meridianContractionToFun (y : Y) :
-    Continuous (meridianContractionToFun (X := X) y) := by
-  refine Susp.isQuotientMap_mk.continuous_lift_prod_right ?_
-  change Continuous fun p : I × (I × X) =>
-    Susp.mk (Set.Icc.convexComb p.2.1 midpoint p.1, y)
-  fun_prop
-
-/-- Suspending a constant map is homotopic to the constant map at the equator. -/
-def meridianContraction (y : Y) :
-    ContinuousMap.Homotopy
-      (Susp.map (ContinuousMap.const X y))
-      (ContinuousMap.const (Susp X) (Susp.mk (midpoint, y))) where
-  toFun := meridianContractionToFun y
-  continuous_toFun := continuous_meridianContractionToFun y
-  map_zero_left q := by
-    induction q using Susp.ind with
-    | h p => simp
-  map_one_left q := by
-    induction q using Susp.ind with
-    | h p => simp
-
-/-- The contraction fixes the preferred equatorial point. -/
-@[simp]
-theorem meridianContraction_equator (y : Y) (x : X) (s : I) :
-    meridianContraction y (s, Susp.mk (midpoint, x)) = Susp.mk (midpoint, y) := by
-  change Susp.mk (Set.Icc.convexComb midpoint midpoint s, y) = Susp.mk (midpoint, y)
-  rw [Set.Icc.convexComb_eq]
-
-end Susp
-
 /-- The suspension of the constant based sphere self-map is based-nullhomotopic. -/
 noncomputable def sphereSuspensionConstHomotopy (n : ℕ) :
     ContinuousMap.Homotopy
       (sphereSuspensionSelfMap n
         (ContinuousMap.const (Sph n) (sphereBasepoint n)))
-      (ContinuousMap.const (Sph (n + 1)) (sphereBasepoint (n + 1))) where
-  toFun p := suspSphHomeo n
-    (Susp.meridianContraction (X := Sph n) (sphereBasepoint n)
-      (p.1, (suspSphHomeo n).symm p.2))
-  continuous_toFun := by fun_prop
-  map_zero_left z := by
-    calc
-      suspSphHomeo n
-          (Susp.meridianContraction (X := Sph n) (sphereBasepoint n)
-            (0, (suspSphHomeo n).symm z)) =
-          suspSphHomeo n
-            (Susp.map (ContinuousMap.const (Sph n) (sphereBasepoint n))
-              ((suspSphHomeo n).symm z)) :=
-        congrArg (suspSphHomeo n)
-          ((Susp.meridianContraction (X := Sph n) (sphereBasepoint n)).map_zero_left _)
-      _ = sphereSuspensionSelfMap n
-          (ContinuousMap.const (Sph n) (sphereBasepoint n)) z := rfl
-  map_one_left z := by
-    calc
-      suspSphHomeo n
-          (Susp.meridianContraction (X := Sph n) (sphereBasepoint n)
-            (1, (suspSphHomeo n).symm z)) =
-          suspSphHomeo n (Susp.mk (Susp.midpoint, sphereBasepoint n)) :=
-        congrArg (suspSphHomeo n)
-          ((Susp.meridianContraction (X := Sph n) (sphereBasepoint n)).map_one_left _)
-      _ = sphereBasepoint (n + 1) := suspSphHomeo_equator_sphereBasepoint n
+      (ContinuousMap.const (Sph (n + 1)) (sphereBasepoint (n + 1))) :=
+  sphereSuspensionMapConstHomotopy n n
 
 /-- The nullhomotopy of the suspended constant self-map fixes the sphere basepoint. -/
 theorem sphereSuspensionConstHomotopy_basepoint (n : ℕ) (t : I) :
     sphereSuspensionConstHomotopy n (t, sphereBasepoint (n + 1)) =
-      sphereBasepoint (n + 1) := by
-  change suspSphHomeo n
-    (Susp.meridianContraction (X := Sph n) (sphereBasepoint n)
-      (t, (suspSphHomeo n).symm (sphereBasepoint (n + 1)))) = sphereBasepoint (n + 1)
-  rw [suspSphHomeo_symm_sphereBasepoint]
-  rw [Susp.meridianContraction_equator]
-  exact suspSphHomeo_equator_sphereBasepoint n
+      sphereBasepoint (n + 1) :=
+  sphereSuspensionMapConstHomotopy_basepoint n n t
 
 /-- The constant based sphere self-map represents the identity homotopy class. -/
 @[simp]

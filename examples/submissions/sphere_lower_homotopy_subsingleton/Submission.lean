@@ -72,6 +72,7 @@ import Submission.SphereSuspensionHomologyExcision
 import Submission.SphereSuspensionHurewicz
 import Submission.SphereSuspensionExcisionStable
 import Submission.SphereSuspension
+import Submission.SphereSuspensionConst
 import Submission.SphereSuspensionGeneral
 import Submission.Approximation.RelativeSphere
 import Submission.Approximation.BoundaryRelativeGeneralPosition

@@ -3,7 +3,7 @@ Copyright (c) 2026 Vasily Ilin. All rights reserved.
 Released under Apache 2.0 license.
 -/
 import Submission.Hurewicz.SphereLoopBridge
-import Submission.SphereSuspension
+import Submission.SphereSuspensionConst
 
 /-!
 # Geometric suspension on arbitrary sphere homotopy classes
@@ -100,5 +100,37 @@ theorem sphereGeometricSuspension_sphereTargetMapClass (m q : ℕ)
     change A (sphereBasepoint (q + 1)) = sphereBasepoint m
     exact hA
   exact sphereSuspensionTargetMapClass_eq_of_homotopy q m hA hf H hbase
+
+/-- Geometric suspension preserves the identity element in every positive source dimension. -/
+@[simp]
+theorem sphereGeometricSuspension_one (m q : ℕ) :
+    sphereGeometricSuspension m q
+        (1 : π_ (q + 1) (Sph m) (sphereBasepoint m)) =
+      (1 : π_ (q + 2) (Sph (m + 1)) (sphereBasepoint (m + 1))) := by
+  rw [HomotopyGroup.one_def, sphereGeometricSuspension_mk]
+  change sphereSuspensionTargetMapClass q m
+      (targetGenLoopSphereMap q
+        (GenLoop.const : Ω^ (Fin (q + 1)) (Sph m) (sphereBasepoint m))) _ = 1
+  simp only [targetGenLoopSphereMap_const]
+  exact sphereTargetMapClass_eq_one_of_nullhomotopic (q + 2)
+    (sphereSuspensionMap (q + 1) m
+      (ContinuousMap.const (Sph (q + 1)) (sphereBasepoint m)))
+    (sphereSuspensionMap_basepoint (q + 1) m _ rfl)
+    (sphereSuspensionMapConstHomotopy (q + 1) m)
+    (sphereSuspensionMapConstHomotopy_basepoint (q + 1) m)
+
+/-- Geometric suspension bundled as an identity-preserving map. -/
+noncomputable def sphereGeometricSuspensionOneHom (m q : ℕ) :
+    OneHom
+      (π_ (q + 1) (Sph m) (sphereBasepoint m))
+      (π_ (q + 2) (Sph (m + 1)) (sphereBasepoint (m + 1))) where
+  toFun := sphereGeometricSuspension m q
+  map_one' := sphereGeometricSuspension_one m q
+
+@[simp]
+theorem sphereGeometricSuspensionOneHom_apply (m q : ℕ)
+    (a : π_ (q + 1) (Sph m) (sphereBasepoint m)) :
+    sphereGeometricSuspensionOneHom m q a = sphereGeometricSuspension m q a :=
+  rfl
 
 end Submission
