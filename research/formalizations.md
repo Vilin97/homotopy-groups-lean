@@ -526,6 +526,25 @@ The exceptional first off-diagonal computation `pi_3(S^2) = Z` remains complete
 through the exact Hopf fibration, its circle fibre, and the maintained long
 exact sequence.
 
+A new independent geometric route now identifies the relevant Hopf cofibre.
+The unit-sphere quotient is proved open, every finite complex projective model
+is compact Hausdorff, and `CP^1` is homeomorphic to the exact metric `S^2` in a
+way that carries its projective quotient to the concrete quadratic Hopf map.
+An explicit characteristic map
+`D^4 -> CP^2`, `[z_0,z_1] |-> [z_0:z_1:sqrt(1-|z|^2)]`, descends through the
+Hopf boundary gluing and induces a homeomorphism
+`CP^1 union_eta D^4 ~= CP^2`.  The generalized complex Hopf fibration then
+proves both `pi_4(CP^2) = 0` and the corresponding vanishing theorem for this
+exact Hopf cell model.  Collapsing the bottom projective line is formalized as
+the standard disk quotient to `S^4`; its induced map cannot admit a based
+homotopy section, since that would make `pi_4(S^4)` a quotient of the trivial
+`pi_4(CP^2)`.  The point-set Puppe development now also constructs the radial
+homeomorphism from the cone on `∂D^4` to `D^4`, with exact formulas on the
+cone cylinder and apex.  This supplies the geometric cofibre, vanishing input,
+final no-section obstruction, and first mapping-cone comparison for a second
+lower-bound proof; the remaining step is the appropriate cofibration exactness
+bridge, so the first stable-stem lattice cell is not yet recolored.
+
 `DiagonalInduction.lean` records the exact equivalence between the two computed
 diagonal groups `pi_1(S^1)` and `pi_2(S^2)`, and proves that a uniform family of
 successive suspension equivalences propagates the integral calculation through
