@@ -201,21 +201,6 @@ theorem realProjectiveCover_sphereModelBasepoint (n : ℕ) :
     realProjectiveCover n (sphereModelBasepoint n) = realProjectiveModelBasepoint n := by
   rfl
 
-/-- A sphere of dimension at least two is simply connected. -/
-theorem simplyConnectedSpace_sph_of_two_le {n : ℕ} (hn : 2 ≤ n) :
-    SimplyConnectedSpace (Sph n) := by
-  rw [simply_connected_iff_loops_nullhomotopic]
-  refine ⟨pathConnectedSpace_sph (by omega), ?_⟩
-  intro x γ
-  letI : Subsingleton (HomotopyGroup.Pi 1 (Sph n) x) :=
-    subsingleton_homotopyGroup_sphere_of_lt 1 n (by omega) x
-  letI : Subsingleton (FundamentalGroup (Sph n) x) :=
-    HomotopyGroup.pi1MulEquivFundamentalGroup.toEquiv.symm.subsingleton
-  have heq : (⟦γ⟧ : Path.Homotopic.Quotient x x) = ⟦Path.refl x⟧ :=
-    Subsingleton.elim (FundamentalGroup.fromPath ⟦γ⟧)
-      (FundamentalGroup.fromPath ⟦Path.refl x⟧)
-  exact Quotient.exact heq
-
 /-- The real two-element deck group is cyclic of order two. -/
 noncomputable def realSphereDeckGroupMulEquivZModTwo :
     RealSphereDeckGroup ≃* Multiplicative (ZMod 2) := by

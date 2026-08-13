@@ -3,6 +3,7 @@ Copyright (c) 2026 Vasily Ilin. All rights reserved.
 Released under Apache 2.0 license.
 -/
 import Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace
+import Mathlib.AlgebraicTopology.FundamentalGroupoid.SimplyConnected
 import Submission.Approximation.Simplex
 import Submission.SphereHomotopy
 
@@ -43,6 +44,8 @@ Half A (`Submission/Model/SphereCompl.lean`) then finishes the proof.
 * `Submission.exists_radialProj_ne` — in dimension `k + 2 ≤ finrank`, the radial projection of a
   piecewise-affine approximation misses a unit vector;
 * `Submission.subsingleton_homotopyGroup_sphere_of_lt` — `π_k(Sⁿ)` is trivial for `k < n`.
+* `Submission.simplyConnectedSpace_sph_of_two_le` — every metric sphere of dimension at least two
+  is simply connected.
 -/
 
 open scoped unitInterval Topology Topology.Homotopy
@@ -315,6 +318,21 @@ theorem subsingleton_homotopyGroup_sphere_of_lt (k n : ℕ) (hkn : k < n) (x : S
     | h p =>
       induction b using Quotient.inductionOn with
       | h q => rw [homotopyGroup_eq_one_of_lt hkn x p, homotopyGroup_eq_one_of_lt hkn x q]
+
+/-- A metric sphere of dimension at least two is simply connected. -/
+theorem simplyConnectedSpace_sph_of_two_le {n : ℕ} (hn : 2 ≤ n) :
+    SimplyConnectedSpace (Sph n) := by
+  rw [simply_connected_iff_loops_nullhomotopic]
+  refine ⟨pathConnectedSpace_sph (by omega), ?_⟩
+  intro x γ
+  letI : Subsingleton (HomotopyGroup.Pi 1 (Sph n) x) :=
+    subsingleton_homotopyGroup_sphere_of_lt 1 n (by omega) x
+  letI : Subsingleton (FundamentalGroup (Sph n) x) :=
+    HomotopyGroup.pi1MulEquivFundamentalGroup.toEquiv.symm.subsingleton
+  have heq : (⟦γ⟧ : Path.Homotopic.Quotient x x) = ⟦Path.refl x⟧ :=
+    Subsingleton.elim (FundamentalGroup.fromPath ⟦γ⟧)
+      (FundamentalGroup.fromPath ⟦Path.refl x⟧)
+  exact Quotient.exact heq
 
 end Vanishing
 

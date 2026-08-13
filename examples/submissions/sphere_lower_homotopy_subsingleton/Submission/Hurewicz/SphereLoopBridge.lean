@@ -2,8 +2,10 @@
 Copyright (c) 2026 Vasily Ilin. All rights reserved.
 Released under Apache 2.0 license.
 -/
-import Submission.SphereGenerator
+import Mathlib.AlgebraicTopology.FundamentalGroupoid.SimplyConnected
+import Submission.ForMathlib.HomotopyGroup.Basic
 import Submission.ForMathlib.HomotopyGroup.Map
+import Submission.SphereGenerator
 
 /-!
 # Cubical loops as based maps out of a sphere
@@ -27,6 +29,8 @@ higher simplex supplies a based nullhomotopy of a sphere map.
   homotopy;
 * `Submission.sphereTargetMapClass_eq_map_generator` — a based sphere map represents the image of
   the canonical sphere generator;
+* `Submission.sphereTargetMapClass_eq_one_of_freelyNullhomotopic` — in a simply connected target,
+  a free nullhomotopy already kills the represented based class;
 * `Submission.homotopyGroup_exists_sphereTargetMapRepresentative` — every positive-dimensional
   homotopy class has a based sphere-map representative.
 -/
@@ -389,6 +393,37 @@ theorem sphereTargetMapClass_eq_one_of_nullhomotopic (m : ℕ) [Nonempty (Fin m)
     sphereTargetMapClass m f hf = 1 := by
   rw [sphereTargetMapClass_eq_of_homotopy m hf rfl H hbase,
     sphereTargetMapClass_const]
+
+/-- A freely nullhomotopic based sphere map into a simply connected target represents the
+identity class.  Simple connectivity fills the loop traced by the basepoint and converts the
+free homotopy into a cubical homotopy relative to the boundary. -/
+theorem sphereTargetMapClass_eq_one_of_freelyNullhomotopic (m : ℕ) [Nonempty (Fin m)]
+    [SimplyConnectedSpace X]
+    (f : C(SphereSpace m, X)) (hf : f (sphereBasepoint m) = x)
+    (H : ContinuousMap.Homotopy f (ContinuousMap.const (SphereSpace m) x)) :
+    sphereTargetMapClass m f hf = 1 := by
+  let δ : Path x x :=
+    { toFun := fun t ↦ H (t, sphereBasepoint m)
+      continuous_toFun := H.continuous.comp
+        (continuous_id.prodMk continuous_const)
+      source' := by rw [H.apply_zero, hf]
+      target' := by simp }
+  have hδ : Path.Homotopic δ (Path.refl x) :=
+    (simply_connected_iff_loops_nullhomotopic.mp
+      (inferInstance : SimplyConnectedSpace X)).2 x δ
+  have hfree : GenLoop.HomotopicAlong' δ
+      (sphereTargetMapGenLoop m f hf)
+      (sphereTargetMapGenLoop m (ContinuousMap.const (SphereSpace m) x) rfl) := by
+    refine ⟨H.compContinuousMap (cubeToSphere m), ?_⟩
+    intro s u hu
+    change H (s, cubeToSphere m u) = H (s, sphereBasepoint m)
+    rw [cubeToSphere_boundary m u hu]
+  calc
+    sphereTargetMapClass m f hf =
+        sphereTargetMapClass m (ContinuousMap.const (SphereSpace m) x) rfl :=
+      Quotient.sound
+        (GenLoop.homotopic_of_homotopicAlong_refl (hfree.homotopicAlong hδ))
+    _ = 1 := sphereTargetMapClass_const m
 
 /-- A based sphere map represents the image of the canonical sphere generator under its induced
 map on homotopy groups. -/

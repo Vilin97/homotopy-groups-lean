@@ -62,6 +62,20 @@ theorem hopfMap_not_based_nullhomotopic :
   rw [piThreeSphereTwoHopfGenerator_eq_hopfMapClass]
   exact sphereTargetMapClass_eq_one_of_nullhomotopic 3 hopfMap hopfMap_basepoint H hbase
 
+/-- The concrete quadratic Hopf map is not even freely nullhomotopic.  Since `S²` is simply
+connected, any free nullhomotopy could be corrected along the loop traced by the basepoint to a
+based nullhomotopy, contradicting the Hopf-fibration calculation. -/
+theorem hopfMap_not_freely_nullhomotopic :
+    ¬ Nonempty
+      (ContinuousMap.Homotopy hopfMap
+        (ContinuousMap.const (Sph 3) (sphereBasepoint 2))) := by
+  rintro ⟨H⟩
+  apply piThreeSphereTwoHopfGenerator_ne_one
+  rw [piThreeSphereTwoHopfGenerator_eq_hopfMapClass]
+  letI : SimplyConnectedSpace (Sph 2) := simplyConnectedSpace_sph_of_two_le (by omega)
+  exact sphereTargetMapClass_eq_one_of_freelyNullhomotopic
+    3 hopfMap hopfMap_basepoint H
+
 /-- The first-stem class obtained by geometrically suspending the concrete Hopf generator. -/
 noncomputable def piFourSphereThreeGeometricHopfGenerator :
     π_ 4 (Sph 3) (sphereBasepoint 3) :=
