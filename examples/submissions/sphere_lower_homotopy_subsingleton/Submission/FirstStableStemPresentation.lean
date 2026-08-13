@@ -17,6 +17,7 @@ edge generator has order two.
 -/
 
 open scoped Topology Topology.Homotopy
+open unitInterval
 
 noncomputable section
 
@@ -35,6 +36,28 @@ theorem piThreeSphereTwoHopfGenerator_eq_hopfMapClass :
       sphereTargetMapClass 3 hopfMap hopfMap_basepoint := by
   rw [sphereTargetMapClass_eq_map_generator]
   rfl
+
+/-- The concrete Hopf-map class is not the identity element of `pi_3(S^2)`. -/
+theorem piThreeSphereTwoHopfGenerator_ne_one :
+    piThreeSphereTwoHopfGenerator ≠
+      (1 : π_ 3 (Sph 2) (sphereBasepoint 2)) := by
+  intro h
+  apply sphereGeneratorClass_ne_one 2
+  apply (hopfPiThreeEquiv hopfMap_isSerreFibration).injective
+  change hopfPiThreeHom (sphereGeneratorClass 3) = hopfPiThreeHom 1
+  rw [map_one]
+  exact h
+
+/-- The concrete quadratic Hopf map admits no homotopy to the constant map that fixes the
+chosen sphere basepoint throughout. -/
+theorem hopfMap_not_based_nullhomotopic :
+    ¬ ∃ H : ContinuousMap.Homotopy hopfMap
+        (ContinuousMap.const (Sph 3) (sphereBasepoint 2)),
+      ∀ t : I, H (t, sphereBasepoint 3) = sphereBasepoint 2 := by
+  rintro ⟨H, hbase⟩
+  apply piThreeSphereTwoHopfGenerator_ne_one
+  rw [piThreeSphereTwoHopfGenerator_eq_hopfMapClass]
+  exact sphereTargetMapClass_eq_one_of_nullhomotopic 3 hopfMap hopfMap_basepoint H hbase
 
 /-- The Hopf-map image is indeed a generator of `pi_3(S^2)`. -/
 theorem piThreeSphereTwoHopfGenerator_generates :
