@@ -6,6 +6,7 @@ import Submission.Cohomology.CellAttachmentSqTwo
 import Submission.Cohomology.MappingCone
 import Submission.Cohomology.MappingConePair
 import Submission.Cohomology.SphereTop
+import Submission.FirstStableStemPresentation
 import Submission.Homology.MappingCone
 import Submission.HopfMap
 import Submission.SphereSuspensionGeneral
@@ -24,13 +25,15 @@ evaluate nontrivially on the selected degree-five cycle.
 ## Main definitions and results
 
 * `Submission.suspendedHopfMap : C(Sph 4, Sph 3)`;
+* `Submission.suspendedHopfMapClass_eq_piFourSphereThreeGeometricHopfGenerator`;
 * `Submission.suspendedHopfTopCat` and `Submission.suspendedHopfMappingCone`;
 * `Submission.hopfSuspensionMappingConeIso`;
 * `Submission.hopfSuspensionCanonicalLift_sqTwo_eq_top_iff`;
 * `Submission.suspendedHopfMappingConeClass_eq_zero_or_eq_top`;
 * `Submission.suspendedHopfCanonicalLift_sqTwo_eq_top_of_cycle_evaluation`;
 * `Submission.suspendedHopfCanonicalLift_sqTwo_eq_top_iff_evaluation_eq_one`;
-* `Submission.suspendedHopfMap_not_nullhomotopic_of_sqTwo`.
+* `Submission.suspendedHopfMap_not_nullhomotopic_of_sqTwo`;
+* `Submission.piFourSphereThreeGeometricHopfGenerator_ne_one_of_canonical_evaluation`.
 -/
 
 open CategoryTheory Limits MonoidalCategory CartesianMonoidalCategory
@@ -66,10 +69,48 @@ theorem suspendedHopfMapClass_eq_geometricSuspension :
     sphereSuspensionTargetMapClass] using
       sphereGeometricSuspension_sphereTargetMapClass 2 2 hopfMap hopfMap_basepoint
 
+/-- The homotopy class used by the suspended-Hopf cohomology obstruction is the geometric
+first-stem generator named in the one-generator presentation. -/
+theorem suspendedHopfMapClass_eq_piFourSphereThreeGeometricHopfGenerator :
+    suspendedHopfMapClass = piFourSphereThreeGeometricHopfGenerator := by
+  calc
+    suspendedHopfMapClass =
+        sphereGeometricSuspension 2 2
+          (sphereTargetMapClass 3 hopfMap hopfMap_basepoint) :=
+      suspendedHopfMapClass_eq_geometricSuspension
+    _ = sphereGeometricSuspension 2 2 piThreeSphereTwoHopfGenerator :=
+      congrArg (sphereGeometricSuspension 2 2)
+        piThreeSphereTwoHopfGenerator_eq_hopfMapClass.symm
+    _ = piFourSphereThreeGeometricHopfGenerator := rfl
+
 /-- The suspended Hopf map as a morphism of topological spaces. -/
 noncomputable def suspendedHopfTopCat :
     TopCat.of (Sph 4) ⟶ TopCat.of (Sph 3) :=
   TopCat.ofHom suspendedHopfMap
+
+/-- Any obstruction to an unbased nullhomotopy of the suspended Hopf map also proves that its
+based homotopy-group class is nontrivial. -/
+theorem suspendedHopfMapClass_ne_one_of_not_nullhomotopic
+    (hnull : ¬ Nonempty
+      (TopCat.Homotopy suspendedHopfTopCat
+        (TopCat.const (sphereBasepoint 3)))) :
+    suspendedHopfMapClass ≠ 1 := by
+  intro hclass
+  have hbased :=
+    (sphereTargetMapClass_eq_one_iff_basedNullhomotopic 3
+      suspendedHopfMap suspendedHopfMap_basepoint).mp hclass
+  obtain ⟨H, _⟩ := hbased
+  exact hnull ⟨H⟩
+
+/-- The same nullhomotopy obstruction proves that the named geometric first-stem generator is
+nontrivial. -/
+theorem piFourSphereThreeGeometricHopfGenerator_ne_one_of_not_nullhomotopic
+    (hnull : ¬ Nonempty
+      (TopCat.Homotopy suspendedHopfTopCat
+        (TopCat.const (sphereBasepoint 3)))) :
+    piFourSphereThreeGeometricHopfGenerator ≠ 1 := by
+  rw [← suspendedHopfMapClass_eq_piFourSphereThreeGeometricHopfGenerator]
+  exact suspendedHopfMapClass_ne_one_of_not_nullhomotopic hnull
 
 /-- The raw unreduced suspension of the Hopf map as a morphism of topological spaces. -/
 noncomputable def hopfSuspensionTopCat :
@@ -665,5 +706,14 @@ theorem suspendedHopfMap_not_nullhomotopic_of_canonical_evaluation
         (TopCat.const (sphereBasepoint 3))) :=
   suspendedHopfMap_not_nullhomotopic_of_canonical_cycle
     suspendedHopfCanonicalFiveCycle suspendedHopfCanonicalFiveCycle_isCycle heval
+
+/-- A nonzero value of the remaining canonical cup-one calculation proves that the geometric
+first-stem generator is a nonidentity element of `π₄(S³)`. -/
+theorem piFourSphereThreeGeometricHopfGenerator_ne_one_of_canonical_evaluation
+    (heval : sqTwoHsingDegreeThreeRepresentativeEvaluation
+      suspendedHopfCanonicalCocycle suspendedHopfCanonicalFiveCycle ≠ 0) :
+    piFourSphereThreeGeometricHopfGenerator ≠ 1 :=
+  piFourSphereThreeGeometricHopfGenerator_ne_one_of_not_nullhomotopic
+    (suspendedHopfMap_not_nullhomotopic_of_canonical_evaluation heval)
 
 end Submission

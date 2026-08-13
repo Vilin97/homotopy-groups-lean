@@ -287,6 +287,38 @@ theorem sphereTargetMapClass_eq_of_homotopy (m : ℕ)
     sphereTargetMapClass m f hf = sphereTargetMapClass m g hg :=
   Quotient.sound (sphereTargetMapGenLoopHomotopy m hf hg H hbase)
 
+/-- In positive dimensions, two based sphere maps represent the same cubical homotopy class
+exactly when they are homotopic through based maps. -/
+theorem sphereTargetMapClass_eq_iff_basedHomotopic (n : ℕ)
+    {f g : C(SphereSpace (n + 1), X)}
+    (hf : f (sphereBasepoint (n + 1)) = x)
+    (hg : g (sphereBasepoint (n + 1)) = x) :
+    sphereTargetMapClass (n + 1) f hf = sphereTargetMapClass (n + 1) g hg ↔
+      ∃ H : ContinuousMap.Homotopy f g,
+        ∀ t : I, H (t, sphereBasepoint (n + 1)) = x := by
+  constructor
+  · intro h
+    change (⟦sphereTargetMapGenLoop (n + 1) f hf⟧ : π_ (n + 1) X x) =
+      ⟦sphereTargetMapGenLoop (n + 1) g hg⟧ at h
+    have hloop : GenLoop.Homotopic
+        (sphereTargetMapGenLoop (n + 1) f hf)
+        (sphereTargetMapGenLoop (n + 1) g hg) :=
+      Quotient.exact h
+    rw [targetGenLoop_homotopic_iff] at hloop
+    obtain ⟨H, hbase⟩ := hloop
+    have hmapf :
+        targetGenLoopSphereMap n (sphereTargetMapGenLoop (n + 1) f hf) = f :=
+      targetGenLoopSphereMap_sphereTargetMapGenLoop n f hf
+    have hmapg :
+        targetGenLoopSphereMap n (sphereTargetMapGenLoop (n + 1) g hg) = g :=
+      targetGenLoopSphereMap_sphereTargetMapGenLoop n g hg
+    refine ⟨H.cast hmapf hmapg, ?_⟩
+    intro t
+    change H (t, sphereBasepoint (n + 1)) = x
+    exact hbase t
+  · rintro ⟨H, hbase⟩
+    exact sphereTargetMapClass_eq_of_homotopy (n + 1) hf hg H hbase
+
 /-- The constant based sphere map represents the identity in every positive dimension. -/
 @[simp]
 theorem sphereTargetMapClass_const (m : ℕ) [Nonempty (Fin m)] :
@@ -298,6 +330,18 @@ theorem sphereTargetMapClass_const (m : ℕ) [Nonempty (Fin m)] :
     intro u
     rfl
   exact congrArg Quotient.mk' hloop
+
+/-- In positive dimensions, a based sphere map represents the identity class exactly when it
+is homotopic to the constant map through based maps. -/
+theorem sphereTargetMapClass_eq_one_iff_basedNullhomotopic (n : ℕ)
+    (f : C(SphereSpace (n + 1), X))
+    (hf : f (sphereBasepoint (n + 1)) = x) :
+    sphereTargetMapClass (n + 1) f hf = 1 ↔
+      ∃ H : ContinuousMap.Homotopy f
+          (ContinuousMap.const (SphereSpace (n + 1)) x),
+        ∀ t : I, H (t, sphereBasepoint (n + 1)) = x := by
+  rw [← sphereTargetMapClass_const (X := X) (x := x) (n + 1)]
+  exact sphereTargetMapClass_eq_iff_basedHomotopic n hf rfl
 
 /-- A based sphere map which is based-nullhomotopic represents the identity homotopy class. -/
 theorem sphereTargetMapClass_eq_one_of_nullhomotopic (m : ℕ) [Nonempty (Fin m)]

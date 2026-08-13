@@ -14,7 +14,9 @@ Freudenthal edge surjectivity presents `pi_4(S^3)` as a quotient of the already 
 `pi_3(S^2) ≃ Z`.  This file uses the concrete Hopf-map image of the canonical generator upstairs,
 names its cap-suspension image downstairs, and records the resulting one-generator presentation.
 Consequently the exact first-stem computation is reduced to the concrete assertion that this
-edge generator has order two.
+edge generator has order two.  Independently, the geometric suspension of the Hopf generator is
+identified with the homotopy class represented by the explicit suspended Hopf map.  Comparing
+that geometric suspension with the cap-excision generator remains a separate step.
 -/
 
 open scoped Topology Topology.Homotopy
