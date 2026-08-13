@@ -566,8 +566,10 @@ homotopy if and only if its restriction to `X` is nullhomotopic.  The next
 point-set comparison is now constructed too: the mapping cone of
 `C_f -> Sigma A` maps canonically to `Sigma X`, extending `Sigma f`, and an
 explicit map back is a strict section on both suspension pushout summands.  Thus
-this comparison is split epic on the nose; the deformation of the opposite
-composite needed for a full homotopy equivalence remains separate.  Specializing
+this comparison is split epic on the nose.  At the canonical point-summand
+basepoints, it is consequently surjective on every homotopy group and its
+explicit section is injective in every dimension.  The deformation of the
+opposite composite needed for a full homotopy equivalence remains separate.  Specializing
 homotopy coexactness to the identity characterizes a retraction of the cofiber
 collapse by nullhomotopy of the bottom inclusion.  For the exact Hopf mapping
 cone, its normalized nonzero degree-two mod-two class detects that inclusion,
