@@ -872,7 +872,7 @@
       "id": "lean4-suspension-model-hopf-comparison",
       "system": "Lean 4",
       "repository": "Vilin97/homotopy-groups-lean",
-      "commit": "e07ac7c7c02e896f81a85b5a9e204272df59bac2",
+      "commit": "9b9bf939c81379564659b010812ba1c8b0afeea6",
       "license": "Apache-2.0",
       "declarations": [
         "Submission.Susp.mapHomeomorph",
@@ -900,7 +900,13 @@
         "Submission.exactHopfSuspensionCanonicalLift_ne_zero",
         "Submission.exactHopfSuspensionMappingConeTopClass",
         "Submission.exactHopfSuspensionMappingConeTopClass_ne_zero",
+        "Submission.exactHopfSuspensionMappingConeClass_eq_zero_or_eq_top",
+        "Submission.exactHopfSuspensionMappingConeDegreeFiveCohomologyEquivModTwo",
+        "Submission.exactHopfSuspensionMappingConeDegreeFiveCohomologyEquivModTwo_top",
         "Submission.exactHopfSuspensionCanonicalLift_sqTwo_naturality",
+        "Submission.exactHopfSuspensionModTwoSqTwoInvariant",
+        "Submission.exactHopfSuspensionModTwoSqTwoInvariant_eq_suspendedHopfInvariant",
+        "Submission.exactHopfSuspensionModTwoSqTwoInvariant_eq_one_iff",
         "Submission.exactHopfSuspensionCanonicalLift_sqTwo_eq_top_iff",
         "Submission.exactHopfSuspensionCanonicalLift_sqTwo_ne_zero_iff",
         "Submission.exactHopfSuspensionCanonicalLift_sqTwo_eq_top_iff_evaluation_eq_one",
@@ -916,15 +922,16 @@
         "Submission.homologyMk_exactHopfSuspensionTransportedFiveCycle",
         "Submission.exactHopfSuspensionTransportedFiveCycle_map",
         "Submission.exactHopfSuspensionTransportedRepresentativeEvaluation",
+        "Submission.exactHopfSuspensionModTwoSqTwoInvariant_eq_transportedEvaluation",
         "Submission.exactHopfSuspensionCanonicalLift_sqTwo_eq_top_iff_transportedEvaluation_eq_one"
       ],
-      "result": "the mapping-cone and quotient models of unreduced suspension are naturally homeomorphic; under the explicit boundary-sphere and projective-line-sphere coordinates, suspending the exact CP^2 attaching map gives the maintained suspended quadratic Hopf map, the associated mapping cones are isomorphic, and nullhomotopies and strict or homotopy retractions of their cone inclusions are equivalent; the canonical degree-three and degree-five mod-two classes, their Sq^2 identity, exact cocycle and cycle representatives, the representative evaluation, and both resulting nonretraction obstructions are transported back to the exact projective attaching cone",
+      "result": "the mapping-cone and quotient models of unreduced suspension are naturally homeomorphic; under the explicit boundary-sphere and projective-line-sphere coordinates, suspending the exact CP^2 attaching map gives the maintained suspended quadratic Hopf map, the associated mapping cones are isomorphic, and nullhomotopies and strict or homotopy retractions of their cone inclusions are equivalent; the exact projective cone's Sq^2 obstruction is normalized as an F_2-valued bit and proved equal both to the concrete suspended-Hopf invariant and to the transported cup-one representative evaluation",
       "model_relation": "compares the pushout mapping-cone suspension with the maintained quotient suspension using exact interval-coordinate formulas, then transports the exact disk-boundary/projective-line attaching square to the raw and concrete suspended-Hopf maps, mapping cones, normalized cohomology and homology classes, exact representatives and evaluations, Sq^2, nullhomotopies, and cone-inclusion retractions",
       "status": "lean_kernel_checked_local_source",
       "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ComplexProjectivePlaneSuspendedHopf.lean",
       "lattice_overlay": null,
       "degree_lattice_overlay": null,
-      "note": "All forty-two headline declarations and their pole, cylinder, inverse-composite, functoriality, mapping-cone inclusion, class-normalization, exact chain transport, representative-evaluation naturality, and isomorphic-square formulas are sorry-free Lean 4. Strict autoImplicit=false checks and exact-target builds pass for Suspension, SuspensionComparison, MappingCone, SingularSqTwo, ComplexProjectivePlaneSuspendedHopf, and the 8,933-job Submission aggregate. This closes the point-set coordinate, nullhomotopy, cohomological, and representative-transport gaps but does not assert the remaining nonzero cup-one evaluation, so no lattice cell is recolored."
+      "note": "All forty-nine headline declarations and their pole, cylinder, inverse-composite, functoriality, mapping-cone inclusion, class-normalization, exact chain transport, representative-evaluation naturality, and isomorphic-square formulas are sorry-free Lean 4. Strict autoImplicit=false checks and the exact 8,916-job target and 8,934-job Submission aggregate builds pass. This closes the point-set coordinate, nullhomotopy, cohomological, normalized-invariant, and representative-transport gaps but does not assert the remaining nonzero cup-one evaluation, so no lattice cell is recolored."
     },
     {
       "id": "lean4-projective-plane-hopf-cohomology",
