@@ -76,6 +76,14 @@ theorem hopfMap_not_freely_nullhomotopic :
   exact sphereTargetMapClass_eq_one_of_freelyNullhomotopic
     3 hopfMap hopfMap_basepoint H
 
+/-- The concrete Hopf map is not nullhomotopic in the standard unbased sense, where the
+constant endpoint may be any point of `S²`. -/
+theorem hopfMap_not_nullhomotopic : ¬ hopfMap.Nullhomotopic := by
+  rintro ⟨y, ⟨H⟩⟩
+  apply hopfMap_not_freely_nullhomotopic
+  letI : PathConnectedSpace (Sph 2) := pathConnectedSpace_sph (by omega)
+  exact ⟨H.trans (PathConnectedSpace.somePath y (sphereBasepoint 2)).toHomotopyConst⟩
+
 /-- The first-stem class obtained by geometrically suspending the concrete Hopf generator. -/
 noncomputable def piFourSphereThreeGeometricHopfGenerator :
     π_ 4 (Sph 3) (sphereBasepoint 3) :=

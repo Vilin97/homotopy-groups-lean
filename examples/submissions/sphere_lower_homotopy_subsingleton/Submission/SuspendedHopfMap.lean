@@ -9,6 +9,7 @@ import Submission.Cohomology.SphereTop
 import Submission.FirstStableStemPresentation
 import Submission.Homology.MappingCone
 import Submission.HopfMap
+import Submission.HopfMappingCone
 import Submission.SphereSuspensionGeneral
 
 /-!
@@ -25,6 +26,7 @@ evaluate nontrivially on the selected degree-five cycle.
 ## Main definitions and results
 
 * `Submission.suspendedHopfMap : C(Sph 4, Sph 3)`;
+* `Submission.not_exists_hopfMappingConeIncl_retraction`;
 * `Submission.suspendedHopfMapClass_eq_piFourSphereThreeGeometricHopfGenerator`;
 * `Submission.suspendedHopfTopCat` and `Submission.suspendedHopfMappingCone`;
 * `Submission.hopfSuspensionMappingConeIso`;
@@ -42,6 +44,20 @@ open scoped Topology Topology.Homotopy unitInterval
 noncomputable section
 
 namespace Submission
+
+/-- The bottom sphere in the Hopf mapping cone is not a retract.  Otherwise the general
+mapping-cone converse would make the concrete Hopf attaching map nullhomotopic, contradicting
+its computed nontrivial class in `π₃(S²)`. -/
+theorem not_exists_hopfMappingConeIncl_retraction :
+    ¬ ∃ r : hopfMappingCone ⟶ TopCat.of (Sph 2),
+      hopfMappingConeIncl ≫ r = 𝟙 (TopCat.of (Sph 2)) := by
+  intro h
+  apply hopfMap_not_nullhomotopic
+  have hnull :=
+    (exists_topologicalMappingConeIncl_retraction_iff_nullhomotopic
+      hopfTopCat).mp h
+  change hopfMap.Nullhomotopic at hnull
+  exact hnull
 
 /-- The geometric suspension `S⁴ ⟶ S³` of the concrete quadratic Hopf map. -/
 noncomputable def suspendedHopfMap : C(Sph 4, Sph 3) :=

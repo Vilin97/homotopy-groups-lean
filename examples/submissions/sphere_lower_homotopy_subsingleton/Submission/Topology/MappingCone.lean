@@ -23,7 +23,8 @@ cone of `f : A ⟶ X` is the pushout which glues the remaining `0`-end of that c
 * `Submission.topologicalMappingCone f` and `Submission.topologicalMappingConeIncl f`;
 * `Submission.topologicalMappingConeMap` and `Submission.topologicalMappingConeIso`;
 * `Submission.topologicalConeExtensionOfNullhomotopy`;
-* `Submission.topologicalMappingConeRetractOfNullhomotopy`.
+* `Submission.topologicalMappingConeRetractOfNullhomotopy`;
+* `Submission.topologicalMappingConeNullhomotopyOfRetract`.
 -/
 
 open CategoryTheory CategoryTheory.Limits Topology MonoidalCategory CartesianMonoidalCategory
@@ -615,5 +616,73 @@ theorem topologicalMappingConeIncl_retractOfNullhomotopy
       topologicalMappingConeRetractOfNullhomotopy f x H = 𝟙 X := by
   unfold topologicalMappingConeIncl topologicalMappingConeRetractOfNullhomotopy
   exact pushout.inl_desc _ _ _
+
+/-- The value at the cone point of a proposed retraction from a mapping cone. -/
+def topologicalMappingConeRetractPoint {A X : TopCat.{u}} (f : A ⟶ X)
+    (r : topologicalMappingCone f ⟶ X) : 𝟙_ TopCat.{u} ⟶ X :=
+  topologicalConePointIncl A ≫ topologicalMappingConeConeIncl f ≫ r
+
+/-- A retraction of the mapping-cone inclusion contracts the attaching map to the image of the
+cone point.  Together with `topologicalMappingConeRetractOfNullhomotopy`, this characterizes
+nullhomotopic attaching maps by retractions of their mapping-cone inclusions. -/
+noncomputable def topologicalMappingConeNullhomotopyOfRetract
+    {A X : TopCat.{u}} (f : A ⟶ X) (r : topologicalMappingCone f ⟶ X)
+    (hr : topologicalMappingConeIncl f ≫ r = 𝟙 X) :
+    TopCat.Homotopy f
+      (toUnit A ≫ topologicalMappingConeRetractPoint f r) := by
+  let g : topologicalCone A ⟶ X := topologicalMappingConeConeIncl f ≫ r
+  let H : TopCat.Homotopy g
+      ((toUnit (topologicalCone A) ≫ topologicalConePointIncl A) ≫ g) :=
+    (TopCat.Homotopy.refl g).comp (topologicalConeContractHomotopy A)
+  have Hbase := H.comp (TopCat.Homotopy.refl (topologicalConeBaseIncl A))
+  rw [← topologicalMappingCone_condition_assoc, hr, Category.comp_id] at Hbase
+  have hunit : topologicalConeBaseIncl A ≫ toUnit (topologicalCone A) = toUnit A :=
+    Subsingleton.elim _ _
+  simpa only [g, topologicalMappingConeRetractPoint, Category.id_comp,
+    Category.comp_id, ← Category.assoc, hunit] using Hbase
+
+/-- The inclusion of `X` into the mapping cone of `f` has a retraction exactly when `f` has a
+nullhomotopy to some point of `X`. -/
+theorem exists_topologicalMappingConeIncl_retraction_iff
+    {A X : TopCat.{u}} (f : A ⟶ X) :
+    (∃ r : topologicalMappingCone f ⟶ X,
+        topologicalMappingConeIncl f ≫ r = 𝟙 X) ↔
+      ∃ x : 𝟙_ TopCat.{u} ⟶ X,
+        Nonempty (TopCat.Homotopy f (toUnit A ≫ x)) := by
+  constructor
+  · rintro ⟨r, hr⟩
+    exact ⟨topologicalMappingConeRetractPoint f r,
+      ⟨topologicalMappingConeNullhomotopyOfRetract f r hr⟩⟩
+  · rintro ⟨x, ⟨H⟩⟩
+    exact ⟨topologicalMappingConeRetractOfNullhomotopy f x H,
+      topologicalMappingConeIncl_retractOfNullhomotopy f x H⟩
+
+/-- Equivalently, a mapping-cone inclusion retracts precisely when its attaching map is
+nullhomotopic in the standard `ContinuousMap.Nullhomotopic` sense. -/
+theorem exists_topologicalMappingConeIncl_retraction_iff_nullhomotopic
+    {A X : TopCat.{u}} (f : A ⟶ X) :
+    (∃ r : topologicalMappingCone f ⟶ X,
+        topologicalMappingConeIncl f ≫ r = 𝟙 X) ↔
+      f.hom.Nullhomotopic := by
+  rw [exists_topologicalMappingConeIncl_retraction_iff]
+  constructor
+  · rintro ⟨x, ⟨H⟩⟩
+    let z : X := x
+      (SemiCartesianMonoidalCategory.isTerminalTensorUnit.from
+        (TopCat.of PUnit.{u + 1}) PUnit.unit)
+    refine ⟨z, ⟨H.cast rfl ?_⟩⟩
+    ext a
+    change x (toUnit A a) = z
+    let p : TopCat.of PUnit.{u + 1} ⟶ 𝟙_ TopCat.{u} :=
+      TopCat.const (toUnit A a)
+    have hp : p =
+        SemiCartesianMonoidalCategory.isTerminalTensorUnit.from
+          (TopCat.of PUnit.{u + 1}) :=
+      SemiCartesianMonoidalCategory.isTerminalTensorUnit.hom_ext _ _
+    exact congrArg x (ConcreteCategory.congr_hom hp PUnit.unit)
+  · rintro ⟨x, ⟨H⟩⟩
+    refine ⟨TopCat.const x, ⟨H.cast rfl ?_⟩⟩
+    ext a
+    rfl
 
 end Submission
