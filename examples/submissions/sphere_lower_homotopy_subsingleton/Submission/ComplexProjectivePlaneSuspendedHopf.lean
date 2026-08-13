@@ -267,6 +267,42 @@ theorem exactHopfSuspensionMappingConeTopClass_ne_zero :
   rw [map_zero]
   exact hzero
 
+/-- Every degree-five mod-two class on the exact suspended projective attaching cone is zero or
+its normalized top class. -/
+theorem exactHopfSuspensionMappingConeClass_eq_zero_or_eq_top
+    (x : Hsing 5 exactHopfSuspensionMappingCone (ZMod 2)) :
+    x = 0 ∨ x = exactHopfSuspensionMappingConeTopClass := by
+  let e := exactHopfSuspensionMappingConeIsoConcrete
+  let x' := Hsing.map e.inv 5 x
+  rcases suspendedHopfMappingConeClass_eq_zero_or_eq_top x' with hzero | htop
+  · left
+    apply (Hsing.map_bijective_of_isIso (R := ZMod 2) e.inv 5).1
+    rw [map_zero]
+    exact hzero
+  · right
+    apply (Hsing.map_bijective_of_isIso (R := ZMod 2) e.inv 5).1
+    change Hsing.map e.inv 5 x =
+      Hsing.map e.inv 5
+        (Hsing.map e.hom 5 suspendedHopfMappingConeTopClass)
+    rw [← LinearMap.comp_apply, ← Hsing.map_comp, Iso.inv_hom_id,
+      Hsing.map_id, LinearMap.id_apply]
+    exact htop
+
+/-- Normalized additive coordinate on degree-five mod-two cohomology of the exact suspended
+projective attaching cone. -/
+noncomputable def exactHopfSuspensionMappingConeDegreeFiveCohomologyEquivModTwo :
+    Hsing 5 exactHopfSuspensionMappingCone (ZMod 2) ≃+ ZMod 2 :=
+  addEquivZModTwoOfGenerator exactHopfSuspensionMappingConeTopClass
+    exactHopfSuspensionMappingConeClass_eq_zero_or_eq_top
+    exactHopfSuspensionMappingConeTopClass_ne_zero
+
+/-- The normalized exact-cone top class has degree-five coordinate one. -/
+@[simp]
+theorem exactHopfSuspensionMappingConeDegreeFiveCohomologyEquivModTwo_top :
+    exactHopfSuspensionMappingConeDegreeFiveCohomologyEquivModTwo
+      exactHopfSuspensionMappingConeTopClass = 1 :=
+  addEquivZModTwoOfGenerator_apply_generator _ _ _
+
 /-- `Sq²` commutes with the exact-to-concrete mapping-cone coordinate change. -/
 theorem exactHopfSuspensionCanonicalLift_sqTwo_naturality :
     sqTwoHsingDegreeThree exactHopfSuspensionCanonicalLift =
@@ -275,6 +311,41 @@ theorem exactHopfSuspensionCanonicalLift_sqTwo_naturality :
   exact (sqTwoHsingDegreeThree_natural
     exactHopfSuspensionMappingConeIsoConcrete.hom
     suspendedHopfCanonicalLift).symm
+
+/-- The normalized top-degree coordinate of `Sq²` on the exact suspended projective attaching
+cone. -/
+noncomputable def exactHopfSuspensionModTwoSqTwoInvariant : ZMod 2 :=
+  exactHopfSuspensionMappingConeDegreeFiveCohomologyEquivModTwo
+    (sqTwoHsingDegreeThree exactHopfSuspensionCanonicalLift)
+
+/-- Exact projective transport preserves the normalized suspended `Sq²` invariant. -/
+theorem exactHopfSuspensionModTwoSqTwoInvariant_eq_suspendedHopfInvariant :
+    exactHopfSuspensionModTwoSqTwoInvariant =
+      suspendedHopfModTwoSqTwoInvariant := by
+  rw [exactHopfSuspensionModTwoSqTwoInvariant,
+    exactHopfSuspensionCanonicalLift_sqTwo_naturality,
+    suspendedHopfModTwoSqTwoInvariant]
+  let f : Hsing 5 suspendedHopfMappingCone (ZMod 2) →+
+      Hsing 5 exactHopfSuspensionMappingCone (ZMod 2) :=
+    (Hsing.map (R := ZMod 2)
+      exactHopfSuspensionMappingConeIsoConcrete.hom 5).toAddHom
+  have htop : f suspendedHopfMappingConeTopClass =
+      exactHopfSuspensionMappingConeTopClass := rfl
+  exact addEquivZModTwoOfGenerator_natural
+    suspendedHopfMappingConeTopClass exactHopfSuspensionMappingConeTopClass
+    suspendedHopfMappingConeClass_eq_zero_or_eq_top
+    suspendedHopfMappingConeTopClass_ne_zero
+    exactHopfSuspensionMappingConeClass_eq_zero_or_eq_top
+    exactHopfSuspensionMappingConeTopClass_ne_zero
+    f htop (sqTwoHsingDegreeThree suspendedHopfCanonicalLift)
+
+/-- The exact suspended-projective invariant is one exactly when its canonical `Sq²` is the
+normalized top class. -/
+theorem exactHopfSuspensionModTwoSqTwoInvariant_eq_one_iff :
+    exactHopfSuspensionModTwoSqTwoInvariant = 1 ↔
+      sqTwoHsingDegreeThree exactHopfSuspensionCanonicalLift =
+        exactHopfSuspensionMappingConeTopClass :=
+  addEquivZModTwoOfGenerator_apply_eq_one_iff _ _ _ _
 
 /-- The normalized `Sq²` identity is unchanged between the exact projective attaching cone and
 the concrete suspended-Hopf cone. -/
@@ -406,6 +477,17 @@ theorem exactHopfSuspensionTransportedRepresentativeEvaluation :
   rw [sqTwoHsingDegreeThreeRepresentativeEvaluation_natural
     exactHopfSuspensionMappingConeIsoConcrete.hom]
   rw [exactHopfSuspensionTransportedFiveCycle_map]
+
+/-- The normalized exact suspended-projective invariant is precisely its transported cup-one
+representative evaluation. -/
+theorem exactHopfSuspensionModTwoSqTwoInvariant_eq_transportedEvaluation :
+    exactHopfSuspensionModTwoSqTwoInvariant =
+      sqTwoHsingDegreeThreeRepresentativeEvaluation
+        exactHopfSuspensionTransportedCanonicalCocycle
+        exactHopfSuspensionTransportedFiveCycle := by
+  rw [exactHopfSuspensionModTwoSqTwoInvariant_eq_suspendedHopfInvariant,
+    exactHopfSuspensionTransportedRepresentativeEvaluation,
+    suspendedHopfModTwoSqTwoInvariant_eq_representativeEvaluation]
 
 /-- The exact projective-cone square identity is precisely the transported cup-one evaluation. -/
 theorem exactHopfSuspensionCanonicalLift_sqTwo_eq_top_iff_transportedEvaluation_eq_one :
