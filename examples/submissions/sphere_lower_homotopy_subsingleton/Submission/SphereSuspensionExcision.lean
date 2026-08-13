@@ -6,6 +6,7 @@ import Submission.DiagonalInduction
 import Submission.HigherSphereFoundations
 import Submission.Homotopy.ContractionData
 import Submission.IndependentResults
+import Submission.SphereSuspension
 
 /-!
 # The relative excision map for suspension of a sphere
@@ -150,8 +151,75 @@ theorem sphCapOverlapHomotopyEquiv_basepoint (m : ℕ) :
 /-- The constant path, typed using the exact basepoint calculation for the overlap equivalence. -/
 noncomputable def sphCapOverlapBasePath (m : ℕ) :
     Path (sphereBasepoint m)
-      (sphCapOverlapHomotopyEquiv m (sphCapOverlapBase m)) := by
-  rw [sphCapOverlapHomotopyEquiv_basepoint]
+      (sphCapOverlapHomotopyEquiv m (sphCapOverlapBase m)) :=
+  (Path.refl (sphereBasepoint m)).cast rfl
+    (sphCapOverlapHomotopyEquiv_basepoint m)
+
+@[simp]
+theorem sphCapOverlapBasePath_apply (m : ℕ) (t : unitInterval) :
+    sphCapOverlapBasePath m t = sphereBasepoint m := by
+  change ((Path.refl (sphereBasepoint m)).cast rfl
+    (sphCapOverlapHomotopyEquiv_basepoint m)) t = sphereBasepoint m
+  rw [congrFun (Path.cast_coe _ _ _) t]
+  rfl
+
+/-! ### Functoriality of the cap model -/
+
+/-- Suspension preserves the height coordinate in the metric-sphere model. -/
+theorem sphHeight_sphereSuspensionMap (m n : ℕ)
+    (f : C(Sph m, Sph n)) (z : Sph (m + 1)) :
+    sphHeight (sphereSuspensionMap m n f z) = sphHeight z := by
+  obtain ⟨q, rfl⟩ := (suspSphHomeo m).surjective z
+  rw [sphereSuspensionMap_apply_susp, suspSphHomeo_apply,
+    suspSphHomeo_apply, sphHeight_suspSphLift, sphHeight_suspSphLift]
+  induction q using Susp.ind with
+  | h p => rfl
+
+/-- A sphere self-map suspends to a self-map of the enlarged lower cap. -/
+noncomputable def sphLowerCapSuspensionMap (m : ℕ)
+    (f : C(Sph m, Sph m)) : C(sphLowerCap m, sphLowerCap m) where
+  toFun z := ⟨sphereSuspensionMap m m f z.1, by
+    rw [mem_sphLowerCap, sphHeight_sphereSuspensionMap]
+    exact mem_sphLowerCap.mp z.2⟩
+  continuous_toFun := Continuous.subtype_mk
+    ((sphereSuspensionMap m m f).continuous.comp continuous_subtype_val) _
+
+/-- The suspended self-map on the lower-cap/overlap pair. -/
+noncomputable def sphCapSourcePairMap (m : ℕ)
+    (f : C(Sph m, Sph m))
+    (hf : f (sphereBasepoint m) = sphereBasepoint m) :
+    BasedPairMap (sphCapOverlapInLower m) (sphCapOverlapInLower m)
+      (sphCapOverlapBase m) (sphCapOverlapBase m) where
+  toContinuousMap := sphLowerCapSuspensionMap m f
+  mapsTo' := by
+    intro z hz
+    change sphereSuspensionMap m m f z.1 ∈ sphUpperCap m
+    rw [mem_sphUpperCap, sphHeight_sphereSuspensionMap]
+    exact mem_sphUpperCap.mp hz
+  map_basepoint' := by
+    apply Subtype.ext
+    exact sphereSuspensionMap_basepoint m m f hf
+
+/-- The suspended self-map on the full-sphere/upper-cap pair. -/
+noncomputable def sphCapTargetPairMap (m : ℕ)
+    (f : C(Sph m, Sph m))
+    (hf : f (sphereBasepoint m) = sphereBasepoint m) :
+    BasedPairMap (sphUpperCap m) (sphUpperCap m)
+      (sphUpperCapBase m) (sphUpperCapBase m) where
+  toContinuousMap := sphereSuspensionMap m m f
+  mapsTo' := by
+    intro z hz
+    rw [mem_sphUpperCap, sphHeight_sphereSuspensionMap]
+    exact mem_sphUpperCap.mp hz
+  map_basepoint' := sphereSuspensionMap_basepoint m m f hf
+
+/-- The cap inclusion square commutes with suspended sphere self-maps. -/
+theorem sphCapPairMap_square (m : ℕ)
+    (f : C(Sph m, Sph m))
+    (hf : f (sphereBasepoint m) = sphereBasepoint m) :
+    (sphCapTargetPairMap m f hf).comp (sphCapInclusionPairMap m) =
+      (sphCapInclusionPairMap m).comp (sphCapSourcePairMap m f hf) := by
+  rfl
 
 /-- The overlap in the upper cap is homotopy-equivalent to the equatorial metric sphere. -/
 noncomputable def sphCapOverlapInUpperHomotopyEquiv (m : ℕ) :
@@ -231,6 +299,50 @@ noncomputable def sphereSuspensionExcisionHomAt (m q : ℕ) :
         (sphUpperCapBase m) :=
   RelHomotopyGroup.mapHom q (sphCapInclusionPairMap m)
 
+/-- The relative cap-excision map is natural under suspension of a based sphere self-map. -/
+theorem sphereSuspensionExcisionHomAt_natural (m q : ℕ)
+    (f : C(Sph m, Sph m))
+    (hf : f (sphereBasepoint m) = sphereBasepoint m) :
+    (RelHomotopyGroup.mapHom q (sphCapTargetPairMap m f hf)).comp
+        (sphereSuspensionExcisionHomAt m q) =
+      (sphereSuspensionExcisionHomAt m q).comp
+        (RelHomotopyGroup.mapHom q (sphCapSourcePairMap m f hf)) := by
+  rw [sphereSuspensionExcisionHomAt,
+    RelHomotopyGroup.mapHom_comp, RelHomotopyGroup.mapHom_comp,
+    sphCapPairMap_square]
+
+/-- The absolute cap-excision comparison before changing the source basepoint. -/
+noncomputable def sphereCapSuspensionRawHomAt (m q : ℕ) :
+    π_ (q + 1) (Sph m)
+        (sphCapOverlapHomotopyEquiv m (sphCapOverlapBase m)) →*
+      π_ (q + 2) (Sph (m + 1)) (sphereBasepoint (m + 1)) :=
+  piHom_of_relativeHom (sphCapOverlapBase m) (sphUpperCapBase m)
+    (sphCapOverlapHomotopyEquiv m) q (sphereSuspensionExcisionHomAt m q)
+
+/-- Naturality of the raw absolute cap comparison, assuming the chosen overlap equivalence
+intertwines the induced overlap map with the original sphere self-map. -/
+theorem sphereCapSuspensionRawHomAt_natural (m q : ℕ)
+    (f : C(Sph m, Sph m))
+    (hf : f (sphereBasepoint m) = sphereBasepoint m)
+    (hsource : (sphCapOverlapHomotopyEquiv m).toFun.comp
+        (sphCapSourcePairMap m f hf).subspaceMap =
+      f.comp (sphCapOverlapHomotopyEquiv m).toFun)
+    (a : π_ (q + 1) (Sph m)
+      (sphCapOverlapHomotopyEquiv m (sphCapOverlapBase m))) :
+    HomotopyGroup.map (sphereSuspensionMap m m f)
+        (sphereSuspensionMap_basepoint m m f hf)
+        (sphereCapSuspensionRawHomAt m q a) =
+      sphereCapSuspensionRawHomAt m q
+        (HomotopyGroup.map f (by simpa using hf) a) := by
+  exact piHom_of_relativeHom_natural
+    (sphCapOverlapBase m) (sphCapOverlapBase m)
+    (sphUpperCapBase m) (sphUpperCapBase m)
+    (sphCapOverlapHomotopyEquiv m) (sphCapOverlapHomotopyEquiv m) q
+    (sphCapSourcePairMap m f hf) (sphCapTargetPairMap m f hf)
+    f (by simpa using hf) hsource
+    (sphereSuspensionExcisionHomAt m q) (sphereSuspensionExcisionHomAt m q)
+    (sphereSuspensionExcisionHomAt_natural m q f hf) a
+
 /-- The canonical relative homotopy homomorphism appearing in suspension excision for the
 `(n+1)`-sphere, specialized to the first nonzero relative degree. -/
 noncomputable def sphereSuspensionExcisionHom (n : ℕ) :
@@ -252,11 +364,9 @@ concrete geometric suspension construction is a separate problem. -/
 noncomputable def sphereCapSuspensionHomAt (m q : ℕ) (_hm : 1 ≤ m) :
     π_ (q + 1) (Sph m) (sphereBasepoint m) →*
       π_ (q + 2) (Sph (m + 1)) (sphereBasepoint (m + 1)) := by
-  let e := sphCapOverlapHomotopyEquiv m
   let change := HomotopyGroup.transportMulEquiv (N := Fin (q + 1))
     (sphCapOverlapBasePath m)
-  exact (piHom_of_relativeHom (sphCapOverlapBase m) (sphUpperCapBase m) e q
-    (sphereSuspensionExcisionHomAt m q)).comp change.toMonoidHom
+  exact (sphereCapSuspensionRawHomAt m q).comp change.toMonoidHom
 
 /-- A surjective cap-excision map induces a surjective absolute sphere comparison. -/
 theorem sphereCapSuspensionHomAt_surjective_of_capExcision

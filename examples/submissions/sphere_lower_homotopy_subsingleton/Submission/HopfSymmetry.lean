@@ -161,6 +161,35 @@ theorem hopfSourceConjugationHomotopy_basepoint (t : I) :
   fin_cases i <;>
     simp [hopfSourceConjugationHomotopyVec, sphereBasepoint]
 
+/-- The Hopf map is based-homotopic to its postcomposition with target reflection. -/
+noncomputable def hopfReflectionHomotopy :
+    ContinuousMap.Homotopy hopfMap
+      (hopfTargetReflection.comp hopfMap) :=
+  ((ContinuousMap.Homotopy.refl hopfMap).comp
+      hopfSourceConjugationHomotopy).cast rfl
+    hopfMap_conjugation_equivariant
+
+/-- The Hopf reflection homotopy fixes the standard source basepoint throughout. -/
+theorem hopfReflectionHomotopy_basepoint (t : I) :
+    hopfReflectionHomotopy (t, sphereBasepoint 3) = sphereBasepoint 2 := by
+  change hopfMap
+      (hopfSourceConjugationHomotopy (t, sphereBasepoint 3)) =
+    sphereBasepoint 2
+  rw [hopfSourceConjugationHomotopy_basepoint]
+  exact hopfMap_basepoint
+
+/-- Target reflection fixes the canonical Hopf generator in `π₃(S²)`. -/
+theorem hopfTargetReflection_map_piThreeSphereTwoHopfGenerator :
+    HomotopyGroup.map hopfTargetReflection hopfTargetReflection_basepoint
+        piThreeSphereTwoHopfGenerator =
+      piThreeSphereTwoHopfGenerator := by
+  rw [piThreeSphereTwoHopfGenerator_eq_hopfMapClass,
+    ← sphereTargetMapClass_comp 3 hopfMap hopfMap_basepoint
+      hopfTargetReflection hopfTargetReflection_basepoint]
+  exact (sphereTargetMapClass_eq_of_homotopy 3
+    hopfMap_basepoint (by simp) hopfReflectionHomotopy
+    hopfReflectionHomotopy_basepoint).symm
+
 /-! ### The suspended target reflection and quaternionic inversion -/
 
 /-- The coordinate reflection on `S³` obtained by suspending final-coordinate reflection on
@@ -220,6 +249,121 @@ theorem sphereSuspensionMap_hopfTargetReflection :
             sphereThreeHopfReflectionVec (suspSphFun (t, x)) j.castSucc
           fin_cases j <;> simp [suspSphFun, sphereThreeHopfReflectionVec, snocLp, Fin.snoc,
             hopfTargetReflection, hopfTargetReflectionVec]
+
+/-! ### Reflection naturality of the cap suspension comparison -/
+
+/-- The chosen cap-overlap equivalence intertwines the suspended overlap reflection with the
+original Hopf-target reflection. -/
+theorem sphCapOverlapHomotopyEquiv_hopfTargetReflection
+    (z : sphCapOverlapInLower 2) :
+    sphCapOverlapHomotopyEquiv 2
+        ((sphCapSourcePairMap 2 hopfTargetReflection
+          hopfTargetReflection_basepoint).subspaceMap z) =
+      hopfTargetReflection (sphCapOverlapHomotopyEquiv 2 z) := by
+  change
+    (sphBeltHomeo 2
+      (sphCapOverlapHomeoBelt 2
+        ((sphCapSourcePairMap 2 hopfTargetReflection
+          hopfTargetReflection_basepoint).subspaceMap z))).1 =
+      hopfTargetReflection
+        (sphBeltHomeo 2 (sphCapOverlapHomeoBelt 2 z)).1
+  let p := sphBeltHomeo 2 (sphCapOverlapHomeoBelt 2 z)
+  have hpair :
+      sphBeltHomeo 2
+          (sphCapOverlapHomeoBelt 2
+            ((sphCapSourcePairMap 2 hopfTargetReflection
+              hopfTargetReflection_basepoint).subspaceMap z)) =
+        (hopfTargetReflection p.1, p.2) := by
+    apply (sphBeltHomeo 2).symm.injective
+    rw [Homeomorph.symm_apply_apply]
+    change sphCapOverlapHomeoBelt 2
+        ((sphCapSourcePairMap 2 hopfTargetReflection
+          hopfTargetReflection_basepoint).subspaceMap z) =
+      beltOfProd (hopfTargetReflection p.1, p.2)
+    apply Subtype.ext
+    apply Subtype.ext
+    apply PiLp.ext
+    intro i
+    have hz : sphCapOverlapHomeoBelt 2 z = beltOfProd p := by
+      change sphCapOverlapHomeoBelt 2 z = (sphBeltHomeo 2).symm p
+      exact ((sphBeltHomeo 2).symm_apply_apply
+        (sphCapOverlapHomeoBelt 2 z)).symm
+    have hzval := congrArg
+      (fun w : sphBelt 2 ↦ (((w : Sph 3) : EuclideanSpace ℝ (Fin 4)) i)) hz
+    change
+      (((sphereSuspensionMap 2 2 hopfTargetReflection z.1.1 : Sph 3) :
+        EuclideanSpace ℝ (Fin 4)) i) =
+      (((beltOfProd (hopfTargetReflection p.1, p.2) : sphBelt 2) : Sph 3) :
+        EuclideanSpace ℝ (Fin 4)) i
+    rw [sphereSuspensionMap_hopfTargetReflection]
+    fin_cases i <;>
+      simp [sphCapOverlapHomeoBelt, sphereThreeHopfReflection,
+        sphereThreeHopfReflectionVec, beltOfProd, beltVec,
+        hopfTargetReflection, hopfTargetReflectionVec, snocLp, Fin.snoc] at hzval ⊢ <;>
+      exact hzval
+  exact congrArg Prod.fst hpair
+
+/-- The raw cap suspension comparison commutes with Hopf-target reflection. -/
+theorem sphereCapSuspensionRawHomAt_hopfTargetReflection
+    (a : π_ 3 (Sph 2)
+      (sphCapOverlapHomotopyEquiv 2 (sphCapOverlapBase 2))) :
+    HomotopyGroup.map sphereThreeHopfReflection
+        sphereThreeHopfReflection_basepoint
+        (sphereCapSuspensionRawHomAt 2 2 a) =
+      sphereCapSuspensionRawHomAt 2 2
+        (HomotopyGroup.map hopfTargetReflection (by simp) a) := by
+  have hsource : (sphCapOverlapHomotopyEquiv 2).toFun.comp
+        (sphCapSourcePairMap 2 hopfTargetReflection
+          hopfTargetReflection_basepoint).subspaceMap =
+      hopfTargetReflection.comp (sphCapOverlapHomotopyEquiv 2).toFun := by
+    apply ContinuousMap.ext
+    exact sphCapOverlapHomotopyEquiv_hopfTargetReflection
+  simpa only [sphereSuspensionMap_hopfTargetReflection] using
+    sphereCapSuspensionRawHomAt_natural 2 2 hopfTargetReflection
+      hopfTargetReflection_basepoint hsource a
+
+/-- Reflection commutes with transport along the explicitly constant overlap basepoint path. -/
+theorem hopfTargetReflection_map_transport_sphCapOverlapBasePath
+    (a : π_ 3 (Sph 2) (sphereBasepoint 2)) :
+    HomotopyGroup.map hopfTargetReflection (by simp)
+        (HomotopyGroup.transport (sphCapOverlapBasePath 2) a) =
+      HomotopyGroup.transport (sphCapOverlapBasePath 2)
+        (HomotopyGroup.map hopfTargetReflection
+          hopfTargetReflection_basepoint a) := by
+  induction a using Quotient.ind with
+  | _ p =>
+      rw [HomotopyGroup.transport_mk, HomotopyGroup.map_mk,
+        HomotopyGroup.map_mk, HomotopyGroup.transport_mk]
+      apply congrArg Quotient.mk'
+      apply GenLoop.ext
+      intro t
+      simp only [GenLoop.map_apply, GenLoop.transport_apply]
+      unfold transportFun
+      split_ifs
+      · rfl
+      · rw [sphCapOverlapBasePath_apply]
+        exact hopfTargetReflection_basepoint
+
+/-- The based cap suspension comparison commutes with Hopf-target reflection. -/
+theorem sphereCapSuspensionHomAt_hopfTargetReflection
+    (a : π_ 3 (Sph 2) (sphereBasepoint 2)) :
+    HomotopyGroup.map sphereThreeHopfReflection
+        sphereThreeHopfReflection_basepoint
+        (sphereCapSuspensionHomAt 2 2 (by omega) a) =
+      sphereCapSuspensionHomAt 2 2 (by omega)
+        (HomotopyGroup.map hopfTargetReflection
+          hopfTargetReflection_basepoint a) := by
+  change HomotopyGroup.map sphereThreeHopfReflection
+      sphereThreeHopfReflection_basepoint
+      (sphereCapSuspensionRawHomAt 2 2
+        (HomotopyGroup.transportMulEquiv (sphCapOverlapBasePath 2) a)) =
+    sphereCapSuspensionRawHomAt 2 2
+      (HomotopyGroup.transportMulEquiv (sphCapOverlapBasePath 2)
+        (HomotopyGroup.map hopfTargetReflection
+          hopfTargetReflection_basepoint a))
+  rw [sphereCapSuspensionRawHomAt_hopfTargetReflection]
+  exact congrArg (sphereCapSuspensionRawHomAt 2 2)
+    (hopfTargetReflection_map_transport_sphCapOverlapBasePath a)
 
 /-- Quaternionic inversion as a continuous based self-map of the exact three-sphere. -/
 noncomputable def sphereThreeInversion : C(Sph 3, Sph 3) where
@@ -448,6 +592,68 @@ theorem sphereThreeInversionClass_mul_self_of_eq_one (x : Sph 3)
       sphereTargetMapClass (x := x) 4 f hf = 1 := by
   subst x
   exact sphereThreeInversionClass_mul_self f hf
+
+/-- Postcomposition by quaternionic inversion sends every class in `π₄(S³)` to a
+left inverse. -/
+theorem sphereThreeInversion_map_mul_self
+    (a : π_ 4 (Sph 3) (sphereBasepoint 3)) :
+    HomotopyGroup.map sphereThreeInversion sphereThreeInversion_basepoint a * a = 1 := by
+  obtain ⟨f, hf, hfa⟩ := homotopyGroup_exists_sphereTargetMapRepresentative 3 a
+  rw [← hfa, ← sphereTargetMapClass_comp 4 f hf sphereThreeInversion
+    sphereThreeInversion_basepoint]
+  exact sphereThreeInversionClass_mul_self_of_eq_one
+    (sphereBasepoint 3) sphereThree_one_eq_basepoint.symm f hf
+
+/-- The suspended reflection and quaternionic inversion induce the same map on `π₄(S³)`. -/
+theorem sphereThreeHopfReflection_map_eq_inversion
+    (a : π_ 4 (Sph 3) (sphereBasepoint 3)) :
+    HomotopyGroup.map sphereThreeHopfReflection
+        sphereThreeHopfReflection_basepoint a =
+      HomotopyGroup.map sphereThreeInversion
+        sphereThreeInversion_basepoint a := by
+  obtain ⟨f, hf, hfa⟩ := homotopyGroup_exists_sphereTargetMapRepresentative 3 a
+  rw [← hfa, ← sphereTargetMapClass_comp 4 f hf sphereThreeHopfReflection
+    sphereThreeHopfReflection_basepoint,
+    ← sphereTargetMapClass_comp 4 f hf sphereThreeInversion
+      sphereThreeInversion_basepoint]
+  exact sphereTargetMapClass_eq_of_homotopy 4 (by simp [hf]) (by simp [hf])
+    (sphereThreeHopfReflectionInvHomotopy.compContinuousMap f) (fun t ↦ by
+      change sphereThreeHopfReflectionInvHomotopy
+        (t, f (sphereBasepoint 4)) = sphereBasepoint 3
+      rw [hf]
+      exact sphereThreeHopfReflectionInvHomotopy_basepoint t)
+
+/-- Postcomposition by the suspended reflection sends every class in `π₄(S³)` to a
+left inverse. -/
+theorem sphereThreeHopfReflection_map_mul_self
+    (a : π_ 4 (Sph 3) (sphereBasepoint 3)) :
+    HomotopyGroup.map sphereThreeHopfReflection
+        sphereThreeHopfReflection_basepoint a * a = 1 := by
+  rw [sphereThreeHopfReflection_map_eq_inversion]
+  exact sphereThreeInversion_map_mul_self a
+
+/-! ### The cap-excision first-stem generator has square one -/
+
+/-- The reflection fixes the distinguished Freudenthal-edge generator. -/
+theorem piFourSphereThreeEdgeGenerator_reflection :
+    HomotopyGroup.map sphereThreeHopfReflection
+        sphereThreeHopfReflection_basepoint piFourSphereThreeEdgeGenerator =
+      piFourSphereThreeEdgeGenerator := by
+  rw [piFourSphereThreeEdgeGenerator,
+    sphereCapSuspensionHomAt_hopfTargetReflection,
+    hopfTargetReflection_map_piThreeSphereTwoHopfGenerator]
+
+/-- The distinguished Freudenthal-edge generator in `π₄(S³)` has square one. -/
+theorem piFourSphereThreeEdgeGenerator_sq :
+    piFourSphereThreeEdgeGenerator ^ 2 = 1 := by
+  rw [pow_two]
+  calc
+    piFourSphereThreeEdgeGenerator * piFourSphereThreeEdgeGenerator =
+        HomotopyGroup.map sphereThreeHopfReflection
+            sphereThreeHopfReflection_basepoint piFourSphereThreeEdgeGenerator *
+          piFourSphereThreeEdgeGenerator := by
+      rw [piFourSphereThreeEdgeGenerator_reflection]
+    _ = 1 := sphereThreeHopfReflection_map_mul_self piFourSphereThreeEdgeGenerator
 
 /-- The geometrically suspended Hopf generator in `π₄(S³)` has square equal to the identity. -/
 theorem piFourSphereThreeGeometricHopfGenerator_sq :
