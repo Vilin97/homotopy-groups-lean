@@ -1142,6 +1142,28 @@ class ResearchDataTests(unittest.TestCase):
         )
         self.assertIsNone(fibration_record["degree_lattice_overlay"])
 
+        higher_set = inventory["maintained_hopf_higher_equivalence_set"]
+        self.assertEqual(higher_set["system"], "Lean 4")
+        self.assertEqual(higher_set["count"], 2)
+        self.assertEqual(len(higher_set["results"]), 2)
+        higher_record = next(
+            item for item in inventory["formalizations"]
+            if item["id"] == "lean4-hopf-higher-homotopy-equivalences"
+        )
+        self.assertEqual(len(higher_record["declarations"]), 6)
+        self.assertEqual(
+            higher_record["commit"],
+            "e639844e7c171da9d5a1cda9f77d11177b95e91c",
+        )
+        higher_source = (ROOT / "research" / higher_record["source"]).resolve()
+        higher_text = higher_source.read_text()
+        self.assertNotIn("sorry", higher_text)
+        self.assertNotIn("admit", higher_text)
+        for declaration in higher_record["declarations"]:
+            self.assertIn(declaration.rsplit(".", 1)[-1], higher_text)
+        self.assertIsNone(higher_record["lattice_overlay"])
+        self.assertIsNone(higher_record["degree_lattice_overlay"])
+
         spaces = (ROOT / "HomotopyGroups/Spaces.lean").read_text()
         self.assertIn("Submission.pi3_sphere_two_mulEquiv_int", spaces)
 

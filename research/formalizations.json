@@ -659,6 +659,15 @@
       { "id": "canonical-pi3-sphere-two-integral", "declaration": "HomotopyGroups.pi3_sphere_two_mulEquiv_int", "source": "../HomotopyGroups/Spaces.lean", "lattice_effect": "colors exact-model (n,k)=(2,1), equivalently pi_3(S^2)=Z" }
     ]
   },
+  "maintained_hopf_higher_equivalence_set": {
+    "count": 2,
+    "system": "Lean 4",
+    "counting_rule": "The uniform equivalence induced by the exact Hopf map in every degree at least three and transport of any identified sphere-three group to the corresponding sphere-two group are two reusable structural results. The underlying homomorphism, its application formula, separate bijectivity theorem, and degree-three compatibility are supporting declarations and are not counted separately.",
+    "results": [
+      { "id": "uniform-higher-hopf-equivalence", "declaration": "Submission.hopfPiHigherEquiv", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HopfHigherHomotopy.lean", "lattice_effect": "none by itself; identifies pi_(k+3)(S^3) with pi_(k+3)(S^2) for every k and will propagate every later sphere-three computation to the sphere-two row" },
+      { "id": "sphere-three-to-sphere-two-group-transport", "declaration": "Submission.sphereTwo_higher_mulEquiv_of_sphereThree", "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HopfHigherHomotopy.lean", "lattice_effect": "none until its input computation is supplied; transports any concrete group identification from pi_(k+3)(S^3) to pi_(k+3)(S^2)" }
+    ]
+  },
   "maintained_stick_sphere_coordinate_set": {
     "count": 7,
     "system": "Lean 4",
@@ -691,6 +700,28 @@
     ]
   },
   "formalizations": [
+    {
+      "id": "lean4-hopf-higher-homotopy-equivalences",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "e639844e7c171da9d5a1cda9f77d11177b95e91c",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.hopfPiHigherHom",
+        "Submission.hopfPiHigherHom_apply",
+        "Submission.hopfPiHigherHom_bijective",
+        "Submission.hopfPiHigherEquiv",
+        "Submission.sphereTwo_higher_mulEquiv_of_sphereThree",
+        "Submission.hopfPiHigherEquiv_zero_eq"
+      ],
+      "result": "the circle fibre has trivial homotopy in every degree above one, so the long exact sequence of the now-proved exact Hopf fibration makes its induced homomorphism pi_(k+3)(S^3) to pi_(k+3)(S^2) bijective for every k; this is packaged as a uniform multiplicative equivalence and as a theorem transporting arbitrary concrete group identifications from the sphere-three row to the sphere-two row",
+      "model_relation": "exactly the maintained metric 3-sphere and 2-sphere, standard basepoints, explicit Hopf map and circle fibre, concrete Serre-fibration theorem, and maintained long exact sequence",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HopfHigherHomotopy.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All six listed declarations are sorry-free Lean 4. Strict checks pass for HopfHigherHomotopy and the Submission aggregate; exact builds pass at 8,814 and 8,861 jobs respectively. Audited axiom closures for uniform bijectivity, equivalence packaging, and group transport contain only propext, Classical.choice, and Quot.sound. The theorem adds no cell without a sphere-three input computation, but it is the uniform propagation bridge for all such later cells."
+    },
     {
       "id": "lean4-exact-hopf-serre-fibration",
       "system": "Lean 4",

@@ -149,7 +149,10 @@ pastes the corresponding short lifts without changing the original time
 parametrization. This proves that the exact Hopf map is a Serre fibration. The
 maintained long exact sequence and circle calculation therefore prove
 unconditionally that `pi_3(S^2) = Z`, close the canonical declaration, and
-color `(n,k)=(2,1)`.
+color `(n,k)=(2,1)`. The same exact sequence is now packaged uniformly in every
+degree at least three as `pi_d(S^3) ~= pi_d(S^2)`, together with a transport
+theorem that will propagate each later sphere-three computation to the
+sphere-two row.
 
 The positive diagonal now has a concrete quotient-level foundation. The
 canonical map `I^n -> S^n` is a quotient map, every cubical diagonal class is
