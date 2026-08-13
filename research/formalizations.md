@@ -567,8 +567,13 @@ point-set comparison is now constructed too: the mapping cone of
 `C_f -> Sigma A` maps canonically to `Sigma X`, extending `Sigma f`, and an
 explicit map back is a strict section on both suspension pushout summands.  Thus
 this comparison is split epic on the nose; the deformation of the opposite
-composite needed for a full homotopy equivalence remains separate.  No converse
-section theorem is claimed: mapping-out coexactness has the opposite variance
+composite needed for a full homotopy equivalence remains separate.  Specializing
+homotopy coexactness to the identity characterizes a retraction of the cofiber
+collapse by nullhomotopy of the bottom inclusion.  For the exact Hopf mapping
+cone, its normalized nonzero degree-two mod-two class detects that inclusion,
+so the collapse has no homotopy retraction recovering the mapping cone.  This is
+the `collapse ≫ r ~ id` direction, distinct from a section on the suspension.
+No converse section theorem is claimed: mapping-out coexactness has the opposite variance
 from the existing no-section result, so that result cannot soundly be inverted
 into suspended-Hopf nontriviality. The genuine lower bound still requires the
 Hopf-invariant or cup-evaluation computation.  The two

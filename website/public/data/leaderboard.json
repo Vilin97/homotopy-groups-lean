@@ -46470,7 +46470,8 @@
           "Submission.topologicalSuspensionConeIncl_toSecondMappingCone",
           "Submission.topologicalSuspensionPointIncl_toSecondMappingCone_toSuspension",
           "Submission.topologicalSuspensionConeIncl_toSecondMappingCone_toSuspension",
-          "Submission.topologicalSuspensionToSecondMappingCone_toSuspension"
+          "Submission.topologicalSuspensionToSecondMappingCone_toSuspension",
+          "Submission.exists_topologicalMappingConeCollapse_homotopy_retraction_iff_incl_nullhomotopic"
         ],
         "degree_cell_count": 0,
         "degree_coordinates": null,
@@ -46480,9 +46481,32 @@
         "lattice_kind": null,
         "lattice_proof": null,
         "model_relation": "uses the maintained pushout models of cones, mapping cones, and unreduced suspensions; a radial nullhomotopy traces the original-space summand through the cone cylinder, and both comparison maps are defined by the corresponding pushout universal properties",
-        "note": "All thirteen listed declarations are sorry-free Lean 4. Strict autoImplicit=false checks and the exact 2,583-job target build pass for Topology.PuppeComparison; the strict aggregate and exact 8,936-job Submission build also pass. The comparison is proved split epic on the nose. A homotopy from the opposite composite to the identity, which would complete the expected homotopy equivalence, is not yet asserted. This structural Puppe milestone does not evaluate the suspended Hopf invariant and therefore recolors no lattice cell.",
+        "note": "All fourteen listed declarations are sorry-free Lean 4. Strict autoImplicit=false checks and the exact 2,583-job target build pass for Topology.PuppeComparison; the strict aggregate and exact 8,937-job Submission build also pass. The comparison is proved split epic on the nose. A homotopy from the opposite composite to the identity, which would complete the expected homotopy equivalence, is not yet asserted. Specializing coexactness to the identity also characterizes homotopy retractions of the cofiber collapse, but this structural Puppe milestone does not evaluate the suspended Hopf invariant and therefore recolors no lattice cell.",
         "result": "for every f : A -> X, the mapping cone of the cofiber collapse C_f -> Sigma A has a canonical comparison to Sigma X extending Sigma f; an explicit map back from Sigma X is a strict section, so the comparison is a split epimorphism with exact formulas on the suspension point and cone summands",
-        "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/03d2590fc56fe5d165557a6e0b335c14d6a4c605/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Topology/PuppeComparison.lean",
+        "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/dc3d4daaefe5147f4d15084dfb0bb72e935aa65b/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Topology/PuppeComparison.lean",
+        "status": "lean_kernel_checked_local_source",
+        "system": "Lean 4"
+      },
+      {
+        "cell_count": 0,
+        "coordinates": null,
+        "declarations": [
+          "Submission.Hsing.map_const_eq_zero",
+          "Submission.hopfMappingConeIncl_not_nullhomotopic",
+          "Submission.exists_topologicalMappingConeCollapse_homotopy_retraction_iff_incl_nullhomotopic",
+          "Submission.not_exists_hopfMappingConeCollapse_homotopy_retraction"
+        ],
+        "degree_cell_count": 0,
+        "degree_coordinates": null,
+        "degree_lattice_kind": null,
+        "degree_lattice_proof": null,
+        "id": "lean4-hopf-cofiber-collapse-retraction-obstruction",
+        "lattice_kind": null,
+        "lattice_proof": null,
+        "model_relation": "uses the maintained exact quadratic Hopf map, its pushout mapping cone and normalized degree-two mod-two cohomology class, together with the generic cofibration and homotopy-coexactness theorem for the canonical mapping-cone inclusion",
+        "note": "All four listed declarations are sorry-free Lean 4. Strict autoImplicit=false checks pass for Cohomology.Point, HopfMappingCone, Topology.PuppeComparison, HopfPuppe, and the Submission aggregate; exact 2,097-job, 8,834-job, 2,583-job, 8,839-job, and 8,937-job target builds pass respectively. This rules out the retraction direction collapse followed by r homotopic to the identity on the Hopf mapping cone. It does not assert that r followed by collapse cannot be the identity on the suspension, and it does not by itself prove suspended-Hopf nontriviality, so no lattice cell is recolored.",
+        "result": "positive-degree singular cohomology pullback along a constant map vanishes; the normalized nonzero degree-two mod-two class detects that the bottom S^2 inclusion into the Hopf mapping cone is not nullhomotopic; by mapping-out coexactness, the Hopf cofiber collapse to the suspension of S^3 therefore has no homotopy retraction whose composite after the collapse is homotopic to the identity on the mapping cone",
+        "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/dc3d4daaefe5147f4d15084dfb0bb72e935aa65b/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HopfPuppe.lean",
         "status": "lean_kernel_checked_local_source",
         "system": "Lean 4"
       },
