@@ -103,6 +103,85 @@ theorem topologicalSecondConeHeightRaiseAt_zero (f : A ⟶ X) :
       Category.id_comp, Category.comp_id]
   · rw [topologicalSecondConePointIncl_heightRaiseAt, Category.comp_id]
 
+/-- At time one, the outer cylinder height becomes the maximum of its original height and the
+inner mapping-cone height. -/
+theorem topologicalSecondConeHeightRaiseAt_one_cylinder
+    (f : A ⟶ X) (c : topologicalMappingCone f) (v : TopCat.I) :
+    topologicalSecondConeHeightRaiseAt f 1
+        (topologicalConeCylinderIncl (topologicalMappingCone f) (c, v)) =
+      topologicalConeCylinderIncl (topologicalMappingCone f)
+        (c, TopCat.I.max (v, topologicalMappingConeHeight f c)) := by
+  rw [show topologicalSecondConeHeightRaiseAt f 1
+      (topologicalConeCylinderIncl (topologicalMappingCone f) (c, v)) =
+    topologicalConeCylinderIncl (topologicalMappingCone f)
+      (topologicalSecondConeHeightRaiseCylinderAt f 1 (c, v)) from
+        ConcreteCategory.congr_hom
+          (topologicalSecondConeCylinderIncl_heightRaiseAt f 1) (c, v)]
+  simp
+
+/-- The normalization fixes the outer cone on the original-space summand of `C_f`. -/
+theorem topologicalSecondConeHeightRaiseAt_one_incl
+    (f : A ⟶ X) (x : X) (v : TopCat.I) :
+    topologicalSecondConeHeightRaiseAt f 1
+        (topologicalConeCylinderIncl (topologicalMappingCone f)
+          (topologicalMappingConeIncl f x, v)) =
+      topologicalConeCylinderIncl (topologicalMappingCone f)
+        (topologicalMappingConeIncl f x, v) := by
+  rw [topologicalSecondConeHeightRaiseAt_one_cylinder]
+  have hheight := ConcreteCategory.congr_hom
+    (topologicalMappingConeIncl_height f) x
+  change topologicalMappingConeHeight f (topologicalMappingConeIncl f x) = 0 at hheight
+  rw [hheight, TopCat.I.max_zero_right]
+
+/-- On the iterated cone-cylinder piece, time one replaces the outer height by the maximum of
+the two cone heights. -/
+theorem topologicalSecondConeHeightRaiseAt_one_doubleCylinder
+    (f : A ⟶ X) (a : A) (u v : TopCat.I) :
+    topologicalSecondConeHeightRaiseAt f 1
+        (topologicalConeCylinderIncl (topologicalMappingCone f)
+          (topologicalMappingConeConeIncl f
+            (topologicalConeCylinderIncl A (a, u)), v)) =
+      topologicalConeCylinderIncl (topologicalMappingCone f)
+        (topologicalMappingConeConeIncl f
+          (topologicalConeCylinderIncl A (a, u)), TopCat.I.max (v, u)) := by
+  rw [topologicalSecondConeHeightRaiseAt_one_cylinder]
+  have hheight := ConcreteCategory.congr_hom
+    (topologicalMappingConeConeIncl_height f) (topologicalConeCylinderIncl A (a, u))
+  change topologicalMappingConeHeight f
+      (topologicalMappingConeConeIncl f (topologicalConeCylinderIncl A (a, u))) =
+    topologicalConeHeight A (topologicalConeCylinderIncl A (a, u)) at hheight
+  rw [hheight]
+  have hcone := ConcreteCategory.congr_hom
+    (topologicalConeCylinderIncl_height A) (a, u)
+  change topologicalConeHeight A (topologicalConeCylinderIncl A (a, u)) = u at hcone
+  rw [hcone]
+
+/-- At time one, the outer cylinder over the inner cone apex has reached the outer cone apex. -/
+theorem topologicalSecondConeHeightRaiseAt_one_innerApex
+    (f : A ⟶ X) (z : 𝟙_ TopCat.{u}) (v : TopCat.I) :
+    topologicalSecondConeHeightRaiseAt f 1
+        (topologicalConeCylinderIncl (topologicalMappingCone f)
+          (topologicalMappingConeConeIncl f (topologicalConePointIncl A z), v)) =
+      topologicalConePointIncl (topologicalMappingCone f) PUnit.unit := by
+  rw [topologicalSecondConeHeightRaiseAt_one_cylinder]
+  have hheight := ConcreteCategory.congr_hom
+    (topologicalMappingConeConeIncl_height f) (topologicalConePointIncl A z)
+  change topologicalMappingConeHeight f
+      (topologicalMappingConeConeIncl f (topologicalConePointIncl A z)) =
+    topologicalConeHeight A (topologicalConePointIncl A z) at hheight
+  rw [hheight]
+  have hcone := ConcreteCategory.congr_hom
+    (topologicalConePointIncl_height A) z
+  change topologicalConeHeight A (topologicalConePointIncl A z) = 1 at hcone
+  rw [hcone, TopCat.I.max_one_right]
+  exact ConcreteCategory.congr_hom (pushout.condition :
+    (TopCat.ι₁ : topologicalMappingCone f ⟶
+        topologicalMappingCone f ⊗ TopCat.I) ≫
+          topologicalConeCylinderIncl (topologicalMappingCone f) =
+      toUnit (topologicalMappingCone f) ≫
+        topologicalConePointIncl (topologicalMappingCone f))
+    (topologicalMappingConeConeIncl f (topologicalConePointIncl A z))
+
 /-- The outer-cone height normalization as a continuous homotopy from the identity to its
 time-one map. -/
 def topologicalSecondConeHeightRaiseHomotopy (f : A ⟶ X) :
