@@ -6,6 +6,7 @@ import Mathlib.Topology.Category.TopCat.Sphere
 import Mathlib.Topology.Constructions
 import Mathlib.Topology.Homotopy.HomotopyGroup
 import Submission.Hurewicz.SphereDiagonalGeneric
+import Submission.HopfFibration
 import Submission.RealProjectiveSpace
 
 /-!
@@ -84,8 +85,8 @@ theorem sphere_diagonal_homotopy_mulEquiv_int (n : ℕ) :
 theorem pi3_sphere_two_mulEquiv_int :
     Nonempty
       (HomotopyGroup.Pi 3 (SphereSpace 2) (sphereBasepoint 2) ≃*
-        Multiplicative ℤ) := by
-  sorry
+        Multiplicative ℤ) :=
+  Submission.pi3_sphere_two_mulEquiv_int
 
 @[eval_problem]
 theorem sphere_first_stable_homotopy_mulEquiv_zmod_two

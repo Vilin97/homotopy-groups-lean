@@ -13,6 +13,8 @@ import Submission.FoundationBenchmarks
 import Submission.HigherSphereFoundations
 import Submission.HopfMap
 import Submission.HopfLocalTrivialization
+import Submission.HopfTransport
+import Submission.HopfFibration
 import Submission.Hurewicz.AbsoluteIsomorphism
 import Submission.Hurewicz.AbsoluteNaturality
 import Submission.Hurewicz.AbsoluteSurjectivity

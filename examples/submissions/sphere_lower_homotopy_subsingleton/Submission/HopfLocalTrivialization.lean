@@ -12,7 +12,6 @@ the two classical charts over the open sets `x₀ > -1` and `x₀ < 1`.  These a
 input for proving that the map has the homotopy lifting property.
 -/
 
-open HomotopyGroups
 open scoped Topology Topology.Homotopy
 
 noncomputable section

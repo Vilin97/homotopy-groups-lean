@@ -3,8 +3,8 @@ Copyright (c) 2026 Vasily Ilin. All rights reserved.
 Released under Apache 2.0 license.
 -/
 import Submission.Homotopy.FibrationLESGroup
-import Submission.Hurewicz.SphereDiagonal
-import Submission.MetricSpherePiOne
+import Submission.Hurewicz.SphereDiagonalGeneric
+import Submission.MetricSpherePiOneGeneric
 
 /-!
 # The explicit Hopf map on exact metric spheres
@@ -19,7 +19,6 @@ the existing long exact sequence of a Serre fibration, this reduces `pi_3(S^2) =
 remaining geometric assertion that this concrete Hopf map is a Serre fibration.
 -/
 
-open HomotopyGroups
 open scoped Topology Topology.Homotopy
 
 noncomputable section
@@ -352,7 +351,7 @@ theorem pi3_sphere_two_mulEquiv_int_of_hopf_isSerreFibration
     (hp : IsSerreFibration hopfMap) :
     Nonempty
       (π_ 3 (Sph 2) (sphereBasepoint 2) ≃* Multiplicative ℤ) := by
-  obtain ⟨source⟩ := sphere_diagonal_homotopy_mulEquiv_int 2
+  obtain ⟨source⟩ := sphere_diagonal_sph_at_mulEquiv_int 2 (sphereBasepoint 3)
   exact ⟨(hopfPiThreeEquiv hp).symm.trans source⟩
 
 end Submission
