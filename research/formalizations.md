@@ -545,10 +545,13 @@ directions to identify the exact Hopf mapping cone homeomorphically with the
 four-cell attachment and therefore with `CP^2`, with exact formulas on the
 bottom and cone-cylinder pieces.  The canonical mapping-cone collapse to the
 suspension of `∂D^4` is constructed generically and proved to commute exactly
-with the cell collapse to `S^4`.  This supplies the geometric cofibre, vanishing
-input, final no-section obstruction, and collapse comparison for a second
-lower-bound proof; the remaining step is the appropriate cofibration exactness
-bridge, so the first stable-stem lattice cell is not yet recolored.
+with the cell collapse to `S^4`; the suspension itself is homeomorphic to
+`S^4`.  The canonical cofiber collapse is then proved directly to admit no
+based homotopy section.  This supplies the geometric cofibre, vanishing input,
+and final no-section obstruction for a second lower-bound proof; the remaining
+step is the Puppe rotation or cofibration exactness implication from a null
+suspended attaching map to such a section, so the first stable-stem lattice
+cell is not yet recolored.
 
 `DiagonalInduction.lean` records the exact equivalence between the two computed
 diagonal groups `pi_1(S^1)` and `pi_2(S^2)`, and proves that a uniform family of
