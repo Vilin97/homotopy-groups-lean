@@ -569,12 +569,16 @@ explicit map back is a strict section on both suspension pushout summands.  Thus
 this comparison is split epic on the nose.  At the canonical point-summand
 basepoints, it is consequently surjective on every homotopy group and its
 explicit section is injective in every dimension.  The first quotient-safe
-stage of the opposite deformation is now explicit: on the outer cone over
-`C_f`, it continuously raises the outer coordinate by the inner mapping-cone
-height while respecting both apex identifications.  At the endpoint it fixes the
-original-space cylinder, replaces the double-cone height by the maximum of its
-two coordinates, and sends the inner-apex cylinder to the outer apex.  Completing that deformation
-to a full homotopy equivalence remains separate.  Specializing
+stage of the opposite deformation now extends across the entire second mapping
+cone.  On the outer cone over `C_f`, it continuously raises the outer coordinate
+by the inner mapping-cone height; on the bottom suspension, the compatible
+formula moves a point of height `u` to outer height `u * t`.  Lean proves the
+two formulas agree on their shared copy of `C_f`, are jointly continuous through
+both pushout quotients, and give a homotopy from the identity to the normalized
+endpoint.  At that endpoint the map fixes the original-space cylinder, replaces
+the double-cone height by the maximum of its two coordinates, and sends the
+inner-apex cylinder to the outer apex.  Identifying or further deforming this
+endpoint to the opposite comparison composite remains separate.  Specializing
 homotopy coexactness to the identity characterizes a retraction of the cofiber
 collapse by nullhomotopy of the bottom inclusion.  For the exact Hopf mapping
 cone, its normalized nonzero degree-two mod-two class detects that inclusion,
