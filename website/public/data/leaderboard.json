@@ -46265,6 +46265,30 @@
         "cell_count": 0,
         "coordinates": null,
         "declarations": [
+          "Submission.exists_includedSourceHomotopy_cellCompression_with_prepared_endpoints",
+          "Submission.relativeSpherePLHomotopy_cellCompression_sourceEndpoints_homotopic",
+          "Submission.relGenLoop_homotopic_of_includedSourceHomotopy_stableRange",
+          "Submission.sphereSuspensionExcisionHomAt_injective_of_stableRange",
+          "Submission.sphereSuspensionExcisionHomAt_bijective_of_dimension"
+        ],
+        "degree_cell_count": 0,
+        "degree_coordinates": null,
+        "degree_lattice_kind": null,
+        "degree_lattice_proof": null,
+        "id": "lean4-stable-sphere-cap-excision-injectivity",
+        "lattice_kind": null,
+        "lattice_proof": null,
+        "model_relation": "exactly the maintained cubical relative homotopy groups, exact metric spheres and enlarged cap cover, and the canonical cap-inclusion homomorphism used by the suspension-excision reduction",
+        "note": "All five headline declarations are sorry-free Lean 4. Strict checks pass for the puncture, source-compression, stable-injectivity, and Submission aggregate files; the exact aggregate build passes all 8,888 jobs. Stable-range surjectivity remains under construction, so this milestone does not yet certify a Freudenthal equivalence or recolor lattice cells.",
+        "result": "finite cubical PL approximation, jar-relative general position, endpoint cap preparation, two-cell compression, and explicit puncture deformations prove that the canonical sphere-cap relative homotopy map is injective whenever q+3 is at most 2d; combined with ordinary point avoidance, it is bijective whenever q+2 is at most d",
+        "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/00f2e3f5666aee3cc80e16eb6e1ec1b67750491d/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/Approximation/SphereCapExcisionInjective.lean",
+        "status": "lean_kernel_checked_local_source",
+        "system": "Lean 4"
+      },
+      {
+        "cell_count": 0,
+        "coordinates": null,
+        "declarations": [
           "Submission.complexLineProjector",
           "Submission.complexHopfMap_complexHopfTransport",
           "Submission.exists_complexHopfLift_of_dyadicControl",
