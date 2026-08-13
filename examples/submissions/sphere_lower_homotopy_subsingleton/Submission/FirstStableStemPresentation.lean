@@ -125,6 +125,21 @@ theorem piFourSphereThreeEdgeGenerator_zpowers_eq_top :
   rw [← Subgroup.range_zpowersHom, ← piFourSphereThreePresentationHom_eq_zpowersHom]
   exact MonoidHom.range_eq_top.mpr piFourSphereThreePresentationHom_surjective
 
+/-- Because the edge generator generates the whole group, any nonidentity element of
+`π₄(S³)` proves that the edge generator itself is nonidentity. -/
+theorem piFourSphereThreeEdgeGenerator_ne_one_of_element_ne_one
+    (x : π_ 4 (Sph 3) (sphereBasepoint 3)) (hx : x ≠ 1) :
+    piFourSphereThreeEdgeGenerator ≠ 1 := by
+  intro hedge
+  obtain ⟨k, hk⟩ := Subgroup.mem_zpowers_iff.mp
+    (by
+      rw [piFourSphereThreeEdgeGenerator_zpowers_eq_top]
+      exact trivial : x ∈ Subgroup.zpowers piFourSphereThreeEdgeGenerator)
+  apply hx
+  calc
+    x = piFourSphereThreeEdgeGenerator ^ k := hk.symm
+    _ = 1 := by rw [hedge]; simp
+
 /-- The order of the edge generator is precisely the previously isolated cardinal modulus. -/
 theorem orderOf_piFourSphereThreeEdgeGenerator :
     orderOf piFourSphereThreeEdgeGenerator = piFourSphereThreeModulus := by

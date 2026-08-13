@@ -716,4 +716,40 @@ theorem piFourSphereThreeGeometricHopfGenerator_ne_one_of_canonical_evaluation
   piFourSphereThreeGeometricHopfGenerator_ne_one_of_not_nullhomotopic
     (suspendedHopfMap_not_nullhomotopic_of_canonical_evaluation heval)
 
+/-- The same canonical cup-one evaluation proves that the cap-excision edge generator is
+nonidentity, without requiring an identification of the two named generators. -/
+theorem piFourSphereThreeEdgeGenerator_ne_one_of_canonical_evaluation
+    (heval : sqTwoHsingDegreeThreeRepresentativeEvaluation
+      suspendedHopfCanonicalCocycle suspendedHopfCanonicalFiveCycle ≠ 0) :
+    piFourSphereThreeEdgeGenerator ≠ 1 :=
+  piFourSphereThreeEdgeGenerator_ne_one_of_element_ne_one
+    piFourSphereThreeGeometricHopfGenerator
+    (piFourSphereThreeGeometricHopfGenerator_ne_one_of_canonical_evaluation heval)
+
+/-- The exact first-stem computation now follows from its independent upper and lower halves:
+doubling kills the edge generator, while the fixed cup-one evaluation detects a nonidentity
+element in the group. -/
+theorem piFourSphereThree_mulEquiv_zmod_two_of_edge_square_and_canonical_evaluation
+    (hsquare : piFourSphereThreeEdgeGenerator ^ 2 = 1)
+    (heval : sqTwoHsingDegreeThreeRepresentativeEvaluation
+      suspendedHopfCanonicalCocycle suspendedHopfCanonicalFiveCycle ≠ 0) :
+    Nonempty
+      (π_ 4 (Sph 3) (sphereBasepoint 3) ≃* Multiplicative (ZMod 2)) :=
+  piFourSphereThree_mulEquiv_zmod_two_iff_edge_square_and_nontrivial.mpr
+    ⟨hsquare, piFourSphereThreeEdgeGenerator_ne_one_of_canonical_evaluation heval⟩
+
+/-- The same two certificates propagate the `Z/2` computation through every sphere dimension
+in the first stable stem. -/
+theorem sphere_first_stable_homotopy_mulEquiv_zmod_two_of_edge_square_and_canonical_evaluation
+    (n : ℕ) (hn : 3 ≤ n)
+    (hsquare : piFourSphereThreeEdgeGenerator ^ 2 = 1)
+    (heval : sqTwoHsingDegreeThreeRepresentativeEvaluation
+      suspendedHopfCanonicalCocycle suspendedHopfCanonicalFiveCycle ≠ 0) :
+    Nonempty
+      (π_ (n + 1) (Sph n) (sphereBasepoint n) ≃*
+        Multiplicative (ZMod 2)) := by
+  apply sphere_first_stable_homotopy_mulEquiv_zmod_two_of_orderOf_edgeGenerator n hn
+  exact orderOf_eq_prime_iff.mpr
+    ⟨hsquare, piFourSphereThreeEdgeGenerator_ne_one_of_canonical_evaluation heval⟩
+
 end Submission
