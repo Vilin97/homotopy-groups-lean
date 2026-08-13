@@ -125,6 +125,7 @@ import Submission.Topology.MappingConeCover
 import Submission.Topology.SuspensionComparison
 import Submission.Topology.Puppe
 import Submission.Topology.PuppeComparison
+import Submission.Topology.PuppeHomotopyGroups
 import Submission.HopfMappingCone
 import Submission.HopfPuppe
 import Submission.ComplexProjectivePlaneCohomology
