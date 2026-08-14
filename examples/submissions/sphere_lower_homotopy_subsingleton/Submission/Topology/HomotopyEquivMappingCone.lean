@@ -2,6 +2,7 @@
 Copyright (c) 2026 Vasily Ilin. All rights reserved.
 Released under Apache 2.0 license.
 -/
+import Submission.ForMathlib.HomotopyGroup.Contractible
 import Submission.SphereSuspension
 import Submission.Topology.PuppeExactness
 
@@ -42,7 +43,7 @@ noncomputable def homotopyEquiv (e : X ≃ₕ Y) : Susp X ≃ₕ Susp Y where
 
 end Susp
 
-universe u
+universe u v
 
 variable {A X : TopCat.{u}}
 
@@ -171,5 +172,19 @@ theorem pathConnectedSpace_topologicalThirdMappingCone
       (topologicalMappingCone (topologicalSecondMappingConeToSuspension f)) :=
     contractibleSpace_topologicalThirdMappingCone f
   infer_instance
+
+/-- Every positive-dimensional homotopy group of the mapping cone after the second Puppe
+comparison is trivial, at every basepoint. -/
+theorem subsingleton_homotopyGroup_topologicalThirdMappingCone
+    {N : Type v} [DecidableEq N] [Nonempty N]
+    (f : A ⟶ X)
+    (c : topologicalMappingCone (topologicalSecondMappingConeToSuspension f)) :
+    Subsingleton
+      (HomotopyGroup N
+        (topologicalMappingCone (topologicalSecondMappingConeToSuspension f)) c) := by
+  letI : ContractibleSpace
+      (topologicalMappingCone (topologicalSecondMappingConeToSuspension f)) :=
+    contractibleSpace_topologicalThirdMappingCone f
+  exact subsingleton_homotopyGroup_of_contractible c
 
 end Submission
