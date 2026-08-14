@@ -176,4 +176,68 @@ theorem orderedRealizationToFacetFamilyCarrier_comp_facetSSetι
   rw [Homeomorph.apply_symm_apply]
   rfl
 
+/-- Every affine point supported on a listed facet is represented by a point of that facet's
+canonical standard simplex. -/
+theorem exists_facetAffineCarrierMap_eq
+    {d : ℕ} (facets : Finset (Finset V))
+    (facet : Finset V) (hfacet : facet ∈ facets)
+    (hcard : facet.card = d + 1)
+    (x : facetFamilyCarrier facets)
+    (hx : ∀ v, v ∉ facet → x.1 v = 0) :
+    ∃ y, facetAffineCarrierMap facets facet hfacet hcard y = x := by
+  let xf : simplexFaceCarrier facet := ⟨x.1, hx⟩
+  let z : stdSimplex ℝ facet := simplexFaceRestriction facet xf
+  let e : Fin (d + 1) ≃ facet := (facet.orderIsoOfFin hcard).toEquiv
+  let y : stdSimplex ℝ (Fin (d + 1)) := stdSimplex.map e.symm z
+  refine ⟨y, ?_⟩
+  apply Subtype.ext
+  change stdSimplex.map (facet.orderEmbOfFin hcard) y = x.1
+  rw [show y = stdSimplex.map e.symm z by rfl]
+  rw [stdSimplex.map_comp_apply]
+  have he : (facet.orderEmbOfFin hcard) ∘ e.symm =
+      (fun v : facet ↦ v.1) := by
+    funext v
+    exact congrArg Subtype.val (e.apply_symm_apply v)
+  rw [he]
+  change (simplexFaceEmbedding facet z).1 = x.1
+  exact congrArg Subtype.val (simplexFaceEmbedding_restriction facet xf)
+
+/-- The canonical map from the geometric realization of a finite ordered complex onto its affine
+facet-family carrier is surjective. -/
+theorem orderedRealizationToFacetFamilyCarrier_surjective
+    (facets : Finset (Finset V)) :
+    Function.Surjective (orderedRealizationToFacetFamilyCarrier facets) := by
+  intro x
+  obtain ⟨facet, hfacet, hx⟩ :=
+    (mem_facetFamilyCarrier_iff facets x.1).mp x.2
+  have hfacet_nonempty : facet.Nonempty := by
+    by_contra h
+    rw [Finset.not_nonempty_iff_eq_empty] at h
+    subst facet
+    have hzero : ∀ v, x.1 v = 0 := fun v ↦ hx v (by simp)
+    have hsum : (∑ v, x.1 v) = 0 := Finset.sum_eq_zero fun v _ ↦ hzero v
+    have hone : (∑ v, x.1 v) = 1 := x.1.2.2
+    linarith
+  let d := facet.card - 1
+  have hcard : facet.card = d + 1 := by
+    dsimp [d]
+    exact (Nat.sub_add_cancel (Finset.one_le_card.mpr hfacet_nonempty)).symm
+  obtain ⟨y, hy⟩ :=
+    exists_facetAffineCarrierMap_eq facets facet hfacet hcard x hx
+  let z : SSet.toTop.obj (Δ[d] : SSet) :=
+    (SimplexCategory.toTopHomeo (SimplexCategory.mk d)).symm y
+  refine ⟨(SSet.toTop.map (facetSSetι facets facet hfacet hcard)).hom z, ?_⟩
+  have hcomp := orderedRealizationToFacetFamilyCarrier_comp_facetSSetι
+    facets facet hfacet hcard
+  calc
+    _ = (facetTopologicalCarrierMap facets facet hfacet hcard).hom z :=
+      ConcreteCategory.congr_hom hcomp z
+    _ = facetAffineCarrierMap facets facet hfacet hcard y := by
+      change facetAffineCarrierMap facets facet hfacet hcard
+        ((SimplexCategory.toTopHomeo (SimplexCategory.mk d)) z) = _
+      rw [show z =
+        (SimplexCategory.toTopHomeo (SimplexCategory.mk d)).symm y by rfl]
+      rw [Homeomorph.apply_symm_apply]
+    _ = x := hy
+
 end Submission.FiniteOrderedComplex

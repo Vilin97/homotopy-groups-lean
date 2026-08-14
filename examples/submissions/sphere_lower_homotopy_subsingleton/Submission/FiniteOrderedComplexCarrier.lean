@@ -38,6 +38,99 @@ theorem isClosed_simplexFaceCarrier (facet : Finset V) :
   exact isClosed_eq
     ((continuous_apply v.1).comp continuous_subtype_val) continuous_const
 
+/-- Embed the simplex indexed by the vertices of a face into the ambient standard simplex. -/
+noncomputable def simplexFaceEmbedding (facet : Finset V) :
+    stdSimplex ℝ facet → simplexFaceCarrier facet := fun x =>
+  ⟨stdSimplex.map Subtype.val x, by
+    intro v hv
+    change (FunOnFinite.linearMap ℝ ℝ (fun i : facet ↦ i.1) x) v = 0
+    rw [FunOnFinite.linearMap_apply_apply]
+    apply Finset.sum_eq_zero
+    intro i hi
+    rw [Finset.mem_filter] at hi
+    exact False.elim (hv (hi.2 ▸ i.2))⟩
+
+/-- Restrict an ambient simplex point supported on a face to the coordinates of that face. -/
+noncomputable def simplexFaceRestriction (facet : Finset V) :
+    simplexFaceCarrier facet → stdSimplex ℝ facet := fun x =>
+  ⟨fun v ↦ x.1 v.1, by
+    constructor
+    · intro v
+      exact x.1.2.1 v.1
+    · rw [← Finset.sum_subtype facet (by simp)]
+      rw [← x.1.2.2]
+      apply Finset.sum_subset (Finset.subset_univ facet)
+      intro v _ hv
+      exact x.2 v hv⟩
+
+/-- Restricting a face embedding recovers the original barycentric coordinates. -/
+@[simp]
+theorem simplexFaceRestriction_embedding (facet : Finset V)
+    (x : stdSimplex ℝ facet) :
+    simplexFaceRestriction facet (simplexFaceEmbedding facet x) = x := by
+  apply stdSimplex.ext
+  funext i
+  change (FunOnFinite.linearMap ℝ ℝ (fun j : facet ↦ j.1) x) i.1 = x i
+  rw [FunOnFinite.linearMap_apply_apply]
+  apply Finset.sum_eq_single i
+  · intro j hj hji
+    rw [Finset.mem_filter] at hj
+    exact False.elim (hji (Subtype.ext hj.2))
+  · intro hi
+    exact False.elim (hi (Finset.mem_filter.mpr ⟨Finset.mem_univ _, rfl⟩))
+
+/-- Embedding the coordinate restriction of a supported point recovers that ambient point. -/
+@[simp]
+theorem simplexFaceEmbedding_restriction (facet : Finset V)
+    (x : simplexFaceCarrier facet) :
+    simplexFaceEmbedding facet (simplexFaceRestriction facet x) = x := by
+  apply Subtype.ext
+  apply stdSimplex.ext
+  funext v
+  change (FunOnFinite.linearMap ℝ ℝ (fun j : facet ↦ j.1)
+      (simplexFaceRestriction facet x)) v = x.1 v
+  rw [FunOnFinite.linearMap_apply_apply]
+  by_cases hv : v ∈ facet
+  · let i : facet := ⟨v, hv⟩
+    apply Finset.sum_eq_single i
+    · intro j hj hji
+      rw [Finset.mem_filter] at hj
+      exact False.elim (hji (Subtype.ext hj.2))
+    · intro hi
+      exact False.elim (hi (Finset.mem_filter.mpr ⟨Finset.mem_univ _, rfl⟩))
+  · rw [Finset.filter_eq_empty_iff.mpr]
+    · exact (x.2 v hv).symm
+    · intro i _
+      exact fun hiv ↦ hv (hiv ▸ i.2)
+
+omit [DecidableEq V] in
+/-- Coordinate restriction from an ambient simplex face is continuous. -/
+theorem continuous_simplexFaceRestriction (facet : Finset V) :
+    Continuous (simplexFaceRestriction facet) := by
+  apply Continuous.subtype_mk
+  apply continuous_pi
+  intro v
+  exact (continuous_apply v.1).comp
+    (continuous_subtype_val.comp continuous_subtype_val)
+
+/-- A coordinate face of an ambient standard simplex is homeomorphic to the standard simplex on
+its own vertex subtype. -/
+def simplexFaceHomeomorph (facet : Finset V) :
+    stdSimplex ℝ facet ≃ₜ simplexFaceCarrier facet where
+  toFun := simplexFaceEmbedding facet
+  invFun := simplexFaceRestriction facet
+  left_inv := simplexFaceRestriction_embedding facet
+  right_inv := simplexFaceEmbedding_restriction facet
+  continuous_toFun := Continuous.subtype_mk
+    (stdSimplex.continuous_map Subtype.val) _
+  continuous_invFun := continuous_simplexFaceRestriction facet
+
+/-- The inverse face homeomorphism reads off the coordinates indexed by the face. -/
+@[simp]
+theorem simplexFaceHomeomorph_symm_apply_apply (facet : Finset V)
+    (x : simplexFaceCarrier facet) (v : facet) :
+    (simplexFaceHomeomorph facet).symm x v = x.1 v.1 := rfl
+
 /-- The affine union of the simplex faces indexed by a finite facet family. -/
 def facetFamilyCarrier (facets : Finset (Finset V)) : Set (stdSimplex ℝ V) :=
   ⋃ facet : facets, simplexFaceCarrier facet.1
