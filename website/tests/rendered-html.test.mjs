@@ -151,11 +151,17 @@ test("ships complete, synchronized benchmark data, reports, and social art", asy
   assert.equal(frontier.height_two_two_primary.family_count, 125);
   assert.equal(frontier.height_two_two_primary.residue_count, 19);
   assert.ok(Number.isInteger(leaderboard.accepted_eligible_results));
+  assert.ok(Number.isInteger(leaderboard.current_result_count));
+  assert.ok(Number.isInteger(leaderboard.archived_result_count));
   assert.ok(Array.isArray(leaderboard.entries));
   assert.ok(Array.isArray(leaderboard.accepted_problems));
-  assert.ok(leaderboard.accepted_problems.length >= 6);
+  assert.equal(
+    leaderboard.current_result_count,
+    leaderboard.accepted_problems.reduce((count, problem) => count + problem.result_count, 0),
+  );
+  assert.ok(leaderboard.current_result_count + leaderboard.archived_result_count >= 8);
   assert.ok(leaderboard.accepted_problems.every((problem) => typeof problem.title === "string" && problem.title.length > 0));
-  assert.ok(leaderboard.accepted_problems.some((problem) => problem.title === "The fundamental group of the circle is the integers" && problem.score_eligible === false));
+  assert.ok(tracker.entries.some((problem) => problem.title === "The fundamental group of the circle is the integers"));
   assert.equal(leaderboard.formalization_inventory.records.length, 70);
   assert.equal(leaderboard.formalization_inventory.lattice.cell_count, 201);
   assert.equal(leaderboard.formalization_inventory.degree_lattice.cell_count, 4370);
