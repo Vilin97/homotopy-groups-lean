@@ -148,6 +148,15 @@ theorem contractibleSpace_topologicalMappingCone_of_homotopyEquiv_toFun_eq
   rw [← hmap]
   exact contractibleSpace_topologicalMappingCone_of_homotopyEquiv e
 
+/-- In particular, the mapping cone of an isomorphism of topological spaces is contractible. -/
+theorem contractibleSpace_topologicalMappingCone_of_isIso
+    [Nonempty A] [Nonempty X]
+    (f : A ⟶ X) [IsIso f] :
+    ContractibleSpace (topologicalMappingCone f) := by
+  let e := (TopCat.homeoOfIso (asIso f)).toHomotopyEquiv
+  exact contractibleSpace_topologicalMappingCone_of_homotopyEquiv_toFun_eq
+    f e rfl
+
 /-- The next mapping cone after the second Puppe comparison is contractible. -/
 theorem contractibleSpace_topologicalThirdMappingCone
     (f : A ⟶ X) :
