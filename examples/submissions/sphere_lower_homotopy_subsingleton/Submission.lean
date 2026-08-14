@@ -135,6 +135,7 @@ import Submission.HopfPuppe
 import Submission.HopfPuppeHomotopyGroups
 import Submission.ComplexProjectivePlaneTriangulation
 import Submission.ComplexProjectivePlaneTrisection
+import Submission.ComplexProjectivePlaneTrisectionSurface
 import Submission.ComplexProjectivePlaneCohomology
 import Submission.HopfMappingConeHomotopyGroups
 import Submission.SuspendedHopfMap
