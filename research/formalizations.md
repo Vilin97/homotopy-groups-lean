@@ -677,9 +677,13 @@ the same 14-triangle central surface. One interface is further decomposed into
 a three-tetrahedron join and a ten-tetrahedron cone, with its two disjoint
 gluing triangles computed exactly. Periodic coordinates identify the central
 facet list with the standard seven-vertex, fourteen-triangle pattern. These are
-finite incidence certificates: topological ball, solid-torus, torus, embedding,
-and `CP^2` homeomorphism theorems remain open. Accordingly this record is
-structural and adds no purple cells.
+finite incidence certificates. A reusable executable surface checker now adds
+global graph connectedness, connected cycle links at every vertex, coherent
+orientations, and Euler characteristic. It certifies combinatorial orientable
+genus one for the central surface and genus zero for the ten-triangle base of
+the cone in one pairwise interface. Topological surface classification, ball,
+solid-torus, torus, embedding, and `CP^2` homeomorphism theorems remain open.
+Accordingly this record is structural and adds no purple cells.
 
 `DiagonalInduction.lean` records the exact equivalence between the two computed
 diagonal groups `pi_1(S^1)` and `pi_2(S^2)`, and proves that a uniform family of
