@@ -42,6 +42,20 @@ class ResearchDataTests(unittest.TestCase):
         generated_text = (ROOT / "HomotopyGroups/TodaTable.lean").read_text()
         full_start = generated_text.index("theorem toda_unstable_integral_table")
         self.assertIn("sorry", generated_text[full_start:])
+        mimura_text = (ROOT / "HomotopyGroups/MimuraTodaTable.lean").read_text()
+        mimura_start = mimura_text.index(
+            "theorem mimura_toda_unstable_integral_stem_twenty"
+        )
+        self.assertIn("sorry", mimura_text[mimura_start:])
+        self.assertIn("(nIndex : Fin 21)", mimura_text[mimura_start:])
+        self.assertIn("HomotopyGroup.Pi (nIndex.val + 22)", mimura_text[mimura_start:])
+        blocked = json.loads(
+            (ROOT / "research/foundation-blocked-results.json").read_text()
+        )
+        self.assertNotIn(
+            "unstable-integral-table-20",
+            {row["id"] for row in blocked["targets"]},
+        )
         inventory = json.loads((ROOT / "research/formalizations.json").read_text())
         record = next(
             item for item in inventory["formalizations"]

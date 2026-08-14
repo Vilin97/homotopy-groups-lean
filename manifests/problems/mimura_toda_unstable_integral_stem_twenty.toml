@@ -1,0 +1,8 @@
+id = "mimura_toda_unstable_integral_stem_twenty"
+title = "Mimura--Toda integral unstable 20-stem"
+test = false
+module = "HomotopyGroups.MimuraTodaTable"
+holes = ["mimura_toda_unstable_integral_stem_twenty"]
+submitter = "homotopy-groups-lean literature registry"
+source = "https://doi.org/10.1215/kjm/1250524854"
+notes = "knowledge_status=known_result/exact; one finite-indexed theorem family states all 21 integral values pi_(n+20)(S^n) for 2<=n<=22; generated from the source-audited Mimura--Toda CSV transcription."

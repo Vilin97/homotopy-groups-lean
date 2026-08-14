@@ -14,9 +14,10 @@ The integral Toda table through the 19-stem is generated separately from its
 versioned CSV registry in `HomotopyGroups.TodaTable`.  The exact positive-stem
 3-primary table through 108 is generated in
 `HomotopyGroups.StableThreePrimary`, using Mathlib's existing
-`CommGroup.primaryComponent`.  The Mimura--Toda 20-stem and the 2-primary-only
-unstable tables still need structured transcriptions; degree-zero p-local
-statements still need localization foundations.
+`CommGroup.primaryComponent`.  The complete Mimura--Toda 20-stem is generated
+from its source-audited CSV in `HomotopyGroups.MimuraTodaTable`.  The
+2-primary-only unstable tables still need structured transcriptions;
+degree-zero p-local statements still need localization foundations.
 -/
 
 open scoped Topology

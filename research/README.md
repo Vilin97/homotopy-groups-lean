@@ -16,7 +16,8 @@ This directory now also contains the broader literature audit:
   92 by 109 through stem 108 and defines the display-domain status vocabulary;
 - [`report-data/mimura_toda_unstable_stem_20.csv`](report-data/mimura_toda_unstable_stem_20.csv)
   is the checked transcription of the complete integral 20-stem used by the
-  site together with Toda's 0--19 table;
+  site together with Toda's 0--19 table and generates the typed benchmark
+  family in `HomotopyGroups.MimuraTodaTable`;
 - [`thomeier-unstable.json`](thomeier-unstable.json) is the compact,
   source-audited Satz 1.1--1.8 rule registry used to derive 307 exact unstable
   groups, including 118 in the 92 by 92 absolute-degree window;

@@ -149,9 +149,10 @@ offsets, the low third-offset exceptions, higher circle vanishing, and positive
 stable-stem finiteness.  `HomotopyGroups.TodaTable` is generated from the
 versioned companion CSV and states all 400 integral entries for sphere
 dimensions 1 through 20 and stems 0 through 19 in a single finite-indexed
-theorem family. The complete Mimura--Toda 20-stem is now a versioned structured
-transcription for website consumers; generating its Lean statement remains
-future work. Finite primary components can use Mathlib's genuine
+theorem family. `HomotopyGroups.MimuraTodaTable` is generated from the
+source-audited 20-stem CSV and states all 21 Mimura--Toda entries for sphere
+dimensions 2 through 22 in a second finite-indexed theorem family. Finite
+primary components can use Mathlib's genuine
 `CommGroup.primaryComponent`; the exact 3-primary table through stem 108 is
 stated in `HomotopyGroups.StableThreePrimary`. The unstable 2-primary tables
 still need a versioned transcription, while degree-zero p-local statements

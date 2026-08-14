@@ -6,6 +6,7 @@ import HomotopyGroups.Conjectures
 import HomotopyGroups.StableStems
 import HomotopyGroups.StableThreePrimary
 import HomotopyGroups.TodaTable
+import HomotopyGroups.MimuraTodaTable
 import HomotopyGroups.TodaVerified
 import HomotopyGroups.LiteratureReview
 import HomotopyGroups.RealProjectiveSpace

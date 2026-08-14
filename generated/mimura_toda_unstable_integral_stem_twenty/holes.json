@@ -1,0 +1,12 @@
+{
+  "id": "mimura_toda_unstable_integral_stem_twenty",
+  "module": "HomotopyGroups.MimuraTodaTable",
+  "holes": [
+    {
+      "name": "HomotopyGroups.mimura_toda_unstable_integral_stem_twenty",
+      "basename": "mimura_toda_unstable_integral_stem_twenty",
+      "kind": "theorem",
+      "body": "/--\nMimura and Toda's complete integral 20-stem for sphere dimensions 2 through 22.\nThe finite index encodes `n = nIndex + 2`; the target is `pi_(n+20)(S^n)`.\n-/\ntheorem mimura_toda_unstable_integral_stem_twenty (nIndex : Fin 21) :\n    Nonempty\n      (HomotopyGroup.Pi (nIndex.val + 22)\n          (SphereSpace (nIndex.val + 2)) (sphereBasepoint (nIndex.val + 2)) \u2243*\n        mimuraTodaStemTwentyGroup nIndex) := by\n  sorry"
+    }
+  ]
+}

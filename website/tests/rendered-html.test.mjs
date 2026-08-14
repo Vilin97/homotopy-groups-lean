@@ -39,7 +39,7 @@ test("statically exports the benchmark landing page", async () => {
   assert.doesNotMatch(html, /π<sub>k<\/sub><sup>S<\/sup>/);
   assert.match(html, /Which homotopy groups are in Lean\?/);
   assert.doesNotMatch(html, /Lean 2 HoTT/);
-  assert.match(html, /A path-connected space has trivial zeroth homotopy group/);
+  assert.match(html, /Mimura--Toda integral unstable 20-stem/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape/i);
   assert.doesNotMatch(html, /integral groups through 1000/i);
 });

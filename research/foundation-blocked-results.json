@@ -1,15 +1,8 @@
 {
   "schema_version": "1.0.0",
-  "reviewed_on": "2026-08-13",
+  "reviewed_on": "2026-08-14",
   "purpose": "Published or source-audited results in the literature review and post-handoff addendum that cannot yet be stated faithfully using the pinned Mathlib foundations.",
   "targets": [
-    {
-      "id": "unstable-integral-table-20",
-      "result": "The complete integral groups pi_(n+20)(S^n)",
-      "status": "blocked_on_lean_statement",
-      "missing": ["generated Lean declaration for the now-versioned Mimura-Toda 20-stem registry"],
-      "data_available": "The Toda 0-19 table is generated as HomotopyGroups.TodaTable; research/report-data/mimura_toda_unstable_stem_20.csv now records the complete stem-20 additive groups for site consumers"
-    },
     {
       "id": "unstable-two-primary-21-33",
       "result": "The computed 2-primary components in unstable stems 21 through 33",
