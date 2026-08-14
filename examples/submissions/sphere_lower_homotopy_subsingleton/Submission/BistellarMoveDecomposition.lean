@@ -28,10 +28,58 @@ then provide the gluing interface for extending that homeomorphism by the identi
   to the unchanged facets agrees;
 * `Submission.FiniteOrderedComplex.bistellarOldRealization_isPushout` and
   `Submission.FiniteOrderedComplex.bistellarNewRealization_isPushout`: the realized old and new
-  complexes are the corresponding topological pushouts.
+  complexes are the corresponding topological pushouts;
+* `Submission.FiniteOrderedComplex.bistellarMoveRealizationIsoOfLocal`: a local isomorphism that
+  agrees on the attachment glues with the identity outside to an isomorphism of total
+  realizations.
 -/
 
 noncomputable section
+
+universe v u
+
+open CategoryTheory
+
+namespace CategoryTheory.IsPushout
+
+variable {C : Type u} [Category.{v} C]
+  {Z X Y₁ Y₂ P₁ P₂ : C}
+  {f : Z ⟶ X} {g₁ : Z ⟶ Y₁} {g₂ : Z ⟶ Y₂}
+  {inl₁ : X ⟶ P₁} {inr₁ : Y₁ ⟶ P₁}
+  {inl₂ : X ⟶ P₂} {inr₂ : Y₂ ⟶ P₂}
+
+/-- Replace the right object in a pushout span by an isomorphic object. -/
+theorem changeRightIso (h₂ : IsPushout f g₂ inl₂ inr₂)
+    (e : Y₁ ≅ Y₂) (he : g₁ ≫ e.hom = g₂) :
+    IsPushout f g₁ inl₂ (e.hom ≫ inr₂) := by
+  apply h₂.of_iso (Iso.refl Z) (Iso.refl X) e.symm (Iso.refl P₂)
+  · simp
+  · simpa only [Iso.refl_hom, Category.id_comp, Iso.symm_hom,
+      Iso.comp_inv_eq] using he.symm
+  · simp
+  · simp
+
+/-- Isomorphic right legs of two pushout spans induce an isomorphism of their pushout objects. -/
+noncomputable def isoOfRightIso
+    (h₁ : IsPushout f g₁ inl₁ inr₁) (h₂ : IsPushout f g₂ inl₂ inr₂)
+    (e : Y₁ ≅ Y₂) (he : g₁ ≫ e.hom = g₂) : P₁ ≅ P₂ :=
+  h₁.isoIsPushout X Y₁ (h₂.changeRightIso e he)
+
+@[reassoc (attr := simp)]
+theorem inl_isoOfRightIso_hom
+    (h₁ : IsPushout f g₁ inl₁ inr₁) (h₂ : IsPushout f g₂ inl₂ inr₂)
+    (e : Y₁ ≅ Y₂) (he : g₁ ≫ e.hom = g₂) :
+    inl₁ ≫ (h₁.isoOfRightIso h₂ e he).hom = inl₂ := by
+  apply inl_isoIsPushout_hom
+
+@[reassoc (attr := simp)]
+theorem inr_isoOfRightIso_hom
+    (h₁ : IsPushout f g₁ inl₁ inr₁) (h₂ : IsPushout f g₂ inl₂ inr₂)
+    (e : Y₁ ≅ Y₂) (he : g₁ ≫ e.hom = g₂) :
+    inr₁ ≫ (h₁.isoOfRightIso h₂ e he).hom = e.hom ≫ inr₂ := by
+  apply inr_isoIsPushout_hom
+
+end CategoryTheory.IsPushout
 
 namespace Submission.FiniteOrderedComplex
 
@@ -319,5 +367,60 @@ theorem bistellarNewRealization_isPushout
       (SSet.toTop.map (SSet.Subcomplex.homOfLE sq.le₃₄)) := by
   dsimp
   exact (bistellarNew_isPushout h).map SSet.toTop
+
+/-- A boundary-compatible isomorphism of the two local realized balls glues with the identity on
+the unchanged outside to an isomorphism of the whole realizations. -/
+noncomputable def bistellarMoveRealizationIsoOfLocal
+    {facets : Finset (Finset V)} {dimension : ℕ} {A B : Finset V}
+    (h : IsBistellarMove facets dimension A B)
+    (e : SSet.toTop.obj (orderedSSet (bistellarOldFacets A B)) ≅
+      SSet.toTop.obj (orderedSSet (bistellarNewFacets A B)))
+    (he :
+      let oldSq := bistellarOldBicartSq h
+      let newSq := bistellarNewBicartSq h
+      SSet.toTop.map (SSet.Subcomplex.homOfLE oldSq.le₁₃) ≫ e.hom =
+        SSet.toTop.map (SSet.Subcomplex.homOfLE newSq.le₁₃)) :
+    SSet.toTop.obj (orderedSSet facets) ≅
+      SSet.toTop.obj (orderedSSet (bistellarMove facets A B)) :=
+  (bistellarOldRealization_isPushout h).isoOfRightIso
+    (bistellarNewRealization_isPushout h) e he
+
+/-- The glued realization isomorphism restricts to the identity on the unchanged outside. -/
+@[reassoc (attr := simp)]
+theorem bistellarMoveRealizationIsoOfLocal_hom_outside
+    {facets : Finset (Finset V)} {dimension : ℕ} {A B : Finset V}
+    (h : IsBistellarMove facets dimension A B)
+    (e : SSet.toTop.obj (orderedSSet (bistellarOldFacets A B)) ≅
+      SSet.toTop.obj (orderedSSet (bistellarNewFacets A B)))
+    (he :
+      let oldSq := bistellarOldBicartSq h
+      let newSq := bistellarNewBicartSq h
+      SSet.toTop.map (SSet.Subcomplex.homOfLE oldSq.le₁₃) ≫ e.hom =
+        SSet.toTop.map (SSet.Subcomplex.homOfLE newSq.le₁₃)) :
+    let oldSq := bistellarOldBicartSq h
+    let newSq := bistellarNewBicartSq h
+    SSet.toTop.map (SSet.Subcomplex.homOfLE oldSq.le₂₄) ≫
+        (bistellarMoveRealizationIsoOfLocal h e he).hom =
+      SSet.toTop.map (SSet.Subcomplex.homOfLE newSq.le₂₄) := by
+  apply CategoryTheory.IsPushout.inl_isoOfRightIso_hom
+
+/-- The glued realization isomorphism restricts to the supplied local isomorphism. -/
+@[reassoc (attr := simp)]
+theorem bistellarMoveRealizationIsoOfLocal_hom_local
+    {facets : Finset (Finset V)} {dimension : ℕ} {A B : Finset V}
+    (h : IsBistellarMove facets dimension A B)
+    (e : SSet.toTop.obj (orderedSSet (bistellarOldFacets A B)) ≅
+      SSet.toTop.obj (orderedSSet (bistellarNewFacets A B)))
+    (he :
+      let oldSq := bistellarOldBicartSq h
+      let newSq := bistellarNewBicartSq h
+      SSet.toTop.map (SSet.Subcomplex.homOfLE oldSq.le₁₃) ≫ e.hom =
+        SSet.toTop.map (SSet.Subcomplex.homOfLE newSq.le₁₃)) :
+    let oldSq := bistellarOldBicartSq h
+    let newSq := bistellarNewBicartSq h
+    SSet.toTop.map (SSet.Subcomplex.homOfLE oldSq.le₃₄) ≫
+        (bistellarMoveRealizationIsoOfLocal h e he).hom =
+      e.hom ≫ SSet.toTop.map (SSet.Subcomplex.homOfLE newSq.le₃₄) := by
+  apply CategoryTheory.IsPushout.inr_isoOfRightIso_hom
 
 end Submission.FiniteOrderedComplex
