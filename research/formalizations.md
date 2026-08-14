@@ -690,11 +690,14 @@ classification, `S^3`, ball, solid-torus, torus, embedding, and `CP^2`
 homeomorphism theorems remain open. A general executable bistellar checker now
 validates a sharper finite certificate: nine `3-2` moves and four `4-1` moves
 reduce one 26-tetrahedron base exactly to the five tetrahedra bounding a
-four-simplex. Each move's full star, missing replacement core, purity, and
-dimension equation are checked at the state produced by its predecessors. A
-general theorem transporting valid bistellar moves to PL homeomorphisms of
-realizations is still needed before this becomes a topological `S^3` theorem.
-Accordingly this record is structural and adds no purple cells.
+four-simplex. Rotating both move cores gives independently checked reductions
+for the other two bases, so all three satisfy the reusable combinatorial
+`IsBistellarSphere` predicate in dimension three. Each move's full star, missing
+replacement core, purity, and dimension equation are checked at the state
+produced by its predecessors. A general theorem transporting valid bistellar
+moves to PL homeomorphisms of realizations is still needed before these become
+topological `S^3` theorems. Accordingly this record is structural and adds no
+purple cells.
 
 `DiagonalInduction.lean` records the exact equivalence between the two computed
 diagonal groups `pi_1(S^1)` and `pi_2(S^2)`, and proves that a uniform family of
