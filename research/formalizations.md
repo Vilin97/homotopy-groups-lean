@@ -714,8 +714,9 @@ homotopy group of both kinds of interface. Finally, the three boundary loops
 their respective pairwise interfaces. Each filling is now identified as a
 simplicial cone whose realization is the exact closed two-disk, with triangular
 boundary the exact metric circle. The boundary inclusion factors through that
-contractible disk and consequently induces the trivial `pi_1` homomorphism at
-every basepoint. Their oriented sum bounds the central triangle `(1,7,3)`, and
+contractible disk, is nullhomotopic, and consequently induces the trivial
+`pi_1` homomorphism at every basepoint. Their oriented sum bounds the central
+triangle `(1,7,3)`, and
 two closed integral edge cochains evaluate on them as `(1,-1)`, `(0,1)`, and
 `(-1,0)`, so every cyclic pair has determinant one. This is the finite and
 topological attaching-slope certificate for the genus-one trisection. The
