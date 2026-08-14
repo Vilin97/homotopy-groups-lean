@@ -188,6 +188,43 @@ noncomputable def boundaryMappedOrderedSSetIso {W : Type} [LinearOrder W]
   boundaryOrderedSSetIso n ≪≫
     orderedSSetMapSimplexBoundaryIso e Finset.univ
 
+/-- A finite simplex boundary of the prescribed cardinality is the standard simplicial boundary. -/
+noncomputable def simplexBoundarySSetIso (n : ℕ) (vertices : Finset V)
+    (hcard : vertices.card = n + 1) :
+    orderedSSet (simplexBoundaryFacets vertices) ≅ (SSet.boundary n : SSet) :=
+  (boundaryMappedOrderedSSetIso n (vertices.orderEmbOfFin hcard) ≪≫
+    SSet.Subcomplex.eqToIso
+      (congrArg orderedSubcomplex
+        (congrArg simplexBoundaryFacets
+          (Finset.map_orderEmbOfFin_univ vertices hcard)))).symm
+
+/-- A combinatorial bistellar-sphere certificate includes a valid move sequence whose endpoint is
+isomorphic to the standard simplicial boundary. -/
+theorem IsBistellarSphere.exists_endpointSSetIso {facets : Finset (Finset V)}
+    {dimension : ℕ} (h : IsBistellarSphere facets dimension) :
+    ∃ moves : List (BistellarMoveData V),
+      IsValidBistellarMoveSequence facets dimension moves ∧
+        Nonempty
+          (orderedSSet (applyBistellarMoves facets moves) ≅
+            (SSet.boundary (dimension + 1) : SSet)) := by
+  rcases h with ⟨moves, vertices, hcard, hvalid, hresult⟩
+  have hcard' : vertices.card = (dimension + 1) + 1 := by omega
+  refine ⟨moves, hvalid, ⟨?_⟩⟩
+  exact SSet.Subcomplex.eqToIso (congrArg orderedSubcomplex hresult) ≪≫
+    simplexBoundarySSetIso (dimension + 1) vertices hcard'
+
+/-- Geometric realization sends the certified endpoint comparison to an isomorphism of
+topological spaces. -/
+theorem IsBistellarSphere.exists_endpointRealizationIso {facets : Finset (Finset V)}
+    {dimension : ℕ} (h : IsBistellarSphere facets dimension) :
+    ∃ moves : List (BistellarMoveData V),
+      IsValidBistellarMoveSequence facets dimension moves ∧
+        Nonempty
+          (SSet.toTop.obj (orderedSSet (applyBistellarMoves facets moves)) ≅
+            SSet.toTop.obj (SSet.boundary (dimension + 1) : SSet)) := by
+  rcases h.exists_endpointSSetIso with ⟨moves, hvalid, ⟨e⟩⟩
+  exact ⟨moves, hvalid, ⟨SSet.toTop.mapIso e⟩⟩
+
 end FiniteOrderedComplex
 
 end Submission
