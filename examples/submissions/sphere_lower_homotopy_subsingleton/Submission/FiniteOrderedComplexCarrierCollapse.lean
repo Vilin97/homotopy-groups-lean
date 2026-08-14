@@ -32,7 +32,7 @@ def elementaryCollapseSimplex (freeFace : Finset V) (vertex : V) : Finset V :=
 
 def elementaryCollapseFacets (facets : Finset (Finset V))
     (freeFace : Finset V) (vertex : V) : Finset (Finset V) :=
-  facets.erase (elementaryCollapseSimplex freeFace vertex) ∪
+  (facets.erase (elementaryCollapseSimplex freeFace vertex)).erase freeFace ∪
     (((elementaryCollapseSimplex freeFace vertex).powersetCard freeFace.card).erase freeFace)
 
 def elementaryCollapseMin (freeFace : Finset V) (hfree : freeFace.Nonempty)
@@ -219,7 +219,8 @@ theorem facetFamilyLE_elementaryCollapseFacets
   intro facet hfacet
   rw [elementaryCollapseFacets, Finset.mem_union] at hfacet
   rcases hfacet with hfacet | hfacet
-  · exact ⟨facet, (Finset.mem_erase.mp hfacet).2, Finset.Subset.rfl⟩
+  · exact ⟨facet, (Finset.mem_erase.mp (Finset.mem_erase.mp hfacet).2).2,
+      Finset.Subset.rfl⟩
   · rw [Finset.mem_erase] at hfacet
     exact ⟨elementaryCollapseSimplex freeFace vertex, hsimplex,
       (Finset.mem_powersetCard.mp hfacet.2).1⟩
@@ -228,7 +229,7 @@ theorem elementaryCollapseSimplexMap_mem_carrier
     (facets : Finset (Finset V)) (freeFace : Finset V) (vertex : V)
     (hfree : freeFace.Nonempty) (hv : vertex ∉ freeFace)
     (hunique : ∀ facet ∈ facets, freeFace ⊆ facet →
-      facet = elementaryCollapseSimplex freeFace vertex)
+      facet = freeFace ∨ facet = elementaryCollapseSimplex freeFace vertex)
     (x : stdSimplex ℝ V) (hx : x ∈ facetFamilyCarrier facets) :
     elementaryCollapseSimplexMap freeFace vertex hfree hv x ∈
       facetFamilyCarrier (elementaryCollapseFacets facets freeFace vertex) := by
@@ -236,9 +237,16 @@ theorem elementaryCollapseSimplexMap_mem_carrier
     (mem_facetFamilyCarrier_iff facets x).mp hx
   by_cases hcontains : freeFace ⊆ facet
   · have hfacetEq := hunique facet hfacet hcontains
-    subst facet
+    have hfacetSubset : facet ⊆
+        elementaryCollapseSimplex freeFace vertex := by
+      rcases hfacetEq with hfacetEq | hfacetEq
+      · rw [hfacetEq]
+        exact Finset.subset_insert vertex freeFace
+      · rw [hfacetEq]
     have hsimplexSupport : x ∈
-        simplexFaceCarrier (elementaryCollapseSimplex freeFace vertex) := hsupport
+        simplexFaceCarrier (elementaryCollapseSimplex freeFace vertex) := by
+      intro w hw
+      exact hsupport w (fun hwfacet ↦ hw (hfacetSubset hwfacet))
     have houtSupport := elementaryCollapseSimplexMap_supported_on_simplex
       freeFace vertex hfree hv x hsimplexSupport
     obtain ⟨u, hufree, hzero⟩ :=
@@ -265,8 +273,14 @@ theorem elementaryCollapseSimplexMap_mem_carrier
       intro w hw
       rw [h]
       exact Finset.mem_insert_of_mem hw
+    have hfacetNeFree : facet ≠ freeFace := by
+      intro h
+      apply hcontains
+      rw [h]
     refine (mem_facetFamilyCarrier_iff _ _).mpr
-      ⟨facet, Finset.mem_union_left _ (Finset.mem_erase.mpr ⟨hfacetNe, hfacet⟩), ?_⟩
+      ⟨facet, Finset.mem_union_left _
+        (Finset.mem_erase.mpr
+          ⟨hfacetNeFree, Finset.mem_erase.mpr ⟨hfacetNe, hfacet⟩⟩), ?_⟩
     intro w hw
     rw [hmapEq]
     exact hsupport w hw
@@ -275,7 +289,7 @@ def elementaryCollapseCarrierMap
     (facets : Finset (Finset V)) (freeFace : Finset V) (vertex : V)
     (hfree : freeFace.Nonempty) (hv : vertex ∉ freeFace)
     (hunique : ∀ facet ∈ facets, freeFace ⊆ facet →
-      facet = elementaryCollapseSimplex freeFace vertex) :
+      facet = freeFace ∨ facet = elementaryCollapseSimplex freeFace vertex) :
     C(facetFamilyCarrier facets,
       facetFamilyCarrier (elementaryCollapseFacets facets freeFace vertex)) where
   toFun x := ⟨elementaryCollapseSimplexMap freeFace vertex hfree hv x.1,
@@ -288,7 +302,7 @@ def elementaryCollapseCarrierMap
 theorem exists_free_coord_eq_zero_of_mem_elementaryCollapseCarrier
     (facets : Finset (Finset V)) (freeFace : Finset V) (vertex : V)
     (hunique : ∀ facet ∈ facets, freeFace ⊆ facet →
-      facet = elementaryCollapseSimplex freeFace vertex)
+      facet = freeFace ∨ facet = elementaryCollapseSimplex freeFace vertex)
     (x : stdSimplex ℝ V)
     (hx : x ∈ facetFamilyCarrier
       (elementaryCollapseFacets facets freeFace vertex)) :
@@ -297,10 +311,13 @@ theorem exists_free_coord_eq_zero_of_mem_elementaryCollapseCarrier
     (mem_facetFamilyCarrier_iff _ x).mp hx
   rw [elementaryCollapseFacets, Finset.mem_union] at hfacet
   rcases hfacet with hfacet | hfacet
-  · obtain ⟨hfacetNe, hfacetOld⟩ := Finset.mem_erase.mp hfacet
+  · obtain ⟨hfacetNeFree, hfacetErase⟩ := Finset.mem_erase.mp hfacet
+    obtain ⟨hfacetNeSimplex, hfacetOld⟩ := Finset.mem_erase.mp hfacetErase
     have hnotSubset : ¬freeFace ⊆ facet := by
       intro hsubset
-      exact hfacetNe (hunique facet hfacetOld hsubset)
+      rcases hunique facet hfacetOld hsubset with hfacetEq | hfacetEq
+      · exact hfacetNeFree hfacetEq
+      · exact hfacetNeSimplex hfacetEq
     obtain ⟨u, hufree, hunotmem⟩ := Finset.not_subset.mp hnotSubset
     exact ⟨u, hufree, hsupport u hunotmem⟩
   · rw [Finset.mem_erase] at hfacet
@@ -327,7 +344,7 @@ theorem elementaryCollapseCarrierMap_inclusion_apply
     (hfree : freeFace.Nonempty) (hv : vertex ∉ freeFace)
     (hsimplex : elementaryCollapseSimplex freeFace vertex ∈ facets)
     (hunique : ∀ facet ∈ facets, freeFace ⊆ facet →
-      facet = elementaryCollapseSimplex freeFace vertex)
+      facet = freeFace ∨ facet = elementaryCollapseSimplex freeFace vertex)
     (x : facetFamilyCarrier
       (elementaryCollapseFacets facets freeFace vertex)) :
     elementaryCollapseCarrierMap facets freeFace vertex hfree hv hunique
@@ -343,22 +360,37 @@ theorem elementaryCollapseCarrierMap_inclusion_apply
     (exists_free_coord_eq_zero_of_mem_elementaryCollapseCarrier
       facets freeFace vertex hunique x.1 x.2).choose_spec.2
 
-theorem elementaryCollapseSimplexMap_supported_on_facet
+theorem elementaryCollapseSimplexMap_common_support
     (facets : Finset (Finset V)) (freeFace : Finset V) (vertex : V)
     (hfree : freeFace.Nonempty) (hv : vertex ∉ freeFace)
+    (hsimplex : elementaryCollapseSimplex freeFace vertex ∈ facets)
     (hunique : ∀ facet ∈ facets, freeFace ⊆ facet →
-      facet = elementaryCollapseSimplex freeFace vertex)
+      facet = freeFace ∨ facet = elementaryCollapseSimplex freeFace vertex)
     (x : stdSimplex ℝ V) (facet : Finset V) (hfacet : facet ∈ facets)
     (hsupport : x ∈ simplexFaceCarrier facet) :
-    elementaryCollapseSimplexMap freeFace vertex hfree hv x ∈
-      simplexFaceCarrier facet := by
+    ∃ support ∈ facets,
+      x ∈ simplexFaceCarrier support ∧
+        elementaryCollapseSimplexMap freeFace vertex hfree hv x ∈
+          simplexFaceCarrier support := by
   by_cases hcontains : freeFace ⊆ facet
   · have hfacetEq := hunique facet hfacet hcontains
-    rw [hfacetEq] at hsupport ⊢
-    exact elementaryCollapseSimplexMap_supported_on_simplex
-      freeFace vertex hfree hv x hsupport
+    have hfacetSubset : facet ⊆
+        elementaryCollapseSimplex freeFace vertex := by
+      rcases hfacetEq with hfacetEq | hfacetEq
+      · rw [hfacetEq]
+        exact Finset.subset_insert vertex freeFace
+      · rw [hfacetEq]
+    have hsimplexSupport : x ∈
+        simplexFaceCarrier (elementaryCollapseSimplex freeFace vertex) := by
+      intro w hw
+      exact hsupport w (fun hwfacet ↦ hw (hfacetSubset hwfacet))
+    exact ⟨elementaryCollapseSimplex freeFace vertex, hsimplex,
+      hsimplexSupport,
+      elementaryCollapseSimplexMap_supported_on_simplex
+        freeFace vertex hfree hv x hsimplexSupport⟩
   · obtain ⟨u, hufree, hunotmem⟩ := Finset.not_subset.mp hcontains
     have hxzero : x u = 0 := hsupport u hunotmem
+    refine ⟨facet, hfacet, hsupport, ?_⟩
     rw [elementaryCollapseSimplexMap_eq_self_of_coord_eq_zero
       freeFace vertex hfree hv x u hufree hxzero]
     exact hsupport
@@ -439,19 +471,22 @@ theorem elementaryCollapseSimplexDeformation_one
 theorem elementaryCollapseSimplexDeformation_mem_carrier
     (facets : Finset (Finset V)) (freeFace : Finset V) (vertex : V)
     (hfree : freeFace.Nonempty) (hv : vertex ∉ freeFace)
+    (hsimplex : elementaryCollapseSimplex freeFace vertex ∈ facets)
     (hunique : ∀ facet ∈ facets, freeFace ⊆ facet →
-      facet = elementaryCollapseSimplex freeFace vertex)
+      facet = freeFace ∨ facet = elementaryCollapseSimplex freeFace vertex)
     (t : I) (x : stdSimplex ℝ V) (hx : x ∈ facetFamilyCarrier facets) :
     elementaryCollapseSimplexDeformation freeFace vertex hfree hv (t, x) ∈
       facetFamilyCarrier facets := by
   obtain ⟨facet, hfacet, hsupport⟩ :=
     (mem_facetFamilyCarrier_iff facets x).mp hx
-  have hcollapseSupport := elementaryCollapseSimplexMap_supported_on_facet
-    facets freeFace vertex hfree hv hunique x facet hfacet hsupport
-  refine (mem_facetFamilyCarrier_iff facets _).mpr ⟨facet, hfacet, ?_⟩
+  obtain ⟨support, hsupportFacet, hxSupport, hcollapseSupport⟩ :=
+    elementaryCollapseSimplexMap_common_support
+      facets freeFace vertex hfree hv hsimplex hunique x facet hfacet hsupport
+  refine (mem_facetFamilyCarrier_iff facets _).mpr
+    ⟨support, hsupportFacet, ?_⟩
   intro w hw
   change elementaryCollapseDeformCoord freeFace vertex hfree hv t x w = 0
-  rw [elementaryCollapseDeformCoord, hcollapseSupport w hw, hsupport w hw]
+  rw [elementaryCollapseDeformCoord, hcollapseSupport w hw, hxSupport w hw]
   ring
 
 def elementaryCollapseCarrierDeformation
@@ -459,7 +494,7 @@ def elementaryCollapseCarrierDeformation
     (hfree : freeFace.Nonempty) (hv : vertex ∉ freeFace)
     (hsimplex : elementaryCollapseSimplex freeFace vertex ∈ facets)
     (hunique : ∀ facet ∈ facets, freeFace ⊆ facet →
-      facet = elementaryCollapseSimplex freeFace vertex) :
+      facet = freeFace ∨ facet = elementaryCollapseSimplex freeFace vertex) :
     ContinuousMap.Homotopy
       ((elementaryCollapseCarrierIncl facets freeFace vertex hsimplex).comp
         (elementaryCollapseCarrierMap facets freeFace vertex hfree hv hunique))
@@ -467,7 +502,7 @@ def elementaryCollapseCarrierDeformation
   toFun p := ⟨elementaryCollapseSimplexDeformation
       freeFace vertex hfree hv (p.1, p.2.1),
     elementaryCollapseSimplexDeformation_mem_carrier
-      facets freeFace vertex hfree hv hunique p.1 p.2.1 p.2.2⟩
+      facets freeFace vertex hfree hv hsimplex hunique p.1 p.2.1 p.2.2⟩
   continuous_toFun := by
     apply Continuous.subtype_mk
     apply (elementaryCollapseSimplexDeformation
@@ -487,7 +522,7 @@ def elementaryCollapseCarrierHomotopyEquiv
     (hfree : freeFace.Nonempty) (hv : vertex ∉ freeFace)
     (hsimplex : elementaryCollapseSimplex freeFace vertex ∈ facets)
     (hunique : ∀ facet ∈ facets, freeFace ⊆ facet →
-      facet = elementaryCollapseSimplex freeFace vertex) :
+      facet = freeFace ∨ facet = elementaryCollapseSimplex freeFace vertex) :
     ContinuousMap.HomotopyEquiv
       (facetFamilyCarrier facets)
       (facetFamilyCarrier
@@ -512,5 +547,87 @@ def elementaryCollapseCarrierHomotopyEquiv
       exact elementaryCollapseCarrierMap_inclusion_apply
         facets freeFace vertex hfree hv hsimplex hunique x
     rw [hcomp]
+
+/-! ## Finite collapse certificates -/
+
+/-- The free face and opposite vertex specifying one elementary collapse. -/
+structure ElementaryCollapseMoveData (V : Type) where
+  freeFace : Finset V
+  vertex : V
+
+/-- The facet family obtained by applying a finite sequence of elementary collapses. -/
+def applyElementaryCollapseMoves (facets : Finset (Finset V))
+    (moves : List (ElementaryCollapseMoveData V)) : Finset (Finset V) :=
+  moves.foldl
+    (fun current move ↦
+      elementaryCollapseFacets current move.freeFace move.vertex) facets
+
+/-- A move is valid when its free face is nonempty, its opposite vertex is new, and the resulting
+simplex is the unique listed facet containing that free face. -/
+def IsValidElementaryCollapseMove (facets : Finset (Finset V))
+    (move : ElementaryCollapseMoveData V) : Prop :=
+  move.freeFace.Nonempty ∧
+    move.vertex ∉ move.freeFace ∧
+    elementaryCollapseSimplex move.freeFace move.vertex ∈ facets ∧
+    ∀ facet ∈ facets, move.freeFace ⊆ facet →
+      facet = move.freeFace ∨
+        facet = elementaryCollapseSimplex move.freeFace move.vertex
+
+instance (facets : Finset (Finset V)) (move : ElementaryCollapseMoveData V) :
+    Decidable (IsValidElementaryCollapseMove facets move) := by
+  unfold IsValidElementaryCollapseMove
+  infer_instance
+
+/-- Every move in a collapse sequence is valid for the facet family produced by the preceding
+moves. -/
+def IsValidElementaryCollapseMoveSequence (facets : Finset (Finset V))
+    (moves : List (ElementaryCollapseMoveData V)) : Prop :=
+  match moves with
+  | [] => True
+  | move :: rest =>
+      IsValidElementaryCollapseMove facets move ∧
+        IsValidElementaryCollapseMoveSequence
+          (elementaryCollapseFacets facets move.freeFace move.vertex) rest
+
+instance (facets : Finset (Finset V))
+    (moves : List (ElementaryCollapseMoveData V)) :
+    Decidable (IsValidElementaryCollapseMoveSequence facets moves) := by
+  induction moves generalizing facets with
+  | nil =>
+      simpa only [IsValidElementaryCollapseMoveSequence] using
+        (isTrue trivial : Decidable True)
+  | cons move rest ih =>
+      unfold IsValidElementaryCollapseMoveSequence
+      letI := ih (elementaryCollapseFacets facets move.freeFace move.vertex)
+      infer_instance
+
+/-- A valid finite sequence of elementary simplicial collapses induces a homotopy equivalence of
+affine carriers. -/
+noncomputable def elementaryCollapseMoveSequenceCarrierHomotopyEquiv
+    (facets : Finset (Finset V))
+    (moves : List (ElementaryCollapseMoveData V))
+    (hvalid : IsValidElementaryCollapseMoveSequence facets moves) :
+    ContinuousMap.HomotopyEquiv
+      (facetFamilyCarrier facets)
+      (facetFamilyCarrier (applyElementaryCollapseMoves facets moves)) := by
+  induction moves generalizing facets with
+  | nil =>
+      change ContinuousMap.HomotopyEquiv
+        (facetFamilyCarrier facets) (facetFamilyCarrier facets)
+      exact ContinuousMap.HomotopyEquiv.refl _
+  | cons move rest ih =>
+      have hvalid' : IsValidElementaryCollapseMove facets move ∧
+          IsValidElementaryCollapseMoveSequence
+            (elementaryCollapseFacets facets move.freeFace move.vertex) rest := by
+        simpa only [IsValidElementaryCollapseMoveSequence] using hvalid
+      change ContinuousMap.HomotopyEquiv
+        (facetFamilyCarrier facets)
+        (facetFamilyCarrier
+          (applyElementaryCollapseMoves
+            (elementaryCollapseFacets facets move.freeFace move.vertex) rest))
+      exact (elementaryCollapseCarrierHomotopyEquiv
+        facets move.freeFace move.vertex
+        hvalid'.1.1 hvalid'.1.2.1 hvalid'.1.2.2.1 hvalid'.1.2.2.2).trans
+        (ih (elementaryCollapseFacets facets move.freeFace move.vertex) hvalid'.2)
 
 end Submission.FiniteOrderedComplex
