@@ -26,9 +26,9 @@ meridian basepoints.
 Together with the explicit noninjectivity results in
 `ComplexProjectivePlaneTrisectionMeridianEssentiality`, this proves the two characteristic
 features of all three solid-torus filling maps at the same concrete basepoints: each is
-surjective, while its corresponding meridian supplies a nontrivial kernel class.  In every
-degree above one, the previously computed vanishing of both groups makes each induced map
-bijective at every basepoint.
+surjective, while its corresponding meridian supplies a nontrivial kernel class.  Path
+connectedness makes every induced map on `π₀` bijective, and in every degree above one the
+previously computed vanishing of both groups makes each induced map bijective at every basepoint.
 -/
 
 noncomputable section
@@ -151,6 +151,16 @@ theorem homotopyGroup_map_bijective_of_subsingleton
     exact Subsingleton.elim p q
   · intro q
     exact ⟨1, Subsingleton.elim _ q⟩
+
+/-- Every function from an inhabited subsingleton to a subsingleton is bijective. -/
+theorem function_bijective_of_subsingleton_of_subsingleton
+    {A B : Type*} [Subsingleton A] [Subsingleton B] [Nonempty A]
+    (f : A → B) : Function.Bijective f := by
+  constructor
+  · intro x y _
+    exact Subsingleton.elim x y
+  · intro y
+    exact ⟨Classical.arbitrary A, Subsingleton.elim _ y⟩
 
 /-- Surjectivity of an induced homotopy-group map is invariant under a commuting square whose
 vertical maps are homeomorphisms. -/
@@ -729,6 +739,29 @@ theorem pathConnectedSpace_centralInterfaceRealization :
   letI : PathConnectedSpace (SphereSpace 1 × SphereSpace 1) := inferInstance
   exact centralInterfaceRealizationHomeomorphSphereOneProduct.symm.surjective.pathConnectedSpace
     centralInterfaceRealizationHomeomorphSphereOneProduct.symm.continuous
+
+theorem pathConnectedSpace_pairwiseInterfaceRealization
+    (a : TrisectionVertex) (ha : a ∈ trisectionApexes)
+    (b : TrisectionVertex) (hb : b ∈ trisectionApexes) (hab : a ≠ b) :
+    PathConnectedSpace
+      (SSet.toTop.obj (orderedSSet (pairwiseInterfaceFacets a b))) := by
+  letI : PathConnectedSpace (SphereSpace 1) := pathConnectedSpace_sph (by omega)
+  let e := pairwiseInterfaceRealizationHomotopyEquivSphereOne a ha b hb hab
+  let H := e.left_inv.some
+  let pathTo (y : SSet.toTop.obj
+      (orderedSSet (pairwiseInterfaceFacets a b))) :
+      Path ((e.invFun.comp e.toFun) y) y :=
+    ⟨⟨fun t ↦ H (t, y), H.continuous.comp
+        (continuous_id.prodMk continuous_const)⟩,
+      H.map_zero_left y, H.map_one_left y⟩
+  refine ⟨⟨e.invFun (Classical.choice
+    (inferInstance : Nonempty (SphereSpace 1)))⟩, ?_⟩
+  intro y z
+  have hyz : Joined (e.invFun (e y)) (e.invFun (e z)) :=
+    ⟨(PathConnectedSpace.somePath (e y) (e z)).map e.invFun.continuous⟩
+  exact (show Joined y ((e.invFun.comp e.toFun) y) from
+      ⟨(pathTo y).symm⟩).trans
+    (hyz.trans (show Joined ((e.invFun.comp e.toFun) z) z from ⟨pathTo z⟩))
 
 /-! ## The standard boundary-torus map is surjective on `π₁` -/
 
@@ -1832,6 +1865,69 @@ theorem fourZeroCentralInterfaceInclPairwise_piOne_surjective_at_core
       (fiveFourCentralInterfaceRealizationCoreBase x))
     rfl
   exact fiveFourCentralInterfaceInclPairwise_piOne_surjective_at_core x
+
+/-! ## Path-component maps -/
+
+/-- Every inclusion from the central interface to a pairwise interface induces a bijection on
+path components, at every basepoint.  Both realizations are path connected. -/
+theorem centralInterfaceInclPairwise_piZero_bijective
+    (a : TrisectionVertex) (ha : a ∈ trisectionApexes)
+    (b : TrisectionVertex) (hb : b ∈ trisectionApexes) (hab : a ≠ b)
+    (x : SSet.toTop.obj (orderedSSet centralInterfaceFacets)) :
+    Function.Bijective
+      (HomotopyGroup.map (N := Fin 0) (x := x)
+        (y := (SSet.toTop.map (orderedSSetHomOfFacetFamilyLE
+          (centralInterfaceFacets_le_pairwiseInterface a ha b hb hab))).hom x)
+        (SSet.toTop.map (orderedSSetHomOfFacetFamilyLE
+          (centralInterfaceFacets_le_pairwiseInterface a ha b hb hab))).hom
+        rfl) := by
+  letI : PathConnectedSpace
+      (SSet.toTop.obj (orderedSSet centralInterfaceFacets)) :=
+    pathConnectedSpace_centralInterfaceRealization
+  letI : PathConnectedSpace
+      (SSet.toTop.obj (orderedSSet (pairwiseInterfaceFacets a b))) :=
+    pathConnectedSpace_pairwiseInterfaceRealization a ha b hb hab
+  letI : Subsingleton
+      (HomotopyGroup.Pi 0
+        (SSet.toTop.obj (orderedSSet centralInterfaceFacets)) x) :=
+    subsingleton_homotopyGroup_zero x
+  letI : Subsingleton
+      (HomotopyGroup.Pi 0
+        (SSet.toTop.obj (orderedSSet (pairwiseInterfaceFacets a b)))
+        ((SSet.toTop.map (orderedSSetHomOfFacetFamilyLE
+          (centralInterfaceFacets_le_pairwiseInterface a ha b hb hab))).hom x)) :=
+    subsingleton_homotopyGroup_zero _
+  exact function_bijective_of_subsingleton_of_subsingleton _
+
+theorem zeroFiveCentralInterfaceInclPairwise_piZero_bijective
+    (x : SSet.toTop.obj (orderedSSet centralInterfaceFacets)) :
+    Function.Bijective
+      (HomotopyGroup.map (N := Fin 0)
+        (SSet.toTop.map zeroFiveCentralInterfaceInclPairwise).hom
+        (x := x) rfl) := by
+  simpa only [zeroFiveCentralInterfaceInclPairwise] using
+    centralInterfaceInclPairwise_piZero_bijective
+      0 (by decide) 5 (by decide) (by decide) x
+
+theorem fiveFourCentralInterfaceInclPairwise_piZero_bijective
+    (x : SSet.toTop.obj (orderedSSet centralInterfaceFacets)) :
+    Function.Bijective
+      (HomotopyGroup.map (N := Fin 0)
+        (SSet.toTop.map fiveFourCentralInterfaceInclPairwise).hom
+        (x := x) rfl) := by
+  simpa only [fiveFourCentralInterfaceInclPairwise] using
+    centralInterfaceInclPairwise_piZero_bijective
+      5 (by decide) 4 (by decide) (by decide) x
+
+theorem fourZeroCentralInterfaceInclPairwise_piZero_bijective
+    (x : SSet.toTop.obj (orderedSSet centralInterfaceFacets)) :
+    Function.Bijective
+      (HomotopyGroup.map (N := Fin 0)
+        (SSet.toTop.map fourZeroCentralInterfaceInclPairwise).hom
+        (x := x) rfl) := by
+  simpa only [fourZeroCentralInterfaceInclPairwise] using
+    centralInterfaceInclPairwise_piZero_bijective
+      4 (by decide) 0 (by decide) (by decide) x
 
 /-! ## Higher homotopy-group maps -/
 
