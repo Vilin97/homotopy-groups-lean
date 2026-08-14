@@ -17,9 +17,9 @@ attachment subcomplex is identical on both sides.  Consequently the old and new 
 simplicial sets are pushouts along the same outside subcomplex, and geometric realization carries
 both squares to topological pushouts.
 
-The remaining realization-invariance step is local: construct a homeomorphism between the two
-realized bistellar balls that is the identity on their common boundary.  The pushout results here
-then provide the gluing interface for extending that homeomorphism by the identity outside.
+The explicit local homeomorphism is identity on the common boundary.  The pushout results here
+therefore extend it by the identity outside, proving realization invariance for every valid
+bistellar replacement.
 
 ## Main results
 
@@ -32,7 +32,9 @@ then provide the gluing interface for extending that homeomorphism by the identi
   complexes are the corresponding topological pushouts;
 * `Submission.FiniteOrderedComplex.bistellarMoveRealizationIsoOfLocal`: a local isomorphism that
   agrees on the attachment glues with the identity outside to an isomorphism of total
-  realizations.
+  realizations;
+* `Submission.FiniteOrderedComplex.bistellarMoveRealizationIso`: every valid bistellar move
+  preserves the homeomorphism type of the whole ordered realization.
 -/
 
 noncomputable section
@@ -423,5 +425,18 @@ theorem bistellarMoveRealizationIsoOfLocal_hom_local
         (bistellarMoveRealizationIsoOfLocal h e he).hom =
       e.hom ≫ SSet.toTop.map (SSet.Subcomplex.homOfLE newSq.le₃₄) := by
   apply CategoryTheory.IsPushout.inr_isoOfRightIso_hom
+
+/-- A valid bistellar replacement preserves the homeomorphism type of the whole ordered
+realization. -/
+noncomputable def bistellarMoveRealizationIso
+    {facets : Finset (Finset V)} {dimension : ℕ} {A B : Finset V}
+    (h : IsBistellarMove facets dimension A B) :
+    SSet.toTop.obj (orderedSSet facets) ≅
+      SSet.toTop.obj (orderedSSet (bistellarMove facets A B)) :=
+  bistellarMoveRealizationIsoOfLocal h
+    (TopCat.isoOfHomeo (bistellarMoveCompatibleLocalRealizationHomeomorph h)) (by
+      dsimp
+      apply bistellarMoveCompatibleLocalRealizationHomeomorph_natural_of_ambient h
+      rfl)
 
 end Submission.FiniteOrderedComplex
