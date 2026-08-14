@@ -78,6 +78,23 @@ def originalTrisectionVertices : Finset Vertex := {0, 4, 5}
 /-- The three old vertices serving as the cone points of the subdivided trisection. -/
 def trisectionApexes : Finset TrisectionVertex := {0, 4, 5}
 
+/-- The order-three symmetry of the subdivided complex. -/
+def trisectionRotationFun : TrisectionVertex → TrisectionVertex :=
+  ![5, 7, 6, 1, 0, 4, 8, 3, 2, 11, 9, 10, 12]
+
+/-- The rotation as a computable vertex embedding. -/
+def trisectionRotationEmbedding : TrisectionVertex ↪ TrisectionVertex :=
+  ⟨trisectionRotationFun, by decide⟩
+
+/-- The order-three symmetry as a permutation of subdivision vertices. -/
+noncomputable def trisectionRotation : TrisectionVertex ≃ TrisectionVertex :=
+  Equiv.ofBijective trisectionRotationFun (by decide)
+
+/-- Applying the displayed vertex rotation three times fixes every subdivision vertex. -/
+theorem trisectionRotationFun_order_three :
+    ∀ v, trisectionRotationFun
+      (trisectionRotationFun (trisectionRotationFun v)) = v := by decide
+
 /-- The original facets have the expected rank distribution relative to the distinguished
 triangle: 18 of rank one, 12 of rank two, and 6 of rank three. -/
 theorem originalFacet_rank_distribution :
@@ -106,6 +123,12 @@ theorem trisectionSubdivisionFacet_unique_apex :
   exact (by decide : ∀ τ : ↥trisectionSubdivisionFacets,
     (τ.1 ∩ trisectionApexes).card = 1) ⟨σ, hσ⟩
 
+/-- The subdivision facet list is invariant under the order-three rotation. -/
+theorem trisectionRotation_facets :
+    trisectionSubdivisionFacets.map
+        (Finset.mapEmbedding trisectionRotationEmbedding).toEmbedding =
+      trisectionSubdivisionFacets := by decide
+
 /-- The top-dimensional simplices assigned to one trisection cone. -/
 def trisectionPieceFacets (a : TrisectionVertex) : Finset (Finset TrisectionVertex) :=
   trisectionSubdivisionFacets.filter fun σ ↦ a ∈ σ
@@ -120,6 +143,18 @@ theorem trisectionPieceFacets_card :
 theorem trisectionPieceFacets_cover :
     trisectionPieceFacets 0 ∪ trisectionPieceFacets 4 ∪ trisectionPieceFacets 5 =
       trisectionSubdivisionFacets := by decide
+
+/-- The rotation cyclically permutes the three trisection pieces. -/
+theorem trisectionRotation_pieceFacets :
+    (trisectionPieceFacets 0).map
+        (Finset.mapEmbedding trisectionRotationEmbedding).toEmbedding =
+        trisectionPieceFacets 5 ∧
+      (trisectionPieceFacets 5).map
+          (Finset.mapEmbedding trisectionRotationEmbedding).toEmbedding =
+        trisectionPieceFacets 4 ∧
+      (trisectionPieceFacets 4).map
+          (Finset.mapEmbedding trisectionRotationEmbedding).toEmbedding =
+        trisectionPieceFacets 0 := by decide
 
 /-- The facets opposite an apex form the base of its combinatorial cone. -/
 def trisectionPieceBaseFacets (a : TrisectionVertex) : Finset (Finset TrisectionVertex) :=
@@ -175,6 +210,65 @@ theorem pairwiseInterface_f_vector :
         (facesOfCard (pairwiseInterfaceFacets a b) 4).card) =
         (8, 28, 33, 13) := by decide
 
+/-- Join of two finite families of facets. -/
+def joinFacetFamilies (left right : Finset (Finset TrisectionVertex)) :
+    Finset (Finset TrisectionVertex) :=
+  left.biUnion fun σ ↦ right.image fun τ ↦ σ ∪ τ
+
+/-- The three-tetrahedron part of the interface between the pieces at `0` and `5`. -/
+def zeroFiveInterfaceBallOneFacets : Finset (Finset TrisectionVertex) :=
+  { {1, 3, 7, 8}, {1, 2, 3, 8}, {2, 3, 6, 8} }
+
+/-- The ten-tetrahedron part of the interface between the pieces at `0` and `5`. -/
+def zeroFiveInterfaceBallTwoFacets : Finset (Finset TrisectionVertex) :=
+  { {1, 6, 7, 9}, {2, 6, 7, 9}, {1, 7, 8, 9}, {2, 3, 6, 9},
+    {1, 6, 9, 12}, {3, 6, 9, 12}, {2, 3, 9, 12}, {2, 7, 9, 12},
+    {7, 8, 9, 12}, {1, 8, 9, 12} }
+
+/-- The pairwise interface is the union of its three- and ten-tetrahedron pieces. -/
+theorem zeroFiveInterface_ball_decomposition :
+    zeroFiveInterfaceBallOneFacets ∪ zeroFiveInterfaceBallTwoFacets =
+      pairwiseInterfaceFacets 0 5 := by decide
+
+/-- The three-tetrahedron piece is the simplicial join of a three-edge path and an edge. -/
+theorem zeroFiveInterfaceBallOne_eq_join :
+    zeroFiveInterfaceBallOneFacets =
+      joinFacetFamilies {{7, 1}, {1, 2}, {2, 6}} {{3, 8}} := by decide
+
+/-- The triangle family serving as the base of the ten-tetrahedron cone. -/
+def zeroFiveInterfaceBallTwoBaseFacets : Finset (Finset TrisectionVertex) :=
+  zeroFiveInterfaceBallTwoFacets.image fun σ ↦ σ.erase 9
+
+/-- The ten-tetrahedron piece is the cone at vertex `9` on its base triangles. -/
+theorem zeroFiveInterfaceBallTwo_isCone :
+    zeroFiveInterfaceBallTwoBaseFacets.image (fun σ ↦ insert 9 σ) =
+      zeroFiveInterfaceBallTwoFacets := by decide
+
+/-- The base of the ten-tetrahedron cone has f-vector `(7,15,10)`. -/
+theorem zeroFiveInterfaceBallTwoBase_f_vector :
+    ((facesOfCard zeroFiveInterfaceBallTwoBaseFacets 1).card,
+      (facesOfCard zeroFiveInterfaceBallTwoBaseFacets 2).card,
+      (facesOfCard zeroFiveInterfaceBallTwoBaseFacets 3).card) = (7, 15, 10) := by decide
+
+/-- Every edge in the base of the ten-tetrahedron cone belongs to exactly two triangles. -/
+theorem zeroFiveInterfaceBallTwoBase_edge_incidence_two :
+    ∀ e ∈ facesOfCard zeroFiveInterfaceBallTwoBaseFacets 2,
+      (zeroFiveInterfaceBallTwoBaseFacets.filter fun σ ↦ e ∈ σ.powersetCard 2).card = 2 := by
+  intro e he
+  exact (by decide : ∀ τ : ↥(facesOfCard zeroFiveInterfaceBallTwoBaseFacets 2),
+    (zeroFiveInterfaceBallTwoBaseFacets.filter
+      fun σ ↦ τ.1 ∈ σ.powersetCard 2).card = 2) ⟨e, he⟩
+
+/-- The two tetrahedral pieces meet in precisely two disjoint triangles. -/
+theorem zeroFiveInterface_ball_intersection :
+    facesOfCard zeroFiveInterfaceBallOneFacets 3 ∩
+      facesOfCard zeroFiveInterfaceBallTwoFacets 3 =
+        {{1, 7, 8}, {2, 3, 6}} := by decide
+
+/-- The two gluing triangles in the pairwise-interface decomposition are vertex-disjoint. -/
+theorem zeroFiveInterface_gluingTriangles_disjoint :
+    Disjoint ({1, 7, 8} : Finset TrisectionVertex) {2, 3, 6} := by decide
+
 /-- Boundary triangles of a finite tetrahedral complex, detected by incidence one. -/
 def tetrahedralBoundaryTriangles (tetrahedra : Finset (Finset TrisectionVertex)) :
     Finset (Finset TrisectionVertex) :=
@@ -206,6 +300,35 @@ theorem centralInterface_edge_incidence_two :
   intro e he
   exact (by decide : ∀ τ : ↥(facesOfCard centralInterfaceFacets 2),
     (centralInterfaceFacets.filter fun σ ↦ τ.1 ∈ σ.powersetCard 2).card = 2) ⟨e, he⟩
+
+/-- The seven vertices occurring in the central interface. -/
+def centralInterfaceVertices : Finset TrisectionVertex :=
+  centralInterfaceFacets.biUnion fun σ ↦ σ
+
+/-- Periodic coordinates on the seven central vertices. -/
+def centralInterfaceCoordinate : TrisectionVertex → Fin 7 :=
+  ![0, 0, 1, 3, 0, 0, 6, 2, 5, 0, 0, 0, 4]
+
+/-- The standard periodic 14-triangle pattern on seven vertices. -/
+def standardSevenVertexTorusFacets : Finset (Finset (Fin 7)) :=
+  { {0, 1, 3}, {0, 1, 5}, {0, 2, 3}, {0, 2, 6}, {0, 4, 5}, {0, 4, 6},
+    {1, 2, 4}, {1, 2, 6}, {1, 3, 4}, {1, 5, 6}, {2, 3, 5}, {2, 4, 5},
+    {3, 4, 6}, {3, 5, 6} }
+
+/-- The central vertex set is exactly the displayed seven-element set. -/
+theorem centralInterfaceVertices_eq :
+    centralInterfaceVertices = {1, 2, 3, 6, 7, 8, 12} := by decide
+
+/-- Periodic coordinates are injective on the central vertices. -/
+theorem centralInterfaceCoordinate_injective :
+    ∀ a ∈ centralInterfaceVertices, ∀ b ∈ centralInterfaceVertices,
+      centralInterfaceCoordinate a = centralInterfaceCoordinate b → a = b := by decide
+
+/-- Relabeling by periodic coordinates identifies the central interface with the standard
+seven-vertex, fourteen-triangle torus pattern. -/
+theorem centralInterface_image_eq_standardSevenVertexTorus :
+    centralInterfaceFacets.image (fun σ ↦ σ.image centralInterfaceCoordinate) =
+      standardSevenVertexTorusFacets := by decide
 
 end ComplexProjectivePlaneTriangulation
 
