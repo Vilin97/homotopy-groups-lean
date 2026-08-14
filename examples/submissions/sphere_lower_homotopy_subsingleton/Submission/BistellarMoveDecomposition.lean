@@ -466,4 +466,49 @@ theorem bistellarMoveRealizationIso_hom_local
         SSet.toTop.map (SSet.Subcomplex.homOfLE newSq.le₃₄) := by
   apply bistellarMoveRealizationIsoOfLocal_hom_local
 
+/-- The inverse canonical global bistellar isomorphism restricts to the identity on the
+unchanged outside. -/
+@[reassoc (attr := simp)]
+theorem bistellarMoveRealizationIso_inv_outside
+    {facets : Finset (Finset V)} {dimension : ℕ} {A B : Finset V}
+    (h : IsBistellarMove facets dimension A B) :
+    let oldSq := bistellarOldBicartSq h
+    let newSq := bistellarNewBicartSq h
+    SSet.toTop.map (SSet.Subcomplex.homOfLE newSq.le₂₄) ≫
+        (bistellarMoveRealizationIso h).inv =
+      SSet.toTop.map (SSet.Subcomplex.homOfLE oldSq.le₂₄) := by
+  dsimp
+  rw [← bistellarMoveRealizationIso_hom_outside h,
+    Category.assoc, Iso.hom_inv_id, Category.comp_id]
+
+/-- The inverse canonical global bistellar isomorphism restricts to the inverse explicit local
+homeomorphism. -/
+@[reassoc (attr := simp)]
+theorem bistellarMoveRealizationIso_inv_local
+    {facets : Finset (Finset V)} {dimension : ℕ} {A B : Finset V}
+    (h : IsBistellarMove facets dimension A B) :
+    let oldSq := bistellarOldBicartSq h
+    let newSq := bistellarNewBicartSq h
+    SSet.toTop.map (SSet.Subcomplex.homOfLE newSq.le₃₄) ≫
+        (bistellarMoveRealizationIso h).inv =
+      (TopCat.isoOfHomeo
+          (bistellarMoveCompatibleLocalRealizationHomeomorph h)).inv ≫
+        SSet.toTop.map (SSet.Subcomplex.homOfLE oldSq.le₃₄) := by
+  dsimp
+  rw [← cancel_mono (bistellarMoveRealizationIso h).hom]
+  calc
+    _ = SSet.toTop.map (SSet.Subcomplex.homOfLE (bistellarNewBicartSq h).le₃₄) := by
+      rw [Category.assoc, Iso.inv_hom_id, Category.comp_id]
+    _ = (TopCat.isoOfHomeo
+          (bistellarMoveCompatibleLocalRealizationHomeomorph h)).inv ≫
+        (TopCat.isoOfHomeo
+          (bistellarMoveCompatibleLocalRealizationHomeomorph h)).hom ≫
+        SSet.toTop.map (SSet.Subcomplex.homOfLE (bistellarNewBicartSq h).le₃₄) := by
+      rw [← Category.assoc, Iso.inv_hom_id, Category.id_comp]
+    _ = ((TopCat.isoOfHomeo
+          (bistellarMoveCompatibleLocalRealizationHomeomorph h)).inv ≫
+        SSet.toTop.map (SSet.Subcomplex.homOfLE (bistellarOldBicartSq h).le₃₄)) ≫
+        (bistellarMoveRealizationIso h).hom := by
+      rw [Category.assoc, bistellarMoveRealizationIso_hom_local]
+
 end Submission.FiniteOrderedComplex
