@@ -668,7 +668,18 @@ are now constructed as well. The realization map has not been proved to be an
 embedding, and this triangulation has not yet been identified in Lean with the
 maintained quotient-topology `CP^2`, nor has its cup square been transported
 through the suspension comparison to the canonical degree-three cup-one representative.
-Accordingly this record is structural and adds no purple cells.
+
+The symmetry-breaking subdivision used by Schwartz's trisection is now checked
+combinatorially too. Its 78 four-simplices map onto the original 36 facets and
+split into three cyclically symmetric families of 26, each exactly a cone on
+its opposite tetrahedra. Every pairwise interface has 13 tetrahedra and boundary
+the same 14-triangle central surface. One interface is further decomposed into
+a three-tetrahedron join and a ten-tetrahedron cone, with its two disjoint
+gluing triangles computed exactly. Periodic coordinates identify the central
+facet list with the standard seven-vertex, fourteen-triangle pattern. These are
+finite incidence certificates: topological ball, solid-torus, torus, embedding,
+and `CP^2` homeomorphism theorems remain open. Accordingly this record is
+structural and adds no purple cells.
 
 `DiagonalInduction.lean` records the exact equivalence between the two computed
 diagonal groups `pi_1(S^1)` and `pi_2(S^2)`, and proves that a uniform family of
