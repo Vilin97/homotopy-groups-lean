@@ -718,8 +718,10 @@ contractible disk, is nullhomotopic, and consequently induces the trivial
 `pi_1` homomorphism at every basepoint. The central interface is also a
 subcomplex of every pairwise interface, and each meridian's route through the
 central interface equals its direct pairwise inclusion, making the attaching
-diagram commute on the nose. Their oriented sum bounds the central triangle
-`(1,7,3)`, and two closed integral edge cochains evaluate on them as `(1,-1)`,
+diagram commute on the nose. Its induced `pi_1` map is recorded both pointwise
+and as the trivial bundled homomorphism. Their oriented sum bounds the central
+triangle `(1,7,3)`, and two closed integral edge cochains evaluate on them as
+`(1,-1)`,
 `(0,1)`, and `(-1,0)`, so every cyclic pair has determinant one. This is the
 finite and topological attaching-slope certificate for the genus-one
 trisection. The
