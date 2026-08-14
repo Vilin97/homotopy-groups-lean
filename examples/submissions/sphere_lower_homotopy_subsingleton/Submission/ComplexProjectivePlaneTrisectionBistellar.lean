@@ -207,6 +207,59 @@ noncomputable def trisectionPieceFourBistellarResultConeRealizationHomeomorphDis
     (bistellarConeRealizationHomeomorphDisk 4 4 {2, 6, 7, 11, 12}
       (by decide) (by decide))
 
+/-! ## Four-dimensional simplification of the original cone -/
+
+/-- Lift a bistellar move on a cone boundary through its apex. -/
+def coneBistellarMoveData (apex : TrisectionVertex)
+    (move : BistellarMoveData TrisectionVertex) :
+    BistellarMoveData TrisectionVertex :=
+  ⟨insert apex move.oldCore, move.newCore⟩
+
+/-- Four-dimensional moves simplifying the piece at apex `0` to a fourteen-facet filling.  The
+first thirteen moves lift the boundary reduction; the last replaces the cone on the final
+simplex boundary by its opposite simplex. -/
+def trisectionPieceZeroBistellarBallMoves : List (BistellarMoveData TrisectionVertex) :=
+  trisectionPieceZeroBaseBistellarMoves.map (coneBistellarMoveData 0) ++
+    [⟨{0}, {3, 6, 8, 10, 12}⟩]
+
+/-- Every lifted replacement and the final cone replacement is a valid four-dimensional
+bistellar move. -/
+theorem trisectionPieceZeroBistellarBallMoves_valid :
+    IsValidBistellarMoveSequence (trisectionPieceFacets 0) 4
+      trisectionPieceZeroBistellarBallMoves := by decide
+
+/-- The explicit fourteen-facet filling produced from the piece at apex `0`. -/
+def trisectionPieceZeroBistellarBallResult : Finset (Finset TrisectionVertex) :=
+  applyBistellarMoves (trisectionPieceFacets 0) trisectionPieceZeroBistellarBallMoves
+
+/-- The four-dimensional reduction leaves exactly fourteen top-dimensional simplices. -/
+theorem trisectionPieceZeroBistellarBallResult_card :
+    trisectionPieceZeroBistellarBallResult.card = 14 := by decide
+
+/-- The reducing sequence eliminates the original cone apex. -/
+theorem trisectionPieceZeroBistellarBallResult_no_apex :
+    ∀ σ ∈ trisectionPieceZeroBistellarBallResult, 0 ∉ σ := by decide
+
+/-- Every remaining top-dimensional simplex has five vertices. -/
+theorem trisectionPieceZeroBistellarBallResult_pure :
+    ∀ σ ∈ trisectionPieceZeroBistellarBallResult, σ.card = 5 := by decide
+
+/-- The incidence-one tetrahedra of the fourteen-facet filling are exactly the original
+twenty-six-tetrahedron cone base. -/
+theorem trisectionPieceZeroBistellarBallResult_boundary :
+    (facesOfCard trisectionPieceZeroBistellarBallResult 4).filter
+        (fun τ ↦ (trisectionPieceZeroBistellarBallResult.filter
+          (fun σ ↦ τ ∈ σ.powersetCard 4)).card = 1) =
+      trisectionPieceBaseFacets 0 := by decide
+
+/-- The original piece at apex `0` and its fourteen-facet filling have isomorphic geometric
+realizations. -/
+noncomputable def trisectionPieceZeroBistellarBallRealizationIso :
+    SSet.toTop.obj (orderedSSet (trisectionPieceFacets 0)) ≅
+      SSet.toTop.obj (orderedSSet trisectionPieceZeroBistellarBallResult) :=
+  bistellarMoveSequenceRealizationIso (trisectionPieceFacets 0) 4
+    trisectionPieceZeroBistellarBallMoves trisectionPieceZeroBistellarBallMoves_valid
+
 /-! ## Identification of the computed endpoints -/
 
 /-- The increasing enumeration of the five vertices in the base-at-zero endpoint boundary. -/
