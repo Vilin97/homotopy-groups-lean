@@ -681,9 +681,14 @@ finite incidence certificates. A reusable executable surface checker now adds
 global graph connectedness, connected cycle links at every vertex, coherent
 orientations, and Euler characteristic. It certifies combinatorial orientable
 genus one for the central surface and genus zero for the ten-triangle base of
-the cone in one pairwise interface. Topological surface classification, ball,
-solid-torus, torus, embedding, and `CP^2` homeomorphism theorems remain open.
-Accordingly this record is structural and adds no purple cells.
+the cone in one pairwise interface. The checker is extended one dimension
+higher for the three 26-tetrahedron bases: every base is pure and connected,
+every triangle has incidence two, and every vertex link has a supplied closed,
+coherently oriented genus-zero surface certificate. Cyclic relabeling of the
+three bases is checked exactly. Topological surface and three-manifold
+classification, `S^3`, ball, solid-torus, torus, embedding, and `CP^2`
+homeomorphism theorems remain open. Accordingly this record is structural and
+adds no purple cells.
 
 `DiagonalInduction.lean` records the exact equivalence between the two computed
 diagonal groups `pi_1(S^1)` and `pi_2(S^2)`, and proves that a uniform family of
