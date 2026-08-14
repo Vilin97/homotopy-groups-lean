@@ -141,6 +141,7 @@ import Submission.Cohomology.FiniteOrderedComplexReindex
 import Submission.FiniteOrderedComplexCarrier
 import Submission.FiniteOrderedComplexCarrierRealization
 import Submission.FiniteOrderedComplexCarrierHomeomorph
+import Submission.FiniteOrderedComplexConeRealization
 import Submission.FiniteOrderedSimplexRealization
 import Submission.SSetBoundaryRealization
 import Submission.BistellarSphereRealization
