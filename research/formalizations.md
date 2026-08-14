@@ -711,10 +711,14 @@ and row and column marginals with their monotone-coupling inverse give an actual
 homeomorphism to `S^1 × S^1`. Thus Lean computes `pi_1` and every higher
 homotopy group of both kinds of interface. Finally, the three boundary loops
 `(1,7,12)`, `(7,3,12)`, and `(3,1,12)` have explicit three-triangle fillings in
-their respective pairwise interfaces. Their oriented sum bounds the central
-triangle `(1,7,3)`, and two closed integral edge cochains evaluate on them as
-`(1,-1)`, `(0,1)`, and `(-1,0)`, so every cyclic pair has determinant one. This
-is the finite attaching-slope certificate for the genus-one trisection. The
+their respective pairwise interfaces. Each filling is now identified as a
+simplicial cone whose realization is the exact closed two-disk, with triangular
+boundary the exact metric circle. The boundary inclusion factors through that
+contractible disk and consequently induces the trivial `pi_1` homomorphism at
+every basepoint. Their oriented sum bounds the central triangle `(1,7,3)`, and
+two closed integral edge cochains evaluate on them as `(1,-1)`, `(0,1)`, and
+`(-1,0)`, so every cyclic pair has determinant one. This is the finite and
+topological attaching-slope certificate for the genus-one trisection. The
 remaining comparison is global: the full finite realization has not yet been
 identified with the maintained quotient-topology `CP^2` or its exact Hopf
 mapping-cone model, so these advances do not add a sphere-lattice cell.
