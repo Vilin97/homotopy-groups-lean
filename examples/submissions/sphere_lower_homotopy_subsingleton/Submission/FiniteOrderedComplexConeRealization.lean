@@ -2,7 +2,7 @@
 Copyright (c) 2026 Vasily Ilin. All rights reserved.
 Released under Apache 2.0 license.
 -/
-import Submission.FiniteOrderedComplexCarrierHomeomorph
+import Submission.FiniteOrderedComplexCarrierFunctorial
 
 /-!
 # Realization of finite simplicial cones
@@ -21,15 +21,17 @@ simplicial cone with the abstract topological cone on the original realization.
 
 noncomputable section
 
+open CategoryTheory
 open scoped Topology TopCat
 
 namespace Submission.FiniteOrderedComplex
 
-variable {V : Type} [Fintype V] [DecidableEq V]
+variable {V : Type} [Fintype V]
 
 /-- The affine carrier obtained by inserting an apex in every facet is exactly the radial affine
 cone on the original carrier. -/
 theorem facetFamilyCarrier_cone_eq_affineConeCarrier
+    [DecidableEq V]
     (facets : Finset (Finset V)) (apex : V)
     (hfacets : ∃ facet ∈ facets, facet.Nonempty) :
     facetFamilyCarrier (facets.image (fun facet ↦ insert apex facet)) =
@@ -133,6 +135,7 @@ theorem facetFamilyCarrier_cone_eq_affineConeCarrier
 
 /-- The coned facet-family carrier is homeomorphic to the radial affine-cone carrier. -/
 def facetFamilyConeCarrierHomeomorph
+    [DecidableEq V]
     (facets : Finset (Finset V)) (apex : V)
     (hfacets : ∃ facet ∈ facets, facet.Nonempty) :
     facetFamilyCarrier (facets.image (fun facet ↦ insert apex facet)) ≃ₜ
@@ -159,5 +162,106 @@ def conedOrderedRealizationHomeomorphTopologicalCone
         (TopCat.homeoOfIso (topologicalConeIso
           (TopCat.isoOfHomeo
             (orderedRealizationHomeomorphFacetFamilyCarrier facets))).symm)))
+
+/-- The finite/abstract cone comparison sends the simplicial base inclusion to the canonical
+base inclusion of the topological cone, pointwise. -/
+theorem conedOrderedRealizationHomeomorphTopologicalCone_base
+    [LinearOrder V]
+    (facets : Finset (Finset V)) (apex : V)
+    (hapex : ∀ facet ∈ facets, apex ∉ facet)
+    (hfacets : ∃ facet ∈ facets, facet.Nonempty)
+    (x : SSet.toTop.obj (orderedSSet facets)) :
+    conedOrderedRealizationHomeomorphTopologicalCone
+        facets apex hapex hfacets
+        (SSet.toTop.map (orderedConeBaseIncl facets apex) x) =
+      topologicalConeBaseIncl
+        (SSet.toTop.obj (orderedSSet facets)) x := by
+  let e : SSet.toTop.obj (orderedSSet facets) ≃ₜ
+      facetFamilyCarrier facets :=
+    orderedRealizationHomeomorphFacetFamilyCarrier facets
+  let a : facetFamilyCarrier facets := e x
+  let ei : TopCat.of (facetFamilyCarrier facets) ≅
+      SSet.toTop.obj (orderedSSet facets) :=
+    (TopCat.isoOfHomeo e).symm
+  have hfirst :
+      orderedRealizationHomeomorphFacetFamilyCarrier
+          (facets.image (fun facet ↦ insert apex facet))
+          (SSet.toTop.map (orderedConeBaseIncl facets apex) x) =
+        facetFamilyConeBaseIncl facets apex a := by
+    have h := ConcreteCategory.congr_hom
+      (orderedRealizationToFacetFamilyCarrier_naturality_cone facets apex) x
+    change orderedRealizationToFacetFamilyCarrier
+        (facets.image (fun facet ↦ insert apex facet))
+          (SSet.toTop.map (orderedConeBaseIncl facets apex) x) =
+      facetFamilyConeBaseIncl facets apex
+        (orderedRealizationToFacetFamilyCarrier facets x)
+    simpa only [ConcreteCategory.comp_apply] using h
+  have hcarrier :
+      facetFamilyConeCarrierHomeomorph facets apex hfacets
+          (facetFamilyConeBaseIncl facets apex a) =
+        affineConeCylinderToCarrier
+          (facetFamilyCarrier facets) apex (a, 0) := by
+    apply Subtype.ext
+    change a.1 = affineConePoint (facetFamilyCarrier facets) apex a 0
+    exact (affineConePoint_zero (facetFamilyCarrier facets) apex a).symm
+  have hradial :
+      (affineTopologicalConeHomeomorphCarrier
+          (facetFamilyCarrier facets) apex
+          (facetFamilyCarrier_apex_eq_zero facets apex hapex)
+          (facetFamilyCarrier_nonempty facets hfacets)).symm
+          (facetFamilyConeCarrierHomeomorph facets apex hfacets
+            (facetFamilyConeBaseIncl facets apex a)) =
+        topologicalConeBaseIncl (TopCat.of (facetFamilyCarrier facets)) a := by
+    apply (affineTopologicalConeHomeomorphCarrier
+      (facetFamilyCarrier facets) apex
+      (facetFamilyCarrier_apex_eq_zero facets apex hapex)
+      (facetFamilyCarrier_nonempty facets hfacets)).injective
+    rw [Homeomorph.apply_symm_apply,
+      affineTopologicalConeHomeomorphCarrier_base]
+    exact hcarrier
+  change
+    ((orderedRealizationHomeomorphFacetFamilyCarrier
+        (facets.image (fun facet ↦ insert apex facet))).trans
+      ((facetFamilyConeCarrierHomeomorph facets apex hfacets).trans
+        ((affineTopologicalConeHomeomorphCarrier
+          (facetFamilyCarrier facets) apex
+            (facetFamilyCarrier_apex_eq_zero facets apex hapex)
+            (facetFamilyCarrier_nonempty facets hfacets)).symm.trans
+          (TopCat.homeoOfIso (topologicalConeIso
+            (TopCat.isoOfHomeo e).symm)))))
+      (SSet.toTop.map (orderedConeBaseIncl facets apex) x) = _
+  rw [Homeomorph.trans_apply, hfirst, Homeomorph.trans_apply,
+    hcarrier, Homeomorph.trans_apply]
+  have hcone :
+      (TopCat.homeoOfIso (topologicalConeIso
+          ei))
+          (topologicalConeBaseIncl
+            (TopCat.of (facetFamilyCarrier facets)) a) =
+        topologicalConeBaseIncl
+          (SSet.toTop.obj (orderedSSet facets)) (ei.hom a) := by
+    have h := ConcreteCategory.congr_hom
+      (topologicalConeBaseIncl_iso_hom ei) a
+    change (topologicalConeIso ei).hom
+        (topologicalConeBaseIncl
+          (TopCat.of (facetFamilyCarrier facets)) a) =
+      topologicalConeBaseIncl
+        (SSet.toTop.obj (orderedSSet facets)) (ei.hom a)
+    simpa only [ConcreteCategory.comp_apply] using h
+  rw [show
+      (affineTopologicalConeHomeomorphCarrier
+          (facetFamilyCarrier facets) apex
+          (facetFamilyCarrier_apex_eq_zero facets apex hapex)
+          (facetFamilyCarrier_nonempty facets hfacets)).symm
+          (affineConeCylinderToCarrier
+            (facetFamilyCarrier facets) apex (a, 0)) =
+        topologicalConeBaseIncl (TopCat.of (facetFamilyCarrier facets)) a by
+    rw [← hcarrier]
+    exact hradial]
+  have heia : ei.hom a = x := by
+    change e.symm (e x) = x
+    exact e.symm_apply_apply x
+  exact hcone.trans (congrArg
+    (topologicalConeBaseIncl
+      (SSet.toTop.obj (orderedSSet facets))) heia)
 
 end Submission.FiniteOrderedComplex

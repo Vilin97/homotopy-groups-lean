@@ -123,6 +123,7 @@ import Submission.Cohomology.MappingConePair
 import Submission.Cohomology.CellAttachmentSqTwo
 import Submission.Topology.MappingConeCover
 import Submission.Topology.AffineCone
+import Submission.Topology.DiskBoundaryCone
 import Submission.Topology.SuspensionComparison
 import Submission.Topology.Puppe
 import Submission.Topology.PuppeComparison
@@ -141,6 +142,7 @@ import Submission.Cohomology.FiniteOrderedComplexReindex
 import Submission.FiniteOrderedComplexCarrier
 import Submission.FiniteOrderedComplexCarrierRealization
 import Submission.FiniteOrderedComplexCarrierHomeomorph
+import Submission.FiniteOrderedComplexCarrierFunctorial
 import Submission.FiniteOrderedComplexConeRealization
 import Submission.FiniteOrderedSimplexRealization
 import Submission.SSetBoundaryRealization
@@ -151,6 +153,9 @@ import Submission.BistellarBallRealization
 import Submission.ComplexProjectivePlaneTrisectionBistellar
 import Submission.ComplexProjectivePlaneTrisectionCone
 import Submission.ComplexProjectivePlaneTrisectionFilling
+import Submission.ComplexProjectivePlaneTrisectionInterfaceCertificate
+import Submission.ComplexProjectivePlaneTrisectionInterfaceConeBall
+import Submission.ComplexProjectivePlaneTrisectionInterfacePrismBall
 import Submission.ComplexProjectivePlaneCohomology
 import Submission.HopfMappingConeHomotopyGroups
 import Submission.SuspendedHopfMap
