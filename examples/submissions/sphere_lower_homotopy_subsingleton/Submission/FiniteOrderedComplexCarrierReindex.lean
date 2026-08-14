@@ -5,6 +5,7 @@ Released under Apache 2.0 license.
 import Submission.BistellarLocalRealization
 import Submission.Cohomology.FiniteOrderedComplexReindex
 import Submission.FiniteOrderedComplexCarrier
+import Submission.FiniteOrderedComplexCarrierHomeomorph
 
 /-!
 # Reindexing finite affine carriers
@@ -51,5 +52,16 @@ def facetFamilyCarrierReindexHomeomorph
         exact hv (e.injective heu ▸ hu))
       rw [stdSimplexEquivHomeomorph_apply_apply, e.symm_apply_apply] at hzero
       exact hzero
+
+/-- Arbitrary vertex reindexing preserves the geometric realization of a finite facet family,
+even when the equivalence is not order preserving. -/
+noncomputable def orderedRealizationReindexHomeomorph
+    (e : V ≃ W) (facets : Finset (Finset V)) :
+    SSet.toTop.obj (orderedSSet facets) ≃ₜ
+      SSet.toTop.obj (orderedSSet (mapFacets e.toEmbedding facets)) :=
+  (orderedRealizationHomeomorphFacetFamilyCarrier facets).trans
+    ((facetFamilyCarrierReindexHomeomorph e facets).trans
+      (orderedRealizationHomeomorphFacetFamilyCarrier
+        (mapFacets e.toEmbedding facets)).symm)
 
 end Submission.FiniteOrderedComplex

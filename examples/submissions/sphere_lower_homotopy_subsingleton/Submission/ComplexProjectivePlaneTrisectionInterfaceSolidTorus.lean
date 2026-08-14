@@ -123,5 +123,117 @@ noncomputable def zeroFiveInterfaceRealizationHomeomorphStandardSevenVertexSolid
   (TopCat.homeoOfIso zeroFiveInterfaceBistellarSolidTorusRealizationIso).trans
     zeroFiveInterfaceBistellarSolidTorusResultRealizationHomeomorphStandard
 
-end Submission.ComplexProjectivePlaneTriangulation
+/-! ## Cyclic transport to every pairwise interface -/
 
+/-- A computable equivalence realizing the order-three trisection rotation. -/
+def trisectionRotationEquiv : TrisectionVertex ≃ TrisectionVertex where
+  toFun := trisectionRotationFun
+  invFun := ![4, 3, 8, 7, 5, 0, 2, 1, 6, 10, 11, 9, 12]
+  left_inv := by decide
+  right_inv := by decide
+
+theorem trisectionRotationEquiv_map_zeroFiveInterface :
+    mapFacets trisectionRotationEquiv.toEmbedding
+        (pairwiseInterfaceFacets 0 5) =
+      pairwiseInterfaceFacets 5 4 := by decide
+
+theorem trisectionRotationEquiv_map_fiveFourInterface :
+    mapFacets trisectionRotationEquiv.toEmbedding
+        (pairwiseInterfaceFacets 5 4) =
+      pairwiseInterfaceFacets 4 0 := by decide
+
+theorem pairwiseInterfaceFacets_comm (a b : TrisectionVertex) :
+    pairwiseInterfaceFacets a b = pairwiseInterfaceFacets b a := by
+  simp only [pairwiseInterfaceFacets, Finset.inter_comm]
+
+noncomputable def orderedRealizationHomeomorphOfFacetEq
+    {left right : Finset (Finset TrisectionVertex)} (h : left = right) :
+    SSet.toTop.obj (orderedSSet left) ≃ₜ
+      SSet.toTop.obj (orderedSSet right) :=
+  TopCat.homeoOfIso (SSet.toTop.mapIso
+    (SSet.Subcomplex.eqToIso (congrArg orderedSubcomplex h)))
+
+noncomputable def zeroFiveInterfaceRealizationHomeomorphFiveFour :
+    SSet.toTop.obj (orderedSSet (pairwiseInterfaceFacets 0 5)) ≃ₜ
+      SSet.toTop.obj (orderedSSet (pairwiseInterfaceFacets 5 4)) :=
+  (orderedRealizationReindexHomeomorph trisectionRotationEquiv
+      (pairwiseInterfaceFacets 0 5)).trans
+    (orderedRealizationHomeomorphOfFacetEq
+      trisectionRotationEquiv_map_zeroFiveInterface)
+
+noncomputable def fiveFourInterfaceRealizationHomeomorphFourZero :
+    SSet.toTop.obj (orderedSSet (pairwiseInterfaceFacets 5 4)) ≃ₜ
+      SSet.toTop.obj (orderedSSet (pairwiseInterfaceFacets 4 0)) :=
+  (orderedRealizationReindexHomeomorph trisectionRotationEquiv
+      (pairwiseInterfaceFacets 5 4)).trans
+    (orderedRealizationHomeomorphOfFacetEq
+      trisectionRotationEquiv_map_fiveFourInterface)
+
+noncomputable def fiveFourInterfaceRealizationHomeomorphStandardSevenVertexSolidTorus :
+    SSet.toTop.obj (orderedSSet (pairwiseInterfaceFacets 5 4)) ≃ₜ
+      SSet.toTop.obj (orderedSSet standardSevenVertexSolidTorusFacets) :=
+  zeroFiveInterfaceRealizationHomeomorphFiveFour.symm.trans
+    zeroFiveInterfaceRealizationHomeomorphStandardSevenVertexSolidTorus
+
+noncomputable def fourZeroInterfaceRealizationHomeomorphStandardSevenVertexSolidTorus :
+    SSet.toTop.obj (orderedSSet (pairwiseInterfaceFacets 4 0)) ≃ₜ
+      SSet.toTop.obj (orderedSSet standardSevenVertexSolidTorusFacets) :=
+  (zeroFiveInterfaceRealizationHomeomorphFiveFour.trans
+      fiveFourInterfaceRealizationHomeomorphFourZero).symm.trans
+    zeroFiveInterfaceRealizationHomeomorphStandardSevenVertexSolidTorus
+
+noncomputable def fiveZeroInterfaceRealizationHomeomorphStandardSevenVertexSolidTorus :
+    SSet.toTop.obj (orderedSSet (pairwiseInterfaceFacets 5 0)) ≃ₜ
+      SSet.toTop.obj (orderedSSet standardSevenVertexSolidTorusFacets) :=
+  (orderedRealizationHomeomorphOfFacetEq
+      (pairwiseInterfaceFacets_comm 5 0)).trans
+    zeroFiveInterfaceRealizationHomeomorphStandardSevenVertexSolidTorus
+
+noncomputable def fourFiveInterfaceRealizationHomeomorphStandardSevenVertexSolidTorus :
+    SSet.toTop.obj (orderedSSet (pairwiseInterfaceFacets 4 5)) ≃ₜ
+      SSet.toTop.obj (orderedSSet standardSevenVertexSolidTorusFacets) :=
+  (orderedRealizationHomeomorphOfFacetEq
+      (pairwiseInterfaceFacets_comm 4 5)).trans
+    fiveFourInterfaceRealizationHomeomorphStandardSevenVertexSolidTorus
+
+noncomputable def zeroFourInterfaceRealizationHomeomorphStandardSevenVertexSolidTorus :
+    SSet.toTop.obj (orderedSSet (pairwiseInterfaceFacets 0 4)) ≃ₜ
+      SSet.toTop.obj (orderedSSet standardSevenVertexSolidTorusFacets) :=
+  (orderedRealizationHomeomorphOfFacetEq
+      (pairwiseInterfaceFacets_comm 0 4)).trans
+    fourZeroInterfaceRealizationHomeomorphStandardSevenVertexSolidTorus
+
+/-- Every ordered pair of distinct trisection apexes has a pairwise-interface homeomorphism to
+the standard seven-vertex triangulated solid torus. -/
+theorem pairwiseInterfaceRealizationHomeomorphStandardSevenVertexSolidTorus_nonempty
+    (a : TrisectionVertex) (ha : a ∈ trisectionApexes)
+    (b : TrisectionVertex) (hb : b ∈ trisectionApexes) (hab : a ≠ b) :
+    Nonempty
+      (SSet.toTop.obj (orderedSSet (pairwiseInterfaceFacets a b)) ≃ₜ
+        SSet.toTop.obj (orderedSSet standardSevenVertexSolidTorusFacets)) := by
+  have ha' : a = 0 ∨ a = 4 ∨ a = 5 := by
+    simpa [trisectionApexes] using ha
+  have hb' : b = 0 ∨ b = 4 ∨ b = 5 := by
+    simpa [trisectionApexes] using hb
+  rcases ha' with rfl | rfl | rfl <;> rcases hb' with rfl | rfl | rfl
+  · exact False.elim (hab rfl)
+  · exact ⟨zeroFourInterfaceRealizationHomeomorphStandardSevenVertexSolidTorus⟩
+  · exact ⟨zeroFiveInterfaceRealizationHomeomorphStandardSevenVertexSolidTorus⟩
+  · exact ⟨fourZeroInterfaceRealizationHomeomorphStandardSevenVertexSolidTorus⟩
+  · exact False.elim (hab rfl)
+  · exact ⟨fourFiveInterfaceRealizationHomeomorphStandardSevenVertexSolidTorus⟩
+  · exact ⟨fiveZeroInterfaceRealizationHomeomorphStandardSevenVertexSolidTorus⟩
+  · exact ⟨fiveFourInterfaceRealizationHomeomorphStandardSevenVertexSolidTorus⟩
+  · exact False.elim (hab rfl)
+
+/-- A chosen homeomorphism from any pairwise interface to the standard solid-torus
+triangulation. -/
+noncomputable def pairwiseInterfaceRealizationHomeomorphStandardSevenVertexSolidTorus
+    (a : TrisectionVertex) (ha : a ∈ trisectionApexes)
+    (b : TrisectionVertex) (hb : b ∈ trisectionApexes) (hab : a ≠ b) :
+    SSet.toTop.obj (orderedSSet (pairwiseInterfaceFacets a b)) ≃ₜ
+      SSet.toTop.obj (orderedSSet standardSevenVertexSolidTorusFacets) :=
+  (pairwiseInterfaceRealizationHomeomorphStandardSevenVertexSolidTorus_nonempty
+    a ha b hb hab).some
+
+end Submission.ComplexProjectivePlaneTriangulation
