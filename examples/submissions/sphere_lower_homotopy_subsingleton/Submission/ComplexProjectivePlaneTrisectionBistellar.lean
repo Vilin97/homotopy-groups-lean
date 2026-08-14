@@ -3,6 +3,7 @@ Copyright (c) 2026 Vasily Ilin. All rights reserved.
 Released under Apache 2.0 license.
 -/
 import Submission.ComplexProjectivePlaneTrisection
+import Submission.BistellarBallRealization
 import Submission.BistellarSphereRealization
 
 /-!
@@ -130,6 +131,81 @@ theorem trisectionPieceBases_areBistellarThreeSpheres :
   ⟨trisectionPieceZeroBase_isBistellarThreeSphere,
     trisectionPieceFiveBase_isBistellarThreeSphere,
     trisectionPieceFourBase_isBistellarThreeSphere⟩
+
+/-! ## Exact disks at the coned endpoints -/
+
+/-- Cone on the computed endpoint of the base-at-zero reduction. -/
+def trisectionPieceZeroBistellarResultConeFacets :
+    Finset (Finset TrisectionVertex) :=
+  (applyBistellarMoves (trisectionPieceBaseFacets 0)
+      trisectionPieceZeroBaseBistellarMoves).image (fun σ ↦ insert 0 σ)
+
+/-- The coned base-at-zero endpoint is the singleton-core bistellar ball on its six displayed
+vertices. -/
+theorem trisectionPieceZeroBistellarResultConeFacets_eq :
+    trisectionPieceZeroBistellarResultConeFacets =
+      bistellarOldFacets {0} {3, 6, 8, 10, 12} := by
+  rw [trisectionPieceZeroBistellarResultConeFacets,
+    trisectionPieceZeroBase_bistellar_result,
+    bistellarOldFacets_singleton_eq_cone]
+
+/-- The coned base-at-zero endpoint realizes as the exact four-disk. -/
+noncomputable def trisectionPieceZeroBistellarResultConeRealizationHomeomorphDisk :
+    SSet.toTop.obj (orderedSSet trisectionPieceZeroBistellarResultConeFacets) ≃ₜ
+      TopCat.disk.{0} 4 :=
+  (TopCat.homeoOfIso (SSet.toTop.mapIso
+    (SSet.Subcomplex.eqToIso (congrArg orderedSubcomplex
+      trisectionPieceZeroBistellarResultConeFacets_eq)))).trans
+    (bistellarConeRealizationHomeomorphDisk 4 0 {3, 6, 8, 10, 12}
+      (by decide) (by decide))
+
+/-- Cone on the computed endpoint of the base-at-five reduction. -/
+def trisectionPieceFiveBistellarResultConeFacets :
+    Finset (Finset TrisectionVertex) :=
+  (applyBistellarMoves (trisectionPieceBaseFacets 5)
+      trisectionPieceFiveBaseBistellarMoves).image (fun σ ↦ insert 5 σ)
+
+/-- The coned base-at-five endpoint is the corresponding singleton-core bistellar ball. -/
+theorem trisectionPieceFiveBistellarResultConeFacets_eq :
+    trisectionPieceFiveBistellarResultConeFacets =
+      bistellarOldFacets {5} {1, 2, 8, 9, 12} := by
+  rw [trisectionPieceFiveBistellarResultConeFacets,
+    trisectionPieceFiveBase_bistellar_result,
+    bistellarOldFacets_singleton_eq_cone]
+
+/-- The coned base-at-five endpoint realizes as the exact four-disk. -/
+noncomputable def trisectionPieceFiveBistellarResultConeRealizationHomeomorphDisk :
+    SSet.toTop.obj (orderedSSet trisectionPieceFiveBistellarResultConeFacets) ≃ₜ
+      TopCat.disk.{0} 4 :=
+  (TopCat.homeoOfIso (SSet.toTop.mapIso
+    (SSet.Subcomplex.eqToIso (congrArg orderedSubcomplex
+      trisectionPieceFiveBistellarResultConeFacets_eq)))).trans
+    (bistellarConeRealizationHomeomorphDisk 4 5 {1, 2, 8, 9, 12}
+      (by decide) (by decide))
+
+/-- Cone on the computed endpoint of the base-at-four reduction. -/
+def trisectionPieceFourBistellarResultConeFacets :
+    Finset (Finset TrisectionVertex) :=
+  (applyBistellarMoves (trisectionPieceBaseFacets 4)
+      trisectionPieceFourBaseBistellarMoves).image (fun σ ↦ insert 4 σ)
+
+/-- The coned base-at-four endpoint is the corresponding singleton-core bistellar ball. -/
+theorem trisectionPieceFourBistellarResultConeFacets_eq :
+    trisectionPieceFourBistellarResultConeFacets =
+      bistellarOldFacets {4} {2, 6, 7, 11, 12} := by
+  rw [trisectionPieceFourBistellarResultConeFacets,
+    trisectionPieceFourBase_bistellar_result,
+    bistellarOldFacets_singleton_eq_cone]
+
+/-- The coned base-at-four endpoint realizes as the exact four-disk. -/
+noncomputable def trisectionPieceFourBistellarResultConeRealizationHomeomorphDisk :
+    SSet.toTop.obj (orderedSSet trisectionPieceFourBistellarResultConeFacets) ≃ₜ
+      TopCat.disk.{0} 4 :=
+  (TopCat.homeoOfIso (SSet.toTop.mapIso
+    (SSet.Subcomplex.eqToIso (congrArg orderedSubcomplex
+      trisectionPieceFourBistellarResultConeFacets_eq)))).trans
+    (bistellarConeRealizationHomeomorphDisk 4 4 {2, 6, 7, 11, 12}
+      (by decide) (by decide))
 
 /-! ## Identification of the computed endpoints -/
 
