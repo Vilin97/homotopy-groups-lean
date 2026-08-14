@@ -260,6 +260,80 @@ noncomputable def trisectionPieceZeroBistellarBallRealizationIso :
   bistellarMoveSequenceRealizationIso (trisectionPieceFacets 0) 4
     trisectionPieceZeroBistellarBallMoves trisectionPieceZeroBistellarBallMoves_valid
 
+/-- Rotate the four-dimensional reduction to the piece at apex `5`. -/
+def trisectionPieceFiveBistellarBallMoves : List (BistellarMoveData TrisectionVertex) :=
+  trisectionPieceZeroBistellarBallMoves.map rotateBistellarMoveData
+
+/-- The once-rotated replacements form a valid four-dimensional move sequence. -/
+theorem trisectionPieceFiveBistellarBallMoves_valid :
+    IsValidBistellarMoveSequence (trisectionPieceFacets 5) 4
+      trisectionPieceFiveBistellarBallMoves := by decide
+
+/-- The explicit fourteen-facet filling produced from the piece at apex `5`. -/
+def trisectionPieceFiveBistellarBallResult : Finset (Finset TrisectionVertex) :=
+  applyBistellarMoves (trisectionPieceFacets 5) trisectionPieceFiveBistellarBallMoves
+
+theorem trisectionPieceFiveBistellarBallResult_card :
+    trisectionPieceFiveBistellarBallResult.card = 14 := by decide
+
+theorem trisectionPieceFiveBistellarBallResult_no_apex :
+    ∀ σ ∈ trisectionPieceFiveBistellarBallResult, 5 ∉ σ := by decide
+
+theorem trisectionPieceFiveBistellarBallResult_pure :
+    ∀ σ ∈ trisectionPieceFiveBistellarBallResult, σ.card = 5 := by decide
+
+/-- The incidence boundary of the once-rotated filling is its original cone base. -/
+theorem trisectionPieceFiveBistellarBallResult_boundary :
+    (facesOfCard trisectionPieceFiveBistellarBallResult 4).filter
+        (fun τ ↦ (trisectionPieceFiveBistellarBallResult.filter
+          (fun σ ↦ τ ∈ σ.powersetCard 4)).card = 1) =
+      trisectionPieceBaseFacets 5 := by decide
+
+/-- The original piece at apex `5` and its fourteen-facet filling have isomorphic geometric
+realizations. -/
+noncomputable def trisectionPieceFiveBistellarBallRealizationIso :
+    SSet.toTop.obj (orderedSSet (trisectionPieceFacets 5)) ≅
+      SSet.toTop.obj (orderedSSet trisectionPieceFiveBistellarBallResult) :=
+  bistellarMoveSequenceRealizationIso (trisectionPieceFacets 5) 4
+    trisectionPieceFiveBistellarBallMoves trisectionPieceFiveBistellarBallMoves_valid
+
+/-- Rotate the four-dimensional reduction again to the piece at apex `4`. -/
+def trisectionPieceFourBistellarBallMoves : List (BistellarMoveData TrisectionVertex) :=
+  trisectionPieceFiveBistellarBallMoves.map rotateBistellarMoveData
+
+/-- The twice-rotated replacements form a valid four-dimensional move sequence. -/
+theorem trisectionPieceFourBistellarBallMoves_valid :
+    IsValidBistellarMoveSequence (trisectionPieceFacets 4) 4
+      trisectionPieceFourBistellarBallMoves := by decide
+
+/-- The explicit fourteen-facet filling produced from the piece at apex `4`. -/
+def trisectionPieceFourBistellarBallResult : Finset (Finset TrisectionVertex) :=
+  applyBistellarMoves (trisectionPieceFacets 4) trisectionPieceFourBistellarBallMoves
+
+theorem trisectionPieceFourBistellarBallResult_card :
+    trisectionPieceFourBistellarBallResult.card = 14 := by decide
+
+theorem trisectionPieceFourBistellarBallResult_no_apex :
+    ∀ σ ∈ trisectionPieceFourBistellarBallResult, 4 ∉ σ := by decide
+
+theorem trisectionPieceFourBistellarBallResult_pure :
+    ∀ σ ∈ trisectionPieceFourBistellarBallResult, σ.card = 5 := by decide
+
+/-- The incidence boundary of the twice-rotated filling is its original cone base. -/
+theorem trisectionPieceFourBistellarBallResult_boundary :
+    (facesOfCard trisectionPieceFourBistellarBallResult 4).filter
+        (fun τ ↦ (trisectionPieceFourBistellarBallResult.filter
+          (fun σ ↦ τ ∈ σ.powersetCard 4)).card = 1) =
+      trisectionPieceBaseFacets 4 := by decide
+
+/-- The original piece at apex `4` and its fourteen-facet filling have isomorphic geometric
+realizations. -/
+noncomputable def trisectionPieceFourBistellarBallRealizationIso :
+    SSet.toTop.obj (orderedSSet (trisectionPieceFacets 4)) ≅
+      SSet.toTop.obj (orderedSSet trisectionPieceFourBistellarBallResult) :=
+  bistellarMoveSequenceRealizationIso (trisectionPieceFacets 4) 4
+    trisectionPieceFourBistellarBallMoves trisectionPieceFourBistellarBallMoves_valid
+
 /-! ## Identification of the computed endpoints -/
 
 /-- The increasing enumeration of the five vertices in the base-at-zero endpoint boundary. -/
