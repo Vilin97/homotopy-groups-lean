@@ -4,7 +4,7 @@ Released under Apache 2.0 license.
 -/
 import Mathlib.AlgebraicTopology.SimplicialSet.SubcomplexColimits
 import Mathlib.AlgebraicTopology.SimplicialSet.TopAdj
-import Submission.BistellarLocalReindex
+import Submission.BistellarOrderedCompatibility
 import Submission.Cohomology.FiniteOrderedComplexBistellar
 import Submission.Cohomology.FiniteOrderedComplexSSet
 
