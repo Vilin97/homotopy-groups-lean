@@ -10,8 +10,9 @@ import Submission.BistellarSphereRealization
 
 An explicit sequence of nine `3–2` moves and four `4–1` moves simplifies the 26-tetrahedron base
 of the trisection piece at vertex `0` to the boundary of a four-simplex.  Move validity and the final
-facet equality are finite kernel-checked certificates.  Their PL-topological interpretation awaits
-the general realization-invariance theorem for bistellar moves.
+facet equality are finite kernel-checked certificates.  Realization invariance for valid
+bistellar moves proves that each of the three original trisection-piece bases is homeomorphic to
+the exact metric three-sphere.
 -/
 
 namespace Submission
@@ -217,8 +218,7 @@ noncomputable def trisectionPieceFourFinalBoundarySSetIsoStd :
     (boundaryOrderedSSetIso 4).symm
 
 /-- The facet family computed after all thirteen moves is isomorphic to the standard simplicial
-three-sphere.  This identifies the endpoint only; invariance under each bistellar move is the
-separate next bridge. -/
+three-sphere. -/
 noncomputable def trisectionPieceZeroBistellarResultSSetIso :
     orderedSSet
         (applyBistellarMoves (trisectionPieceBaseFacets 0)
@@ -339,6 +339,53 @@ noncomputable def trisectionPieceFourBistellarResultRealizationHomeomorphSphere 
             trisectionPieceFourBaseBistellarMoves)) ≃ₜ
       SphereSpace 3 :=
   (TopCat.homeoOfIso trisectionPieceFourBistellarResultRealizationIso).trans
+    (boundaryRealizationHomeomorphSphere 3)
+
+/-! ## Realizations of the original trisection-piece bases -/
+
+/-- The original base at apex `0` realizes as the standard simplicial three-sphere. -/
+noncomputable def trisectionPieceZeroBaseRealizationIso :
+    SSet.toTop.obj (orderedSSet (trisectionPieceBaseFacets 0)) ≅
+      SSet.toTop.obj (SSet.boundary 4 : SSet) :=
+  bistellarMoveSequenceRealizationIso (trisectionPieceBaseFacets 0) 3
+      trisectionPieceZeroBaseBistellarMoves
+      trisectionPieceZeroBaseBistellarMoves_valid ≪≫
+    trisectionPieceZeroBistellarResultRealizationIso
+
+/-- The original base at apex `5` realizes as the standard simplicial three-sphere. -/
+noncomputable def trisectionPieceFiveBaseRealizationIso :
+    SSet.toTop.obj (orderedSSet (trisectionPieceBaseFacets 5)) ≅
+      SSet.toTop.obj (SSet.boundary 4 : SSet) :=
+  bistellarMoveSequenceRealizationIso (trisectionPieceBaseFacets 5) 3
+      trisectionPieceFiveBaseBistellarMoves
+      trisectionPieceFiveBaseBistellarMoves_valid ≪≫
+    trisectionPieceFiveBistellarResultRealizationIso
+
+/-- The original base at apex `4` realizes as the standard simplicial three-sphere. -/
+noncomputable def trisectionPieceFourBaseRealizationIso :
+    SSet.toTop.obj (orderedSSet (trisectionPieceBaseFacets 4)) ≅
+      SSet.toTop.obj (SSet.boundary 4 : SSet) :=
+  bistellarMoveSequenceRealizationIso (trisectionPieceBaseFacets 4) 3
+      trisectionPieceFourBaseBistellarMoves
+      trisectionPieceFourBaseBistellarMoves_valid ≪≫
+    trisectionPieceFourBistellarResultRealizationIso
+
+/-- The original base at apex `0` is homeomorphic to the exact metric three-sphere. -/
+noncomputable def trisectionPieceZeroBaseRealizationHomeomorphSphere :
+    SSet.toTop.obj (orderedSSet (trisectionPieceBaseFacets 0)) ≃ₜ SphereSpace 3 :=
+  (TopCat.homeoOfIso trisectionPieceZeroBaseRealizationIso).trans
+    (boundaryRealizationHomeomorphSphere 3)
+
+/-- The original base at apex `5` is homeomorphic to the exact metric three-sphere. -/
+noncomputable def trisectionPieceFiveBaseRealizationHomeomorphSphere :
+    SSet.toTop.obj (orderedSSet (trisectionPieceBaseFacets 5)) ≃ₜ SphereSpace 3 :=
+  (TopCat.homeoOfIso trisectionPieceFiveBaseRealizationIso).trans
+    (boundaryRealizationHomeomorphSphere 3)
+
+/-- The original base at apex `4` is homeomorphic to the exact metric three-sphere. -/
+noncomputable def trisectionPieceFourBaseRealizationHomeomorphSphere :
+    SSet.toTop.obj (orderedSSet (trisectionPieceBaseFacets 4)) ≃ₜ SphereSpace 3 :=
+  (TopCat.homeoOfIso trisectionPieceFourBaseRealizationIso).trans
     (boundaryRealizationHomeomorphSphere 3)
 
 @[simp]
