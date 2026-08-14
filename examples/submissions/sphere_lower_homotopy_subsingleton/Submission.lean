@@ -139,6 +139,7 @@ import Submission.ComplexProjectivePlaneTrisection
 import Submission.ComplexProjectivePlaneTrisectionSurface
 import Submission.Cohomology.FiniteOrderedComplexReindex
 import Submission.FiniteOrderedComplexCarrier
+import Submission.FiniteOrderedComplexCarrierRealization
 import Submission.FiniteOrderedSimplexRealization
 import Submission.SSetBoundaryRealization
 import Submission.BistellarSphereRealization
