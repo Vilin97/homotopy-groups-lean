@@ -654,9 +654,15 @@ one there and is therefore not a coboundary. Its ordered
 Alexander--Whitney square has exactly one contributing top simplex (`13ABC`),
 evaluates to one on the 36-facet fundamental cycle, and is likewise not a
 coboundary by the new finite Stokes theorem. Coefficients are implemented as
-the Boolean ring and are formally ring-equivalent to `ZMod 2`. This closes the
-finite combinatorial evaluation, but the geometric realization of this
-triangulation has not yet been identified in Lean with the maintained
+the Boolean ring and are formally ring-equivalent to `ZMod 2`. The ordered
+complex is now also constructed as a genuine sub-simplicial set of the nerve
+of its ordered vertices. Lean proves that its finite faces are exactly its
+nondegenerate simplices, that canonical simplices preserve the ordered front
+and back faces, and that the general simplicial `ZMod 2` cup product agrees
+with the finite product. In particular, that general cup square evaluates to
+one on the canonical `13ABC` simplex. This closes the finite-to-simplicial-set
+comparison, but the geometric realization of this triangulation has not yet
+been identified in Lean with the maintained
 quotient-topology `CP^2`, nor has its cup square been transported through the
 suspension comparison to the canonical degree-three cup-one representative.
 Accordingly this record is structural and adds no purple cells.
