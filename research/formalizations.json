@@ -715,6 +715,36 @@
   },
   "formalizations": [
     {
+      "id": "lean4-nine-vertex-projective-plane-cup-square",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "f5027a1367630d392c7beba61a83df1b933893b9",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.FiniteOrderedComplex.boolEquivZModTwo",
+        "Submission.FiniteOrderedComplex.evaluate_coboundary_eq_zero",
+        "Submission.FiniteOrderedComplex.not_isCoboundaryOn_of_cycle_evaluation_ne_zero",
+        "Submission.ComplexProjectivePlaneTriangulation.facets_card",
+        "Submission.ComplexProjectivePlaneTriangulation.facets_pure",
+        "Submission.ComplexProjectivePlaneTriangulation.f_vector",
+        "Submission.ComplexProjectivePlaneTriangulation.tetrahedron_incidence_two",
+        "Submission.ComplexProjectivePlaneTriangulation.degreeTwoCocycle_isCocycle",
+        "Submission.ComplexProjectivePlaneTriangulation.degreeTwoCocycle_not_isCoboundaryOn",
+        "Submission.ComplexProjectivePlaneTriangulation.facets_isCycle",
+        "Submission.ComplexProjectivePlaneTriangulation.degreeTwoCupSquare_contributors",
+        "Submission.ComplexProjectivePlaneTriangulation.degreeTwoCupSquare_evaluate_facets",
+        "Submission.ComplexProjectivePlaneTriangulation.degreeTwoCupSquare_not_isCoboundaryOn",
+        "Submission.ComplexProjectivePlaneTriangulation.cupSquare_certificate"
+      ],
+      "result": "the classical nine-vertex triangulation of CP^2 has verified f-vector (9,36,84,90,36), every tetrahedron has exactly two incident facets, and an explicit non-coboundary mod-two degree-two cocycle has Alexander--Whitney square evaluating to one on the 36-facet fundamental cycle; finite Stokes proves the square is itself not a coboundary",
+      "model_relation": "a finite ordered simplicial complex using the Boolean-ring model of F_2, with a formal ring equivalence to ZMod 2; its geometric realization has not yet been identified with the maintained quotient-topology CP^2 or suspended-Hopf mapping cone, so this record supplies the combinatorial lower certificate but does not yet prove a sphere homotopy-group cell",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ComplexProjectivePlaneTriangulation.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "The 36 facets are transcribed from K. V. Madahar and K. S. Sarkaria, A Minimal Triangulation of the Hopf Map and its Application (https://www.kssarkaria.org/docs/Hopf.pdf). All fourteen listed declarations are sorry-free. Strict autoImplicit=false checks pass for both new modules and the Submission aggregate; exact builds pass at 1,171 and 8,946 targets. The f-vector, exact tetrahedron incidence, both cycles, cocycle condition, unique contributing facet 13ABC, and both evaluations are kernel-reduced finite proofs. Audited axiom closures contain only propext, Classical.choice, and Quot.sound. No lattice cells are recolored pending the realization and suspended-invariant comparison."
+    },
+    {
       "id": "lean4-stable-sphere-cap-excision",
       "system": "Lean 4",
       "repository": "Vilin97/homotopy-groups-lean",

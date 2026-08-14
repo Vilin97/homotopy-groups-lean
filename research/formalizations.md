@@ -645,6 +645,22 @@ evaluation are transported onto the exact suspended projective attaching cone.
 These are checked geometric reformulations of the remaining lower-bound target,
 not yet its evaluation, so they do not recolor a lattice cell.
 
+A complementary finite calculation now supplies the missing mod-two cup square
+on the classical nine-vertex triangulation of `CP^2`. Lean records all 36
+facets, verifies the complete `f`-vector `(9,36,84,90,36)` and exact
+two-facet incidence of every tetrahedron, and checks an explicit degree-two
+cocycle against a four-triangle projective-line cycle. The cocycle evaluates to
+one there and is therefore not a coboundary. Its ordered
+Alexander--Whitney square has exactly one contributing top simplex (`13ABC`),
+evaluates to one on the 36-facet fundamental cycle, and is likewise not a
+coboundary by the new finite Stokes theorem. Coefficients are implemented as
+the Boolean ring and are formally ring-equivalent to `ZMod 2`. This closes the
+finite combinatorial evaluation, but the geometric realization of this
+triangulation has not yet been identified in Lean with the maintained
+quotient-topology `CP^2`, nor has its cup square been transported through the
+suspension comparison to the canonical degree-three cup-one representative.
+Accordingly this record is structural and adds no purple cells.
+
 `DiagonalInduction.lean` records the exact equivalence between the two computed
 diagonal groups `pi_1(S^1)` and `pi_2(S^2)`, and proves that a uniform family of
 successive suspension equivalences propagates the integral calculation through
@@ -674,10 +690,12 @@ connectivity and homological excision inputs, both relative Hurewicz
 comparisons, and the resulting all-index cap-map bijectivity are all proved and
 close the cap-excision diagonal proof as well. The separate PL compression
 argument now extends this cap route through the full stable off-diagonal range.
-The next exact-value frontier is therefore the canonical cup-one evaluation
-detecting the suspended Hopf class. A separate comparison is needed only if the
-concrete reduced-suspension homomorphism itself is to be identified with cap
-suspension. No duplicate purple cells are added.
+The next exact-value frontier is therefore the realization-and-suspension
+comparison carrying the verified finite `CP^2` cup square to the canonical
+cup-one evaluation that detects the suspended Hopf class. A separate
+comparison is needed only if the concrete reduced-suspension homomorphism
+itself is to be identified with cap suspension. No duplicate purple cells are
+added.
 
 The maintained ten-result set is recorded explicitly in
 `maintained_independent_result_set`.  Besides the metric-circle computation it
