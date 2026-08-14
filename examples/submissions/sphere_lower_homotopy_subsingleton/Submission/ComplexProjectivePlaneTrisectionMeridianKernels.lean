@@ -428,4 +428,3 @@ theorem fourZeroCentralInterfaceInclPairwise_piOne_ker_eq_zpowers :
 end ComplexProjectivePlaneTriangulation
 
 end Submission
-

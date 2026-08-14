@@ -174,4 +174,3 @@ theorem fourZeroCentralInterfaceInclPairwise_piOne_shortExact :
 end ComplexProjectivePlaneTriangulation
 
 end Submission
-
