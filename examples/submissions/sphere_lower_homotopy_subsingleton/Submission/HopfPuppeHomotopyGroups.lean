@@ -27,6 +27,10 @@ namespace Submission
 noncomputable abbrev hopfSecondMappingCone : TopCat.{0} :=
   topologicalMappingCone (topologicalMappingConeCollapse hopfTopCat)
 
+/-- The suspension-point basepoint of the second Hopf mapping cone. -/
+noncomputable abbrev hopfSecondMappingConeBasepoint : hopfSecondMappingCone :=
+  topologicalSecondMappingConeBasepoint hopfTopCat
+
 /-- The chosen homeomorphism from the topological suspension of `S²` to `S³`. -/
 noncomputable def topologicalSuspensionSphereTwoHomeomorphSphereThree :
     topologicalSuspension (TopCat.of (Sph 2)) ≃ₜ Sph 3 :=
@@ -95,5 +99,25 @@ noncomputable def piThree_hopfSecondMappingCone_mulEquiv_int_at
     (Classical.choice
       (sphere_diagonal_sph_at_mulEquiv_int 2
         (hopfSecondMappingConeHomotopyEquivSphereThree c)))
+
+/-- The third homotopy group is nontrivial at every basepoint. -/
+theorem piThree_hopfSecondMappingCone_not_subsingleton_at
+    (c : hopfSecondMappingCone) :
+    ¬ Subsingleton (π_ 3 hopfSecondMappingCone c) := by
+  intro h
+  have hZ : Subsingleton (Multiplicative ℤ) :=
+    (piThree_hopfSecondMappingCone_mulEquiv_int_at c).toEquiv.subsingleton_congr.mp h
+  have hz := hZ.elim (Multiplicative.ofAdd (0 : ℤ)) (Multiplicative.ofAdd (1 : ℤ))
+  exact Int.zero_ne_one (congrArg Multiplicative.toAdd hz)
+
+/-- In particular, the second Hopf mapping cone is not contractible. -/
+theorem hopfSecondMappingCone_not_contractible :
+    ¬ ContractibleSpace hopfSecondMappingCone := by
+  intro h
+  letI : ContractibleSpace hopfSecondMappingCone := h
+  exact piThree_hopfSecondMappingCone_not_subsingleton_at
+    hopfSecondMappingConeBasepoint
+    (subsingleton_homotopyGroup_of_contractible
+      (N := Fin 3) hopfSecondMappingConeBasepoint)
 
 end Submission
