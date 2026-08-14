@@ -134,6 +134,19 @@ theorem contractibleSpace_topologicalMappingCone_of_homotopyEquiv
   obtain ⟨z, hz⟩ := hfactor
   exact ⟨z, ⟨Hfactor.symm.trans (Classical.choice hz)⟩⟩
 
+/-- A morphism whose underlying continuous map is the forward map of a homotopy equivalence
+has contractible mapping cone. -/
+theorem contractibleSpace_topologicalMappingCone_of_homotopyEquiv_toFun_eq
+    [Nonempty A] [Nonempty X]
+    (f : A ⟶ X) (e : ContinuousMap.HomotopyEquiv A X)
+    (he : e.toFun = f.hom) :
+    ContractibleSpace (topologicalMappingCone f) := by
+  have hmap : TopCat.ofHom e.toFun = f := by
+    apply TopCat.hom_ext
+    exact he
+  rw [← hmap]
+  exact contractibleSpace_topologicalMappingCone_of_homotopyEquiv e
+
 /-- The next mapping cone after the second Puppe comparison is contractible. -/
 theorem contractibleSpace_topologicalThirdMappingCone
     (f : A ⟶ X) :
@@ -145,12 +158,18 @@ theorem contractibleSpace_topologicalThirdMappingCone
       (topologicalMappingCone (topologicalMappingConeCollapse f)) :=
     ⟨topologicalMappingConeIncl (topologicalMappingConeCollapse f)
       (topologicalSuspensionPointIncl A PUnit.unit)⟩
-  have hmap : TopCat.ofHom
-        (topologicalSecondMappingConeHomotopyEquivSuspension f).toFun =
-      topologicalSecondMappingConeToSuspension f := by
-    rfl
-  rw [← hmap]
-  exact contractibleSpace_topologicalMappingCone_of_homotopyEquiv
-    (topologicalSecondMappingConeHomotopyEquivSuspension f)
+  exact contractibleSpace_topologicalMappingCone_of_homotopyEquiv_toFun_eq
+    (topologicalSecondMappingConeToSuspension f)
+    (topologicalSecondMappingConeHomotopyEquivSuspension f) rfl
+
+/-- The mapping cone after the second Puppe comparison is path connected. -/
+theorem pathConnectedSpace_topologicalThirdMappingCone
+    (f : A ⟶ X) :
+    PathConnectedSpace
+      (topologicalMappingCone (topologicalSecondMappingConeToSuspension f)) := by
+  letI : ContractibleSpace
+      (topologicalMappingCone (topologicalSecondMappingConeToSuspension f)) :=
+    contractibleSpace_topologicalThirdMappingCone f
+  infer_instance
 
 end Submission
