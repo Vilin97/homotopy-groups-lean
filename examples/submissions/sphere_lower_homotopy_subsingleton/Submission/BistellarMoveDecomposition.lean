@@ -439,4 +439,31 @@ noncomputable def bistellarMoveRealizationIso
       apply bistellarMoveCompatibleLocalRealizationHomeomorph_natural_of_ambient h
       rfl)
 
+/-- The canonical global bistellar isomorphism restricts to the identity on the unchanged
+outside. -/
+@[reassoc (attr := simp)]
+theorem bistellarMoveRealizationIso_hom_outside
+    {facets : Finset (Finset V)} {dimension : ℕ} {A B : Finset V}
+    (h : IsBistellarMove facets dimension A B) :
+    let oldSq := bistellarOldBicartSq h
+    let newSq := bistellarNewBicartSq h
+    SSet.toTop.map (SSet.Subcomplex.homOfLE oldSq.le₂₄) ≫
+        (bistellarMoveRealizationIso h).hom =
+      SSet.toTop.map (SSet.Subcomplex.homOfLE newSq.le₂₄) := by
+  apply bistellarMoveRealizationIsoOfLocal_hom_outside
+
+/-- The canonical global bistellar isomorphism restricts to the explicit local homeomorphism. -/
+@[reassoc (attr := simp)]
+theorem bistellarMoveRealizationIso_hom_local
+    {facets : Finset (Finset V)} {dimension : ℕ} {A B : Finset V}
+    (h : IsBistellarMove facets dimension A B) :
+    let oldSq := bistellarOldBicartSq h
+    let newSq := bistellarNewBicartSq h
+    SSet.toTop.map (SSet.Subcomplex.homOfLE oldSq.le₃₄) ≫
+        (bistellarMoveRealizationIso h).hom =
+      (TopCat.isoOfHomeo
+          (bistellarMoveCompatibleLocalRealizationHomeomorph h)).hom ≫
+        SSet.toTop.map (SSet.Subcomplex.homOfLE newSq.le₃₄) := by
+  apply bistellarMoveRealizationIsoOfLocal_hom_local
+
 end Submission.FiniteOrderedComplex
