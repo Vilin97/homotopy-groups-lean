@@ -4,6 +4,7 @@ Released under Apache 2.0 license.
 -/
 import Submission.ComplexProjectivePlaneTrisection
 import Submission.Cohomology.FiniteOrderedComplexReindex
+import Submission.SSetBoundaryRealization
 
 /-!
 # Bistellar simplification of a projective-plane trisection piece
@@ -277,6 +278,36 @@ noncomputable def trisectionPieceFourBistellarResultRealizationIso :
             trisectionPieceFourBaseBistellarMoves)) ≅
       SSet.toTop.obj (SSet.boundary 4 : SSet) :=
   SSet.toTop.mapIso trisectionPieceFourBistellarResultSSetIso
+
+/-- The realized base-at-zero endpoint maps canonically to the exact metric three-sphere. -/
+noncomputable def trisectionPieceZeroBistellarResultRealizationToSphere :
+    SSet.toTop.obj
+        (orderedSSet
+          (applyBistellarMoves (trisectionPieceBaseFacets 0)
+            trisectionPieceZeroBaseBistellarMoves)) ⟶
+      TopCat.of (SphereSpace 3) :=
+  trisectionPieceZeroBistellarResultRealizationIso.hom ≫
+    boundaryRealizationToSphere 3
+
+/-- The realized once-rotated endpoint maps canonically to the exact metric three-sphere. -/
+noncomputable def trisectionPieceFiveBistellarResultRealizationToSphere :
+    SSet.toTop.obj
+        (orderedSSet
+          (applyBistellarMoves (trisectionPieceBaseFacets 5)
+            trisectionPieceFiveBaseBistellarMoves)) ⟶
+      TopCat.of (SphereSpace 3) :=
+  trisectionPieceFiveBistellarResultRealizationIso.hom ≫
+    boundaryRealizationToSphere 3
+
+/-- The realized twice-rotated endpoint maps canonically to the exact metric three-sphere. -/
+noncomputable def trisectionPieceFourBistellarResultRealizationToSphere :
+    SSet.toTop.obj
+        (orderedSSet
+          (applyBistellarMoves (trisectionPieceBaseFacets 4)
+            trisectionPieceFourBaseBistellarMoves)) ⟶
+      TopCat.of (SphereSpace 3) :=
+  trisectionPieceFourBistellarResultRealizationIso.hom ≫
+    boundaryRealizationToSphere 3
 
 end ComplexProjectivePlaneTriangulation
 
