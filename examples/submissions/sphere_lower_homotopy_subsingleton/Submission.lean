@@ -130,6 +130,7 @@ import Submission.Topology.PuppeFlattening
 import Submission.Topology.PuppeHomotopyGroups
 import Submission.HopfMappingCone
 import Submission.HopfPuppe
+import Submission.HopfPuppeHomotopyGroups
 import Submission.ComplexProjectivePlaneCohomology
 import Submission.HopfMappingConeHomotopyGroups
 import Submission.SuspendedHopfMap
