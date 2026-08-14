@@ -3,8 +3,7 @@ Copyright (c) 2026 Vasily Ilin. All rights reserved.
 Released under Apache 2.0 license.
 -/
 import Submission.ComplexProjectivePlaneTrisection
-import Submission.Cohomology.FiniteOrderedComplexReindex
-import Submission.SSetBoundaryRealization
+import Submission.BistellarSphereRealization
 
 /-!
 # Bistellar simplification of a projective-plane trisection piece
