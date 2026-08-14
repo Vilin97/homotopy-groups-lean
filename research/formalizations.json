@@ -718,7 +718,7 @@
       "id": "lean4-nine-vertex-projective-plane-cup-square",
       "system": "Lean 4",
       "repository": "Vilin97/homotopy-groups-lean",
-      "commit": "cf969ed4aa37b4ca0b59a6d0a72e64e6fa174514",
+      "commit": "2c65a56badd37477821d64b08032b763c4f952ac",
       "license": "Apache-2.0",
       "declarations": [
         "Submission.FiniteOrderedComplex.boolEquivZModTwo",
