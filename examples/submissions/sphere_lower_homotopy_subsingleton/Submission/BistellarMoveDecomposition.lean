@@ -4,10 +4,9 @@ Released under Apache 2.0 license.
 -/
 import Mathlib.AlgebraicTopology.SimplicialSet.SubcomplexColimits
 import Mathlib.AlgebraicTopology.SimplicialSet.TopAdj
-import Submission.BistellarAffineHomeomorphism
+import Submission.BistellarLocalRealization
 import Submission.Cohomology.FiniteOrderedComplexBistellar
 import Submission.Cohomology.FiniteOrderedComplexSSet
-import Submission.SelectedFacesOrderedRealization
 
 /-!
 # Pushout decomposition of a bistellar move
