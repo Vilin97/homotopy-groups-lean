@@ -26,7 +26,9 @@ meridian basepoints.
 Together with the explicit noninjectivity results in
 `ComplexProjectivePlaneTrisectionMeridianEssentiality`, this proves the two characteristic
 features of all three solid-torus filling maps at the same concrete basepoints: each is
-surjective, while its corresponding meridian supplies a nontrivial kernel class.
+surjective, while its corresponding meridian supplies a nontrivial kernel class.  In every
+degree above one, the previously computed vanishing of both groups makes each induced map
+bijective at every basepoint.
 -/
 
 noncomputable section
@@ -134,6 +136,21 @@ theorem homotopyGroup_map_surjective_of_base_eq
       (HomotopyGroup.map (N := N) (x := x) (y := y) f h) := by
   subst y
   simpa only using hsurjective
+
+/-- A map between two trivial positive finite-dimensional homotopy groups is bijective. -/
+theorem homotopyGroup_map_bijective_of_subsingleton
+    {N X Y : Type*} [Fintype N] [Nonempty N] [DecidableEq N]
+    [TopologicalSpace X] [TopologicalSpace Y]
+    {x : X} {y : Y}
+    [Subsingleton (HomotopyGroup N X x)]
+    [Subsingleton (HomotopyGroup N Y y)]
+    (f : C(X, Y)) (h : f x = y) :
+    Function.Bijective (HomotopyGroup.map (N := N) f h) := by
+  constructor
+  · intro p q _
+    exact Subsingleton.elim p q
+  · intro q
+    exact ⟨1, Subsingleton.elim _ q⟩
 
 /-- Surjectivity of an induced homotopy-group map is invariant under a commuting square whose
 vertical maps are homeomorphisms. -/
@@ -1815,6 +1832,64 @@ theorem fourZeroCentralInterfaceInclPairwise_piOne_surjective_at_core
       (fiveFourCentralInterfaceRealizationCoreBase x))
     rfl
   exact fiveFourCentralInterfaceInclPairwise_piOne_surjective_at_core x
+
+/-! ## Higher homotopy-group maps -/
+
+/-- Every inclusion from the central interface to a pairwise interface induces a bijection in
+each degree above one, at every basepoint.  Both groups are trivial in those degrees. -/
+theorem centralInterfaceInclPairwise_higher_pi_bijective
+    (a : TrisectionVertex) (ha : a ∈ trisectionApexes)
+    (b : TrisectionVertex) (hb : b ∈ trisectionApexes) (hab : a ≠ b)
+    (k : ℕ) (x : SSet.toTop.obj (orderedSSet centralInterfaceFacets)) :
+    Function.Bijective
+      (HomotopyGroup.map (N := Fin (k + 2)) (x := x)
+        (y := (SSet.toTop.map (orderedSSetHomOfFacetFamilyLE
+          (centralInterfaceFacets_le_pairwiseInterface a ha b hb hab))).hom x)
+        (SSet.toTop.map (orderedSSetHomOfFacetFamilyLE
+          (centralInterfaceFacets_le_pairwiseInterface a ha b hb hab))).hom
+        rfl) := by
+  letI : Subsingleton
+      (HomotopyGroup.Pi (k + 2)
+        (SSet.toTop.obj (orderedSSet centralInterfaceFacets)) x) :=
+    centralInterface_higher_homotopy_subsingleton k x
+  letI : Subsingleton
+      (HomotopyGroup.Pi (k + 2)
+        (SSet.toTop.obj (orderedSSet (pairwiseInterfaceFacets a b)))
+        ((SSet.toTop.map (orderedSSetHomOfFacetFamilyLE
+          (centralInterfaceFacets_le_pairwiseInterface a ha b hb hab))).hom x)) :=
+    pairwiseInterface_higher_homotopy_subsingleton
+      a ha b hb hab k _
+  exact homotopyGroup_map_bijective_of_subsingleton _ rfl
+
+theorem zeroFiveCentralInterfaceInclPairwise_higher_pi_bijective
+    (k : ℕ) (x : SSet.toTop.obj (orderedSSet centralInterfaceFacets)) :
+    Function.Bijective
+      (HomotopyGroup.map (N := Fin (k + 2))
+        (SSet.toTop.map zeroFiveCentralInterfaceInclPairwise).hom
+        (x := x) rfl) := by
+  simpa only [zeroFiveCentralInterfaceInclPairwise] using
+    centralInterfaceInclPairwise_higher_pi_bijective
+      0 (by decide) 5 (by decide) (by decide) k x
+
+theorem fiveFourCentralInterfaceInclPairwise_higher_pi_bijective
+    (k : ℕ) (x : SSet.toTop.obj (orderedSSet centralInterfaceFacets)) :
+    Function.Bijective
+      (HomotopyGroup.map (N := Fin (k + 2))
+        (SSet.toTop.map fiveFourCentralInterfaceInclPairwise).hom
+        (x := x) rfl) := by
+  simpa only [fiveFourCentralInterfaceInclPairwise] using
+    centralInterfaceInclPairwise_higher_pi_bijective
+      5 (by decide) 4 (by decide) (by decide) k x
+
+theorem fourZeroCentralInterfaceInclPairwise_higher_pi_bijective
+    (k : ℕ) (x : SSet.toTop.obj (orderedSSet centralInterfaceFacets)) :
+    Function.Bijective
+      (HomotopyGroup.map (N := Fin (k + 2))
+        (SSet.toTop.map fourZeroCentralInterfaceInclPairwise).hom
+        (x := x) rfl) := by
+  simpa only [fourZeroCentralInterfaceInclPairwise] using
+    centralInterfaceInclPairwise_higher_pi_bijective
+      4 (by decide) 0 (by decide) (by decide) k x
 
 /-! ## Surjective noninjective maps at the meridian basepoints -/
 
