@@ -154,22 +154,32 @@ def bistellarNewReindexIso {dimension : ℕ} (A B : Finset V)
       rw [mapFacets_bistellarNewFacets,
         map_indexedOldCore, map_indexedNewCore]))
 
+/-- The local realization homeomorphism depends only on two nonempty, disjoint cores of the
+prescribed total cardinality. -/
+def bistellarLocalRealizationHomeomorph
+    {dimension : ℕ} (A B : Finset V)
+    (hA : A.Nonempty) (hB : B.Nonempty) (hdisj : Disjoint A B)
+    (hcard : (A ∪ B).card = dimension + 2) :
+    SSet.toTop.obj (orderedSSet (bistellarOldFacets A B)) ≃ₜ
+      SSet.toTop.obj (orderedSSet (bistellarNewFacets A B)) :=
+  (TopCat.homeoOfIso (SSet.toTop.mapIso
+      (bistellarOldReindexIso A B hcard).symm)).trans
+    ((bistellarLocalOrderedRealizationHomeomorph
+      (indexedOldCore A B hcard)
+      (indexedNewCore A B hcard)
+      (indexedOldCore_nonempty A B hcard hA)
+      (indexedNewCore_nonempty A B hcard hB)
+      (indexedCores_disjoint A B hcard hdisj)
+      (indexedCores_union A B hcard)).trans
+        (TopCat.homeoOfIso (SSet.toTop.mapIso
+          (bistellarNewReindexIso A B hcard))))
+
 /-- Every valid bistellar replacement has homeomorphic old and new local realizations. -/
 def bistellarMoveLocalRealizationHomeomorph
     {facets : Finset (Finset V)} {dimension : ℕ} {A B : Finset V}
     (h : IsBistellarMove facets dimension A B) :
     SSet.toTop.obj (orderedSSet (bistellarOldFacets A B)) ≃ₜ
       SSet.toTop.obj (orderedSSet (bistellarNewFacets A B)) :=
-  (TopCat.homeoOfIso (SSet.toTop.mapIso
-      (bistellarOldReindexIso A B h.2.2.2.2.1).symm)).trans
-    ((bistellarLocalOrderedRealizationHomeomorph
-      (indexedOldCore A B h.2.2.2.2.1)
-      (indexedNewCore A B h.2.2.2.2.1)
-      (indexedOldCore_nonempty A B h.2.2.2.2.1 h.2.1)
-      (indexedNewCore_nonempty A B h.2.2.2.2.1 h.2.2.1)
-      (indexedCores_disjoint A B h.2.2.2.2.1 h.2.2.2.1)
-      (indexedCores_union A B h.2.2.2.2.1)).trans
-        (TopCat.homeoOfIso (SSet.toTop.mapIso
-          (bistellarNewReindexIso A B h.2.2.2.2.1))))
+  bistellarLocalRealizationHomeomorph A B h.2.1 h.2.2.1 h.2.2.2.1 h.2.2.2.2.1
 
 end Submission.FiniteOrderedComplex
