@@ -7,6 +7,7 @@ import Mathlib.AlgebraicTopology.SimplicialSet.TopAdj
 import Submission.BistellarAffineHomeomorphism
 import Submission.Cohomology.FiniteOrderedComplexBistellar
 import Submission.Cohomology.FiniteOrderedComplexSSet
+import Submission.SelectedFacesRealization
 
 /-!
 # Pushout decomposition of a bistellar move
