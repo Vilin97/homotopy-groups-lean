@@ -309,6 +309,69 @@ noncomputable def trisectionPieceFourBistellarResultRealizationToSphere :
   trisectionPieceFourBistellarResultRealizationIso.hom ≫
     boundaryRealizationToSphere 3
 
+/-- The realized base-at-zero computed endpoint is homeomorphic to the exact metric
+three-sphere. -/
+noncomputable def trisectionPieceZeroBistellarResultRealizationHomeomorphSphere :
+    SSet.toTop.obj
+        (orderedSSet
+          (applyBistellarMoves (trisectionPieceBaseFacets 0)
+            trisectionPieceZeroBaseBistellarMoves)) ≃ₜ
+      SphereSpace 3 :=
+  (TopCat.homeoOfIso trisectionPieceZeroBistellarResultRealizationIso).trans
+    (boundaryRealizationHomeomorphSphere 3)
+
+/-- The realized once-rotated computed endpoint is homeomorphic to the exact metric
+three-sphere. -/
+noncomputable def trisectionPieceFiveBistellarResultRealizationHomeomorphSphere :
+    SSet.toTop.obj
+        (orderedSSet
+          (applyBistellarMoves (trisectionPieceBaseFacets 5)
+            trisectionPieceFiveBaseBistellarMoves)) ≃ₜ
+      SphereSpace 3 :=
+  (TopCat.homeoOfIso trisectionPieceFiveBistellarResultRealizationIso).trans
+    (boundaryRealizationHomeomorphSphere 3)
+
+/-- The realized twice-rotated computed endpoint is homeomorphic to the exact metric
+three-sphere. -/
+noncomputable def trisectionPieceFourBistellarResultRealizationHomeomorphSphere :
+    SSet.toTop.obj
+        (orderedSSet
+          (applyBistellarMoves (trisectionPieceBaseFacets 4)
+            trisectionPieceFourBaseBistellarMoves)) ≃ₜ
+      SphereSpace 3 :=
+  (TopCat.homeoOfIso trisectionPieceFourBistellarResultRealizationIso).trans
+    (boundaryRealizationHomeomorphSphere 3)
+
+@[simp]
+theorem trisectionPieceZeroBistellarResultRealizationHomeomorphSphere_apply
+    (x : SSet.toTop.obj
+      (orderedSSet
+        (applyBistellarMoves (trisectionPieceBaseFacets 0)
+          trisectionPieceZeroBaseBistellarMoves))) :
+    trisectionPieceZeroBistellarResultRealizationHomeomorphSphere x =
+      trisectionPieceZeroBistellarResultRealizationToSphere x := by
+  rfl
+
+@[simp]
+theorem trisectionPieceFiveBistellarResultRealizationHomeomorphSphere_apply
+    (x : SSet.toTop.obj
+      (orderedSSet
+        (applyBistellarMoves (trisectionPieceBaseFacets 5)
+          trisectionPieceFiveBaseBistellarMoves))) :
+    trisectionPieceFiveBistellarResultRealizationHomeomorphSphere x =
+      trisectionPieceFiveBistellarResultRealizationToSphere x := by
+  rfl
+
+@[simp]
+theorem trisectionPieceFourBistellarResultRealizationHomeomorphSphere_apply
+    (x : SSet.toTop.obj
+      (orderedSSet
+        (applyBistellarMoves (trisectionPieceBaseFacets 4)
+          trisectionPieceFourBaseBistellarMoves))) :
+    trisectionPieceFourBistellarResultRealizationHomeomorphSphere x =
+      trisectionPieceFourBistellarResultRealizationToSphere x := by
+  rfl
+
 /-- The canonical map from the realized base-at-zero computed endpoint onto the exact metric
 three-sphere is surjective. -/
 theorem trisectionPieceZeroBistellarResultRealizationToSphere_surjective :
