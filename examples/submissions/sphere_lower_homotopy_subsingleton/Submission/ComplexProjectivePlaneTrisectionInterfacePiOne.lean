@@ -4,6 +4,7 @@ Released under Apache 2.0 license.
 -/
 import Submission.ComplexProjectivePlaneTrisectionMeridianEssentiality
 import Submission.ComplexProjectivePlaneTrisectionInterfaceHomotopy
+import Submission.ComplexProjectivePlaneTrisectionCentralTorusProductTopology
 
 /-!
 # Fundamental-group maps of the projective-plane trisection
@@ -18,12 +19,14 @@ throughout the zero-five reduction.
 The resulting commuting square compares the actual zero-five inclusion with the boundary
 inclusion of the standard seven-vertex solid torus.  The latter is surjective on `π₁` because
 the standard solid torus collapses to its displayed core circle.  Exact cyclic reindexing squares
-then transport surjectivity to the five-four and four-zero interfaces.
+then transport surjectivity to the five-four and four-zero interfaces.  Finally, naturality of
+change of basepoint transports these results from the displayed core to the three explicit
+meridian basepoints.
 
 Together with the explicit noninjectivity results in
 `ComplexProjectivePlaneTrisectionMeridianEssentiality`, this proves the two characteristic
-features of all three solid-torus filling maps: each is surjective at a canonical core basepoint,
-while its corresponding meridian supplies a nontrivial kernel class at the meridian basepoint.
+features of all three solid-torus filling maps at the same concrete basepoints: each is
+surjective, while its corresponding meridian supplies a nontrivial kernel class.
 -/
 
 noncomputable section
@@ -54,6 +57,83 @@ theorem homotopyGroup_map_invFun_bijective
       (N := N) e.symm y a
   rw [← hfun]
   exact equivalence.bijective
+
+/-- Postcomposition commutes exactly with change of basepoint along the image of a path. -/
+theorem GenLoop.map_transport
+    {N X Y : Type*} [Fintype N] [Nonempty N] [DecidableEq N]
+    [TopologicalSpace X] [TopologicalSpace Y]
+    (f : C(X, Y)) {x x' : X} (gamma : Path x x')
+    (p : GenLoop N X x) :
+    GenLoop.map f rfl (GenLoop.transport gamma p) =
+      GenLoop.transport (gamma.map f.continuous) (GenLoop.map f rfl p) := by
+  apply GenLoop.ext
+  intro t
+  simp only [GenLoop.map_apply, GenLoop.transport_apply]
+  unfold transportFun
+  split_ifs <;> rfl
+
+/-- The induced map on a positive finite-dimensional homotopy group commutes exactly with
+change of basepoint along the image of a path. -/
+theorem HomotopyGroup.map_transport
+    {N X Y : Type*} [Fintype N] [Nonempty N] [DecidableEq N]
+    [TopologicalSpace X] [TopologicalSpace Y]
+    (f : C(X, Y)) {x x' : X} (gamma : Path x x')
+    (a : HomotopyGroup N X x) :
+    HomotopyGroup.map f rfl (HomotopyGroup.transport gamma a) =
+      HomotopyGroup.transport (gamma.map f.continuous)
+        (HomotopyGroup.map f rfl a) := by
+  induction a using Quotient.ind with
+  | _ p =>
+      rw [HomotopyGroup.transport_mk, HomotopyGroup.map_mk,
+        HomotopyGroup.map_mk, HomotopyGroup.transport_mk,
+        GenLoop.map_transport f gamma p]
+
+/-- Surjectivity of an induced positive finite-dimensional homotopy-group map transports from
+one basepoint to any other basepoint joined to it by a path. -/
+theorem homotopyGroup_map_surjective_of_joined
+    {N X Y : Type*} [Fintype N] [Nonempty N] [DecidableEq N]
+    [TopologicalSpace X] [TopologicalSpace Y]
+    (f : C(X, Y)) {x x' : X} (gamma : Path x x')
+    (hsurjective : Function.Surjective
+      (HomotopyGroup.map (N := N) (x := x) (y := f x) f rfl)) :
+    Function.Surjective
+      (HomotopyGroup.map (N := N) (x := x') (y := f x') f rfl) := by
+  intro b'
+  let delta : Path (f x) (f x') := gamma.map f.continuous
+  let b := (HomotopyGroup.transportMulEquiv delta).symm b'
+  obtain ⟨a, ha⟩ := hsurjective b
+  refine ⟨HomotopyGroup.transport gamma a, ?_⟩
+  rw [HomotopyGroup.map_transport]
+  change HomotopyGroup.transportMulEquiv delta
+      (HomotopyGroup.map f rfl a) = b'
+  rw [ha]
+  exact (HomotopyGroup.transportMulEquiv delta).apply_symm_apply b'
+
+/-- On a path-connected source, surjectivity of an induced positive finite-dimensional
+homotopy-group map is independent of the chosen basepoint. -/
+theorem homotopyGroup_map_surjective_of_pathConnected
+    {N X Y : Type*} [Fintype N] [Nonempty N] [DecidableEq N]
+    [TopologicalSpace X] [TopologicalSpace Y] [PathConnectedSpace X]
+    (f : C(X, Y)) {x x' : X}
+    (hsurjective : Function.Surjective
+      (HomotopyGroup.map (N := N) (x := x) (y := f x) f rfl)) :
+    Function.Surjective
+      (HomotopyGroup.map (N := N) (x := x') (y := f x') f rfl) :=
+  homotopyGroup_map_surjective_of_joined f
+    (PathConnectedSpace.somePath x x') hsurjective
+
+/-- Replacing the definitional target basepoint of an induced map by a propositionally equal
+one preserves surjectivity. -/
+theorem homotopyGroup_map_surjective_of_base_eq
+    {N X Y : Type*} [Fintype N] [Nonempty N] [DecidableEq N]
+    [TopologicalSpace X] [TopologicalSpace Y]
+    (f : C(X, Y)) {x : X} {y : Y} (h : f x = y)
+    (hsurjective : Function.Surjective
+      (HomotopyGroup.map (N := N) (x := x) (y := f x) f rfl)) :
+    Function.Surjective
+      (HomotopyGroup.map (N := N) (x := x) (y := y) f h) := by
+  subst y
+  simpa only using hsurjective
 
 /-- Surjectivity of an induced homotopy-group map is invariant under a commuting square whose
 vertical maps are homeomorphisms. -/
@@ -626,12 +706,30 @@ open FiniteOrderedComplex
 set_option maxRecDepth 100000
 set_option maxHeartbeats 4000000
 
+theorem pathConnectedSpace_centralInterfaceRealization :
+    PathConnectedSpace
+      (SSet.toTop.obj (orderedSSet centralInterfaceFacets)) := by
+  letI : PathConnectedSpace (SphereSpace 1 × SphereSpace 1) := inferInstance
+  exact centralInterfaceRealizationHomeomorphSphereOneProduct.symm.surjective.pathConnectedSpace
+    centralInterfaceRealizationHomeomorphSphereOneProduct.symm.continuous
+
 /-! ## The standard boundary-torus map is surjective on `π₁` -/
 
 theorem standardTriangleBoundaryFacets_le_standardSevenVertexTorus :
     FacetFamilyLE standardTriangleBoundaryFacets standardSevenVertexTorusFacets := by
   unfold FacetFamilyLE IsFace
   decide
+
+theorem standardTriangleBoundaryVertexZero :
+    IsFace standardTriangleBoundaryFacets ({0} : Finset (Fin 7)) := by
+  unfold IsFace
+  decide
+
+/-- The vertex `0` on the displayed core triangle, used to select one concrete core
+basepoint before transporting surjectivity to the meridian basepoints. -/
+def standardTriangleBoundaryCarrierBase :
+    facetFamilyCarrier standardTriangleBoundaryFacets :=
+  facetFamilyVertexOfIsFace 0 standardTriangleBoundaryVertexZero
 
 theorem standardSevenVertexTorusFacets_le_standardSevenVertexSolidTorus :
     FacetFamilyLE standardSevenVertexTorusFacets
@@ -1717,6 +1815,104 @@ theorem fourZeroCentralInterfaceInclPairwise_piOne_surjective_at_core
       (fiveFourCentralInterfaceRealizationCoreBase x))
     rfl
   exact fiveFourCentralInterfaceInclPairwise_piOne_surjective_at_core x
+
+/-! ## Surjective noninjective maps at the meridian basepoints -/
+
+/-- The zero-five central-to-pairwise map is surjective at the exact basepoint used by its
+explicit nonzero meridian kernel class. -/
+theorem zeroFiveCentralInterfaceInclPairwise_piOne_map_surjective :
+    Function.Surjective
+      (HomotopyGroup.map (N := Fin 1)
+        (SSet.toTop.map zeroFiveCentralInterfaceInclPairwise).hom
+        zeroFiveCentralRealizationBase_map_pairwise_eq) := by
+  letI : PathConnectedSpace
+      (SSet.toTop.obj (orderedSSet centralInterfaceFacets)) :=
+    pathConnectedSpace_centralInterfaceRealization
+  apply homotopyGroup_map_surjective_of_base_eq
+    (SSet.toTop.map zeroFiveCentralInterfaceInclPairwise).hom
+    zeroFiveCentralRealizationBase_map_pairwise_eq
+  apply homotopyGroup_map_surjective_of_pathConnected
+    (x := zeroFiveCentralInterfaceRealizationCoreBase
+      standardTriangleBoundaryCarrierBase)
+  exact zeroFiveCentralInterfaceInclPairwise_piOne_surjective_at_core
+    standardTriangleBoundaryCarrierBase
+
+/-- The five-four central-to-pairwise map is surjective at the exact basepoint used by its
+explicit nonzero meridian kernel class. -/
+theorem fiveFourCentralInterfaceInclPairwise_piOne_map_surjective :
+    Function.Surjective
+      (HomotopyGroup.map (N := Fin 1)
+        (SSet.toTop.map fiveFourCentralInterfaceInclPairwise).hom
+        fiveFourCentralRealizationBase_map_pairwise_eq) := by
+  letI : PathConnectedSpace
+      (SSet.toTop.obj (orderedSSet centralInterfaceFacets)) :=
+    pathConnectedSpace_centralInterfaceRealization
+  apply homotopyGroup_map_surjective_of_base_eq
+    (SSet.toTop.map fiveFourCentralInterfaceInclPairwise).hom
+    fiveFourCentralRealizationBase_map_pairwise_eq
+  apply homotopyGroup_map_surjective_of_pathConnected
+    (x := fiveFourCentralInterfaceRealizationCoreBase
+      standardTriangleBoundaryCarrierBase)
+  exact fiveFourCentralInterfaceInclPairwise_piOne_surjective_at_core
+    standardTriangleBoundaryCarrierBase
+
+/-- The four-zero central-to-pairwise map is surjective at the exact basepoint used by its
+explicit nonzero meridian kernel class. -/
+theorem fourZeroCentralInterfaceInclPairwise_piOne_map_surjective :
+    Function.Surjective
+      (HomotopyGroup.map (N := Fin 1)
+        (SSet.toTop.map fourZeroCentralInterfaceInclPairwise).hom
+        fourZeroCentralRealizationBase_map_pairwise_eq) := by
+  letI : PathConnectedSpace
+      (SSet.toTop.obj (orderedSSet centralInterfaceFacets)) :=
+    pathConnectedSpace_centralInterfaceRealization
+  apply homotopyGroup_map_surjective_of_base_eq
+    (SSet.toTop.map fourZeroCentralInterfaceInclPairwise).hom
+    fourZeroCentralRealizationBase_map_pairwise_eq
+  apply homotopyGroup_map_surjective_of_pathConnected
+    (x := fourZeroCentralInterfaceRealizationCoreBase
+      standardTriangleBoundaryCarrierBase)
+  exact fourZeroCentralInterfaceInclPairwise_piOne_surjective_at_core
+    standardTriangleBoundaryCarrierBase
+
+/-- At its meridian basepoint, the zero-five filling map is surjective but not injective. -/
+theorem zeroFiveCentralInterfaceInclPairwise_piOne_map_surjective_not_injective :
+    Function.Surjective
+        (HomotopyGroup.map (N := Fin 1)
+          (SSet.toTop.map zeroFiveCentralInterfaceInclPairwise).hom
+          zeroFiveCentralRealizationBase_map_pairwise_eq) ∧
+      ¬ Function.Injective
+        (HomotopyGroup.map (N := Fin 1)
+          (SSet.toTop.map zeroFiveCentralInterfaceInclPairwise).hom
+          zeroFiveCentralRealizationBase_map_pairwise_eq) :=
+  ⟨zeroFiveCentralInterfaceInclPairwise_piOne_map_surjective,
+    zeroFiveCentralInterfaceInclPairwise_piOne_map_not_injective⟩
+
+/-- At its meridian basepoint, the five-four filling map is surjective but not injective. -/
+theorem fiveFourCentralInterfaceInclPairwise_piOne_map_surjective_not_injective :
+    Function.Surjective
+        (HomotopyGroup.map (N := Fin 1)
+          (SSet.toTop.map fiveFourCentralInterfaceInclPairwise).hom
+          fiveFourCentralRealizationBase_map_pairwise_eq) ∧
+      ¬ Function.Injective
+        (HomotopyGroup.map (N := Fin 1)
+          (SSet.toTop.map fiveFourCentralInterfaceInclPairwise).hom
+          fiveFourCentralRealizationBase_map_pairwise_eq) :=
+  ⟨fiveFourCentralInterfaceInclPairwise_piOne_map_surjective,
+    fiveFourCentralInterfaceInclPairwise_piOne_map_not_injective⟩
+
+/-- At its meridian basepoint, the four-zero filling map is surjective but not injective. -/
+theorem fourZeroCentralInterfaceInclPairwise_piOne_map_surjective_not_injective :
+    Function.Surjective
+        (HomotopyGroup.map (N := Fin 1)
+          (SSet.toTop.map fourZeroCentralInterfaceInclPairwise).hom
+          fourZeroCentralRealizationBase_map_pairwise_eq) ∧
+      ¬ Function.Injective
+        (HomotopyGroup.map (N := Fin 1)
+          (SSet.toTop.map fourZeroCentralInterfaceInclPairwise).hom
+          fourZeroCentralRealizationBase_map_pairwise_eq) :=
+  ⟨fourZeroCentralInterfaceInclPairwise_piOne_map_surjective,
+    fourZeroCentralInterfaceInclPairwise_piOne_map_not_injective⟩
 
 end ComplexProjectivePlaneTriangulation
 end Submission
