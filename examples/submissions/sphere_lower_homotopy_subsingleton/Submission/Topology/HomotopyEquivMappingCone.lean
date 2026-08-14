@@ -173,6 +173,19 @@ theorem pathConnectedSpace_topologicalThirdMappingCone
     contractibleSpace_topologicalThirdMappingCone f
   infer_instance
 
+/-- The zeroth homotopy set of the mapping cone after the second Puppe comparison is trivial,
+at every basepoint. -/
+theorem subsingleton_piZero_topologicalThirdMappingCone
+    (f : A ⟶ X)
+    (c : topologicalMappingCone (topologicalSecondMappingConeToSuspension f)) :
+    Subsingleton
+      (HomotopyGroup (Fin 0)
+        (topologicalMappingCone (topologicalSecondMappingConeToSuspension f)) c) := by
+  letI : PathConnectedSpace
+      (topologicalMappingCone (topologicalSecondMappingConeToSuspension f)) :=
+    pathConnectedSpace_topologicalThirdMappingCone f
+  exact subsingleton_homotopyGroup_zero c
+
 /-- Every positive-dimensional homotopy group of the mapping cone after the second Puppe
 comparison is trivial, at every basepoint. -/
 theorem subsingleton_homotopyGroup_topologicalThirdMappingCone
