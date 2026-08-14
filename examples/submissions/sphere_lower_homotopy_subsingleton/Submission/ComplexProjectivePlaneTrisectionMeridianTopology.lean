@@ -277,6 +277,74 @@ theorem fourZeroMeridianBoundaryInclPairwise_factor :
       fourZeroMeridianBoundaryInclPairwise := by
   rfl
 
+/-! ## Central-interface factorizations -/
+
+/-- Every boundary triangle of a finite tetrahedral facet family is a face of that family. -/
+theorem tetrahedralBoundaryTriangles_le
+    (tetrahedra : Finset (Finset TrisectionVertex)) :
+    FacetFamilyLE (tetrahedralBoundaryTriangles tetrahedra) tetrahedra := by
+  intro triangle htriangle
+  exact isFace_of_mem_facesOfCard (Finset.mem_filter.mp htriangle).1
+
+/-- The common central interface is a subcomplex of every pairwise interface. -/
+theorem centralInterfaceFacets_le_pairwiseInterface
+    (a : TrisectionVertex) (ha : a ∈ trisectionApexes)
+    (b : TrisectionVertex) (hb : b ∈ trisectionApexes) (hab : a ≠ b) :
+    FacetFamilyLE centralInterfaceFacets (pairwiseInterfaceFacets a b) := by
+  rw [← pairwiseInterface_boundary_eq_central a ha b hb hab]
+  exact tetrahedralBoundaryTriangles_le _
+
+def zeroFiveCentralInterfaceInclPairwise :
+    orderedSSet centralInterfaceFacets ⟶
+      orderedSSet (pairwiseInterfaceFacets 0 5) :=
+  orderedSSetHomOfFacetFamilyLE
+    (centralInterfaceFacets_le_pairwiseInterface 0 (by decide) 5 (by decide) (by decide))
+
+def fiveFourCentralInterfaceInclPairwise :
+    orderedSSet centralInterfaceFacets ⟶
+      orderedSSet (pairwiseInterfaceFacets 5 4) :=
+  orderedSSetHomOfFacetFamilyLE
+    (centralInterfaceFacets_le_pairwiseInterface 5 (by decide) 4 (by decide) (by decide))
+
+def fourZeroCentralInterfaceInclPairwise :
+    orderedSSet centralInterfaceFacets ⟶
+      orderedSSet (pairwiseInterfaceFacets 4 0) :=
+  orderedSSetHomOfFacetFamilyLE
+    (centralInterfaceFacets_le_pairwiseInterface 4 (by decide) 0 (by decide) (by decide))
+
+def zeroFiveMeridianBoundaryInclCentral :
+    orderedSSet zeroFiveMeridianBoundaryFacets ⟶
+      orderedSSet centralInterfaceFacets :=
+  orderedSSetHomOfFacetFamilyLE zeroFiveMeridianBoundaryFacets_le_centralInterface
+
+def fiveFourMeridianBoundaryInclCentral :
+    orderedSSet fiveFourMeridianBoundaryFacets ⟶
+      orderedSSet centralInterfaceFacets :=
+  orderedSSetHomOfFacetFamilyLE fiveFourMeridianBoundaryFacets_le_centralInterface
+
+def fourZeroMeridianBoundaryInclCentral :
+    orderedSSet fourZeroMeridianBoundaryFacets ⟶
+      orderedSSet centralInterfaceFacets :=
+  orderedSSetHomOfFacetFamilyLE fourZeroMeridianBoundaryFacets_le_centralInterface
+
+theorem zeroFiveMeridianBoundaryInclPairwise_factor_central :
+    zeroFiveMeridianBoundaryInclCentral ≫
+        zeroFiveCentralInterfaceInclPairwise =
+      zeroFiveMeridianBoundaryInclPairwise := by
+  rfl
+
+theorem fiveFourMeridianBoundaryInclPairwise_factor_central :
+    fiveFourMeridianBoundaryInclCentral ≫
+        fiveFourCentralInterfaceInclPairwise =
+      fiveFourMeridianBoundaryInclPairwise := by
+  rfl
+
+theorem fourZeroMeridianBoundaryInclPairwise_factor_central :
+    fourZeroMeridianBoundaryInclCentral ≫
+        fourZeroCentralInterfaceInclPairwise =
+      fourZeroMeridianBoundaryInclPairwise := by
+  rfl
+
 /-! ## Nullhomotopies of the three meridian inclusions -/
 
 /-- The realized zero-five meridian circle is nullhomotopic in its pairwise interface. -/
@@ -344,6 +412,33 @@ theorem fourZeroMeridianBoundaryInclPairwise_nullhomotopic :
     fourZeroMeridianDiskRealizationHomeomorphDisk.contractibleSpace
   exact ((id_nullhomotopic
     (SSet.toTop.obj (orderedSSet fourZeroMeridianDiskFacets))).comp_left f).comp_right g
+
+/-- The zero-five meridian's route through the central interface is nullhomotopic in the
+zero-five pairwise interface. -/
+theorem zeroFiveMeridianViaCentralInclPairwise_nullhomotopic :
+    (SSet.toTop.map
+      (zeroFiveMeridianBoundaryInclCentral ≫
+        zeroFiveCentralInterfaceInclPairwise)).hom.Nullhomotopic := by
+  rw [zeroFiveMeridianBoundaryInclPairwise_factor_central]
+  exact zeroFiveMeridianBoundaryInclPairwise_nullhomotopic
+
+/-- The five-four meridian's route through the central interface is nullhomotopic in the
+five-four pairwise interface. -/
+theorem fiveFourMeridianViaCentralInclPairwise_nullhomotopic :
+    (SSet.toTop.map
+      (fiveFourMeridianBoundaryInclCentral ≫
+        fiveFourCentralInterfaceInclPairwise)).hom.Nullhomotopic := by
+  rw [fiveFourMeridianBoundaryInclPairwise_factor_central]
+  exact fiveFourMeridianBoundaryInclPairwise_nullhomotopic
+
+/-- The four-zero meridian's route through the central interface is nullhomotopic in the
+four-zero pairwise interface. -/
+theorem fourZeroMeridianViaCentralInclPairwise_nullhomotopic :
+    (SSet.toTop.map
+      (fourZeroMeridianBoundaryInclCentral ≫
+        fourZeroCentralInterfaceInclPairwise)).hom.Nullhomotopic := by
+  rw [fourZeroMeridianBoundaryInclPairwise_factor_central]
+  exact fourZeroMeridianBoundaryInclPairwise_nullhomotopic
 
 /-! ## The induced fundamental-group maps are trivial -/
 
