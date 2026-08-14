@@ -64,6 +64,72 @@ theorem trisectionPieceZeroBase_bistellar_result_f_vector :
     ((facesOfCard result 1).card, (facesOfCard result 2).card,
       (facesOfCard result 3).card, (facesOfCard result 4).card) = (5, 10, 10, 5) := by decide
 
+/-- The base at apex `0` is a bistellar three-sphere in the executable combinatorial sense. -/
+theorem trisectionPieceZeroBase_isBistellarThreeSphere :
+    IsBistellarSphere (trisectionPieceBaseFacets 0) 3 :=
+  ⟨trisectionPieceZeroBaseBistellarMoves, {3, 6, 8, 10, 12}, by decide,
+    trisectionPieceZeroBaseBistellarMoves_valid,
+    trisectionPieceZeroBase_bistellar_result⟩
+
+/-- Rotate both cores of one bistellar move. -/
+def rotateBistellarMoveData (move : BistellarMoveData TrisectionVertex) :
+    BistellarMoveData TrisectionVertex :=
+  ⟨move.oldCore.image trisectionRotationFun,
+    move.newCore.image trisectionRotationFun⟩
+
+/-- The once-rotated reduction sequence for the base at apex `5`. -/
+def trisectionPieceFiveBaseBistellarMoves : List (BistellarMoveData TrisectionVertex) :=
+  trisectionPieceZeroBaseBistellarMoves.map rotateBistellarMoveData
+
+/-- The twice-rotated reduction sequence for the base at apex `4`. -/
+def trisectionPieceFourBaseBistellarMoves : List (BistellarMoveData TrisectionVertex) :=
+  trisectionPieceFiveBaseBistellarMoves.map rotateBistellarMoveData
+
+/-- The once-rotated sequence is valid on the base at apex `5`. -/
+theorem trisectionPieceFiveBaseBistellarMoves_valid :
+    IsValidBistellarMoveSequence (trisectionPieceBaseFacets 5) 3
+      trisectionPieceFiveBaseBistellarMoves := by decide
+
+/-- The once-rotated sequence ends at an explicit four-simplex boundary. -/
+theorem trisectionPieceFiveBase_bistellar_result :
+    applyBistellarMoves (trisectionPieceBaseFacets 5)
+        trisectionPieceFiveBaseBistellarMoves =
+      simplexBoundaryFacets {1, 2, 8, 9, 12} := by decide
+
+/-- The base at apex `5` is a bistellar three-sphere. -/
+theorem trisectionPieceFiveBase_isBistellarThreeSphere :
+    IsBistellarSphere (trisectionPieceBaseFacets 5) 3 :=
+  ⟨trisectionPieceFiveBaseBistellarMoves, {1, 2, 8, 9, 12}, by decide,
+    trisectionPieceFiveBaseBistellarMoves_valid,
+    trisectionPieceFiveBase_bistellar_result⟩
+
+/-- The twice-rotated sequence is valid on the base at apex `4`. -/
+theorem trisectionPieceFourBaseBistellarMoves_valid :
+    IsValidBistellarMoveSequence (trisectionPieceBaseFacets 4) 3
+      trisectionPieceFourBaseBistellarMoves := by decide
+
+/-- The twice-rotated sequence ends at an explicit four-simplex boundary. -/
+theorem trisectionPieceFourBase_bistellar_result :
+    applyBistellarMoves (trisectionPieceBaseFacets 4)
+        trisectionPieceFourBaseBistellarMoves =
+      simplexBoundaryFacets {2, 6, 7, 11, 12} := by decide
+
+/-- The base at apex `4` is a bistellar three-sphere. -/
+theorem trisectionPieceFourBase_isBistellarThreeSphere :
+    IsBistellarSphere (trisectionPieceBaseFacets 4) 3 :=
+  ⟨trisectionPieceFourBaseBistellarMoves, {2, 6, 7, 11, 12}, by decide,
+    trisectionPieceFourBaseBistellarMoves_valid,
+    trisectionPieceFourBase_bistellar_result⟩
+
+/-- All three trisection-piece bases are certified bistellar three-spheres. -/
+theorem trisectionPieceBases_areBistellarThreeSpheres :
+    IsBistellarSphere (trisectionPieceBaseFacets 0) 3 ∧
+      IsBistellarSphere (trisectionPieceBaseFacets 5) 3 ∧
+      IsBistellarSphere (trisectionPieceBaseFacets 4) 3 :=
+  ⟨trisectionPieceZeroBase_isBistellarThreeSphere,
+    trisectionPieceFiveBase_isBistellarThreeSphere,
+    trisectionPieceFourBase_isBistellarThreeSphere⟩
+
 end ComplexProjectivePlaneTriangulation
 
 end Submission

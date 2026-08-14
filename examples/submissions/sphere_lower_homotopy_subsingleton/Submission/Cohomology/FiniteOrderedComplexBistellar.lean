@@ -85,6 +85,15 @@ instance (facets : Finset (Finset V)) (dimension : ℕ)
 def simplexBoundaryFacets (vertices : Finset V) : Finset (Finset V) :=
   vertices.image fun v ↦ vertices.erase v
 
+/-- A finite pure complex is a bistellar `dimension`-sphere when an explicit valid move sequence
+reduces it to the boundary of a simplex on `dimension + 2` vertices.  This is a combinatorial
+certificate; its topological interpretation uses the still-separate PL realization theorem. -/
+def IsBistellarSphere (facets : Finset (Finset V)) (dimension : ℕ) : Prop :=
+  ∃ (moves : List (BistellarMoveData V)) (vertices : Finset V),
+    vertices.card = dimension + 2 ∧
+      IsValidBistellarMoveSequence facets dimension moves ∧
+      applyBistellarMoves facets moves = simplexBoundaryFacets vertices
+
 end FiniteOrderedComplex
 
 end Submission
