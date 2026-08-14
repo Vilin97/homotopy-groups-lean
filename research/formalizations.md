@@ -715,11 +715,14 @@ their respective pairwise interfaces. Each filling is now identified as a
 simplicial cone whose realization is the exact closed two-disk, with triangular
 boundary the exact metric circle. The boundary inclusion factors through that
 contractible disk, is nullhomotopic, and consequently induces the trivial
-`pi_1` homomorphism at every basepoint. Their oriented sum bounds the central
-triangle `(1,7,3)`, and
-two closed integral edge cochains evaluate on them as `(1,-1)`, `(0,1)`, and
-`(-1,0)`, so every cyclic pair has determinant one. This is the finite and
-topological attaching-slope certificate for the genus-one trisection. The
+`pi_1` homomorphism at every basepoint. The central interface is also a
+subcomplex of every pairwise interface, and each meridian's route through the
+central interface equals its direct pairwise inclusion, making the attaching
+diagram commute on the nose. Their oriented sum bounds the central triangle
+`(1,7,3)`, and two closed integral edge cochains evaluate on them as `(1,-1)`,
+`(0,1)`, and `(-1,0)`, so every cyclic pair has determinant one. This is the
+finite and topological attaching-slope certificate for the genus-one
+trisection. The
 remaining comparison is global: the full finite realization has not yet been
 identified with the maintained quotient-topology `CP^2` or its exact Hopf
 mapping-cone model, so these advances do not add a sphere-lattice cell.
