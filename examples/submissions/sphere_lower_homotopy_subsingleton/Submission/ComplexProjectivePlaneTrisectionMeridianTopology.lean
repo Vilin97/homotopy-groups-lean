@@ -277,6 +277,74 @@ theorem fourZeroMeridianBoundaryInclPairwise_factor :
       fourZeroMeridianBoundaryInclPairwise := by
   rfl
 
+/-! ## Nullhomotopies of the three meridian inclusions -/
+
+/-- The realized zero-five meridian circle is nullhomotopic in its pairwise interface. -/
+theorem zeroFiveMeridianBoundaryInclPairwise_nullhomotopic :
+    (SSet.toTop.map zeroFiveMeridianBoundaryInclPairwise).hom.Nullhomotopic := by
+  let f : C(SSet.toTop.obj (orderedSSet zeroFiveMeridianBoundaryFacets),
+      SSet.toTop.obj (orderedSSet zeroFiveMeridianDiskFacets)) :=
+    (SSet.toTop.map
+      (orderedConeBaseIncl zeroFiveMeridianBoundaryFacets 9)).hom
+  let g : C(SSet.toTop.obj (orderedSSet zeroFiveMeridianDiskFacets),
+      SSet.toTop.obj (orderedSSet (pairwiseInterfaceFacets 0 5))) :=
+    (SSet.toTop.map zeroFiveMeridianDiskIncl).hom
+  have hmap : (SSet.toTop.map zeroFiveMeridianBoundaryInclPairwise).hom =
+      g.comp f := by
+    rw [← zeroFiveMeridianBoundaryInclPairwise_factor, Functor.map_comp]
+    rfl
+  rw [hmap]
+  letI : ContractibleSpace (TopCat.disk.{0} 2) := contractibleSpace_disk 2
+  letI : ContractibleSpace
+      (SSet.toTop.obj (orderedSSet zeroFiveMeridianDiskFacets)) :=
+    zeroFiveMeridianDiskRealizationHomeomorphDisk.contractibleSpace
+  exact ((id_nullhomotopic
+    (SSet.toTop.obj (orderedSSet zeroFiveMeridianDiskFacets))).comp_left f).comp_right g
+
+/-- The realized five-four meridian circle is nullhomotopic in its pairwise interface. -/
+theorem fiveFourMeridianBoundaryInclPairwise_nullhomotopic :
+    (SSet.toTop.map fiveFourMeridianBoundaryInclPairwise).hom.Nullhomotopic := by
+  let f : C(SSet.toTop.obj (orderedSSet fiveFourMeridianBoundaryFacets),
+      SSet.toTop.obj (orderedSSet fiveFourMeridianDiskFacets)) :=
+    (SSet.toTop.map
+      (orderedConeBaseIncl fiveFourMeridianBoundaryFacets 11)).hom
+  let g : C(SSet.toTop.obj (orderedSSet fiveFourMeridianDiskFacets),
+      SSet.toTop.obj (orderedSSet (pairwiseInterfaceFacets 5 4))) :=
+    (SSet.toTop.map fiveFourMeridianDiskIncl).hom
+  have hmap : (SSet.toTop.map fiveFourMeridianBoundaryInclPairwise).hom =
+      g.comp f := by
+    rw [← fiveFourMeridianBoundaryInclPairwise_factor, Functor.map_comp]
+    rfl
+  rw [hmap]
+  letI : ContractibleSpace (TopCat.disk.{0} 2) := contractibleSpace_disk 2
+  letI : ContractibleSpace
+      (SSet.toTop.obj (orderedSSet fiveFourMeridianDiskFacets)) :=
+    fiveFourMeridianDiskRealizationHomeomorphDisk.contractibleSpace
+  exact ((id_nullhomotopic
+    (SSet.toTop.obj (orderedSSet fiveFourMeridianDiskFacets))).comp_left f).comp_right g
+
+/-- The realized four-zero meridian circle is nullhomotopic in its pairwise interface. -/
+theorem fourZeroMeridianBoundaryInclPairwise_nullhomotopic :
+    (SSet.toTop.map fourZeroMeridianBoundaryInclPairwise).hom.Nullhomotopic := by
+  let f : C(SSet.toTop.obj (orderedSSet fourZeroMeridianBoundaryFacets),
+      SSet.toTop.obj (orderedSSet fourZeroMeridianDiskFacets)) :=
+    (SSet.toTop.map
+      (orderedConeBaseIncl fourZeroMeridianBoundaryFacets 10)).hom
+  let g : C(SSet.toTop.obj (orderedSSet fourZeroMeridianDiskFacets),
+      SSet.toTop.obj (orderedSSet (pairwiseInterfaceFacets 4 0))) :=
+    (SSet.toTop.map fourZeroMeridianDiskIncl).hom
+  have hmap : (SSet.toTop.map fourZeroMeridianBoundaryInclPairwise).hom =
+      g.comp f := by
+    rw [← fourZeroMeridianBoundaryInclPairwise_factor, Functor.map_comp]
+    rfl
+  rw [hmap]
+  letI : ContractibleSpace (TopCat.disk.{0} 2) := contractibleSpace_disk 2
+  letI : ContractibleSpace
+      (SSet.toTop.obj (orderedSSet fourZeroMeridianDiskFacets)) :=
+    fourZeroMeridianDiskRealizationHomeomorphDisk.contractibleSpace
+  exact ((id_nullhomotopic
+    (SSet.toTop.obj (orderedSSet fourZeroMeridianDiskFacets))).comp_left f).comp_right g
+
 /-! ## The induced fundamental-group maps are trivial -/
 
 /-- The realized zero-five meridian circle maps trivially on fundamental groups into its
