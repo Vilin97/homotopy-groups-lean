@@ -3,7 +3,7 @@ Copyright (c) 2026 Vasily Ilin. All rights reserved.
 Released under Apache 2.0 license.
 -/
 import Submission.ComplexProjectivePlaneTrisection
-import Submission.Cohomology.FiniteOrderedComplexBistellar
+import Submission.Cohomology.FiniteOrderedComplexReindex
 
 /-!
 # Bistellar simplification of a projective-plane trisection piece
@@ -18,7 +18,7 @@ namespace Submission
 
 namespace ComplexProjectivePlaneTriangulation
 
-open FiniteOrderedComplex
+open CategoryTheory Simplicial FiniteOrderedComplex
 
 set_option maxRecDepth 100000
 set_option maxHeartbeats 1600000
@@ -129,6 +129,154 @@ theorem trisectionPieceBases_areBistellarThreeSpheres :
   ⟨trisectionPieceZeroBase_isBistellarThreeSphere,
     trisectionPieceFiveBase_isBistellarThreeSphere,
     trisectionPieceFourBase_isBistellarThreeSphere⟩
+
+/-! ## Identification of the computed endpoints -/
+
+/-- The increasing enumeration of the five vertices in the base-at-zero endpoint boundary. -/
+def trisectionPieceZeroBoundaryVertexEmbedding : Fin 5 ↪o TrisectionVertex where
+  toFun := ![3, 6, 8, 10, 12]
+  inj' := by decide
+  map_rel_iff' := by decide
+
+/-- The increasing enumeration of the five vertices in the once-rotated endpoint boundary. -/
+def trisectionPieceFiveBoundaryVertexEmbedding : Fin 5 ↪o TrisectionVertex where
+  toFun := ![1, 2, 8, 9, 12]
+  inj' := by decide
+  map_rel_iff' := by decide
+
+/-- The increasing enumeration of the five vertices in the twice-rotated endpoint boundary. -/
+def trisectionPieceFourBoundaryVertexEmbedding : Fin 5 ↪o TrisectionVertex where
+  toFun := ![2, 6, 7, 11, 12]
+  inj' := by decide
+  map_rel_iff' := by decide
+
+/-- Reindexing the standard five-vertex boundary gives the endpoint at apex `0`. -/
+theorem map_standard_boundary_facets_zero :
+    mapFacets trisectionPieceZeroBoundaryVertexEmbedding.toEmbedding
+        (simplexBoundaryFacets (Finset.univ : Finset (Fin 5))) =
+      simplexBoundaryFacets ({3, 6, 8, 10, 12} : Finset TrisectionVertex) := by
+  decide
+
+/-- Reindexing the standard five-vertex boundary gives the endpoint at apex `5`. -/
+theorem map_standard_boundary_facets_five :
+    mapFacets trisectionPieceFiveBoundaryVertexEmbedding.toEmbedding
+        (simplexBoundaryFacets (Finset.univ : Finset (Fin 5))) =
+      simplexBoundaryFacets ({1, 2, 8, 9, 12} : Finset TrisectionVertex) := by
+  decide
+
+/-- Reindexing the standard five-vertex boundary gives the endpoint at apex `4`. -/
+theorem map_standard_boundary_facets_four :
+    mapFacets trisectionPieceFourBoundaryVertexEmbedding.toEmbedding
+        (simplexBoundaryFacets (Finset.univ : Finset (Fin 5))) =
+      simplexBoundaryFacets ({2, 6, 7, 11, 12} : Finset TrisectionVertex) := by
+  decide
+
+/-- The endpoint boundary at apex `0` is the standard ordered five-vertex boundary. -/
+noncomputable def trisectionPieceZeroFinalBoundarySSetIso :
+    orderedSSet (simplexBoundaryFacets (Finset.univ : Finset (Fin 5))) ≅
+      orderedSSet (simplexBoundaryFacets ({3, 6, 8, 10, 12} : Finset TrisectionVertex)) :=
+  orderedSSetMapFacetsIso trisectionPieceZeroBoundaryVertexEmbedding _ ≪≫
+    SSet.Subcomplex.eqToIso (congrArg orderedSubcomplex map_standard_boundary_facets_zero)
+
+/-- The endpoint boundary at apex `5` is the standard ordered five-vertex boundary. -/
+noncomputable def trisectionPieceFiveFinalBoundarySSetIso :
+    orderedSSet (simplexBoundaryFacets (Finset.univ : Finset (Fin 5))) ≅
+      orderedSSet (simplexBoundaryFacets ({1, 2, 8, 9, 12} : Finset TrisectionVertex)) :=
+  orderedSSetMapFacetsIso trisectionPieceFiveBoundaryVertexEmbedding _ ≪≫
+    SSet.Subcomplex.eqToIso (congrArg orderedSubcomplex map_standard_boundary_facets_five)
+
+/-- The endpoint boundary at apex `4` is the standard ordered five-vertex boundary. -/
+noncomputable def trisectionPieceFourFinalBoundarySSetIso :
+    orderedSSet (simplexBoundaryFacets (Finset.univ : Finset (Fin 5))) ≅
+      orderedSSet (simplexBoundaryFacets ({2, 6, 7, 11, 12} : Finset TrisectionVertex)) :=
+  orderedSSetMapFacetsIso trisectionPieceFourBoundaryVertexEmbedding _ ≪≫
+    SSet.Subcomplex.eqToIso (congrArg orderedSubcomplex map_standard_boundary_facets_four)
+
+/-- The endpoint boundary of the base-at-zero reduction is the standard simplicial three-sphere. -/
+noncomputable def trisectionPieceZeroFinalBoundarySSetIsoStd :
+    orderedSSet
+        (simplexBoundaryFacets ({3, 6, 8, 10, 12} : Finset TrisectionVertex)) ≅
+      (SSet.boundary 4 : SSet) :=
+  trisectionPieceZeroFinalBoundarySSetIso.symm ≪≫
+    (boundaryOrderedSSetIso 4).symm
+
+/-- The endpoint boundary of the base-at-five reduction is the standard simplicial three-sphere. -/
+noncomputable def trisectionPieceFiveFinalBoundarySSetIsoStd :
+    orderedSSet
+        (simplexBoundaryFacets ({1, 2, 8, 9, 12} : Finset TrisectionVertex)) ≅
+      (SSet.boundary 4 : SSet) :=
+  trisectionPieceFiveFinalBoundarySSetIso.symm ≪≫
+    (boundaryOrderedSSetIso 4).symm
+
+/-- The endpoint boundary of the base-at-four reduction is the standard simplicial three-sphere. -/
+noncomputable def trisectionPieceFourFinalBoundarySSetIsoStd :
+    orderedSSet
+        (simplexBoundaryFacets ({2, 6, 7, 11, 12} : Finset TrisectionVertex)) ≅
+      (SSet.boundary 4 : SSet) :=
+  trisectionPieceFourFinalBoundarySSetIso.symm ≪≫
+    (boundaryOrderedSSetIso 4).symm
+
+/-- The facet family computed after all thirteen moves is isomorphic to the standard simplicial
+three-sphere.  This identifies the endpoint only; invariance under each bistellar move is the
+separate next bridge. -/
+noncomputable def trisectionPieceZeroBistellarResultSSetIso :
+    orderedSSet
+        (applyBistellarMoves (trisectionPieceBaseFacets 0)
+          trisectionPieceZeroBaseBistellarMoves) ≅
+      (SSet.boundary 4 : SSet) :=
+  SSet.Subcomplex.eqToIso
+      (congrArg orderedSubcomplex trisectionPieceZeroBase_bistellar_result) ≪≫
+    trisectionPieceZeroFinalBoundarySSetIsoStd
+
+/-- The once-rotated computed endpoint is the standard simplicial three-sphere. -/
+noncomputable def trisectionPieceFiveBistellarResultSSetIso :
+    orderedSSet
+        (applyBistellarMoves (trisectionPieceBaseFacets 5)
+          trisectionPieceFiveBaseBistellarMoves) ≅
+      (SSet.boundary 4 : SSet) :=
+  SSet.Subcomplex.eqToIso
+      (congrArg orderedSubcomplex trisectionPieceFiveBase_bistellar_result) ≪≫
+    trisectionPieceFiveFinalBoundarySSetIsoStd
+
+/-- The twice-rotated computed endpoint is the standard simplicial three-sphere. -/
+noncomputable def trisectionPieceFourBistellarResultSSetIso :
+    orderedSSet
+        (applyBistellarMoves (trisectionPieceBaseFacets 4)
+          trisectionPieceFourBaseBistellarMoves) ≅
+      (SSet.boundary 4 : SSet) :=
+  SSet.Subcomplex.eqToIso
+      (congrArg orderedSubcomplex trisectionPieceFourBase_bistellar_result) ≪≫
+    trisectionPieceFourFinalBoundarySSetIsoStd
+
+/-- Geometric realization of the base-at-zero computed endpoint is isomorphic to realization of
+the standard simplicial three-sphere. -/
+noncomputable def trisectionPieceZeroBistellarResultRealizationIso :
+    SSet.toTop.obj
+        (orderedSSet
+          (applyBistellarMoves (trisectionPieceBaseFacets 0)
+            trisectionPieceZeroBaseBistellarMoves)) ≅
+      SSet.toTop.obj (SSet.boundary 4 : SSet) :=
+  SSet.toTop.mapIso trisectionPieceZeroBistellarResultSSetIso
+
+/-- Geometric realization of the once-rotated computed endpoint is the realization of the
+standard simplicial three-sphere. -/
+noncomputable def trisectionPieceFiveBistellarResultRealizationIso :
+    SSet.toTop.obj
+        (orderedSSet
+          (applyBistellarMoves (trisectionPieceBaseFacets 5)
+            trisectionPieceFiveBaseBistellarMoves)) ≅
+      SSet.toTop.obj (SSet.boundary 4 : SSet) :=
+  SSet.toTop.mapIso trisectionPieceFiveBistellarResultSSetIso
+
+/-- Geometric realization of the twice-rotated computed endpoint is the realization of the
+standard simplicial three-sphere. -/
+noncomputable def trisectionPieceFourBistellarResultRealizationIso :
+    SSet.toTop.obj
+        (orderedSSet
+          (applyBistellarMoves (trisectionPieceBaseFacets 4)
+            trisectionPieceFourBaseBistellarMoves)) ≅
+      SSet.toTop.obj (SSet.boundary 4 : SSet) :=
+  SSet.toTop.mapIso trisectionPieceFourBistellarResultSSetIso
 
 end ComplexProjectivePlaneTriangulation
 
