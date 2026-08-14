@@ -309,6 +309,30 @@ noncomputable def trisectionPieceFourBistellarResultRealizationToSphere :
   trisectionPieceFourBistellarResultRealizationIso.hom ≫
     boundaryRealizationToSphere 3
 
+/-- The canonical map from the realized base-at-zero computed endpoint onto the exact metric
+three-sphere is surjective. -/
+theorem trisectionPieceZeroBistellarResultRealizationToSphere_surjective :
+    Function.Surjective trisectionPieceZeroBistellarResultRealizationToSphere := by
+  exact (boundaryRealizationToSphere_surjective 3).comp
+    (ConcreteCategory.bijective_of_isIso
+      trisectionPieceZeroBistellarResultRealizationIso.hom).2
+
+/-- The canonical map from the realized once-rotated computed endpoint onto the exact metric
+three-sphere is surjective. -/
+theorem trisectionPieceFiveBistellarResultRealizationToSphere_surjective :
+    Function.Surjective trisectionPieceFiveBistellarResultRealizationToSphere := by
+  exact (boundaryRealizationToSphere_surjective 3).comp
+    (ConcreteCategory.bijective_of_isIso
+      trisectionPieceFiveBistellarResultRealizationIso.hom).2
+
+/-- The canonical map from the realized twice-rotated computed endpoint onto the exact metric
+three-sphere is surjective. -/
+theorem trisectionPieceFourBistellarResultRealizationToSphere_surjective :
+    Function.Surjective trisectionPieceFourBistellarResultRealizationToSphere := by
+  exact (boundaryRealizationToSphere_surjective 3).comp
+    (ConcreteCategory.bijective_of_isIso
+      trisectionPieceFourBistellarResultRealizationIso.hom).2
+
 end ComplexProjectivePlaneTriangulation
 
 end Submission
