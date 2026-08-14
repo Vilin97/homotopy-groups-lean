@@ -6,7 +6,7 @@
       "name": "HomotopyGroups.pi1_complexProjectiveSpace_subsingleton",
       "basename": "pi1_complexProjectiveSpace_subsingleton",
       "kind": "theorem",
-      "body": "theorem pi1_complexProjectiveSpace_subsingleton\n    (n : \u2115) (hn : 1 \u2264 n) :\n    Subsingleton\n      (HomotopyGroup.Pi 1 (ComplexProjectiveSpace n)\n        (complexProjectiveBasepoint n)) := by\n  sorry"
+      "body": "theorem pi1_complexProjectiveSpace_subsingleton\n    (n : \u2115) (hn : 1 \u2264 n) :\n    Subsingleton\n      (HomotopyGroup.Pi 1 (ComplexProjectiveSpace n)\n        (complexProjectiveBasepoint n)) := by\n  rw [\u2190 show Submission.complexProjectiveFunctionBasepoint n =\n    complexProjectiveBasepoint n from rfl]\n  exact Submission.piOne_complexProjectiveFunctionModel_subsingleton n hn"
     }
   ]
 }

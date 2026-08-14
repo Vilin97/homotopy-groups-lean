@@ -6,7 +6,7 @@
       "name": "HomotopyGroups.homotopyGroup_change_basepoint",
       "basename": "homotopyGroup_change_basepoint",
       "kind": "theorem",
-      "body": "theorem homotopyGroup_change_basepoint\n    (n : \u2115) (X : Type u) [TopologicalSpace X]\n    (x y : X) (p : Path x y) :\n    Nonempty\n      (HomotopyGroup.Pi (n + 1) X x \u2243*\n        HomotopyGroup.Pi (n + 1) X y) := by\n  sorry"
+      "body": "theorem homotopyGroup_change_basepoint\n    (n : \u2115) (X : Type u) [TopologicalSpace X]\n    (x y : X) (p : Path x y) :\n    Nonempty\n      (HomotopyGroup.Pi (n + 1) X x \u2243*\n        HomotopyGroup.Pi (n + 1) X y) := by\n  exact Submission.homotopyGroup_change_basepoint n X x y p"
     }
   ]
 }

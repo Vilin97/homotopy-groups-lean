@@ -5,7 +5,7 @@ The fundamental group of an H-space is commutative
 - Problem ID: `pi1_hSpace_mul_comm`
 - Test Problem: no
 - Submitter: OpenAI Codex
-- Notes: knowledge_status=statement_only; mathlib defines HSpace but does not connect that structure to FundamentalGroup or HomotopyGroup.Pi 1.
+- Notes: knowledge_status=formalized_local; pointwise H-space multiplication and loop concatenation satisfy Eckmann--Hilton, proving the exact benchmark statement.
 - Source: https://doi.org/10.2307/1969485
 
 Do not modify `Challenge.lean` or `Solution.lean`. Those files are part of the

@@ -27,8 +27,8 @@ namespace HomotopyGroups
 @[eval_problem]
 theorem sphere_one_higher_homotopy_subsingleton (k : ℕ) :
     Subsingleton
-      (HomotopyGroup.Pi (k + 2) (SphereSpace 1) (sphereBasepoint 1)) :=
-  Submission.sph_one_higher_homotopy_subsingleton_at k (sphereBasepoint 1)
+      (HomotopyGroup.Pi (k + 2) (SphereSpace 1) (sphereBasepoint 1)) := by
+  exact Submission.sph_one_higher_homotopy_subsingleton_at k (sphereBasepoint 1)
 
 /-- The complete second-offset family: `pi_(n+2)(S^n) = C2` for `n >= 2`. -/
 @[eval_problem]

@@ -6,7 +6,7 @@
       "name": "HomotopyGroups.sphere_diagonal_homotopy_mulEquiv_int",
       "basename": "sphere_diagonal_homotopy_mulEquiv_int",
       "kind": "theorem",
-      "body": "theorem sphere_diagonal_homotopy_mulEquiv_int (n : \u2115) :\n    Nonempty\n      (HomotopyGroup.Pi (n + 1) (SphereSpace (n + 1))\n          (sphereBasepoint (n + 1)) \u2243*\n        Multiplicative \u2124) := by\n  sorry"
+      "body": "theorem sphere_diagonal_homotopy_mulEquiv_int (n : \u2115) :\n    Nonempty\n      (HomotopyGroup.Pi (n + 1) (SphereSpace (n + 1))\n          (sphereBasepoint (n + 1)) \u2243*\n        Multiplicative \u2124) := by\n  exact Submission.sphere_diagonal_sph_at_mulEquiv_int n (sphereBasepoint (n + 1))"
     }
   ]
 }

@@ -63,30 +63,30 @@ noncomputable def complexProjectiveBasepoint (n : ℕ) : ComplexProjectiveSpace 
 theorem pi1_circle_mulEquiv_int :
     Nonempty
       (HomotopyGroup.Pi 1 Circle (1 : Circle) ≃*
-        Multiplicative ℤ) :=
-  Submission.pi1_circle_mulEquiv_int
+        Multiplicative ℤ) := by
+  exact Submission.pi1_circle_mulEquiv_int
 
 @[eval_problem]
 theorem sphere_lower_homotopy_subsingleton
     (n k : ℕ) (hk : k < n) :
     Subsingleton
-      (HomotopyGroup.Pi k (SphereSpace n) (sphereBasepoint n)) :=
-  Submission.subsingleton_homotopyGroup_sphere_of_lt k n hk (sphereBasepoint n)
+      (HomotopyGroup.Pi k (SphereSpace n) (sphereBasepoint n)) := by
+  exact Submission.subsingleton_homotopyGroup_sphere_of_lt k n hk (sphereBasepoint n)
 
 @[eval_problem]
 theorem sphere_diagonal_homotopy_mulEquiv_int (n : ℕ) :
     Nonempty
       (HomotopyGroup.Pi (n + 1) (SphereSpace (n + 1))
           (sphereBasepoint (n + 1)) ≃*
-        Multiplicative ℤ) :=
-  Submission.sphere_diagonal_sph_at_mulEquiv_int n (sphereBasepoint (n + 1))
+        Multiplicative ℤ) := by
+  exact Submission.sphere_diagonal_sph_at_mulEquiv_int n (sphereBasepoint (n + 1))
 
 @[eval_problem]
 theorem pi3_sphere_two_mulEquiv_int :
     Nonempty
       (HomotopyGroup.Pi 3 (SphereSpace 2) (sphereBasepoint 2) ≃*
-        Multiplicative ℤ) :=
-  Submission.pi3_sphere_two_mulEquiv_int
+        Multiplicative ℤ) := by
+  exact Submission.pi3_sphere_two_mulEquiv_int
 
 @[eval_problem]
 theorem sphere_first_stable_homotopy_mulEquiv_zmod_two

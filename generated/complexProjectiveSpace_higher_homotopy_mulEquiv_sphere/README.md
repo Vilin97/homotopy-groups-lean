@@ -5,7 +5,7 @@ Higher homotopy groups of complex projective space agree with an odd sphere
 - Problem ID: `complexProjectiveSpace_higher_homotopy_mulEquiv_sphere`
 - Test Problem: no
 - Submitter: OpenAI Codex
-- Notes: knowledge_status=foundation_blocked; states pi_k(CP^n)=pi_k(S^(2n+1)) for k>=3 and n>=1 via the Hopf fibration.
+- Notes: knowledge_status=formalized_local; the generalized complex Hopf Serre fibration and circle-fibre vanishing identify every pi_(k+3) of the exact projective model with the corresponding odd-sphere group.
 - Source: https://pi.math.cornell.edu/~hatcher/AT/AT.pdf
 
 Do not modify `Challenge.lean` or `Solution.lean`. Those files are part of the

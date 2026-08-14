@@ -5,7 +5,7 @@ All higher homotopy groups of the circle vanish
 - Problem ID: `sphere_one_higher_homotopy_subsingleton`
 - Test Problem: no
 - Submitter: OpenAI Codex
-- Notes: knowledge_status=known_result/exact; states the result for the benchmark's metric SphereSpace 1; the current TauCeti formalization uses an equivalent circle model whose explicit bridge is not yet in Mathlib.
+- Notes: knowledge_status=formalized_local; an explicit circle-to-metric-sphere homeomorphism and covering invariance prove the exact canonical declaration in every degree above one.
 - Source: https://pi.math.cornell.edu/~hatcher/AT/AT.pdf
 
 Do not modify `Challenge.lean` or `Solution.lean`. Those files are part of the

@@ -5,7 +5,7 @@ Higher homotopy groups of real projective space agree with those of its sphere c
 - Problem ID: `realProjectiveSpace_higher_homotopy_mulEquiv_sphere`
 - Test Problem: no
 - Submitter: OpenAI Codex
-- Notes: knowledge_status=foundation_blocked; covers all degrees >=2 and dimensions >=2; the required higher covering-space lifting theorem is absent.
+- Notes: knowledge_status=formalized_local; proved in every degree >=2 and dimension >=2 for the exact projective and metric-sphere models by higher covering invariance.
 - Source: https://pi.math.cornell.edu/~hatcher/AT/AT.pdf
 
 Do not modify `Challenge.lean` or `Solution.lean`. Those files are part of the

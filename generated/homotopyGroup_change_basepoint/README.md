@@ -5,7 +5,7 @@ A path induces change of basepoint on higher homotopy groups
 - Problem ID: `homotopyGroup_change_basepoint`
 - Test Problem: no
 - Submitter: OpenAI Codex
-- Notes: knowledge_status=foundation_blocked; the fundamental-group API has basepoint change, but HomotopyGroup has no higher counterpart.
+- Notes: knowledge_status=formalized_local; a path now induces the exact benchmark MulEquiv in every positive homotopy degree.
 - Source: https://pi.math.cornell.edu/~hatcher/AT/AT.pdf
 
 Do not modify `Challenge.lean` or `Solution.lean`. Those files are part of the

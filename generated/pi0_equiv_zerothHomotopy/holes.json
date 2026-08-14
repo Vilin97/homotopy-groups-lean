@@ -6,7 +6,7 @@
       "name": "HomotopyGroups.pi0_equiv_zerothHomotopy",
       "basename": "pi0_equiv_zerothHomotopy",
       "kind": "theorem",
-      "body": "theorem pi0_equiv_zerothHomotopy\n    (X : Type u) [TopologicalSpace X] (x : X) :\n    Nonempty (HomotopyGroup.Pi 0 X x \u2243 ZerothHomotopy X) := by\n  sorry"
+      "body": "theorem pi0_equiv_zerothHomotopy\n    (X : Type u) [TopologicalSpace X] (x : X) :\n    Nonempty (HomotopyGroup.Pi 0 X x \u2243 ZerothHomotopy X) := by\n  exact Submission.pi0_equiv_zerothHomotopy X x"
     }
   ]
 }

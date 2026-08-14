@@ -1134,6 +1134,31 @@ def applyEdits (sourceText : String) (edits : Array (Nat × Nat × String)) : St
     result := Source.slice src 0 start ++ replacement ++ Source.slice src stop src.size
   return result
 
+/-- Replace the proof body of every retained `@[eval_problem]` declaration by
+`by sorry`.  `ChallengeDeps.lean` may expose the *statement* of an earlier
+benchmark declaration as a dependency, but must not copy its maintained proof:
+that proof can refer to repository-local `Submission` modules which are
+deliberately unavailable in standalone challenge workspaces. -/
+def evalProblemStubEdits (sourceText : String) (spans : Array DeclSpan)
+    (bodyStart : Nat) (keepNames? : Option (Std.HashSet String) := none) :
+    Array (Nat × Nat × String) := Id.run do
+  let src := Source.ofString sourceText
+  let mut edits : Array (Nat × Nat × String) := #[]
+  for i in [0:spans.size] do
+    let span := spans[i]!
+    if let some keepNames := keepNames? then
+      if !keepNames.contains span.name then continue
+    let contextStart := if i == 0 then bodyStart else spans[i - 1]!.declEnd
+    let context := Source.slice src contextStart span.declEnd
+    if (context.find? "@[eval_problem]").isNone then continue
+    let declText := Source.slice src span.start span.declEnd
+    let declSrc := Source.ofString declText
+    let some bodyPos := Source.rfind declSrc declSrc.size ":=".toList
+      | continue
+    let signature := Source.slice declSrc 0 (bodyPos + 2)
+    edits := edits.push (span.start, span.declEnd, signature ++ " by\n  sorry")
+  return edits
+
 
 /-- Shared core of single- and multi-hole `ChallengeDeps.lean` rendering.
 
@@ -1154,6 +1179,11 @@ def renderChallengeDepsCore (root : System.FilePath) (entry : EvalProblemMetadat
     let importedText ← IO.FS.readFile importedPath
     let importedSrc := Source.ofString importedText
     let prelude := importPreludeLength importedSrc
+    let importedEntry := { entry with moduleName := imported }
+    let importedSpans ← loadDeclSpans root importedEntry importedSrc
+    let importedText := applyEdits importedText
+      (evalProblemStubEdits importedText importedSpans prelude)
+    let importedSrc := Source.ofString importedText
     let afterPrelude := Source.slice importedSrc prelude importedSrc.size
     let body := (stripProblemMarkers afterPrelude).trimAsciiStart.toString
     let body := if !body.isEmpty && !body.endsWith "\n" then body ++ "\n" else body
@@ -1163,24 +1193,15 @@ def renderChallengeDepsCore (root : System.FilePath) (entry : EvalProblemMetadat
     let sourceSrc := Source.ofString sourceText
     let bodyStart := importPreludeLength sourceSrc
     let spans ← loadDeclSpans root entry sourceSrc
-    let mut removeRangesRaw : Array (Nat × Nat) := #[]
+    let mut edits := evalProblemStubEdits sourceText spans bodyStart (some keepDeclarations)
     for span in spans do
       if keepDeclarations.contains span.name then continue
       match protectedRanges[span.name]? with
-      | some (s, e) => removeRangesRaw := removeRangesRaw.push (s, e)
-      | none => removeRangesRaw := removeRangesRaw.push (span.start, span.stop)
-    let removeRanges := removeRangesRaw.qsort
-      (fun a b => a.1 < b.1 || (a.1 == b.1 && a.2 < b.2))
-    let mut pieces : Array String := #[]
-    let mut cursor := bodyStart
-    for (s, e) in removeRanges do
-      if e ≤ bodyStart then continue
-      let s := if s < bodyStart then bodyStart else s
-      if s < cursor then continue
-      pieces := pieces.push (Source.slice sourceSrc cursor s)
-      cursor := e
-    pieces := pieces.push (Source.slice sourceSrc cursor sourceSrc.size)
-    let body := (pieces.foldl (· ++ ·) "").trimAsciiStart.toString
+      | some (s, e) => edits := edits.push (s, e, "")
+      | none => edits := edits.push (span.start, span.stop, "")
+    let editedText := applyEdits sourceText edits
+    let editedSrc := Source.ofString editedText
+    let body := (Source.slice editedSrc bodyStart editedSrc.size).trimAsciiStart.toString
     let body := if !body.isEmpty && !body.endsWith "\n" then body ++ "\n" else body
     if !body.isEmpty then
       parts := parts.push body

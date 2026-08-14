@@ -5,7 +5,7 @@ The third homotopy group of the two-sphere is the integers
 - Problem ID: `pi3_sphere_two_mulEquiv_int`
 - Test Problem: no
 - Submitter: OpenAI Codex
-- Notes: knowledge_status=foundation_blocked; the Hopf-fibration computation is meaningful on the concrete sphere, but no fibration long exact sequence exists in the native API.
+- Notes: knowledge_status=formalized_local; explicit non-antipodal transport and balanced dyadic homotopy lifting prove that the exact Hopf map is a Serre fibration, and its circle-fibre long exact sequence closes the canonical declaration.
 - Source: https://pi.math.cornell.edu/~hatcher/AT/AT.pdf
 
 Do not modify `Challenge.lean` or `Solution.lean`. Those files are part of the

@@ -5,7 +5,7 @@ A path-connected space has trivial zeroth homotopy group
 - Problem ID: `pi0_pathConnected_subsingleton`
 - Test Problem: no
 - Submitter: OpenAI Codex
-- Notes: knowledge_status=native_consequence; follows from mathlib's pi0EquivZerothHomotopy and the path-connected ZerothHomotopy instance.
+- Notes: knowledge_status=formalized_local; the exact canonical declaration is proved from Mathlib's pi0EquivZerothHomotopy and the path-connected ZerothHomotopy instance.
 - Source: https://pi.math.cornell.edu/~hatcher/AT/AT.pdf
 
 Do not modify `Challenge.lean` or `Solution.lean`. Those files are part of the

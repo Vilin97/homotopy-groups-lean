@@ -5,7 +5,7 @@ The fundamental group of real projective n-space is cyclic of order two
 - Problem ID: `pi1_realProjectiveSpace_mulEquiv_zmod_two`
 - Test Problem: no
 - Submitter: OpenAI Codex
-- Notes: knowledge_status=statement_only; RealProjectiveSpace is the genuine quotient-topology Projectivization model; covering-space identification with the sphere is not formalized.
+- Notes: knowledge_status=formalized_local; proved for the exact quotient-topology Projectivization model by the audited antipodal sphere-cover construction.
 - Source: https://pi.math.cornell.edu/~hatcher/AT/AT.pdf
 
 Do not modify `Challenge.lean` or `Solution.lean`. Those files are part of the

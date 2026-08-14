@@ -5,7 +5,7 @@ The diagonal homotopy group of a positive-dimensional sphere is the integers
 - Problem ID: `sphere_diagonal_homotopy_mulEquiv_int`
 - Test Problem: no
 - Submitter: OpenAI Codex
-- Notes: knowledge_status=foundation_blocked; this is pi_n(S^n)=Z for n>=1, with positivity encoded by the successor parameter; no Hurewicz bridge exists.
+- Notes: knowledge_status=formalized_local; the first-nonvanishing Hurewicz equivalence and integral sphere orientation prove the exact canonical declaration uniformly for every positive dimension.
 - Source: https://pi.math.cornell.edu/~hatcher/AT/AT.pdf
 
 Do not modify `Challenge.lean` or `Solution.lean`. Those files are part of the

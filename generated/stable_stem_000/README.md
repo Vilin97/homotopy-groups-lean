@@ -5,7 +5,7 @@ Stable stem 0: pi_2(S^2)
 - Problem ID: `stable_stem_000`
 - Test Problem: no
 - Submitter: homotopy-groups-lean research registry
-- Notes: knowledge_status=known_result/exact Stable representative pi_2(S^2) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z. Generated from research/stable-stems.json registry 2026-08-07.1. The stable degree group: pi_0^S is infinite cyclic.
+- Notes: knowledge_status=formalized_local Stable representative pi_2(S^2) lies at the Freudenthal isomorphism bound q=2n-2. Integral invariant factors: Z. The exact benchmark declaration is Lean-kernel checked. Generated from research/stable-stems.json registry 2026-08-07.1. The stable degree group: pi_0^S is infinite cyclic.
 - Source: iwx2023 Introduction and definition of stable stems: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)
 
 Do not modify `Challenge.lean` or `Solution.lean`. Those files are part of the

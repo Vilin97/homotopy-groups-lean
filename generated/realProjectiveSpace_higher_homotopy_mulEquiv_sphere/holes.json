@@ -6,7 +6,7 @@
       "name": "HomotopyGroups.realProjectiveSpace_higher_homotopy_mulEquiv_sphere",
       "basename": "realProjectiveSpace_higher_homotopy_mulEquiv_sphere",
       "kind": "theorem",
-      "body": "theorem realProjectiveSpace_higher_homotopy_mulEquiv_sphere\n    (n k : \u2115) (hn : 2 \u2264 n) :\n    Nonempty\n      (HomotopyGroup.Pi (k + 2) (RealProjectiveSpace n)\n          (realProjectiveBasepoint n) \u2243*\n        HomotopyGroup.Pi (k + 2) (SphereSpace n)\n          (sphereBasepoint n)) := by\n  sorry"
+      "body": "theorem realProjectiveSpace_higher_homotopy_mulEquiv_sphere\n    (n k : \u2115) (_hn : 2 \u2264 n) :\n    Nonempty\n      (HomotopyGroup.Pi (k + 2) (RealProjectiveSpace n)\n          (realProjectiveBasepoint n) \u2243*\n        HomotopyGroup.Pi (k + 2) (SphereSpace n)\n          (sphereBasepoint n)) := by\n  rw [\u2190 show Submission.realProjectiveModelBasepoint n = realProjectiveBasepoint n from rfl,\n    \u2190 show Submission.sphereModelBasepoint n = sphereBasepoint n from rfl]\n  exact Submission.realProjectiveModel_higher_homotopy_mulEquiv_sphere n k"
     }
   ]
 }

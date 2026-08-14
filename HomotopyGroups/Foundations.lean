@@ -23,15 +23,15 @@ universe u v
 @[eval_problem]
 theorem pi0_equiv_zerothHomotopy
     (X : Type u) [TopologicalSpace X] (x : X) :
-    Nonempty (HomotopyGroup.Pi 0 X x ≃ ZerothHomotopy X) :=
-  Submission.pi0_equiv_zerothHomotopy X x
+    Nonempty (HomotopyGroup.Pi 0 X x ≃ ZerothHomotopy X) := by
+  exact Submission.pi0_equiv_zerothHomotopy X x
 
 @[eval_problem]
 theorem pi1_mulEquiv_fundamentalGroup
     (X : Type u) [TopologicalSpace X] (x : X) :
     Nonempty
-      (HomotopyGroup.Pi 1 X x ≃* FundamentalGroup X x) :=
-  Submission.pi1_mulEquiv_fundamentalGroup X x
+      (HomotopyGroup.Pi 1 X x ≃* FundamentalGroup X x) := by
+  exact Submission.pi1_mulEquiv_fundamentalGroup X x
 
 @[eval_problem]
 theorem pi0_pathConnected_subsingleton
@@ -49,15 +49,15 @@ theorem pi1_simplyConnected_subsingleton
 theorem higher_homotopy_mul_comm
     (n : ℕ) (X : Type u) [TopologicalSpace X] (x : X)
     (a b : HomotopyGroup.Pi (n + 2) X x) :
-    a * b = b * a :=
-  mul_comm a b
+    a * b = b * a := by
+  exact mul_comm a b
 
 @[eval_problem]
 theorem pi1_hSpace_mul_comm
     (X : Type u) [TopologicalSpace X] [HSpace X]
     (a b : HomotopyGroup.Pi 1 X HSpace.e) :
-    a * b = b * a :=
-  Submission.pi1_hSpace_mul_comm X a b
+    a * b = b * a := by
+  exact Submission.pi1_hSpace_mul_comm X a b
 
 @[eval_problem]
 theorem homotopyGroup_homotopy_invariance
@@ -66,8 +66,8 @@ theorem homotopyGroup_homotopy_invariance
     (x : X) (e : X ≃ₕ Y) :
     Nonempty
       (HomotopyGroup.Pi (n + 1) X x ≃*
-        HomotopyGroup.Pi (n + 1) Y (e x)) :=
-  Submission.homotopyGroup_homotopy_invariance n X Y x e
+        HomotopyGroup.Pi (n + 1) Y (e x)) := by
+  exact Submission.homotopyGroup_homotopy_invariance n X Y x e
 
 @[eval_problem]
 theorem homotopyGroup_change_basepoint
@@ -75,8 +75,8 @@ theorem homotopyGroup_change_basepoint
     (x y : X) (p : Path x y) :
     Nonempty
       (HomotopyGroup.Pi (n + 1) X x ≃*
-        HomotopyGroup.Pi (n + 1) X y) :=
-  Submission.homotopyGroup_change_basepoint n X x y p
+        HomotopyGroup.Pi (n + 1) X y) := by
+  exact Submission.homotopyGroup_change_basepoint n X x y p
 
 @[eval_problem]
 theorem homotopyGroup_product
@@ -86,8 +86,8 @@ theorem homotopyGroup_product
     Nonempty
       (HomotopyGroup.Pi (n + 1) (X × Y) (x, y) ≃*
         HomotopyGroup.Pi (n + 1) X x ×
-          HomotopyGroup.Pi (n + 1) Y y) :=
-  Submission.homotopyGroup_product n X Y x y
+          HomotopyGroup.Pi (n + 1) Y y) := by
+  exact Submission.homotopyGroup_product n X Y x y
 
 @[eval_problem]
 theorem homotopyGroup_loop_shift
@@ -95,7 +95,7 @@ theorem homotopyGroup_loop_shift
     Nonempty
       (HomotopyGroup.Pi (n + 1)
           (GenLoop (Fin 1) X x) GenLoop.const ≃*
-        HomotopyGroup.Pi (n + 2) X x) :=
-  Submission.homotopyGroup_loop_shift n X x
+        HomotopyGroup.Pi (n + 2) X x) := by
+  exact Submission.homotopyGroup_loop_shift n X x
 
 end HomotopyGroups

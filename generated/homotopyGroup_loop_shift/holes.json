@@ -6,7 +6,7 @@
       "name": "HomotopyGroups.homotopyGroup_loop_shift",
       "basename": "homotopyGroup_loop_shift",
       "kind": "theorem",
-      "body": "theorem homotopyGroup_loop_shift\n    (n : \u2115) (X : Type u) [TopologicalSpace X] (x : X) :\n    Nonempty\n      (HomotopyGroup.Pi (n + 1)\n          (GenLoop (Fin 1) X x) GenLoop.const \u2243*\n        HomotopyGroup.Pi (n + 2) X x) := by\n  sorry"
+      "body": "theorem homotopyGroup_loop_shift\n    (n : \u2115) (X : Type u) [TopologicalSpace X] (x : X) :\n    Nonempty\n      (HomotopyGroup.Pi (n + 1)\n          (GenLoop (Fin 1) X x) GenLoop.const \u2243*\n        HomotopyGroup.Pi (n + 2) X x) := by\n  exact Submission.homotopyGroup_loop_shift n X x"
     }
   ]
 }

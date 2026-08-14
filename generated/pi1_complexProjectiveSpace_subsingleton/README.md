@@ -5,7 +5,7 @@ Positive-dimensional complex projective space is simply connected
 - Problem ID: `pi1_complexProjectiveSpace_subsingleton`
 - Test Problem: no
 - Submitter: OpenAI Codex
-- Notes: knowledge_status=statement_only; ComplexProjectiveSpace is the genuine quotient-topology Projectivization model; its Hopf-fibration connectivity proof is absent.
+- Notes: knowledge_status=formalized_local; the generalized complex Hopf map is proved to be a Serre fibration with circle fibre, and its long exact sequence gives the exact canonical simply-connectedness theorem.
 - Source: https://pi.math.cornell.edu/~hatcher/AT/AT.pdf
 
 Do not modify `Challenge.lean` or `Solution.lean`. Those files are part of the

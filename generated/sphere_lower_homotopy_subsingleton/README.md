@@ -5,7 +5,7 @@ Homotopy groups below the dimension of a sphere vanish
 - Problem ID: `sphere_lower_homotopy_subsingleton`
 - Test Problem: no
 - Submitter: OpenAI Codex
-- Notes: knowledge_status=foundation_blocked; the concrete metric sphere exists, but sphere connectivity and cellular approximation are absent.
+- Notes: knowledge_status=formalized_local; the audited metric-sphere connectivity theorem now proves the exact canonical declaration for every k<n.
 - Source: https://pi.math.cornell.edu/~hatcher/AT/AT.pdf
 
 Do not modify `Challenge.lean` or `Solution.lean`. Those files are part of the

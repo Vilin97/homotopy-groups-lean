@@ -6,7 +6,7 @@
       "name": "HomotopyGroups.pi1_hSpace_mul_comm",
       "basename": "pi1_hSpace_mul_comm",
       "kind": "theorem",
-      "body": "theorem pi1_hSpace_mul_comm\n    (X : Type u) [TopologicalSpace X] [HSpace X]\n    (a b : HomotopyGroup.Pi 1 X HSpace.e) :\n    a * b = b * a := by\n  sorry"
+      "body": "theorem pi1_hSpace_mul_comm\n    (X : Type u) [TopologicalSpace X] [HSpace X]\n    (a b : HomotopyGroup.Pi 1 X HSpace.e) :\n    a * b = b * a := by\n  exact Submission.pi1_hSpace_mul_comm X a b"
     }
   ]
 }

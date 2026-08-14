@@ -6,7 +6,7 @@
       "name": "HomotopyGroups.sphere_one_higher_homotopy_subsingleton",
       "basename": "sphere_one_higher_homotopy_subsingleton",
       "kind": "theorem",
-      "body": "/-- Every homotopy group of the metric circle above degree one is trivial. -/\ntheorem sphere_one_higher_homotopy_subsingleton (k : \u2115) :\n    Subsingleton\n      (HomotopyGroup.Pi (k + 2) (SphereSpace 1) (sphereBasepoint 1)) := by\n  sorry"
+      "body": "/-- Every homotopy group of the metric circle above degree one is trivial. -/\ntheorem sphere_one_higher_homotopy_subsingleton (k : \u2115) :\n    Subsingleton\n      (HomotopyGroup.Pi (k + 2) (SphereSpace 1) (sphereBasepoint 1)) := by\n  exact Submission.sph_one_higher_homotopy_subsingleton_at k (sphereBasepoint 1)"
     }
   ]
 }

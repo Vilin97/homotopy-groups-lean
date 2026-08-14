@@ -6,7 +6,7 @@
       "name": "HomotopyGroups.pi1_mulEquiv_fundamentalGroup",
       "basename": "pi1_mulEquiv_fundamentalGroup",
       "kind": "theorem",
-      "body": "theorem pi1_mulEquiv_fundamentalGroup\n    (X : Type u) [TopologicalSpace X] (x : X) :\n    Nonempty\n      (HomotopyGroup.Pi 1 X x \u2243* FundamentalGroup X x) := by\n  sorry"
+      "body": "theorem pi1_mulEquiv_fundamentalGroup\n    (X : Type u) [TopologicalSpace X] (x : X) :\n    Nonempty\n      (HomotopyGroup.Pi 1 X x \u2243* FundamentalGroup X x) := by\n  exact Submission.pi1_mulEquiv_fundamentalGroup X x"
     }
   ]
 }

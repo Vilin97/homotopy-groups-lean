@@ -6,7 +6,7 @@
       "name": "HomotopyGroups.sphere_lower_homotopy_subsingleton",
       "basename": "sphere_lower_homotopy_subsingleton",
       "kind": "theorem",
-      "body": "theorem sphere_lower_homotopy_subsingleton\n    (n k : \u2115) (hk : k < n) :\n    Subsingleton\n      (HomotopyGroup.Pi k (SphereSpace n) (sphereBasepoint n)) := by\n  sorry"
+      "body": "theorem sphere_lower_homotopy_subsingleton\n    (n k : \u2115) (hk : k < n) :\n    Subsingleton\n      (HomotopyGroup.Pi k (SphereSpace n) (sphereBasepoint n)) := by\n  exact Submission.subsingleton_homotopyGroup_sphere_of_lt k n hk (sphereBasepoint n)"
     }
   ]
 }

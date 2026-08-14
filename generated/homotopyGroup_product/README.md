@@ -5,7 +5,7 @@ Homotopy groups preserve binary products
 - Problem ID: `homotopyGroup_product`
 - Test Problem: no
 - Submitter: OpenAI Codex
-- Notes: knowledge_status=foundation_blocked; coordinatewise loop maps are available to construct, but no quotient-level product MulEquiv is packaged.
+- Notes: knowledge_status=formalized_local; the coordinatewise loop maps now descend to the exact quotient-level product MulEquiv.
 - Source: https://pi.math.cornell.edu/~hatcher/AT/AT.pdf
 
 Do not modify `Challenge.lean` or `Solution.lean`. Those files are part of the

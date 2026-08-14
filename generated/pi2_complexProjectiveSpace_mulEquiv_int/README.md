@@ -5,7 +5,7 @@ The second homotopy group of complex projective space is the integers
 - Problem ID: `pi2_complexProjectiveSpace_mulEquiv_int`
 - Test Problem: no
 - Submitter: OpenAI Codex
-- Notes: knowledge_status=foundation_blocked; valid for complex dimension at least one; requires the Hopf-fibration long exact sequence or Hurewicz.
+- Notes: knowledge_status=formalized_local; the circle-fibre connecting equivalence for the generalized complex Hopf fibration identifies pi_2 of the exact quotient-topology model with the integers.
 - Source: https://pi.math.cornell.edu/~hatcher/AT/AT.pdf
 
 Do not modify `Challenge.lean` or `Solution.lean`. Those files are part of the

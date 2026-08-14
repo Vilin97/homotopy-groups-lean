@@ -5,7 +5,7 @@ Higher homotopy groups are invariant under homotopy equivalence
 - Problem ID: `homotopyGroup_homotopy_invariance`
 - Test Problem: no
 - Submitter: OpenAI Codex
-- Notes: knowledge_status=foundation_blocked; HomotopyEquiv exists, but native higher induced maps and their multiplicativity are absent.
+- Notes: knowledge_status=formalized_local; the exact benchmark MulEquiv is constructed in every positive degree from the maintained induced-map API.
 - Source: https://pi.math.cornell.edu/~hatcher/AT/AT.pdf
 
 Do not modify `Challenge.lean` or `Solution.lean`. Those files are part of the

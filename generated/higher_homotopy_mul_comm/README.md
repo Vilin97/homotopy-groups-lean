@@ -5,7 +5,7 @@ Higher homotopy groups are commutative
 - Problem ID: `higher_homotopy_mul_comm`
 - Test Problem: no
 - Submitter: OpenAI Codex
-- Notes: knowledge_status=native_consequence; the pinned mathlib already supplies a CommGroup instance for generalized loop dimensions with at least two coordinates.
+- Notes: knowledge_status=formalized_local; the exact canonical declaration is proved from the pinned CommGroup instance in every degree at least two.
 - Source: https://pi.math.cornell.edu/~hatcher/AT/AT.pdf
 
 Do not modify `Challenge.lean` or `Solution.lean`. Those files are part of the

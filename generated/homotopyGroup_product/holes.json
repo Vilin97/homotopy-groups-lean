@@ -6,7 +6,7 @@
       "name": "HomotopyGroups.homotopyGroup_product",
       "basename": "homotopyGroup_product",
       "kind": "theorem",
-      "body": "theorem homotopyGroup_product\n    (n : \u2115) (X : Type u) (Y : Type v)\n    [TopologicalSpace X] [TopologicalSpace Y]\n    (x : X) (y : Y) :\n    Nonempty\n      (HomotopyGroup.Pi (n + 1) (X \u00d7 Y) (x, y) \u2243*\n        HomotopyGroup.Pi (n + 1) X x \u00d7\n          HomotopyGroup.Pi (n + 1) Y y) := by\n  sorry"
+      "body": "theorem homotopyGroup_product\n    (n : \u2115) (X : Type u) (Y : Type v)\n    [TopologicalSpace X] [TopologicalSpace Y]\n    (x : X) (y : Y) :\n    Nonempty\n      (HomotopyGroup.Pi (n + 1) (X \u00d7 Y) (x, y) \u2243*\n        HomotopyGroup.Pi (n + 1) X x \u00d7\n          HomotopyGroup.Pi (n + 1) Y y) := by\n  exact Submission.homotopyGroup_product n X Y x y"
     }
   ]
 }

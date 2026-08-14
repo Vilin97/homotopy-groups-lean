@@ -5,7 +5,7 @@ Loop-space shifting of homotopy groups
 - Problem ID: `homotopyGroup_loop_shift`
 - Test Problem: no
 - Submitter: OpenAI Codex
-- Notes: knowledge_status=foundation_blocked; GenLoop.genLoopGenLoopEquiv exists, but descent to quotient homotopy groups and Fin reindexing are not packaged.
+- Notes: knowledge_status=formalized_local; a homeomorphism from one-dimensional generalized loops to based paths composes with the path-fibration equivalence to prove the exact shift.
 - Source: https://pi.math.cornell.edu/~hatcher/AT/AT.pdf
 
 Do not modify `Challenge.lean` or `Solution.lean`. Those files are part of the

@@ -6,7 +6,7 @@
       "name": "HomotopyGroups.StableStems.stable_stem_000",
       "basename": "stable_stem_000",
       "kind": "theorem",
-      "body": "/--\nStable stem 0, represented by pi_2(S^2).\nThe equality q = 2n - 2 places this representative in the Freudenthal stable range.\nPublished integral group: Z.\nThe stable degree group: pi_0^S is infinite cyclic.\nSources: iwx2023 Introduction and definition of stable stems: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)\n-/\ntheorem stable_stem_000 :\n    Nonempty\n      (\u03c0_ 2 (StableSphere 2) (stableSphereBasepoint 2) \u2243*\n        Multiplicative \u2124) := by\n  sorry"
+      "body": "/--\nStable stem 0, represented by pi_2(S^2).\nThe equality q = 2n - 2 places this representative in the Freudenthal stable range.\nPublished integral group: Z.\nThe stable degree group: pi_0^S is infinite cyclic.\nSources: iwx2023 Introduction and definition of stable stems: https://www.numdam.org/articles/10.1007/s10240-023-00139-1/ (DOI https://doi.org/10.1007/s10240-023-00139-1)\n-/\ntheorem stable_stem_000 :\n    Nonempty\n      (\u03c0_ 2 (StableSphere 2) (stableSphereBasepoint 2) \u2243*\n        Multiplicative \u2124) := by\n  exact Submission.pi2_sphere_two_at_mulEquiv_int (stableSphereBasepoint 2)"
     }
   ]
 }

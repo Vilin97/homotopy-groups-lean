@@ -6,7 +6,7 @@
       "name": "HomotopyGroups.pi1_simplyConnected_subsingleton",
       "basename": "pi1_simplyConnected_subsingleton",
       "kind": "theorem",
-      "body": "theorem pi1_simplyConnected_subsingleton\n    (X : Type u) [TopologicalSpace X] [SimplyConnectedSpace X] (x : X) :\n    Subsingleton (HomotopyGroup.Pi 1 X x) := by\n  sorry"
+      "body": "theorem pi1_simplyConnected_subsingleton\n    (X : Type u) [TopologicalSpace X] [SimplyConnectedSpace X] (x : X) :\n    Subsingleton (HomotopyGroup.Pi 1 X x) := by\n  exact HomotopyGroup.pi1MulEquivFundamentalGroup.injective.subsingleton"
     }
   ]
 }

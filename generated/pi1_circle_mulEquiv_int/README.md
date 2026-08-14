@@ -5,7 +5,7 @@ The fundamental group of the circle is the integers
 - Problem ID: `pi1_circle_mulEquiv_int`
 - Test Problem: no
 - Submitter: OpenAI Codex
-- Notes: knowledge_status=derivable_from_pinned_mathlib; a comparator-safe proof uses Circle.exp, its additive quotient covering, and pi1MulEquivFundamentalGroup.
+- Notes: knowledge_status=formalized_local; Circle.exp, its additive quotient covering, and pi1MulEquivFundamentalGroup now prove the exact canonical declaration.
 - Source: https://pi.math.cornell.edu/~hatcher/AT/AT.pdf
 
 Do not modify `Challenge.lean` or `Solution.lean`. Those files are part of the
