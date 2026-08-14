@@ -144,6 +144,7 @@ import Submission.BistellarSphereHomotopy
 import Submission.BistellarMoveDecomposition
 import Submission.BistellarBallRealization
 import Submission.ComplexProjectivePlaneTrisectionBistellar
+import Submission.ComplexProjectivePlaneTrisectionCone
 import Submission.ComplexProjectivePlaneCohomology
 import Submission.HopfMappingConeHomotopyGroups
 import Submission.SuspendedHopfMap
