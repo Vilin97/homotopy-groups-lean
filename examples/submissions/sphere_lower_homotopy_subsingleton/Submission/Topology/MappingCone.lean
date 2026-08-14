@@ -411,6 +411,34 @@ theorem topologicalConeMap_comp {A B C : TopCat.{u}} (a : A ⟶ B) (b : B ⟶ C)
           (topologicalConePointIncl_map a).symm
       _ = _ := Category.assoc _ _ _
 
+/-- The topological cone carries isomorphisms to isomorphisms. -/
+def topologicalConeIso {A B : TopCat.{u}} (e : A ≅ B) :
+    topologicalCone A ≅ topologicalCone B where
+  hom := topologicalConeMap e.hom
+  inv := topologicalConeMap e.inv
+  hom_inv_id := by
+    rw [← topologicalConeMap_comp, e.hom_inv_id, topologicalConeMap_id]
+  inv_hom_id := by
+    rw [← topologicalConeMap_comp, e.inv_hom_id, topologicalConeMap_id]
+
+@[reassoc]
+theorem topologicalConeCylinderIncl_iso_hom {A B : TopCat.{u}} (e : A ≅ B) :
+    topologicalConeCylinderIncl A ≫ (topologicalConeIso e).hom =
+      topologicalConeCylinderMap e.hom ≫ topologicalConeCylinderIncl B :=
+  topologicalConeCylinderIncl_map e.hom
+
+@[reassoc]
+theorem topologicalConePointIncl_iso_hom {A B : TopCat.{u}} (e : A ≅ B) :
+    topologicalConePointIncl A ≫ (topologicalConeIso e).hom =
+      topologicalConePointIncl B :=
+  topologicalConePointIncl_map e.hom
+
+@[reassoc]
+theorem topologicalConeBaseIncl_iso_hom {A B : TopCat.{u}} (e : A ≅ B) :
+    topologicalConeBaseIncl A ≫ (topologicalConeIso e).hom =
+      e.hom ≫ topologicalConeBaseIncl B :=
+  topologicalConeBaseIncl_map e.hom
+
 /-- The topological mapping cone of `f : A ⟶ X`. -/
 def topologicalMappingCone {A X : TopCat.{u}} (f : A ⟶ X) : TopCat.{u} :=
   pushout f (topologicalConeBaseIncl A)
