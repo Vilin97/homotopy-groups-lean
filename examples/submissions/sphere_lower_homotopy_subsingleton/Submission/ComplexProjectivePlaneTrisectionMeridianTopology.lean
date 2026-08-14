@@ -577,4 +577,84 @@ theorem fourZeroMeridianBoundaryInclPairwise_piOne_mapHom_eq_one
   ext q
   exact fourZeroMeridianBoundaryInclPairwise_piOne_trivial x q
 
+/-! ## The central-to-pairwise composites on fundamental groups -/
+
+/-- The zero-five meridian map through the central interface is pointwise trivial on
+fundamental groups. -/
+theorem zeroFiveMeridianViaCentralInclPairwise_piOne_trivial
+    (x : SSet.toTop.obj (orderedSSet zeroFiveMeridianBoundaryFacets))
+    (q : HomotopyGroup.Pi 1
+      (SSet.toTop.obj (orderedSSet zeroFiveMeridianBoundaryFacets)) x) :
+    HomotopyGroup.map
+        (SSet.toTop.map
+          (zeroFiveMeridianBoundaryInclCentral ≫
+            zeroFiveCentralInterfaceInclPairwise)).hom rfl q = 1 := by
+  rw [zeroFiveMeridianBoundaryInclPairwise_factor_central]
+  exact zeroFiveMeridianBoundaryInclPairwise_piOne_trivial x q
+
+/-- Bundled triviality of the zero-five meridian map through the central interface. -/
+theorem zeroFiveMeridianViaCentralInclPairwise_piOne_mapHom_eq_one
+    (x : SSet.toTop.obj (orderedSSet zeroFiveMeridianBoundaryFacets)) :
+    HomotopyGroup.mapHom (N := Fin 1) (x := x)
+        (y := (SSet.toTop.map
+          (zeroFiveMeridianBoundaryInclCentral ≫
+            zeroFiveCentralInterfaceInclPairwise)).hom x)
+        (SSet.toTop.map
+          (zeroFiveMeridianBoundaryInclCentral ≫
+            zeroFiveCentralInterfaceInclPairwise)).hom rfl = 1 := by
+  ext q
+  exact zeroFiveMeridianViaCentralInclPairwise_piOne_trivial x q
+
+/-- The five-four meridian map through the central interface is pointwise trivial on
+fundamental groups. -/
+theorem fiveFourMeridianViaCentralInclPairwise_piOne_trivial
+    (x : SSet.toTop.obj (orderedSSet fiveFourMeridianBoundaryFacets))
+    (q : HomotopyGroup.Pi 1
+      (SSet.toTop.obj (orderedSSet fiveFourMeridianBoundaryFacets)) x) :
+    HomotopyGroup.map
+        (SSet.toTop.map
+          (fiveFourMeridianBoundaryInclCentral ≫
+            fiveFourCentralInterfaceInclPairwise)).hom rfl q = 1 := by
+  rw [fiveFourMeridianBoundaryInclPairwise_factor_central]
+  exact fiveFourMeridianBoundaryInclPairwise_piOne_trivial x q
+
+/-- Bundled triviality of the five-four meridian map through the central interface. -/
+theorem fiveFourMeridianViaCentralInclPairwise_piOne_mapHom_eq_one
+    (x : SSet.toTop.obj (orderedSSet fiveFourMeridianBoundaryFacets)) :
+    HomotopyGroup.mapHom (N := Fin 1) (x := x)
+        (y := (SSet.toTop.map
+          (fiveFourMeridianBoundaryInclCentral ≫
+            fiveFourCentralInterfaceInclPairwise)).hom x)
+        (SSet.toTop.map
+          (fiveFourMeridianBoundaryInclCentral ≫
+            fiveFourCentralInterfaceInclPairwise)).hom rfl = 1 := by
+  ext q
+  exact fiveFourMeridianViaCentralInclPairwise_piOne_trivial x q
+
+/-- The four-zero meridian map through the central interface is pointwise trivial on
+fundamental groups. -/
+theorem fourZeroMeridianViaCentralInclPairwise_piOne_trivial
+    (x : SSet.toTop.obj (orderedSSet fourZeroMeridianBoundaryFacets))
+    (q : HomotopyGroup.Pi 1
+      (SSet.toTop.obj (orderedSSet fourZeroMeridianBoundaryFacets)) x) :
+    HomotopyGroup.map
+        (SSet.toTop.map
+          (fourZeroMeridianBoundaryInclCentral ≫
+            fourZeroCentralInterfaceInclPairwise)).hom rfl q = 1 := by
+  rw [fourZeroMeridianBoundaryInclPairwise_factor_central]
+  exact fourZeroMeridianBoundaryInclPairwise_piOne_trivial x q
+
+/-- Bundled triviality of the four-zero meridian map through the central interface. -/
+theorem fourZeroMeridianViaCentralInclPairwise_piOne_mapHom_eq_one
+    (x : SSet.toTop.obj (orderedSSet fourZeroMeridianBoundaryFacets)) :
+    HomotopyGroup.mapHom (N := Fin 1) (x := x)
+        (y := (SSet.toTop.map
+          (fourZeroMeridianBoundaryInclCentral ≫
+            fourZeroCentralInterfaceInclPairwise)).hom x)
+        (SSet.toTop.map
+          (fourZeroMeridianBoundaryInclCentral ≫
+            fourZeroCentralInterfaceInclPairwise)).hom rfl = 1 := by
+  ext q
+  exact fourZeroMeridianViaCentralInclPairwise_piOne_trivial x q
+
 end Submission.ComplexProjectivePlaneTriangulation
