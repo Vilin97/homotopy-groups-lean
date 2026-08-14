@@ -139,6 +139,7 @@ import Submission.ComplexProjectivePlaneTrisectionSurface
 import Submission.Cohomology.FiniteOrderedComplexReindex
 import Submission.SSetBoundaryRealization
 import Submission.BistellarSphereRealization
+import Submission.BistellarSphereHomotopy
 import Submission.BistellarMoveDecomposition
 import Submission.ComplexProjectivePlaneTrisectionBistellar
 import Submission.ComplexProjectivePlaneCohomology
