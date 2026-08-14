@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "reviewed_on": "2026-08-13",
+  "reviewed_on": "2026-08-14",
   "scope": "Public, source-auditable Lean 4 formalizations of homotopy-group computations and reusable structural results, plus benchmark records requiring a trust qualification.",
   "maintained_independent_result_set": {
     "count": 10,
@@ -1029,6 +1029,31 @@
       "lattice_overlay": null,
       "degree_lattice_overlay": null,
       "note": "All one hundred nineteen listed declarations are sorry-free Lean 4. Strict autoImplicit=false checks and exact 2,583-job, 8,692-job, 2,584-job, and 2,585-job target builds pass for Topology.PuppeComparison, Topology.PuppeHomotopyGroups, Topology.PuppeDeformation, and Topology.PuppeFlattening; the strict aggregate and exact 8,941-job Submission build also pass. The comparison followed by its section is now explicitly homotopic to the identity: the first quotient-compatible homotopy raises outer height by inner height, and the second jointly continuous homotopy multiplies inner height by one minus time while retaining the outer maximum. Its time-zero map is exactly the first normalized endpoint, and its time-one map is exactly comparison followed by section. Together with the strict reverse composite, this packages the canonical comparison as a homotopy equivalence and yields specified multiplicative equivalences and bijective induced maps on all finite-dimensional homotopy groups at every basepoint, including the canonical suspension points. This structural Puppe milestone still does not evaluate the suspended Hopf invariant and therefore recolors no lattice cell."
+    },
+    {
+      "id": "lean4-second-hopf-mapping-cone-homotopy-groups",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "e8085b40b2aa18b8c5bc3197a3a400faf429737f",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.hopfSecondMappingCone",
+        "Submission.topologicalSuspensionSphereTwoHomeomorphSphereThree",
+        "Submission.hopfSecondMappingConeHomotopyEquivSphereThree",
+        "Submission.pathConnectedSpace_hopfSecondMappingCone",
+        "Submission.hopfSecondMappingConeHomotopyGroupMulEquivSphereThreeAt",
+        "Submission.piZero_hopfSecondMappingCone_subsingleton_at",
+        "Submission.piOne_hopfSecondMappingCone_subsingleton_at",
+        "Submission.piTwo_hopfSecondMappingCone_subsingleton_at",
+        "Submission.piThree_hopfSecondMappingCone_mulEquiv_int_at"
+      ],
+      "result": "the second mapping cone in the Puppe sequence of the exact quadratic Hopf map is homotopy equivalent to S^3; at every basepoint it is path connected, has trivial first and second homotopy groups, has third homotopy group isomorphic to the integers, and more generally has every finite positive-dimensional homotopy group multiplicatively equivalent to the corresponding group of S^3 at the image basepoint",
+      "model_relation": "specializes the explicit generic second-Puppe homotopy equivalence to the maintained quadratic Hopf map S^3 -> S^2, then composes it with the maintained homeomorphisms from the pushout suspension to the quotient suspension and from the suspension of the exact metric 2-sphere to the exact metric 3-sphere",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HopfPuppeHomotopyGroups.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All nine listed declarations are sorry-free Lean 4. Strict autoImplicit=false checking and the exact 8,851-job target build pass for HopfPuppeHomotopyGroups. The result computes the entire positive-dimensional homotopy type of this iterated cofiber in terms of the maintained sphere-three row and gives explicit low-dimensional consequences uniformly at every basepoint. Because the source space being computed is a mapping cone rather than a sphere, this adds no sphere-lattice overlay and does not assert a suspended-Hopf invariant evaluation."
     },
     {
       "id": "lean4-hopf-cofiber-collapse-retraction-obstruction",

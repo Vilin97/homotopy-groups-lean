@@ -46596,6 +46596,34 @@
         "cell_count": 0,
         "coordinates": null,
         "declarations": [
+          "Submission.hopfSecondMappingCone",
+          "Submission.topologicalSuspensionSphereTwoHomeomorphSphereThree",
+          "Submission.hopfSecondMappingConeHomotopyEquivSphereThree",
+          "Submission.pathConnectedSpace_hopfSecondMappingCone",
+          "Submission.hopfSecondMappingConeHomotopyGroupMulEquivSphereThreeAt",
+          "Submission.piZero_hopfSecondMappingCone_subsingleton_at",
+          "Submission.piOne_hopfSecondMappingCone_subsingleton_at",
+          "Submission.piTwo_hopfSecondMappingCone_subsingleton_at",
+          "Submission.piThree_hopfSecondMappingCone_mulEquiv_int_at"
+        ],
+        "degree_cell_count": 0,
+        "degree_coordinates": null,
+        "degree_lattice_kind": null,
+        "degree_lattice_proof": null,
+        "id": "lean4-second-hopf-mapping-cone-homotopy-groups",
+        "lattice_kind": null,
+        "lattice_proof": null,
+        "model_relation": "specializes the explicit generic second-Puppe homotopy equivalence to the maintained quadratic Hopf map S^3 -> S^2, then composes it with the maintained homeomorphisms from the pushout suspension to the quotient suspension and from the suspension of the exact metric 2-sphere to the exact metric 3-sphere",
+        "note": "All nine listed declarations are sorry-free Lean 4. Strict autoImplicit=false checking and the exact 8,851-job target build pass for HopfPuppeHomotopyGroups. The result computes the entire positive-dimensional homotopy type of this iterated cofiber in terms of the maintained sphere-three row and gives explicit low-dimensional consequences uniformly at every basepoint. Because the source space being computed is a mapping cone rather than a sphere, this adds no sphere-lattice overlay and does not assert a suspended-Hopf invariant evaluation.",
+        "result": "the second mapping cone in the Puppe sequence of the exact quadratic Hopf map is homotopy equivalent to S^3; at every basepoint it is path connected, has trivial first and second homotopy groups, has third homotopy group isomorphic to the integers, and more generally has every finite positive-dimensional homotopy group multiplicatively equivalent to the corresponding group of S^3 at the image basepoint",
+        "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/e8085b40b2aa18b8c5bc3197a3a400faf429737f/examples/submissions/sphere_lower_homotopy_subsingleton/Submission/HopfPuppeHomotopyGroups.lean",
+        "status": "lean_kernel_checked_local_source",
+        "system": "Lean 4"
+      },
+      {
+        "cell_count": 0,
+        "coordinates": null,
+        "declarations": [
           "Submission.Hsing.map_const_eq_zero",
           "Submission.hopfMappingConeIncl_not_nullhomotopic",
           "Submission.exists_topologicalMappingConeCollapse_homotopy_retraction_iff_incl_nullhomotopic",
@@ -49131,7 +49159,7 @@
         "system": "Lean 4 HoTT"
       }
     ],
-    "reviewed_on": "2026-08-13",
+    "reviewed_on": "2026-08-14",
     "schema_version": "1.0.0",
     "source": "https://github.com/Vilin97/homotopy-groups-lean/blob/main/research/formalizations.json"
   },
