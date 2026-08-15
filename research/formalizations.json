@@ -2278,6 +2278,38 @@
       "note": "All 12 declarations are sorry-free. Strict autoImplicit=false checks pass for the relative-homology module and the Submission aggregate. Exact-target builds pass all 8,924 relative-homology jobs and 9,011 aggregate jobs, while the full independent-results build passes all 9,012 jobs. The literal projective line is transported to the metric 2-sphere to prove H_3 and H_4 vanish; exactness then identifies the absolute-to-relative degree-four map as an isomorphism. The normalized CP^2 homology generator transported from the concrete Hopf mapping cone maps to a relative generator with integer coordinate one, while three-connectedness kills all lower relative homology groups. Audited axiom closures contain only propext, Classical.choice, and Quot.sound."
     },
     {
+      "id": "lean4-complex-projective-plane-integral-homology",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "e9f1fd69b8a8539dc4bfba1c37db7efc0bc92ba1",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.complexProjectivePlaneHomologyZeroIsoInt",
+        "Submission.complexProjectivePlaneProjectiveLineHomologyTwoIsoInt",
+        "Submission.complexProjectivePlaneProjectiveLineHomologyTwoGenerator",
+        "Submission.complexProjectivePlaneProjectiveLineHomologyTwoIsoInt_generator",
+        "Submission.complexProjectivePlaneProjectiveLine_isIso_homologyMap_two",
+        "Submission.complexProjectivePlaneHomologyTwoIsoInt",
+        "Submission.complexProjectivePlaneHomologyTwoGenerator",
+        "Submission.complexProjectivePlaneHomologyTwoIsoInt_generator",
+        "Submission.isZero_Hgrp_complexProjectivePlaneProjectiveLine_one",
+        "Submission.isZero_Hgrp_complexProjectivePlane_one",
+        "Submission.isZero_Hgrp_complexProjectivePlane_three",
+        "Submission.isZero_Hgrp_hopfMappingCone_of_five_le",
+        "Submission.isZero_Hgrp_complexProjectivePlane_of_five_le",
+        "Submission.isZero_Hgrp_complexProjectivePlane_of_ne_zero_two_four",
+        "Submission.complexProjectivePlaneHomologyIsoIntOfDegree",
+        "Submission.complexProjectivePlane_integralHomology_classification"
+      ],
+      "result": "the complete integral homology of geometric CP^2 is computed: H_k(CP^2;Z) is infinite cyclic exactly in degrees zero, two, and four and is zero in every other degree; the degree-two and degree-four integer coordinates come with normalized explicit generators",
+      "model_relation": "the proof concerns the maintained quotient-topology geometric CP^2 model; path connectedness computes degree zero, the literal embedded CP^1 and its homeomorphism to the metric 2-sphere compute degree two, the literal-pair long exact sequence and normalized Hopf-cone generator compute degree four, three-connectivity kills degrees one and three, and the exact CP^2-to-Hopf-mapping-cone isomorphism plus mapping-cone homology suspension kills every degree at least five; this is an integral homology classification and adds no sphere-homotopy lattice overlay",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ComplexProjectivePlaneHomology.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All 16 declarations are sorry-free. Strict autoImplicit=false checks pass for the complete-homology module and the Submission aggregate. Exact-target builds pass all 8,925 complete-homology jobs and 9,012 aggregate jobs, while the full independent-results build passes all 9,013 jobs. The degree-two inclusion map is an isomorphism by literal-pair three-connectivity and transports the normalized top generator of S^2 to CP^2. An epimorphism from the zero third homology of CP^1 kills H_3(CP^2), and the Hopf mapping-cone suspension isomorphism gives uniform vanishing above the four-cell. Audited axiom closures contain only propext, Classical.choice, and Quot.sound."
+    },
+    {
       "id": "lean4-stable-sphere-cap-excision",
       "system": "Lean 4",
       "repository": "Vilin97/homotopy-groups-lean",
