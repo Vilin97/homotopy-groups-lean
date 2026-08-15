@@ -50,6 +50,44 @@ theorem isIso_HrelMap_of_homotopyEquiv
     change Mono (HgrpMap k f)
     exact (hgrpIsoOfHomotopyEquiv f g H₁ H₂ k).isIso_hom.mono_of_iso
 
+/-- If the subspace map is an isomorphism and both ambient spaces are contractible, the
+induced map on relative homology is an isomorphism.  No hypothesis on the particular ambient
+map is needed. -/
+theorem isIso_HrelMap_of_isIso_of_contractibleAmbient
+    (n : ℕ) (i : A ⟶ X) [Mono i] (j : B ⟶ Y) [Mono j]
+    {fA : A ⟶ B} {f : X ⟶ Y} [IsIso fA]
+    [ContractibleSpace X] [ContractibleSpace Y]
+    (w : i ≫ f = fA ≫ j) :
+    IsIso (HrelMap n i j w) := by
+  let eX := Classical.choice (ContractibleSpace.hequiv_unit X)
+  let x : X := eX.invFun PUnit.unit
+  let g : Y ⟶ X := TopCat.const x
+  have hfg : TopCat.Homotopy (f ≫ g) (𝟙 X) := by
+    let H := Classical.choice (nonempty_contractibleHomotopy x)
+    have hconst : f ≫ g = toPt X ≫ ptIncl x := by
+      ext z
+      rfl
+    exact hconst ▸ H
+  have hgf : TopCat.Homotopy (g ≫ f) (𝟙 Y) := by
+    let H := Classical.choice (nonempty_contractibleHomotopy (f x))
+    have hconst : g ≫ f = toPt Y ≫ ptIncl (f x) := by
+      ext z
+      rfl
+    exact hconst ▸ H
+  apply HomologicalComplex.HomologySequence.isIso_homologyMap_τ₃
+    (relShortComplexMap i j w) (relShortComplex_shortExact i)
+      (relShortComplex_shortExact j)
+  · change Epi (HgrpMap n fA)
+    infer_instance
+  · change IsIso (HgrpMap n f)
+    exact (hgrpIsoOfHomotopyEquiv f g hfg hgf n).isIso_hom
+  · intro k _
+    change IsIso (HgrpMap k fA)
+    infer_instance
+  · intro k _
+    change Mono (HgrpMap k f)
+    exact (hgrpIsoOfHomotopyEquiv f g hfg hgf k).isIso_hom.mono_of_iso
+
 /-- The induced relative map depends on the subspace and ambient maps, not on how equal maps
 were presented or on the proof of the pair square. -/
 theorem HrelMap_eq_of_maps_eq
