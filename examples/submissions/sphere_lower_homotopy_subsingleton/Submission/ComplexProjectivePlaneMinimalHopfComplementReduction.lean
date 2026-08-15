@@ -3,6 +3,8 @@ Copyright (c) 2026 Vasily Ilin. All rights reserved.
 Released under Apache 2.0 license.
 -/
 import Submission.ComplexProjectivePlaneMinimalHopfSolidTorusProduct
+import Submission.FiniteOrderedComplexConeRealization
+import Submission.Topology.DiskBoundaryCone
 
 /-!
 # Relative reduction of the complementary finite Hopf piece
@@ -217,6 +219,65 @@ theorem minimalHopfComplementReducedInteriorLink_nonempty_homeomorphSphereTwo :
   minimalHopfComplementReducedInteriorLink_isBistellarSphere
     |>.nonempty_realizationHomeomorphSphere
 
+noncomputable def minimalHopfComplementReducedInteriorLinkRealizationHomeomorphSphereTwo :
+    SSet.toTop.obj
+        (orderedSSet minimalHopfComplementReducedInteriorLinkFacets) ≃ₜ
+      SphereSpace 2 :=
+  minimalHopfComplementReducedInteriorLink_nonempty_homeomorphSphereTwo.some
+
+noncomputable def
+    minimalHopfComplementReducedInteriorLinkRealizationHomeomorphDiskBoundaryThree :
+    SSet.toTop.obj
+        (orderedSSet minimalHopfComplementReducedInteriorLinkFacets) ≃ₜ
+      TopCat.diskBoundary.{0} 3 :=
+  minimalHopfComplementReducedInteriorLinkRealizationHomeomorphSphereTwo.trans
+    (diskBoundaryHomeoSph 2).symm
+
+theorem minimalHopfComplementReducedInteriorLink_apex_not_mem :
+    ∀ facet ∈ minimalHopfComplementReducedInteriorLinkFacets, 10 ∉ facet := by
+  decide
+
+theorem minimalHopfComplementReducedInteriorLink_nonempty :
+    ∃ facet ∈ minimalHopfComplementReducedInteriorLinkFacets, facet.Nonempty := by
+  decide
+
+def minimalHopfComplementReducedInteriorStarConeSSetIso :
+    orderedSSet
+        (minimalHopfComplementReducedInteriorLinkFacets.image
+          (fun facet ↦ insert 10 facet)) ≅
+      orderedSSet minimalHopfComplementReducedInteriorStarFacets :=
+  SSet.Subcomplex.eqToIso
+    (congrArg orderedSubcomplex
+      minimalHopfComplementReducedInteriorStar_is_cone)
+
+noncomputable def
+    minimalHopfComplementReducedInteriorStarRealizationHomeomorphTopologicalCone :
+    SSet.toTop.obj
+        (orderedSSet minimalHopfComplementReducedInteriorStarFacets) ≃ₜ
+      topologicalCone
+        (SSet.toTop.obj
+          (orderedSSet minimalHopfComplementReducedInteriorLinkFacets)) :=
+  (TopCat.homeoOfIso
+      (SSet.toTop.mapIso
+        minimalHopfComplementReducedInteriorStarConeSSetIso).symm).trans
+    (conedOrderedRealizationHomeomorphTopologicalCone
+      minimalHopfComplementReducedInteriorLinkFacets 10
+      minimalHopfComplementReducedInteriorLink_apex_not_mem
+      minimalHopfComplementReducedInteriorLink_nonempty)
+
+/-- The remaining octahedral cone star is an exact metric three-disk. -/
+noncomputable def
+    minimalHopfComplementReducedInteriorStarRealizationHomeomorphDiskThree :
+    SSet.toTop.obj
+        (orderedSSet minimalHopfComplementReducedInteriorStarFacets) ≃ₜ
+      TopCat.disk.{0} 3 :=
+  minimalHopfComplementReducedInteriorStarRealizationHomeomorphTopologicalCone.trans
+    ((TopCat.homeoOfIso
+      (topologicalConeIso
+        (TopCat.isoOfHomeo
+          minimalHopfComplementReducedInteriorLinkRealizationHomeomorphDiskBoundaryThree))).trans
+      (diskBoundarySuccConeHomeomorphDisk (n := 2)))
+
 /-! ## A local four-move replacement of the octahedral cone -/
 
 /-- Lift the three link moves through the cone and then remove its apex. -/
@@ -264,5 +325,15 @@ noncomputable def minimalHopfComplementReducedInteriorStarRealizationIsoReplacem
       (SSet.Subcomplex.eqToIso
         (congrArg orderedSubcomplex
           minimalHopfComplementReducedInteriorStarMoves_result))
+
+/-- The four-tetrahedron local replacement is also an exact metric three-disk. -/
+noncomputable def
+    minimalHopfComplementReducedInteriorStarReplacementRealizationHomeomorphDiskThree :
+    SSet.toTop.obj
+        (orderedSSet minimalHopfComplementReducedInteriorStarReplacementFacets) ≃ₜ
+      TopCat.disk.{0} 3 :=
+  (TopCat.homeoOfIso
+      minimalHopfComplementReducedInteriorStarRealizationIsoReplacement.symm).trans
+    minimalHopfComplementReducedInteriorStarRealizationHomeomorphDiskThree
 
 end Submission.ComplexProjectivePlaneTriangulation
