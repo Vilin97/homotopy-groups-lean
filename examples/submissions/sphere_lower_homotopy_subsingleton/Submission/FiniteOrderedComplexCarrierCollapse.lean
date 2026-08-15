@@ -791,6 +791,106 @@ theorem isValidElementaryCollapseMoveSequence_append_iff
       simp only [List.cons_append, IsValidElementaryCollapseMoveSequence,
         applyElementaryCollapseMoves, List.foldl_cons, ih, and_assoc]
 
+omit [Fintype V] in
+/-- A face of the complex after one elementary collapse was already a face before the
+collapse. -/
+theorem isFace_of_isFace_elementaryCollapseFacets
+    (facets : Finset (Finset V)) (move : ElementaryCollapseMoveData V)
+    (hvalid : IsValidElementaryCollapseMove facets move)
+    (face : Finset V)
+    (hface : IsFace
+      (elementaryCollapseFacets facets move.freeFace move.vertex) face) :
+    IsFace facets face := by
+  obtain ⟨facet, hfacet, hfaceFacet⟩ := hface
+  obtain ⟨oldFacet, holdFacet, hfacetOld⟩ :=
+    facetFamilyLE_elementaryCollapseFacets facets move.freeFace move.vertex
+      hvalid.2.2.1 facet hfacet
+  exact ⟨oldFacet, holdFacet, hfaceFacet.trans hfacetOld⟩
+
+omit [Fintype V] in
+/-- A valid elementary collapse removes every face containing its free face. -/
+theorem not_freeFace_subset_of_isFace_elementaryCollapseFacets
+    (facets : Finset (Finset V)) (move : ElementaryCollapseMoveData V)
+    (hvalid : IsValidElementaryCollapseMove facets move)
+    (face : Finset V)
+    (hface : IsFace
+      (elementaryCollapseFacets facets move.freeFace move.vertex) face) :
+    ¬move.freeFace ⊆ face := by
+  intro hfreeFace
+  obtain ⟨facet, hfacet, hfaceFacet⟩ := hface
+  have hfreeFacet : move.freeFace ⊆ facet := hfreeFace.trans hfaceFacet
+  rw [elementaryCollapseFacets, Finset.mem_union] at hfacet
+  rcases hfacet with hfacet | hfacet
+  · obtain ⟨hfacetNeFree, hfacetErase⟩ := Finset.mem_erase.mp hfacet
+    obtain ⟨hfacetNeSimplex, hfacetOld⟩ := Finset.mem_erase.mp hfacetErase
+    rcases hvalid.2.2.2 ⟨facet, hfacetOld⟩ hfreeFacet with hfacetEq | hfacetEq
+    · exact hfacetNeFree hfacetEq
+    · exact hfacetNeSimplex hfacetEq
+  · rw [Finset.mem_erase] at hfacet
+    have hpowerset := Finset.mem_powersetCard.mp hfacet.2
+    apply hfacet.1
+    exact (Finset.eq_of_subset_of_card_le hfreeFacet hpowerset.2.le).symm
+
+omit [Fintype V] in
+/-- Every face surviving a valid collapse sequence was already a face before the sequence. -/
+theorem isFace_of_isFace_applyElementaryCollapseMoves
+    (facets : Finset (Finset V))
+    (moves : List (ElementaryCollapseMoveData V))
+    (hvalid : IsValidElementaryCollapseMoveSequence facets moves)
+    (face : Finset V)
+    (hface : IsFace (applyElementaryCollapseMoves facets moves) face) :
+    IsFace facets face := by
+  induction moves generalizing facets with
+  | nil =>
+      exact hface
+  | cons move rest ih =>
+      have hvalid' : IsValidElementaryCollapseMove facets move ∧
+          IsValidElementaryCollapseMoveSequence
+            (elementaryCollapseFacets facets move.freeFace move.vertex) rest := by
+        simpa only [IsValidElementaryCollapseMoveSequence] using hvalid
+      change IsFace
+        (applyElementaryCollapseMoves
+          (elementaryCollapseFacets facets move.freeFace move.vertex) rest) face at hface
+      exact isFace_of_isFace_elementaryCollapseFacets facets move hvalid'.1 face
+        (ih (elementaryCollapseFacets facets move.freeFace move.vertex)
+          hvalid'.2 hface)
+
+omit [Fintype V] in
+/-- A valid collapse sequence is automatically relative to each face that survives in its
+endpoint. -/
+theorem elementaryCollapseMoveSequence_relative_of_isFace_result
+    (facets : Finset (Finset V))
+    (moves : List (ElementaryCollapseMoveData V))
+    (hvalid : IsValidElementaryCollapseMoveSequence facets moves)
+    (face : Finset V)
+    (hface : IsFace (applyElementaryCollapseMoves facets moves) face) :
+    ∀ move ∈ moves, ¬move.freeFace ⊆ face := by
+  induction moves generalizing facets with
+  | nil =>
+      simp
+  | cons first rest ih =>
+      have hvalid' : IsValidElementaryCollapseMove facets first ∧
+          IsValidElementaryCollapseMoveSequence
+            (elementaryCollapseFacets facets first.freeFace first.vertex) rest := by
+        simpa only [IsValidElementaryCollapseMoveSequence] using hvalid
+      change IsFace
+        (applyElementaryCollapseMoves
+          (elementaryCollapseFacets facets first.freeFace first.vertex) rest) face at hface
+      have hfaceAfter : IsFace
+          (elementaryCollapseFacets facets first.freeFace first.vertex) face :=
+        isFace_of_isFace_applyElementaryCollapseMoves
+          (elementaryCollapseFacets facets first.freeFace first.vertex)
+          rest hvalid'.2 face hface
+      intro move hmove
+      simp only [List.mem_cons] at hmove
+      rcases hmove with hmove | hmove
+      · subst move
+        exact not_freeFace_subset_of_isFace_elementaryCollapseFacets
+          facets first hvalid'.1 face hfaceAfter
+      · exact ih
+          (elementaryCollapseFacets facets first.freeFace first.vertex)
+          hvalid'.2 hface move hmove
+
 /-- A valid finite sequence of elementary simplicial collapses induces a homotopy equivalence of
 affine carriers. -/
 noncomputable def elementaryCollapseMoveSequenceCarrierHomotopyEquiv
