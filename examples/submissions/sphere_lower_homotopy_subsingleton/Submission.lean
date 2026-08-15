@@ -200,6 +200,7 @@ import Submission.ComplexProjectivePlaneProjectiveLineCofiberRelativePiFour
 import Submission.HopfMappingConeHomotopyGroups
 import Submission.SuspendedHopfMap
 import Submission.ComplexProjectivePlaneSuspendedHopf
+import Submission.ComplexProjectivePlaneTriangulationCupSquareComparison
 import Submission.SphereSuspensionPointed
 
 open HomotopyGroups
