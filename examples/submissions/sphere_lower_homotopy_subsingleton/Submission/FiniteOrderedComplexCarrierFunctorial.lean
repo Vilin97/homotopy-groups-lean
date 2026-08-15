@@ -98,6 +98,54 @@ theorem orderedRealizationToFacetFamilyCarrier_naturality
         facetFamilyToSingular facets by exact Equiv.apply_symm_apply _ _]
   exact facetFamilyToSingular_naturality_facetFamilyLE h
 
+omit [LinearOrder V] in
+/-- Inclusion of one finite facet-family carrier into another is injective. -/
+theorem facetFamilyCarrierHomOfFacetFamilyLE_injective
+    {facets facets' : Finset (Finset V)}
+    (h : FacetFamilyLE facets facets') :
+    Function.Injective (facetFamilyCarrierHomOfFacetFamilyLE h) := by
+  intro a b hab
+  apply Subtype.ext
+  exact congrArg
+    (fun z : facetFamilyCarrier facets' ↦ (z : stdSimplex ℝ V)) hab
+
+/-- Geometric realization preserves inclusions between finite ordered facet families. -/
+theorem orderedRealizationMapOfFacetFamilyLE_injective
+    {facets facets' : Finset (Finset V)}
+    (h : FacetFamilyLE facets facets') :
+    Function.Injective (SSet.toTop.map (orderedSSetHomOfFacetFamilyLE h)) := by
+  intro x y hxy
+  apply (orderedRealizationHomeomorphFacetFamilyCarrier facets).injective
+  change orderedRealizationToFacetFamilyCarrier facets x =
+    orderedRealizationToFacetFamilyCarrier facets y
+  apply facetFamilyCarrierHomOfFacetFamilyLE_injective h
+  calc
+    _ = orderedRealizationToFacetFamilyCarrier facets'
+        (SSet.toTop.map (orderedSSetHomOfFacetFamilyLE h) x) := by
+      simpa only [ConcreteCategory.comp_apply] using
+        (ConcreteCategory.congr_hom
+          (orderedRealizationToFacetFamilyCarrier_naturality h) x).symm
+    _ = orderedRealizationToFacetFamilyCarrier facets'
+        (SSet.toTop.map (orderedSSetHomOfFacetFamilyLE h) y) := congrArg _ hxy
+    _ = _ := by
+      simpa only [ConcreteCategory.comp_apply] using
+        ConcreteCategory.congr_hom
+          (orderedRealizationToFacetFamilyCarrier_naturality h) y
+
+/-- A finite ordered facet-family inclusion realizes as a closed topological embedding. -/
+theorem orderedRealizationMapOfFacetFamilyLE_isClosedEmbedding
+    {facets facets' : Finset (Finset V)}
+    (h : FacetFamilyLE facets facets') :
+    Topology.IsClosedEmbedding
+      (SSet.toTop.map (orderedSSetHomOfFacetFamilyLE h)) := by
+  letI : CompactSpace (SSet.toTop.obj (orderedSSet facets)) :=
+    (orderedRealizationHomeomorphFacetFamilyCarrier facets).symm.compactSpace
+  letI : T2Space (SSet.toTop.obj (orderedSSet facets')) :=
+    (orderedRealizationHomeomorphFacetFamilyCarrier facets').symm.t2Space
+  exact (SSet.toTop.map
+      (orderedSSetHomOfFacetFamilyLE h)).hom.continuous.isClosedEmbedding
+    (orderedRealizationMapOfFacetFamilyLE_injective h)
+
 omit [Fintype V] in
 theorem facetFamilyLE_cone (facets : Finset (Finset V)) (apex : V) :
     FacetFamilyLE facets (facets.image (fun facet ↦ insert apex facet)) := by
