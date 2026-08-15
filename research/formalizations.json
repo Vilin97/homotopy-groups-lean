@@ -2537,6 +2537,35 @@
       "note": "All 15 declarations are sorry-free. Strict autoImplicit=false checks pass independently for the homeomorphism-transport API, relative boundary-square cancellation API, and characteristic-cell module. Exact-target builds pass the new module and the 9,021-job Submission aggregate, while the full independent-results build passes all 9,022 jobs. The exact Hopf attaching-map square and the proved Serre-fibration theorem give the subspace pi_3 bijection; a generic commuting-homeomorphism-square theorem transports it to literal range subspaces, and a generic relative-boundary-square theorem then proves the relative pi_4 result. Audited axiom closures contain only propext, Classical.choice, and Quot.sound."
     },
     {
+      "id": "lean4-projective-line-cofiber-relative-pi-four-reduction",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "029a3fb311a7ce06a9a2fd4cdd3919aec09b167f",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.BasedPairMap.ext",
+        "Submission.diskBoundaryFourCollapsePairMap",
+        "Submission.diskBoundaryFourRelativePiFourCollapseHom",
+        "Submission.complexProjectivePlaneProjectiveLineCollapsePairMap_comp_characteristic",
+        "Submission.complexProjectivePlaneProjectiveLineRelativePiFourCollapseHom_comp_characteristic",
+        "Submission.complexProjectivePlaneProjectiveLineRelativePiFourCollapse_bijective_iff_disk",
+        "Submission.isTwoConnected_diskBoundaryFourInDisk",
+        "Submission.diskBoundaryFourRelativeHurewiczAdd_bijective",
+        "Submission.diskBoundaryFourRelativePiFourCollapseAddHom",
+        "Submission.diskBoundaryFourRelativeHomologyFourCollapse",
+        "Submission.diskBoundaryFourCollapse_relativeHurewiczAdd_naturality",
+        "Submission.diskBoundaryFourRelativePiFourCollapse_bijective_iff_homology",
+        "Submission.complexProjectivePlaneProjectiveLineRelativePiFourCollapse_bijective_iff_diskHomology"
+      ],
+      "result": "the geometric CP^1 collapse after the characteristic four-cell is literally the maintained disk-to-sphere quotient as a map of based pairs and on relative pi_4; because the characteristic map and both disk/sphere relative Hurewicz maps are bijective, the canonical CP^2/CP^1 relative-pi_4 collapse is bijective exactly when the standard disk quotient induces a bijection on fourth relative integral homology",
+      "model_relation": "the source is the literal boundary range inside the maintained closed four-disk, the target is the maintained singleton basepoint in the metric S^4, and the ambient quotient is the explicit diskToSphere map used in the geometric CP^2 cell collapse; exact equality through the cell-model homeomorphism identifies the composite map rather than merely its homotopy class, while two-connectivity of the literal boundary is transported from metric S^3 and the contractible-ambient first relative Hurewicz theorem discharges the disk comparison; the final disk relative-homology quotient/excision bijection remains open, so this record does not yet prove the CP^1-collapse map bijective and adds no lattice cells",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ComplexProjectivePlaneProjectiveLineCofiberRelativePiFour.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All 13 listed declarations are sorry-free. Strict autoImplicit=false checks pass for the pair-map extensionality API and the complete reduction module. Exact-target builds pass the new module and the 9,022-job Submission aggregate, while the full independent-results build passes all 9,023 jobs. Pair-map functoriality turns the literal geometric composite into the corresponding composite homomorphism; cancellation by the already-proved characteristic relative-pi_4 bijection reduces the projective collapse to the disk quotient. Relative Hurewicz naturality then reduces that quotient to its relative-homology map because the disk boundary is transported from the two-connected metric S^3 and the sphere point-pair comparison was already proved. Audited axiom closures contain only propext, Classical.choice, and Quot.sound."
+    },
+    {
       "id": "lean4-stable-sphere-cap-excision",
       "system": "Lean 4",
       "repository": "Vilin97/homotopy-groups-lean",
