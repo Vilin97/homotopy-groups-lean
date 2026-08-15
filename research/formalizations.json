@@ -2388,6 +2388,31 @@
       "note": "All nine declarations are sorry-free. Strict autoImplicit=false checks pass for the cofiber-homotopy module and the Submission aggregate. Exact-target builds pass all 8,928 cofiber-homotopy jobs and 9,015 aggregate jobs, while the full independent-results build passes all 9,016 jobs. The basepoint is selected through the quotient-to-sphere homeomorphism, making its image equation definitional up to the homeomorphism inverse law. Sphere connectivity then kills all lower groups, and the diagonal sphere theorem gives an explicit multiplicative equivalence from cofiber pi_4 to the integers. Audited axiom closures contain only propext, Classical.choice, and Quot.sound."
     },
     {
+      "id": "lean4-projective-line-cofiber-comparison",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "12782b16da74815ced45a82411a8443c4b54da85",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.sphereFourBasepointSet",
+        "Submission.sphereFourBasepointInSet",
+        "Submission.complexProjectivePlaneProjectiveLineCollapse_basepoint",
+        "Submission.complexProjectivePlaneProjectiveLineCollapsePairMap",
+        "Submission.complexProjectivePlaneProjectiveLineRelativePiFourCollapseHom",
+        "Submission.complexProjectivePlaneProjectiveLineRelativePiFourCollapseAddHom",
+        "Submission.complexProjectivePlaneProjectiveLineRelativeHomologyFourCollapse",
+        "Submission.complexProjectivePlaneProjectiveLineCollapse_relativeHurewicz_naturality",
+        "Submission.complexProjectivePlaneProjectiveLineCollapse_relativeHurewiczAdd_naturality"
+      ],
+      "result": "the canonical collapse CP^2 to S^4 is a based map from the literal pair (CP^2, CP^1) to the point pair (S^4, {basepoint}); its induced maps on fourth relative homotopy and integral homology form the canonical naturality square for both the multiplicative and additive relative Hurewicz comparisons",
+      "model_relation": "the ambient map is exactly the previously analyzed geometric projective-line collapse, the source subspace is the literal maintained embedded CP^1, and the target is the singleton of the maintained metric-sphere basepoint; exact fibre control proves the map carries the whole line to that point, while relative functoriality supplies the comparison maps without yet asserting that either canonical relative-to-cofiber map is an equivalence, so no sphere-lattice cells are added",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ComplexProjectivePlaneProjectiveLineCofiberComparison.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All nine declarations are sorry-free. Strict autoImplicit=false checks pass for the cofiber-comparison module and the Submission aggregate. Exact-target builds pass all 8,929 comparison jobs and 9,016 aggregate jobs, while the full independent-results build passes all 9,017 jobs. The maintained CP^2 basepoint is proved to collapse to the maintained S^4 basepoint, and the exact collapse-fibre theorem sends every literal projective-line point to it. The resulting based pair map induces canonical degree-four maps on relative homotopy and homology; general relative Hurewicz naturality proves the unbundled and additive commuting squares directly. Audited axiom closures contain only propext, Classical.choice, and Quot.sound."
+    },
+    {
       "id": "lean4-stable-sphere-cap-excision",
       "system": "Lean 4",
       "repository": "Vilin97/homotopy-groups-lean",
