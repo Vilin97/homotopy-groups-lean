@@ -4,6 +4,7 @@ Released under Apache 2.0 license.
 -/
 import Submission.ComplexProjectivePlaneMinimalHopfBallInteriorBoundaryCollapse
 import Submission.ComplexProjectivePlaneMinimalHopfCollapsedAttachingCoordinates
+import Submission.SphereHomologicalDegree
 
 /-!
 # Comparing the finite Hopf and collapsed attaching maps in metric-sphere coordinates
@@ -77,5 +78,17 @@ theorem minimalHopfProjectivePlaneTargetAttachingSphereMap_homotopic_finiteHopf 
         minimalHopfAttachingDomainSphereHomotopyEquiv.toFun).Homotopic
       minimalHopfProjectivePlaneTargetAttachingSphereMap.hom :=
   ⟨minimalHopfAttachingSphereMapHomotopyFiniteHopf⟩
+
+/-- The unresolved coordinate change has degree `+1` or `-1`; proving which sign occurs is a
+separate orientation comparison. -/
+theorem minimalHopfAttachingDomainSphereHomologicalDegree :
+    sphereHomologicalDegree 2
+          (TopCat.ofHom minimalHopfAttachingDomainSphereHomotopyEquiv.toFun) = 1 ∨
+      sphereHomologicalDegree 2
+          (TopCat.ofHom minimalHopfAttachingDomainSphereHomotopyEquiv.toFun) = -1 :=
+  sphereHomologicalDegree_eq_one_or_neg_one_of_homotopyInverse 2
+    (TopCat.ofHom minimalHopfAttachingDomainSphereHomotopyEquiv.toFun)
+    (TopCat.ofHom minimalHopfAttachingDomainSphereHomotopyEquiv.invFun)
+    (Classical.choice minimalHopfAttachingDomainSphereHomotopyEquiv.left_inv)
 
 end Submission.ComplexProjectivePlaneTriangulation
