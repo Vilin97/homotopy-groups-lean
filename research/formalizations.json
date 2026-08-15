@@ -2250,6 +2250,34 @@
       "note": "All 14 declarations are sorry-free. Strict autoImplicit=false checks pass for the relative-pi-four module and the Submission aggregate. Exact-target builds pass all 8,922 relative-pi-four jobs and 9,010 aggregate jobs, while the full independent-results build passes all 9,011 jobs. The two groups adjacent to the relative boundary, pi_4(CP^2) and pi_3(CP^2), are trivial, so exactness upgrades the previously proved boundary surjection to a bijection. The resulting multiplicative equivalence to the projective line's third homotopy group composes with its explicit integer classification, uniformly at every literal-subspace basepoint; the finite comparison range has its own direct exact equivalence at the maintained basepoint. Audited axiom closures contain only propext, Classical.choice, and Quot.sound."
     },
     {
+      "id": "lean4-projective-line-relative-homology",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "2ca6ed072ce6faca4d44bb54be59858b189a7f21",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.complexProjectivePlaneProjectiveLineIsoSphereTwo",
+        "Submission.isZero_Hgrp_complexProjectivePlaneProjectiveLine_three",
+        "Submission.isZero_Hgrp_complexProjectivePlaneProjectiveLine_four",
+        "Submission.complexProjectivePlaneHomologyIsoInt",
+        "Submission.complexProjectivePlaneHomologyIsoInt_generator",
+        "Submission.complexProjectivePlaneProjectiveLine_isIso_relJ_four",
+        "Submission.complexProjectivePlaneProjectiveLineRelativeHomologyFourIsoInt",
+        "Submission.complexProjectivePlaneProjectiveLineRelativeHomologyFourGenerator",
+        "Submission.complexProjectivePlaneProjectiveLineRelativeHomologyFourIsoInt_generator",
+        "Submission.complexProjectivePlaneProjectiveLineRelativeHomologyFourGenerator_ne_zero",
+        "Submission.isZero_complexProjectivePlaneProjectiveLine_relativeHomology",
+        "Submission.complexProjectivePlaneProjectiveLine_relativeHomology_first_nonzero"
+      ],
+      "result": "relative integral homology of the literal embedded pair (CP^2, CP^1) vanishes in every degree from zero through three, while degree four is explicitly infinite cyclic with a normalized nonzero generator; hence degree four is its first nonzero relative homology degree, matching the first nonzero relative homotopy degree",
+      "model_relation": "the proof uses the genuine projective-line subtype inside the maintained quotient-topology CP^2 model; its explicit homeomorphism through CP^1 to the metric 2-sphere proves vanishing of the adjacent absolute homology groups, so the long exact sequence makes H_4(CP^2) to H_4(CP^2,CP^1) an isomorphism, and the existing Hopf-mapping-cone coordinate supplies the integer generator; three-connectivity supplies lower relative-homology vanishing, while no claim is made here that the canonical relative Hurewicz map is the displayed abstract integer identification and no sphere-lattice overlay is added",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ComplexProjectivePlaneProjectiveLineRelativeHomology.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All 12 declarations are sorry-free. Strict autoImplicit=false checks pass for the relative-homology module and the Submission aggregate. Exact-target builds pass all 8,924 relative-homology jobs and 9,011 aggregate jobs, while the full independent-results build passes all 9,012 jobs. The literal projective line is transported to the metric 2-sphere to prove H_3 and H_4 vanish; exactness then identifies the absolute-to-relative degree-four map as an isomorphism. The normalized CP^2 homology generator transported from the concrete Hopf mapping cone maps to a relative generator with integer coordinate one, while three-connectedness kills all lower relative homology groups. Audited axiom closures contain only propext, Classical.choice, and Quot.sound."
+    },
+    {
       "id": "lean4-stable-sphere-cap-excision",
       "system": "Lean 4",
       "repository": "Vilin97/homotopy-groups-lean",
