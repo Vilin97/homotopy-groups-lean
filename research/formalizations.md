@@ -669,6 +669,21 @@ embedding, and this triangulation has not yet been identified in Lean with the
 maintained quotient-topology `CP^2`, nor has its cup square been transported
 through the suspension comparison to the canonical degree-three cup-one representative.
 
+The finite Hopf ambient quotient has now been compared with its genuine
+categorical pushout as well. Two explicit interior edges in the seventeen-vertex
+ambient complex have the same image in the nine-vertex projective-plane model,
+while one lies outside the boundary inclusion, so Lean proves that the commuting
+quotient square is not itself a strict simplicial pushout. Lean then constructs
+the genuine simplicial pushout, proves that its canonical comparison with the
+nine-vertex model is degreewise surjective but not an isomorphism, and proves
+that realization preserves the genuine pushout. Explicit barycentric fiber
+coordinates show that the ambient realization map is a compact-to-Hausdorff
+quotient map; compactness of the genuine realized pushout gives the same
+quotient-topology conclusion for its comparison map. The remaining step is to
+prove that this realized comparison is a homotopy equivalence, so these results
+do not yet identify the finite quotient with the maintained topological `CP^2`
+or add a sphere-lattice cell.
+
 The symmetry-breaking subdivision used by Schwartz's trisection is now checked
 combinatorially too. Its 78 four-simplices map onto the original 36 facets and
 split into three cyclically symmetric families of 26, each exactly a cone on
