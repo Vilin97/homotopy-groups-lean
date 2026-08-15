@@ -679,7 +679,14 @@ nine-vertex model is degreewise surjective but not an isomorphism, and proves
 that realization preserves the genuine pushout. Explicit barycentric fiber
 coordinates show that the ambient realization map is a compact-to-Hausdorff
 quotient map; compactness of the genuine realized pushout gives the same
-quotient-topology conclusion for its comparison map. Moreover, the midpoints of
+quotient-topology conclusion for its comparison map. The twelve-vertex boundary
+is now characterized as the induced outer-vertex subcomplex and, in the affine
+carrier and its geometric realization, as exactly the zero set of the
+continuous total barycentric mass on the five interior vertices. A general
+relative-cell argument proves that the geometric realization of every
+simplicial monomorphism is a topological cofibration. It applies to this finite
+boundary inclusion, and cobase change makes the target two-sphere inclusion
+into the genuine realized pushout a cofibration too. Moreover, the midpoints of
 the two displayed interior edges remain distinct in the genuine topological
 pushout but have the same image in the nine-vertex realization. Thus the
 realized comparison is explicitly noninjective as well as surjective. The
