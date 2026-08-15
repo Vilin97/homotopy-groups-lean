@@ -3,6 +3,7 @@ Copyright (c) 2026 Vasily Ilin. All rights reserved.
 Released under Apache 2.0 license.
 -/
 import Submission.ComplexProjectivePlaneMinimalHopfBallCollapse
+import Submission.Topology.PushoutMono
 
 /-!
 # The genuine ambient pushout of the finite Hopf map
@@ -374,6 +375,33 @@ theorem minimalHopfStrictPushoutRealization_isPushout :
   simpa [minimalHopfRealizationMap] using
     minimalHopfStrictPushout_isPushout.map SSet.toTop
 
+/-- The realization of the genuine finite Hopf pushout is compact.  It is isomorphic to the
+canonical topological pushout of the compact ambient and target finite polyhedra. -/
+noncomputable instance minimalHopfStrictPushoutRealization_compactSpace :
+    CompactSpace minimalHopfStrictPushoutRealization := by
+  let f := SSet.toTop.map minimalHopfSphereSSetIncl
+  let g := minimalHopfRealizationMap
+  let B := SSet.toTop.obj (orderedSSet minimalHopfBallFacets)
+  let C := SSet.toTop.obj (orderedSSet minimalHopfTargetFacets)
+  letI : CompactSpace B :=
+    (orderedRealizationHomeomorphFacetFamilyCarrier
+      minimalHopfBallFacets).symm.compactSpace
+  letI : CompactSpace C :=
+    (orderedRealizationHomeomorphFacetFamilyCarrier
+      minimalHopfTargetFacets).symm.compactSpace
+  let P : TopCat := Limits.pushout f g
+  letI : CompactSpace P :=
+    Function.Surjective.compactSpace
+      (pushoutSumDesc_isQuotientMap f g).continuous
+      (pushoutSumDesc_isQuotientMap f g).surjective
+  let canonical : IsPushout f g (Limits.pushout.inl f g)
+      (Limits.pushout.inr f g) := IsPushout.of_hasPushout f g
+  let e : P ≅ minimalHopfStrictPushoutRealization :=
+    canonical.isoIsPushout B C minimalHopfStrictPushoutRealization_isPushout
+  exact Function.Surjective.compactSpace
+    (TopCat.homeoOfIso e).continuous
+    (TopCat.homeoOfIso e).surjective
+
 @[reassoc]
 theorem minimalHopfStrictPushoutBallIncl_comparison_realization :
     SSet.toTop.map minimalHopfStrictPushoutBallIncl ≫
@@ -390,6 +418,41 @@ theorem minimalHopfStrictPushoutTargetIncl_comparison_realization :
       SSet.toTop.map minimalHopfTargetSSetIncl := by
   rw [minimalHopfStrictPushoutComparisonRealization, ← SSet.toTop.map_comp,
     minimalHopfStrictPushoutTargetIncl_comparison]
+
+/-- The source vertices lying over each of the nine quotient vertices.  The first five fibers
+are singletons and the remaining four are the collapsed triples. -/
+def minimalHopfQuotientVertexFiber :
+    Vertex → Finset MinimalHopfBallVertex :=
+  ![{0}, {1}, {2}, {3}, {4}, {5, 6, 7}, {8, 9, 10},
+    {11, 12, 13}, {14, 15, 16}]
+
+/-- The displayed finite fibers are exactly the inverse images of the vertex quotient. -/
+theorem minimalHopfQuotientVertexFiber_eq_filter (w : Vertex) :
+    minimalHopfQuotientVertexFiber w =
+      Finset.univ.filter (fun v ↦ minimalHopfQuotientVertex v = w) := by
+  fin_cases w <;> decide
+
+/-- Under the canonical affine-carrier coordinates, the realized ambient quotient is exactly
+the barycentric pushforward along the seventeen-to-nine vertex quotient. -/
+theorem minimalHopfBallQuotientRealization_carrier_naturality :
+    minimalHopfBallQuotientRealizationMap ≫
+        orderedRealizationToFacetFamilyCarrier facets =
+      orderedRealizationToFacetFamilyCarrier minimalHopfBallFacets ≫
+        facetFamilyCarrierHomOfMonotone minimalHopfQuotientVertex
+          minimalHopfBallFacetFamilyMapsTo :=
+  orderedRealizationToFacetFamilyCarrier_naturality_monotone
+    minimalHopfQuotientVertex minimalHopfBallFacetFamilyMapsTo
+
+/-- Coordinate formula for the affine ambient quotient: the weight at a target vertex is the
+sum of the source weights in its displayed finite fiber. -/
+theorem minimalHopfBallCarrierQuotient_coordinate
+    (x : facetFamilyCarrier minimalHopfBallFacets) (w : Vertex) :
+    (facetFamilyCarrierMapOfMonotone minimalHopfQuotientVertex
+      minimalHopfBallFacetFamilyMapsTo x).1 w =
+        (minimalHopfQuotientVertexFiber w).sum (fun v ↦ x.1 v) := by
+  change (FunOnFinite.linearMap ℝ ℝ minimalHopfQuotientVertex x.1) w = _
+  rw [FunOnFinite.linearMap_apply_apply,
+    minimalHopfQuotientVertexFiber_eq_filter]
 
 /-- The finite ambient quotient remains surjective after geometric realization. -/
 theorem minimalHopfBallQuotientRealizationMap_surjective :
@@ -420,5 +483,15 @@ theorem minimalHopfStrictPushoutComparisonRealization_surjective :
   rw [← TopCat.epi_iff_surjective]
   unfold minimalHopfStrictPushoutComparisonRealization
   infer_instance
+
+/-- The realized comparison equips the finite projective-plane realization with the quotient
+topology induced by the genuine Hopf pushout. -/
+theorem minimalHopfStrictPushoutComparisonRealization_isQuotientMap :
+    Topology.IsQuotientMap minimalHopfStrictPushoutComparisonRealization := by
+  letI : T2Space projectivePlaneRealization :=
+    (orderedRealizationHomeomorphFacetFamilyCarrier facets).symm.t2Space
+  exact Topology.IsQuotientMap.of_surjective_continuous
+    minimalHopfStrictPushoutComparisonRealization_surjective
+    minimalHopfStrictPushoutComparisonRealization.hom.continuous
 
 end Submission.ComplexProjectivePlaneTriangulation
