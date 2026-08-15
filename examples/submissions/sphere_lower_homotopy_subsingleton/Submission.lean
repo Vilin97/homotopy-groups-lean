@@ -11,6 +11,7 @@ import Submission.IndependentResults
 import Submission.DisplayedCircleFrontier
 import Submission.FoundationBenchmarks
 import Submission.HigherSphereFoundations
+import Submission.Homotopy.FibrationLESNaturality
 import Submission.HopfMap
 import Submission.HopfLocalTrivialization
 import Submission.HopfTransport
@@ -182,6 +183,7 @@ import Submission.ComplexProjectivePlaneTrisectionRelativeHomotopy
 import Submission.ComplexProjectivePlaneTrisectionRelativePiTwo
 import Submission.ComplexProjectivePlaneCohomology
 import Submission.ComplexProjectivePlaneTriangulationProjectiveLineComparison
+import Submission.ComplexProjectivePlaneProjectiveLinePiTwo
 import Submission.HopfMappingConeHomotopyGroups
 import Submission.SuspendedHopfMap
 import Submission.ComplexProjectivePlaneSuspendedHopf
