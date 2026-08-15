@@ -2310,6 +2310,29 @@
       "note": "All 16 declarations are sorry-free. Strict autoImplicit=false checks pass for the complete-homology module and the Submission aggregate. Exact-target builds pass all 8,925 complete-homology jobs and 9,012 aggregate jobs, while the full independent-results build passes all 9,013 jobs. The degree-two inclusion map is an isomorphism by literal-pair three-connectivity and transports the normalized top generator of S^2 to CP^2. An epimorphism from the zero third homology of CP^1 kills H_3(CP^2), and the Hopf mapping-cone suspension isomorphism gives uniform vanishing above the four-cell. Audited axiom closures contain only propext, Classical.choice, and Quot.sound."
     },
     {
+      "id": "lean4-projective-line-complete-relative-homology",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "24e67849f0d26306952d134e7cefdd648b754996",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.isZero_Hgrp_complexProjectivePlaneProjectiveLine_of_three_le",
+        "Submission.isZero_complexProjectivePlaneProjectiveLine_relativeHomology_of_five_le",
+        "Submission.isZero_complexProjectivePlaneProjectiveLine_relativeHomology_of_ne_four",
+        "Submission.complexProjectivePlaneProjectiveLine_relativeHomology_classification",
+        "Submission.ComplexProjectivePlaneTriangulation.projectiveLineRealizationToComplexProjectivePlaneRangeRelativeHomologyFourIsoInt",
+        "Submission.ComplexProjectivePlaneTriangulation.isZero_projectiveLineRealizationToComplexProjectivePlaneRange_relativeHomology_of_ne_four",
+        "Submission.ComplexProjectivePlaneTriangulation.projectiveLineRealizationToComplexProjectivePlaneRange_relativeHomology_classification"
+      ],
+      "result": "the complete relative integral homology of the literal embedded pair (CP^2,CP^1) is infinite cyclic in degree four and zero in every other degree; because the canonical four-triangle projective-line comparison has exactly the same literal image, its finite-to-geometric range pair receives the identical all-degree classification",
+      "model_relation": "the proof uses the genuine projective-line subtype in the maintained quotient-topology CP^2 model and the literal range of the exact four-triangle comparison; three-connectivity supplies vanishing through degree three, the normalized long-exact-sequence calculation supplies H_4 = Z, and the complete absolute homology classifications of CP^1 and CP^2 force vanishing in every degree at least five; equality of ranges transports the result to the finite comparison without identifying the full nine-vertex realization with geometric CP^2, and no sphere-homotopy lattice overlay is added",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ComplexProjectivePlaneProjectiveLineRelativeHomologyClassification.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All seven declarations are sorry-free. Strict autoImplicit=false checks pass for the all-degree relative-homology module and the Submission aggregate. Exact-target builds pass all 8,926 classification jobs and 9,013 aggregate jobs, while the full independent-results build passes all 9,014 jobs. The long exact sequence kills high relative homology because its ambient target is zero in degree at least five and its projective-line source is zero in the preceding degree. The resulting theorem states one uniform exception: degree four, where the previously normalized integer equivalence survives. Audited axiom closures contain only propext, Classical.choice, and Quot.sound."
+    },
+    {
       "id": "lean4-stable-sphere-cap-excision",
       "system": "Lean 4",
       "repository": "Vilin97/homotopy-groups-lean",
