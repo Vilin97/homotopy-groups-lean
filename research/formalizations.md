@@ -686,13 +686,19 @@ continuous total barycentric mass on the five interior vertices. A general
 relative-cell argument proves that the geometric realization of every
 simplicial monomorphism is a topological cofibration. It applies to this finite
 boundary inclusion, and cobase change makes the target two-sphere inclusion
-into the genuine realized pushout a cofibration too. Moreover, the midpoints of
-the two displayed interior edges remain distinct in the genuine topological
-pushout but have the same image in the nine-vertex realization. Thus the
-realized comparison is explicitly noninjective as well as surjective. The
-remaining step is to prove that this quotient map is nevertheless a homotopy
-equivalence, so these results do not yet identify the finite quotient with the
-maintained topological `CP^2` or add a sphere-lattice cell.
+into the genuine realized pushout a cofibration too. The target is itself the
+induced subcomplex on its four vertices and, in the nine-vertex affine carrier
+and realization, exactly the zero set of continuous complementary barycentric
+mass. Its inclusion into the projective-plane realization is therefore also a
+cofibration. Moreover, the midpoints of the two displayed interior edges remain
+distinct in the genuine topological pushout but have the same image in the
+nine-vertex realization. Thus the realized comparison is explicitly
+noninjective as well as surjective. Lean now forms the two target homotopy
+cofibers, constructs the canonical comparison between them, and proves its
+commutation with the ambient inclusions. The remaining step is to prove that
+this cofiber map, and hence the ambient quotient map, is a homotopy equivalence,
+so these results do not yet identify the finite quotient with the maintained
+topological `CP^2` or add a sphere-lattice cell.
 
 The symmetry-breaking subdivision used by Schwartz's trisection is now checked
 combinatorially too. Its 78 four-simplices map onto the original 36 facets and
