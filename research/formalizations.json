@@ -2333,6 +2333,36 @@
       "note": "All seven declarations are sorry-free. Strict autoImplicit=false checks pass for the all-degree relative-homology module and the Submission aggregate. Exact-target builds pass all 8,926 classification jobs and 9,013 aggregate jobs, while the full independent-results build passes all 9,014 jobs. The long exact sequence kills high relative homology because its ambient target is zero in degree at least five and its projective-line source is zero in the preceding degree. The resulting theorem states one uniform exception: degree four, where the previously normalized integer equivalence survives. Audited axiom closures contain only propext, Classical.choice, and Quot.sound."
     },
     {
+      "id": "lean4-projective-line-cofiber-sphere-four",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "bf66b6dfb7a0b4a9ef5e4f1ec38ddd49ca6f85b3",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.complexProjectivePlaneCellBottom",
+        "Submission.complexProjectivePlaneCellCollapse_incl_apply",
+        "Submission.complexProjectivePlaneCellCollapse_disk_apply",
+        "Submission.complexProjectivePlaneCellDisk_mem_bottom_of_norm_eq_one",
+        "Submission.complexProjectivePlaneCellCollapse_eq_iff",
+        "Submission.complexProjectivePlaneCellCollapse_surjective",
+        "Submission.complexProjectivePlaneProjectiveLineCollapse",
+        "Submission.complexProjectivePlaneCellHomeomorph_mem_projectiveLine_iff",
+        "Submission.complexProjectivePlaneProjectiveLineCollapse_eq_iff",
+        "Submission.complexProjectivePlaneProjectiveLineCollapse_surjective",
+        "Submission.complexProjectivePlaneProjectiveLineCollapse_isQuotientMap",
+        "Submission.complexProjectivePlaneProjectiveLineSetoid",
+        "Submission.complexProjectivePlaneProjectiveLineSetoid_eq_ker",
+        "Submission.complexProjectivePlaneQuotientProjectiveLineHomeomorphSphereFour"
+      ],
+      "result": "the cofiber of the literal embedded projective line is the metric four-sphere: the canonical collapse CP^2 to S^4 is a quotient map whose fibres identify exactly equal points or pairs of points both lying in CP^1, and the resulting explicit quotient CP^2/CP^1 is homeomorphic to S^4",
+      "model_relation": "the construction starts from the maintained four-cell presentation of the quotient-topology geometric CP^2 model; the disk-to-sphere collapse is analyzed on all four combinations of bottom-summand and disk representatives, then transported through the exact cell-model homeomorphism to the literal projective-line range inside geometric CP^2; compact-to-Hausdorff quotient-map recognition turns the exact fibre relation into a homeomorphism from the explicit collapsed-subspace quotient to the maintained metric S^4, with no sphere-homotopy lattice overlay",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ComplexProjectivePlaneProjectiveLineCofiber.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All 14 declarations are sorry-free. Strict autoImplicit=false checks pass for the cofiber module and the Submission aggregate. Exact-target builds pass all 8,927 cofiber jobs and 9,014 aggregate jobs, while the full independent-results build passes all 9,015 jobs. The fibre theorem proves directly that the collapse has no unintended identifications away from the embedded line. The custom collapsed-line setoid is then proved equal to the kernel relation of the surjective continuous collapse, so the quotient-map homeomorphism identifies the literal cofiber with S^4. Audited axiom closures contain only propext, Classical.choice, and Quot.sound."
+    },
+    {
       "id": "lean4-stable-sphere-cap-excision",
       "system": "Lean 4",
       "repository": "Vilin97/homotopy-groups-lean",
