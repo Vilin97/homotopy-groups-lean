@@ -265,6 +265,80 @@ theorem minimalHopfStrictPushoutTargetIncl_comparison :
       minimalHopfTargetSSetIncl := by
   apply Limits.pushout.inr_desc
 
+/-- Every simplex of the nine-vertex projective-plane model lifts through the finite ambient
+quotient.  A target simplex lies in a top facet, and the facet computation supplies a source
+top facet on which the vertex quotient is an order isomorphism. -/
+theorem minimalHopfBallQuotientSSetMap_app_surjective
+    (Δ : SimplexCategoryᵒᵖ) :
+    Function.Surjective (minimalHopfBallQuotientSSetMap.app Δ) := by
+  intro y
+  rcases y.2 with ⟨targetFacet, htargetFacet, hy⟩
+  have hfilter :
+      targetFacet ∈
+        (minimalHopfBallFacets.image
+          (fun facet ↦ facet.image minimalHopfQuotientVertex)).filter
+            (fun facet ↦ facet.card = 5) := by
+    rw [minimalHopfBall_quotient_top_facets]
+    exact htargetFacet
+  rcases Finset.mem_filter.mp hfilter with ⟨himageMem, himageCard⟩
+  rcases Finset.mem_image.mp himageMem with
+    ⟨sourceFacet, hsourceFacet, himage⟩
+  have hinjOn : Set.InjOn minimalHopfQuotientVertex sourceFacet := by
+    rw [← Finset.card_image_iff]
+    rw [himage, himageCard,
+      minimalHopfBallFacets_pure sourceFacet hsourceFacet]
+  let facetMap : ↑sourceFacet → ↑targetFacet := fun v ↦
+    ⟨minimalHopfQuotientVertex v.1, by
+      rw [← himage]
+      exact Finset.mem_image.mpr ⟨v.1, v.2, rfl⟩⟩
+  have hfacetMapMonotone : Monotone facetMap := by
+    intro a b hab
+    exact minimalHopfQuotientVertex.monotone hab
+  have hfacetMapInjective : Function.Injective facetMap := by
+    intro a b hab
+    apply Subtype.ext
+    exact hinjOn a.2 b.2 (congrArg Subtype.val hab)
+  have hfacetMapSurjective : Function.Surjective facetMap := by
+    intro w
+    have hw : w.1 ∈ sourceFacet.image minimalHopfQuotientVertex := by
+      rw [himage]
+      exact w.2
+    rcases Finset.mem_image.mp hw with ⟨v, hv, huv⟩
+    exact ⟨⟨v, hv⟩, Subtype.ext huv⟩
+  have hfacetMapStrictMono : StrictMono facetMap :=
+    hfacetMapMonotone.strictMono_of_injective hfacetMapInjective
+  let facetIso : ↑sourceFacet ≃o ↑targetFacet :=
+    hfacetMapStrictMono.orderIsoOfSurjective facetMap hfacetMapSurjective
+  let liftVertex : Fin (Δ.unop.len + 1) →o MinimalHopfBallVertex :=
+    { toFun := fun i ↦ (facetIso.symm ⟨y.1.obj i, hy i⟩).1
+      monotone' := by
+        intro i j hij
+        exact facetIso.symm.monotone (y.1.monotone hij) }
+  let x : (orderedSSet minimalHopfBallFacets).obj Δ :=
+    ⟨liftVertex.monotone.functor,
+      ⟨sourceFacet, hsourceFacet, fun i ↦
+        (facetIso.symm ⟨y.1.obj i, hy i⟩).2⟩⟩
+  refine ⟨x, ?_⟩
+  apply Subtype.ext
+  apply CategoryTheory.nerve.ext_of_isThin
+  funext i
+  change minimalHopfQuotientVertex (liftVertex i) = y.1.obj i
+  exact congrArg Subtype.val
+    (facetIso.apply_symm_apply ⟨y.1.obj i, hy i⟩)
+
+/-- The finite ambient quotient is an epimorphism of simplicial sets. -/
+instance minimalHopfBallQuotientSSetMap_epi :
+    Epi minimalHopfBallQuotientSSetMap := by
+  rw [NatTrans.epi_iff_epi_app]
+  intro Δ
+  rw [epi_iff_surjective]
+  exact minimalHopfBallQuotientSSetMap_app_surjective Δ
+
+/-- The canonical comparison from the genuine finite Hopf pushout is an epimorphism. -/
+instance minimalHopfStrictPushoutComparison_epi :
+    Epi minimalHopfStrictPushoutComparison := by
+  apply epi_of_epi_fac minimalHopfStrictPushoutBallIncl_comparison
+
 /-- The canonical comparison cannot be a simplicial isomorphism: otherwise transporting the
 genuine pushout square across it would make the finite quotient square a pushout. -/
 theorem minimalHopfStrictPushoutComparison_not_isIso :
