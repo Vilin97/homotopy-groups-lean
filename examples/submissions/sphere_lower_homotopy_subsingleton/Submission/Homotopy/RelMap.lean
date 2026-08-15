@@ -293,6 +293,26 @@ theorem bdHom_comp_mapHom (n : ℕ) (f : BasedPairMap A B a b) :
         (RelHomotopyGroup.bdHom n X A a) :=
   MonoidHom.ext fun x => bd_map f x
 
+/-- A map of pairs induces a bijection on relative homotopy whenever the two boundary maps
+and the induced map on the distinguished subspaces are bijective.  This is cancellation in
+the natural boundary square. -/
+theorem mapHom_bijective_of_bdHom_bijective (n : ℕ) (f : BasedPairMap A B a b)
+    (hsource : Function.Bijective (RelHomotopyGroup.bdHom n X A a))
+    (htarget : Function.Bijective (RelHomotopyGroup.bdHom n Y B b))
+    (hsubspace : Function.Bijective
+      (HomotopyGroup.mapHom f.subspaceMap f.subspaceMap_basepoint :
+        π_ (n + 1) A a →* π_ (n + 1) B b)) :
+    Function.Bijective (mapHom n f) := by
+  apply (Function.Bijective.of_comp_iff' htarget (mapHom n f)).mp
+  rw [show (RelHomotopyGroup.bdHom n Y B b :
+      π_rel (n + 2) Y B b → π_ (n + 1) B b) ∘ mapHom n f =
+        (HomotopyGroup.mapHom f.subspaceMap f.subspaceMap_basepoint :
+          π_ (n + 1) A a → π_ (n + 1) B b) ∘
+            RelHomotopyGroup.bdHom n X A a by
+    funext x
+    exact DFunLike.congr_fun (bdHom_comp_mapHom n f) x]
+  exact hsubspace.comp hsource
+
 /-- The `i_*` square in the relative long exact sequence commutes as a square of monoid
 homomorphisms. -/
 theorem mapHom_comp_iStarHom (n : ℕ) (f : BasedPairMap A B a b) :

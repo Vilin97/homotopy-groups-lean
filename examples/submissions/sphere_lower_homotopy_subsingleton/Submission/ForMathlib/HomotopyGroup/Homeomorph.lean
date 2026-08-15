@@ -81,6 +81,67 @@ theorem homeomorphEquiv_symm_apply (e : X ≃ₜ Y) (x : X) (b : HomotopyGroup N
       map ⟨e.symm, e.symm.continuous⟩ (e.symm_apply_apply x) b :=
   rfl
 
+/-- Bijectivity of induced homotopy-group maps is equivalent across a commuting square whose
+vertical maps are homeomorphisms. -/
+theorem map_bijective_iff_of_homeomorph_square
+    {X' Y' : Type*} [TopologicalSpace X'] [TopologicalSpace Y']
+    (f : C(X, Y)) (f' : C(X', Y'))
+    (sourceEquiv : X ≃ₜ X') (targetEquiv : Y ≃ₜ Y')
+    (hsquare :
+      (⟨targetEquiv, targetEquiv.continuous⟩ : C(Y, Y')).comp f =
+        f'.comp ⟨sourceEquiv, sourceEquiv.continuous⟩)
+    {x : X} {y : Y} {x' : X'} {y' : Y'}
+    (hf : f x = y) (hsource : sourceEquiv x = x') (hf' : f' x' = y') :
+    Function.Bijective (map (N := N) (x := x) (y := y) f hf) ↔
+      Function.Bijective (map (N := N) (x := x') (y := y') f' hf') := by
+  have htarget : targetEquiv y = y' := by
+    calc
+      targetEquiv y = targetEquiv (f x) := congrArg targetEquiv hf.symm
+      _ = f' (sourceEquiv x) := congrArg (fun k ↦ k x) hsquare
+      _ = f' x' := congrArg f' hsource
+      _ = y' := hf'
+  let sourcePiEquiv := homeomorphEquivOfEq
+    (N := N) sourceEquiv hsource
+  let targetPiEquiv := homeomorphEquivOfEq
+    (N := N) targetEquiv htarget
+  have hcomm :
+      (targetPiEquiv ∘ map (N := N) (x := x) (y := y) f hf) =
+        (map (N := N) (x := x') (y := y') f' hf' ∘ sourcePiEquiv) := by
+    funext p
+    change map ⟨targetEquiv, targetEquiv.continuous⟩ htarget
+        (map f hf p) =
+      map f' hf' (map ⟨sourceEquiv, sourceEquiv.continuous⟩ hsource p)
+    rw [map_comp_apply, map_comp_apply]
+    exact map_congr hsquare _ _ p
+  calc
+    Function.Bijective (map (N := N) (x := x) (y := y) f hf) ↔
+        Function.Bijective
+          (targetPiEquiv ∘ map (N := N) (x := x) (y := y) f hf) :=
+      (Function.Bijective.of_comp_iff' targetPiEquiv.bijective _).symm
+    _ ↔ Function.Bijective
+          (map (N := N) (x := x') (y := y') f' hf' ∘ sourcePiEquiv) := by
+      rw [hcomm]
+    _ ↔ Function.Bijective
+          (map (N := N) (x := x') (y := y') f' hf') :=
+      Function.Bijective.of_comp_iff _ sourcePiEquiv.bijective
+
+/-- Bijectivity of an induced homotopy-group map descends across a commuting square whose
+vertical maps are homeomorphisms. -/
+theorem map_bijective_of_homeomorph_square
+    {X' Y' : Type*} [TopologicalSpace X'] [TopologicalSpace Y']
+    (f : C(X, Y)) (f' : C(X', Y'))
+    (sourceEquiv : X ≃ₜ X') (targetEquiv : Y ≃ₜ Y')
+    (hsquare :
+      (⟨targetEquiv, targetEquiv.continuous⟩ : C(Y, Y')).comp f =
+        f'.comp ⟨sourceEquiv, sourceEquiv.continuous⟩)
+    {x : X} {y : Y} {x' : X'} {y' : Y'}
+    (hf : f x = y) (hsource : sourceEquiv x = x') (hf' : f' x' = y')
+    (hbijective : Function.Bijective
+      (map (N := N) (x := x') (y := y') f' hf')) :
+    Function.Bijective (map (N := N) (x := x) (y := y) f hf) :=
+  (map_bijective_iff_of_homeomorph_square f f' sourceEquiv targetEquiv
+    hsquare hf hsource hf').mpr hbijective
+
 /-- A homeomorphism `e : X ≃ₜ Y` carrying `x` to `y` induces an isomorphism of homotopy groups
 `π_N(X, x) ≃* π_N(Y, y)` in positive dimensions. -/
 noncomputable def homeomorphMulEquivOfEq [DecidableEq N] [Nonempty N]
