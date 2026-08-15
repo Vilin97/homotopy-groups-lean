@@ -162,7 +162,7 @@ test("ships complete, synchronized benchmark data, reports, and social art", asy
   assert.ok(leaderboard.current_result_count + leaderboard.archived_result_count >= 8);
   assert.ok(leaderboard.accepted_problems.every((problem) => typeof problem.title === "string" && problem.title.length > 0));
   assert.ok(tracker.entries.some((problem) => problem.title === "The fundamental group of the circle is the integers"));
-  assert.equal(leaderboard.formalization_inventory.records.length, 79);
+  assert.equal(leaderboard.formalization_inventory.records.length, 80);
   assert.equal(leaderboard.formalization_inventory.lattice.cell_count, 201);
   assert.equal(leaderboard.formalization_inventory.degree_lattice.cell_count, 4370);
   for (const lattice of [
