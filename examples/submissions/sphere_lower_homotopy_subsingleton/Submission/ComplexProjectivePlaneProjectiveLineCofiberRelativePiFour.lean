@@ -127,7 +127,7 @@ theorem complexProjectivePlaneProjectiveLineRelativePiFourCollapse_bijective_iff
     _ ↔ Function.Bijective diskBoundaryFourRelativePiFourCollapseHom := by
       rw [← hcomp]
 
-/-! ## The remaining disk-quotient comparison through relative Hurewicz -/
+/-! ## The disk-quotient comparison through relative Hurewicz -/
 
 /-- The literal boundary of the maintained four-disk is two-connected. -/
 theorem isTwoConnected_diskBoundaryFourInDisk :
