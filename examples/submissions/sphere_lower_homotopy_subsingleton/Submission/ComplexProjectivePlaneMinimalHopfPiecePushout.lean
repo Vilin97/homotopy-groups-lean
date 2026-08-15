@@ -28,36 +28,6 @@ open FiniteOrderedComplex
 set_option maxRecDepth 100000
 set_option maxHeartbeats 4000000
 
-/-! ## A finite intersection criterion -/
-
-/-- If every left/right facet intersection is a face of `common`, and every common facet is a
-face on both sides, then the generated ordered subcomplexes intersect exactly in `common`. -/
-theorem orderedSubcomplex_inf_eq_of_pairwise_intersections
-    {V : Type} [LinearOrder V]
-    (common left right : Finset (Finset V))
-    (hinter : ∀ leftFacet ∈ left, ∀ rightFacet ∈ right,
-      IsFace common (leftFacet ∩ rightFacet))
-    (hleft : FacetFamilyLE common left)
-    (hright : FacetFamilyLE common right) :
-    orderedSubcomplex left ⊓ orderedSubcomplex right =
-      orderedSubcomplex common := by
-  ext Δ x
-  constructor
-  · intro hx
-    change x ∈ (orderedSubcomplex left).obj Δ ∧
-      x ∈ (orderedSubcomplex right).obj Δ at hx
-    rcases hx with ⟨⟨leftFacet, hleftFacet, hxleft⟩,
-      ⟨rightFacet, hrightFacet, hxright⟩⟩
-    obtain ⟨commonFacet, hcommonFacet, hsubset⟩ :=
-      hinter leftFacet hleftFacet rightFacet hrightFacet
-    exact ⟨commonFacet, hcommonFacet, fun i ↦
-      hsubset (Finset.mem_inter.mpr ⟨hxleft i, hxright i⟩)⟩
-  · intro hx
-    change x ∈ (orderedSubcomplex left).obj Δ ∧
-      x ∈ (orderedSubcomplex right).obj Δ
-    exact ⟨orderedSubcomplex_mono_of_facetFamilyLE hleft Δ hx,
-      orderedSubcomplex_mono_of_facetFamilyLE hright Δ hx⟩
-
 /-! ## Source pushout -/
 
 theorem minimalHopfSourcePiece_pairwise_intersections :

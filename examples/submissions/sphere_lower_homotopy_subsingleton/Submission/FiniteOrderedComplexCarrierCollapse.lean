@@ -675,4 +675,31 @@ noncomputable def elementaryCollapseMoveSequenceCarrierHomotopyEquiv
         (fun facet hfacet ↦ hvalid'.1.2.2.2 ⟨facet, hfacet⟩)).trans
         (ih (elementaryCollapseFacets facets move.freeFace move.vertex) hvalid'.2)
 
+/-- The inverse supplied by a finite elementary-collapse sequence is the canonical carrier
+inclusion: it preserves every ambient barycentric coordinate. -/
+theorem elementaryCollapseMoveSequenceCarrierHomotopyEquiv_invFun_val
+    (facets : Finset (Finset V))
+    (moves : List (ElementaryCollapseMoveData V))
+    (hvalid : IsValidElementaryCollapseMoveSequence facets moves)
+    (x : facetFamilyCarrier (applyElementaryCollapseMoves facets moves)) :
+    ((elementaryCollapseMoveSequenceCarrierHomotopyEquiv
+      facets moves hvalid).invFun x).1 = x.1 := by
+  induction moves generalizing facets with
+  | nil => rfl
+  | cons move rest ih =>
+      have hvalid' : IsValidElementaryCollapseMove facets move ∧
+          IsValidElementaryCollapseMoveSequence
+            (elementaryCollapseFacets facets move.freeFace move.vertex) rest := by
+        simpa only [IsValidElementaryCollapseMoveSequence] using hvalid
+      change ((elementaryCollapseCarrierHomotopyEquiv
+        facets move.freeFace move.vertex
+        hvalid'.1.1 hvalid'.1.2.1 hvalid'.1.2.2.1
+        (fun facet hfacet ↦ hvalid'.1.2.2.2 ⟨facet, hfacet⟩)).invFun
+          ((elementaryCollapseMoveSequenceCarrierHomotopyEquiv
+            (elementaryCollapseFacets facets move.freeFace move.vertex)
+            rest hvalid'.2).invFun x)).1 = x.1
+      exact ih
+        (elementaryCollapseFacets facets move.freeFace move.vertex)
+        hvalid'.2 x
+
 end Submission.FiniteOrderedComplex
