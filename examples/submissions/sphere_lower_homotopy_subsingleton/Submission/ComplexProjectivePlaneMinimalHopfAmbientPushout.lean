@@ -3,6 +3,7 @@ Copyright (c) 2026 Vasily Ilin. All rights reserved.
 Released under Apache 2.0 license.
 -/
 import Submission.ComplexProjectivePlaneMinimalHopfBallCollapse
+import Submission.SSetMonoRealizationCofibration
 import Submission.Topology.PushoutMono
 
 /-!
@@ -419,6 +420,15 @@ theorem minimalHopfStrictPushoutComparison_not_isIso :
 
 /-! ## Geometric realization -/
 
+/-- The realized finite Hopf boundary inclusion is a topological cofibration. -/
+theorem minimalHopfSphereRealizationIncl_isCofibration :
+    IsCofibration (SSet.toTop.map minimalHopfSphereSSetIncl) := by
+  letI : Mono minimalHopfSphereSSetIncl := by
+    unfold minimalHopfSphereSSetIncl orderedSSetHomOfFacetFamilyLE
+    infer_instance
+  exact Submission.geometricRealization_isCofibration_of_mono
+    minimalHopfSphereSSetIncl
+
 /-- Realization of the genuine simplicial pushout. -/
 noncomputable abbrev minimalHopfStrictPushoutRealization : TopCat :=
   SSet.toTop.obj minimalHopfStrictPushoutSSet
@@ -437,6 +447,14 @@ theorem minimalHopfStrictPushoutRealization_isPushout :
       (SSet.toTop.map minimalHopfStrictPushoutTargetIncl) := by
   simpa [minimalHopfRealizationMap] using
     minimalHopfStrictPushout_isPushout.map SSet.toTop
+
+/-- The realized target inclusion into the genuine finite Hopf pushout is a topological
+cofibration, by cobase change of the boundary inclusion. -/
+theorem minimalHopfStrictPushoutTargetInclRealization_isCofibration :
+    IsCofibration
+      (SSet.toTop.map minimalHopfStrictPushoutTargetIncl) :=
+  minimalHopfStrictPushoutRealization_isPushout.flip.isCofibration
+    minimalHopfSphereRealizationIncl_isCofibration
 
 /-- The realization of the genuine finite Hopf pushout is compact.  It is isomorphic to the
 canonical topological pushout of the compact ambient and target finite polyhedra. -/
