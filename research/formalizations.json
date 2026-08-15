@@ -2413,6 +2413,32 @@
       "note": "All nine declarations are sorry-free. Strict autoImplicit=false checks pass for the cofiber-comparison module and the Submission aggregate. Exact-target builds pass all 8,929 comparison jobs and 9,016 aggregate jobs, while the full independent-results build passes all 9,017 jobs. The maintained CP^2 basepoint is proved to collapse to the maintained S^4 basepoint, and the exact collapse-fibre theorem sends every literal projective-line point to it. The resulting based pair map induces canonical degree-four maps on relative homotopy and homology; general relative Hurewicz naturality proves the unbundled and additive commuting squares directly. Audited axiom closures contain only propext, Classical.choice, and Quot.sound."
     },
     {
+      "id": "lean4-projective-line-cofiber-target",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "235461053ac3470e285c96247dcb7a1f781aed26",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.sphereFourPointRelativePiFourMulEquivInt",
+        "Submission.sphereFourPointRelativeHomologyFourIsoInt",
+        "Submission.sphereFourPointRelativeHomologyFourGenerator",
+        "Submission.sphereFourPointRelativeHomologyFourIsoInt_generator",
+        "Submission.sphereFourPointRelativeHurewiczAdd_bijective",
+        "Submission.sphereFourPointRelativeHurewiczAddEquiv",
+        "Submission.sphereFourPointRelativePiFourGenerator",
+        "Submission.sphereFourPointRelativeHurewicz_generator_coordinate",
+        "Submission.sphereFourPointRelativeHurewicz_generator_coordinate_eq_one_or_neg_one",
+        "Submission.complexProjectivePlaneProjectiveLineRelativePiFourCollapse_bijective_iff_hurewicz"
+      ],
+      "result": "the point-pair target (S^4, {basepoint}) has normalized relative pi_4 and relative H_4 both equal to the integers, its degree-four relative Hurewicz map is bijective, and the canonical cubical sphere class has Hurewicz coordinate plus or minus one; consequently bijectivity of the canonical CP^2/CP^1 relative pi_4 collapse is equivalent to bijectivity of its explicit source-Hurewicz followed by homology-collapse composite",
+      "model_relation": "all groups use the maintained metric S^4 and its maintained singleton basepoint; the homotopy coordinate is the absolute-to-relative singleton equivalence followed by the maintained sphere-diagonal Hurewicz coordinate, while the homology coordinate is the relative-to-absolute singleton equivalence followed by the maintained sphere orientation; the final cancellation theorem uses the exact canonical collapse naturality square but deliberately leaves the remaining source-side geometric calculation open and therefore adds no lattice cells",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ComplexProjectivePlaneProjectiveLineCofiberTarget.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All ten declarations are sorry-free. Strict autoImplicit=false checks pass for the point-pair target module and the Submission aggregate. Exact-target builds pass all 8,943 target jobs and 9,017 aggregate jobs, while the full independent-results build passes all 9,018 jobs. Singleton-pair long exact sequences transport absolute sphere homotopy and homology to the relative target, and the first-nonvanishing Hurewicz theorem makes the target comparison bijective. Naturality identifies the canonical relative generator coordinate with the already normalized absolute sphere-generator coordinate, hence with a unit. Cancelling the target Hurewicz bijection gives the precise remaining composite criterion for the projective-line collapse. Audited axiom closures contain only propext, Classical.choice, and Quot.sound."
+    },
+    {
       "id": "lean4-stable-sphere-cap-excision",
       "system": "Lean 4",
       "repository": "Vilin97/homotopy-groups-lean",
