@@ -391,4 +391,34 @@ theorem minimalHopfStrictPushoutTargetIncl_comparison_realization :
   rw [minimalHopfStrictPushoutComparisonRealization, ← SSet.toTop.map_comp,
     minimalHopfStrictPushoutTargetIncl_comparison]
 
+/-- The finite ambient quotient remains surjective after geometric realization. -/
+theorem minimalHopfBallQuotientRealizationMap_surjective :
+    Function.Surjective minimalHopfBallQuotientRealizationMap := by
+  rw [← TopCat.epi_iff_surjective]
+  unfold minimalHopfBallQuotientRealizationMap
+  infer_instance
+
+/-- The realized finite ambient map presents the projective-plane realization with its quotient
+topology.  This uses compactness of the finite source polyhedron and Hausdorffness of the finite
+target polyhedron. -/
+theorem minimalHopfBallQuotientRealizationMap_isQuotientMap :
+    Topology.IsQuotientMap minimalHopfBallQuotientRealizationMap := by
+  letI : CompactSpace
+      (SSet.toTop.obj (orderedSSet minimalHopfBallFacets)) :=
+    (orderedRealizationHomeomorphFacetFamilyCarrier
+      minimalHopfBallFacets).symm.compactSpace
+  letI : T2Space projectivePlaneRealization :=
+    (orderedRealizationHomeomorphFacetFamilyCarrier facets).symm.t2Space
+  exact Topology.IsQuotientMap.of_surjective_continuous
+    minimalHopfBallQuotientRealizationMap_surjective
+    minimalHopfBallQuotientRealizationMap.hom.continuous
+
+/-- The realized comparison is surjective.  Geometric realization preserves the simplicial
+epimorphism, and epimorphisms of topological spaces are precisely the surjective maps. -/
+theorem minimalHopfStrictPushoutComparisonRealization_surjective :
+    Function.Surjective minimalHopfStrictPushoutComparisonRealization := by
+  rw [← TopCat.epi_iff_surjective]
+  unfold minimalHopfStrictPushoutComparisonRealization
+  infer_instance
+
 end Submission.ComplexProjectivePlaneTriangulation
