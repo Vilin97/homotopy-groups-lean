@@ -554,6 +554,7 @@ def elementaryCollapseCarrierHomotopyEquiv
 structure ElementaryCollapseMoveData (V : Type) where
   freeFace : Finset V
   vertex : V
+deriving DecidableEq
 
 /-- The facet family obtained by applying a finite sequence of elementary collapses. -/
 def applyElementaryCollapseMoves (facets : Finset (Finset V))
@@ -562,6 +563,16 @@ def applyElementaryCollapseMoves (facets : Finset (Finset V))
     (fun current move ↦
       elementaryCollapseFacets current move.freeFace move.vertex) facets
 
+omit [Fintype V] in
+/-- Applying concatenated collapse lists is the same as applying the second list to the endpoint
+of the first. -/
+theorem applyElementaryCollapseMoves_append (facets : Finset (Finset V))
+    (moves₁ moves₂ : List (ElementaryCollapseMoveData V)) :
+    applyElementaryCollapseMoves facets (moves₁ ++ moves₂) =
+      applyElementaryCollapseMoves
+        (applyElementaryCollapseMoves facets moves₁) moves₂ := by
+  simp [applyElementaryCollapseMoves, List.foldl_append]
+
 /-- A move is valid when its free face is nonempty, its opposite vertex is new, and the resulting
 simplex is the unique listed facet containing that free face. -/
 def IsValidElementaryCollapseMove (facets : Finset (Finset V))
@@ -569,14 +580,21 @@ def IsValidElementaryCollapseMove (facets : Finset (Finset V))
   move.freeFace.Nonempty ∧
     move.vertex ∉ move.freeFace ∧
     elementaryCollapseSimplex move.freeFace move.vertex ∈ facets ∧
-    ∀ facet ∈ facets, move.freeFace ⊆ facet →
-      facet = move.freeFace ∨
-        facet = elementaryCollapseSimplex move.freeFace move.vertex
+    ∀ facet : {facet : Finset V // facet ∈ facets},
+      move.freeFace ⊆ facet.1 →
+        facet.1 = move.freeFace ∨
+          facet.1 = elementaryCollapseSimplex move.freeFace move.vertex
 
 instance (facets : Finset (Finset V)) (move : ElementaryCollapseMoveData V) :
-    Decidable (IsValidElementaryCollapseMove facets move) := by
-  unfold IsValidElementaryCollapseMove
-  infer_instance
+    Decidable (IsValidElementaryCollapseMove facets move) :=
+  inferInstanceAs (Decidable
+    (move.freeFace.Nonempty ∧
+      move.vertex ∉ move.freeFace ∧
+      elementaryCollapseSimplex move.freeFace move.vertex ∈ facets ∧
+      ∀ facet : {facet : Finset V // facet ∈ facets},
+        move.freeFace ⊆ facet.1 →
+          facet.1 = move.freeFace ∨
+            facet.1 = elementaryCollapseSimplex move.freeFace move.vertex))
 
 /-- Every move in a collapse sequence is valid for the facet family produced by the preceding
 moves. -/
@@ -589,17 +607,43 @@ def IsValidElementaryCollapseMoveSequence (facets : Finset (Finset V))
         IsValidElementaryCollapseMoveSequence
           (elementaryCollapseFacets facets move.freeFace move.vertex) rest
 
+def isValidElementaryCollapseMoveSequenceDecidable
+    (facets : Finset (Finset V))
+    (moves : List (ElementaryCollapseMoveData V)) :
+    Decidable (IsValidElementaryCollapseMoveSequence facets moves) :=
+  match moves with
+  | [] => isTrue trivial
+  | move :: rest =>
+      @instDecidableAnd
+        (IsValidElementaryCollapseMove facets move)
+        (IsValidElementaryCollapseMoveSequence
+          (elementaryCollapseFacets facets move.freeFace move.vertex) rest)
+        (inferInstanceAs (Decidable (IsValidElementaryCollapseMove facets move)))
+        (isValidElementaryCollapseMoveSequenceDecidable
+          (elementaryCollapseFacets facets move.freeFace move.vertex) rest)
+
 instance (facets : Finset (Finset V))
     (moves : List (ElementaryCollapseMoveData V)) :
-    Decidable (IsValidElementaryCollapseMoveSequence facets moves) := by
-  induction moves generalizing facets with
+    Decidable (IsValidElementaryCollapseMoveSequence facets moves) :=
+  isValidElementaryCollapseMoveSequenceDecidable facets moves
+
+omit [Fintype V] in
+/-- A concatenated collapse sequence is valid exactly when its first part is valid and its second
+part is valid at the first part's endpoint. -/
+theorem isValidElementaryCollapseMoveSequence_append_iff
+    (facets : Finset (Finset V))
+    (moves₁ moves₂ : List (ElementaryCollapseMoveData V)) :
+    IsValidElementaryCollapseMoveSequence facets (moves₁ ++ moves₂) ↔
+      IsValidElementaryCollapseMoveSequence facets moves₁ ∧
+        IsValidElementaryCollapseMoveSequence
+          (applyElementaryCollapseMoves facets moves₁) moves₂ := by
+  induction moves₁ generalizing facets with
   | nil =>
-      simpa only [IsValidElementaryCollapseMoveSequence] using
-        (isTrue trivial : Decidable True)
-  | cons move rest ih =>
-      unfold IsValidElementaryCollapseMoveSequence
-      letI := ih (elementaryCollapseFacets facets move.freeFace move.vertex)
-      infer_instance
+      simp only [List.nil_append, IsValidElementaryCollapseMoveSequence,
+        applyElementaryCollapseMoves, List.foldl_nil, true_and]
+  | cons move moves₁ ih =>
+      simp only [List.cons_append, IsValidElementaryCollapseMoveSequence,
+        applyElementaryCollapseMoves, List.foldl_cons, ih, and_assoc]
 
 /-- A valid finite sequence of elementary simplicial collapses induces a homotopy equivalence of
 affine carriers. -/
@@ -627,7 +671,8 @@ noncomputable def elementaryCollapseMoveSequenceCarrierHomotopyEquiv
             (elementaryCollapseFacets facets move.freeFace move.vertex) rest))
       exact (elementaryCollapseCarrierHomotopyEquiv
         facets move.freeFace move.vertex
-        hvalid'.1.1 hvalid'.1.2.1 hvalid'.1.2.2.1 hvalid'.1.2.2.2).trans
+        hvalid'.1.1 hvalid'.1.2.1 hvalid'.1.2.2.1
+        (fun facet hfacet ↦ hvalid'.1.2.2.2 ⟨facet, hfacet⟩)).trans
         (ih (elementaryCollapseFacets facets move.freeFace move.vertex) hvalid'.2)
 
 end Submission.FiniteOrderedComplex
