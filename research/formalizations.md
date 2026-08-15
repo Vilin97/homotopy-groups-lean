@@ -695,10 +695,24 @@ distinct in the genuine topological pushout but have the same image in the
 nine-vertex realization. Thus the realized comparison is explicitly
 noninjective as well as surjective. Lean now forms the two target homotopy
 cofibers, constructs the canonical comparison between them, and proves its
-commutation with the ambient inclusions. The remaining step is to prove that
-this cofiber map, and hence the ambient quotient map, is a homotopy equivalence,
-so these results do not yet identify the finite quotient with the maintained
-topological `CP^2` or add a sphere-lattice cell.
+commutation with the ambient inclusions. The ambient quotient also preserves
+complementary barycentric mass, so the target pulls back exactly to the source
+boundary; the same exact-pair statement holds for the genuine-pushout
+comparison.
+
+A separate relative-collapse certificate sharpens the target-cofiber side.
+Removing the all-interior four-simplex leaves a 35-facet complex which 120
+checked elementary collapses reduce to the four-triangle target. Every free
+face contains an interior vertex, and the inverse collapse equivalence is
+proved to be the literal target inclusion both on affine carriers and after
+realization. The punctured complex and removed simplex meet in exactly the
+five-tetrahedron boundary and reconstruct the full nine-vertex complex by a
+pushout, before and after realization. The remaining step is to identify the
+resulting boundary attaching map with the certified finite Hopf map. Until that
+comparison is proved, neither the target-cofiber map nor the ambient quotient
+map is known to be a homotopy equivalence, so these results do not yet identify
+the finite quotient with the maintained topological `CP^2` or add a
+sphere-lattice cell.
 
 The symmetry-breaking subdivision used by Schwartz's trisection is now checked
 combinatorially too. Its 78 four-simplices map onto the original 36 facets and
