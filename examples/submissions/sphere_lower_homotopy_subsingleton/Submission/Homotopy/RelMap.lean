@@ -43,6 +43,14 @@ variable {X : Type u} {Y : Type v} {Z : Type w}
   [TopologicalSpace X] [TopologicalSpace Y] [TopologicalSpace Z]
   {A : Set X} {B : Set Y} {C : Set Z} {a : A} {b : B} {c : C}
 
+/-- Based maps of pairs are determined by their underlying continuous maps. -/
+@[ext]
+theorem ext {f g : BasedPairMap A B a b}
+    (h : f.toContinuousMap = g.toContinuousMap) : f = g := by
+  cases f
+  cases g
+  simp_all
+
 /-- The map induced between the distinguished subspaces. -/
 def subspaceMap (f : BasedPairMap A B a b) : C(A, B) where
   toFun x := ⟨f.toContinuousMap x, f.mapsTo' x.property⟩
