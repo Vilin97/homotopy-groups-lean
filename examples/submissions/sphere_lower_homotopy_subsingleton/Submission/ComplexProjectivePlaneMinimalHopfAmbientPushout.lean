@@ -138,6 +138,68 @@ theorem minimalHopfSphereFacet_subset_boundaryVertexSupport :
       all_goals decide
     exact hexceptionalSupport facet hexceptional
 
+/-- The certified boundary is exactly the subcomplex induced on the twelve outer vertices:
+a finite ambient face belongs to the boundary precisely when all of its vertices are outer. -/
+theorem minimalHopfSphere_isFace_iff
+    (face : Finset MinimalHopfBallVertex) :
+    IsFace minimalHopfSphereFacets face ↔
+      IsFace minimalHopfBallFacets face ∧
+        face ⊆ minimalHopfBoundaryVertexSupport := by
+  constructor
+  · rintro ⟨facet, hfacet, hface⟩
+    obtain ⟨ballFacet, hballFacet, hfacetBall⟩ :=
+      minimalHopfSphereFacets_le_ball facet hfacet
+    exact ⟨⟨ballFacet, hballFacet, hface.trans hfacetBall⟩,
+      fun v hv ↦ minimalHopfSphereFacet_subset_boundaryVertexSupport
+        facet hfacet (hface hv)⟩
+  · rintro ⟨hface, hsupport⟩
+    obtain ⟨facet, hfacet, hfaceFacet⟩ := hface
+    exact (by decide : ∀ facet : ↥minimalHopfBallFacets,
+      ∀ face : ↥facet.1.powerset,
+        face.1 ⊆ minimalHopfBoundaryVertexSupport →
+          IsFace minimalHopfSphereFacets face.1)
+      ⟨facet, hfacet⟩ ⟨face, Finset.mem_powerset.mpr hfaceFacet⟩ hsupport
+
+/-- In affine coordinates, the boundary carrier consists exactly of ambient carrier points
+whose nonzero coordinates are supported on the twelve outer vertices. -/
+theorem minimalHopfSphere_mem_carrier_iff
+    (x : stdSimplex ℝ MinimalHopfBallVertex) :
+    x ∈ facetFamilyCarrier minimalHopfSphereFacets ↔
+      x ∈ facetFamilyCarrier minimalHopfBallFacets ∧
+        ∀ v, v ∉ minimalHopfBoundaryVertexSupport → x v = 0 := by
+  constructor
+  · intro hx
+    obtain ⟨facet, hfacet, hsupport⟩ :=
+      (mem_facetFamilyCarrier_iff minimalHopfSphereFacets x).mp hx
+    obtain ⟨ballFacet, hballFacet, hfacetBall⟩ :=
+      minimalHopfSphereFacets_le_ball facet hfacet
+    constructor
+    · exact (mem_facetFamilyCarrier_iff minimalHopfBallFacets x).mpr
+        ⟨ballFacet, hballFacet, fun v hv ↦
+          hsupport v (fun hvfacet ↦ hv (hfacetBall hvfacet))⟩
+    · intro v hv
+      exact hsupport v (fun hvfacet ↦ hv
+        (minimalHopfSphereFacet_subset_boundaryVertexSupport
+          facet hfacet hvfacet))
+  · rintro ⟨hx, hzero⟩
+    obtain ⟨ballFacet, hballFacet, hsupport⟩ :=
+      (mem_facetFamilyCarrier_iff minimalHopfBallFacets x).mp hx
+    let face := ballFacet ∩ minimalHopfBoundaryVertexSupport
+    have hfaceBall : IsFace minimalHopfBallFacets face :=
+      ⟨ballFacet, hballFacet, Finset.inter_subset_left⟩
+    have hfaceSupport : face ⊆ minimalHopfBoundaryVertexSupport :=
+      Finset.inter_subset_right
+    obtain ⟨sphereFacet, hsphereFacet, hfaceSphere⟩ :=
+      (minimalHopfSphere_isFace_iff face).mpr ⟨hfaceBall, hfaceSupport⟩
+    exact (mem_facetFamilyCarrier_iff minimalHopfSphereFacets x).mpr
+      ⟨sphereFacet, hsphereFacet, fun v hv ↦ by
+        by_cases hvBall : v ∈ ballFacet
+        · apply hzero v
+          intro hvBoundary
+          exact hv (hfaceSphere
+            (Finset.mem_inter.mpr ⟨hvBall, hvBoundary⟩))
+        · exact hsupport v hvBall⟩
+
 /-- The ordered simplex on the first collision edge. -/
 def minimalHopfAmbientCollisionLeftSimplex :
     (orderedSSet minimalHopfBallFacets).obj (Opposite.op ⦋1⦌) :=
@@ -402,6 +464,136 @@ noncomputable instance minimalHopfStrictPushoutRealization_compactSpace :
   exact Function.Surjective.compactSpace
     (TopCat.homeoOfIso e).continuous
     (TopCat.homeoOfIso e).surjective
+
+/-! ## The boundary as a barycentric zero set -/
+
+/-- The five interior vertices of the finite ambient four-ball. -/
+def minimalHopfInteriorVertexSupport : Finset MinimalHopfBallVertex :=
+  {0, 1, 2, 3, 4}
+
+/-- The total barycentric weight on the five interior vertices of the affine ambient carrier. -/
+noncomputable def minimalHopfInteriorMass
+    (x : facetFamilyCarrier minimalHopfBallFacets) : ℝ :=
+  ∑ v ∈ minimalHopfInteriorVertexSupport, x.1 v
+
+/-- Interior barycentric mass varies continuously on the affine ambient carrier. -/
+theorem continuous_minimalHopfInteriorMass :
+    Continuous minimalHopfInteriorMass := by
+  apply continuous_finsetSum
+  intro v _
+  exact ((continuous_apply v).comp continuous_subtype_val).comp
+    continuous_subtype_val
+
+/-- An ambient carrier point belongs to the boundary carrier exactly when its total interior
+barycentric mass vanishes. -/
+theorem minimalHopfSphere_mem_carrier_iff_interiorMass_eq_zero
+    (x : facetFamilyCarrier minimalHopfBallFacets) :
+    x.1 ∈ facetFamilyCarrier minimalHopfSphereFacets ↔
+      minimalHopfInteriorMass x = 0 := by
+  rw [minimalHopfSphere_mem_carrier_iff]
+  constructor
+  · rintro ⟨_, hzero⟩
+    rw [minimalHopfInteriorMass]
+    apply Finset.sum_eq_zero
+    intro v hv
+    apply hzero v
+    fin_cases v <;>
+      simp [minimalHopfInteriorVertexSupport,
+        minimalHopfBoundaryVertexSupport] at hv ⊢
+  · intro hmass
+    refine ⟨x.2, ?_⟩
+    intro v hv
+    have hcoordinate : ∀ w ∈ minimalHopfInteriorVertexSupport,
+        x.1 w = 0 :=
+      (Finset.sum_eq_zero_iff_of_nonneg
+        (fun w _ ↦ x.1.2.1 w)).mp hmass
+    apply hcoordinate v
+    fin_cases v <;>
+      simp [minimalHopfInteriorVertexSupport,
+        minimalHopfBoundaryVertexSupport] at hv ⊢
+
+/-- The affine boundary inclusion has range exactly the zero set of interior mass. -/
+theorem minimalHopfBoundaryCarrier_range_iff_interiorMass_eq_zero
+    (x : facetFamilyCarrier minimalHopfBallFacets) :
+    x ∈ Set.range
+        (facetFamilyCarrierMapOfFacetFamilyLE
+          minimalHopfSphereFacets_le_ball) ↔
+      minimalHopfInteriorMass x = 0 := by
+  rw [← minimalHopfSphere_mem_carrier_iff_interiorMass_eq_zero]
+  constructor
+  · rintro ⟨y, rfl⟩
+    exact y.2
+  · intro hx
+    exact ⟨⟨x.1, hx⟩, Subtype.ext rfl⟩
+
+/-- Interior barycentric mass transported across the canonical realization/carrier
+homeomorphism. -/
+noncomputable def minimalHopfRealizationInteriorMass
+    (x : SSet.toTop.obj (orderedSSet minimalHopfBallFacets)) : ℝ :=
+  minimalHopfInteriorMass
+    (orderedRealizationToFacetFamilyCarrier minimalHopfBallFacets x)
+
+/-- Realized interior mass is continuous. -/
+theorem continuous_minimalHopfRealizationInteriorMass :
+    Continuous minimalHopfRealizationInteriorMass :=
+  continuous_minimalHopfInteriorMass.comp
+    (orderedRealizationToFacetFamilyCarrier
+      minimalHopfBallFacets).hom.continuous
+
+/-- A point of the realized ambient four-ball lies in the realized boundary inclusion exactly
+when its interior barycentric mass vanishes. -/
+theorem minimalHopfBoundaryRealization_range_iff_interiorMass_eq_zero
+    (x : SSet.toTop.obj (orderedSSet minimalHopfBallFacets)) :
+    x ∈ Set.range (SSet.toTop.map minimalHopfSphereSSetIncl) ↔
+      minimalHopfRealizationInteriorMass x = 0 := by
+  constructor
+  · rintro ⟨y, rfl⟩
+    apply (minimalHopfBoundaryCarrier_range_iff_interiorMass_eq_zero
+      (orderedRealizationToFacetFamilyCarrier minimalHopfBallFacets
+        (SSet.toTop.map minimalHopfSphereSSetIncl y))).mp
+    refine ⟨orderedRealizationToFacetFamilyCarrier
+      minimalHopfSphereFacets y, ?_⟩
+    simpa [minimalHopfSphereSSetIncl, ConcreteCategory.comp_apply,
+      facetFamilyCarrierHomOfFacetFamilyLE] using
+      (ConcreteCategory.congr_hom
+        (orderedRealizationToFacetFamilyCarrier_naturality
+          minimalHopfSphereFacets_le_ball) y).symm
+  · intro hmass
+    obtain ⟨z, hz⟩ :=
+      (minimalHopfBoundaryCarrier_range_iff_interiorMass_eq_zero
+        (orderedRealizationToFacetFamilyCarrier minimalHopfBallFacets x)).mpr
+          hmass
+    refine ⟨(orderedRealizationHomeomorphFacetFamilyCarrier
+      minimalHopfSphereFacets).symm z, ?_⟩
+    apply (orderedRealizationHomeomorphFacetFamilyCarrier
+      minimalHopfBallFacets).injective
+    calc
+      orderedRealizationToFacetFamilyCarrier minimalHopfBallFacets
+          (SSet.toTop.map minimalHopfSphereSSetIncl
+            ((orderedRealizationHomeomorphFacetFamilyCarrier
+              minimalHopfSphereFacets).symm z)) =
+        facetFamilyCarrierMapOfFacetFamilyLE
+          minimalHopfSphereFacets_le_ball
+            (orderedRealizationToFacetFamilyCarrier
+              minimalHopfSphereFacets
+                ((orderedRealizationHomeomorphFacetFamilyCarrier
+                  minimalHopfSphereFacets).symm z)) := by
+          simpa [minimalHopfSphereSSetIncl, ConcreteCategory.comp_apply,
+            facetFamilyCarrierHomOfFacetFamilyLE] using
+            ConcreteCategory.congr_hom
+              (orderedRealizationToFacetFamilyCarrier_naturality
+                minimalHopfSphereFacets_le_ball)
+              ((orderedRealizationHomeomorphFacetFamilyCarrier
+                minimalHopfSphereFacets).symm z)
+      _ = facetFamilyCarrierMapOfFacetFamilyLE
+          minimalHopfSphereFacets_le_ball z := by
+        rw [show orderedRealizationToFacetFamilyCarrier
+            minimalHopfSphereFacets
+              ((orderedRealizationHomeomorphFacetFamilyCarrier
+                minimalHopfSphereFacets).symm z) = z by
+          exact (orderedRealizationHomeomorphFacetFamilyCarrier
+            minimalHopfSphereFacets).apply_symm_apply z]
+      _ = orderedRealizationToFacetFamilyCarrier minimalHopfBallFacets x := hz
 
 @[reassoc]
 theorem minimalHopfStrictPushoutBallIncl_comparison_realization :
