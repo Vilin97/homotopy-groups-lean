@@ -2506,6 +2506,37 @@
       "note": "All 51 declarations are sorry-free. Strict autoImplicit=false checks pass independently for the mapping-cone collar, relative-homology collapse, and projective-line specialization modules. Exact-target builds pass for all three modules and the 9,020-job Submission aggregate, while the full independent-results build passes all 9,021 jobs. The generic theorem identifies collapse on the upper and overlap collars as homeomorphisms, applies relative excision to the standard height cover, and conjugates through lower-collar deformation equivalences. In degree four, absolute-to-relative comparison isomorphisms and the maintained mapping-cone/sphere square promote this to the literal CP^2 pair; bijectivity of the induced integer endomorphism forces its generator coordinate to be 1 or -1. Audited axiom closures contain only propext, Classical.choice, and Quot.sound."
     },
     {
+      "id": "lean4-projective-cell-relative-pi-four",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "351ca3a111b10d65783d78aec43b307252332089",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.HomotopyGroup.map_bijective_iff_of_homeomorph_square",
+        "Submission.HomotopyGroup.map_bijective_of_homeomorph_square",
+        "Submission.RelHomotopyGroup.mapHom_bijective_of_bdHom_bijective",
+        "Submission.diskBoundaryFourBasepoint",
+        "Submission.diskBoundaryFourHomeomorphSphereThree_basepoint",
+        "Submission.diskBoundaryFourComplexHopfMap_basepoint",
+        "Submission.diskBoundaryInclFour_isEmbedding",
+        "Submission.diskBoundaryFourInDisk",
+        "Submission.diskBoundaryFourInDiskBasepoint",
+        "Submission.diskBoundaryFourInDiskBasepoint_coe",
+        "Submission.complexProjectivePlaneCharacteristicPairMap",
+        "Submission.diskBoundaryFourComplexHopfMap_piThree_bijective",
+        "Submission.complexProjectivePlaneCharacteristicPairMap_subspace_piThree_bijective",
+        "Submission.diskBoundaryFourInDisk_relative_piFour_boundary_bijective",
+        "Submission.complexProjectivePlaneCharacteristicPairMap_relative_piFour_bijective"
+      ],
+      "result": "the geometric characteristic four-cell is a based map of literal pairs (D^4, boundary D^4) to (CP^2, CP^1), and its induced map on relative pi_4 is bijective; equivalently, the actual top-cell characteristic map generates the first nonzero relative homotopy group of the projective pair",
+      "model_relation": "the source subspace is the literal range of the maintained four-disk boundary embedding, the target is the literal embedded projective line in the maintained quotient-topology CP^2 model, and the restriction of the characteristic map is transported through the exact boundary-to-S^3 and CP^1-to-S^2 homeomorphisms to the concrete Hopf map; contractibility of D^4 and the proved adjacent vanishing for CP^2 make both relative boundary maps bijective, so naturality cancels them against the Hopf pi_3 isomorphism; this does not yet prove that the subsequent CP^1-collapse map on relative pi_4 is bijective and adds no sphere-lattice cells",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ComplexProjectivePlaneCharacteristicRelativePiFour.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All 15 declarations are sorry-free. Strict autoImplicit=false checks pass independently for the homeomorphism-transport API, relative boundary-square cancellation API, and characteristic-cell module. Exact-target builds pass the new module and the 9,021-job Submission aggregate, while the full independent-results build passes all 9,022 jobs. The exact Hopf attaching-map square and the proved Serre-fibration theorem give the subspace pi_3 bijection; a generic commuting-homeomorphism-square theorem transports it to literal range subspaces, and a generic relative-boundary-square theorem then proves the relative pi_4 result. Audited axiom closures contain only propext, Classical.choice, and Quot.sound."
+    },
+    {
       "id": "lean4-stable-sphere-cap-excision",
       "system": "Lean 4",
       "repository": "Vilin97/homotopy-groups-lean",
