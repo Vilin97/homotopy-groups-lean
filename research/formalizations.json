@@ -2791,6 +2791,70 @@
       "note": "All 11 listed declarations are sorry-free. The certificate is checked in six evaluator-friendly chunks and assembled by generic append theorems; the optimized validity decider ranges over the listed-facet subtype rather than every subset of 17 vertices. Strict source checks, the 8,883-job exact target, the 9,030-job aggregate, and the 9,031-job independent-results build pass. Audited axiom closures contain only propext, Classical.choice, and Quot.sound."
     },
     {
+      "id": "lean4-minimal-hopf-complement-homotopy-groups",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "8674a884f2479ef8851580054e4cc909b5a2d586",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.ComplexProjectivePlaneTriangulation.minimalHopfComplement_piOne_mulEquiv_int",
+        "Submission.ComplexProjectivePlaneTriangulation.minimalHopfComplement_higher_homotopy_subsingleton"
+      ],
+      "result": "at every basepoint of the 27-tetrahedron complementary finite Hopf preimage, the fundamental group is infinite cyclic and every homotopy group in degree at least two is trivial",
+      "model_relation": "the calculation transports the maintained exact pi_1(S^1)=Z and higher-circle vanishing theorems across the explicit 72-collapse homotopy equivalence. It computes the homotopy groups of this finite-complex realization, not a new sphere-lattice cell, and it does not upgrade the complement to a PL solid torus",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ComplexProjectivePlaneMinimalHopfComplementHomotopyGroups.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "Both declarations are sorry-free and quantify over every basepoint. Strict autoImplicit=false, exact-target, 9,034-job aggregate, and 9,035-job independent-results checks pass. Audited axiom closures contain only propext, Classical.choice, and Quot.sound."
+    },
+    {
+      "id": "lean4-minimal-hopf-complement-map-of-pairs",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "8674a884f2479ef8851580054e4cc909b5a2d586",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.ComplexProjectivePlaneTriangulation.minimalHopfComplementTargetFacets_isCone",
+        "Submission.ComplexProjectivePlaneTriangulation.minimalHopfTargetBoundaryRealizationHomeomorphSphereOne",
+        "Submission.ComplexProjectivePlaneTriangulation.minimalHopfComplementTargetRealizationHomeomorphDiskTwo",
+        "Submission.ComplexProjectivePlaneTriangulation.minimalHopfComplementTargetRealizationHomeomorphDiskTwo_base",
+        "Submission.ComplexProjectivePlaneTriangulation.minimalHopfComplement_sSet_square",
+        "Submission.ComplexProjectivePlaneTriangulation.minimalHopfComplementBoundary_sSet_square",
+        "Submission.ComplexProjectivePlaneTriangulation.minimalHopfComplementDiskMap_boundary",
+        "Submission.ComplexProjectivePlaneTriangulation.minimalHopfComplementRealization_carrier_naturality"
+      ],
+      "result": "the complementary finite Hopf restriction lands in a literal three-triangle cone whose realization is the exact disk D^2, and it is a strict map of pairs from the complementary source and common torus to (D^2,boundary D^2)",
+      "model_relation": "the ambient-source, ambient-target, and common-boundary squares commute as equalities of simplicial maps and realized continuous maps; the chosen cone-to-disk homeomorphism carries the finite target-boundary inclusion pointwise to the standard disk-boundary inclusion. No solid-torus homeomorphism for the source complement is assumed",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ComplexProjectivePlaneMinimalHopfComplementMap.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All eight listed declarations are sorry-free. Strict source and 8,884-job exact-target checks pass, as do the 9,034-job aggregate and 9,035-job independent-results builds. Audited axiom closures contain only propext, Classical.choice, and Quot.sound."
+    },
+    {
+      "id": "lean4-minimal-hopf-actual-abc-projection",
+      "system": "Lean 4",
+      "repository": "Vilin97/homotopy-groups-lean",
+      "commit": "8674a884f2479ef8851580054e4cc909b5a2d586",
+      "license": "Apache-2.0",
+      "declarations": [
+        "Submission.ComplexProjectivePlaneTriangulation.minimalHopfABC_reindex_sSet_square",
+        "Submission.ComplexProjectivePlaneTriangulation.minimalHopfCommonBoundary_reindex_sSet_square",
+        "Submission.ComplexProjectivePlaneTriangulation.minimalHopfABC_sSet_square",
+        "Submission.ComplexProjectivePlaneTriangulation.minimalHopfABCBoundary_sSet_square",
+        "Submission.ComplexProjectivePlaneTriangulation.minimalHopfABCRowRealization_projection_disk",
+        "Submission.ComplexProjectivePlaneTriangulation.minimalHopfABCRealization_projection_disk"
+      ],
+      "result": "on the actual finite Hopf source and target vertex types, the ABC restriction is exactly first projection D^2 x S^1 to D^2, and its common-boundary map is exactly the reindexed target-letter row map",
+      "model_relation": "strict source and target reindexing squares lift the earlier affine-carrier projection calculation to the actual nine-tetrahedron subcomplex. The resulting ambient and boundary diagrams commute before and after realization; this controls the ABC half of the finite gluing but does not identify the complementary filling as a solid torus or the global sphere map as the quadratic Hopf map",
+      "status": "lean_kernel_checked_local_source",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ComplexProjectivePlaneMinimalHopfABCPieceMap.lean",
+      "lattice_overlay": null,
+      "degree_lattice_overlay": null,
+      "note": "All six listed declarations are sorry-free. Strict source and 8,885-job exact-target checks pass, as do the 9,034-job aggregate and 9,035-job independent-results builds. Audited axiom closures contain only propext, Classical.choice, and Quot.sound."
+    },
+    {
       "id": "lean4-stable-sphere-cap-excision",
       "system": "Lean 4",
       "repository": "Vilin97/homotopy-groups-lean",
