@@ -16,8 +16,9 @@ have the same image under the quotient.
 This file records that obstruction, constructs the actual simplicial pushout of the boundary
 inclusion and finite Hopf map, and defines its canonical comparison with the nine-vertex model.
 Geometric realization preserves the genuine pushout.  The comparison is not a simplicial
-isomorphism, as forced by the obstruction; proving that its realization is nevertheless a
-homotopy equivalence is the next topological comparison step.
+isomorphism, as forced by the obstruction.  The same two-edge collision is realized at explicit
+interior midpoints, proving that the topological comparison remains noninjective; proving that it
+is nevertheless a homotopy equivalence is the next comparison step.
 -/
 
 noncomputable section
@@ -453,6 +454,278 @@ theorem minimalHopfBallCarrierQuotient_coordinate
   change (FunOnFinite.linearMap ℝ ℝ minimalHopfQuotientVertex x.1) w = _
   rw [FunOnFinite.linearMap_apply_apply,
     minimalHopfQuotientVertexFiber_eq_filter]
+
+/-! ## A surviving topological collision -/
+
+/-- The midpoint used to realize both collision edges. -/
+def minimalHopfAmbientCollisionMidpoint : stdSimplex ℝ (Fin 2) :=
+  ⟨![1 / 2, 1 / 2], by
+    constructor
+    · intro i
+      fin_cases i <;> norm_num
+    · norm_num [Fin.sum_univ_two]⟩
+
+/-- The affine midpoint of the first collision edge in the ambient carrier. -/
+noncomputable def minimalHopfAmbientCollisionLeftCarrierPoint :
+    facetFamilyCarrier minimalHopfBallFacets :=
+  facetFamilyTopologicalSimplexPoint minimalHopfBallFacets
+    minimalHopfAmbientCollisionLeftSimplex
+    minimalHopfAmbientCollisionMidpoint
+
+/-- The affine midpoint of the second collision edge in the ambient carrier. -/
+noncomputable def minimalHopfAmbientCollisionRightCarrierPoint :
+    facetFamilyCarrier minimalHopfBallFacets :=
+  facetFamilyTopologicalSimplexPoint minimalHopfBallFacets
+    minimalHopfAmbientCollisionRightSimplex
+    minimalHopfAmbientCollisionMidpoint
+
+private theorem minimalHopfAmbientCollisionLeftCarrierPoint_coord_eight :
+    minimalHopfAmbientCollisionLeftCarrierPoint.1
+        (8 : MinimalHopfBallVertex) = 1 / 2 := by
+  change (FunOnFinite.linearMap ℝ ℝ
+    (fun i : Fin 2 => ![2, 8] i)
+      minimalHopfAmbientCollisionMidpoint.1) 8 = 1 / 2
+  rw [FunOnFinite.linearMap_apply_apply]
+  simp [Finset.sum_filter, Fin.sum_univ_two,
+    minimalHopfAmbientCollisionMidpoint]
+
+private theorem minimalHopfAmbientCollisionLeftCarrierPoint_coord_two :
+    minimalHopfAmbientCollisionLeftCarrierPoint.1
+        (2 : MinimalHopfBallVertex) = 1 / 2 := by
+  change (FunOnFinite.linearMap ℝ ℝ
+    (fun i : Fin 2 => ![2, 8] i)
+      minimalHopfAmbientCollisionMidpoint.1) 2 = 1 / 2
+  rw [FunOnFinite.linearMap_apply_apply]
+  simp [Finset.sum_filter, Fin.sum_univ_two,
+    minimalHopfAmbientCollisionMidpoint]
+
+private theorem minimalHopfAmbientCollisionRightCarrierPoint_coord_eight :
+    minimalHopfAmbientCollisionRightCarrierPoint.1
+        (8 : MinimalHopfBallVertex) = 0 := by
+  change (FunOnFinite.linearMap ℝ ℝ
+    (fun i : Fin 2 => ![2, 10] i)
+      minimalHopfAmbientCollisionMidpoint.1) 8 = 0
+  rw [FunOnFinite.linearMap_apply_apply]
+  simp [Finset.sum_filter, Fin.sum_univ_two,
+    minimalHopfAmbientCollisionMidpoint]
+
+/-- The two affine collision midpoints are distinct in the ambient finite polyhedron. -/
+theorem minimalHopfAmbientCollisionCarrierPoints_ne :
+    minimalHopfAmbientCollisionLeftCarrierPoint ≠
+      minimalHopfAmbientCollisionRightCarrierPoint := by
+  intro h
+  have hcoord := congrArg
+    (fun x : facetFamilyCarrier minimalHopfBallFacets =>
+      x.1 (8 : MinimalHopfBallVertex)) h
+  rw [minimalHopfAmbientCollisionLeftCarrierPoint_coord_eight,
+    minimalHopfAmbientCollisionRightCarrierPoint_coord_eight] at hcoord
+  norm_num at hcoord
+
+/-- Affine pushforward along the vertex quotient identifies the two collision midpoints. -/
+theorem minimalHopfAmbientCollisionCarrierQuotient_eq :
+    facetFamilyCarrierMapOfMonotone minimalHopfQuotientVertex
+        minimalHopfBallFacetFamilyMapsTo
+        minimalHopfAmbientCollisionLeftCarrierPoint =
+      facetFamilyCarrierMapOfMonotone minimalHopfQuotientVertex
+        minimalHopfBallFacetFamilyMapsTo
+        minimalHopfAmbientCollisionRightCarrierPoint := by
+  apply Subtype.ext
+  apply stdSimplex.ext
+  funext w
+  rw [minimalHopfBallCarrierQuotient_coordinate,
+    minimalHopfBallCarrierQuotient_coordinate]
+  fin_cases w <;>
+    simp [minimalHopfQuotientVertexFiber,
+      minimalHopfAmbientCollisionLeftCarrierPoint,
+      minimalHopfAmbientCollisionRightCarrierPoint,
+      facetFamilyTopologicalSimplexPoint,
+      minimalHopfAmbientCollisionMidpoint,
+      minimalHopfAmbientCollisionLeftSimplex,
+      minimalHopfAmbientCollisionRightSimplex,
+      minimalHopfAmbientCollisionLeftOrderHom,
+      minimalHopfAmbientCollisionRightOrderHom,
+      FunOnFinite.linearMap_apply_apply, Finset.sum_filter,
+      Fin.sum_univ_two]
+
+/-- The first collision midpoint in the realization of the ambient complex. -/
+noncomputable def minimalHopfAmbientCollisionLeftBallPoint :
+    SSet.toTop.obj (orderedSSet minimalHopfBallFacets) :=
+  (orderedRealizationHomeomorphFacetFamilyCarrier
+    minimalHopfBallFacets).symm
+      minimalHopfAmbientCollisionLeftCarrierPoint
+
+/-- The second collision midpoint in the realization of the ambient complex. -/
+noncomputable def minimalHopfAmbientCollisionRightBallPoint :
+    SSet.toTop.obj (orderedSSet minimalHopfBallFacets) :=
+  (orderedRealizationHomeomorphFacetFamilyCarrier
+    minimalHopfBallFacets).symm
+      minimalHopfAmbientCollisionRightCarrierPoint
+
+/-- The two collision midpoints remain distinct in the ambient realization. -/
+theorem minimalHopfAmbientCollisionBallPoints_ne :
+    minimalHopfAmbientCollisionLeftBallPoint ≠
+      minimalHopfAmbientCollisionRightBallPoint := by
+  intro h
+  apply minimalHopfAmbientCollisionCarrierPoints_ne
+  have h' := congrArg
+    (orderedRealizationHomeomorphFacetFamilyCarrier minimalHopfBallFacets) h
+  simpa [minimalHopfAmbientCollisionLeftBallPoint,
+    minimalHopfAmbientCollisionRightBallPoint] using h'
+
+/-- The realized ambient quotient identifies the two collision midpoints. -/
+theorem minimalHopfAmbientCollisionBallQuotient_eq :
+    minimalHopfBallQuotientRealizationMap
+        minimalHopfAmbientCollisionLeftBallPoint =
+      minimalHopfBallQuotientRealizationMap
+        minimalHopfAmbientCollisionRightBallPoint := by
+  apply (orderedRealizationHomeomorphFacetFamilyCarrier facets).injective
+  calc
+    orderedRealizationToFacetFamilyCarrier facets
+        (minimalHopfBallQuotientRealizationMap
+          minimalHopfAmbientCollisionLeftBallPoint) =
+      facetFamilyCarrierMapOfMonotone minimalHopfQuotientVertex
+        minimalHopfBallFacetFamilyMapsTo
+          (orderedRealizationToFacetFamilyCarrier minimalHopfBallFacets
+            minimalHopfAmbientCollisionLeftBallPoint) := by
+      simpa [ConcreteCategory.comp_apply,
+        facetFamilyCarrierHomOfMonotone] using
+        ConcreteCategory.congr_hom
+          minimalHopfBallQuotientRealization_carrier_naturality
+          minimalHopfAmbientCollisionLeftBallPoint
+    _ = facetFamilyCarrierMapOfMonotone minimalHopfQuotientVertex
+        minimalHopfBallFacetFamilyMapsTo
+          minimalHopfAmbientCollisionLeftCarrierPoint := by
+      rw [show orderedRealizationToFacetFamilyCarrier minimalHopfBallFacets
+          minimalHopfAmbientCollisionLeftBallPoint =
+            minimalHopfAmbientCollisionLeftCarrierPoint by
+        exact (orderedRealizationHomeomorphFacetFamilyCarrier
+          minimalHopfBallFacets).apply_symm_apply _]
+    _ = facetFamilyCarrierMapOfMonotone minimalHopfQuotientVertex
+        minimalHopfBallFacetFamilyMapsTo
+          minimalHopfAmbientCollisionRightCarrierPoint :=
+      minimalHopfAmbientCollisionCarrierQuotient_eq
+    _ = facetFamilyCarrierMapOfMonotone minimalHopfQuotientVertex
+        minimalHopfBallFacetFamilyMapsTo
+          (orderedRealizationToFacetFamilyCarrier minimalHopfBallFacets
+            minimalHopfAmbientCollisionRightBallPoint) := by
+      rw [show orderedRealizationToFacetFamilyCarrier minimalHopfBallFacets
+          minimalHopfAmbientCollisionRightBallPoint =
+            minimalHopfAmbientCollisionRightCarrierPoint by
+        exact (orderedRealizationHomeomorphFacetFamilyCarrier
+          minimalHopfBallFacets).apply_symm_apply _]
+    _ = orderedRealizationToFacetFamilyCarrier facets
+        (minimalHopfBallQuotientRealizationMap
+          minimalHopfAmbientCollisionRightBallPoint) := by
+      simpa [ConcreteCategory.comp_apply,
+        facetFamilyCarrierHomOfMonotone] using
+        (ConcreteCategory.congr_hom
+          minimalHopfBallQuotientRealization_carrier_naturality
+          minimalHopfAmbientCollisionRightBallPoint).symm
+
+private theorem minimalHopfBoundaryCarrier_coord_two_eq_zero
+    (x : facetFamilyCarrier minimalHopfSphereFacets) :
+    x.1 (2 : MinimalHopfBallVertex) = 0 := by
+  obtain ⟨facet, hfacet, hx⟩ :=
+    (mem_facetFamilyCarrier_iff minimalHopfSphereFacets x.1).mp x.2
+  apply hx
+  intro htwo
+  exact (by decide : (2 : MinimalHopfBallVertex) ∉
+    minimalHopfBoundaryVertexSupport)
+      (minimalHopfSphereFacet_subset_boundaryVertexSupport facet hfacet htwo)
+
+/-- The first collision midpoint is an interior point: it is not in the image of the realized
+boundary inclusion. -/
+theorem minimalHopfAmbientCollisionLeftBallPoint_not_mem_boundary_range :
+    minimalHopfAmbientCollisionLeftBallPoint ∉
+      Set.range (SSet.toTop.map minimalHopfSphereSSetIncl) := by
+  rintro ⟨x, hx⟩
+  have hcarrier : minimalHopfAmbientCollisionLeftCarrierPoint =
+      facetFamilyCarrierMapOfFacetFamilyLE minimalHopfSphereFacets_le_ball
+        (orderedRealizationToFacetFamilyCarrier minimalHopfSphereFacets x) := by
+    calc
+      minimalHopfAmbientCollisionLeftCarrierPoint =
+          orderedRealizationToFacetFamilyCarrier minimalHopfBallFacets
+            minimalHopfAmbientCollisionLeftBallPoint :=
+        (orderedRealizationHomeomorphFacetFamilyCarrier
+          minimalHopfBallFacets).apply_symm_apply _ |>.symm
+      _ = orderedRealizationToFacetFamilyCarrier minimalHopfBallFacets
+          (SSet.toTop.map minimalHopfSphereSSetIncl x) := congrArg _ hx.symm
+      _ = facetFamilyCarrierMapOfFacetFamilyLE minimalHopfSphereFacets_le_ball
+          (orderedRealizationToFacetFamilyCarrier minimalHopfSphereFacets x) := by
+        simpa [ConcreteCategory.comp_apply, minimalHopfSphereSSetIncl,
+          facetFamilyCarrierHomOfFacetFamilyLE] using
+          ConcreteCategory.congr_hom
+            (orderedRealizationToFacetFamilyCarrier_naturality
+              minimalHopfSphereFacets_le_ball) x
+  have hcoord := congrArg
+    (fun y : facetFamilyCarrier minimalHopfBallFacets =>
+      y.1 (2 : MinimalHopfBallVertex)) hcarrier
+  change minimalHopfAmbientCollisionLeftCarrierPoint.1
+      (2 : MinimalHopfBallVertex) =
+    (orderedRealizationToFacetFamilyCarrier
+      minimalHopfSphereFacets x).1 2 at hcoord
+  rw [minimalHopfAmbientCollisionLeftCarrierPoint_coord_two,
+    minimalHopfBoundaryCarrier_coord_two_eq_zero] at hcoord
+  norm_num at hcoord
+
+/-- The two ambient collision midpoints remain distinct after inclusion into the genuine
+topological pushout. The only new equalities between ambient points in a pushout must come from
+the boundary, while the first midpoint has positive weight at an interior vertex. -/
+theorem minimalHopfAmbientCollisionStrictPushoutPoints_ne :
+    SSet.toTop.map minimalHopfStrictPushoutBallIncl
+        minimalHopfAmbientCollisionLeftBallPoint ≠
+      SSet.toTop.map minimalHopfStrictPushoutBallIncl
+        minimalHopfAmbientCollisionRightBallPoint := by
+  intro h
+  let hpo := minimalHopfStrictPushoutRealization_isPushout.map (forget TopCat)
+  have hincl : Function.Injective
+      ((forget TopCat).map (SSet.toTop.map minimalHopfSphereSSetIncl)) := by
+    simpa [minimalHopfSphereSSetIncl] using
+      orderedRealizationMapOfFacetFamilyLE_injective
+        minimalHopfSphereFacets_le_ball
+  change hpo.cocone.inl minimalHopfAmbientCollisionLeftBallPoint =
+    hpo.cocone.inl minimalHopfAmbientCollisionRightBallPoint at h
+  rcases (pushoutCocone_inl_eq_inl_iff_of_isColimit
+      hpo.isColimit hincl minimalHopfAmbientCollisionLeftBallPoint
+        minimalHopfAmbientCollisionRightBallPoint).mp h with
+    hpoints | hboundary
+  · exact minimalHopfAmbientCollisionBallPoints_ne hpoints
+  · rcases hboundary with ⟨s, t, hst, hleft, hright⟩
+    exact minimalHopfAmbientCollisionLeftBallPoint_not_mem_boundary_range
+      ⟨s, hleft.symm⟩
+
+/-- The realized strict-pushout comparison identifies the two displayed, distinct pushout
+points. -/
+theorem minimalHopfAmbientCollisionStrictPushoutComparison_eq :
+    minimalHopfStrictPushoutComparisonRealization
+        (SSet.toTop.map minimalHopfStrictPushoutBallIncl
+          minimalHopfAmbientCollisionLeftBallPoint) =
+      minimalHopfStrictPushoutComparisonRealization
+        (SSet.toTop.map minimalHopfStrictPushoutBallIncl
+          minimalHopfAmbientCollisionRightBallPoint) := by
+  calc
+    _ = minimalHopfBallQuotientRealizationMap
+        minimalHopfAmbientCollisionLeftBallPoint := by
+      simpa only [ConcreteCategory.comp_apply] using
+        ConcreteCategory.congr_hom
+          minimalHopfStrictPushoutBallIncl_comparison_realization
+          minimalHopfAmbientCollisionLeftBallPoint
+    _ = minimalHopfBallQuotientRealizationMap
+        minimalHopfAmbientCollisionRightBallPoint :=
+      minimalHopfAmbientCollisionBallQuotient_eq
+    _ = _ := by
+      simpa only [ConcreteCategory.comp_apply] using
+        (ConcreteCategory.congr_hom
+          minimalHopfStrictPushoutBallIncl_comparison_realization
+          minimalHopfAmbientCollisionRightBallPoint).symm
+
+/-- **The genuine realized pushout comparison is not injective.**  The extra finite-quotient
+identification survives geometric realization on the two explicit interior-edge midpoints. -/
+theorem minimalHopfStrictPushoutComparisonRealization_not_injective :
+    ¬ Function.Injective minimalHopfStrictPushoutComparisonRealization := by
+  intro hinjective
+  exact minimalHopfAmbientCollisionStrictPushoutPoints_ne
+    (hinjective minimalHopfAmbientCollisionStrictPushoutComparison_eq)
 
 /-- The finite ambient quotient remains surjective after geometric realization. -/
 theorem minimalHopfBallQuotientRealizationMap_surjective :
