@@ -44,6 +44,17 @@ variable {V : Type} [LinearOrder V]
 def IsFace (facets : Finset (Finset V)) (σ : Finset V) : Prop :=
   ∃ facet ∈ facets, σ ⊆ facet
 
+/-- Face membership is executable by searching the finite family of listed facets.  Writing the
+search over the attached facet subtype avoids asking for a decision procedure on the infinite
+ambient type `Finset V`. -/
+instance (facets : Finset (Finset V)) (σ : Finset V) : Decidable (IsFace facets σ) :=
+  decidable_of_iff (∃ facet : ↥facets, σ ⊆ facet.1) (by
+    constructor
+    · rintro ⟨⟨facet, hfacet⟩, hsubset⟩
+      exact ⟨facet, hfacet, hsubset⟩
+    · rintro ⟨facet, hfacet, hsubset⟩
+      exact ⟨⟨facet, hfacet⟩, hsubset⟩)
+
 /-- Every generated finite face is contained in one of the listed facets. -/
 theorem isFace_of_mem_facesOfCard {facets : Finset (Finset V)} {σ : Finset V} {k : ℕ}
     (hσ : σ ∈ facesOfCard facets k) : IsFace facets σ := by

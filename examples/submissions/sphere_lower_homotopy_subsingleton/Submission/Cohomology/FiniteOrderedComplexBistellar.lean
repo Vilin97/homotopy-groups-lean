@@ -81,6 +81,33 @@ instance (facets : Finset (Finset V)) (dimension : ℕ)
       letI := ih (bistellarMove facets move.oldCore move.newCore)
       infer_instance
 
+/-- Applying a concatenated move list is the same as applying its two parts in sequence. -/
+theorem applyBistellarMoves_append (facets : Finset (Finset V))
+    (moves₁ moves₂ : List (BistellarMoveData V)) :
+    applyBistellarMoves facets (moves₁ ++ moves₂) =
+      applyBistellarMoves (applyBistellarMoves facets moves₁) moves₂ := by
+  induction moves₁ generalizing facets with
+  | nil => rfl
+  | cons move moves₁ ih =>
+      exact ih (bistellarMove facets move.oldCore move.newCore)
+
+/-- A concatenated move sequence is valid exactly when its first part is valid and its second
+part is valid on the facet family produced by the first. -/
+theorem isValidBistellarMoveSequence_append_iff
+    (facets : Finset (Finset V)) (dimension : ℕ)
+    (moves₁ moves₂ : List (BistellarMoveData V)) :
+    IsValidBistellarMoveSequence facets dimension (moves₁ ++ moves₂) ↔
+      IsValidBistellarMoveSequence facets dimension moves₁ ∧
+        IsValidBistellarMoveSequence
+          (applyBistellarMoves facets moves₁) dimension moves₂ := by
+  induction moves₁ generalizing facets with
+  | nil =>
+      simp only [List.nil_append, IsValidBistellarMoveSequence,
+        applyBistellarMoves, true_and]
+  | cons move moves₁ ih =>
+      simp only [List.cons_append, IsValidBistellarMoveSequence,
+        applyBistellarMoves, ih, and_assoc]
+
 /-- Facets in the boundary of the simplex on a finite vertex set. -/
 def simplexBoundaryFacets (vertices : Finset V) : Finset (Finset V) :=
   vertices.image fun v ↦ vertices.erase v
