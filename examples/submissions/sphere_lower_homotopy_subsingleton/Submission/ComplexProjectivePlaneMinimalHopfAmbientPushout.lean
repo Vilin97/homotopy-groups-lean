@@ -890,6 +890,141 @@ theorem minimalHopfBallCarrierQuotient_coordinate
   rw [FunOnFinite.linearMap_apply_apply,
     minimalHopfQuotientVertexFiber_eq_filter]
 
+/-- The ambient quotient preserves total mass away from the boundary/target pair. -/
+theorem minimalHopfBallCarrierQuotient_interiorMass
+    (x : facetFamilyCarrier minimalHopfBallFacets) :
+    minimalHopfProjectivePlaneInteriorMass
+        (facetFamilyCarrierMapOfMonotone minimalHopfQuotientVertex
+          minimalHopfBallFacetFamilyMapsTo x) =
+      minimalHopfInteriorMass x := by
+  rw [minimalHopfProjectivePlaneInteriorMass, minimalHopfInteriorMass]
+  simp [minimalHopfProjectivePlaneInteriorVertexSupport,
+    minimalHopfInteriorVertexSupport,
+    minimalHopfBallCarrierQuotient_coordinate,
+    minimalHopfQuotientVertexFiber]
+
+/-- The realized ambient quotient preserves total mass away from the boundary/target pair. -/
+theorem minimalHopfBallQuotientRealization_interiorMass
+    (x : SSet.toTop.obj (orderedSSet minimalHopfBallFacets)) :
+    minimalHopfProjectivePlaneRealizationInteriorMass
+        (minimalHopfBallQuotientRealizationMap x) =
+      minimalHopfRealizationInteriorMass x := by
+  rw [minimalHopfProjectivePlaneRealizationInteriorMass,
+    minimalHopfRealizationInteriorMass]
+  rw [show orderedRealizationToFacetFamilyCarrier facets
+      (minimalHopfBallQuotientRealizationMap x) =
+        facetFamilyCarrierMapOfMonotone minimalHopfQuotientVertex
+          minimalHopfBallFacetFamilyMapsTo
+            (orderedRealizationToFacetFamilyCarrier
+              minimalHopfBallFacets x) by
+    exact ConcreteCategory.congr_hom
+      minimalHopfBallQuotientRealization_carrier_naturality x]
+  exact minimalHopfBallCarrierQuotient_interiorMass
+    (orderedRealizationToFacetFamilyCarrier minimalHopfBallFacets x)
+
+/-- A realized ambient point maps into the target two-sphere exactly when it already lies in
+the boundary three-sphere. -/
+theorem minimalHopfBallQuotientRealization_mem_target_iff
+    (x : SSet.toTop.obj (orderedSSet minimalHopfBallFacets)) :
+    minimalHopfBallQuotientRealizationMap x ∈
+        Set.range (SSet.toTop.map minimalHopfTargetSSetIncl) ↔
+      x ∈ Set.range (SSet.toTop.map minimalHopfSphereSSetIncl) := by
+  rw [minimalHopfTargetRealization_range_iff_interiorMass_eq_zero,
+    minimalHopfBoundaryRealization_range_iff_interiorMass_eq_zero,
+    minimalHopfBallQuotientRealization_interiorMass]
+
+/-- The realized boundary is the exact inverse image of the target two-sphere under the
+ambient quotient. -/
+theorem minimalHopfBallQuotientRealization_preimage_target :
+    minimalHopfBallQuotientRealizationMap ⁻¹'
+        Set.range (SSet.toTop.map minimalHopfTargetSSetIncl) =
+      Set.range (SSet.toTop.map minimalHopfSphereSSetIncl) := by
+  ext x
+  exact minimalHopfBallQuotientRealization_mem_target_iff x
+
+/-- The canonical realized pushout comparison maps no point outside its target summand into
+the target two-sphere. -/
+theorem minimalHopfStrictPushoutComparisonRealization_mem_target_iff
+    (x : minimalHopfStrictPushoutRealization) :
+    minimalHopfStrictPushoutComparisonRealization x ∈
+        Set.range (SSet.toTop.map minimalHopfTargetSSetIncl) ↔
+      x ∈ Set.range
+        (SSet.toTop.map minimalHopfStrictPushoutTargetIncl) := by
+  constructor
+  · intro hx
+    let f := SSet.toTop.map minimalHopfSphereSSetIncl
+    let g := minimalHopfRealizationMap
+    let B := SSet.toTop.obj (orderedSSet minimalHopfBallFacets)
+    let C := SSet.toTop.obj (orderedSSet minimalHopfTargetFacets)
+    let P : TopCat := Limits.pushout f g
+    let canonical : IsPushout f g (Limits.pushout.inl f g)
+        (Limits.pushout.inr f g) := IsPushout.of_hasPushout f g
+    let e : P ≅ minimalHopfStrictPushoutRealization :=
+      canonical.isoIsPushout B C
+        minimalHopfStrictPushoutRealization_isPushout
+    obtain ⟨u, hu⟩ :=
+      (pushoutSumDesc_isQuotientMap f g).surjective (e.inv x)
+    rcases u with b | c
+    · have hu' : Limits.pushout.inl f g b = e.inv x := by
+        simpa [pushoutSumDesc] using hu
+      have hb : SSet.toTop.map minimalHopfStrictPushoutBallIncl b = x := by
+        calc
+          SSet.toTop.map minimalHopfStrictPushoutBallIncl b =
+              e.hom (Limits.pushout.inl f g b) := by
+            symm
+            exact ConcreteCategory.congr_hom
+              (canonical.inl_isoIsPushout_hom B C
+                minimalHopfStrictPushoutRealization_isPushout) b
+          _ = e.hom (e.inv x) := congrArg e.hom hu'
+          _ = x := by simp
+      have hbTarget : minimalHopfBallQuotientRealizationMap b ∈
+          Set.range (SSet.toTop.map minimalHopfTargetSSetIncl) := by
+        have hcomp := ConcreteCategory.congr_hom
+          minimalHopfStrictPushoutBallIncl_comparison_realization b
+        rw [ConcreteCategory.comp_apply, hb] at hcomp
+        rw [← hcomp]
+        exact hx
+      obtain ⟨a, ha⟩ :=
+        (minimalHopfBallQuotientRealization_mem_target_iff b).mp hbTarget
+      refine ⟨minimalHopfRealizationMap a, ?_⟩
+      calc
+        SSet.toTop.map minimalHopfStrictPushoutTargetIncl
+            (minimalHopfRealizationMap a) =
+            SSet.toTop.map minimalHopfStrictPushoutBallIncl
+              (SSet.toTop.map minimalHopfSphereSSetIncl a) := by
+          symm
+          exact ConcreteCategory.congr_hom
+            minimalHopfStrictPushoutRealization_isPushout.w a
+        _ = SSet.toTop.map minimalHopfStrictPushoutBallIncl b :=
+          congrArg (SSet.toTop.map minimalHopfStrictPushoutBallIncl) ha
+        _ = x := hb
+    · have hu' : Limits.pushout.inr f g c = e.inv x := by
+        simpa [pushoutSumDesc] using hu
+      refine ⟨c, ?_⟩
+      calc
+        SSet.toTop.map minimalHopfStrictPushoutTargetIncl c =
+            e.hom (Limits.pushout.inr f g c) := by
+          symm
+          exact ConcreteCategory.congr_hom
+            (canonical.inr_isoIsPushout_hom B C
+              minimalHopfStrictPushoutRealization_isPushout) c
+        _ = e.hom (e.inv x) := congrArg e.hom hu'
+        _ = x := by simp
+  · rintro ⟨c, rfl⟩
+    refine ⟨c, ?_⟩
+    simpa [ConcreteCategory.comp_apply] using
+      (ConcreteCategory.congr_hom
+        minimalHopfStrictPushoutTargetIncl_comparison_realization c).symm
+
+/-- The target summand in the genuine realized pushout is the exact inverse image of the
+target two-sphere under the canonical comparison. -/
+theorem minimalHopfStrictPushoutComparisonRealization_preimage_target :
+    minimalHopfStrictPushoutComparisonRealization ⁻¹'
+        Set.range (SSet.toTop.map minimalHopfTargetSSetIncl) =
+      Set.range (SSet.toTop.map minimalHopfStrictPushoutTargetIncl) := by
+  ext x
+  exact minimalHopfStrictPushoutComparisonRealization_mem_target_iff x
+
 /-! ## A surviving topological collision -/
 
 /-- The midpoint used to realize both collision edges. -/
