@@ -3020,7 +3020,7 @@
       "id": "lean4-minimal-hopf-collapsed-attaching-equivalence",
       "system": "Lean 4",
       "repository": "Vilin97/homotopy-groups-lean",
-      "commit": "046501eeeb8513593860d68e9e4efd12c755c036",
+      "commit": "5feba0e53ab4198e629bad801b91e47cb16f80a8",
       "license": "Apache-2.0",
       "declarations": [
         "Submission.ComplexProjectivePlaneTriangulation.minimalHopfCollapsedAttachingPushout_isPushout",
@@ -3046,15 +3046,20 @@
         "Submission.ComplexProjectivePlaneTriangulation.minimalHopfCollapsedAttachingPushoutHomotopyForward",
         "Submission.ComplexProjectivePlaneTriangulation.minimalHopfProjectivePlaneToCollapsedAttachingPushoutHomotopyEquiv",
         "Submission.ComplexProjectivePlaneTriangulation.minimalHopfProjectivePlaneToCollapsedAttachingPushoutHomotopyEquiv_toFun",
-        "Submission.ComplexProjectivePlaneTriangulation.minimalHopfProjectivePlaneToCollapsedAttachingPushoutHomotopyEquiv_invFun"
+        "Submission.ComplexProjectivePlaneTriangulation.minimalHopfProjectivePlaneToCollapsedAttachingPushoutHomotopyEquiv_invFun",
+        "Submission.ComplexProjectivePlaneTriangulation.minimalHopfProjectivePlaneInteriorBoundarySSetIsoBoundaryFour",
+        "Submission.ComplexProjectivePlaneTriangulation.minimalHopfProjectivePlaneInteriorBoundaryRealizationHomeomorphSphereThree",
+        "Submission.ComplexProjectivePlaneTriangulation.minimalHopfProjectivePlaneInteriorSimplexRealizationHomeomorphDiskFour",
+        "Submission.ComplexProjectivePlaneTriangulation.minimalHopfProjectivePlaneTargetAttachingSphereMap",
+        "Submission.ComplexProjectivePlaneTriangulation.minimalHopfProjectivePlaneTargetAttachingSphereMap_coordinates"
       ],
-      "result": "the pushout obtained by attaching the retained four-simplex directly to the finite Hopf target along the collapsed boundary attaching map is homotopy equivalent to the realized nine-vertex complex projective plane. Lean constructs the canonical comparison, uses the boundary cofibration and homotopy extension property to adjust the simplex map, glues an explicit inverse, and certifies both composites by explicit homotopies",
-      "model_relation": "uses the maintained nine-vertex projective-plane triangulation, its actual four-triangle finite Hopf target, the explicit 120-step relative strong deformation retract, and the actual retained four-simplex. This proves a target-plus-four-cell model homotopy equivalent to the projective plane, but does not yet identify its target-valued attaching map with the certified finite Hopf sphere map or prove the original genuine ambient-pushout comparison a homotopy equivalence",
+      "result": "the pushout obtained by attaching the retained four-simplex directly to the finite Hopf target along the collapsed boundary attaching map is homotopy equivalent to the realized nine-vertex complex projective plane. Lean constructs the canonical comparison, uses the boundary cofibration and homotopy extension property to adjust the simplex map, glues an explicit inverse, and certifies both composites by explicit homotopies. The retained simplex and its boundary are also transported to exact closed-four-disk and metric-three-sphere coordinates, packaging the collapsed attachment as a concrete map from the exact metric three-sphere to the exact metric two-sphere",
+      "model_relation": "uses the maintained nine-vertex projective-plane triangulation, its actual four-triangle finite Hopf target, the explicit 120-step relative strong deformation retract, the actual retained four-simplex, and the repository's exact metric sphere and disk models. This proves a target-plus-four-cell model homotopy equivalent to the projective plane and gives its attaching map exact S³-to-S² coordinates, but does not yet identify that map with the separately certified finite Hopf sphere map or prove the original genuine ambient-pushout comparison a homotopy equivalence",
       "status": "lean_kernel_checked_local_source",
-      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ComplexProjectivePlaneMinimalHopfCollapsedAttachingEquivalence.lean",
+      "source": "../examples/submissions/sphere_lower_homotopy_subsingleton/Submission/ComplexProjectivePlaneMinimalHopfCollapsedAttachingCoordinates.lean",
       "lattice_overlay": null,
       "degree_lattice_overlay": null,
-      "note": "All twenty-four listed declarations are sorry-free. Strict autoImplicit=false checks pass for both new source modules and the Submission aggregate; exact 2,795-job module and 9,041-job aggregate builds pass. Audited axiom closures for the pushout, cofibrations, homotopy-extension lift, explicit inverse, and final equivalence contain only propext, Classical.choice, and Quot.sound. Identification of the collapsed attaching map with the finite Hopf map remains open, so no sphere-lattice cell is recolored."
+      "note": "All twenty-nine listed declarations are sorry-free. Strict autoImplicit=false checks pass for all three new source modules and the Submission aggregate; the exact 2,797-job coordinate target and 9,042-job aggregate builds pass. Audited axiom closures for the pushout, cofibrations, homotopy-extension lift, explicit inverse, final equivalence, and coordinate transport contain only propext, Classical.choice, and Quot.sound. Identification of the collapsed attaching map with the finite Hopf map remains open, so no sphere-lattice cell is recolored."
     },
     {
       "id": "lean4-stable-sphere-cap-excision",
