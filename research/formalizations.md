@@ -679,10 +679,13 @@ nine-vertex model is degreewise surjective but not an isomorphism, and proves
 that realization preserves the genuine pushout. Explicit barycentric fiber
 coordinates show that the ambient realization map is a compact-to-Hausdorff
 quotient map; compactness of the genuine realized pushout gives the same
-quotient-topology conclusion for its comparison map. The remaining step is to
-prove that this realized comparison is a homotopy equivalence, so these results
-do not yet identify the finite quotient with the maintained topological `CP^2`
-or add a sphere-lattice cell.
+quotient-topology conclusion for its comparison map. Moreover, the midpoints of
+the two displayed interior edges remain distinct in the genuine topological
+pushout but have the same image in the nine-vertex realization. Thus the
+realized comparison is explicitly noninjective as well as surjective. The
+remaining step is to prove that this quotient map is nevertheless a homotopy
+equivalence, so these results do not yet identify the finite quotient with the
+maintained topological `CP^2` or add a sphere-lattice cell.
 
 The symmetry-breaking subdivision used by Schwartz's trisection is now checked
 combinatorially too. Its 78 four-simplices map onto the original 36 facets and
