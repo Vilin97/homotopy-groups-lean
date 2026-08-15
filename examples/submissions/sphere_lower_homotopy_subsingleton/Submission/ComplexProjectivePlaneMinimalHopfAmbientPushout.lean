@@ -4,6 +4,7 @@ Released under Apache 2.0 license.
 -/
 import Submission.ComplexProjectivePlaneMinimalHopfBallCollapse
 import Submission.SSetMonoRealizationCofibration
+import Submission.Topology.MappingCone
 import Submission.Topology.PushoutMono
 
 /-!
@@ -429,6 +430,16 @@ theorem minimalHopfSphereRealizationIncl_isCofibration :
   exact Submission.geometricRealization_isCofibration_of_mono
     minimalHopfSphereSSetIncl
 
+/-- The realized four-triangle target inclusion into the nine-vertex projective-plane model is
+a topological cofibration. -/
+theorem minimalHopfTargetRealizationIncl_isCofibration :
+    IsCofibration (SSet.toTop.map minimalHopfTargetSSetIncl) := by
+  letI : Mono minimalHopfTargetSSetIncl := by
+    unfold minimalHopfTargetSSetIncl orderedSSetHomOfFacetFamilyLE
+    infer_instance
+  exact Submission.geometricRealization_isCofibration_of_mono
+    minimalHopfTargetSSetIncl
+
 /-- Realization of the genuine simplicial pushout. -/
 noncomputable abbrev minimalHopfStrictPushoutRealization : TopCat :=
   SSet.toTop.obj minimalHopfStrictPushoutSSet
@@ -613,6 +624,184 @@ theorem minimalHopfBoundaryRealization_range_iff_interiorMass_eq_zero
             minimalHopfSphereFacets).apply_symm_apply z]
       _ = orderedRealizationToFacetFamilyCarrier minimalHopfBallFacets x := hz
 
+/-! ## The target as a barycentric zero set -/
+
+/-- The four-triangle target is exactly the subcomplex of the nine-vertex projective-plane
+complex induced on its four target vertices. -/
+theorem minimalHopfTarget_isFace_iff (face : Finset Vertex) :
+    IsFace minimalHopfTargetFacets face ↔
+      IsFace facets face ∧ face ⊆ minimalHopfTargetVertices := by
+  exact (by decide : ∀ face : Finset Vertex,
+    IsFace minimalHopfTargetFacets face ↔
+      IsFace facets face ∧ face ⊆ minimalHopfTargetVertices) face
+
+/-- In affine coordinates, the target carrier consists exactly of projective-plane carrier
+points supported on the four target vertices. -/
+theorem minimalHopfTarget_mem_carrier_iff
+    (x : stdSimplex ℝ Vertex) :
+    x ∈ facetFamilyCarrier minimalHopfTargetFacets ↔
+      x ∈ facetFamilyCarrier facets ∧
+        ∀ v, v ∉ minimalHopfTargetVertices → x v = 0 := by
+  constructor
+  · intro hx
+    obtain ⟨targetFacet, htargetFacet, hsupport⟩ :=
+      (mem_facetFamilyCarrier_iff minimalHopfTargetFacets x).mp hx
+    obtain ⟨projectiveFacet, hprojectiveFacet, htargetProjective⟩ :=
+      minimalHopfTargetFacets_le_projectivePlane targetFacet htargetFacet
+    constructor
+    · exact (mem_facetFamilyCarrier_iff facets x).mpr
+        ⟨projectiveFacet, hprojectiveFacet, fun v hv ↦
+          hsupport v (fun hvTarget ↦ hv (htargetProjective hvTarget))⟩
+    · intro v hv
+      have htargetSupport : targetFacet ⊆ minimalHopfTargetVertices :=
+        ((minimalHopfTarget_isFace_iff targetFacet).mp
+          ⟨targetFacet, htargetFacet, Finset.Subset.rfl⟩).2
+      exact hsupport v (fun hvTarget ↦ hv (htargetSupport hvTarget))
+  · rintro ⟨hx, hzero⟩
+    obtain ⟨projectiveFacet, hprojectiveFacet, hsupport⟩ :=
+      (mem_facetFamilyCarrier_iff facets x).mp hx
+    let face := projectiveFacet ∩ minimalHopfTargetVertices
+    have hfaceProjective : IsFace facets face :=
+      ⟨projectiveFacet, hprojectiveFacet, Finset.inter_subset_left⟩
+    have hfaceTarget : face ⊆ minimalHopfTargetVertices :=
+      Finset.inter_subset_right
+    obtain ⟨targetFacet, htargetFacet, hfaceFacet⟩ :=
+      (minimalHopfTarget_isFace_iff face).mpr
+        ⟨hfaceProjective, hfaceTarget⟩
+    exact (mem_facetFamilyCarrier_iff minimalHopfTargetFacets x).mpr
+      ⟨targetFacet, htargetFacet, fun v hv ↦ by
+        by_cases hvProjective : v ∈ projectiveFacet
+        · apply hzero v
+          intro hvTarget
+          exact hv (hfaceFacet
+            (Finset.mem_inter.mpr ⟨hvProjective, hvTarget⟩))
+        · exact hsupport v hvProjective⟩
+
+/-- The five vertices complementary to the finite target inside the projective-plane
+triangulation. -/
+def minimalHopfProjectivePlaneInteriorVertexSupport : Finset Vertex :=
+  {0, 1, 2, 3, 4}
+
+/-- Total barycentric mass away from the four-triangle target. -/
+noncomputable def minimalHopfProjectivePlaneInteriorMass
+    (x : facetFamilyCarrier facets) : ℝ :=
+  ∑ v ∈ minimalHopfProjectivePlaneInteriorVertexSupport, x.1 v
+
+/-- Projective-plane interior mass varies continuously. -/
+theorem continuous_minimalHopfProjectivePlaneInteriorMass :
+    Continuous minimalHopfProjectivePlaneInteriorMass := by
+  apply continuous_finsetSum
+  intro v _
+  exact ((continuous_apply v).comp continuous_subtype_val).comp
+    continuous_subtype_val
+
+/-- A projective-plane carrier point belongs to the target exactly when its complementary
+barycentric mass vanishes. -/
+theorem minimalHopfTarget_mem_carrier_iff_interiorMass_eq_zero
+    (x : facetFamilyCarrier facets) :
+    x.1 ∈ facetFamilyCarrier minimalHopfTargetFacets ↔
+      minimalHopfProjectivePlaneInteriorMass x = 0 := by
+  rw [minimalHopfTarget_mem_carrier_iff]
+  constructor
+  · rintro ⟨_, hzero⟩
+    rw [minimalHopfProjectivePlaneInteriorMass]
+    apply Finset.sum_eq_zero
+    intro v hv
+    apply hzero v
+    fin_cases v <;>
+      simp [minimalHopfProjectivePlaneInteriorVertexSupport,
+        minimalHopfTargetVertices] at hv ⊢
+  · intro hmass
+    refine ⟨x.2, ?_⟩
+    intro v hv
+    have hcoordinate : ∀ w ∈ minimalHopfProjectivePlaneInteriorVertexSupport,
+        x.1 w = 0 :=
+      (Finset.sum_eq_zero_iff_of_nonneg
+        (fun w _ ↦ x.1.2.1 w)).mp hmass
+    apply hcoordinate v
+    fin_cases v <;>
+      simp [minimalHopfProjectivePlaneInteriorVertexSupport,
+        minimalHopfTargetVertices] at hv ⊢
+
+/-- The affine target inclusion has range exactly the zero set of complementary mass. -/
+theorem minimalHopfTargetCarrier_range_iff_interiorMass_eq_zero
+    (x : facetFamilyCarrier facets) :
+    x ∈ Set.range
+        (facetFamilyCarrierMapOfFacetFamilyLE
+          minimalHopfTargetFacets_le_projectivePlane) ↔
+      minimalHopfProjectivePlaneInteriorMass x = 0 := by
+  rw [← minimalHopfTarget_mem_carrier_iff_interiorMass_eq_zero]
+  constructor
+  · rintro ⟨y, rfl⟩
+    exact y.2
+  · intro hx
+    exact ⟨⟨x.1, hx⟩, Subtype.ext rfl⟩
+
+/-- Complementary target mass transported to the nine-vertex realization. -/
+noncomputable def minimalHopfProjectivePlaneRealizationInteriorMass
+    (x : projectivePlaneRealization) : ℝ :=
+  minimalHopfProjectivePlaneInteriorMass
+    (orderedRealizationToFacetFamilyCarrier facets x)
+
+/-- Realized complementary target mass is continuous. -/
+theorem continuous_minimalHopfProjectivePlaneRealizationInteriorMass :
+    Continuous minimalHopfProjectivePlaneRealizationInteriorMass :=
+  continuous_minimalHopfProjectivePlaneInteriorMass.comp
+    (orderedRealizationToFacetFamilyCarrier facets).hom.continuous
+
+/-- The realized four-triangle target is exactly the zero set of complementary barycentric
+mass in the nine-vertex projective-plane realization. -/
+theorem minimalHopfTargetRealization_range_iff_interiorMass_eq_zero
+    (x : projectivePlaneRealization) :
+    x ∈ Set.range (SSet.toTop.map minimalHopfTargetSSetIncl) ↔
+      minimalHopfProjectivePlaneRealizationInteriorMass x = 0 := by
+  constructor
+  · rintro ⟨y, rfl⟩
+    apply (minimalHopfTargetCarrier_range_iff_interiorMass_eq_zero
+      (orderedRealizationToFacetFamilyCarrier facets
+        (SSet.toTop.map minimalHopfTargetSSetIncl y))).mp
+    refine ⟨orderedRealizationToFacetFamilyCarrier
+      minimalHopfTargetFacets y, ?_⟩
+    simpa [minimalHopfTargetSSetIncl, ConcreteCategory.comp_apply,
+      facetFamilyCarrierHomOfFacetFamilyLE] using
+      (ConcreteCategory.congr_hom
+        (orderedRealizationToFacetFamilyCarrier_naturality
+          minimalHopfTargetFacets_le_projectivePlane) y).symm
+  · intro hmass
+    obtain ⟨z, hz⟩ :=
+      (minimalHopfTargetCarrier_range_iff_interiorMass_eq_zero
+        (orderedRealizationToFacetFamilyCarrier facets x)).mpr hmass
+    refine ⟨(orderedRealizationHomeomorphFacetFamilyCarrier
+      minimalHopfTargetFacets).symm z, ?_⟩
+    apply (orderedRealizationHomeomorphFacetFamilyCarrier facets).injective
+    calc
+      orderedRealizationToFacetFamilyCarrier facets
+          (SSet.toTop.map minimalHopfTargetSSetIncl
+            ((orderedRealizationHomeomorphFacetFamilyCarrier
+              minimalHopfTargetFacets).symm z)) =
+        facetFamilyCarrierMapOfFacetFamilyLE
+          minimalHopfTargetFacets_le_projectivePlane
+            (orderedRealizationToFacetFamilyCarrier
+              minimalHopfTargetFacets
+                ((orderedRealizationHomeomorphFacetFamilyCarrier
+                  minimalHopfTargetFacets).symm z)) := by
+          simpa [minimalHopfTargetSSetIncl, ConcreteCategory.comp_apply,
+            facetFamilyCarrierHomOfFacetFamilyLE] using
+            ConcreteCategory.congr_hom
+              (orderedRealizationToFacetFamilyCarrier_naturality
+                minimalHopfTargetFacets_le_projectivePlane)
+              ((orderedRealizationHomeomorphFacetFamilyCarrier
+                minimalHopfTargetFacets).symm z)
+      _ = facetFamilyCarrierMapOfFacetFamilyLE
+          minimalHopfTargetFacets_le_projectivePlane z := by
+        rw [show orderedRealizationToFacetFamilyCarrier
+            minimalHopfTargetFacets
+              ((orderedRealizationHomeomorphFacetFamilyCarrier
+                minimalHopfTargetFacets).symm z) = z by
+          exact (orderedRealizationHomeomorphFacetFamilyCarrier
+            minimalHopfTargetFacets).apply_symm_apply z]
+      _ = orderedRealizationToFacetFamilyCarrier facets x := hz
+
 @[reassoc]
 theorem minimalHopfStrictPushoutBallIncl_comparison_realization :
     SSet.toTop.map minimalHopfStrictPushoutBallIncl ≫
@@ -629,6 +818,42 @@ theorem minimalHopfStrictPushoutTargetIncl_comparison_realization :
       SSet.toTop.map minimalHopfTargetSSetIncl := by
   rw [minimalHopfStrictPushoutComparisonRealization, ← SSet.toTop.map_comp,
     minimalHopfStrictPushoutTargetIncl_comparison]
+
+/-! ## Comparison of the target cofibers -/
+
+/-- The homotopy cofiber of the target two-sphere inside the genuine realized pushout. -/
+noncomputable abbrev minimalHopfStrictPushoutTargetCofiber : TopCat :=
+  Submission.topologicalMappingCone
+    (SSet.toTop.map minimalHopfStrictPushoutTargetIncl)
+
+/-- The homotopy cofiber of the four-triangle target inside the nine-vertex realization. -/
+noncomputable abbrev minimalHopfProjectivePlaneTargetCofiber : TopCat :=
+  Submission.topologicalMappingCone
+    (SSet.toTop.map minimalHopfTargetSSetIncl)
+
+/-- The strict-pushout comparison induces the canonical map between the two target
+cofibers. -/
+noncomputable def minimalHopfTargetCofiberComparison :
+    minimalHopfStrictPushoutTargetCofiber ⟶
+      minimalHopfProjectivePlaneTargetCofiber :=
+  Submission.topologicalMappingConeMap
+    (SSet.toTop.map minimalHopfStrictPushoutTargetIncl)
+    (SSet.toTop.map minimalHopfTargetSSetIncl)
+    (𝟙 _) minimalHopfStrictPushoutComparisonRealization (by
+      simpa using
+        minimalHopfStrictPushoutTargetIncl_comparison_realization)
+
+/-- On the ambient summand, the target-cofiber comparison is the realized strict-pushout
+comparison followed by the target cofiber inclusion. -/
+@[reassoc]
+theorem minimalHopfStrictPushoutTargetCofiber_incl_comparison :
+    Submission.topologicalMappingConeIncl
+          (SSet.toTop.map minimalHopfStrictPushoutTargetIncl) ≫
+        minimalHopfTargetCofiberComparison =
+      minimalHopfStrictPushoutComparisonRealization ≫
+        Submission.topologicalMappingConeIncl
+          (SSet.toTop.map minimalHopfTargetSSetIncl) := by
+  apply Submission.topologicalMappingConeIncl_map
 
 /-- The source vertices lying over each of the nine quotient vertices.  The first five fibers
 are singletons and the remaining four are the collapsed triples. -/
