@@ -17,7 +17,7 @@ compare the target cofiber with a four-sphere.
 noncomputable section
 
 open CategoryTheory Simplicial
-open scoped Topology Topology.Homotopy
+open scoped unitInterval Topology Topology.Homotopy
 
 namespace Submission.ComplexProjectivePlaneTriangulation
 
@@ -309,6 +309,37 @@ theorem minimalHopfProjectivePlanePuncturedCarrierHomotopyEquivTarget_invFun :
     minimalHopfProjectivePlaneTargetCollapseMoves_valid
     (minimalHopfProjectivePlaneTargetCollapseResultCarrierHomeomorph.symm x)
 
+/-- The relative collapse retraction is strictly the identity on the included target. -/
+theorem minimalHopfProjectivePlanePuncturedCarrierHomotopyEquivTarget_toFun_incl
+    (x : facetFamilyCarrier minimalHopfTargetFacets) :
+    minimalHopfProjectivePlanePuncturedCarrierHomotopyEquivTarget.toFun
+        (minimalHopfTargetCarrierInclPunctured x) = x := by
+  apply Subtype.ext
+  exact elementaryCollapseMoveSequenceCarrierHomotopyEquiv_toFun_val_eq_of_support
+    minimalHopfProjectivePlanePuncturedFacets
+    minimalHopfProjectivePlaneTargetCollapseMoves
+    minimalHopfProjectivePlaneTargetCollapseMoves_valid
+    minimalHopfTargetVertices
+    minimalHopfProjectivePlaneTargetCollapseMoves_relative
+    (minimalHopfTargetCarrierInclPunctured x)
+    (by
+      intro v hv
+      obtain ⟨facet, hfacet, hsupport⟩ :=
+        (mem_facetFamilyCarrier_iff minimalHopfTargetFacets x.1).mp x.2
+      apply hsupport v
+      intro hvfacet
+      apply hv
+      exact (by decide : ∀ f : {f // f ∈ minimalHopfTargetFacets},
+        f.1 ⊆ minimalHopfTargetVertices) ⟨facet, hfacet⟩ hvfacet)
+
+/-- As continuous maps, collapse after target inclusion is strictly the identity. -/
+theorem minimalHopfProjectivePlanePuncturedCarrierHomotopyEquivTarget_toFun_comp_incl :
+    minimalHopfProjectivePlanePuncturedCarrierHomotopyEquivTarget.toFun.comp
+        minimalHopfTargetCarrierInclPunctured =
+      ContinuousMap.id (facetFamilyCarrier minimalHopfTargetFacets) := by
+  apply ContinuousMap.ext
+  exact minimalHopfProjectivePlanePuncturedCarrierHomotopyEquivTarget_toFun_incl
+
 /-- The literal target inclusion into the punctured projective-plane carrier is a homotopy
 equivalence. -/
 def minimalHopfTargetCarrierInclPuncturedHomotopyEquiv :
@@ -366,6 +397,154 @@ theorem minimalHopfTargetRealizationInclPuncturedHomotopyEquiv_toFun :
     (ConcreteCategory.congr_hom
       (orderedRealizationToFacetFamilyCarrier_naturality
         minimalHopfTargetFacets_le_projectivePlanePunctured) x).symm
+
+/-- The realized collapse retraction is strictly the identity after the realized target
+inclusion. -/
+theorem minimalHopfTargetRealizationInclPuncturedHomotopyEquiv_invFun_toFun
+    (x : SSet.toTop.obj (orderedSSet minimalHopfTargetFacets)) :
+    minimalHopfTargetRealizationInclPuncturedHomotopyEquiv.invFun
+        (minimalHopfTargetRealizationInclPuncturedHomotopyEquiv.toFun x) = x := by
+  change (orderedRealizationHomeomorphFacetFamilyCarrier minimalHopfTargetFacets).symm
+      (minimalHopfTargetCarrierInclPuncturedHomotopyEquiv.invFun
+        ((orderedRealizationHomeomorphFacetFamilyCarrier
+          minimalHopfProjectivePlanePuncturedFacets)
+          ((orderedRealizationHomeomorphFacetFamilyCarrier
+            minimalHopfProjectivePlanePuncturedFacets).symm
+            (minimalHopfTargetCarrierInclPuncturedHomotopyEquiv.toFun
+              (orderedRealizationHomeomorphFacetFamilyCarrier
+                minimalHopfTargetFacets x))))) = x
+  rw [Homeomorph.apply_symm_apply]
+  change (orderedRealizationHomeomorphFacetFamilyCarrier minimalHopfTargetFacets).symm
+      (minimalHopfProjectivePlanePuncturedCarrierHomotopyEquivTarget.toFun
+        (minimalHopfTargetCarrierInclPunctured
+          (orderedRealizationHomeomorphFacetFamilyCarrier
+            minimalHopfTargetFacets x))) = x
+  rw [minimalHopfProjectivePlanePuncturedCarrierHomotopyEquivTarget_toFun_incl]
+  exact Homeomorph.symm_apply_apply _ x
+
+/-- As continuous maps, the realized collapse retraction followed by target inclusion is the
+identity. -/
+theorem minimalHopfTargetRealizationInclPuncturedHomotopyEquiv_invFun_comp_incl :
+    minimalHopfTargetRealizationInclPuncturedHomotopyEquiv.invFun.comp
+        (SSet.toTop.map minimalHopfTargetSSetInclPunctured).hom =
+      ContinuousMap.id (SSet.toTop.obj (orderedSSet minimalHopfTargetFacets)) := by
+  rw [← minimalHopfTargetRealizationInclPuncturedHomotopyEquiv_toFun]
+  apply ContinuousMap.ext
+  exact minimalHopfTargetRealizationInclPuncturedHomotopyEquiv_invFun_toFun
+
+/-- The explicit strong deformation from target-inclusion-after-collapse back to the identity on
+the punctured affine carrier. -/
+noncomputable def minimalHopfProjectivePlanePuncturedCarrierDeformation :
+    ContinuousMap.Homotopy
+      (minimalHopfProjectivePlanePuncturedCarrierHomotopyEquivTarget.invFun.comp
+        minimalHopfProjectivePlanePuncturedCarrierHomotopyEquivTarget.toFun)
+      (ContinuousMap.id
+        (facetFamilyCarrier minimalHopfProjectivePlanePuncturedFacets)) := by
+  let e := elementaryCollapseMoveSequenceCarrierHomotopyEquiv
+    minimalHopfProjectivePlanePuncturedFacets
+    minimalHopfProjectivePlaneTargetCollapseMoves
+    minimalHopfProjectivePlaneTargetCollapseMoves_valid
+  let h := minimalHopfProjectivePlaneTargetCollapseResultCarrierHomeomorph
+  let H := elementaryCollapseMoveSequenceCarrierDeformation
+    minimalHopfProjectivePlanePuncturedFacets
+    minimalHopfProjectivePlaneTargetCollapseMoves
+    minimalHopfProjectivePlaneTargetCollapseMoves_valid
+  have hstart : e.invFun.comp e.toFun =
+      minimalHopfProjectivePlanePuncturedCarrierHomotopyEquivTarget.invFun.comp
+        minimalHopfProjectivePlanePuncturedCarrierHomotopyEquivTarget.toFun := by
+    apply ContinuousMap.ext
+    intro x
+    change e.invFun (e.toFun x) = e.invFun (h.symm (h (e.toFun x)))
+    rw [Homeomorph.symm_apply_apply]
+  exact H.cast hstart rfl
+
+/-- The punctured-carrier collapse retraction is constant throughout its explicit deformation. -/
+theorem minimalHopfProjectivePlanePuncturedCarrierDeformation_toFun
+    (t : I)
+    (x : facetFamilyCarrier minimalHopfProjectivePlanePuncturedFacets) :
+    minimalHopfProjectivePlanePuncturedCarrierHomotopyEquivTarget.toFun
+        (minimalHopfProjectivePlanePuncturedCarrierDeformation (t, x)) =
+      minimalHopfProjectivePlanePuncturedCarrierHomotopyEquivTarget.toFun x := by
+  let e := elementaryCollapseMoveSequenceCarrierHomotopyEquiv
+    minimalHopfProjectivePlanePuncturedFacets
+    minimalHopfProjectivePlaneTargetCollapseMoves
+    minimalHopfProjectivePlaneTargetCollapseMoves_valid
+  let h := minimalHopfProjectivePlaneTargetCollapseResultCarrierHomeomorph
+  let H := elementaryCollapseMoveSequenceCarrierDeformation
+    minimalHopfProjectivePlanePuncturedFacets
+    minimalHopfProjectivePlaneTargetCollapseMoves
+    minimalHopfProjectivePlaneTargetCollapseMoves_valid
+  apply Subtype.ext
+  change (h (e.toFun (H (t, x)))).1 = (h (e.toFun x)).1
+  exact congrArg (fun y ↦ (h y).1)
+    (elementaryCollapseMoveSequenceCarrierDeformation_toFun
+      minimalHopfProjectivePlanePuncturedFacets
+      minimalHopfProjectivePlaneTargetCollapseMoves
+      minimalHopfProjectivePlaneTargetCollapseMoves_valid t x)
+
+/-- The relative collapse transported to geometric realization as an explicit strong
+deformation. -/
+noncomputable def minimalHopfProjectivePlanePuncturedRealizationDeformation :
+    ContinuousMap.Homotopy
+      (minimalHopfTargetRealizationInclPuncturedHomotopyEquiv.toFun.comp
+        minimalHopfTargetRealizationInclPuncturedHomotopyEquiv.invFun)
+      (ContinuousMap.id
+        (SSet.toTop.obj
+          (orderedSSet minimalHopfProjectivePlanePuncturedFacets))) where
+  toFun p :=
+    (orderedRealizationHomeomorphFacetFamilyCarrier
+      minimalHopfProjectivePlanePuncturedFacets).symm
+        (minimalHopfProjectivePlanePuncturedCarrierDeformation
+          (p.1, orderedRealizationHomeomorphFacetFamilyCarrier
+            minimalHopfProjectivePlanePuncturedFacets p.2))
+  continuous_toFun :=
+    (orderedRealizationHomeomorphFacetFamilyCarrier
+        minimalHopfProjectivePlanePuncturedFacets).symm.continuous.comp
+      (minimalHopfProjectivePlanePuncturedCarrierDeformation.continuous.comp
+        (continuous_fst.prodMk
+          ((orderedRealizationHomeomorphFacetFamilyCarrier
+            minimalHopfProjectivePlanePuncturedFacets).continuous.comp
+              continuous_snd)))
+  map_zero_left x := by
+    let hp := orderedRealizationHomeomorphFacetFamilyCarrier
+      minimalHopfProjectivePlanePuncturedFacets
+    let ht := orderedRealizationHomeomorphFacetFamilyCarrier minimalHopfTargetFacets
+    let e := minimalHopfProjectivePlanePuncturedCarrierHomotopyEquivTarget
+    change hp.symm
+      (minimalHopfProjectivePlanePuncturedCarrierDeformation (0, hp x)) = _
+    rw [ContinuousMap.Homotopy.apply_zero]
+    change hp.symm (e.invFun (e.toFun (hp x))) =
+      hp.symm (e.invFun (ht (ht.symm (e.toFun (hp x)))))
+    rw [Homeomorph.apply_symm_apply]
+  map_one_left x := by
+    change (orderedRealizationHomeomorphFacetFamilyCarrier
+        minimalHopfProjectivePlanePuncturedFacets).symm
+      (minimalHopfProjectivePlanePuncturedCarrierDeformation
+        (1, orderedRealizationHomeomorphFacetFamilyCarrier
+          minimalHopfProjectivePlanePuncturedFacets x)) = x
+    rw [ContinuousMap.Homotopy.apply_one]
+    exact (orderedRealizationHomeomorphFacetFamilyCarrier
+      minimalHopfProjectivePlanePuncturedFacets).symm_apply_apply x
+
+/-- The realized collapse retraction stays constant throughout the explicit punctured-complex
+deformation. -/
+theorem minimalHopfProjectivePlanePuncturedRealizationDeformation_invFun
+    (t : I)
+    (x : SSet.toTop.obj
+      (orderedSSet minimalHopfProjectivePlanePuncturedFacets)) :
+    minimalHopfTargetRealizationInclPuncturedHomotopyEquiv.invFun
+        (minimalHopfProjectivePlanePuncturedRealizationDeformation (t, x)) =
+      minimalHopfTargetRealizationInclPuncturedHomotopyEquiv.invFun x := by
+  let hp := orderedRealizationHomeomorphFacetFamilyCarrier
+    minimalHopfProjectivePlanePuncturedFacets
+  let ht := orderedRealizationHomeomorphFacetFamilyCarrier minimalHopfTargetFacets
+  let e := minimalHopfProjectivePlanePuncturedCarrierHomotopyEquivTarget
+  change ht.symm
+      (e.toFun (hp (hp.symm
+        (minimalHopfProjectivePlanePuncturedCarrierDeformation (t, hp x))))) =
+    ht.symm (e.toFun (hp x))
+  rw [Homeomorph.apply_symm_apply,
+    minimalHopfProjectivePlanePuncturedCarrierDeformation_toFun]
 
 /-! ## Reattaching the all-interior four-simplex -/
 
@@ -500,5 +679,34 @@ theorem minimalHopfProjectivePlanePuncturedSimplexRealization_isPushout :
       (SSet.toTop.map
         minimalHopfProjectivePlaneInteriorSimplexSSetIncl) :=
   minimalHopfProjectivePlanePuncturedSimplex_isPushout.map SSet.toTop
+
+/-- The attaching map of the remaining four-simplex, transported from the punctured complex to
+the finite Hopf target by the relative collapse retraction. -/
+noncomputable def minimalHopfProjectivePlaneTargetAttachingMap :
+    SSet.toTop.obj
+        (orderedSSet minimalHopfProjectivePlaneInteriorBoundaryFacets) ⟶
+      SSet.toTop.obj (orderedSSet minimalHopfTargetFacets) :=
+  TopCat.ofHom
+    (minimalHopfTargetRealizationInclPuncturedHomotopyEquiv.invFun.comp
+      (SSet.toTop.map
+        minimalHopfProjectivePlaneInteriorBoundarySSetInclPunctured).hom)
+
+/-- Re-including the collapsed attaching map is homotopic to the original boundary inclusion
+into the punctured projective plane. -/
+theorem minimalHopfProjectivePlaneTargetAttachingMap_incl_homotopic :
+    ((SSet.toTop.map minimalHopfTargetSSetInclPunctured).hom.comp
+        minimalHopfProjectivePlaneTargetAttachingMap.hom).Homotopic
+      (SSet.toTop.map
+        minimalHopfProjectivePlaneInteriorBoundarySSetInclPunctured).hom := by
+  rw [← minimalHopfTargetRealizationInclPuncturedHomotopyEquiv_toFun]
+  change ((minimalHopfTargetRealizationInclPuncturedHomotopyEquiv.toFun.comp
+      minimalHopfTargetRealizationInclPuncturedHomotopyEquiv.invFun).comp
+        (SSet.toTop.map
+          minimalHopfProjectivePlaneInteriorBoundarySSetInclPunctured).hom).Homotopic _
+  simpa using
+    minimalHopfTargetRealizationInclPuncturedHomotopyEquiv.right_inv.comp
+      (ContinuousMap.Homotopic.refl
+        (SSet.toTop.map
+          minimalHopfProjectivePlaneInteriorBoundarySSetInclPunctured).hom)
 
 end Submission.ComplexProjectivePlaneTriangulation

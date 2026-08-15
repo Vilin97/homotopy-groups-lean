@@ -468,6 +468,102 @@ theorem elementaryCollapseSimplexDeformation_one
   change elementaryCollapseDeformCoord freeFace vertex hfree hv 1 x w = _
   simp [elementaryCollapseDeformCoord]
 
+/-- The minimum free-face coordinate along the elementary collapse deformation is the original
+minimum scaled by the homotopy parameter. -/
+theorem elementaryCollapseMin_deformation
+    (freeFace : Finset V) (vertex : V) (hfree : freeFace.Nonempty)
+    (hv : vertex ∉ freeFace) (t : I) (x : stdSimplex ℝ V) :
+    elementaryCollapseMin freeFace hfree
+        (elementaryCollapseSimplexDeformation
+          freeFace vertex hfree hv (t, x)) =
+      (t : ℝ) * elementaryCollapseMin freeFace hfree x := by
+  let m := elementaryCollapseMin freeFace hfree x
+  apply le_antisymm
+  · obtain ⟨u, hufree, hu⟩ :=
+      exists_mem_eq_elementaryCollapseMin freeFace hfree x
+    refine (elementaryCollapseMin_le freeFace hfree _ u hufree).trans_eq ?_
+    have huvertex : u ≠ vertex := fun huv ↦ hv (huv ▸ hufree)
+    change elementaryCollapseDeformCoord
+      freeFace vertex hfree hv t x u = (t : ℝ) * m
+    change (1 - (t : ℝ)) *
+        elementaryCollapseCoord freeFace vertex hfree x u +
+      (t : ℝ) * x u = (t : ℝ) * m
+    have hcoord : elementaryCollapseCoord freeFace vertex hfree x u =
+        x u - m := by
+      simp [elementaryCollapseCoord, huvertex, hufree, m]
+    rw [hcoord]
+    change x u = m at hu
+    rw [hu]
+    ring
+  · apply Finset.le_inf'
+    intro w hw
+    have hwvertex : w ≠ vertex := fun hwv ↦ hv (hwv ▸ hw)
+    have hmin := elementaryCollapseMin_le freeFace hfree x w hw
+    change (t : ℝ) * m ≤
+      elementaryCollapseDeformCoord freeFace vertex hfree hv t x w
+    change (t : ℝ) * m ≤
+      (1 - (t : ℝ)) *
+          elementaryCollapseCoord freeFace vertex hfree x w +
+        (t : ℝ) * x w
+    have hcoord : elementaryCollapseCoord freeFace vertex hfree x w =
+        x w - m := by
+      simp [elementaryCollapseCoord, hwvertex, hw, m]
+    rw [hcoord]
+    change m ≤ x w at hmin
+    nlinarith [t.2.1, t.2.2]
+
+/-- The elementary retraction is constant along its deformation back to the identity. -/
+theorem elementaryCollapseSimplexMap_deformation
+    (freeFace : Finset V) (vertex : V) (hfree : freeFace.Nonempty)
+    (hv : vertex ∉ freeFace) (t : I) (x : stdSimplex ℝ V) :
+    elementaryCollapseSimplexMap freeFace vertex hfree hv
+        (elementaryCollapseSimplexDeformation
+          freeFace vertex hfree hv (t, x)) =
+      elementaryCollapseSimplexMap freeFace vertex hfree hv x := by
+  apply stdSimplex.ext
+  funext w
+  change elementaryCollapseCoord freeFace vertex hfree
+      (elementaryCollapseSimplexDeformation
+        freeFace vertex hfree hv (t, x)) w =
+    elementaryCollapseCoord freeFace vertex hfree x w
+  unfold elementaryCollapseCoord
+  rw [elementaryCollapseMin_deformation freeFace vertex hfree hv t x]
+  by_cases hwv : w = vertex
+  · subst w
+    simp
+    change elementaryCollapseDeformCoord freeFace vertex hfree hv t x vertex +
+        freeFace.card * ((t : ℝ) * elementaryCollapseMin freeFace hfree x) =
+      x vertex + freeFace.card * elementaryCollapseMin freeFace hfree x
+    change (1 - (t : ℝ)) *
+          elementaryCollapseCoord freeFace vertex hfree x vertex +
+        (t : ℝ) * x vertex +
+          freeFace.card * ((t : ℝ) * elementaryCollapseMin freeFace hfree x) = _
+    rw [show elementaryCollapseCoord freeFace vertex hfree x vertex =
+        x vertex + freeFace.card * elementaryCollapseMin freeFace hfree x by
+      simp [elementaryCollapseCoord]]
+    ring
+  · by_cases hw : w ∈ freeFace
+    · simp only [if_neg hwv, if_pos hw]
+      change elementaryCollapseDeformCoord freeFace vertex hfree hv t x w -
+          (t : ℝ) * elementaryCollapseMin freeFace hfree x =
+        x w - elementaryCollapseMin freeFace hfree x
+      change (1 - (t : ℝ)) *
+            elementaryCollapseCoord freeFace vertex hfree x w +
+          (t : ℝ) * x w -
+            (t : ℝ) * elementaryCollapseMin freeFace hfree x = _
+      rw [show elementaryCollapseCoord freeFace vertex hfree x w =
+          x w - elementaryCollapseMin freeFace hfree x by
+        simp [elementaryCollapseCoord, hwv, hw]]
+      ring
+    · simp only [if_neg hwv, if_neg hw]
+      change elementaryCollapseDeformCoord freeFace vertex hfree hv t x w = x w
+      change (1 - (t : ℝ)) *
+            elementaryCollapseCoord freeFace vertex hfree x w +
+          (t : ℝ) * x w = x w
+      rw [show elementaryCollapseCoord freeFace vertex hfree x w = x w by
+        simp [elementaryCollapseCoord, hwv, hw]]
+      ring
+
 theorem elementaryCollapseSimplexDeformation_mem_carrier
     (facets : Finset (Finset V)) (freeFace : Finset V) (vertex : V)
     (hfree : freeFace.Nonempty) (hv : vertex ∉ freeFace)
@@ -516,6 +612,22 @@ def elementaryCollapseCarrierDeformation
     apply Subtype.ext
     exact elementaryCollapseSimplexDeformation_one
       freeFace vertex hfree hv x.1
+
+/-- On affine carriers, the elementary retraction remains constant throughout its deformation
+back to the identity. -/
+theorem elementaryCollapseCarrierMap_deformation
+    (facets : Finset (Finset V)) (freeFace : Finset V) (vertex : V)
+    (hfree : freeFace.Nonempty) (hv : vertex ∉ freeFace)
+    (hsimplex : elementaryCollapseSimplex freeFace vertex ∈ facets)
+    (hunique : ∀ facet ∈ facets, freeFace ⊆ facet →
+      facet = freeFace ∨ facet = elementaryCollapseSimplex freeFace vertex)
+    (t : I) (x : facetFamilyCarrier facets) :
+    elementaryCollapseCarrierMap facets freeFace vertex hfree hv hunique
+        (elementaryCollapseCarrierDeformation facets freeFace vertex
+          hfree hv hsimplex hunique (t, x)) =
+      elementaryCollapseCarrierMap facets freeFace vertex hfree hv hunique x := by
+  apply Subtype.ext
+  exact elementaryCollapseSimplexMap_deformation freeFace vertex hfree hv t x.1
 
 def elementaryCollapseCarrierHomotopyEquiv
     (facets : Finset (Finset V)) (freeFace : Finset V) (vertex : V)
@@ -675,6 +787,112 @@ noncomputable def elementaryCollapseMoveSequenceCarrierHomotopyEquiv
         (fun facet hfacet ↦ hvalid'.1.2.2.2 ⟨facet, hfacet⟩)).trans
         (ih (elementaryCollapseFacets facets move.freeFace move.vertex) hvalid'.2)
 
+/-- The explicit deformation from inclusion-after-retraction back to the identity associated to
+a finite sequence of elementary collapses. -/
+noncomputable def elementaryCollapseMoveSequenceCarrierDeformation
+    (facets : Finset (Finset V))
+    (moves : List (ElementaryCollapseMoveData V))
+    (hvalid : IsValidElementaryCollapseMoveSequence facets moves) :
+    ContinuousMap.Homotopy
+      ((elementaryCollapseMoveSequenceCarrierHomotopyEquiv
+          facets moves hvalid).invFun.comp
+        (elementaryCollapseMoveSequenceCarrierHomotopyEquiv
+          facets moves hvalid).toFun)
+      (ContinuousMap.id (facetFamilyCarrier facets)) := by
+  induction moves generalizing facets with
+  | nil =>
+      exact ContinuousMap.Homotopy.refl _
+  | cons move rest ih =>
+      have hvalid' : IsValidElementaryCollapseMove facets move ∧
+          IsValidElementaryCollapseMoveSequence
+            (elementaryCollapseFacets facets move.freeFace move.vertex) rest := by
+        simpa only [IsValidElementaryCollapseMoveSequence] using hvalid
+      let e₁ := elementaryCollapseCarrierHomotopyEquiv
+        facets move.freeFace move.vertex
+        hvalid'.1.1 hvalid'.1.2.1 hvalid'.1.2.2.1
+        (fun facet hfacet ↦ hvalid'.1.2.2.2 ⟨facet, hfacet⟩)
+      let e₂ := elementaryCollapseMoveSequenceCarrierHomotopyEquiv
+        (elementaryCollapseFacets facets move.freeFace move.vertex)
+        rest hvalid'.2
+      let H₂ := ih
+        (elementaryCollapseFacets facets move.freeFace move.vertex) hvalid'.2
+      let Hfirst := (ContinuousMap.Homotopy.refl e₁.invFun).comp
+        (H₂.compContinuousMap e₁.toFun)
+      let H₁ := elementaryCollapseCarrierDeformation
+        facets move.freeFace move.vertex
+        hvalid'.1.1 hvalid'.1.2.1 hvalid'.1.2.2.1
+        (fun facet hfacet ↦ hvalid'.1.2.2.2 ⟨facet, hfacet⟩)
+      change ContinuousMap.Homotopy
+        ((e₁.trans e₂).invFun.comp (e₁.trans e₂).toFun)
+        (ContinuousMap.id (facetFamilyCarrier facets))
+      simpa only [e₂, ContinuousMap.HomotopyEquiv.trans,
+        ContinuousMap.comp_assoc] using Hfirst.trans H₁
+
+/-- The sequence retraction remains constant throughout the explicit deformation supplied by
+the collapse certificate.  Thus a certified collapse is a strong deformation retraction in the
+direction needed by pushout gluing. -/
+theorem elementaryCollapseMoveSequenceCarrierDeformation_toFun
+    (facets : Finset (Finset V))
+    (moves : List (ElementaryCollapseMoveData V))
+    (hvalid : IsValidElementaryCollapseMoveSequence facets moves)
+    (t : I) (x : facetFamilyCarrier facets) :
+    (elementaryCollapseMoveSequenceCarrierHomotopyEquiv
+        facets moves hvalid).toFun
+        (elementaryCollapseMoveSequenceCarrierDeformation
+          facets moves hvalid (t, x)) =
+      (elementaryCollapseMoveSequenceCarrierHomotopyEquiv
+        facets moves hvalid).toFun x := by
+  induction moves generalizing facets t with
+  | nil => rfl
+  | cons move rest ih =>
+      have hvalid' : IsValidElementaryCollapseMove facets move ∧
+          IsValidElementaryCollapseMoveSequence
+            (elementaryCollapseFacets facets move.freeFace move.vertex) rest := by
+        simpa only [IsValidElementaryCollapseMoveSequence] using hvalid
+      let e₁ := elementaryCollapseCarrierHomotopyEquiv
+        facets move.freeFace move.vertex
+        hvalid'.1.1 hvalid'.1.2.1 hvalid'.1.2.2.1
+        (fun facet hfacet ↦ hvalid'.1.2.2.2 ⟨facet, hfacet⟩)
+      let e₂ := elementaryCollapseMoveSequenceCarrierHomotopyEquiv
+        (elementaryCollapseFacets facets move.freeFace move.vertex)
+        rest hvalid'.2
+      let H₂ := elementaryCollapseMoveSequenceCarrierDeformation
+        (elementaryCollapseFacets facets move.freeFace move.vertex)
+        rest hvalid'.2
+      let Hfirst := (ContinuousMap.Homotopy.refl e₁.invFun).comp
+        (H₂.compContinuousMap e₁.toFun)
+      let H₁ := elementaryCollapseCarrierDeformation
+        facets move.freeFace move.vertex
+        hvalid'.1.1 hvalid'.1.2.1 hvalid'.1.2.2.1
+        (fun facet hfacet ↦ hvalid'.1.2.2.2 ⟨facet, hfacet⟩)
+      change (e₁.trans e₂).toFun ((Hfirst.trans H₁) (t, x)) =
+        (e₁.trans e₂).toFun x
+      rw [ContinuousMap.Homotopy.trans_apply]
+      split_ifs with ht
+      · change e₂.toFun
+            (e₁.toFun (e₁.invFun
+              (H₂ (⟨2 * t.1, _⟩, e₁.toFun x)))) =
+          e₂.toFun (e₁.toFun x)
+        rw [show e₁.toFun (e₁.invFun
+            (H₂ (⟨2 * t.1, _⟩, e₁.toFun x))) =
+            H₂ (⟨2 * t.1, _⟩, e₁.toFun x) by
+          exact elementaryCollapseCarrierMap_inclusion_apply
+            facets move.freeFace move.vertex
+            hvalid'.1.1 hvalid'.1.2.1 hvalid'.1.2.2.1
+            (fun facet hfacet ↦ hvalid'.1.2.2.2 ⟨facet, hfacet⟩) _]
+        exact ih (elementaryCollapseFacets facets move.freeFace move.vertex)
+          hvalid'.2 ⟨2 * t.1, _⟩ (e₁.toFun x)
+      · change e₂.toFun
+            (e₁.toFun
+              (H₁ (⟨2 * t.1 - 1, _⟩, x))) =
+          e₂.toFun (e₁.toFun x)
+        exact congrArg e₂.toFun
+          (elementaryCollapseCarrierMap_deformation
+            facets move.freeFace move.vertex
+            hvalid'.1.1 hvalid'.1.2.1 hvalid'.1.2.2.1
+            (fun facet hfacet ↦ hvalid'.1.2.2.2 ⟨facet, hfacet⟩)
+            ⟨2 * t.1 - 1, _⟩ x)
+
 /-- The inverse supplied by a finite elementary-collapse sequence is the canonical carrier
 inclusion: it preserves every ambient barycentric coordinate. -/
 theorem elementaryCollapseMoveSequenceCarrierHomotopyEquiv_invFun_val
@@ -701,5 +919,52 @@ theorem elementaryCollapseMoveSequenceCarrierHomotopyEquiv_invFun_val
       exact ih
         (elementaryCollapseFacets facets move.freeFace move.vertex)
         hvalid'.2 x
+
+/-- A relative elementary-collapse sequence fixes every point supported on the protected vertex
+set.  It is enough that each free face contain a vertex outside that support. -/
+theorem elementaryCollapseMoveSequenceCarrierHomotopyEquiv_toFun_val_eq_of_support
+    (facets : Finset (Finset V))
+    (moves : List (ElementaryCollapseMoveData V))
+    (hvalid : IsValidElementaryCollapseMoveSequence facets moves)
+    (support : Finset V)
+    (hrelative : ∀ move ∈ moves, ¬move.freeFace ⊆ support)
+    (x : facetFamilyCarrier facets)
+    (hx : ∀ v, v ∉ support → x.1 v = 0) :
+    ((elementaryCollapseMoveSequenceCarrierHomotopyEquiv
+      facets moves hvalid).toFun x).1 = x.1 := by
+  induction moves generalizing facets with
+  | nil => rfl
+  | cons move rest ih =>
+      have hvalid' : IsValidElementaryCollapseMove facets move ∧
+          IsValidElementaryCollapseMoveSequence
+            (elementaryCollapseFacets facets move.freeFace move.vertex) rest := by
+        simpa only [IsValidElementaryCollapseMoveSequence] using hvalid
+      have hmoveRelative : ¬move.freeFace ⊆ support :=
+        hrelative move (by simp)
+      obtain ⟨u, hufree, hunotSupport⟩ :=
+        Finset.not_subset.mp hmoveRelative
+      have hmap : elementaryCollapseSimplexMap move.freeFace move.vertex
+          hvalid'.1.1 hvalid'.1.2.1 x.1 = x.1 :=
+        elementaryCollapseSimplexMap_eq_self_of_coord_eq_zero
+          move.freeFace move.vertex hvalid'.1.1 hvalid'.1.2.1 x.1
+          u hufree (hx u hunotSupport)
+      let y := elementaryCollapseCarrierMap
+        facets move.freeFace move.vertex hvalid'.1.1 hvalid'.1.2.1
+          (fun facet hfacet ↦ hvalid'.1.2.2.2 ⟨facet, hfacet⟩) x
+      have hy : y.1 = x.1 := hmap
+      have hySupport : ∀ v, v ∉ support → y.1 v = 0 := by
+        intro v hv
+        rw [hy]
+        exact hx v hv
+      have hrestRelative : ∀ next ∈ rest,
+          ¬next.freeFace ⊆ support := by
+        intro next hnext
+        exact hrelative next (by simp [hnext])
+      change ((elementaryCollapseMoveSequenceCarrierHomotopyEquiv
+        (elementaryCollapseFacets facets move.freeFace move.vertex)
+        rest hvalid'.2).toFun y).1 = x.1
+      exact (ih
+        (elementaryCollapseFacets facets move.freeFace move.vertex)
+        hvalid'.2 hrestRelative y hySupport).trans hy
 
 end Submission.FiniteOrderedComplex
