@@ -3,6 +3,7 @@ Copyright (c) 2026 Vasily Ilin. All rights reserved.
 Released under Apache 2.0 license.
 -/
 import Submission.FiniteOrderedComplexCarrierHomeomorph
+import Submission.Cohomology.FiniteOrderedComplexMap
 
 /-!
 # Functoriality of finite ordered-complex carriers
@@ -19,6 +20,88 @@ open CategoryTheory Simplicial Opposite
 namespace Submission.FiniteOrderedComplex
 
 variable {V : Type} [Fintype V] [LinearOrder V]
+
+section MonotoneMap
+
+variable {W : Type} [Fintype W] [LinearOrder W]
+
+/-- Push barycentric coordinates forward along a monotone vertex map.  A finite-complex map
+ensures that the resulting point lies in the target facet-family carrier. -/
+def facetFamilyCarrierMapOfMonotone
+    (f : V →o W) {source : Finset (Finset V)} {target : Finset (Finset W)}
+    (h : FacetFamilyMapsTo f source target)
+    (x : facetFamilyCarrier source) : facetFamilyCarrier target :=
+  ⟨stdSimplex.map f x.1, by
+    obtain ⟨facet, hfacet, hsupport⟩ :=
+      (mem_facetFamilyCarrier_iff source x.1).mp x.2
+    obtain ⟨targetFacet, htargetFacet, himage⟩ := h facet hfacet
+    refine (mem_facetFamilyCarrier_iff target _).mpr
+      ⟨targetFacet, htargetFacet, ?_⟩
+    intro w hw
+    change (FunOnFinite.linearMap ℝ ℝ f x.1) w = 0
+    rw [FunOnFinite.linearMap_apply_apply]
+    apply Finset.sum_eq_zero
+    intro v hv
+    rw [Finset.mem_filter] at hv
+    apply hsupport v
+    intro hvfacet
+    apply hw
+    exact himage (Finset.mem_image.mpr ⟨v, hvfacet, hv.2⟩)⟩
+
+theorem continuous_facetFamilyCarrierMapOfMonotone
+    (f : V →o W) {source : Finset (Finset V)} {target : Finset (Finset W)}
+    (h : FacetFamilyMapsTo f source target) :
+    Continuous (facetFamilyCarrierMapOfMonotone f h) :=
+  Continuous.subtype_mk
+    ((stdSimplex.continuous_map f).comp continuous_subtype_val) _
+
+def facetFamilyCarrierHomOfMonotone
+    (f : V →o W) {source : Finset (Finset V)} {target : Finset (Finset W)}
+    (h : FacetFamilyMapsTo f source target) :
+    TopCat.of (facetFamilyCarrier source) ⟶
+      TopCat.of (facetFamilyCarrier target) :=
+  TopCat.ofHom ⟨facetFamilyCarrierMapOfMonotone f h,
+    continuous_facetFamilyCarrierMapOfMonotone f h⟩
+
+/-- The simplicial map induced by a monotone vertex map agrees with affine pushforward after
+passing to singular simplices of the two carriers. -/
+theorem facetFamilyToSingular_naturality_monotone
+    (f : V →o W) {source : Finset (Finset V)} {target : Finset (Finset W)}
+    (h : FacetFamilyMapsTo f source target) :
+    orderedSSetMapOfMonotone f h ≫ facetFamilyToSingular target =
+      facetFamilyToSingular source ≫
+        TopCat.toSSet.map (facetFamilyCarrierHomOfMonotone f h) := by
+  ext D s
+  apply (TopCat.toSSetObjEquiv _ _).injective
+  apply ContinuousMap.ext
+  intro x
+  apply Subtype.ext
+  change stdSimplex.map (fun i ↦ f (s.1.obj i)) x =
+    stdSimplex.map f (stdSimplex.map (fun i ↦ s.1.obj i) x)
+  rw [stdSimplex.map_comp_apply]
+  rfl
+
+/-- The canonical realization/carrier homeomorphisms are natural for every monotone map of
+finite facet families, including quotient maps that identify vertices. -/
+theorem orderedRealizationToFacetFamilyCarrier_naturality_monotone
+    (f : V →o W) {source : Finset (Finset V)} {target : Finset (Finset W)}
+    (h : FacetFamilyMapsTo f source target) :
+    SSet.toTop.map (orderedSSetMapOfMonotone f h) ≫
+        orderedRealizationToFacetFamilyCarrier target =
+      orderedRealizationToFacetFamilyCarrier source ≫
+        facetFamilyCarrierHomOfMonotone f h := by
+  apply (sSetTopAdj.homEquiv _ _).injective
+  rw [Adjunction.homEquiv_naturality_left]
+  rw [show (sSetTopAdj.homEquiv _ _)
+      (orderedRealizationToFacetFamilyCarrier target) =
+        facetFamilyToSingular target by exact Equiv.apply_symm_apply _ _]
+  rw [Adjunction.homEquiv_naturality_right]
+  rw [show (sSetTopAdj.homEquiv _ _)
+      (orderedRealizationToFacetFamilyCarrier source) =
+        facetFamilyToSingular source by exact Equiv.apply_symm_apply _ _]
+  exact facetFamilyToSingular_naturality_monotone f h
+
+end MonotoneMap
 
 /-- Every listed facet of one presentation is a face of another presentation. -/
 def FacetFamilyLE (facets facets' : Finset (Finset V)) : Prop :=
