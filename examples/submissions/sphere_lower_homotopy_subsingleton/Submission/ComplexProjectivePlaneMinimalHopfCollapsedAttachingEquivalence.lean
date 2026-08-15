@@ -294,6 +294,39 @@ noncomputable def minimalHopfCollapsedAttachingProjectivePlaneHomotopyForward :
   map_one_left x := by
     exact ConcreteCategory.congr_hom minimalHopfCollapsedAttachingProjectivePlanePath_one x
 
+/-- The inverse-composite homotopy on the projective plane fixes the finite Hopf target
+pointwise. -/
+theorem minimalHopfCollapsedAttachingProjectivePlaneHomotopyForward_target
+    (t : I)
+    (x : SSet.toTop.obj (orderedSSet minimalHopfTargetFacets)) :
+    minimalHopfCollapsedAttachingProjectivePlaneHomotopyForward
+        (t, SSet.toTop.map minimalHopfTargetSSetIncl x) =
+      SSet.toTop.map minimalHopfTargetSSetIncl x := by
+  have hfactor :
+      SSet.toTop.map minimalHopfTargetSSetInclPunctured ≫
+          SSet.toTop.map minimalHopfProjectivePlanePuncturedSSetIncl =
+        SSet.toTop.map minimalHopfTargetSSetIncl := by
+    rw [← SSet.toTop.map_comp,
+      minimalHopfTargetSSetInclPunctured_comp_projectivePlanePuncturedSSetIncl]
+  have hfactorApply := ConcreteCategory.congr_hom hfactor x
+  rw [ConcreteCategory.comp_apply] at hfactorApply
+  change minimalHopfCollapsedAttachingProjectivePlanePath
+      (SSet.toTop.map minimalHopfTargetSSetIncl x) t =
+    SSet.toTop.map minimalHopfTargetSSetIncl x
+  rw [← hfactorApply]
+  have hpath := ConcreteCategory.congr_hom
+    minimalHopfCollapsedAttachingProjectivePlanePath_punctured
+      (SSet.toTop.map minimalHopfTargetSSetInclPunctured x)
+  rw [ConcreteCategory.comp_apply] at hpath
+  apply_fun fun path ↦ path t at hpath
+  rw [hpath]
+  change SSet.toTop.map minimalHopfProjectivePlanePuncturedSSetIncl
+      (minimalHopfProjectivePlanePuncturedRealizationDeformation
+        (σ t, SSet.toTop.map minimalHopfTargetSSetInclPunctured x)) =
+    SSet.toTop.map minimalHopfProjectivePlanePuncturedSSetIncl
+      (SSet.toTop.map minimalHopfTargetSSetInclPunctured x)
+  rw [minimalHopfProjectivePlanePuncturedRealizationDeformation_incl]
+
 noncomputable def minimalHopfCollapsedAttachingTargetHomotopyForward :
     ContinuousMap.Homotopy
       minimalHopfCollapsedAttachingPushoutTargetIncl.hom
@@ -485,6 +518,24 @@ noncomputable def minimalHopfCollapsedAttachingPushoutHomotopyForward :
     exact ConcreteCategory.congr_hom minimalHopfCollapsedAttachingPushoutPath_zero x
   map_one_left x := by
     exact ConcreteCategory.congr_hom minimalHopfCollapsedAttachingPushoutPath_one x
+
+/-- The inverse-composite homotopy on the collapsed attaching pushout fixes the finite Hopf
+target pointwise. -/
+theorem minimalHopfCollapsedAttachingPushoutHomotopyForward_target
+    (t : I)
+    (x : SSet.toTop.obj (orderedSSet minimalHopfTargetFacets)) :
+    minimalHopfCollapsedAttachingPushoutHomotopyForward
+        (t, minimalHopfCollapsedAttachingPushoutTargetIncl x) =
+      minimalHopfCollapsedAttachingPushoutTargetIncl x := by
+  change minimalHopfCollapsedAttachingPushoutPath
+      (minimalHopfCollapsedAttachingPushoutTargetIncl x) t =
+    minimalHopfCollapsedAttachingPushoutTargetIncl x
+  have hpath := ConcreteCategory.congr_hom
+    minimalHopfCollapsedAttachingPushoutPath_target x
+  rw [ConcreteCategory.comp_apply] at hpath
+  apply_fun fun path ↦ path t at hpath
+  rw [hpath]
+  rfl
 
 noncomputable def minimalHopfProjectivePlaneToCollapsedAttachingPushoutHomotopyEquiv :
     ContinuousMap.HomotopyEquiv

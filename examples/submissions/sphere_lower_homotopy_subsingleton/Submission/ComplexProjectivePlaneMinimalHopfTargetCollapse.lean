@@ -482,6 +482,33 @@ theorem minimalHopfProjectivePlanePuncturedCarrierDeformation_toFun
       minimalHopfProjectivePlaneTargetCollapseMoves
       minimalHopfProjectivePlaneTargetCollapseMoves_valid t x)
 
+/-- The explicit punctured-carrier deformation fixes the included finite Hopf target pointwise. -/
+theorem minimalHopfProjectivePlanePuncturedCarrierDeformation_incl
+    (t : I) (x : facetFamilyCarrier minimalHopfTargetFacets) :
+    minimalHopfProjectivePlanePuncturedCarrierDeformation
+        (t, minimalHopfTargetCarrierInclPunctured x) =
+      minimalHopfTargetCarrierInclPunctured x := by
+  let H := elementaryCollapseMoveSequenceCarrierDeformation
+    minimalHopfProjectivePlanePuncturedFacets
+    minimalHopfProjectivePlaneTargetCollapseMoves
+    minimalHopfProjectivePlaneTargetCollapseMoves_valid
+  change H (t, minimalHopfTargetCarrierInclPunctured x) =
+    minimalHopfTargetCarrierInclPunctured x
+  apply elementaryCollapseMoveSequenceCarrierDeformation_eq_self_of_support
+    minimalHopfProjectivePlanePuncturedFacets
+    minimalHopfProjectivePlaneTargetCollapseMoves
+    minimalHopfProjectivePlaneTargetCollapseMoves_valid
+    minimalHopfTargetVertices
+    minimalHopfProjectivePlaneTargetCollapseMoves_relative
+  intro v hv
+  obtain ⟨facet, hfacet, hsupport⟩ :=
+    (mem_facetFamilyCarrier_iff minimalHopfTargetFacets x.1).mp x.2
+  apply hsupport v
+  intro hvfacet
+  apply hv
+  exact (by decide : ∀ f : {f // f ∈ minimalHopfTargetFacets},
+    f.1 ⊆ minimalHopfTargetVertices) ⟨facet, hfacet⟩ hvfacet
+
 /-- The relative collapse transported to geometric realization as an explicit strong
 deformation. -/
 noncomputable def minimalHopfProjectivePlanePuncturedRealizationDeformation :
@@ -545,6 +572,34 @@ theorem minimalHopfProjectivePlanePuncturedRealizationDeformation_invFun
     ht.symm (e.toFun (hp x))
   rw [Homeomorph.apply_symm_apply,
     minimalHopfProjectivePlanePuncturedCarrierDeformation_toFun]
+
+/-- The realized punctured-complex deformation fixes the included finite Hopf target pointwise. -/
+theorem minimalHopfProjectivePlanePuncturedRealizationDeformation_incl
+    (t : I)
+    (x : SSet.toTop.obj (orderedSSet minimalHopfTargetFacets)) :
+    minimalHopfProjectivePlanePuncturedRealizationDeformation
+        (t, SSet.toTop.map minimalHopfTargetSSetInclPunctured x) =
+      SSet.toTop.map minimalHopfTargetSSetInclPunctured x := by
+  let hp := orderedRealizationHomeomorphFacetFamilyCarrier
+    minimalHopfProjectivePlanePuncturedFacets
+  let ht := orderedRealizationHomeomorphFacetFamilyCarrier minimalHopfTargetFacets
+  have hcoord :
+      hp (SSet.toTop.map minimalHopfTargetSSetInclPunctured x) =
+        minimalHopfTargetCarrierInclPunctured (ht x) := by
+    simpa [hp, ht, minimalHopfTargetSSetInclPunctured,
+      ConcreteCategory.comp_apply, facetFamilyCarrierHomOfFacetFamilyLE,
+      minimalHopfTargetCarrierInclPunctured,
+      orderedRealizationHomeomorphFacetFamilyCarrier] using
+      ConcreteCategory.congr_hom
+        (orderedRealizationToFacetFamilyCarrier_naturality
+          minimalHopfTargetFacets_le_projectivePlanePunctured) x
+  change hp.symm
+      (minimalHopfProjectivePlanePuncturedCarrierDeformation
+        (t, hp (SSet.toTop.map minimalHopfTargetSSetInclPunctured x))) =
+    SSet.toTop.map minimalHopfTargetSSetInclPunctured x
+  apply hp.injective
+  rw [Homeomorph.apply_symm_apply, hcoord,
+    minimalHopfProjectivePlanePuncturedCarrierDeformation_incl]
 
 /-! ## Reattaching the all-interior four-simplex -/
 
