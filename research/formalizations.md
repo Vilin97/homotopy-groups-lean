@@ -707,12 +707,33 @@ face contains an interior vertex, and the inverse collapse equivalence is
 proved to be the literal target inclusion both on affine carriers and after
 realization. The punctured complex and removed simplex meet in exactly the
 five-tetrahedron boundary and reconstruct the full nine-vertex complex by a
-pushout, before and after realization. The remaining step is to identify the
-resulting boundary attaching map with the certified finite Hopf map. Until that
-comparison is proved, neither the target-cofiber map nor the ambient quotient
-map is known to be a homotopy equivalence, so these results do not yet identify
-the finite quotient with the maintained topological `CP^2` or add a
-sphere-lattice cell.
+pushout, before and after realization. At that milestone, the remaining step
+was to identify the resulting boundary attaching map with the certified finite
+Hopf map.
+
+That attaching-domain comparison is now certified by two further relative
+collapses of the punctured seventeen-vertex ambient complex. A checked
+252-move sequence collapses it onto the original finite Hopf boundary, while
+an independent checked 321-move sequence collapses it onto the distinguished
+boundary of the removed four-simplex. Both endpoint inclusions are promoted
+to homotopy equivalences of affine carriers and realizations. The
+projective-plane boundary lift, the distinguished-boundary inclusion, and the
+inverse original-boundary inclusion therefore compose to an explicit homotopy
+equivalence between the two attaching-domain spheres. Strict quotient squares
+and an explicit relative deformation prove that the certified finite Hopf map,
+precomposed by this equivalence, is homotopic to the collapsed attaching map.
+The target-relative equivalence between the nine-vertex realization and its
+collapsed attachment also induces an explicit homotopy equivalence of target
+cofibers.
+
+Transporting both domain realizations and the finite target into the maintained
+exact metric-sphere coordinates gives a self-homotopy-equivalence of `S^3`
+after which the two concrete `S^3 -> S^2` maps are homotopic. Its homological
+degree is proved to be `+1` or `-1`. Lean does not yet select the orientation
+sign, identify either coordinate formula literally with the quadratic Hopf
+map, or prove the separate genuine ambient-pushout comparison to be a homotopy
+equivalence. Consequently this milestone adds a provenance record but does not
+yet recolor a sphere-lattice cell.
 
 The symmetry-breaking subdivision used by Schwartz's trisection is now checked
 combinatorially too. Its 78 four-simplices map onto the original 36 facets and
